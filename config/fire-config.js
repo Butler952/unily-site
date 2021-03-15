@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCBz3mq7bVrU88lTdgnGuqKN51hq5MyVVk",
-  authDomain: "blogapp-c9c07.firebaseapp.com",
-  projectId: "blogapp-c9c07",
-  storageBucket: "blogapp-c9c07.appspot.com",
-  messagingSenderId: "640286703073",
-  appId: "1:640286703073:web:14327125318fb9330626a0"
+  apiKey: "AIzaSyCYHEaIkkkkyBa1Ew6Ofi_49jX01gdTvMo",
+  authDomain: "personal-page-generator-v1.firebaseapp.com",
+  projectId: "personal-page-generator-v1",
+  storageBucket: "personal-page-generator-v1.appspot.com",
+  messagingSenderId: "366460827972",
+  appId: "1:366460827972:web:c022a76894ce26ba677f11",
+  measurementId: "G-W0LCZHKE68"
 };
 
 try {
@@ -14,6 +15,13 @@ try {
 } catch(err){
   if (!/already exists/.test(err.message)) {
     console.error('Firebase initialization error', err.stack)}
+}
+
+try {
+  firebase.analytics();
+} catch(err){
+  if (!/already exists/.test(err.message)) {
+    console.error('Firebase analytics error', err.stack)}
 }
 
 const fire = firebase;
