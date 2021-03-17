@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
+import Link from 'next/link';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -30,7 +31,8 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Sign in</h1>
+      <p>Not got an account? <Link href="/users/register">Sign up</Link></p>
       {notify}
       <form onSubmit={handleLogin}>
         Email<input type="text" value={username} onChange={({target}) => setUsername(target.value)} />

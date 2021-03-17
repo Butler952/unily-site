@@ -7,7 +7,7 @@ const Blog = (props) => {
     <div>
       <h2>{props.title}</h2>
       <p>
-        {props.content}
+        {props.id}
       </p>
       <Link href="/">
         <a>Back</a>
@@ -19,18 +19,18 @@ const Blog = (props) => {
 export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
-    .collection('blog')
+    .collection('users')
     .doc(query.id)
     .get()
     .then(result => {
-      content['title'] = result.data().title;
-      content['content'] = result.data().content;
+      content['title'] = result.data().profile.title;
+      content['id'] = result.data().profile.id;
     });
 
   return {
     props: {
       title: content.title,
-      content: content.content,
+      id: content.id,
     }
   }
 }

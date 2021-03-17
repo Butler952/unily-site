@@ -17,12 +17,12 @@ try {
     console.error('Firebase initialization error', err.stack)}
 }
 
-try {
+/*try {
   firebase.analytics();
 } catch(err){
   if (!/already exists/.test(err.message)) {
     console.error('Firebase analytics error', err.stack)}
-}
+}*/
 
 const fire = firebase;
 export default fire;

@@ -1,6 +1,7 @@
 import { useState } from 'react'; 
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
+import Link from 'next/link';
 
 const Register = () => {
 
@@ -9,8 +10,32 @@ const Register = () => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passConf, setPassConf] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [termsAndPrivacy, setTermsAndPrivacy] = useState(false);
+  const [receiveEmails, setReceiveEmails] = useState(false);
 
   const [notify, setNotification] = useState('');
+
+  fire.auth()
+  .onAuthStateChanged((user) => {
+    if (user) {
+      setLoggedIn(true)
+      addUserDocument(user)
+    } else {
+      setLoggedIn(false)
+    }
+  })
+
+  const addUserDocument = (user) => {
+    fire.firestore().collection('users').doc(user.uid).set({
+      receiveEmails,
+      email: user.email,
+      stage: '/setup/sync'
+    })
+    .then(() => {
+      router.push("/setup/sync")
+    })
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -28,18 +53,28 @@ const Register = () => {
 
     }
 
+    if (!termsAndPrivacy) {
+      setNotification('Please accept the terms and conditions')
+
+      setTimeout(() => {
+        setNotification('')
+      }, 2000)
+
+      return null;
+
+    }
+
     fire.auth()
       .createUserWithEmailAndPassword(userName, password)
       .catch((err) => {
         console.log(err.code, err.message)
-      });
-
-    router.push("/")
+      })
   }
 
   return (
     <div>
-      <h1>Create new user</h1>
+      <h1>Sign up</h1>
+      <p>Already got an account? <Link href="/users/login">Sign in</Link></p>
 
       {notify}
       <form onSubmit={handleLogin}>
@@ -49,7 +84,10 @@ const Register = () => {
         <br />
         Password conf: <input type="password" value={passConf} onChange={({target}) => setPassConf(target.value)} /> 
         <br />
-        <button type="submit">Login</button>
+        <p><input type="checkbox" onChange={() => setTermsAndPrivacy(!termsAndPrivacy)} checked={termsAndPrivacy} />I agree to the terms and privacy policy</p>
+        <p><input type="checkbox" onChange={() => setReceiveEmails(!receiveEmails)} checked={receiveEmails} />I would like to receive emails about news and updates</p>
+        <br />
+        <button type="submit">Create account</button>
       </form>
     </div>
   )
