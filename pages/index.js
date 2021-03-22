@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import fire from '../config/fire-config';
-import CreatePost from '../components/CreatePost';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
+import Header from '../components/header/Header';
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
   const [notification, setNotification] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const router = useRouter();
@@ -48,7 +47,7 @@ const Home = () => {
     }
     
 
-  useEffect(() => {
+  /*useEffect(() => {
     const unsubscribe =  fire.firestore()
       .collection('blog')
       .onSnapshot(snap => {
@@ -62,40 +61,17 @@ const Home = () => {
         // Unmouting
         unsubscribe();
       };
-  }, []);
-
-  const handleLogout = () => {
-    fire.auth()
-      .signOut()
-      .then(() => {
-        setNotification('Logged out')
-        setTimeout(() => {
-          setNotification('')
-        }, 2000)
-      });
-  }
+  }, []);*/
 
   return (
     <div>
       <Head>
         <title>Personal Page Generator App</title>
       </Head>
+      <Header/>
       <h1>Personal Page Generator</h1>
       {notification}
-      {!loggedIn 
-      ?
-        <div>
-          <Link href="/users/register">
-            <a>Register</a>
-          </Link> | 
-          <Link href="/users/login">
-            <a> Login</a>
-          </Link>
-        </div>
-      :
-        <button onClick={handleLogout}>Logout</button>
-      }
-
+      {/*
       <ul>
         {blogs.map(blog =>
           <li key={blog.id}>
@@ -104,8 +80,9 @@ const Home = () => {
             </Link>
           </li>
         )}
-      </ul>
+        </ul>
       {loggedIn && <CreatePost />}
+      */}
     </div>
   )
 }

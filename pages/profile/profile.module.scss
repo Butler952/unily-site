@@ -1,0 +1,8 @@
+@import '../../public/styles/variables.scss';
+
+.job {
+  padding: 32px;
+  &:not(:last-child) {
+    border-bottom: 1px solid $dark-400;
+  }
+}

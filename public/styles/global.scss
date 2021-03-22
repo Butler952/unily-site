@@ -1,0 +1,716 @@
+@import "~bootstrap/scss/bootstrap";
+@import './variables.scss';
+
+@import '../fonts/inter/inter.css';
+@import '../fonts/visuelt/stylesheet.css';
+
+html {
+  transition: $transition-standard;
+}
+
+body {
+  margin: 0;
+  background: $dark-100;
+  font-size: 16px; 
+  line-height: 1.5;
+  color: $dark-800; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4 {  
+  margin-bottom: 1.5rem; 
+  line-height: 1.2;
+  color: $dark-900; 
+  font-weight: 900;
+  font-family: 'Visuelt Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;}
+h1 { font-size: 64px; }
+h2 { font-size: 48px; }
+h3 { font-size: 34px; }
+h4 { font-size: 28px; }
+
+p.extra-large { font-size: 24px; }
+p.large {font-size: 20px; }
+p { font-size: 16px; }
+p.small { font-size: 14px; }
+p.caption { font-size: 12px; }
+p.error { color: $error-900; }
+
+a { 
+  color: $primary-900; 
+  &:hover { 
+    color: $primary-900;
+  }
+}
+
+.visuelt-regular { font-weight: normal }
+.visuelt-medium { font-weight: 500}
+.visuelt-bold { font-weight: bold}
+
+.text-dark-high { color: $dark-900; }
+.text-dark-med { color: $dark-800; }
+.text-dark-low { color: $dark-700; }
+.text-dark-dis { color: $dark-600; }
+
+.text-light-high { color: $light-900; }
+.text-light-med { color: $light-800; }
+.text-light-low { color: $light-700; }
+.text-light-dis { color: $light-600; }
+
+hr {border-top: 1px solid $dark-400;}
+
+// Colours
+
+.bg-primary-900 { background: $primary-900; }
+.bg-primary-800 { background: $primary-800; }
+.bg-primary-700 { background: $primary-700; }
+.bg-primary-600 { background: $primary-600; }
+.bg-primary-500 { background: $primary-500; }
+.bg-primary-400 { background: $primary-400; }
+.bg-primary-300 { background: $primary-300; }
+.bg-primary-200 { background: $primary-200; }
+.bg-primary-100 { background: $primary-100; }
+
+.bg-dark-900 { background: $dark-900; }
+.bg-dark-800 { background: $dark-800; }
+.bg-dark-700 { background: $dark-700; }
+.bg-dark-600 { background: $dark-600; }
+.bg-dark-500 { background: $dark-500; }
+.bg-dark-400 { background: $dark-400; }
+.bg-dark-300 { background: $dark-300; }
+.bg-dark-200 { background: $dark-200; }
+.bg-dark-100 { background: $dark-100; }
+
+.bg-error-900 { background: $error-900; }
+.bg-error-800 { background: $error-800; }
+.bg-error-700 { background: $error-700; }
+.bg-error-600 { background: $error-600; }
+.bg-error-500 { background: $error-500; }
+.bg-error-400 { background: $error-400; }
+.bg-error-300 { background: $error-300; }
+.bg-error-200 { background: $error-200; }
+.bg-error-100 { background: $error-100; }
+
+.bg-warning-900 { background: $warning-900; }
+.bg-warning-800 { background: $warning-800; }
+.bg-warning-700 { background: $warning-700; }
+.bg-warning-600 { background: $warning-600; }
+.bg-warning-500 { background: $warning-500; }
+.bg-warning-400 { background: $warning-400; }
+.bg-warning-300 { background: $warning-300; }
+.bg-warning-200 { background: $warning-200; }
+.bg-warning-100 { background: $warning-100; }
+
+.bg-success-900 { background: $success-900; }
+.bg-success-800 { background: $success-800; }
+.bg-success-700 { background: $success-700; }
+.bg-success-600 { background: $success-600; }
+.bg-success-500 { background: $success-500; }
+.bg-success-400 { background: $success-400; }
+.bg-success-300 { background: $success-300; }
+.bg-success-200 { background: $success-200; }
+.bg-success-100 { background: $success-100; }
+
+// Buttons
+
+a.btn, input.btn, button.btn { 
+  border-radius: $radius-small;
+  padding: 12px 20px;  
+  font-size: 20px;
+  line-height: 32px;
+  border:none;
+  transition: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem $primary-600;
+  }
+  svg {
+    height: 28px;
+    width: 28px;
+  }
+  &.icon-left {
+    svg {
+      order: 0;
+      margin-right: 8px;
+    }
+  }
+  &.icon-right {
+    svg {
+      order: 1;
+      margin-left: 8px;
+    }
+  }
+  &.icon-only {
+    padding: 14px;
+  }
+  &.small {
+    padding: 10px 16px; 
+    font-size: 16px; 
+    line-height: 28px;
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+    &.icon-only {
+      padding: 12px;
+    }
+  }
+  &.large {
+    padding: 14px 24px; 
+    font-size: 24px;
+    line-height: 36px;
+    svg {
+      height: 32px;
+      width: 32px;
+    }
+    &.icon-only {
+      padding: 16px;
+    }
+  }
+  &.primary {
+    &.high {
+      background: $primary-900; 
+      color: $white; 
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        background: $primary-900-hover;
+        color: $white; 
+      }
+    }
+    &.medium {
+      background: $primary-light; 
+      color: $primary-900; 
+      svg path {
+        fill: $primary-900;
+      }
+      &:hover {
+        background: $primary-900;
+        color: $white; 
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $primary-900; 
+      svg path {
+        fill: $primary-900;
+      }
+      &:hover {
+        background: $primary-light;
+        color: $primary-900; 
+      }
+    }
+  }
+  &.dark {
+    &.high {
+      background: $dark-900; 
+      color: $white; 
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        background: $dark-900-hover;
+        color: $white; 
+      }
+    }
+    &.medium {
+      background: $dark-light; 
+      color: $dark-900; 
+      svg path {
+        fill: $dark-900;
+      }
+      &:hover {
+        background: $dark-900;
+        color: $white; 
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $dark-900; 
+      svg path {
+        fill: $dark-900;
+      }
+      &:hover {
+        background: $dark-light;
+        color: $dark-900; 
+      }
+    }
+  }
+  &.error {
+    &.high {
+      background: $error-900; 
+      color: $white; 
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        background: $error-900-hover;
+        color: $white; 
+      }
+    }
+    &.medium {
+      background: $error-light; 
+      color: $error-900; 
+      svg path {
+        fill: $error-900;
+      }
+      &:hover {
+        background: $error-900;
+        color: $white; 
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $error-900; 
+      svg path {
+        fill: $error-900;
+      }
+      &:hover {
+        background: $error-light;
+        color: $error-900; 
+      }
+    }
+  }
+  &.warning {
+    &.high {
+      background: $warning-900; 
+      color: $white; 
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        background: $warning-900-hover;
+        color: $white; 
+      }
+    }
+    &.medium {
+      background: $warning-light; 
+      color: $warning-900; 
+      svg path {
+        fill: $warning-900;
+      }
+      &:hover {
+        background: $warning-900;
+        color: $white; 
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $warning-900; 
+      svg path {
+        fill: $warning-900;
+      }
+      &:hover {
+        background: $warning-light;
+        color: $warning-900; 
+      }
+    }
+  }
+  &.success {
+    &.high {
+      background: $success-900; 
+      color: $white; 
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        background: $success-900-hover;
+        color: $white; 
+      }
+    }
+    &.medium {
+      background: $success-light; 
+      color: $success-900; 
+      svg path {
+        fill: $success-900;
+      }
+      &:hover {
+        background: $success-900;
+        color: $white; 
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $success-900; 
+      svg path {
+        fill: $success-900;
+      }
+      &:hover {
+        background: $success-light;
+        color: $success-900; 
+      }
+    }
+  }
+  &.disabled {
+    &.high {
+      background: $dark-400!important; 
+      color: $dark-600!important; 
+      svg path {
+        fill: $dark-600!important;
+      }
+    }
+    &.medium {
+      background: $dark-100!important; 
+      color: $dark-600!important; 
+      svg path {
+        fill: $dark-600!important;
+      }
+    }
+    &.low {
+      color: $dark-600!important; 
+      svg path {
+        fill: $dark-600!important;
+      }
+    }
+  }
+}
+
+// Tags
+
+.tag{ 
+  padding: 0px 8px; 
+  display: inline-block;
+}
+
+a.tag-primary-light {
+  background: $primary-light;
+  border-radius: $radius-small;
+  text-decoration: none;
+  &:hover{
+    background: $primary-900;
+    color: $light-900;
+  }
+}
+
+.tag-dark-light {
+  background: $dark-light;
+  border-radius: $radius-small;
+  text-decoration: none;
+  color: $dark-900;
+}
+
+// Text field
+
+input[type="text"], input[type="password"], input[type="email"] { 
+  border-radius: $radius-small; 
+  padding: 10px 18px;  
+  font-size: 20px;
+  line-height: 32px;
+  border: 2px solid $dark-light;
+  outline: 0;
+  //width: 100%; //maybe delete
+  &:focus {
+    border-color: $primary-900;
+  }
+  /*&:invalid {
+    border-color: $error-900;
+  }
+  &:valid {
+    border-color: $success-900;
+  }*/
+  &.icon-left {
+    padding-left: 49px; 
+  }
+  &.icon-right {
+    padding-right: 49px;  
+  }
+  &.small {
+    padding: 8px 14px; 
+    font-size: 16px; 
+    line-height: 28px;
+    &.icon-left {
+      padding-left: 45px; 
+    }
+    &.icon-right {
+      padding-right: 45px;  
+    }
+  }
+  &.large {
+    padding: 12px 22px; 
+    font-size: 24px;
+    line-height: 36px;
+    &.icon-left {
+      padding-left: 53px; 
+    }
+    &.icon-right {
+      padding-right: 53px;  
+    }
+  }
+}
+.input-with-icon {
+  position: relative;
+  svg { 
+    position: absolute;  
+    color: $dark-600; 
+    text-align: center; 
+    z-index: 1;
+    height: 28px;
+    width: 28px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  &.small {
+    svg {
+      height: 24px;
+      width: 24px;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  }
+  &.large {
+    svg {
+      height: 32px;
+      width: 32px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+  }
+  &.icon-left {
+    svg {
+      left: 14px;
+    }
+  }
+  &.icon-right {
+    svg {
+      right: 14px;
+    }
+  }
+} 
+.input-group-addon {
+  padding: 10px 18px;  
+  font-size: 20px;
+  line-height: 32px;
+  color: $dark-700;
+  text-align: center;
+  border: 2px solid $dark-light;
+  //width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: $white;
+  //display: table-cell;
+}
+
+.suffix input {
+  border-radius: $radius-small 0px 0px $radius-small;
+}
+.suffix .input-group-addon {
+  border-left: 0;
+  border-radius: 0px $radius-small $radius-small 0px;
+}
+.prefix input {
+  border-radius: 0px $radius-small $radius-small 0px;
+}
+.prefix .input-group-addon {
+  border-right: 0;
+  border-radius: $radius-small 0px 0px $radius-small;
+}
+.presuffix input {
+  border-radius: 0px;
+}
+.input-group-addon.prefix {
+  border-radius: $radius-small 0px 0px $radius-small;
+  border-right: 0;
+}
+.input-group-addon.suffix {
+  border-radius: 0px $radius-small $radius-small 0px;
+  border-left: 0;
+}
+.input-group {
+  position: relative;
+  //display: table;
+  border-collapse: separate;
+  width: auto;
+  &.small {
+    .input-group-addon {
+      padding: 8px 14px; 
+      font-size: 16px; 
+      line-height: 28px;
+    }
+  }
+  &.large {
+    .input-group-addon {
+      padding: 12px 22px; 
+      font-size: 24px;
+      line-height: 36px;
+    }
+  }
+}
+
+// Checkbox
+
+/* Customize the label (the container) */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 32px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &.small {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  &.large {
+    font-size: 24px;
+    line-height: 36px;
+    padding-left: 48px;
+    .checkmark {
+      height: 32px;
+      width: 32px;
+    }
+  }
+}
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  border: 2px solid $dark-300;
+  border-radius: $radius-v-small;
+}
+.checkbox-container:hover input ~ .checkmark {
+  border: 2px solid $primary-900;
+}
+.checkbox-container input:checked ~ .checkmark {
+  background-color: $primary-900;
+  border: 2px solid $primary-900;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+.checkbox-container .checkmark:after {
+  left: 33%;
+  top: 12%;
+  width: 35%;
+  height: 60%;
+  border: solid $white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+// Progress bar
+
+
+.progress {
+  height: 1rem;
+  background-color: $dark-200;
+  border-radius: $radius-v-small;
+}
+.progress-bar {
+  color: $white;;
+  background-color: $primary-900;
+  border-radius: $radius-v-small;
+  transition: $transition-long;
+  //transition: width 0.6s ease;
+}
+
+// Modal
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-clip: padding-box;
+  border: 1px solid $dark-light;
+  border-radius: $radius-medium;
+  outline: 0;
+}
+
+// Card
+
+.card {
+  background-color: $white;
+  border: none;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+}
+
+// Bootstrap additions
+
+.w-sm-auto {
+  @media (min-width: $breakpoint-sm) {
+    width: auto!important;
+  }
+}
+
+.w-md-auto {
+  @media (min-width: $breakpoint-md) {
+    width: auto!important;
+  }
+}
+
+.w-lg-auto {
+  @media (min-width: $breakpoint-lg) {
+    width: auto!important;
+  }
+}
+
+.w-xl-auto {
+  @media (min-width: $breakpoint-xl) {
+    width: auto!important;
+  }
+}
+
+.w-sm-100 {
+  @media (min-width: $breakpoint-sm) {
+    width: 100%;
+  }
+}
+
+.w-md-100 {
+  @media (min-width: $breakpoint-md) {
+    width: 100%;
+  }
+}
+
+.w-lg-100 {
+  @media (min-width: $breakpoint-lg) {
+    width: 100%;
+  }
+}
+
+.w-xl-100 {
+  @media (min-width: $breakpoint-xl) {
+    width: 100%;
+  }
+}

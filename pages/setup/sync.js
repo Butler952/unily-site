@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
+import Header from '../../components/header/Header';
+import testResponse from './testResponse';
 
 const Sync = () => {
   const [profileUrl, setProfileUrl] = useState('');
@@ -16,20 +18,20 @@ const Sync = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe =  fire.auth()
-    .onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true)
-        loggedInRoute(user)
-        setUserData(user)
-      } else {
-        setLoggedIn(false)
-      }
-    })
-      return () => {
-        // Unmouting
-        unsubscribe();
-      };
+    const unsubscribe = fire.auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          setLoggedIn(true)
+          loggedInRoute(user)
+          setUserData(user)
+        } else {
+          setLoggedIn(false)
+        }
+      })
+    return () => {
+      // Unmouting
+      unsubscribe();
+    };
   }, []);
 
 
@@ -43,7 +45,7 @@ const Sync = () => {
         console.log("No such document!");
       }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+      console.log("Error getting document:", error);
     })
   }
 
@@ -61,12 +63,13 @@ const Sync = () => {
       redirect: 'follow'
     };
 
-    fetch("https://nubela.co/proxycurl/api/v2/linkedin/extra?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + profileUrl, requestOptions)
+    fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + profileUrl, requestOptions)
       .then(res => res.json())
       .then((result) => {
           setLoadingState('two');
           fire.firestore().collection('users').doc(user.uid).set({
-            profile: result
+            profile: result,
+            stage: '/profile/' + userData.uid
           })
         },
         // Note: it's important to handle errors here
@@ -78,10 +81,10 @@ const Sync = () => {
         }
       )
       .then(() => {
-        setTimeout(setLoadingState('two'), 2000);
+        setLoadingState('three');
       })
       .then(() => {
-        router.push("/setup/information")
+        router.push('/profile/' + userData.uid)
       })*/
 
     fetch("https://jsonplaceholder.typicode.com/todos/" + profileUrl)
@@ -142,8 +145,23 @@ const Sync = () => {
 
   }
 
+  const handleTestDataSubmit = (e) => {
+    e.preventDefault();
+    fire.firestore().collection('users').doc(userData.uid).update({
+      profile: testResponse,
+      stage: '/profile/' + userData.uid
+    })
+    .then(() => {
+      router.push('/profile/' + userData.uid)
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    })
+  }
+
   return (
     <div>
+      <Header />
       {loadingState === '' ?
         <div>
           <h1>Sync data from LinkedIn</h1>
@@ -157,6 +175,12 @@ const Sync = () => {
             </div>
             <br />
             <button type="submit">Sync data</button>
+          </form>
+          <br />
+          <form onSubmit={handleTestDataSubmit}>
+            Test Data
+            <p>Add test data to logged in profile</p>
+            <button type="submit">Add test response</button>
           </form>
         </div>
         :

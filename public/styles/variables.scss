@@ -1,0 +1,120 @@
+// Screen breakpoint in pixels
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// COLOURS
+
+// Primary colour
+$primary-900: #6839EF; // High text
+$primary-900-hover: lighten($primary-900, 10%);
+$primary-light: rgba($primary-900, 0.1);
+$primary-800: rgba($primary-900, 0.72); // Medium text
+$primary-700: rgba($primary-900, 0.48); // Low text
+$primary-600: rgba($primary-900, 0.32); // Disabled text
+$primary-500: rgba($primary-900, 0.19);
+$primary-400:rgba($primary-900, 0.13);
+$primary-300:rgba($primary-900, 0.08);
+$primary-200:rgba($primary-900, 0.05);
+$primary-100: rgba($primary-900, 0.03);
+
+// Secondary colour
+$secondary-base: #fff;
+
+// Error colour
+$error-900: #DD2727; // High text
+$error-900-hover: lighten($error-900, 10%);
+$error-light: rgba($error-900, 0.1);
+$error-800: rgba($error-900, 0.72); // Medium text
+$error-700: rgba($error-900, 0.48); // Low text
+$error-600: rgba($error-900, 0.32); // Disabled text
+$error-500: rgba($error-900, 0.19);
+$error-400:rgba($error-900, 0.13);
+$error-300:rgba($error-900, 0.08);
+$error-200:rgba($error-900, 0.05);
+$error-100: rgba($error-900, 0.03);
+
+// Success colour 
+$success-900: #0BB07B; // High text
+$success-900-hover: lighten($success-900, 10%);
+$success-light: rgba($success-900, 0.1);
+$success-800: rgba($success-900, 0.72); // Medium text
+$success-700: rgba($success-900, 0.48); // Low text
+$success-600: rgba($success-900, 0.32); // Disabled text
+$success-500: rgba($success-900, 0.19);
+$success-400:rgba($success-900, 0.13);
+$success-300:rgba($success-900, 0.08);
+$success-200:rgba($success-900, 0.05);
+$success-100: rgba($success-900, 0.03);
+
+// Warning colour
+$warning-900: #FFAD0D; // High text
+$warning-900-hover: lighten($warning-900, 10%);
+$warning-light: rgba($warning-900, 0.1);
+$warning-800: rgba($warning-900, 0.72); // Medium text
+$warning-700: rgba($warning-900, 0.48); // Low text
+$warning-600: rgba($warning-900, 0.32); // Disabled text
+$warning-500: rgba($warning-900, 0.19);
+$warning-400:rgba($warning-900, 0.13);
+$warning-300:rgba($warning-900, 0.08);
+$warning-200:rgba($warning-900, 0.05);
+$warning-100: rgba($warning-900, 0.03);
+
+// Dark colours
+$dark-900: #231F20; // High text
+$dark-900-hover: lighten($dark-900, 10%);
+$dark-light: rgba($dark-900, 0.1);
+$dark-800: rgba($dark-900, 0.72); // Medium text
+$dark-700: rgba($dark-900, 0.48); // Low text
+$dark-600: rgba($dark-900, 0.32); // Disabled text
+$dark-500: rgba($dark-900, 0.19);
+$dark-400:rgba($dark-900, 0.13);
+$dark-300:rgba($dark-900, 0.08);
+$dark-200:rgba($dark-900, 0.05);
+$dark-100: rgba($dark-900, 0.03);
+
+// Light colours
+$light-900: #fff; // High text
+$light-900-hover: darken($light-900, 10%);
+$light-light: rgba($light-900, 0.1);
+$light-800: rgba($light-900, 0.72); // Medium text
+$light-700: rgba($light-900, 0.48); // Low text
+$light-600: rgba($light-900, 0.32); // Disabled text
+$light-500: rgba($light-900, 0.19);
+$light-400:rgba($light-900, 0.13);
+$light-300:rgba($light-900, 0.08);
+$light-200:rgba($light-900, 0.05);
+$light-100: rgba($light-900, 0.03);
+
+// White and black colours
+$white: #fff;
+$white-hover: darken($white, 10%);
+$black: #000;
+$black-hover: lighten($black, 10%);
+
+// RADII
+
+//Border-radius
+$radius-none: 0;
+$radius-v-small: 8px;
+$radius-small: 12px;
+$radius-medium: 16px;
+$radius-large: 32px;
+$radius-round: 50%;
+
+// SHADOWS
+
+//Shadows
+$shadow-0: none;
+$shadow-1: 0 0 1px 0 rgba($dark-900, 0.08), 0 1px 1px 0 rgba($dark-900, 0.08);
+$shadow-2: 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
+$shadow-3: 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
+$shadow-4: 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
+$shadow-5: 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.08);
+
+// TRANSITIONS
+
+// Transitions
+$transition-standard: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+$transition-long: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
