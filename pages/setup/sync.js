@@ -7,7 +7,7 @@ import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
-import testResponse from './testResponse';
+// import testResponse from './testResponse';
 import { Container } from 'react-bootstrap';
 
 const Sync = () => {
@@ -231,6 +231,7 @@ const Sync = () => {
     )
   }
 
+  /*
   const handleTestDataSubmit = (e) => {
     e.preventDefault();
     fire.firestore().collection('users').doc(userData.uid).update({
@@ -270,6 +271,7 @@ const Sync = () => {
         console.log("Error getting document:", error);
       })
   }
+  */
 
   return (
     <div>
