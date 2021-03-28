@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [profileUrl, setProfileUrl] = useState('/')
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +29,12 @@ const Header = () => {
 
     docRef.get().then((doc) => {
       if (doc.exists) {
-        router.push(doc.data().stage)
+        if (doc.data().stage !== 'complete') {
+          router.push(doc.data().stage)
+        }
+        if (doc.data().profileUrl) {
+          setProfileUrl(doc.data().profileUrl)
+        }
       } else {
         console.log("No such document!");
       }
@@ -47,9 +53,19 @@ const Header = () => {
 
   return (
     <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2">
-      <Link href="/">
-        <a className="btn primary low small"> Home</a>
-      </Link>
+      <div>
+        {(loggedIn && profileUrl !== '/') ? 
+          <div className="d-flex">
+            <Link href={profileUrl}>
+              <a className="btn primary low small">Profile</a>
+            </Link>
+            <Link href="/settings">
+              <a className="btn primary low small">Settings</a>
+            </Link>
+          </div>
+            : null
+        }
+      </div>
       {!loggedIn
         ?
         <div className="d-flex">

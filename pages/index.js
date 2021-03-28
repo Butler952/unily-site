@@ -26,8 +26,11 @@ const Home = () => {
 
       docRef.get().then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
-          router.push(doc.data().stage)
+          if (doc.data().stage !== 'complete') {
+            router.push(doc.data().stage)
+          } else {
+            router.push(doc.data().profileUrl)
+          }
         } else {
           console.log("No such document!");
         }

@@ -142,8 +142,8 @@ const Components = () => {
             <h2>Heading 2</h2>
             <h3>Heading 3</h3>
             <h4>Heading 4</h4>
+            <h5>Heading 5</h5>
             <br />
-            <p className="extra-large">Extra Large</p>
             <p className="large">Large</p>
             <p>Regular</p>
             <p className="small">Small</p>
@@ -696,50 +696,50 @@ const Components = () => {
           <Col>
             <h3>With Prefix/Suffix</h3>
             <div className="d-flex flex-wrap">
-              <div class="input-group prefix small mr-3 mb-3">
-                <span class="input-group-addon">Prefix</span>
+              <div className="input-group prefix small mr-3 mb-3">
+                <span className="input-group-addon">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" className="small" />
               </div>
-              <div class="input-group suffix small mr-3 mb-3">
+              <div className="input-group suffix small mr-3 mb-3">
                 <input type="text" placeholder="Placeholder" name="input" className="small" />
-                <span class="input-group-addon ">Suffix</span>
+                <span className="input-group-addon ">Suffix</span>
               </div>
-              <div class="input-group small presuffix align-items-start">
-                <span class="input-group-addon prefix">Prefix</span>
+              <div className="input-group small presuffix align-items-start">
+                <span className="input-group-addon prefix">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" className="small" />
-                <span class="input-group-addon suffix">Suffix</span>
+                <span className="input-group-addon suffix">Suffix</span>
               </div>
             </div>
             <br />
             <div className="d-flex flex-wrap">
-              <div class="input-group prefix mr-3 mb-3">
-                <span class="input-group-addon">Prefix</span>
+              <div className="input-group prefix mr-3 mb-3">
+                <span className="input-group-addon">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" />
               </div>
-              <div class="input-group suffix mr-3 mb-3">
+              <div className="input-group suffix mr-3 mb-3">
                 <input type="text" placeholder="Placeholder" name="input" />
-                <span class="input-group-addon ">Suffix</span>
+                <span className="input-group-addon ">Suffix</span>
               </div>
-              <div class="input-group presuffix align-items-start">
-                <span class="input-group-addon prefix">Prefix</span>
+              <div className="input-group presuffix align-items-start">
+                <span className="input-group-addon prefix">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" />
-                <span class="input-group-addon suffix">Suffix</span>
+                <span className="input-group-addon suffix">Suffix</span>
               </div>
             </div>
             <br />
             <div className="d-flex flex-wrap">
-              <div class="input-group prefix large mr-3 mb-3">
-                <span class="input-group-addon">Prefix</span>
+              <div className="input-group prefix large mr-3 mb-3">
+                <span className="input-group-addon">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" className="large" />
               </div>
-              <div class="input-group suffix large mr-3 mb-3">
+              <div className="input-group suffix large mr-3 mb-3">
                 <input type="text" placeholder="Placeholder" name="input" className="large" />
-                <span class="input-group-addon ">Suffix</span>
+                <span className="input-group-addon ">Suffix</span>
               </div>
-              <div class="input-group presuffix large align-items-start">
-                <span class="input-group-addon prefix">Prefix</span>
+              <div className="input-group presuffix large align-items-start">
+                <span className="input-group-addon prefix">Prefix</span>
                 <input type="text" placeholder="Placeholder" name="input" className="large" />
-                <span class="input-group-addon suffix">Suffix</span>
+                <span className="input-group-addon suffix">Suffix</span>
               </div>
             </div>
             <br />
@@ -754,8 +754,8 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group small prefix">
-                  <span class="input-group-addon">Prefix</span>
+                <div className="input-group small prefix">
+                  <span className="input-group-addon">Prefix</span>
                   <input type="text" placeholder="Placeholder" name="input" className="small icon-right" />
                 </div>
               </div>
@@ -763,9 +763,9 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group small suffix">
+                <div className="input-group small suffix">
                   <input type="text" placeholder="Placeholder" name="input" className="small icon-left" />
-                  <span class="input-group-addon">Suffix</span>
+                  <span className="input-group-addon">Suffix</span>
                 </div>
               </div>
             </div>
@@ -775,8 +775,8 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group prefix">
-                  <span class="input-group-addon">Prefix</span>
+                <div className="input-group prefix">
+                  <span className="input-group-addon">Prefix</span>
                   <input type="text" placeholder="Placeholder" name="input" className="icon-right" />
                 </div>
               </div>
@@ -784,9 +784,9 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group suffix">
+                <div className="input-group suffix">
                   <input type="text" placeholder="Placeholder" name="input" className="icon-left" />
-                  <span class="input-group-addon">Suffix</span>
+                  <span className="input-group-addon">Suffix</span>
                 </div>
               </div>
             </div>
@@ -796,8 +796,8 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group large prefix">
-                  <span class="input-group-addon">Prefix</span>
+                <div className="input-group large prefix">
+                  <span className="input-group-addon">Prefix</span>
                   <input type="text" placeholder="Placeholder" name="input" className="large icon-right" />
                 </div>
               </div>
@@ -805,9 +805,9 @@ const Components = () => {
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-                <div class="input-group large suffix">
+                <div className="input-group large suffix">
                   <input type="text" placeholder="Placeholder" name="input" className="large icon-left" />
-                  <span class="input-group-addon">Suffix</span>
+                  <span className="input-group-addon">Suffix</span>
                 </div>
               </div>
             </div>
@@ -829,14 +829,14 @@ const Components = () => {
         <Row>
           <Col>
             <h3>Small</h3>
-            <label class="checkbox-container small">One
+            <label className="checkbox-container small">One
               <input type="checkbox" checked="checked" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
-            <label class="checkbox-container small">Two
+            <label className="checkbox-container small">Two
               <input type="checkbox" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
           </Col>
@@ -845,14 +845,14 @@ const Components = () => {
         <Row>
           <Col>
             <h3>Standard</h3>
-            <label class="checkbox-container">One
+            <label className="checkbox-container">One
               <input type="checkbox" checked="checked" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
-            <label class="checkbox-container">Two
+            <label className="checkbox-container">Two
               <input type="checkbox" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
           </Col>
@@ -861,15 +861,15 @@ const Components = () => {
         <Row>
           <Col>
             <h3>Large</h3>
-            <label class="checkbox-container large">
+            <label className="checkbox-container large">
               One
               <input type="checkbox" checked="checked" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
-            <label class="checkbox-container large">Two
+            <label className="checkbox-container large">Two
               <input type="checkbox" />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
             </label>
             <br />
           </Col>

@@ -4,7 +4,8 @@ import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 
-import styles  from './profile.module.scss'
+import styles from './profile.module.scss'
+import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 
 const Profile = (props) => {
 
@@ -19,61 +20,101 @@ const Profile = (props) => {
       </Head>
       <Header />
       <Container>
-        <div className="mb-5 text-center">
-          <img src={props.background_cover_image_url} style={{width:"100%", borderRadius: "0 0 16px 16px"}}/>
-          <img src={props.profile_pic_url} style={{height:"160px", width:"160px", borderRadius: "100%", marginTop: "-80px", border:"2px solid white", boxShadow:"0 2px 4px 0 rgba(0,0,0,0.1)"}}/>
+        <div className="text-center mb-5">
+          {(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) &&
+            <div className={styles.headerImage} style={{ backgroundImage: `url(${props.background_cover_image_url})`}} />
+          }
+          {(props.profile_pic_url && props.displayBasicInfo.each.profilePic === true) &&
+            <img src={props.profile_pic_url} style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} className={styles.profilePicture} />
+          }
           <br /> <br />
-          <h2 className="mb-1">{props.full_name}</h2>
-          <p className="extra-large mb-4">
-            {props.headline}
-          </p>
-          <div className="d-flex m-auto justify-content-center">
-            <a className="btn primary high mr-3">Email me</a>
-            <a className="btn primary medium mr-3">Phone me</a>
+          <div className="mb-4">
+            {(props.full_name && props.displayBasicInfo.each.name === true) &&
+              <h2 className="mb-1">{props.full_name}</h2>
+            }
+            {(props.headline && props.displayBasicInfo.each.headline === true) &&
+              <h5>{props.headline}</h5>
+            }
           </div>
+          {(props.email && props.displayBasicInfo.each.email === true) &&
+            <div className="d-flex m-auto justify-content-center">
+              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+            </div>
+          }
+          <br /><br />
         </div>
-        {props.summary &&
+        {(props.summary && props.displayAbout === true) &&
           <div className="mb-5">
             <h4>About</h4>
-            <div className="card p-4">
+            <div className={styles.profileCard + ' card p-4'}>
               <p className="large mb-0">{props.summary}</p>
             </div>
+            <br /><br />
           </div>
         }
-        {props.experiences &&
+        {(props.experiences && props.displayExperience.section === true) &&
           <div className="mb-5">
             <h4>Experience</h4>
-            <div className="card">
-              {props.experiences.map(job => 
-                <div key={job.i} className={styles.job}>
-                  <p className="large mb-0 text-dark-high">{job.title}</p>
+            <div className={styles.profileCard + ' card'}>
+              {props.experiences.map((job, index) => (props.displayExperience.each[index].display) &&
+                <div key={index} className={styles.job}>
+                  <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
                   <p className="large mb-0">{job.company}</p>
                   <p className="mb-0">{job.location}</p>
                   <p className="text-dark-low mb-0">{convertMonth(job.starts_at.month)} {job.starts_at.year} – {job.ends_at ? convertMonth(job.ends_at.month) + ' ' + job.ends_at.year : 'Present'}</p>
                 </div>
-              )}
+        )}
             </div>
+            <br /><br />
           </div>
         }
-        {props.education &&
+        {(props.education && props.displayEducation.section === true) &&
           <div className="mb-5">
             <h4>Education</h4>
-            <div className="card">
-              {props.education.map(school => 
-                <div key={school.i} className={styles.job}>
-                  <p className="large mb-0 text-dark-high">{school.field_of_study}</p>
+            <div className={styles.profileCard + ' card'}>
+              {props.education.map((school, index) => (props.displayEducation.each[index].display) &&
+                <div key={index} className={styles.job}>
+                  <p className="large text-dark-high font-weight-semibold mb-0">{school.field_of_study}</p>
                   <p className="large mb-0">{school.school}</p>
-                  <p className="text-dark-low mb-0">{school.starts_at.month ? convertMonth(school.starts_at.month) : ''} {school.starts_at.year} – {school.ends_at ? ( school.ends_at.month ? convertMonth(school.ends_at.month) : '') + ' ' + school.ends_at.year : 'Present'}</p>
+                  <p className="text-dark-low mb-0">{school.starts_at.month ? convertMonth(school.starts_at.month) : ''} {school.starts_at.year} – {school.ends_at ? (school.ends_at.month ? convertMonth(school.ends_at.month) : '') + ' ' + school.ends_at.year : 'Present'}</p>
                 </div>
               )}
             </div>
+            <br /><br />
           </div>
         }
-        <Link href="/">
-          <a>Back</a>
-        </Link>
+        {(props.volunteer_work && props.displayVolunteering.section === true) &&
+          <div className="mb-5">
+            <h4>Volunteering</h4>
+            <div className={styles.profileCard + ' card'}>
+              {props.volunteer_work.map((volunteer, index) => (props.displayVolunteering.each[index].display) &&
+                <div key={index} className={styles.job}>
+                  <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
+                  <p className="large mb-0">{volunteer.company}</p>
+                  <p className="text-dark-low">{volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) : ''} {volunteer.starts_at.year} – {volunteer.ends_at ? (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') + ' ' + volunteer.ends_at.year : 'Present'}</p>
+                  <p className="mb-0 text-dark-high mb-0">{volunteer.description}</p>
+                </div>
+              )}
+            </div>
+            <br /><br />
+          </div>
+        }
+        {props.email &&
+          <div className="text-center my-5">
+            <h2>Get in touch</h2>
+            <div className="d-flex m-auto justify-content-center">
+              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+            </div>
+            <br /><br />
+          </div>
+        }
       </Container>
-    </div>
+      <div className={styles.footer + ' py-5 text-center'}>
+        <Container>
+          <p className="text-dark-low mb-0">Powered by LinkedUp</p>
+        </Container>
+      </div>
+    </div >
   )
 }
 
@@ -84,17 +125,25 @@ export const getServerSideProps = async ({ query }) => {
     .doc(query.id)
     .get()
     .then(result => {
+      content['email'] = result.data().email ? result.data().email : null;
       content['profile_pic_url'] = result.data().profile.profile_pic_url;
-      content['background_cover_image_url'] = result.data().profile.background_cover_image_url;
-      content['full_name'] = result.data().profile.full_name;
-      content['headline'] = result.data().profile.headline;
-      content['summary'] = result.data().profile.summary;
-      content['experiences'] = result.data().profile.experiences;
-      content['education'] = result.data().profile.education;
+      content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null ;
+      content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
+      content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
+      content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
+      content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
+      content['education'] = result.data().profile.education ? result.data().profile.education : null;
+      content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
+      content['displayBasicInfo'] = result.data().displayInfo.basicInfo ? result.data().displayInfo.basicInfo : null;
+      content['displayAbout'] = result.data().displayInfo.about ? result.data().displayInfo.about : null;
+      content['displayExperience'] = result.data().displayInfo.experience ? result.data().displayInfo.experience : null;
+      content['displayEducation'] = result.data().displayInfo.education ? result.data().displayInfo.education : null;
+      content['displayVolunteering'] = result.data().displayInfo.volunteering ? result.data().displayInfo.volunteering : null;
     });
 
   return {
     props: {
+      email: content.email,
       profile_pic_url: content.profile_pic_url,
       background_cover_image_url: content.background_cover_image_url,
       full_name: content.full_name,
@@ -102,6 +151,12 @@ export const getServerSideProps = async ({ query }) => {
       summary: content.summary,
       experiences: content.experiences,
       education: content.education,
+      volunteer_work: content.volunteer_work,
+      displayBasicInfo: content.displayBasicInfo,
+      displayAbout: content.displayAbout,
+      displayExperience: content.displayExperience,
+      displayEducation: content.displayEducation,
+      displayVolunteering: content.displayVolunteering,
     }
   }
 }

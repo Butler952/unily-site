@@ -73,7 +73,7 @@ const Register = () => {
     }
 
     fire.auth()
-      .createUserWithEmailAndPassword(userName, password)
+      .createUserWithEmailAndPassword(username, password)
       .catch((err) => {
         console.log(err.code, err.message)
       })
@@ -84,11 +84,11 @@ const Register = () => {
       <Header/>
       <Container className="py-5">
         <div className="card m-auto" style={{maxWidth: "640px"}}>
-          <div className="py-4 px-5">
-            <p className="extra-large text-dark-high mb-0">Sign up</p>
+          <div className="py-4 px-4 px-md-5">
+            <h5 className="text-dark-high mb-0">Sign up</h5>
           </div>
           <hr className="m-0"/>
-          <div className="p-5">
+          <div className="p-4 p-md-5">
             <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
             {notify}
             <form onSubmit={handleLogin}>
@@ -104,13 +104,13 @@ const Register = () => {
                 <p className="large text-dark-high">Confirm password</p>
                 <input type="password" className="w-100" value={passConf} onChange={({target}) => setPassConf(target.value)} />
               </div>
-              <label class="checkbox-container small mb-4">I agree to the terms and privacy policy
+              <label className="checkbox-container small mb-4">I agree to the terms and privacy policy
                 <input type="checkbox" onChange={() => setTermsAndPrivacy(!termsAndPrivacy)} checked={termsAndPrivacy}></input>
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkbox-container small mb-4">I would like to receive emails about news and updates
+              <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
                 <input type="checkbox" onChange={() => setReceiveEmails(!receiveEmails)} checked={receiveEmails}></input>
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
                <br />
               <button type="submit" className="btn primary high">Create account</button>

@@ -35,11 +35,11 @@ const Login = () => {
       <Header/>
       <Container className="py-5">
         <div className="card m-auto" style={{maxWidth: "640px"}}>
-          <div className="py-4 px-5">
-            <p className="extra-large text-dark-high mb-0">Sign in</p>
+          <div className="py-4 px-4 px-md-5">
+            <h5 className="text-dark-high mb-0">Sign in</h5>
           </div>
           <hr className="m-0"/>
-          <div className="p-5">
+          <div className="p-4 p-md-5">
             <p className="mb-4">Not got an account? <Link href="/users/register">Sign up</Link></p>
             {notify}
             <form onSubmit={handleLogin}>
