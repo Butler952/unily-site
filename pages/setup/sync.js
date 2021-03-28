@@ -58,8 +58,8 @@ const Sync = () => {
     myHeaders.append("Authorization", "Bearer 535f6290-580a-42db-b7cb-93677b8c82e6");
     myHeaders.append("Access-Control-Allow-Origin", "https://personal-page-generator-v1.vercel.app, http://localhost:3000/, https://localhost:3000/, https://nubela.co/proxycurl/api/v2/");
     myHeaders.append('Access-Control-Allow-Credentials', 'true');
-    myHeaders.append("Access-Control-Allow-Methods", "GET");
-    myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    myHeaders.append("Access-Control-Allow-Methods", "GET, OPTIONS");
+    myHeaders.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
     var requestOptions = {
       mode: 'cors',
@@ -68,7 +68,7 @@ const Sync = () => {
       redirect: 'follow'
     };
 
-    fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + profileUrl, requestOptions)
+    fetch("https://cors-anywhere.herokuapp.com/https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + profileUrl, requestOptions)
       .then(res => res.json())
       .then((result) => {
         setLoadingState('Storing your data');
@@ -85,17 +85,17 @@ const Sync = () => {
                 'email': true
               }
             },
-            about: true, 
+            about: result.summary === null ? false : true, 
             'experience': {
-              'section': true, 
+              'section': result.experiences < 1 ? false : true, 
               'each': createExperienceList(result.experiences)
             },
             'education': {
-              'section': true, 
+              'section': result.education < 1 ? false : true, 
               'each': createEducationList(result.education)
             },
             'volunteering': {
-              'section': true, 
+              'section': result.volunteer_work < 1 ? false : true, 
               'each': createVolunteerList(result.volunteer_work)
             },
           },

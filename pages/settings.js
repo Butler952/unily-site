@@ -64,7 +64,7 @@ const EducationCheckbox = ({ options, onChange }) => {
           <hr className="m-0" />
           <div className="p-4">
             <label className="checkbox-container small font-weight-medium text-dark-high">
-              {job.name + ' at ' + job.school}
+              {job.name !== null ? job.name + ' at ' : null}{job.school}
               <input type="checkbox" checked={job.display || false} onClick={() => toggle(index)} />
               <span className="checkmark"></span>
             </label>
@@ -292,7 +292,7 @@ const Settings = () => {
                           <input type="checkbox" checked={experience} onChange={(e) => setExperience(e.currentTarget.checked)} />
                           <span className="checkmark"></span>
                         </label>
-                        <CustomToggle eventKey="0" />
+                        {experienceEach.length < 1 ? null : <CustomToggle eventKey="0" />}
                       </div>
                       <Accordion.Collapse eventKey="0">
                         <ExperienceCheckbox
@@ -312,7 +312,7 @@ const Settings = () => {
                         <input type="checkbox" checked={education} onChange={(e) => setEducation(e.currentTarget.checked)} />
                           <span className="checkmark"></span>
                         </label>
-                        <CustomToggle eventKey="0" />
+                        {educationEach.length < 1 ? null : <CustomToggle eventKey="0" />}
                       </div>
                       <Accordion.Collapse eventKey="0">
                         <EducationCheckbox
@@ -329,10 +329,10 @@ const Settings = () => {
                       <div className="d-flex flex-row justify-content-between align-items-center p-4">
                         <label className="checkbox-container font-weight-medium text-dark-high large">
                           Volunteering
-                          <input type="checkbox" checked={volunteering} onChange={(e) => setVolunteering(e.currentTarget.checked)} />
+                          <input type="checkbox" checked={volunteeringEach.length < 1 ? false : volunteering} onChange={(e) => setVolunteering(e.currentTarget.checked)} disabled={volunteeringEach.length < 1 ? true : false} />
                           <span className="checkmark"></span>
                         </label>
-                        <CustomToggle eventKey="0" />
+                        {volunteeringEach.length < 1 ? null : <CustomToggle eventKey="0" />}
                       </div>
                       <Accordion.Collapse eventKey="0">
                         <ExperienceCheckbox
