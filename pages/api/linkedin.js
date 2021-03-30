@@ -32,14 +32,7 @@ export default async function handler(req, res) {
     redirect: 'follow'
   };
 
-  let apiResponse = fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + req.query.profileUrl, requestOptions);
-
-  let data = await apiResponse
-  return (
-    res.send({data}),
-    console.log({data})
-  )
-
-  
-  // res.json({ message: 'Hello Everyone!' })
+  fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + req.query.profileUrl, requestOptions)
+    .then(response => response.json())
+    .then(data => res.send(data))
 }
