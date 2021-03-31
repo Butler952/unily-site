@@ -4,6 +4,10 @@ import fire from '../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../components/header/Header';
+import { Container } from 'react-bootstrap';
+import Image from 'next/image'
+
+import styles from './index.module.scss'
 
 const Home = () => {
   const [notification, setNotification] = useState('');
@@ -67,25 +71,30 @@ const Home = () => {
   }, []);*/
 
   return (
-    <div>
+    <div style={{background: 'white'}}>
       <Head>
         <title>Personal Page Generator App</title>
       </Head>
       <Header/>
-      <h1>Personal Page Generator</h1>
-      {notification}
-      {/*
-      <ul>
-        {blogs.map(blog =>
-          <li key={blog.id}>
-            <Link href="/profile/[id]" as={'/profile/' + blog.id }>
-              <a itemProp="hello">{blog.title}</a>
+      <Container className="mt-5 py-5 text-center">
+        <div style={{maxWidth: '720px'}} className="mx-auto mb-5">
+          <h1>Your LinkedIn profile. But <span className={styles.headingUnderlineContainer}>better.</span></h1>
+          <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+          <div className="d-flex m-auto justify-content-center">
+            <Link href="/users/register">
+              <a className="btn primary high large m-auto">Get started</a>
             </Link>
-          </li>
-        )}
-        </ul>
-      {loggedIn && <CreatePost />}
-      */}
+          </div>
+        </div>
+        <br/>
+        <div className={styles.heroImageWrapper}>
+          <Image 
+            src="/images/profile-preview.png" 
+            layout='fill'
+          />
+        </div>
+      </Container>
+      {notification}
     </div>
   )
 }

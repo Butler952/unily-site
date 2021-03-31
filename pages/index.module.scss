@@ -1,0 +1,30 @@
+@import '../public/styles/variables.scss';
+
+.headingUnderlineContainer {
+  box-shadow: inset 0px -12px 0px 0px white, inset 0px -28px 0px 0px $primary-900;
+}
+
+.heroImageWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 50%;
+  width: 100%;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+  transition: $transition-standard;
+  border: 1px solid $dark-300;
+  &:hover {
+    box-shadow: $shadow-5;
+  }
+}
+/*
+.heroImage {
+  width: 100%;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+  transition: $transition-standard;
+  border: 1px solid $dark-300;
+  &:hover {
+    box-shadow: $shadow-5;
+  }
+}*/

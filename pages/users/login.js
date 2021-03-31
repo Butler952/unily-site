@@ -8,26 +8,52 @@ import { Container } from 'react-bootstrap';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [notify, setNotification] = useState('');
+  const [signingIn, setSigningIn] = useState(false);
+
   const router = useRouter();
+
+  const usernameChange = (value) => {
+    setUsername(value),
+    setEmailError('')
+  }
+
+  const passwordChange = (value) => {
+    setPassword(value)
+    setPasswordError('')
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
 
+    setSigningIn(true)
+
     fire.auth()
       .signInWithEmailAndPassword(username, password)
+      .then(() => {
+        setSigningIn(false)
+      })
       .catch((err) => {
 
+        if (err.code === 'auth/invalid-email') {
+          setEmailError('Please enter a valid email address')
+        }
+        if (err.code === 'auth/user-disabled') {
+          setEmailError('This account has been disabled')
+        }
+        if (err.code === 'auth/user-not-found') {
+          //setEmailError('Please check you have entered your email correctly or sign up to create an account')
+          setPasswordError('The email address and password do not match')
+        }
+        if (err.code === 'auth/wrong-password') {
+          setPasswordError('The email address and password do not match')
+        }
+        setSigningIn(false)
         console.log(err.code, err.message)
-        setNotification(err.message)
-
-        setTimeout(() => {
-          setNotification('')
-        }, 2000)
       })
-
-    //setUsername('')
-    //setPassword('')
   }
 
   return (
@@ -41,18 +67,19 @@ const Login = () => {
           <hr className="m-0"/>
           <div className="p-4 p-md-5">
             <p className="mb-4">Not got an account? <Link href="/users/register">Sign up</Link></p>
-            {notify}
             <form onSubmit={handleLogin}>
               <div className="mb-4">
                 <p className="large text-dark-high">Email</p>
-                <input type="text" className="w-100" value={username} onChange={({target}) => setUsername(target.value)} />
+                <input type="text" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
+                {emailError !== '' ? <p className="small text-error-high mt-2">{emailError}</p> : null}
               </div>
               <div className="mb-4">
                 <p className="large text-dark-high">Password</p>
-                <input type="password" className="w-100" value={password} onChange={({target}) => setPassword(target.value)} />
+                <input type="password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
+                {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
               <br />
-              <button type="submit" className="btn primary high">Login</button>
+              <button type="submit" className="btn primary high"disabled={signingIn}>{signingIn ? 'Logging in...' : 'Login'}</button>
             </form>
           </div>
         </div>

@@ -6,9 +6,12 @@ import { useRouter } from 'next/router'
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [profileUrl, setProfileUrl] = useState('/')
+  const [windowUrl, setWindowUrl] = useState('')
   const router = useRouter();
 
+
   useEffect(() => {
+    setWindowUrl(window.location.pathname);
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -52,7 +55,7 @@ const Header = () => {
   }
 
   return (
-    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2">
+    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2" style={windowUrl === '/' ? {boxShadow: 'none'} : null}>
       <div>
         {(loggedIn && profileUrl !== '/') ? 
           <div className="d-flex">
@@ -70,7 +73,7 @@ const Header = () => {
         ?
         <div className="d-flex">
           <Link href="/users/register">
-            <a className="btn primary high small ml-2">Register</a>
+            <a className={`btn primary small ml-2' ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
           </Link>
           <Link href="/users/login">
             <a className="btn primary low small ml-2">Login</a>
