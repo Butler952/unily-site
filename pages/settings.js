@@ -200,10 +200,9 @@ const Settings = () => {
         <div className="m-auto" style={{ maxWidth: "640px" }}>
           <h2 className="my-4 my-md-5">Settings</h2>
           <div className="card m-auto">
-            <div className="p-4">
-              <h5 className="text-dark-high mb-0">Sections</h5>
+            <div className="pt-4 px-4">
+              <h4 className="text-dark-high mb-0">Sections</h4>
             </div>
-            <hr className="m-0" />
             {loading ?
               <div className="p-4">
                 <p className="mb-0">Loading...</p>
@@ -223,7 +222,7 @@ const Settings = () => {
                       </div>
                       <Accordion.Collapse eventKey="0">
                         <div>
-                          <div>
+                          {/*<div>
                             <hr className="m-0" />
                             <div className="p-4">
                               <label className="checkbox-container small font-weight-medium text-dark-high">
@@ -232,7 +231,7 @@ const Settings = () => {
                                 <span className="checkmark"></span>
                               </label>
                             </div>
-                          </div>
+                          </div>*/}
                           <div>
                             <hr className="m-0" />
                             <div className="p-4">

@@ -60,7 +60,7 @@ const Profile = (props) => {
                 <div key={index} className={styles.job}>
                   <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
                   <p className="large mb-0">{job.company}</p>
-                  <p className="mb-0">{job.location}</p>
+                  <p className="text-dark-low mb-0">{job.location}</p>
                   <p className="text-dark-low mb-0">{(job.starts_at.month !== null ? convertMonth(job.starts_at.month) : null)} {job.starts_at.year} – {job.ends_at ? (job.ends_at.month !== null ? convertMonth(job.ends_at.month)  + ' ' : null) + job.ends_at.year : 'Present'}</p>
                 </div>
         )}
