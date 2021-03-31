@@ -8,13 +8,15 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
 // import testResponse from './testResponse';
-import { Container } from 'react-bootstrap';
+import { Container, ProgressBar } from 'react-bootstrap';
 
 const Sync = () => {
   const [profileUrl, setProfileUrl] = useState('');
   const [loadingState, setLoadingState] = useState('');
   const [userData, setUserData] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [urlError, setUrlError] = useState('');
   const [notify, setNotification] = useState('');
   const router = useRouter();
 
@@ -50,288 +52,136 @@ const Sync = () => {
     })
   }
 
+  const urlChange = (value) => {
+    setProfileUrl(value),
+      setUrlError('')
+  }
+
+  const onUrlInvalid = () => {
+    setUrlError('Please enter a valid LinkedIn URL')
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoadingState('Fetching data from LinkedIn');
+    if (profileUrl !== '') {
+      setLoadingState('Fetching data from LinkedIn');
 
-    fetch("/api/linkedin?profileUrl=" + profileUrl)
-      .then(res => res.json())
-      .then((result) => {
-        setLoadingState('Storing your data');
-        fire.firestore().collection('users').doc(userData.uid).update({
-          profile: result,
-          displayInfo: {
-            'basicInfo': {
-              'section': true,
-              'each': { 
-                'profilePic': true,
-                'headerImage': true,
-                'name': true,
-                'headline': true,
-                'email': true
-              }
-            },
-            about: result.summary === null ? false : true, 
-            'experience': {
-              'section': result.experiences < 1 ? false : true, 
-              'each': createExperienceList(result.experiences)
-            },
-            'education': {
-              'section': result.education < 1 ? false : true, 
-              'each': createEducationList(result.education)
-            },
-            'volunteering': {
-              'section': result.volunteer_work < 1 ? false : true, 
-              'each': createVolunteerList(result.volunteer_work)
-            },
-          },
-          stage: 'complete',
-          profileUrl: '/profile/' + userData.uid,
-        })
-      })
-      .then(() => {
-        setTimeout(
-          setLoadingState('Sync successfully completed'), 2000
-        )
-      })
-      .then(() => {
-        router.push('/profile/' + userData.uid)
-      })     
-      .catch(error => console.log('error', error)); 
-
-    /*
-      
-    fetch("https://jsonplaceholder.typicode.com/todos/" + profileUrl)
-      .then(res => res.json())
-      .then((result) => {
-        setLoadingState('two');
-        fire.firestore().collection('users').doc(userData.uid).update({
-          profile: result,
-          displayInfo: {
-            'basicInfo': {
-              'section': true,
-              'each': { 
-                'profilePic': true,
-                'headerImage': true,
-                'name': true,
-                'headline': true,
-                'email': true
-              }
-            },
-            about: true, 
-            'experience': {
-              'section': true, 
-              'each': createExperienceList(result.experiences)
-            },
-            'education': {
-              'section': true, 
-              'each': createEducationList(result.education)
-            },
-            'volunteering': {
-              'section': true, 
-              'each': createVolunteerList(result.volunteer_work)
-            },
-          },
-          stage: 'complete',
-          profileUrl: '/profile/' + userData.uid,
-        })
-      },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          setLoadingState('');
-          setError(error);
-        }
-      )
-      .then(() => {
-        setLoadingState('three');
-      })
-      .then(() => {
-        router.push('/profile/' + userData.uid)
-      })
-
-      */
-
-    /*
-          .then((response) => {
-            fire.firestore().collection('users').doc(user.uid).set({
-              receiveEmails,
-              email: user.email,
-              stage: '/setup/sync'
-            })
-          })
-          .then((response) => {
-            router.push("/setup/sync")
-          })
-    
-    
-    
-          fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + profileUrl)
-            .then(res => res.json())
-            .then(
-              (result) => {
-                setIsLoaded(true);
-                setItems(result);
+      fetch("/api/linkedin?profileUrl=" + profileUrl)
+        .then(res => res.json())
+        .then((result) => {
+          setLoadingState('Storing your data');
+          fire.firestore().collection('users').doc(userData.uid).update({
+            profile: result,
+            displayInfo: {
+              'basicInfo': {
+                'section': true,
+                'each': {
+                  'profilePic': true,
+                  'headerImage': true,
+                  'name': true,
+                  'headline': true,
+                  'email': true
+                }
               },
-              // Note: it's important to handle errors here
-              // instead of a catch() block so that we don't swallow
-              // exceptions from actual bugs in components.
-              (error) => {
-                setIsLoaded(true);
-                setError(error);
-              }
-            )*/
-
-    /* https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fbutler952*/
+              about: result.summary === null ? false : true,
+              'experience': {
+                'section': result.experiences < 1 ? false : true,
+                'each': createExperienceList(result.experiences)
+              },
+              'education': {
+                'section': result.education < 1 ? false : true,
+                'each': createEducationList(result.education)
+              },
+              'volunteering': {
+                'section': result.volunteer_work < 1 ? false : true,
+                'each': createVolunteerList(result.volunteer_work)
+              },
+            },
+            stage: 'complete',
+            profileUrl: '/profile/' + userData.uid,
+          })
+        })
+        .then(() => {
+          setTimeout(
+            setLoadingState('Sync successfully completed'), 2000
+          )
+        })
+        .then(() => {
+          router.push('/profile/' + userData.uid)
+        })
+        .catch(error => console.log('error', error));
+    } else {
+      setUrlError('Please enter the URL for your LinkedIn profile')
+    }
 
   }
 
   const createExperienceList = (data) => {
-    return data.map((object, i) => 
-      ({
-        'display': true,
-        'title': object.title,
-        'company': object.company
-      })
+    return data.map((object, i) =>
+    ({
+      'display': true,
+      'title': object.title,
+      'company': object.company
+    })
     )
   }
 
   const createEducationList = (data) => {
-    return data.map((object, i) => 
-      ({
-        'display': true,
-        'name': object.field_of_study,
-        'school': object.school
-      })
+    return data.map((object, i) =>
+    ({
+      'display': true,
+      'name': object.field_of_study,
+      'school': object.school
+    })
     )
   }
 
   const createVolunteerList = (data) => {
-    return data.map((object, i) => 
-      ({
-        'display': true,
-        'title': object.title,
-        'company': object.company
-      })
+    return data.map((object, i) =>
+    ({
+      'display': true,
+      'title': object.title,
+      'company': object.company
+    })
     )
   }
-
-  /*
-  const handleTestDataSubmit = (e) => {
-    e.preventDefault();
-    fire.firestore().collection('users').doc(userData.uid).update({
-      profile: testResponse,
-      displayInfo: {
-        'basicInfo': {
-          'section': true,
-          'each': { 
-            'profilePic': true,
-            'headerImage': true,
-            'name': true,
-            'headline': true,
-            'email': true
-          }
-        },
-        about: true, 
-        'experience': {
-          'section': true, 
-          'each': createExperienceList(testResponse.experiences)
-        },
-        'education': {
-          'section': true, 
-          'each': createEducationList(testResponse.education)
-        },
-        'volunteering': {
-          'section': true, 
-          'each': createVolunteerList(testResponse.volunteer_work)
-        },
-      },
-      stage: 'complete',
-      profileUrl: '/profile/' + userData.uid,
-    })
-      .then(() => {
-        router.push('/profile/' + userData.uid)
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      })
-  }
-  */
 
   return (
     <div>
       <Header />
-      {loadingState === '' ?
-        <Container className="py-5">
-          <div className="card m-auto" style={{ maxWidth: "640px" }}>
-            <div className="py-4 px-4 px-md-5">
-              <h5 className="text-dark-high mb-0">Sync data from LinkedIn</h5>
-            </div>
-            <hr className="m-0" />
-            <div className="p-4 p-md-5">
-              {notify}
+
+      <Container className="py-5">
+        <div className="card m-auto" style={{ maxWidth: "640px" }}>
+          <div className="py-4 px-4 px-md-5">
+            <h5 className="text-dark-high mb-0">Sync data from LinkedIn</h5>
+          </div>
+          <hr className="m-0" />
+          <div className="p-4 p-md-5">
+            {loadingState === '' ?
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <p className="large text-dark-high">LinkedIn profile URL</p>
                   <p>We will use this to collect your information on your profile.</p>
                   <div>
-                    https://www.linkedin.com/in/
-              <input type="text" className="w-100" value={profileUrl} onChange={({ target }) => setProfileUrl(target.value)} />
+                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="https://www.linkedin.com/in/" />
+                    {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : null}
                   </div>
                 </div>
                 <br />
                 <button type="submit" className="btn primary high">Sync data</button>
               </form>
-              <br />
-              {notify}
-              {/*}
-              <hr />
-              <br />
-              <form onSubmit={handleTestDataSubmit}>
-                <p className="large text-dark-high">Test Data</p>   
-                <p>Add test data to logged in profile</p>
-                <button type="submit" className="btn primary high">Add test response</button>
-              </form>
-              */}
-            </div>
-
+              :
+              <div>
+                <p className="large text-dark-high">{loadingState}</p>
+                {<ProgressBar animated now={loadingState === 'Fetching data from LinkedIn' ? 10 : (loadingState === 'Storing your data' ? 60 : (loadingState === 'Sync successfully completed' ? 100 : null))} /> }
+              </div>
+            }
           </div>
-        </Container>
-        :
-        <div>
-          {loadingState}
         </div>
-      }
-
+      </Container>
     </div>
   )
 
 }
 
 export default Sync
-
-{/*
-
-          <div>
-          <h1>Sync data from LinkedIn</h1>
-          {notify}
-          <form onSubmit={handleSubmit}>
-            LinkedIn profile URL
-        <p>We will use this to collect your information on your profile.</p>
-            <div>
-              https://www.linkedin.com/in/
-          <input type="text" value={profileUrl} onChange={({ target }) => setProfileUrl(target.value)} />
-            </div>
-            <br />
-            <button type="submit">Sync data</button>
-          </form>
-          <br />
-          <form onSubmit={handleTestDataSubmit}>
-            Test Data
-            <p>Add test data to logged in profile</p>
-            <button type="submit">Add test response</button>
-          </form>
-        </div>
-
-*/}

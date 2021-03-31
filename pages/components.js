@@ -635,6 +635,10 @@ const Components = () => {
             </div>
             <br />
             <div className="d-flex flex-wrap">
+              <input type="text" placeholder="Placeholder" className="error" />
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
               <input type="text" placeholder="Placeholder" className="large" />
             </div>
             <br />
@@ -830,7 +834,7 @@ const Components = () => {
           <Col>
             <h3>Small</h3>
             <label className="checkbox-container small">One
-              <input type="checkbox" checked="checked" />
+              <input type="checkbox" checked="checked"/>
               <span className="checkmark"></span>
             </label>
             <br />

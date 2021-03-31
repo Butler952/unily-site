@@ -67,6 +67,11 @@ a {
 .text-success-low { color: $success-700; }
 .text-success-dis { color: $success-600; }
 
+.text-error-high { color: $error-900; }
+.text-error-med { color: $error-800; }
+.text-error-low { color: $error-700; }
+.text-error-dis { color: $error-600; }
+
 .font-weight-medium { font-weight: 500; }
 .font-weight-semibold { font-weight: 600; }
 .font-weight-bold { font-weight: 700; }
@@ -430,6 +435,9 @@ input[type="text"], input[type="password"], input[type="email"] {
   //width: 100%; //maybe delete
   &:focus {
     border-color: $primary-900;
+  }
+  &.error {
+    border-color: $error-900;
   }
   /*&:invalid {
     border-color: $error-900;

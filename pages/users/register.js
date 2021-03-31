@@ -15,6 +15,11 @@ const Register = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [termsAndPrivacy, setTermsAndPrivacy] = useState(false);
   const [receiveEmails, setReceiveEmails] = useState(false);
+  
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passConfError, setPassConfError] = useState('');
+  const [creating, setCreating] = useState(false);
 
   const [notify, setNotification] = useState('');
 
@@ -45,36 +50,60 @@ const Register = () => {
     })
   }
 
+  const usernameChange = (value) => {
+    setUsername(value),
+    setEmailError('')
+  }
+
+  const passwordChange = (value) => {
+    setPassword(value)
+    setPasswordError('')
+    setPassConfError('')
+  }
+
+  const passConfChange = (value) => {
+    setPassConf(value)
+    setPasswordError('')
+    setPassConfError('')
+  }
+
+  const termsAndPrivacyChange = () => {
+    setTermsAndPrivacy(termsAndPrivacy => !termsAndPrivacy)
+    setNotification('')
+  }
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (password !== passConf) {
-      setNotification('Password and password confirmation does not match')
-
-      setTimeout(() => {
-        setNotification('')
-      }, 2000)
-
-      setPassword('');
-      setPassConf('');
+      setPasswordError('Password and confirm password do not match')
+      setPassConfError('Password and confirm password do not match')
       return null;
-
     }
 
     if (!termsAndPrivacy) {
       setNotification('Please accept the terms and conditions')
-
-      setTimeout(() => {
-        setNotification('')
-      }, 2000)
-
       return null;
-
     }
+
+    setCreating(true)
 
     fire.auth()
       .createUserWithEmailAndPassword(username, password)
+      .then(() => {
+        setCreating(false)
+      })
       .catch((err) => {
+        if (err.code === 'auth/email-already-in-use') {
+          setEmailError('This email is already in use')
+        }
+        if (err.code === 'auth/invalid-email') {
+          setEmailError('Please enter a valid email address')
+        }
+        if (err.code === 'auth/weak-password') {
+          setPasswordError('The password must be at least 6 characters long')
+        }
+        setCreating(false)
         console.log(err.code, err.message)
       })
   }
@@ -90,30 +119,33 @@ const Register = () => {
           <hr className="m-0"/>
           <div className="p-4 p-md-5">
             <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
-            {notify}
             <form onSubmit={handleLogin}>
               <div className="mb-4">
                 <p className="large text-dark-high">Email</p>
-                <input type="text" className="w-100" value={username} onChange={({target}) => setUsername(target.value)} />
+                <input type="text" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
+                {emailError !== '' ? <p className="small text-error-high mt-2">{emailError}</p> : null}
               </div>
               <div className="mb-4">
                 <p className="large text-dark-high">Password</p>
-                <input type="password" className="w-100" value={password} onChange={({target}) => setPassword(target.value)} />
+                <input type="password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
+                {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
               <div className="mb-4">
                 <p className="large text-dark-high">Confirm password</p>
-                <input type="password" className="w-100" value={passConf} onChange={({target}) => setPassConf(target.value)} />
+                <input type="password" className={passConfError !== '' ? `error w-100` : `w-100`} value={passConf} onChange={({target}) => passConfChange(target.value)} />
+                {passConfError !== '' ? <p className="small text-error-high mt-2">{passConfError}</p> : null}
               </div>
               <label className="checkbox-container small mb-4">I agree to the terms and privacy policy
-                <input type="checkbox" onChange={() => setTermsAndPrivacy(!termsAndPrivacy)} checked={termsAndPrivacy}></input>
+                <input type="checkbox" onChange={() => termsAndPrivacyChange()} checked={termsAndPrivacy}></input>
+                {notify !== '' ? <p className="small text-error-high">{notify}</p> : null}
                 <span className="checkmark"></span>
               </label>
               <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
-                <input type="checkbox" onChange={() => setReceiveEmails(!receiveEmails)} checked={receiveEmails}></input>
+                <input type="checkbox" onChange={() => setReceiveEmails(receiveEmails => !receiveEmails)} checked={receiveEmails}></input>
                 <span className="checkmark"></span>
               </label>
                <br />
-              <button type="submit" className="btn primary high">Create account</button>
+              <button type="submit" className="btn primary high" disabled={creating}>{creating ? 'Creating account...' : 'Create account'}</button>
             </form>
           </div>
         </div>
