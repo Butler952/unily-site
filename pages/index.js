@@ -78,7 +78,7 @@ const Home = () => {
       <Header/>
       <Container className="mt-5 py-5 text-center">
         <div style={{maxWidth: '720px'}} className="mx-auto mb-5">
-          <h1>Your LinkedIn profile. But <span className={styles.headingUnderlineContainer}>better.</span></h1>
+          <h1>Your LinkedIn profile. But <span>better.</span></h1>
           <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register">
