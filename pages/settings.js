@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import ICONS from '../components/icon/IconPaths';
 
-import styles from '../public/styles/settings.module.scss'
+import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -200,9 +200,10 @@ const Settings = () => {
         <div className="m-auto" style={{ maxWidth: "640px" }}>
           <h2 className="my-4 my-md-5">Settings</h2>
           <div className="card m-auto">
-            <div className="pt-4 px-4">
-              <h4 className="text-dark-high mb-0">Sections</h4>
+            <div className="p-4">
+              <h5 className="text-dark-high mb-0">Sections</h5>
             </div>
+            <hr className="m-0"/>
             {loading ?
               <div className="p-4">
                 <p className="mb-0">Loading...</p>
@@ -210,7 +211,7 @@ const Settings = () => {
               :
               <div className="p-0">
                 <form onSubmit={handleSubmit}>
-                  <Accordion className="m-4">
+                  <Accordion>
                     <div className={styles.sectionCard + " card"}>
                       <div className="d-flex flex-row justify-content-between align-items-center p-4">
                         <label className="checkbox-container font-weight-medium text-dark-high large">
@@ -276,14 +277,14 @@ const Settings = () => {
                       </Accordion.Collapse>
                     </div>
                   </Accordion>
-                  <div className={styles.sectionCard + " card p-4 m-4"}>
+                  <div className={styles.sectionCard + " card p-4"}>
                     <label className="checkbox-container font-weight-medium text-dark-high large">
                       About
                   <input type="checkbox" checked={about} onChange={(e) => setAbout(e.currentTarget.checked)} />
                       <span className="checkmark"></span>
                     </label>
                   </div>
-                  <Accordion className="m-4">
+                  <Accordion>
                     <div className={styles.sectionCard + " card"}>
                       <div className="d-flex flex-row justify-content-between align-items-center p-4">
                         <label className="checkbox-container font-weight-medium text-dark-high large">
@@ -303,7 +304,7 @@ const Settings = () => {
                       </Accordion.Collapse>
                     </div>
                   </Accordion>
-                  <Accordion className="m-4">
+                  <Accordion>
                     <div className={styles.sectionCard + " card"}>
                       <div className="d-flex flex-row justify-content-between align-items-center p-4">
                         <label className="checkbox-container font-weight-medium text-dark-high large">
@@ -323,7 +324,7 @@ const Settings = () => {
                       </Accordion.Collapse>
                     </div>
                   </Accordion>
-                  <Accordion className="m-4">
+                  <Accordion>
                     <div className={styles.sectionCard + " card"}>
                       <div className="d-flex flex-row justify-content-between align-items-center p-4">
                         <label className="checkbox-container font-weight-medium text-dark-high large">

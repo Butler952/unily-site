@@ -1,0 +1,7 @@
+@import '../public/styles/variables.scss';
+
+.sectionCard {
+  box-shadow: none;
+  border-radius: 0;
+  border-bottom: 1px solid $dark-300;
+}

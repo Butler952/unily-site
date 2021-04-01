@@ -21,6 +21,9 @@
     box-shadow: $shadow-5;
   }
 }
+.summary {
+  white-space: break-spaces;
+}
 .job {
   padding: 32px;
   transition: $transition-standard;
@@ -40,7 +43,4 @@
     background: $dark-100;
     text-decoration: none;
   }
-}
-.footer {
-  background-color: $dark-100;
 }

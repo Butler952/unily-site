@@ -37,7 +37,7 @@ $error-100: rgba($error-900, 0.03);
 
 // Success colour 
 $success-900: #0BB07B; // High text
-$success-900-hover: lighten($success-900, 10%);
+$success-900-hover: lighten($success-900, 5%);
 $success-light: rgba($success-900, 0.1);
 $success-800: rgba($success-900, 0.72); // Medium text
 $success-700: rgba($success-900, 0.48); // Low text

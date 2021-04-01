@@ -47,7 +47,7 @@ const Profile = (props) => {
           <div className="mb-5">
             <h4>About</h4>
             <div className={styles.profileCard + ' card p-4'}>
-              <p className="large mb-0">{props.summary}</p>
+              <p className={`large mb-0 ` + styles.summary}>{props.summary}</p>
             </div>
             <br /><br />
           </div>
@@ -91,8 +91,8 @@ const Profile = (props) => {
                 <div key={index} className={styles.job}>
                   <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
                   <p className="large mb-0">{volunteer.company}</p>
-                  <p className="text-dark-low">{volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) : ''} {volunteer.starts_at.year} – {volunteer.ends_at ? (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') + ' ' + volunteer.ends_at.year : 'Present'}</p>
-                  <p className="mb-0 text-dark-high mb-0">{volunteer.description}</p>
+                  <p className="text-dark-low mb-0">{volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) : ''} {volunteer.starts_at.year} – {volunteer.ends_at ? (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') + ' ' + volunteer.ends_at.year : 'Present'}</p>
+                  {volunteer.description ? <p className="text-dark-high mb-0 mt-3">{volunteer.description}</p> : null}
                 </div>
               )}
             </div>
@@ -109,9 +109,9 @@ const Profile = (props) => {
           </div>
         }
       </Container>
-      <div className={styles.footer + ' py-5 text-center'}>
+      <div className='py-5 text-center'>
         <Container>
-          <p className="text-dark-low mb-0">Powered by LinkedUp</p>
+          <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p>
         </Container>
       </div>
     </div >
