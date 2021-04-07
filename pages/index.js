@@ -163,7 +163,7 @@ const Home = () => {
       </div>
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          <h1 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>Start turning your CV into landing page</h1>
+          <h1 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1>
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register">
               <a className="btn primary high large m-auto">Get started</a>
