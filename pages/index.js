@@ -104,7 +104,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/*}
         <div className={`text-center ${styles.sectionWrapper}`}>
           <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1>
           <div className={styles.stepsContainer}>
@@ -127,7 +126,7 @@ const Home = () => {
               <h3 className="text-primary-high">Share your profile</h3>
             </div>
           </div>
-        </div>*/}
+        </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
           <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1>
           <div className={styles.heroImageWrapper}>
