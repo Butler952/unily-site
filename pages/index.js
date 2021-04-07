@@ -105,7 +105,7 @@ const Home = () => {
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Create your CV in 2 minutes</h1>
+          <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1>
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
