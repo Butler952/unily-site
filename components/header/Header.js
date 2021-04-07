@@ -56,28 +56,32 @@ const Header = () => {
 
   return (
     <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2" style={windowUrl === '/' ? {boxShadow: 'none'} : null}>
-      <div>
-        {(loggedIn && profileUrl !== '/') ? 
-          <div className="d-flex">
-            <Link href={profileUrl}>
-              <a className="btn primary low small">Profile</a>
-            </Link>
-            <Link href="/settings">
-              <a className="btn primary low small">Settings</a>
-            </Link>
-          </div>
-            : null
-        }
+      {(loggedIn && profileUrl !== '/') ? <div>
+        <div className="d-flex">
+          <Link href={profileUrl}>
+            <a className="btn primary low small">Profile</a>
+          </Link>
+          <Link href="/settings">
+            <a className="btn primary low small">Settings</a>
+          </Link>
+        </div>     
       </div>
+        : null
+      }
       {!loggedIn
         ?
-        <div className="d-flex">
-          <Link href="/users/register">
-            <a className={`btn primary small ml-2' ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
+        <div className="d-flex flex-row justify-content-between align-items-center w-100">
+          <Link href="/">
+            <a><img src={"/images/vitaely-logo-full.svg"} style={windowUrl === '/' ? {margin: '16px', height: '40px'} : {marginLeft: '16px', height: '32px'}}/></a>
           </Link>
-          <Link href="/users/login">
-            <a className="btn primary low small ml-2">Login</a>
-          </Link>
+          <div className="d-flex">
+            <Link href="/users/register">
+              <a className={`btn primary small ml-2' ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
+            </Link>
+            <Link href="/users/login">
+              <a className="btn primary low small ml-2">Login</a>
+            </Link>
+          </div>
         </div>
         :
         <button className="btn primary low small" onClick={handleLogout}>Logout</button>

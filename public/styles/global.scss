@@ -32,7 +32,7 @@ h1 { font-size: 64px; }
 h2 { font-size: 48px; }
 h3 { font-size: 34px; }
 h4 { font-size: 28px; }
-h5 { font-size: 24px; }
+h5 { font-size: 24px; line-height: 1.5}
 
 p.extra-large { font-size: 24px; }
 p.large {font-size: 20px; }
@@ -61,6 +61,11 @@ a {
 .text-light-med { color: $light-800; }
 .text-light-low { color: $light-700; }
 .text-light-dis { color: $light-600; }
+
+.text-primary-high { color: $primary-900; }
+.text-primary-med { color: $primary-800; }
+.text-primary-low { color: $primary-700; }
+.text-primary-dis { color: $primary-600; }
 
 .text-success-high { color: $success-900; }
 .text-success-med { color: $success-800; }
@@ -129,6 +134,12 @@ hr {border-top: 1px solid $dark-300;}
 .bg-success-300 { background: $success-300; }
 .bg-success-200 { background: $success-200; }
 .bg-success-100 { background: $success-100; }
+
+// Icons 
+
+.iconLightHigh {
+  fill: $light-900;
+}
 
 // Buttons
 

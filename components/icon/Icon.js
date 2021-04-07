@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Icon = (props) => {
+
   return (
       <svg 
         width={`${props.size}px`} 

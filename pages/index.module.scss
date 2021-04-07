@@ -17,6 +17,32 @@
     box-shadow: $shadow-5;
   }
 }
+.stepsContainer {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 64px;
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+.stepNumber {
+  background: $primary-900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  width: 64px;
+  border-radius: 64px;
+  margin-bottom: 16px;
+}
+.sectionWrapper {
+  margin-top: 160px;
+  margin-bottom: 160px;
+}
+.primaryBackground {
+  background: $primary-900;
+}
 /*
 .heroImage {
   width: 100%;
