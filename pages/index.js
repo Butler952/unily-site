@@ -74,7 +74,7 @@ const Home = () => {
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
-        <title>Personal Page Generator App</title>
+        <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
         <link rel="shortcut icon" href="/images/vitaely-logo-icon.svg" />
       </Head>
       <Header />
@@ -100,7 +100,7 @@ const Home = () => {
             <div className="card py-4 pl-4" style={{position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
               <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
               <p className="large mb-0">Loughborough University</p>
-              <p className="text-dark-low mb-0">2013 – July</p>
+              <p className="text-dark-low mb-0">2013 – 2017</p>
             </div>
           </div>
         </div>
