@@ -1,85 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react"
 import Head from 'next/head';
-import fire from '../config/fire-config';
-import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Header from '../components/header/Header';
+import Header from './header/Header';
 import { Container } from 'react-bootstrap';
-import Image from 'next/image'
+import Footer from "./Footer";
 
-import styles from './index.module.scss'
-import Icon from '../components/icon/Icon';
-import ICONS from '../components/icon/IconPaths';
-import Footer from '../components/Footer';
-
-const Home = () => {
+const LegalPage = (props) => {
+  const {
+    heroTitle,
+    lastUpdated,
+    children
+  } = props;
   const [loggedIn, setLoggedIn] = useState(false);
-  const router = useRouter();
+  const [screenWidth, setScreenWidth] = useState('');
 
-  fire.auth()
-    .onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true)
-        loggedInRoute(user)
-      } else {
-        setLoggedIn(false)
-      }
-    })
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
+  }, []);
 
-
-  const loggedInRoute = (user) => {
-    var docRef = fire.firestore().collection('users').doc(user.uid)
-
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        if (doc.data().stage !== 'complete') {
-          router.push(doc.data().stage)
-        } else {
-          router.push(doc.data().profileUrl)
-        }
-      } else {
-        console.log("No such document!");
-      }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
-    });
-
-    /*
-    fire.firestore().collection('users').doc(user.uid).set({
-      receiveEmails,
-      email: user.email,
-      stage: '/setup/sync'
-    })
-    .then(() => {
-      router.push("/setup/sync")
-    })*/
-  }
-
-
-  /*useEffect(() => {
-    const unsubscribe =  fire.firestore()
-      .collection('blog')
-      .onSnapshot(snap => {
-        const blogs = snap.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setBlogs(blogs);
-      });
-      return () => {
-        // Unmouting
-        unsubscribe();
-      };
-  }, []);*/
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
 
   return (
-    <div className="overflow-hidden" style={{ background: 'white' }}>
+    <div>
       <Head>
-        <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
+        <title>{heroTitle}</title>
         <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
       </Head>
       <Header />
-      <Container className="mt-5 py-5">
+      <div className="container">
+        <div className="card my-5">
+          <div>
+            <div className="container p-5">
+              {screenWidth > 767 ?
+                <h2 className="mx-auto mb-3">{heroTitle}</h2>
+                :
+                <h3 className="mx-auto mb-3">{heroTitle}</h3>
+              }
+              <p className="m-0">Last updated {lastUpdated}</p>
+            </div>
+          </div>
+          <hr/>
+          {children}
+        </div>
+        <Footer />
+      </div>
+     {/* <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
           <div style={{ maxWidth: '560px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
             <h1>Turn your CV into a landing page</h1>
@@ -90,15 +58,15 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="position-relative d-none d-lg-block" style={{background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius:'320px'}}>
-            <img src="/images/aaron-butler.jpg" style={{width: '120px', height: '120px', borderRadius:'100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute'}}></img>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
+          <div className="position-relative d-none d-lg-block" style={{ background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius: '320px' }}>
+            <img src="/images/aaron-butler.jpg" style={{ width: '120px', height: '120px', borderRadius: '100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute' }}></img>
+            <div className="card py-4 pl-4" style={{ position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)' }}>
               <p className="large text-dark-high font-weight-semibold mb-0">Junior Product Designer</p>
               <p className="large mb-0">Activate</p>
               <p className="text-dark-low mb-0">London, United Kingdom</p>
               <p className="text-dark-low mb-0">April 2018 – October 2019</p>
             </div>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
+            <div className="card py-4 pl-4" style={{ position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)' }}>
               <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
               <p className="large mb-0">Loughborough University</p>
               <p className="text-dark-low mb-0">2013 – 2017</p>
@@ -173,9 +141,24 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Footer />
+      <div>
+        <Container className="py-5">
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5">
+            <img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" />
+            <div className="d-flex flex-column text-center text-md-right">
+              <Link href="/"><a className="text-dark-high mb-3">Terms & Conditions</a></Link>
+              <Link href="/"><a className="text-dark-high mb-3">Privacy Policy</a></Link>
+              <Link href="/"><a className="text-dark-high">Cookie Policy</a></Link>
+            </div>
+          </div>
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
+            <p>© Copyright Vitaely {new Date().getFullYear()}</p>
+            <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p>
+          </div>
+        </div>
+      </Container>*/}
     </div>
   )
 }
 
-export default Home;
+export default LegalPage;

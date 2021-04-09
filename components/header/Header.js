@@ -9,9 +9,17 @@ const Header = () => {
   const [windowUrl, setWindowUrl] = useState('')
   const router = useRouter();
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
 
   useEffect(() => {
     setWindowUrl(window.location.pathname);
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -72,7 +80,7 @@ const Header = () => {
         ?
         <div className="d-flex flex-row justify-content-between align-items-center w-100">
           <Link href="/">
-            <a><img src={"/images/vitaely-logo-full.svg"} style={windowUrl === '/' ? {margin: '16px', height: '40px'} : {marginLeft: '16px', height: '32px'}}/></a>
+            <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? {margin: '16px', height: '40px'} : {marginLeft: '16px', height: '32px'}}/></a>
           </Link>
           <div className="d-flex">
             <Link href="/users/register">
