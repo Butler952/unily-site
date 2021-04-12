@@ -43,6 +43,12 @@
 .primaryBackground {
   background: $primary-900;
 }
+.productHunt {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+}
 /*
 .heroImage {
   width: 100%;
