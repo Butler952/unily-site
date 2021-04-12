@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Header from '../../components/header/Header';
 // import testResponse from './testResponse';
 import { Container, ProgressBar } from 'react-bootstrap';
+import Head from 'next/head';
 
 const Sync = () => {
   const [profileUrl, setProfileUrl] = useState('');
@@ -148,6 +149,10 @@ const Sync = () => {
 
   return (
     <div>
+     
+      <Head>
+        <title>Sync your data</title>
+      </Head>
       <Header />
 
       <Container className="py-5">

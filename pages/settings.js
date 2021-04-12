@@ -10,6 +10,7 @@ import ICONS from '../components/icon/IconPaths';
 
 import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);
@@ -195,6 +196,9 @@ const Settings = () => {
 
   return (
     <div>
+      <Head>
+        <title>Settings</title>
+      </Head>
       <Header />
       <Container className="py-4">
         <div className="m-auto" style={{ maxWidth: "640px" }}>

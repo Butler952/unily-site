@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
+import Head from 'next/head';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -58,6 +59,9 @@ const Login = () => {
 
   return (
     <div>
+      <Head>
+        <title>Sign in to your account</title>
+      </Head>
       <Header/>
       <Container className="py-5">
         <div className="card m-auto" style={{maxWidth: "640px"}}>

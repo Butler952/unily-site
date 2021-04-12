@@ -76,7 +76,6 @@ const Home = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
         <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
-        <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
       </Head>
       <Header />
       <Container className="mt-5 py-5">
