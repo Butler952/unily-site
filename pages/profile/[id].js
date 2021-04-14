@@ -61,7 +61,13 @@ const Profile = (props) => {
                   <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
                   <p className="large mb-0">{job.company}</p>
                   <p className="text-dark-low mb-0">{job.location}</p>
-                  <p className="text-dark-low mb-0">{(job.starts_at.month !== null ? convertMonth(job.starts_at.month) : null)} {job.starts_at.year} – {job.ends_at ? (job.ends_at.month !== null ? convertMonth(job.ends_at.month)  + ' ' : null) + job.ends_at.year : 'Present'}</p>
+                  <p className="text-dark-low mb-0">
+                    {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
+                    {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                    {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                    {job.starts_at && job.ends_at ? (job.ends_at.month ? " – " + convertMonth(job.ends_at.month) : '') : null}
+                    {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                  </p>
                 </div>
         )}
             </div>
@@ -76,7 +82,13 @@ const Profile = (props) => {
                 <div key={index} className={styles.job}>
                   <p className="large text-dark-high font-weight-semibold mb-0">{school.field_of_study}</p>
                   <p className="large mb-0">{school.school}</p>
-                  <p className="text-dark-low mb-0">{school.starts_at.month ? convertMonth(school.starts_at.month) : ''} {school.starts_at.year} – {school.ends_at ? (school.ends_at.month ? convertMonth(school.ends_at.month) : '') + ' ' + school.ends_at.year : 'Present'}</p>
+                  <p className="text-dark-low mb-0">
+                    {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null} 
+                    {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                    {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                    {school.starts_at && school.ends_at ? (school.ends_at.month ? " – " + convertMonth(school.ends_at.month) : '') : null}
+                    {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
+                  </p>
                 </div>
               )}
             </div>
@@ -91,7 +103,13 @@ const Profile = (props) => {
                 <div key={index} className={styles.job}>
                   <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
                   <p className="large mb-0">{volunteer.company}</p>
-                  <p className="text-dark-low mb-0">{volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) : ''} {volunteer.starts_at.year} – {volunteer.ends_at ? (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') + ' ' + volunteer.ends_at.year : 'Present'}</p>
+                  <p className="text-dark-low mb-0">
+                    {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null} 
+                    {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
+                    {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
+                    {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.month ? " – " + convertMonth(volunteer.ends_at.month) : '') : null}
+                    {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.year ? " " + volunteer.ends_at.year : null) : null}
+                  </p>
                   {volunteer.description ? <p className="text-dark-high mb-0 mt-3">{volunteer.description}</p> : null}
                 </div>
               )}
