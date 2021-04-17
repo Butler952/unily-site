@@ -150,7 +150,7 @@ const Register = () => {
                 <span className="checkmark"></span>
               </label>
               */}
-               <br />
+              <br/>
               <button type="submit" className="btn primary high" disabled={creating}>{creating ? 'Creating account...' : 'Create account'}</button>
             </form>
           </div>

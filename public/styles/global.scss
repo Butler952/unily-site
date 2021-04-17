@@ -143,6 +143,21 @@ hr {border-top: 1px solid $dark-300;}
 
 // Buttons
 
+// Inline/Text only
+
+button.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $primary-900;
+  font-weight: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Standard buttons
+
 a.btn, input.btn, button.btn { 
   border-radius: $radius-small;
   padding: 12px 20px;  

@@ -83,6 +83,8 @@ const Login = () => {
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
               <br />
+              <p className="mb-4">Forgot your password? <Link href="/users/reset">Reset your password</Link></p>
+              <br />
               <button type="submit" className="btn primary high"disabled={signingIn}>{signingIn ? 'Logging in...' : 'Login'}</button>
             </form>
           </div>
