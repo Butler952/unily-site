@@ -1,10 +1,11 @@
 {
-  "name": "nextjs-blog-app",
-  "version": "0.1.0",
+  "name": "vitaely-me",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "dependencies": {
@@ -19,5 +20,8 @@
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-toastify": "^7.0.3"
+  },
+  "devDependencies": {
+    "next-sitemap": "^1.6.25"
   }
 }

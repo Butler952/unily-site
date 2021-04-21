@@ -33,16 +33,16 @@ const LegalPage = (props) => {
       <div className="container">
         <div className="card my-5">
           <div>
-            <div className="container p-5">
+            <div className="m-4 m-sm-5">
               {screenWidth > 767 ?
-                <h2 className="mx-auto mb-3">{heroTitle}</h2>
+                <h2 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h2>
                 :
-                <h3 className="mx-auto mb-3">{heroTitle}</h3>
+                <h3 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h3>
               }
               <p className="m-0">Last updated {lastUpdated}</p>
             </div>
           </div>
-          <hr/>
+          <hr className="m-0" />
           {children}
         </div>
         <Footer />
