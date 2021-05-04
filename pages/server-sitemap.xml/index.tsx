@@ -19,6 +19,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       // changefreq
       // priority
     },
+    {
+      loc: 'https://www.vitaely.me/profile/5mRz950eTpVe6f3AswuUSgpPM4D3', // Absolute url
+      lastmod: new Date().toISOString(),
+      // changefreq
+      // priority
+    }
   ]
 
   return getServerSideSitemap(ctx, fields)
