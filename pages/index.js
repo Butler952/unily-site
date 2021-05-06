@@ -14,6 +14,7 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  // const [idList, setIdList] = useState("1,2,3");
   const router = useRouter();
 
   fire.auth()
@@ -72,6 +73,36 @@ const Home = () => {
       };
   }, []);*/
 
+  const getProfileList = () => {
+    let tempIdList = []
+    fire.firestore().collection('users').get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        tempIdList.push('"' + doc.id + '"' + ", ");
+      })
+    })
+    .then(() => {
+      setIdList(tempIdList)
+    })
+    .then(() => {
+      console.log(idList)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const getProfileListTwo = () => {
+    fetch("/api/getProfileList")
+      .then(res => console.log(res))
+      .then(data => console.log(data))
+  }
+/*
+  useEffect(() => {
+      getProfileList()
+    //.then(console.log(idList))
+  }, []);
+*/
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
@@ -143,6 +174,7 @@ const Home = () => {
       <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
+          {/*{ idList ?? <p>{idList}</p> }*/}
             <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1>
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
