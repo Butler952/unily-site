@@ -135,6 +135,15 @@ hr {border-top: 1px solid $dark-300;}
 .bg-success-200 { background: $success-200; }
 .bg-success-100 { background: $success-100; }
 
+// Border Radius
+
+.radius-0 { border-radius: $radius-none };
+.radius-1 { border-radius: $radius-v-small };
+.radius-2 { border-radius: $radius-small };
+.radius-3 { border-radius: $radius-medium };
+.radius-4 { border-radius: $radius-large };
+.radius-5 { border-radius: $radius-round };
+
 // Icons 
 
 .iconLightHigh {

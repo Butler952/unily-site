@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.15.0",
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",

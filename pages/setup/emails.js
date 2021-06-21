@@ -54,7 +54,8 @@ const Emails = () => {
     setSubmitting(true)
     fire.firestore().collection('users').doc(user.uid).update({
       receiveEmails,
-      stage: '/setup/sync'
+      stage: '/setup/sync',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
       setSubmitting(false)
