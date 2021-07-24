@@ -888,6 +888,196 @@ const Components = () => {
         </Row>
         <Row>
           <Col>
+            <h2 id="tags" className="text-dark-dis">Tags</h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="d-flex flex-wrap">
+              <div className="tag primary high mr-3 mb-3">Label</div>
+              <div className="tag primary high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag primary high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag primary medium mr-3 mb-3">Label</div>
+              <div className="tag primary medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag primary medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+
+            <div className="d-flex flex-wrap">
+              <div className="tag dark high mr-3 mb-3">Label</div>
+              <div className="tag dark high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag dark high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag dark medium mr-3 mb-3">Label</div>
+              <div className="tag dark medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag dark medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+ 
+            <div className="d-flex flex-wrap">
+              <div className="tag error high mr-3 mb-3">Label</div>
+              <div className="tag error high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag error high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag error medium mr-3 mb-3">Label</div>
+              <div className="tag error medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag error medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+
+            <div className="d-flex flex-wrap">
+              <div className="tag warning high mr-3 mb-3">Label</div>
+              <div className="tag warning high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag warning high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag warning medium mr-3 mb-3">Label</div>
+              <div className="tag warning medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag warning medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+        
+            <div className="d-flex flex-wrap">
+              <div className="tag success high mr-3 mb-3">Label</div>
+              <div className="tag success high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag success high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag success medium mr-3 mb-3">Label</div>
+              <div className="tag success medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag success medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+
+            <div className="d-flex flex-wrap">
+              <div className="tag disabled high mr-3 mb-3">Label</div>
+              <div className="tag disabled high icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag disabled high icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag disabled medium mr-3 mb-3">Label</div>
+              <div className="tag disabled medium icon-left mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+              <div className="tag disabled medium icon-right mr-3 mb-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <br /><br />
+        <Row>
+          <Col>
+            <br />
+            <hr />
+            <br />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <h2 id="progress" className="text-dark-dis">Progress bar</h2>
           </Col>
         </Row>

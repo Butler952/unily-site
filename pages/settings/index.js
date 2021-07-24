@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
-import fire from '../config/fire-config';
+import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Header from '../components/header/Header';
-import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
+import Header from '../../components/header/Header';
+import {loadStripe} from '@stripe/stripe-js';
+import { Accordion, Container, ModalBody, useAccordionToggle } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
-import ICONS from '../components/icon/IconPaths';
+import moment from 'moment'
+import ICONS from '../../components/icon/IconPaths';
 
 import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, Modal } from 'react-bootstrap';
+import ResyncSection from './components/resyncSection';
+import ManageButton from './components/manageButton';
+import UpgradeButton from './components/upgradeButton';
+import RenewButton from './components/renewButton';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);
@@ -94,17 +100,30 @@ const Settings = () => {
   const [volunteering, setVolunteering] = useState(true);
   const [volunteeringEach, setVolunteeringEach] = useState('');
   const [linkedinId, setLinkedinId] = useState('');
-  const [syncsRemaining, setSyncsRemaining] = useState(0);
+  //const [syncsRemaining, setSyncsRemaining] = useState(0);
   const [sectionsLoading, setSectionsLoading] = useState(true);
   const [syncLoading, setSyncLoading] = useState('');
   const [saving, setSaving] = useState(false);
   const [syncError, setSyncError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [product, setProduct] = useState('');
+  const [active, setActive] = useState(false);
+  const [status, setStatus] = useState('');
+  const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
+  const [cancelAt, setCancelAt] = useState('');
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   useEffect(() => {
+    if (router.query.upgrade == 'success') {
+      toast("Upgraded to Premium")
+    }
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
           loggedInRoute(user)
+          getSubscription(user)
           setUserData(user)
         }
       })
@@ -116,7 +135,6 @@ const Settings = () => {
 
   const loggedInRoute = (user) => {
     var docRef = fire.firestore().collection('users').doc(user.uid)
-
     docRef.get().then((doc) => {
       if (doc.exists) {
         setBasicInfo(doc.data().displayInfo.basicInfo)
@@ -133,17 +151,46 @@ const Settings = () => {
         setVolunteering(doc.data().displayInfo.volunteering.section)
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
-        doc.data().syncsRemaining ? setSyncsRemaining(doc.data().syncsRemaining) : null
+        //doc.data().syncsRemaining ? setSyncsRemaining(doc.data().syncsRemaining) : null
+        //console.log(doc.data())
       } else {
         console.log("No such document!");
       }
     })
-      .then(() => {
-        setSectionsLoading(false)
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      })
+    .then(() => {
+      setSectionsLoading(false)
+      console.log('Retreived display info from database')
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    })
+  }
+
+  const getSubscription = (user) => {
+    var docRef = fire.firestore().collection('users').doc(user.uid).collection('subscriptions')
+    //docRef.get()
+    docRef.where("status", "==", "active").get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          setProduct(doc.data().items[0].plan.product)
+          //setActive(doc.data().items[0].plan.active)
+          setStatus(doc.data().status)
+          setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
+          setCancelAt(doc.data().cancel_at.seconds)
+          console.log(doc.id, " => ", doc.data());
+          console.log(doc.data().items[0].plan.product);
+          console.log(doc.data().items[0].plan.active)
+          // prod_Jdg7o4VDoipc7d = Premium
+          // prod_Jdg7ZdcmfuNm0P = Free
+      });
+    })
+    .then(() => {
+      console.log('Retreived subscription data from database')
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    })
   }
 
   const handleSectionsSubmit = (e) => {
@@ -190,7 +237,7 @@ const Settings = () => {
 
   // Re-syncing Start
 
-    const createExperienceList = (data) => {
+  const createExperienceList = (data) => {
     return data.map((object, i) =>
     ({
       'display': true,
@@ -255,7 +302,7 @@ const Settings = () => {
                 'each': createVolunteerList(result.volunteer_work)
               },
             },
-            syncsRemaining: (syncsRemaining - 1), 
+            //syncsRemaining: (syncsRemaining - 1), 
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
           })
@@ -277,14 +324,51 @@ const Settings = () => {
   }
   // Re-syncing End
 
-  // Dev Checkout Start
-  async function handleCheckout(e){
+  // Dev Premium Subscription Start
+  /*async function handleUpgrade(e){
     e.preventDefault();
     const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
     const { data } = await functionRef({ returnUrl: window.location.origin });
     window.location.assign(data.url);
+  }*/
+
+  async function handleUpgrade(e, user){
+    e.preventDefault();
+    const docRef = await fire.firestore()
+    .collection('users')
+    .doc(userData.uid)
+    .collection('checkout_sessions')
+    .add({
+      price: 'price_1J0OkzFFJvOkQ4EVlzN9GCBd',
+      success_url: window.location.origin + '/settings?upgrade=success',
+      cancel_url: window.location.origin + '/settings?upgrade=cancelled',
+    });
+    // Wait for the CheckoutSession to get attached by the extension
+    docRef.onSnapshot(async (snap) => {
+      const { error, sessionId } = snap.data();
+      if (error) {
+        // Show an error to your customer and 
+        // inspect your Cloud Function logs in the Firebase console.
+        alert(`An error occured: ${error.message}`);
+      }
+      if (sessionId) {
+        // We have a session, let's redirect to Checkout
+        // Init Stripe
+        const stripe = await loadStripe('pk_test_51IibusFFJvOkQ4EVK5gfZ5kGFY3hSdVj50bLcCSdt4n7kbdSRjPOlF4BtPl6wvytFM3GPnBisTxKHKyC4xh4F5Q400SEUc8ayI');
+        stripe.redirectToCheckout({ sessionId });
+      }
+    });
   }
-  // Dev Checkout End
+  // Dev Premium Subscription End
+
+  // Dev Customer Portal Start
+  async function handleUpdate(e){
+    e.preventDefault();
+    const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
+    const { data } = await functionRef({ returnUrl: window.location.origin  + '/settings' });
+    window.location.assign(data.url);
+  }
+  // Dev Customer Portal End
 
   const CustomToggle = ({ eventKey }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -301,6 +385,24 @@ const Settings = () => {
     );
   }
 
+ {/*} const UpgradeButton = () => {
+    return (
+      <button type="button" className="btn primary high w-100 mt-5" onClick={handleUpgrade}>Upgrade</button>
+    )
+  }
+
+  const ManageButton = () => {
+    return (
+      <button type="button" className="btn primary medium w-100 mt-5" onClick={handleUpdate}>Manage</button>
+    )
+  }*/}
+
+  const CurrentPlan = () => {
+    return (
+      <div className="tag primary medium">Current</div>
+    )
+  }
+
   return (
     <div>
       <Head>
@@ -309,10 +411,24 @@ const Settings = () => {
       <Header />
       <Container className="py-4">
         <div className="m-auto" style={{ maxWidth: "640px" }}>
-          <h2 className="my-4 my-md-5">Settings</h2>
+          <h2 className="my-5">Settings</h2>
+          { cancelAtPeriodEnd ? (
+                <> 
+                  <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
+                    <h5 className="text-light-high">Premium expiring {moment.unix(cancelAt).startOf('hour').fromNow()}</h5>
+                    <p className="text-light-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. You won't be able to re-sync your profile with LinkedIn. Renew your subscription to keep access to all Premium features.</p>
+                    <div>
+                      <RenewButton handleUpdate={handleUpdate} className="w-md-auto light" />
+                    </div>
+                  </div>
+                </>
+              )
+            : null }
+
           <div className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Sections</h5>
+              <p className="text-dark-low mb-0">Control the visibility of content profile</p>
             </div>
             <hr className="m-0"/>
             {sectionsLoading ?
@@ -334,7 +450,7 @@ const Settings = () => {
                       </div>
                       <Accordion.Collapse eventKey="0">
                         <div>
-                          {/*<div>
+                          <div>
                             <hr className="m-0" />
                             <div className="p-4">
                               <label className="checkbox-container small font-weight-medium text-dark-high">
@@ -343,7 +459,7 @@ const Settings = () => {
                                 <span className="checkmark"></span>
                               </label>
                             </div>
-                          </div>*/}
+                          </div>
                           <div>
                             <hr className="m-0" />
                             <div className="p-4">
@@ -462,42 +578,135 @@ const Settings = () => {
               </div>
             }
           </div>
+          <ResyncSection
+            linkedinId={linkedinId} 
+            userData={userData}
+            //syncsRemaining={syncsRemaining}
+            loggedInRoute={loggedInRoute}
+            product={product}
+            active={active}
+            status={status}
+            handleUpdate={handleUpdate}
+            handleUpgrade={handleUpgrade}
+          />
           <div className="card mx-auto mb-5">
             <div className="p-4">
-              <h5 className="text-dark-high mb-0">Re-sync data</h5>
-            </div>
-            <hr className="m-0"/>
-            <div className="m-4">
-              <p>To edit the information on your profile, you will need to head to your LinkedIn profile and make the changes there before re-syncing your information.</p>
-              <p>Once you have made your changes, you can sync your changes by using the button below.</p>
-              <div className="bg-error-100 radius-3 p-4">
-                <p className="text-error-high">Warning</p>
-                <p className="text-dark-high m-0">Re-syncing your data will overwrite any changes you have made in the Sections settings above.</p>
-              </div>
-            </div>
-            <hr className="m-0"/>
-            <div className="m-4">
-              <p className="large text-dark-high">{syncLoading === '' ? ( syncsRemaining > 0 ? ( syncsRemaining === 1 ? syncsRemaining + " re-sync remaining" : syncsRemaining + " re-syncs remaining" )  : "No re-syncs remaining") : syncLoading}</p>
-              <ProgressBar now={ syncsRemaining > 0 ? ( syncsRemaining === 1 ? 10 : 100 ) : 0 } />
-              <div className="d-flex mt-4 flex-column flex-md-row">
-                <button type="button" onClick={handleResyncSubmit} className="btn primary high mr-md-3 w-100 w-md-auto" disabled={ syncLoading !== '' ? true : ( syncsRemaining === 0 ? true : false )}>{syncLoading === '' ? "Re-sync from Linkedin" : syncLoading}</button>
-                <a href="#plan" className="btn primary medium mt-3 mt-md-0 w-100 w-md-auto">Get unlimited re-syncing</a>
-              </div>
-              {syncError !== '' ? <p className="small text-error-high mt-2">{syncError}</p> : null}
-            </div>
-          </div>
-          <div className="card mx-auto mb-5">
-           <div className="p-4">
               <h5 className="text-dark-high mb-0">Plan</h5>
+              <p className="text-dark-low mb-0">Manage your plan and payment information</p>
             </div>
             <hr className="m-0"/>
+           {/*}
             <div className="m-4">
-              <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleCheckout}>Upgrade</button>
+              <p>{product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
+              <p>{active === true ? 'Active' : 'Cancelled'}</p>
+              <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
+              <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button>
+            </div>
+            <hr className="m-0"/>
+          */}
+          {/*}
+              <div className="m-4">
+                <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).endOf('day').fromNow() : null }</p>
+                <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).format('MMMM Do YYYY, h:mm:ss a') : null }</p>
+                <p>{ cancelAtPeriodEnd ? cancelAt : null }</p>
+              </div>
+            <hr className="m-0"/>
+        */}
+        
+            <div className="m-4">
+              {/*}
+            { cancelAtPeriodEnd ? (
+              <>
+                  <div className="d-flex flex-column bg-error-100 radius-3 p-4 mb-4">
+                    <p className="text-error-high">Your subscription is expiring soon</p>
+                    <p className="text-dark-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. Renew your subscription to keep access to all Premium features.</p>
+                  </div>
+                </>
+              )
+            : null }*/}
+              <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
+                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <h5 className="text-primary-high mb-1">Basic</h5>
+                    {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
+                  </div>
+                  <h4 className="text-dark-high mb-4">Free</h4>
+                  {[
+                    'Vitaely.me domain', 
+                    'Basic presentation'
+                  ].map((feature, index) =>
+                    <div key={index} className="d-flex align-items-start mt-2">
+                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
+                        <path d={ICONS.CHECK}></path>
+                      </svg>
+                      <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                    </div>
+                  )}
+                  {/*<button type="button" className="btn primary high w-100 mt-3" onClick={handleUpdate}>Upgrade</button>*/}
+                </div>
+                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <h5 className="text-primary-high mb-1">Premium</h5>
+                    {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                  </div>
+                  <div className="d-flex align-items-end mb-4">
+                    <h4 className="text-dark-high mr-1 mb-0">$3</h4>
+                    <p className="text-dark-high mb-0">/month</p>
+                  </div>
+                  {[
+                    'All Starter features', 
+                    'Unlimited re-syncing', 
+                    'More coming soon'
+                  ].map((feature, index) =>
+                    <div key={index} className="d-flex align-items-start mt-2">
+                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
+                        <path d={ICONS.CHECK}></path>
+                      </svg>
+                      <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                    </div>
+                  )}
+                  { cancelAtPeriodEnd ? (
+                      <>
+                        <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
+                      </>
+                    )
+                  : null }
+                  {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? ( cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                  {/*<button type="button" className="btn primary high small w-100 mt-5" onClick={handleUpdate}>Upgrade</button>
+                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (active === true ? styles.active : '') : '') : ''}`}>
+                    <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
+                    <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button></div>*/}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </Container>
       <br /><br />
+      <Modal 
+        show={showModal} 
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <h5 className="text-dark-high mb-0">Re-sync data</h5>
+          {/*<button type="button" onClick={handleClose} className="btn dark low small icon-only">
+            <svg viewBox="0 0 24 24">
+              <path d={ICONS.CLOSE}></path>
+            </svg>
+          </button>*/}
+        </Modal.Header>
+        <Modal.Body>
+          <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
+          <p>Re-syncing your data will overwrite any changes you have made in the <b>Sections</b> settings.</p>
+          <br />
+          <div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
+            <button type="button" className="btn primary high w-100 w-md-auto mr-0 mr-md-3 mb-3 mb-md-0" onClick={handleClose}>Re-sync data from Linkedin</button>
+            <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+          </div>
+        </Modal.Body>
+      </Modal>
       <ToastContainer
         position="top-right"
         autoClose={3000}
