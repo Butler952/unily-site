@@ -160,6 +160,7 @@ const Settings = () => {
     .then(() => {
       setSectionsLoading(false)
       console.log('Retreived display info from database')
+      console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
     })
     .catch((error) => {
       console.log("Error getting document:", error);
@@ -595,9 +596,13 @@ const Settings = () => {
               <p className="text-dark-low mb-0">Manage your plan and payment information</p>
             </div>
             <hr className="m-0"/>
+            <div className="p-4">
+              <p>{ process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM }</p>
+            </div>
+            <hr className="m-0"/>
            {/*}
             <div className="m-4">
-              <p>{product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
+              <p>{product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
               <p>{active === true ? 'Active' : 'Cancelled'}</p>
               <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
               <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button>
@@ -625,10 +630,10 @@ const Settings = () => {
               )
             : null }*/}
               <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <h5 className="text-primary-high mb-1">Basic</h5>
-                    {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
+                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
                   </div>
                   <h4 className="text-dark-high mb-4">Free</h4>
                   {[
@@ -644,10 +649,10 @@ const Settings = () => {
                   )}
                   {/*<button type="button" className="btn primary high w-100 mt-3" onClick={handleUpdate}>Upgrade</button>*/}
                 </div>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <h5 className="text-primary-high mb-1">Premium</h5>
-                    {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
                   </div>
                   <div className="d-flex align-items-end mb-4">
                     <h4 className="text-dark-high mr-1 mb-0">$3</h4>
@@ -671,9 +676,9 @@ const Settings = () => {
                       </>
                     )
                   : null }
-                  {product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? ( cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                  {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? ( cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
                   {/*<button type="button" className="btn primary high small w-100 mt-5" onClick={handleUpdate}>Upgrade</button>
-                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.STRIPE_PRODUCT_PREMIUM ? (active === true ? styles.active : '') : '') : ''}`}>
+                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? styles.active : '') : '') : ''}`}>
                     <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
                     <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button></div>*/}
                 </div>
