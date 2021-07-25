@@ -1,7 +1,18 @@
 import firebase from 'firebase';
 
+var firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+};
+
 // Dev
 
+/*
   var firebaseConfig = {
     apiKey: "AIzaSyBOUU9jkhPTraVXBNAtZDvWaIm_p5LgMhk",
     authDomain: "vitaely-dev.firebaseapp.com",
@@ -11,7 +22,7 @@ import firebase from 'firebase';
     appId: "1:825327873857:web:fb7819ef359237bf30fbc0",
     measurementId: "G-HGYSFW8SCK"
   };
-
+  */
 
 // Production
 /*
