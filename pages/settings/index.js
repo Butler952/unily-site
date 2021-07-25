@@ -159,8 +159,8 @@ const Settings = () => {
     })
     .then(() => {
       setSectionsLoading(false)
-      console.log('Retreived display info from database')
-      console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
+      //console.log('Retreived display info from database')
+      //console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
     })
     .catch((error) => {
       console.log("Error getting document:", error);
@@ -179,15 +179,15 @@ const Settings = () => {
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
           setCancelAt(doc.data().cancel_at.seconds)
-          console.log(doc.id, " => ", doc.data());
-          console.log(doc.data().items[0].plan.product);
-          console.log(doc.data().items[0].plan.active)
+          // console.log(doc.id, " => ", doc.data());
+          // console.log(doc.data().items[0].plan.product);
+          // console.log(doc.data().items[0].plan.active)
           // prod_Jdg7o4VDoipc7d = Premium
           // prod_Jdg7ZdcmfuNm0P = Free
       });
     })
     .then(() => {
-      console.log('Retreived subscription data from database')
+      // console.log('Retreived subscription data from database')
     })
     .catch((error) => {
       console.log("Error getting document:", error);
