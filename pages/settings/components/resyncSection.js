@@ -234,7 +234,7 @@ const ResyncSection = ({
                 <p className="text-dark-high mb-0">/month</p>
               </div>
               {[
-                'All Starter features', 
+                'All Basic features', 
                 'Unlimited re-syncing', 
                 'More coming soon'
               ].map((feature, index) =>

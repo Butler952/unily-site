@@ -178,7 +178,7 @@ const Settings = () => {
           //setActive(doc.data().items[0].plan.active)
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
-          setCancelAt(doc.data().cancel_at.seconds)
+          if ( cancelAtPeriodEnd ) { setCancelAt(doc.data().cancel_at.seconds) }
           // console.log(doc.id, " => ", doc.data());
           // console.log(doc.data().items[0].plan.product);
           // console.log(doc.data().items[0].plan.active)
@@ -340,7 +340,7 @@ const Settings = () => {
     .doc(userData.uid)
     .collection('checkout_sessions')
     .add({
-      price: 'price_1J0OkzFFJvOkQ4EVlzN9GCBd',
+      price: process.env.NEXT_PUBLIC_STRIPE_PRICE_PREMIUM,
       success_url: window.location.origin + '/settings?upgrade=success',
       cancel_url: window.location.origin + '/settings?upgrade=cancelled',
     });
@@ -655,7 +655,7 @@ const Settings = () => {
                     <p className="text-dark-high mb-0">/month</p>
                   </div>
                   {[
-                    'All Starter features', 
+                    'All Basic features', 
                     'Unlimited re-syncing', 
                     'More coming soon'
                   ].map((feature, index) =>
