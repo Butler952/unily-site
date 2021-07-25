@@ -596,12 +596,6 @@ const Settings = () => {
               <p className="text-dark-low mb-0">Manage your plan and payment information</p>
             </div>
             <hr className="m-0"/>
-            <div className="p-4">
-              <p>{ process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM }</p>
-              <p>{ product }</p>
-              <p>{ status }</p>
-            </div>
-            <hr className="m-0"/>
            {/*}
             <div className="m-4">
               <p>{product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
