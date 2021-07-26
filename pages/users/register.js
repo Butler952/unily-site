@@ -44,7 +44,9 @@ const Register = () => {
     fire.firestore().collection('users').doc(user.uid).set({
       //receiveEmails,
       email: user.email,
-      stage: '/setup/emails'
+      stage: '/setup/emails',
+      created: fire.firestore.FieldValue.serverTimestamp(),
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
       router.push("/setup/emails")

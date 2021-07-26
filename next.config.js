@@ -1,4 +1,7 @@
 module.exports = {
+  /*env: {
+    STRIPE_PRODUCT_PREMIUM: 'prod_Jdg7o4VDoipc7d',
+  },*/
   async headers() {
     return [
       {

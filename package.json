@@ -9,10 +9,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.15.0",
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
     "firebase": "^7.15.5",
+    "moment": "^2.29.1",
     "next": "^10.0.8",
     "node-fetch": "^2.6.1",
     "node-sass": "^5.0.0",

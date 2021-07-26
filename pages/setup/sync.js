@@ -98,8 +98,11 @@ const Sync = () => {
                 'each': createVolunteerList(result.volunteer_work)
               },
             },
+            //syncsRemaining: 1,
             stage: 'complete',
             profileUrl: '/profile/' + userData.uid,
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+            lastSync: fire.firestore.FieldValue.serverTimestamp(),
           })
         })
         .then(() => {
