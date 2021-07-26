@@ -355,7 +355,7 @@ const Settings = () => {
       if (sessionId) {
         // We have a session, let's redirect to Checkout
         // Init Stripe
-        const stripe = await loadStripe('pk_test_51IibusFFJvOkQ4EVK5gfZ5kGFY3hSdVj50bLcCSdt4n7kbdSRjPOlF4BtPl6wvytFM3GPnBisTxKHKyC4xh4F5Q400SEUc8ayI');
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
         stripe.redirectToCheckout({ sessionId });
       }
     });
