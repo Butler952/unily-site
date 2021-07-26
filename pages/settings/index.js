@@ -175,7 +175,7 @@ const Settings = () => {
       querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           setProduct(doc.data().items[0].plan.product)
-          //setActive(doc.data().items[0].plan.active)
+          setActive(doc.data().items[0].plan.active)
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
           if ( cancelAtPeriodEnd ) { setCancelAt(doc.data().cancel_at.seconds) }
