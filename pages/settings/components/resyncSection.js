@@ -80,7 +80,7 @@ const ResyncSection = ({
 
   const handleResyncSubmit = (e) => {
     e.preventDefault();
-    if (product == 'prod_Jdg7o4VDoipc7d' && status === 'active') {
+    if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
       setSyncingState('Fetching data from LinkedIn');
       fetch("/api/linkedin?profileUrl=" + "https://www.linkedin.com/in/" + linkedinId)
         .then(res => res.json())
@@ -188,7 +188,7 @@ const ResyncSection = ({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-      >{product == 'prod_Jdg7o4VDoipc7d' && status === 'active' ? 
+      >{product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? 
         <>
           {/*<Modal.Header closeButton>
             <h5 className="text-dark-high mb-0">Re-sync data</h5>
