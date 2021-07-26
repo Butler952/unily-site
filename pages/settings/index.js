@@ -178,7 +178,7 @@ const Settings = () => {
           setActive(doc.data().items[0].plan.active)
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
-          if ( cancelAtPeriodEnd ) { setCancelAt(doc.data().cancel_at.seconds) }
+          setCancelAt(doc.data().cancel_at.seconds)
           // console.log(doc.id, " => ", doc.data());
           // console.log(doc.data().items[0].plan.product);
           // console.log(doc.data().items[0].plan.active)
