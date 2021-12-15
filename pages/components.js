@@ -314,6 +314,81 @@ const Components = () => {
         <br /><br />
         <Row>
           <Col>
+            <h3>Light</h3>
+            <div className="d-flex flex-wrap">
+              <a className="btn light high small mr-3">Label</a>
+              <a className="btn light high small icon-left mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high small icon-right mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high small icon-only mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+              </a>
+              <a className="btn light medium small mr-3">Label</a>
+              <a className="btn light low small mr-3">Label</a>
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
+              <a className="btn light high mr-3">Label</a>
+              <a className="btn light high icon-left mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high icon-right mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high icon-only mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+              </a>
+              <a className="btn light medium mr-3">Label</a>
+              <a className="btn light low mr-3">Label</a>
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
+              <a className="btn light high large mr-3">Label</a>
+              <a className="btn light high large icon-left mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high large icon-right mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+                Label
+              </a>
+              <a className="btn light high large icon-only mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PLUS}></path>
+                </svg>
+              </a>
+              <a className="btn light medium large mr-3">Label</a>
+              <a className="btn light low large mr-3">Label</a>
+            </div>
+            <br />
+          </Col>
+        </Row>
+        <br /><br />
+        <Row>
+          <Col>
             <h3>Error</h3>
             <div className="d-flex flex-wrap">
               <a className="btn error high small mr-3">Label</a>
@@ -640,6 +715,28 @@ const Components = () => {
             <br />
             <div className="d-flex flex-wrap">
               <input type="text" placeholder="Placeholder" className="large" />
+            </div>
+            <br />
+          </Col>
+        </Row>
+        <br /><br />
+        <Row>
+          <Col>
+            <h3>Text area</h3>
+            <div className="d-flex flex-wrap">
+              <textarea type="text" placeholder="Placeholder" className="small" />
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
+              <textarea type="text" placeholder="Placeholder" />
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
+              <textarea type="text" placeholder="Placeholder" className="error" />
+            </div>
+            <br />
+            <div className="d-flex flex-wrap">
+              <textarea type="text" placeholder="Placeholder" className="large" />
             </div>
             <br />
           </Col>

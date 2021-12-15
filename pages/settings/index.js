@@ -18,6 +18,7 @@ import ResyncSection from './components/resyncSection';
 import ManageButton from './components/manageButton';
 import UpgradeButton from './components/upgradeButton';
 import RenewButton from './components/renewButton';
+import SurveyBanner from '../../components/banner/SurveyBanner';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);
@@ -100,6 +101,7 @@ const Settings = () => {
   const [volunteering, setVolunteering] = useState(true);
   const [volunteeringEach, setVolunteeringEach] = useState('');
   const [linkedinId, setLinkedinId] = useState('');
+  const [surveyHide, setSurveyHide] = useState(true);
   //const [syncsRemaining, setSyncsRemaining] = useState(0);
   const [sectionsLoading, setSectionsLoading] = useState(true);
   const [syncLoading, setSyncLoading] = useState('');
@@ -151,6 +153,7 @@ const Settings = () => {
         setVolunteering(doc.data().displayInfo.volunteering.section)
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
+        setSurveyHide(doc.data().surveys.surveyOnSignUp.surveyHide ? true : false)
         //doc.data().syncsRemaining ? setSyncsRemaining(doc.data().syncsRemaining) : null
         //console.log(doc.data())
       } else {
@@ -410,6 +413,7 @@ const Settings = () => {
         <title>Settings</title>
       </Head>
       <Header />
+      { surveyHide ? '' : <SurveyBanner /> }
       <Container className="py-4">
         <div className="m-auto" style={{ maxWidth: "640px" }}>
           <h2 className="my-5">Settings</h2>

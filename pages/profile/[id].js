@@ -6,6 +6,7 @@ import Head from 'next/head';
 
 import styles from './profile.module.scss'
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
+import SurveyBanner from '../../components/banner/SurveyBanner';
 
 const Profile = (props) => {
 
@@ -19,6 +20,7 @@ const Profile = (props) => {
         <title>{props.full_name} | {props.headline}</title>
       </Head>
       <Header />
+      { props.surveyOnSignUpHide ? '' : <SurveyBanner /> }
       <Container>
         <div className="text-center mb-5">
           {(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) &&
@@ -144,7 +146,7 @@ export const getServerSideProps = async ({ query }) => {
     .get()
     .then(result => {
       content['email'] = result.data().email ? result.data().email : null;
-      content['profile_pic_url'] = result.data().profile.profile_pic_url;
+      content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
       content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null ;
       content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
       content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
@@ -157,6 +159,7 @@ export const getServerSideProps = async ({ query }) => {
       content['displayExperience'] = result.data().displayInfo.experience ? result.data().displayInfo.experience : null;
       content['displayEducation'] = result.data().displayInfo.education ? result.data().displayInfo.education : null;
       content['displayVolunteering'] = result.data().displayInfo.volunteering ? result.data().displayInfo.volunteering : null;
+      content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
     });
 
   return {
@@ -175,6 +178,7 @@ export const getServerSideProps = async ({ query }) => {
       displayExperience: content.displayExperience,
       displayEducation: content.displayEducation,
       displayVolunteering: content.displayVolunteering,
+      surveyOnSignUpHide: content.surveyOnSignUpHide,
     }
   }
 }
