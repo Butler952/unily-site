@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import fire from '../config/fire-config';
 import { useRouter } from 'next/router'
@@ -14,7 +14,18 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [screenWidth, setScreenWidth] = useState('');
   // const [idList, setIdList] = useState("1,2,3");
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   const router = useRouter();
 
   fire.auth()
@@ -115,7 +126,7 @@ const Home = () => {
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
           <div style={{ maxWidth: '560px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
-            <h1>Turn your CV into a landing page</h1>
+          { screenWidth > 576 ? <h1>Turn your CV into a landing page</h1> : <h2>Turn your CV into a landing page</h2> }
             <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
             <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
               <Link href="/users/register">
@@ -139,7 +150,7 @@ const Home = () => {
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1>
+        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
@@ -162,7 +173,7 @@ const Home = () => {
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1>
+          { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
           <div className={styles.heroImageWrapper}>
             <Image
               src="/images/profile-preview.png"
@@ -175,7 +186,7 @@ const Home = () => {
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
-            <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1>
+            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
@@ -198,7 +209,7 @@ const Home = () => {
       </div>
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1>
+          { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    
           <p className="large mx-auto mb-5">Create your landing page in just 2 minutes</p>
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register">
