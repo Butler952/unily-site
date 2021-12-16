@@ -38,7 +38,11 @@ const Profile = (props) => {
                     
   const getSummaryText = () => {
     // For Text that is shorter than desired length
-    if (props.summary.length <= 258) return props.summary;
+    if (props.summary.length <= 258) return (
+      <p className={`large mb-0 ` + styles.summary}>
+        {props.summary}
+      </p>
+    );
     // If text is longer than desired length & showMore is true
     if (props.summary.length > 258 && showMore) {
       return (
