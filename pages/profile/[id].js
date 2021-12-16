@@ -7,12 +7,35 @@ import Head from 'next/head';
 import styles from './profile.module.scss'
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import SurveyBanner from '../../components/banner/SurveyBanner';
+import { useEffect, useState } from 'react';
 
 const Profile = (props) => {
+
+  const [currentUserId, setCurrentUserId] = useState('')
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
+
+  useEffect(() => {
+    checkUser();
+  }, [])
+
+  const checkUser = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        setCurrentUserId(user.uid)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }
+
+
 
   return (
     <div>
@@ -20,7 +43,7 @@ const Profile = (props) => {
         <title>{props.full_name} | {props.headline}</title>
       </Head>
       <Header />
-      { props.surveyOnSignUpHide ? '' : <SurveyBanner /> }
+      { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
       <Container>
         <div className="text-center mb-5">
           {(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) &&
@@ -145,6 +168,7 @@ export const getServerSideProps = async ({ query }) => {
     .doc(query.id)
     .get()
     .then(result => {
+      content['pageId'] = query.id ? query.id : null;
       content['email'] = result.data().email ? result.data().email : null;
       content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
       content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null ;
@@ -164,6 +188,7 @@ export const getServerSideProps = async ({ query }) => {
 
   return {
     props: {
+      pageId: content.pageId,
       email: content.email,
       profile_pic_url: content.profile_pic_url,
       background_cover_image_url: content.background_cover_image_url,

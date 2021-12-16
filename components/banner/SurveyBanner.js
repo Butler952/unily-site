@@ -221,14 +221,14 @@ const SurveyBanner = () => {
         keyboard={false}
         // size="lg"
       >
-        <Modal.Header closeButton>
+        { !submitted ? <Modal.Header closeButton>
           <h5 className="text-dark-high mb-0">Feedback survey</h5>
           <button onClick={handleClose} className="btn dark low small icon-only">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.CLOSE}></path>
             </svg>
           </button>
-        </Modal.Header>
+        </Modal.Header> : '' }
         { !submitted ? 
           <Modal.Body>
             <div>
