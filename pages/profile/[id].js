@@ -79,12 +79,12 @@ const Profile = (props) => {
             <img src={props.profile_pic_url} style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} className={styles.profilePicture} />
           }
           <br /> <br />
-          <div className="mb-4">
+          <div className="mb-1 d-flex flex-column align-items-center">
             {(props.full_name && props.displayBasicInfo.each.name === true) &&
               <h2 className="mb-1">{props.full_name}</h2>
             }
             {(props.headline && props.displayBasicInfo.each.headline === true) &&
-              <h5>{props.headline}</h5>
+              <h5 style={{maxWidth: '640px'}}>{props.headline}</h5>
             }
           </div>
           {(props.email && props.displayBasicInfo.each.email === true) &&
