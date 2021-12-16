@@ -13,6 +13,7 @@ const Profile = (props) => {
 
   const [currentUserId, setCurrentUserId] = useState('')
   const [showMore, setShowMore] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
@@ -28,8 +29,10 @@ const Profile = (props) => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         setCurrentUserId(user.uid)
+        setLoggedIn(true)
         // ...
       } else {
+        setLoggedIn(false)
         // User is signed out
         // ...
       }
@@ -72,7 +75,7 @@ const Profile = (props) => {
       <Head>
         <title>{props.full_name} | {props.headline}</title>
       </Head>
-      <Header />
+      { loggedIn ? <Header /> : '' }
       { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
       <Container>
         <div className="text-center mb-5">
