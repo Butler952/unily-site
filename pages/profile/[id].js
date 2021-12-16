@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 const Profile = (props) => {
 
   const [currentUserId, setCurrentUserId] = useState('')
+  const [showMore, setShowMore] = useState(false);
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
@@ -34,6 +35,31 @@ const Profile = (props) => {
       }
     });
   }
+                    
+  const getSummaryText = () => {
+    // For Text that is shorter than desired length
+    if (props.summary.length <= 258) return props.summary;
+    // If text is longer than desired length & showMore is true
+    if (props.summary.length > 258 && showMore) {
+      return (
+        <>
+          <p className={`large mb-0 ` + styles.summary}>
+            {props.summary}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
+          </p>
+        </>
+      );
+    }
+      // If text is longer than desired length & showMore is false
+    if (props.summary.length > 258) {
+      return (
+        <>
+          <p className={`large mb-0 ` + styles.summary}>
+            {props.summary.slice(0, 258)}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(true)}>Read more</u>
+          </p>
+        </>
+      );
+    }
+  };
 
 
 
@@ -72,7 +98,7 @@ const Profile = (props) => {
           <div className="mb-5">
             <h4>About</h4>
             <div className={styles.profileCard + ' card p-4'}>
-              <p className={`large mb-0 ` + styles.summary}>{props.summary}</p>
+              {getSummaryText()}
             </div>
             <br /><br />
           </div>
