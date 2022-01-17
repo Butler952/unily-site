@@ -154,8 +154,6 @@ const Settings = () => {
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
         setSurveyHide(doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : false) : false) : false)
-        //doc.data().syncsRemaining ? setSyncsRemaining(doc.data().syncsRemaining) : null
-        //console.log(doc.data())
       } else {
         console.log("No such document!");
       }
