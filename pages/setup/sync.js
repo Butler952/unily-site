@@ -10,6 +10,7 @@ import Header from '../../components/header/Header';
 // import testResponse from './testResponse';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 const Sync = () => {
   const [profileUrl, setProfileUrl] = useState('');
@@ -106,6 +107,8 @@ const Sync = () => {
           })
         })
         .then(() => {
+          mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+          mixpanel.track('Synced');
           setTimeout(
             setLoadingState('Sync successfully completed'), 2000
           )

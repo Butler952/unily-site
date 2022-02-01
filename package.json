@@ -15,6 +15,7 @@
     "cors-anywhere": "^0.4.4",
     "firebase": "^7.15.5",
     "logrocket": "^2.1.2",
+    "mixpanel-browser": "^2.43.0",
     "moment": "^2.29.1",
     "next": "^10.0.8",
     "node-fetch": "^2.6.1",

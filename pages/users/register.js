@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
 
 const Register = () => {
 
@@ -25,6 +26,8 @@ const Register = () => {
   const [notify, setNotification] = useState('');
 
   useEffect(() => {
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.track('Get started');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
@@ -47,6 +50,10 @@ const Register = () => {
       stage: '/setup/emails',
       created: fire.firestore.FieldValue.serverTimestamp(),
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+      mixpanel.track('Register');
     })
     .then(() => {
       router.push("/setup/emails")

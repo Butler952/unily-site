@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Header from '../components/header/Header';
 import { Container } from 'react-bootstrap';
 import Image from 'next/image'
+import mixpanel from 'mixpanel-browser';
 
 import styles from './index.module.scss'
 import Icon from '../components/icon/Icon';
@@ -22,6 +23,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
   }, []);
