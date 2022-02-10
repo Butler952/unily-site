@@ -59,7 +59,7 @@ const HowToCreateAnOnlineCV = () => {
         <div id="guide" className="py-4 background-light">
           <h3>How create an online CV with Vitaely.me</h3>
           <ul>
-            <li><p className="large">Create your free acount</p></li>
+            <li><p className="large">Create your <Link href="/users/register">free acount</Link></p></li>
             <li><p className="large">Grab the URL of your Linkedin profile and sync your data</p></li>
             <li><p className="large">You're done! Your online CV is ready</p></li>
           </ul>
