@@ -20,10 +20,10 @@ const HowToCreateAnOnlineCV = () => {
   return (
     <div>
       <Post 
-        title="How to create an online CV"
+        title="How to create an online CV in 2 minutes"
         image='../../images/profile-preview.png'
-        imageAlt="Building the Vitaely.me web app"
-        readingDuration="3"
+        imageAlt="An online cv created with Vitaely.me"
+        readingDuration="2"
         hideFooter
       >
         <div id="content" className="py-4 background-light">
