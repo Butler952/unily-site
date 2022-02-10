@@ -9,12 +9,14 @@ const createSitemap = (
   routes,
   legals,
   users,
+  blogs,
   profiles
 ) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes.map((route) => toUrl(host, route)).join("")}
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`)).join("")}
     ${users.map((user) => toUrl(host, `/user/${user}`)).join("")}
+    ${blogs.map((post) => toUrl(host, `/blogs/${post}`)).join("")}
     ${profiles.map((profile) => toUrl(host, `/profile/${profile}`)).join("")}
     </urlset>`;
 
@@ -39,6 +41,9 @@ Sitemap.getInitialProps = ({ res, req }) => {
   const routes = [""];
   const legals = ["cookies", "privacy", "terms"];  //You can fetch the products from an API
   const users = ["login", "register", "reset"];  //You can fetch the products from an API
+  const blogs = [
+    "how-to-create-an-online-cv",
+  ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
     "0EhvLdyj6fh6fqGwpzh80XIETMO2",
@@ -492,7 +497,7 @@ Sitemap.getInitialProps = ({ res, req }) => {
    //You can fetch the products from an API*/
   /*const profilesRes = await fetch("/api/getProfilelist")
   const profiles = await profilesRes.json()*/
-  const sitemap = createSitemap(req.headers.host, routes, legals, users, profiles);
+  const sitemap = createSitemap(req.headers.host, routes, legals, users, blogs, profiles);
 
   res.setHeader("Content-Type", "text/xml");
   res.write(sitemap);

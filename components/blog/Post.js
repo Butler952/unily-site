@@ -1,0 +1,70 @@
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
+import { useRouter } from 'next/router'
+import ProgressBar from 'react-scroll-progress-bar';
+import Icon from '../icon/Icon';
+import Footer from '../Footer';
+import styles from '../../pages/blog/blog.module.scss'
+import Header from '../header/Header';
+
+const Post = (props) => {
+
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
+  }, []);
+
+
+
+  return (
+    <div style={{background: 'white'}}>
+      <Head>
+        <title>{props.title}</title>
+      </Head>
+      <ProgressBar
+        bgcolor="#6839EF"
+        height="4px"
+      />
+      <Header />
+      <div className="d-flex flex-row justify-content-start m-3"></div>
+        <div className="container" style={{maxWidth: '768px'}}>
+          <div className=" pt-5 pb-4 background-light text-center">
+            {screenWidth > 767 ?
+              <h1 className="hero-title mb-4 text-dark-high text-center">{props.title}</h1>
+              :
+              <h2 className="hero-title mb-4 text-dark-high text-center">{props.title}</h2>
+            }
+            <p className="text-dark-med large tagline">{props.readingDuration} min read</p>
+            <div className={`${styles.featureCard} my-5`}>
+              { props.image ? <img alt={props.imageAlt ? props.imageAlt : null} src={props.image}></img> : null }
+            </div>
+          </div>
+          {props.children}
+          { props.hideFooter ? 
+          null :
+          <div className="landing-page-section background-light">
+            <div className="container text-center">
+              {screenWidth > 767 ?
+                <h1 className="hero-title mx-auto mb-4 text-dark-high">Questions? Reach out!</h1>
+                :
+                <h2 className="hero-title mx-auto mb-4 text-dark-high">Questions? Reach out!</h2>
+              }
+              <p className="mx-auto mb-5 text-dark-med large">I'll try to get back to you as soon as I can</p>
+              <a href="mailto:butler952@gmail.com" className="mb-3 mb-md-0 btn btn-primary btn-large mr-0 mr-md-3">Email me</a>
+            </div>
+          </div>
+          }
+        </div>
+      <Footer />
+    </div>
+  )
+}
+
+export default Post;
