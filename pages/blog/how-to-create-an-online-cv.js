@@ -64,7 +64,7 @@ const HowToCreateAnOnlineCV = () => {
             <li><p className="large">You're done! Your online CV is ready</p></li>
           </ul>
           <div className={`${styles.featureCard} mt-5`}>
-            <video controls alt="A pile of paper on a table" src='../../images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4'></video>
+            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='../../images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4'></video>
           </div>
           <p className="mt-3">Sycning your data from LinkedIn is as easy as pasting the URL.</p>
         </div>
