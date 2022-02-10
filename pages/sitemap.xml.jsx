@@ -15,7 +15,7 @@ const createSitemap = (
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes.map((route) => toUrl(host, route)).join("")}
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`)).join("")}
-    ${users.map((user) => toUrl(host, `/user/${user}`)).join("")}
+    ${users.map((user) => toUrl(host, `/users/${user}`)).join("")}
     ${blogs.map((post) => toUrl(host, `/blog/${post}`)).join("")}
     ${profiles.map((profile) => toUrl(host, `/profile/${profile}`)).join("")}
     </urlset>`;
