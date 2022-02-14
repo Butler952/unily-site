@@ -43,6 +43,7 @@ Sitemap.getInitialProps = ({ res, req }) => {
   const users = ["login", "register", "reset"];  //You can fetch the products from an API
   const blogs = [
     "how-to-create-an-online-cv",
+    "how-to-create-a-personal-landing-page"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
