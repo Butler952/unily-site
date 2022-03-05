@@ -17,3 +17,12 @@
   width: 100%;
   display: block;
 }
+
+.postCard {
+  transition: $transition-standard;
+  border-color: $dark-300;
+  &:hover {
+    cursor: pointer;
+    box-shadow: $shadow-4;
+  }
+}

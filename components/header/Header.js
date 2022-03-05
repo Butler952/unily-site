@@ -82,12 +82,15 @@ const Header = () => {
           <Link href="/">
             <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? {margin: '16px', height: '40px'} : {marginLeft: '16px', height: '32px'}}/></a>
           </Link>
-          <div className="d-flex">
-            <Link href="/users/register">
-              <a className={`btn primary small ml-2' ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
+          <div className="d-flex" style={{gap: '8px'}}>
+            <Link href="/blog">
+              <a className="btn dark low small">Blog</a>
             </Link>
+            {/* <Link href="/users/register">
+              <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
+            </Link> */}
             <Link href="/users/login">
-              <a className="btn primary low small ml-2">Login</a>
+              <a className="btn primary medium small">Login</a>
             </Link>
           </div>
         </div>
