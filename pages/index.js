@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
-  // const [idList, setIdList] = useState("1,2,3");
+  // const [idList, setIdList] = useState("");
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
@@ -92,14 +92,14 @@ const Home = () => {
     fire.firestore().collection('users').get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        tempIdList.push('"' + doc.id + '"' + ", ");
+        tempIdList.push(doc.id + ", ");
       })
     })
+    // .then(() => {
+    //   setIdList(tempIdList)
+    // })
     .then(() => {
-      setIdList(tempIdList)
-    })
-    .then(() => {
-      console.log(idList)
+      console.log(tempIdList)
     })
     .catch((error) => {
       console.log(error);
@@ -111,12 +111,12 @@ const Home = () => {
       .then(res => console.log(res))
       .then(data => console.log(data))
   }
-/*
+
   useEffect(() => {
       getProfileList()
     //.then(console.log(idList))
   }, []);
-*/
+
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
