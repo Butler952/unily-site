@@ -112,10 +112,10 @@ const Home = () => {
       .then(data => console.log(data))
   }
 
-  useEffect(() => {
-      getProfileList()
-    //.then(console.log(idList))
-  }, []);
+  // useEffect(() => {
+  //     getProfileList()
+  //   //.then(console.log(idList))
+  // }, []);
 
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
