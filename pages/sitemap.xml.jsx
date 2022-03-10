@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import fire from '../config/fire-config';
 
-const toUrl = (host, route) =>
-  `<url><loc>https://${host}${route}</loc></url>`;
+const toUrl = (host, route, frequency, priority) => (
+  `
+  <url>
+    <loc>https://${host}${route}</loc>
+    <changefreq>${frequency ? frequency : "weekly"}daily</changefreq>
+    <priority>${priority ? priority : "0.7"}</priority>
+    <lastmod>${new Date().getFullYear()}</lastmod>
+  </url>
+  `
+)
 
 const createSitemap = (
   host,
@@ -13,9 +21,9 @@ const createSitemap = (
   profiles
 ) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${routes.map((route) => toUrl(host, route)).join("")}
+    ${routes.map((route) => toUrl(host, route, `weekly`, `1.0`)).join("")}
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`)).join("")}
-    ${users.map((user) => toUrl(host, `/users/${user}`)).join("")}
+    ${users.map((user) => toUrl(host, `/users/${user}`, `weekly`, `0.8`)).join("")}
     ${blogs.map((post) => toUrl(host, `/blog/${post}`)).join("")}
     ${profiles.map((profile) => toUrl(host, `/profile/${profile}`)).join("")}
     </urlset>`;
