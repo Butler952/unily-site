@@ -22,10 +22,10 @@ const createSitemap = (
 ) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes.map((route) => toUrl(host, route, `weekly`, `1.0`)).join("")}
-    ${legals.map((legal) => toUrl(host, `/legal/${legal}`)).join("")}
-    ${users.map((user) => toUrl(host, `/users/${user}`, `weekly`, `0.8`)).join("")}
-    ${blogs.map((post) => toUrl(host, `/blog/${post}`)).join("")}
-    ${profiles.map((profile) => toUrl(host, `/profile/${profile}`)).join("")}
+    ${legals.map((legal) => toUrl(host, `/legal/${legal}`, `monthly`)).join("")}
+    ${users.map((user) => toUrl(host, `/users/${user}`, `monthly`, `0.6`)).join("")}
+    ${blogs.map((post) => toUrl(host, `/blog/${post}`, `yearly`, `0.8`)).join("")}
+    ${profiles.map((profile) => toUrl(host, `/profile/${profile}`, `daily`, `0.8`)).join("")}
     </urlset>`;
 
 const Sitemap = () => {};
