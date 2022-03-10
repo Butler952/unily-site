@@ -7,7 +7,7 @@ const toUrl = (host, route, frequency, priority) => (
     <loc>https://${host}${route}</loc>
     <changefreq>${frequency ? frequency : "weekly"}</changefreq>
     <priority>${priority ? priority : "0.7"}</priority>
-    <lastmod>${new Date()}</lastmod>
+    <lastmod>${new Date.toISOString()}</lastmod>
   </url>
   `
 )
