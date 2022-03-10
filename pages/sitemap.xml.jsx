@@ -5,9 +5,9 @@ const toUrl = (host, route, frequency, priority) => (
   `
   <url>
     <loc>https://${host}${route}</loc>
-    <changefreq>${frequency ? frequency : "weekly"}daily</changefreq>
+    <changefreq>${frequency ? frequency : "weekly"}</changefreq>
     <priority>${priority ? priority : "0.7"}</priority>
-    <lastmod>${new Date().getFullYear()}</lastmod>
+    <lastmod>${new Date()}</lastmod>
   </url>
   `
 )
