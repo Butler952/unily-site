@@ -5,6 +5,7 @@ import Post from '../../components/blog/Post';
 import styles from './blog.module.scss';
 import Header from '../../components/header/Header';
 import PostCard from '../../components/blog/PostCard';
+import Head from 'next/head';
 
 const Blog = () => {
 
@@ -21,6 +22,9 @@ const Blog = () => {
 
   return (
     <div>
+      <Head>
+        <title>Vitaely.me Blog</title>
+      </Head>
       <Header />
       <div className="container py-5">
         <div className="d-flex flex-column" style={{gap: '24px'}}>

@@ -26,7 +26,7 @@ const Post = (props) => {
   return (
     <div style={{background: 'white'}}>
       <Head>
-        <title>{props.title}</title>
+        <title>{props.title} | Vitaely.me</title>
       </Head>
       <ProgressBar
         bgcolor="#6839EF"
