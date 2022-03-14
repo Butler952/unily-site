@@ -30,6 +30,7 @@ const Blog = () => {
             duration="2"
             bodyPreview="A landing page is typically the first page that a user may come to when looking for information about a particular product..."
             postUrl="/blog/how-to-create-a-personal-landing-page"
+            screenWidth={screenWidth}
           />
           <PostCard 
             // image="../../images/profile-preview.png"
@@ -37,6 +38,7 @@ const Blog = () => {
             duration="2"
             bodyPreview="Much like an offline CV; an online CV is a chance to share a bit about yourself, your professional experience and you..."
             postUrl="/blog/how-to-create-an-online-cv"
+            screenWidth={screenWidth}
           />
         </div>
       </div>
