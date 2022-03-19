@@ -21,7 +21,7 @@ const HowToCreateAPersonalLandingPage = () => {
     <div>
       <Post 
         title="How to create a personal landing page"
-        image='../../images/profile-preview.png'
+        image='/images/profile-preview.png'
         imageAlt="A personal landing page created with Vitaely.me"
         readingDuration="2"
         hideFooter

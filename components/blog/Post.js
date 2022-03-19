@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router'
 import ProgressBar from 'react-scroll-progress-bar';
 import Icon from '../icon/Icon';
@@ -42,8 +43,11 @@ const Post = (props) => {
               <h2 className="hero-title mb-4 text-dark-high text-center">{props.title}</h2>
             }
             <p className="text-dark-med large tagline">{props.readingDuration} min read</p>
-            <div className={`${styles.featureCard} my-5`}>
+            {/* <div className={`${styles.featureCard} my-5`}>
               { props.image ? <img alt={props.imageAlt ? props.imageAlt : null} src={props.image}></img> : null }
+            </div> */}
+            <div className={`${styles.heroImageWrapper} mt-5`}>
+              <Image alt={props.imageAlt ? props.imageAlt : null} src={props.image} layout="fill" objectFit="cover" />
             </div>
           </div>
           {props.children}

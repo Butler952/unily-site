@@ -4,7 +4,6 @@ import Head from 'next/head'
 import '../public/styles/global.scss';
 import LogRocket from 'logrocket';
 
-
 export default function App({ Component, pageProps }) {
 
   useEffect(() => {

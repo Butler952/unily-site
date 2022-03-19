@@ -1,5 +1,19 @@
 @import '../../public/styles/variables.scss';
 
+.heroImageWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+  width: 100%;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+  transition: $transition-standard;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: $shadow-4;
+  }
+}
+
 .featureCard {
   text-align: left;
   background: $dark-100;

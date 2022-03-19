@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 //import "./Blog.scss"
 import Post from '../../components/blog/Post';
 import styles from './blog.module.scss';
@@ -21,7 +22,7 @@ const HowToCreateAnOnlineCV = () => {
     <div>
       <Post 
         title="How to create an online CV in 2 minutes"
-        image='../../images/profile-preview.png'
+        image='/images/profile-preview.png'
         imageAlt="An online cv created with Vitaely.me"
         readingDuration="2"
         hideFooter
@@ -46,8 +47,11 @@ const HowToCreateAnOnlineCV = () => {
           <h3>Why do I need one?</h3>
           <p className="large">Traditionally, CVs are submitted in the form of a Word document or PDF. A person in charge of hiring can sift through hundreds of them in order to find what they are looking for. </p>
           <p className="large">Having an online CV helps to build credibility and stand out from the crowd. It also helps to build exposure online through SEO. Having a website can make it much easier for you to be found online. You never know what opportunities it may open up for you.</p>
-          <div className={`${styles.featureCard} mt-5`}>
+          {/* <div className={`${styles.featureCard} mt-5`}>
             <img alt="A pile of paper on a table" src='../../images/blog/how-to-create-an-online-cv/recruiters-have-to-dig-through-hundreds-of-CVs.jpg'></img>
+          </div> */}
+          <div className={`${styles.heroImageWrapper} mt-5`}>
+            <Image alt="A pile of paper on a table" src='/images/blog/how-to-create-an-online-cv/recruiters-have-to-dig-through-hundreds-of-CVs.jpg' layout="fill" objectFit="cover" />
           </div>
           <p className="mt-3">Recruiters often have to dig through hundreds of similar CVs. Photo by <a href="https://unsplash.com/@rainierridao">Rainier Ridao</a>.</p>
         </div>
