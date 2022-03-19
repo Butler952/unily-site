@@ -21,7 +21,7 @@ const createSitemap = (
   profiles
 ) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${routes.map((route) => toUrl(host, route, `weekly`, `1.0`)).join("")}
+    ${routes.map((route) => toUrl(host, `/${route}`, `weekly`, `1.0`)).join("")}
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`, `monthly`)).join("")}
     ${users.map((user) => toUrl(host, `/users/${user}`, `monthly`, `0.6`)).join("")}
     ${blogs.map((post) => toUrl(host, `/blog/${post}`, `yearly`, `0.8`)).join("")}
@@ -46,7 +46,7 @@ const Sitemap = () => {};
 }*/
 
 Sitemap.getInitialProps = ({ res, req }) => {
-  const routes = ["", "online-cv-builder"];
+  const routes = ["", "online-cv-builder", "online-resume-builder"];
   const legals = ["cookies", "privacy", "terms"];  //You can fetch the products from an API
   const users = ["login", "register", "reset"];  //You can fetch the products from an API
   const blogs = [
