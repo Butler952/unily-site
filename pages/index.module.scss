@@ -7,14 +7,14 @@
 .heroImageWrapper {
   position: relative;
   overflow: hidden;
-  padding-top: 50%;
+  padding-top: 56.25%;
   width: 100%;
   border-radius: $radius-medium;
   box-shadow: $shadow-2;
   transition: $transition-standard;
-  border: 1px solid $dark-300;
   &:hover {
-    box-shadow: $shadow-5;
+    transform: scale(1.05);
+    box-shadow: $shadow-4;
   }
 }
 .stepsContainer {

@@ -74,6 +74,13 @@ const Profile = (props) => {
     <div>
       <Head>
         <title>{props.full_name} | {props.headline}</title>
+        { props.summary ? <meta name="description" content={props.summary} /> : null }
+        { (props.full_name && props.displayBasicInfo.each.name === true) ? <meta name="author" content={props.full_name} /> : null }
+        <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
+        { props.summary ? <meta property="og:description" content={props.summary} /> : null }
+        <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />
+        { props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null }
+        <meta property="og:type" content="website" />
       </Head>
       { loggedIn ? <Header /> : '' }
       { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }

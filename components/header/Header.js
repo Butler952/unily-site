@@ -3,7 +3,7 @@ import fire from '../../config/fire-config';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 
-const Header = () => {
+const Header = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [profileUrl, setProfileUrl] = useState('/')
   const [windowUrl, setWindowUrl] = useState('')
@@ -63,7 +63,7 @@ const Header = () => {
   }
 
   return (
-    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2" style={windowUrl === '/' ? {boxShadow: 'none'} : null}>
+    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2" style={props.hideShadow ? {boxShadow: 'none'} : null}>
       {(loggedIn && profileUrl !== '/') ? <div>
         <div className="d-flex">
           <Link href={profileUrl}>

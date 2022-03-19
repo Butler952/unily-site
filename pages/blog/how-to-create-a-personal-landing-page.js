@@ -25,6 +25,8 @@ const HowToCreateAPersonalLandingPage = () => {
         imageAlt="A personal landing page created with Vitaely.me"
         readingDuration="2"
         hideFooter
+        description="A landing page is typically the first page that a user may come to when looking for information about a particular product, feature, service, or organisation. It could be likened to an interactive billboard on the internet."
+        url="how-to-create-a-personal-landing-page"
       >
         <div id="content" className="py-4 background-light">
           <h3>Contents</h3>

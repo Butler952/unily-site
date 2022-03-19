@@ -28,6 +28,11 @@ const Post = (props) => {
     <div style={{background: 'white'}}>
       <Head>
         <title>{props.title} | Vitaely.me</title>
+        { props.description ? <meta name="description" content={props.description} /> : null }
+        <meta property="og:title" content={`${props.title} | Vitaely.me`} />
+        <meta property="og:description" content={props.description} />
+        <meta property="og:url" content={`https://www.vitaely.me/blog/${props.url}`} />
+        <meta property="og:type" content="article" />
       </Head>
       <ProgressBar
         bgcolor="#6839EF"

@@ -1,130 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 import Head from 'next/head';
-import fire from '../config/fire-config';
-import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Header from '../components/header/Header';
+import Image from 'next/image';
+import Header from '../header/Header';
 import { Container } from 'react-bootstrap';
-import Image from 'next/image'
-import mixpanel from 'mixpanel-browser';
+import Footer from "../Footer";
+import styles from '../../pages/index.module.scss'
+import Icon from '../icon/Icon';
+import ICONS from '../icon/IconPaths';
 
-import styles from './index.module.scss'
-import Icon from '../components/icon/Icon';
-import ICONS from '../components/icon/IconPaths';
-import Footer from '../components/Footer';
+const LandingPage = (props) => {
 
-const Home = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
-  // const [idList, setIdList] = useState("");
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
   };
 
-  useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
-    mixpanel.track('Landing page');
-    setScreenWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize);
-  }, []);
-
-  const router = useRouter();
-
-  fire.auth()
-    .onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true)
-        loggedInRoute(user)
-      } else {
-        setLoggedIn(false)
-      }
-    })
-
-
-  const loggedInRoute = (user) => {
-    var docRef = fire.firestore().collection('users').doc(user.uid)
-
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        if (doc.data().stage !== 'complete') {
-          router.push(doc.data().stage)
-        } else {
-          router.push(doc.data().profileUrl)
-        }
-      } else {
-        console.log("No such document!");
-      }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
-    });
-
-    /*
-    fire.firestore().collection('users').doc(user.uid).set({
-      receiveEmails,
-      email: user.email,
-      stage: '/setup/sync'
-    })
-    .then(() => {
-      router.push("/setup/sync")
-    })*/
-  }
-
-
-  /*useEffect(() => {
-    const unsubscribe =  fire.firestore()
-      .collection('blog')
-      .onSnapshot(snap => {
-        const blogs = snap.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setBlogs(blogs);
-      });
-      return () => {
-        // Unmouting
-        unsubscribe();
-      };
-  }, []);*/
-
-  const getProfileList = () => {
-    let tempIdList = []
-    fire.firestore().collection('users').get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        tempIdList.push(doc.id + ", ");
-      })
-    })
-    // .then(() => {
-    //   setIdList(tempIdList)
-    // })
-    .then(() => {
-      console.log(tempIdList)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
-  const getProfileListTwo = () => {
-    fetch("/api/getProfileList")
-      .then(res => console.log(res))
-      .then(data => console.log(data))
-  }
-
-  // useEffect(() => {
-  //     getProfileList()
-  //   //.then(console.log(idList))
-  // }, []);
-
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
-        <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
-        <meta name="description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
-        <meta property="og:title" content="Vitaely | Turn your LinkedIn profile into a landing page" />
-        <meta property="og:description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
-        <meta property="og:url" content="https://www.vitaely.me/" />
+        <title>{`${props.title} | Vitaely.me`}</title>
+        { props.subtitle ? <meta name="description" content={props.subtitle} /> : null }
+        <meta property="og:title" content={`${props.title} | Vitaely.me`} />
+        <meta property="og:description" content={props.subtitle} />
+        <meta property="og:url" content={`https://www.vitaely.me/${props.url}`} />
         <meta property="og:type" content="website" />
       </Head>
       <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
@@ -133,9 +38,9 @@ const Home = () => {
       <Header hideShadow />
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
-          <div style={{ maxWidth: '560px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
-          { screenWidth > 576 ? <h1>Turn your CV into a landing page</h1> : <h2>Turn your CV into a landing page</h2> }
-            <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+          <div style={{ maxWidth: '520px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
+          { screenWidth > 576 ? <h1>{props.title}</h1> : <h2>{props.title}</h2> }
+            <p className="large mb-4">{props.subtitle}</p>
             <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
               <Link href="/users/register">
                 <a className="btn primary high large">Get started</a>
@@ -157,8 +62,29 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {/* <div className="d-flex flex-column align-items-center justify-content-center">
+          <div style={{ maxWidth: '560px' }} className="mb-5 text-center">
+          { screenWidth > 576 ? <h1>{props.title}</h1> : <h2>{props.title}</h2> }
+            <p className="large mb-4">{props.subtitle}</p>
+            <div className="d-flex justify-content-center m-auto m-lg-0">
+              <Link href="/users/register">
+                <a className="btn primary high large">Get started</a>
+              </Link>
+            </div>
+          </div>
+          <div className={styles.heroImageWrapper}>
+            <Image
+              src="/images/profile-preview.png"
+              layout='fill'
+              objectFit="cover"
+            />
+          </div>
+        </div> */}
+      </Container>
+      <hr/>
+      <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
+        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>{props.stepsTitle}</h1> : <h2 className="mx-auto pb-5">{props.stepsTitle}</h2> }    
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
@@ -180,16 +106,39 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={`text-center ${styles.sectionWrapper}`}>
+        <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.sectionWrapper}`} style={{gap: '64px'}}>
+          <div className="w-100 order-1 order-lg-0">
+            <img
+              className="w-100"
+              src={`/images/landingPage/${props.sectionTwoImg}`}
+            />
+          </div>
+          <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-1">
+            { screenWidth > 576 ? <h1>{props.sectionTwoTitle}</h1> : <h2>{props.sectionTwoTitle}</h2> }
+            <p className="large">{props.sectionTwoSubtitle}</p>
+          </div>
+        </div>
+        <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.sectionWrapper}`} style={{gap: '64px'}}>
+          <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-0">
+            { screenWidth > 576 ? <h1>{props.sectionOneTitle}</h1> : <h2>{props.sectionOneTitle}</h2> }
+            <p className="large">{props.sectionOneSubtitle}</p>
+          </div>
+          <div className="w-100 order-1 order-lg-1">
+            <img
+              className="w-100"
+              src={`/images/landingPage/${props.sectionOneImg}`}
+            />
+          </div>
+        </div>
+        {/* <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
           <div className={styles.heroImageWrapper}>
             <Image
               src="/images/profile-preview.png"
               layout='fill'
-              objectFit='cover'
             />
           </div>
-        </div>
+        </div> */}
       </Container>
       <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
@@ -200,7 +149,7 @@ const Home = () => {
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">Stand out</h3>
-                <h5 className="text-light-med">Get yourself noticed with a unique personal landing page.</h5>
+                <h5 className="text-light-med">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</h5>
               </div>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.NO_DATA_ENTRY} size='64' className="fill-light-900" />
@@ -218,8 +167,7 @@ const Home = () => {
       </div>
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    
-          <p className="large mx-auto mb-5">Create your landing page in just 2 minutes</p>
+          { screenWidth > 576 ? <h1 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>{props.title}</h1> : <h2 className="mx-auto mb-5">{props.title}</h2> }    
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register">
               <a className="btn primary high large m-auto">Get started</a>
@@ -233,4 +181,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default LandingPage;

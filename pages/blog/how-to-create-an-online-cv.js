@@ -26,6 +26,8 @@ const HowToCreateAnOnlineCV = () => {
         imageAlt="An online cv created with Vitaely.me"
         readingDuration="2"
         hideFooter
+        description="Much like an offline CV; an online CV is a chance to share a bit about yourself, your professional experience and you education, amongst other things. Usually a CV is submitted as part of a job application and will very likely make up the first pieces of information that any potential employer, partner, or client will learn about you."
+        url="how-to-create-an-online-cv"
       >
         <div id="content" className="py-4 background-light">
           <h3>Contents</h3>
