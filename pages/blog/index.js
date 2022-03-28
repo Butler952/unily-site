@@ -23,7 +23,14 @@ const Blog = () => {
   return (
     <div>
       <Head>
-        <title>Vitaely.me Blog</title>
+      </Head>
+      <Head>
+      <title>Blog | Vitaely.me</title>
+        <meta name="description" content="The latest news and tips on building a professional online presence" />
+        <meta property="og:title" content="Blog | Vitaely.me" />
+        <meta property="og:description" content="The latest news and tips on building a professional online presence" />
+        <meta property="og:url" content="https://www.vitaely.me/blog/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Header />
       <div className="container py-5">
