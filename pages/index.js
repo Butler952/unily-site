@@ -89,7 +89,7 @@ const Home = () => {
 
   const getProfileList = () => {
     let tempIdList = []
-    fire.firestore().collection('users').get()
+    fire.firestore().collection('users').where("stage", "==", "complete").get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         tempIdList.push(doc.id + ", ");
