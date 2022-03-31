@@ -8,7 +8,6 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../settings.module.scss'
-import Head from 'next/head';
 import { ProgressBar, Modal } from 'react-bootstrap';
 import UpgradeButton from './upgradeButton';
 
@@ -235,7 +234,8 @@ const ResyncSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Unlimited re-syncing', 
+                'Unlimited re-syncing',
+                'Logos for experience and education', 
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">

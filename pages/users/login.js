@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
@@ -56,6 +56,29 @@ const Login = () => {
         console.log(err.code, err.message)
       })
   }
+
+  useEffect(() => {
+    const unsubscribe =  fire.auth()
+    .onAuthStateChanged((user) => {
+      if (user) {
+        var docRef = fire.firestore().collection('users').doc(user.uid)
+      
+          docRef.get().then((doc) => {
+            if (doc.data().stage === "complete") {
+              router.push(doc.data().profileUrl);
+            } else {
+              router.push(doc.data().stage);
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          })
+        }
+    })
+      return () => {
+        // Unmouting
+        unsubscribe();
+      };
+  }, []);
 
   return (
     <div>

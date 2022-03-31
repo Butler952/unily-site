@@ -122,17 +122,24 @@ const Profile = (props) => {
             <h4>Experience</h4>
             <div className={styles.profileCard + ' card'}>
               {props.experiences.map((job, index) => (props.displayExperience.each[index].display) &&
-                <div key={index} className={styles.job}>
-                  <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                  <p className="large mb-0">{job.company}</p>
-                  <p className="text-dark-low mb-0">{job.location}</p>
-                  <p className="text-dark-low mb-0">
-                    {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
-                    {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                    {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                    {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                    {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                  </p>
+                <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
+                  { (props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ? 
+                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                      <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                    </div>
+                  : null }
+                  <div>
+                    <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                    <p className="large mb-0">{job.company}</p>
+                    <p className="text-dark-low mb-0">{job.location}</p>
+                    <p className="text-dark-low mb-0">
+                      {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
+                      {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                      {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                      {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                      {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                    </p>
+                  </div>
                 </div>
         )}
             </div>
@@ -144,16 +151,23 @@ const Profile = (props) => {
             <h4>Education</h4>
             <div className={styles.profileCard + ' card'}>
               {props.education.map((school, index) => (props.displayEducation.each[index].display) &&
-                <div key={index} className={styles.job}>
-                  <p className="large text-dark-high font-weight-semibold mb-0">{school.field_of_study}</p>
-                  <p className="large mb-0">{school.school}</p>
-                  <p className="text-dark-low mb-0">
-                    {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null} 
-                    {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
-                    {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                    {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
-                    {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
-                  </p>
+                <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
+                  { (props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ? 
+                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                      <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
+                    </div>
+                  : null }
+                  <div>
+                    <p className="large text-dark-high font-weight-semibold mb-0">{school.field_of_study}</p>
+                    <p className="large mb-0">{school.school}</p>
+                    <p className="text-dark-low mb-0">
+                      {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null} 
+                      {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                      {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                      {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
+                      {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
@@ -218,6 +232,7 @@ export const getServerSideProps = async ({ query }) => {
       content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
       content['education'] = result.data().profile.education ? result.data().profile.education : null;
       content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
+      content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
       content['displayBasicInfo'] = result.data().displayInfo.basicInfo ? result.data().displayInfo.basicInfo : null;
       content['displayAbout'] = result.data().displayInfo.about ? result.data().displayInfo.about : null;
       content['displayExperience'] = result.data().displayInfo.experience ? result.data().displayInfo.experience : null;
@@ -237,6 +252,7 @@ export const getServerSideProps = async ({ query }) => {
       summary: content.summary,
       experiences: content.experiences,
       education: content.education,
+      logoVisibility: content.logoVisibility,
       volunteer_work: content.volunteer_work,
       displayBasicInfo: content.displayBasicInfo,
       displayAbout: content.displayAbout,

@@ -3,7 +3,7 @@
 .headerImage {
   width: 100%;
   min-height: 120px; 
-  border-radius: 0 0 16px 16px; 
+  border-radius: 0 0 $radius-medium $radius-medium; 
   background-size: cover; 
   background-position: center; 
   padding-top: 25%;
@@ -43,4 +43,8 @@
     background: $dark-100;
     text-decoration: none;
   }
+}
+.experienceImage {
+  width: 80px;
+  border-radius: $radius-medium; 
 }

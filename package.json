@@ -13,6 +13,7 @@
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
+    "file-saver": "^2.0.5",
     "firebase": "^7.15.5",
     "logrocket": "^2.1.2",
     "mixpanel-browser": "^2.43.0",

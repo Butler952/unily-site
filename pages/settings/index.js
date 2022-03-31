@@ -19,6 +19,7 @@ import ManageButton from './components/manageButton';
 import UpgradeButton from './components/upgradeButton';
 import RenewButton from './components/renewButton';
 import SurveyBanner from '../../components/banner/SurveyBanner';
+import LogosSection from './components/logosSection';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);
@@ -105,7 +106,10 @@ const Settings = () => {
   //const [syncsRemaining, setSyncsRemaining] = useState(0);
   const [sectionsLoading, setSectionsLoading] = useState(true);
   const [syncLoading, setSyncLoading] = useState('');
-  const [saving, setSaving] = useState(false);
+  const [savingSections, setSavingSections] = useState(false);
+  const [experienceLogos, setExperienceLogos] = useState(false);
+  const [educationLogos, setEducationLogos] = useState(false);
+  const [savingLogos, setSavingLogos] = useState(false);
   const [syncError, setSyncError] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState('');
@@ -150,6 +154,8 @@ const Settings = () => {
         setExperienceEach(doc.data().displayInfo.experience.each)
         setEducation(doc.data().displayInfo.education.section)
         setEducationEach(doc.data().displayInfo.education.each)
+        setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
+        setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
         setVolunteering(doc.data().displayInfo.volunteering.section)
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
@@ -197,7 +203,7 @@ const Settings = () => {
 
   const handleSectionsSubmit = (e) => {
     e.preventDefault();
-    setSaving(true)
+    setSavingSections(true);
     fire.firestore().collection('users').doc(userData.uid).update({
       displayInfo: {
         'basicInfo': {
@@ -227,7 +233,7 @@ const Settings = () => {
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
       .then(() => {
-        setSaving(false)
+        setSavingSections(false)
         toast("Sections updated")
       })
       .catch((err) => {
@@ -575,12 +581,61 @@ const Settings = () => {
                     </div>
                   </Accordion>
                   <div className="m-4">
-                    <button type="submit" className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
+                    <button type="submit" className="btn primary high w-100 w-md-auto" disabled={savingSections}>{!savingSections ? 'Save' : 'Saving'}</button>
                   </div>
                 </form>
               </div>
             }
           </div>
+          
+          {/* <div className="card mx-auto mb-5">
+            <div className="p-4">
+              <h5 className="text-dark-high mb-0">Logos</h5>
+              <p className="text-dark-low mb-0">Show or hide the logos for companies and education</p>
+            </div>
+            <hr className="m-0"/>
+            {sectionsLoading ?
+              <div className="p-4">
+                <p className="mb-0">Loading...</p>
+              </div>
+              :
+              <div className="p-0">
+                <form onSubmit={handleLogosSubmit}>
+                  <div className={styles.sectionCard + " card p-4"}>
+                    <label className="checkbox-container font-weight-medium text-dark-high large">
+                      Experience
+                  <input type="checkbox" checked={experienceLogos} onChange={(e) => setExperienceLogos(e.currentTarget.checked)} />
+                      <span className="checkmark"></span>
+                    </label>
+                  </div>
+                  <div className={styles.sectionCard + " card p-4"}>
+                    <label className="checkbox-container font-weight-medium text-dark-high large">
+                      Education
+                  <input type="checkbox" checked={educationLogos} onChange={(e) => setEducationLogos(e.currentTarget.checked)} />
+                      <span className="checkmark"></span>
+                    </label>
+                  </div>
+                  <div className="m-4">
+                    <button type="submit" className="btn primary high w-100 w-md-auto" disabled={savingLogos}>{!savingLogos ? 'Save' : 'Saving'}</button>
+                  </div>
+                </form>
+              </div>
+            }
+          </div> */}
+          <LogosSection
+            userData={userData} 
+            product={product}
+            active={active}
+            status={status}
+            handleUpdate={handleUpdate}
+            handleUpgrade={handleUpgrade}
+            // handleLogosSubmit={handleLogosSubmit}
+            sectionsLoading={sectionsLoading}
+            experienceLogos={experienceLogos}
+            setExperienceLogos={setExperienceLogos}
+            educationLogos={educationLogos}
+            setEducationLogos={setEducationLogos}
+          />
           <ResyncSection
             linkedinId={linkedinId} 
             userData={userData}
@@ -659,6 +714,7 @@ const Settings = () => {
                   {[
                     'All Basic features', 
                     'Unlimited re-syncing', 
+                    'Logos for experience and education',
                     'More coming soon'
                   ].map((feature, index) =>
                     <div key={index} className="d-flex align-items-start mt-2">
