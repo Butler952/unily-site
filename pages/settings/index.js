@@ -647,7 +647,7 @@ const Settings = () => {
             handleUpdate={handleUpdate}
             handleUpgrade={handleUpgrade}
           />
-          <div className="card mx-auto mb-5">
+          <div id="plan" className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Plan</h5>
               <p className="text-dark-low mb-0">Manage your plan and payment information</p>

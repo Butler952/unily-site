@@ -43,14 +43,24 @@ const Blog = () => {
             postUrl="/blog/how-to-create-a-personal-landing-page"
             screenWidth={screenWidth}
           />
-          <PostCard 
-            // image="../../images/profile-preview.png"
-            title="How to create an online CV in 2 minutes"
-            duration="2"
-            bodyPreview="Much like an offline CV; an online CV is a chance to share a bit about yourself, your professional experience and you..."
-            postUrl="/blog/how-to-create-an-online-cv"
-            screenWidth={screenWidth}
-          />
+          <div className="d-flex flex-column flex-lg-row" style={{gap: '24px'}}>
+            <PostCard 
+              // image="../../images/profile-preview.png"
+              title="How to create an online CV in 2 minutes"
+              duration="2"
+              bodyPreview="Much like an offline CV; an online CV is a chance to share a bit about yourself, your professional experience and you..."
+              postUrl="/blog/how-to-create-an-online-cv"
+              screenWidth={screenWidth}
+            />
+            <PostCard 
+              // image="../../images/profile-preview.png"
+              title="How to keep your profile up to date"
+              duration="2"
+              bodyPreview="Keeping your online presence up to date is crucial if you are to make the most of your experience and education when..."
+              postUrl="/blog/how-to-keep-your-profile-up-to-date"
+              screenWidth={screenWidth}
+            />
+          </div>
         </div>
       </div>
     </div>
