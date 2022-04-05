@@ -7,14 +7,20 @@ const Footer = () => {
   return (
     <div>
       <Container className="py-5">
-        <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5">
-          <Link href="/"><a><img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" /></a></Link>
-          <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px'}}>
-            <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
-            <Link href="/legal/terms"><a className="text-dark-high mb-0">Terms & Conditions</a></Link>
-            <Link href="/legal/privacy"><a className="text-dark-high mb-0">Privacy Policy</a></Link>
-            <Link href="/legal/cookies"><a className="text-dark-high mb-0">Cookie Policy</a></Link>
-            <a href="https://vitaely.me/sitemap.xml" target="_blank" className="text-dark-high mb-0">Sitemap</a>
+        <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
+          <Link href="/"><a className="w-lg-100"><img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" /></a></Link>
+          <div className="d-flex flex-column flex-md-row text-center" style={{gap: '48px', whiteSpace: 'nowrap'}}>
+            <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
+              <Link href="/online-cv-builder"><a className="text-dark-high mb-0">Online CV builder</a></Link>
+              <Link href="/online-resume-builder"><a className="text-dark-high mb-0">Online resume builder</a></Link>
+              <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
+            </div>
+            <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
+              <Link href="/legal/terms"><a className="text-dark-high mb-0">Terms & Conditions</a></Link>
+              <Link href="/legal/privacy"><a className="text-dark-high mb-0">Privacy Policy</a></Link>
+              <Link href="/legal/cookies"><a className="text-dark-high mb-0">Cookie Policy</a></Link>
+              <a href="https://vitaely.me/sitemap.xml" target="_blank" className="text-dark-high mb-0">Sitemap</a>
+            </div>
           </div>
         </div>
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
