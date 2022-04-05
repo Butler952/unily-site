@@ -64,7 +64,7 @@ const HowToKeepYourProfileUpToDate = () => {
           </div>
         </div>
         <div id="what-else-do-i-get" className="py-4 background-light">
-          <h3>What else so I get for upgrading my plan?</h3>
+          <h3>What else do I get for upgrading my plan?</h3>
           <p className="large">On the Premium plan, you have access to unlimited re-syncing to you can ensure that you can always bring your profile up to date.</p>
           <p className="large">You will also be able to turn on the option to add company and organisation logos to the experience and education sections.</p>
           <p className="large">We’re working hard to bring you more Premium features soon.</p>
