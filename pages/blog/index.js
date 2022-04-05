@@ -34,7 +34,7 @@ const Blog = () => {
         <meta property="og:type" content="website" />
       </Head>
       <Header />
-      <div className="container py-5">
+      <div className="container py-5 mb-5">
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
@@ -65,6 +65,8 @@ const Blog = () => {
           </div>
         </div>
       </div>
+      <br></br>
+      <br></br>
       <Footer />
     </div>
   )

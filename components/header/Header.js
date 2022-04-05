@@ -83,14 +83,24 @@ const Header = (props) => {
             <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? {margin: '16px', height: '40px'} : {marginLeft: '16px', height: '32px'}}/></a>
           </Link>
           <div className="d-flex" style={{gap: '8px'}}>
-            <Link href="/blog">
-              <a className="btn dark low small">Blog</a>
-            </Link>
+            {screenWidth > 767 ? (
+              <>
+                <Link href="/blog">
+                  <a className="btn dark low small">Blog</a>
+                </Link> 
+                <div className="bg-dark-300 mx-3" style={{width: '1px', height: '48px'}}></div>
+              </>
+            )
+            : null }
+           
             {/* <Link href="/users/register">
               <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
             </Link> */}
             <Link href="/users/login">
               <a className="btn primary medium small">Login</a>
+            </Link>
+            <Link href="/users/register">
+              <a className="btn primary high small">Create my page</a>
             </Link>
           </div>
         </div>
