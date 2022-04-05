@@ -158,7 +158,7 @@ const Home = () => {
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
-        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>Create your landing page in 2 minutes</h1> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
+        { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
@@ -180,7 +180,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={`text-center ${styles.sectionWrapper}`}>
+        {/* <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
           <div className={styles.heroImageWrapper}>
             <Image
@@ -189,9 +189,9 @@ const Home = () => {
               objectFit='cover'
             />
           </div>
-        </div>
-      </Container>
-      <div className={`overflow-hidden ${styles.primaryBackground}`}>
+        </div> */}
+        </Container> 
+        <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
@@ -216,6 +216,21 @@ const Home = () => {
           </div>
         </Container>
       </div>
+        <Container>
+        <div className={`text-center ${styles.sectionWrapper}`}>
+          { screenWidth > 576 ? <h2 className="mx-auto mb-5" style={{ maxWidth: '480px' }}>Check out the live demo below</h2> : <h2 className="mx-auto mb-5">Check out the live demo</h2> }    
+          <div className={styles.iframeWrapper}>
+            <iframe className={styles.iframeContent} 
+                title="Example Vitaely.me online CV profile"
+                src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
+            </iframe>
+          </div>
+          {/* <Link href="/users/register">
+            <a className="btn primary high large mx-auto mt-5">Create your page</a>
+          </Link> */}
+        </div>
+      </Container>
+     
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    

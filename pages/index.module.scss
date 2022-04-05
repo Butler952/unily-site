@@ -17,6 +17,32 @@
     box-shadow: $shadow-4;
   }
 }
+.iframeWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 120%;
+  width: 100%;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+  transition: $transition-standard;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: $shadow-4;
+  }
+  @media (min-width: $breakpoint-lg) {
+    padding-top: 56.25%;
+  }
+}
+.iframeContent {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
 .stepsContainer {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
