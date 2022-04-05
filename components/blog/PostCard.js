@@ -6,7 +6,7 @@ const PostCard = (props) => {
   return (
     <>
       <Link href={props.postUrl}>
-        <div className={`d-flex flex-column flex-lg-row align-items-center bg-light-900 border-1 border-solid radius-3 p-5 ${styles.postCard}`} style={{gap: '24px'}}>
+        <div className={`d-flex flex-column flex-lg-row ${props.image ? 'align-items-center' : 'align-items-start'} bg-light-900 border-1 border-solid radius-3 p-5 ${styles.postCard}`} style={{gap: '24px'}}>
           { props.image ? (
             <div className={`${styles.featureCard} order-1 order-lg-2 w-100`} style={{height: 'fitContent'}}>
               <img alt={props.title} src={props.image}></img>
@@ -14,7 +14,7 @@ const PostCard = (props) => {
           ) : null }
           <div className="order-2 order-lg-1 w-100">
             {props.screenWidth > 767 ?
-              <h2>{props.title}</h2>
+              <h3>{props.title}</h3>
               :
               <h3>{props.title}</h3>
             }

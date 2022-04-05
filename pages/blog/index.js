@@ -6,6 +6,7 @@ import styles from './blog.module.scss';
 import Header from '../../components/header/Header';
 import PostCard from '../../components/blog/PostCard';
 import Head from 'next/head';
+import Footer from '../../components/Footer';
 
 const Blog = () => {
 
@@ -34,6 +35,7 @@ const Blog = () => {
       </Head>
       <Header />
       <div className="container py-5">
+        <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
             image="../../images/profile-preview.png"
@@ -63,6 +65,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

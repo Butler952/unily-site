@@ -1,19 +1,21 @@
 import fire from '../../config/fire-config';
 import Link from 'next/link'
 import Header from '../../components/header/Header';
-import { Container } from 'react-bootstrap';
+import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import Head from 'next/head';
 
 import styles from './profile.module.scss'
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import SurveyBanner from '../../components/banner/SurveyBanner';
 import { useEffect, useState } from 'react';
+import ICONS from '../../components/icon/IconPaths';
 
 const Profile = (props) => {
 
   const [currentUserId, setCurrentUserId] = useState('')
   const [showMore, setShowMore] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
@@ -68,7 +70,20 @@ const Profile = (props) => {
     }
   };
 
+  const CustomToggle = ({ eventKey }) => {
+    // const [dropdownOpen, setDropdownOpen] = useState(false);
+    const decoratedOnClick = useAccordionToggle(eventKey, () => {
+      setDropdownOpen(!dropdownOpen)
+    });
 
+    return (
+      <button type="button" onClick={decoratedOnClick} className="btn dark low small icon-only">
+        <svg viewBox="0 0 24 24">
+          <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
+        </svg>
+      </button>
+    );
+  }
 
   return (
     <div>
@@ -122,25 +137,41 @@ const Profile = (props) => {
             <h4>Experience</h4>
             <div className={styles.profileCard + ' card'}>
               {props.experiences.map((job, index) => (props.displayExperience.each[index].display) &&
-                <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                  { (props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ? 
-                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                      <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                    </div>
-                  : null }
-                  <div>
-                    <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                    <p className="large mb-0">{job.company}</p>
-                    <p className="text-dark-low mb-0">{job.location}</p>
-                    <p className="text-dark-low mb-0">
-                      {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
-                      {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                      {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                      {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                      {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                    </p>
-                  </div>
-                </div>
+                  <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
+                      { (props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ? 
+                        <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                          <a target="_blank" href={job.company_linkedin_profile_url}>
+                            <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                          </a>
+                        </div>
+                      : null }
+                      <div className="w-100">
+                        <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                        {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
+                          <p className="large text-dark-med mb-0">{job.company}</p>
+                        {/* </a> */}
+                        <p className="text-dark-low mb-0">{job.location}</p>
+                        <p className="text-dark-low mb-0">
+                          {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
+                          {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                          {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                          {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                          {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                        </p>
+                        {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
+
+                        {/* {job.description ? 
+                          <Accordion.Collapse eventKey={index}>
+                            <p className="text-dark-med mb-0 mt-3">{job.description}</p>
+                          </Accordion.Collapse>
+                          : null
+                        } */}
+        
+                      </div>
+                      {/* <div className="d-flex flex-row justify-content-between align-items-center">
+                        <CustomToggle eventKey={index} />
+                      </div> */}
+                  </Accordion>
         )}
             </div>
             <br /><br />
@@ -189,7 +220,7 @@ const Profile = (props) => {
                     {volunteer.starts_at && volunteer.ends_at ? " – " + (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') : null}
                     {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.year ? " " + volunteer.ends_at.year : null) : null}
                   </p>
-                  {volunteer.description ? <p className="text-dark-high mb-0 mt-3">{volunteer.description}</p> : null}
+                  {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
                 </div>
               )}
             </div>

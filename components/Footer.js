@@ -9,10 +9,12 @@ const Footer = () => {
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5">
           <Link href="/"><a><img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" /></a></Link>
-          <div className="d-flex flex-column text-center text-md-right">
-            <Link href="/legal/terms"><a className="text-dark-high mb-3">Terms & Conditions</a></Link>
-            <Link href="/legal/privacy"><a className="text-dark-high mb-3">Privacy Policy</a></Link>
-            <Link href="/legal/cookies"><a className="text-dark-high">Cookie Policy</a></Link>
+          <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px'}}>
+            <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
+            <Link href="/legal/terms"><a className="text-dark-high mb-0">Terms & Conditions</a></Link>
+            <Link href="/legal/privacy"><a className="text-dark-high mb-0">Privacy Policy</a></Link>
+            <Link href="/legal/cookies"><a className="text-dark-high mb-0">Cookie Policy</a></Link>
+            <a href="https://vitaely.me/sitemap.xml" target="_blank" className="text-dark-high mb-0">Sitemap</a>
           </div>
         </div>
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
