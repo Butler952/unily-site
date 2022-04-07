@@ -17,6 +17,8 @@ const Sync = () => {
   const [loadingState, setLoadingState] = useState('');
   const [userData, setUserData] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userResult, setUserResult] = useState('');
+  const [currentProfile, setCurrentProfile] = useState('');
 
   const [urlError, setUrlError] = useState('');
   const [notify, setNotification] = useState('');
@@ -44,6 +46,7 @@ const Sync = () => {
     var docRef = fire.firestore().collection('users').doc(user.uid)
 
     docRef.get().then((doc) => {
+      setCurrentProfile(doc.data())
       if (doc.exists) {
         router.push(doc.data().stage)
       } else {
@@ -70,6 +73,7 @@ const Sync = () => {
 
       fetch("/api/linkedin?profileUrl=" + profileUrl)
         .then(res => res.json())
+        // .then(result => setUserResult(result))
         .then((result) => {
           setLoadingState('Storing your data');
           fire.firestore().collection('users').doc(userData.uid).update({
@@ -104,7 +108,22 @@ const Sync = () => {
             profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
-          })
+          });
+          return result;
+        })
+        .then((result) => {
+          console.log(result);
+          return result;
+        })
+        .then((result) => {
+          if (currentProfile.receiveEmails) {
+            fire.firestore().collection('mailingList').doc(userData.uid).update({
+              firstName: result.first_name,
+              lastName: result.last_name,
+              stage: 'complete',
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+            })
+          }
         })
         .then(() => {
           mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 

@@ -20,18 +20,16 @@ const Emails = () => {
   const [notify, setNotification] = useState('');
 
   useEffect(() => {
-    //const unsubscribe =  fire.auth()
-    setUser(fire.auth().currentUser);
+    // const unsubscribe =  fire.auth()
+    fire.auth().onAuthStateChanged((user) => {
       if (user) {
-        setLoggedIn(true)
-        //loggedInRoute(user)
+        setUser(user)
       } else {
-        setLoggedIn(false)
+        // User is signed out
+        // ...
       }
-    return () => {
-      // Unmouting
-      //unsubscribe();
-    };
+    });
+
   }, []);
 
 /*
@@ -52,21 +50,55 @@ const Emails = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true)
-    fire.firestore().collection('users').doc(user.uid).update({
-      receiveEmails,
-      stage: '/setup/sync',
-      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      setSubmitting(false)
-    })
-    .then(() => {
-      router.push('/setup/sync')
-    })
-    .catch((err) => {
-      setSubmitting(false)
-      console.log(err.code, err.message)
-    })
+    if (receiveEmails) {
+        fire.firestore().collection('users').doc(user.uid).get()
+        .then((doc) => {
+          fire.firestore().collection('mailingList').doc(user.uid).set({
+            // firstName: doc.data().profile.first_name,
+            // lastName: doc.data().profile.last_name,
+            stage: 'sync',
+            subscriberEmail: doc.data().email,
+            subscribed: fire.firestore.FieldValue.serverTimestamp(),
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+          })
+        })
+        .then(() => {
+          fire.firestore().collection('users').doc(user.uid).update({
+          receiveEmails,
+          stage: '/setup/sync',
+          lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+        })
+      })
+      .then(() => {
+        setSubmitting(false)
+      })
+      .then(() => {
+        router.push('/setup/sync')
+      })
+      .catch((err) => {
+        setSubmitting(false)
+        console.log(err.code, err.message)
+      })
+    } else {
+      fire.firestore().collection('users').doc(user.uid).update({
+        receiveEmails,
+        stage: '/setup/sync',
+        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        setSubmitting(false)
+      })
+      .then(() => {
+        router.push('/setup/sync')
+      })
+      .catch((err) => {
+        setSubmitting(false)
+        console.log(err.code, err.message)
+      })
+    }
+    // If "receiveEmails" = true then:
+    // Create document in 'mailingList' collection with:
+    // email, userId, firstName, lastName
   }
 
   return (
@@ -79,6 +111,7 @@ const Emails = () => {
         <div className="card m-auto" style={{maxWidth: "640px"}}>
           <div className="py-4 px-4 px-md-5">
             <h5 className="text-dark-high mb-0">Opt-in to emails</h5>
+            {/* <p>{user ? fire.auth().currentUser.uid : 'null'}</p> */}
           </div>
           <hr className="m-0"/>
           <div className="p-4 p-md-5">
