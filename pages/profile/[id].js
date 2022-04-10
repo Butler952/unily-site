@@ -53,7 +53,7 @@ const Profile = (props) => {
       return (
         <>
           <p className={`large mb-0 ` + styles.summary}>
-            {props.summary}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
+            {props.summary} <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
           </p>
         </>
       );
