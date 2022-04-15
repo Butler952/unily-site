@@ -92,7 +92,7 @@ const Home = () => {
     fire.firestore().collection('users').where("stage", "==", "complete").get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        tempIdList.push(doc.id + ", ");
+        tempIdList.push(doc.id);
       })
     })
     // .then(() => {
