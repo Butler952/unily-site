@@ -17,6 +17,8 @@ const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
   // const [idList, setIdList] = useState("");
+  const [profileUrl, setProfileUrl] = useState('');
+  const [showNewStuff, setShowNewStuff] = useState(false);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
@@ -59,6 +61,7 @@ const Home = () => {
       console.log("Error getting document:", error);
     });
 
+
     /*
     fire.firestore().collection('users').doc(user.uid).set({
       receiveEmails,
@@ -70,6 +73,14 @@ const Home = () => {
     })*/
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert('Sent');
+  }
+
+  const onUrlInvalid = () => {
+    alert('Please enter a valid LinkedIn URL')
+  }
 
   /*useEffect(() => {
     const unsubscribe =  fire.firestore()
@@ -141,6 +152,21 @@ const Home = () => {
                 <a className="btn primary high large">Get started</a>
               </Link>
             </div>
+            { showNewStuff ? 
+            <div className="d-flex justify-content-center justify-content-lg-start mx-auto m-lg-0 mt-5">
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <p className="large text-dark-high">LinkedIn profile URL</p>
+                  <p>We will use this to collect your information on your profile.</p>
+                  <div>
+                    <input type="text" className="w-100" pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="https://www.linkedin.com/in/" />
+                  </div>
+                </div>
+                <br />
+                <button type="submit" className="btn primary high">Sync data</button>
+              </form>
+            </div>
+            : null }
           </div>
           <div className="position-relative d-none d-lg-block" style={{background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius:'320px'}}>
             <img src="/images/aaron-butler.jpg" style={{width: '120px', height: '120px', borderRadius:'100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute'}}></img>
