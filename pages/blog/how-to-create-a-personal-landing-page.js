@@ -79,7 +79,7 @@ const HowToCreateAPersonalLandingPage = () => {
         <div id="guide" className="py-4 background-light">
           <h3>How create a personal landing page with Vitaely.me</h3>
           <ul>
-            <li><p className="large">Create your <Link href="/users/register">free acount</Link></p></li>
+            <li><p className="large">Create your <Link href="/users/register">free account</Link></p></li>
             <li><p className="large">Grab the URL of your Linkedin profile and sync your data</p></li>
             <li><p className="large">You're done! Your personal landing page is ready</p></li>
           </ul>

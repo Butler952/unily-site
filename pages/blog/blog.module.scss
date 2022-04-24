@@ -8,6 +8,7 @@
   border-radius: $radius-medium;
   box-shadow: $shadow-2;
   transition: $transition-standard;
+  border: 1px solid $dark-300;
   &:hover {
     transform: scale(1.05);
     box-shadow: $shadow-4;
@@ -21,6 +22,7 @@
   box-shadow: $shadow-2;
   overflow: hidden;
   transition: $transition-standard;
+  border: 1px solid $dark-300;
   &:hover {
     transform: scale(1.05);
     box-shadow: $shadow-4;
@@ -35,8 +37,43 @@
 .postCard {
   transition: $transition-standard;
   border-color: $dark-300;
+  .featureCard {
+    border: none;
+    box-shadow: none;
+    &:hover {
+      transform: scale(1)
+    }
+  }
   &:hover {
     cursor: pointer;
     box-shadow: $shadow-4;
+    transform: scale(1.02)
   }
+}
+
+.iframeWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 120%;
+  width: 100%;
+  border-radius: $radius-medium;
+  box-shadow: $shadow-2;
+  transition: $transition-standard;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: $shadow-4;
+  }
+  @media (min-width: $breakpoint-lg) {
+    padding-top: 56.25%;
+  }
+}
+.iframeContent {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -51,9 +51,9 @@ const Post = (props) => {
             {/* <div className={`${styles.featureCard} my-5`}>
               { props.image ? <img alt={props.imageAlt ? props.imageAlt : null} src={props.image}></img> : null }
             </div> */}
-            <div className={`${styles.heroImageWrapper} mt-5`}>
+            { props.image ? <div className={`${styles.heroImageWrapper} mt-5`}>
               <Image alt={props.imageAlt ? props.imageAlt : null} src={props.image} layout="fill" objectFit="cover" />
-            </div>
+            </div> : null }
           </div>
           {props.children}
           { props.hideFooter ? 

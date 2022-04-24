@@ -38,11 +38,11 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
-            image="../../images/profile-preview.png"
-            title="How to create a personal landing page"
-            duration="2"
-            bodyPreview="A landing page is typically the first page that a user may come to when looking for information about a particular product..."
-            postUrl="/blog/how-to-create-a-personal-landing-page"
+            image="/images/blog/cv-resume-builder-alternatives/cover-photo.jpg"
+            title="Comparing online resume and CV builders in 2022"
+            duration="8"
+            bodyPreview="Creating a beautiful resume that catches the eye of prospective employers and helps you to land your dream job is easier..."
+            postUrl="/blog/cv-resume-builder-alternatives"
             screenWidth={screenWidth}
           />
           <div className="d-flex flex-column flex-lg-row" style={{gap: '24px'}}>
@@ -63,6 +63,14 @@ const Blog = () => {
               screenWidth={screenWidth}
             />
           </div>
+          <PostCard 
+            image="../../images/profile-preview.png"
+            title="How to create a personal landing page"
+            duration="2"
+            bodyPreview="A landing page is typically the first page that a user may come to when looking for information about a particular product..."
+            postUrl="/blog/how-to-create-a-personal-landing-page"
+            screenWidth={screenWidth}
+          />
         </div>
       </div>
       <br></br>
