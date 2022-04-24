@@ -56,7 +56,7 @@ const CvResumeBuilderAlternatives = () => {
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Zety Resume Templates" src='/images/blog/cv-resume-builder-alternatives/zety-resume-templates.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">If you don’t want to enter all your information from scratch you can choose to upload an existing resume and Zety will do all the hard work for you in converting the information to one of your templates. You may need to do a little tweaking to get the information displayed in the way you would like, but in general it is much faster than starting with a blank canvas.</p>
+          <p className="large">If you don't want to enter all your information from scratch you can choose to upload an existing resume and Zety will do all the hard work for you in converting the information to one of your templates. You may need to do a little tweaking to get the information displayed in the way you would like, but in general it is much faster than starting with a blank canvas.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Start from scratch or upload" src='/images/blog/cv-resume-builder-alternatives/zety-how-do-you-want-to-start.jpeg' layout="fill" objectFit="cover" />
           </div>
@@ -64,13 +64,13 @@ const CvResumeBuilderAlternatives = () => {
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Expert recommendations for your resume" src='/images/blog/cv-resume-builder-alternatives/zety-job-description-recommendations.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">Resumes are often seen first not by a human, but by screening software. If your information isn’t what they’re looking for or, worse, isn’t legible to screening software, then your application is dead in the water before it even meets a human eye. </p>
+          <p className="large">Resumes are often seen first not by a human, but by screening software. If your information isn't what they're looking for or, worse, isn't legible to screening software, then your application is dead in the water before it even meets a human eye. </p>
           <p className="large">Resumes created with Zety benefit from Smart Apply which optimises your resume so you have a better chance of ranking higher than other applicants in screening software.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Optimize your resume" src='/images/blog/cv-resume-builder-alternatives/zety-optimized-template.jpeg' layout="fill" objectFit="cover" />
           </div>
           <p className="large">Once your resume is optimised and ready to go you have the option of downloading your resume in multiple formats including Word, PDF, and TXT. To download your resume you will need to upgrade to a paid plan.</p>
-          <p className="large">The best value deal available is the 14 days access plan for £2.70 which includes unlimited printing and downloading, as well as unlimited additional resumes and cover letter variations. If you’re not satisfied with your experience, Zety also promises a money back guarantee. Be aware that your subscription will auto-renew at £16.70, billed every 4 weeks but you can cancel at any time for free.</p>
+          <p className="large">The best value deal available is the 14 days access plan for £2.70 which includes unlimited printing and downloading, as well as unlimited additional resumes and cover letter variations. If you're not satisfied with your experience, Zety also promises a money back guarantee. Be aware that your subscription will auto-renew at £16.70, billed every 4 weeks but you can cancel at any time for free.</p>
         </div>
         <div id="cvlibrary" className="py-4 background-light">
           <a href="https://www.cv-library.co.uk/free-cv-builder" target="_blank">
@@ -86,8 +86,8 @@ const CvResumeBuilderAlternatives = () => {
             <Image alt="Entering your work history with CV Library" src='/images/blog/cv-resume-builder-alternatives/cvlibrary-work-history.jpeg' layout="fill" objectFit="cover" />
           </div>
           <p className="large">Unlike some other tools, creating and downloading your CV is completely free. Although you are limited by the fact that you can only export your CV as a PDF.</p>
-          <p className="large">A huge advantage of creating your CV through CV Library’s free CV builder tool is that you will automatically be listed on CV Library’s network of live jobs, employers and recruiters who are looking for candidates to fill their roles.</p>
-          <p className="large">With no extra effort, you’re already helping your next potential employer to find you—it also makes it super simple to apply to jobs directly on CVLibrary. If you want to be visible to the network, you can turn this off in the settings after you complete your CV.</p>
+          <p className="large">A huge advantage of creating your CV through CV Library's free CV builder tool is that you will automatically be listed on CV Library’s network of live jobs, employers and recruiters who are looking for candidates to fill their roles.</p>
+          <p className="large">With no extra effort, you're already helping your next potential employer to find you—it also makes it super simple to apply to jobs directly on CVLibrary. If you want to be visible to the network, you can turn this off in the settings after you complete your CV.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="CV Library resume preview" src='/images/blog/cv-resume-builder-alternatives/cvlibrary-cv-preview.jpeg' layout="fill" objectFit="cover" />
           </div>
@@ -114,15 +114,15 @@ const CvResumeBuilderAlternatives = () => {
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Vitaely online resume builder" src='/images/blog/cv-resume-builder-alternatives/vitaely-landing-page.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">With Vitaely, there’s no need to enter all of your work history and education again. To create your profile, all you have to do is paste the URL for your Linkedin profile and Vitaely will instantly generate an online resume.</p>
-          <div className={`${styles.featureCard} my-5`}>
-            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='../../images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4'></video>
-          </div>
+          <p className="large">With Vitaely, there's no need to enter all of your work history and education again. To create your profile, all you have to do is paste the URL for your Linkedin profile and Vitaely will instantly generate an online resume.</p>
+          {/* <div className={`${styles.featureCard} my-5`}>
+            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='/images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4' />
+          </div> */}
           <p className="large">The clean and modern template helps you to stand out from the crowd and land your dream job. You can share your profile by simply grabbing the public URL for your profile and sharing the link wherever you need to.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Vitaely online resume" src='/images/blog/cv-resume-builder-alternatives/vitaely-profile.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">It’s completely free to create and share your profile. If you want to resync your profile with Linkedin then you will need to upgrade to the premium plan. Although you do also get the ability to add company and organisation logos to your work experience and education sections. Premium costs $2.99 per month via secure Stripe Checkout and you can cancel anytime for free.</p>
+          <p className="large">It's completely free to create and share your profile. If you want to resync your profile with Linkedin then you will need to upgrade to the premium plan. Although you do also get the ability to add company and organisation logos to your work experience and education sections. Premium costs $2.99 per month via secure Stripe Checkout and you can cancel anytime for free.</p>
           <p className="large"><Link href="/users/register">Click here</Link> to create your online resume in two minutes with Vitaely.</p>
         </div>
         <div id="resumeio" className="py-4 background-light">
@@ -168,13 +168,13 @@ const CvResumeBuilderAlternatives = () => {
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="My Perfect CV template" src='/images/blog/cv-resume-builder-alternatives/myperfectcv-template.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">When it comes to populating your CV, you’ll be met with a step-by-step walkthrough taking you through personal information, work history, education, skills, and summary. You are also able to add more later on including custom sections.</p>
+          <p className="large">When it comes to populating your CV, you'll be met with a step-by-step walkthrough taking you through personal information, work history, education, skills, and summary. You are also able to add more later on including custom sections.</p>
           <p className="large">The process of adding information like work history and education is a little more annoying than other platforms as you need to jump between screens to edit information, but overall it is still very effective for the job.</p>
           <p className="large">At each section you will also be met with tips on how to communicate yourself most effectively as well as pre-written examples of sentences to include.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
             <Image alt="Expert tips to cmplete your CV" src='/images/blog/cv-resume-builder-alternatives/myperfectcv-skills-tip.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">Once you’re happy with your CV and you are ready to download it, you will be required to upgrade your account before doing so. The cheapest option is the 14 days access plan for £2.95 which allows you to create, print and download unlimited CVs. This comes in at £2.95 although it does renew at £16.95 per month after the initial 14-day period.</p>
+          <p className="large">Once you're happy with your CV and you are ready to download it, you will be required to upgrade your account before doing so. The cheapest option is the 14 days access plan for £2.95 which allows you to create, print and download unlimited CVs. This comes in at £2.95 although it does renew at £16.95 per month after the initial 14-day period.</p>
         </div>
         <div id="reed" className="py-4 background-light">
           <a href="https://reed.co.uk/cvbuilder" target="_blank">
