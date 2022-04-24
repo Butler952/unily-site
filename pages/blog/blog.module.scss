@@ -37,6 +37,10 @@
 .postCard {
   transition: $transition-standard;
   border-color: $dark-300;
+  gap: 24px;
+  @media (min-width: $breakpoint-md) {
+    gap: 48px;
+  }
   .featureCard {
     border: none;
     box-shadow: none;
