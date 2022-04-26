@@ -25,10 +25,11 @@ const createSitemap = (
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`, `monthly`)).join("")}
     ${users.map((user) => toUrl(host, `/users/${user}`, `monthly`, `0.6`)).join("")}
     ${blogs.map((post) => toUrl(host, `/blog/${post}`, `yearly`, `0.8`)).join("")}
-    ${profiles.map((profile) => toUrl(host, `/profile/${profile}`, `daily`, `0.8`)).join("")}
     </urlset>`;
 
 const Sitemap = () => {};
+
+// ${profiles.map((profile) => toUrl(host, `/profile/${profile}`, `daily`, `0.8`)).join("")}
 
 /*export async function getStaticProps() {
   // Call an external API endpoint to get posts.
