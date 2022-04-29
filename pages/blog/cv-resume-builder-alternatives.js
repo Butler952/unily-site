@@ -177,7 +177,7 @@ const CvResumeBuilderAlternatives = () => {
           <p className="large">Once you're happy with your CV and you are ready to download it, you will be required to upgrade your account before doing so. The cheapest option is the 14 days access plan for £2.95 which allows you to create, print and download unlimited CVs. This comes in at £2.95 although it does renew at £16.95 per month after the initial 14-day period.</p>
         </div>
         <div id="reed" className="py-4 background-light">
-          <a href="https://reed.co.uk/cvbuilder" target="_blank">
+          <a href="https://www.reed.co.uk/cvbuilder" target="_blank">
             <h3>Reed.co.uk</h3>
           </a>
           <p className="large">Reed offers a nice and easy service to build a basic CV, the whole process takes just a few steps.</p>

@@ -24,7 +24,7 @@ const createSitemap = (
     ${routes.map((route) => toUrl(host, `/${route}`, `weekly`, `1.0`)).join("")}
     ${legals.map((legal) => toUrl(host, `/legal/${legal}`, `monthly`)).join("")}
     ${users.map((user) => toUrl(host, `/users/${user}`, `monthly`, `0.6`)).join("")}
-    ${blogs.map((post) => toUrl(host, `/blog/${post}`, `yearly`, `0.8`)).join("")}
+    ${blogs.map((post) => toUrl(host, `/blog${post}`, `yearly`, `0.8`)).join("")}
     </urlset>`;
 
 const Sitemap = () => {};
@@ -52,10 +52,10 @@ Sitemap.getInitialProps = ({ res, req }) => {
   const users = ["login", "register", "reset"];  //You can fetch the products from an API
   const blogs = [
     "",
-    "how-to-create-an-online-cv",
-    "how-to-create-a-personal-landing-page",
-    "how-to-keep-your-profile-up-to-date",
-    "cv-resume-builder-alternatives"
+    "/how-to-create-an-online-cv",
+    "/how-to-create-a-personal-landing-page",
+    "/how-to-keep-your-profile-up-to-date",
+    "/cv-resume-builder-alternatives"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",

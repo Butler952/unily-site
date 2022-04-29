@@ -110,7 +110,7 @@ const LandingPage = (props) => {
           <div className="w-100 order-1 order-lg-0">
             <img
               className="w-100"
-              src={`/images/landingPage/${props.sectionTwoImg}`}
+              src={`/images/landing-page/${props.sectionTwoImg}`}
             />
           </div>
           <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-1">
@@ -126,7 +126,7 @@ const LandingPage = (props) => {
           <div className="w-100 order-1 order-lg-1">
             <img
               className="w-100"
-              src={`/images/landingPage/${props.sectionOneImg}`}
+              src={`/images/landing-page/${props.sectionOneImg}`}
             />
           </div>
         </div>
