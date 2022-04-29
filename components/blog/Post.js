@@ -33,6 +33,7 @@ const Post = (props) => {
         <meta property="og:description" content={props.description} />
         <meta property="og:url" content={`https://www.vitaely.me/blog/${props.url}`} />
         <meta property="og:type" content="article" />
+        { props.image ? <meta property="og:image" content={`https://www.vitaely.me${props.image}`} /> : null }
       </Head>
       <ProgressBar
         bgcolor="#6839EF"
