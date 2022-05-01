@@ -2,6 +2,16 @@ module.exports = {
   /*env: {
     STRIPE_PRODUCT_PREMIUM: 'prod_Jdg7o4VDoipc7d',
   },*/
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
+
+    return config
+  },
   async headers() {
     return [
       {

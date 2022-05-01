@@ -9,6 +9,8 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import moment from 'moment'
 import ICONS from '../../components/icon/IconPaths';
+import Lottie from 'react-lottie';
+import animationData from '../../components/animations/loader.json'
 
 import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +22,7 @@ import UpgradeButton from './components/upgradeButton';
 import RenewButton from './components/renewButton';
 import SurveyBanner from '../../components/banner/SurveyBanner';
 import LogosSection from './components/logosSection';
+import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);
@@ -117,6 +120,7 @@ const Settings = () => {
   const [status, setStatus] = useState('');
   const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
   const [cancelAt, setCancelAt] = useState('');
+  const [redirectToStripe, setRedirectToStripe] = useState(false);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -342,6 +346,7 @@ const Settings = () => {
 
   async function handleUpgrade(e, user){
     e.preventDefault();
+    setRedirectToStripe(true);
     const docRef = await fire.firestore()
     .collection('users')
     .doc(userData.uid)
@@ -410,6 +415,15 @@ const Settings = () => {
       <div className="tag primary medium">Current</div>
     )
   }
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   return (
     <div>
@@ -777,6 +791,15 @@ const Settings = () => {
         draggable
         pauseOnHover
       />
+      { redirectToStripe ? (
+        <div className="bg-light-900 position-fixed w-100 h-100" style={{top: 0, left: 0, zIndex: 101}}>
+          <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+          <Lottie options={defaultOptions} height={160} width={160} />
+            <p>Redirecting to Stripe checkout</p>
+          </div> 
+        </div>
+      )
+      : null }
     </div>
   )
 }
