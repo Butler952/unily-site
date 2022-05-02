@@ -53,7 +53,7 @@ const HowToCreateAnOnlineCV = () => {
             <img alt="A pile of paper on a table" src='../../images/blog/how-to-create-an-online-cv/recruiters-have-to-dig-through-hundreds-of-CVs.jpg'></img>
           </div> */}
           <div className={`${styles.heroImageWrapper} mt-5`}>
-            <Image alt="A pile of paper on a table" src='/images/blog/how-to-create-an-online-cv/recruiters-have-to-dig-through-hundreds-of-CVs.jpg' layout="fill" objectFit="cover" />
+            <Image alt="A pile of paper on a table" src='/images/blog/how-to-create-an-online-cv/recruiters-have-to-dig-through-hundreds-of-CVs.png' layout="fill" objectFit="cover" />
           </div>
           <p className="mt-3">Recruiters often have to dig through hundreds of similar CVs. Photo by <a href="https://unsplash.com/@rainierridao">Rainier Ridao</a>.</p>
         </div>
