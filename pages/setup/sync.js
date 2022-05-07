@@ -11,6 +11,7 @@ import Header from '../../components/header/Header';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import ICONS from '../../components/icon/IconPaths';
 
 const Sync = () => {
   const [profileUrl, setProfileUrl] = useState('');
@@ -191,11 +192,34 @@ const Sync = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <p className="large text-dark-high">LinkedIn profile URL</p>
-                  <p>We will use this to collect your information on your profile.</p>
+                  <p>The information on your Linkedin profile is used to create your Vitaely profile.</p>
                   <div>
-                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="https://www.linkedin.com/in/" />
-                    {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : null}
+                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
+                    {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a></p> }
                   </div>
+                  <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
+                    <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
+                    <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
+                      <div className="d-flex align-items-start">
+                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
+                          <path d={ICONS.EXTERNAL_LINK}></path>
+                        </svg>
+                        {/*<a href="https://www.linkedin.com/public-profile/settings" className="text-primary-high">Manage your LinkedIn profile's visibility</a>*/}
+                        <p className="text-primary-high mb-0">Manage your LinkedIn profile's visibility</p>
+                      </div>
+                    </a>
+                  </div>
+                  {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
+                    <p className="text-dark-high">If you're already logged in on Linkedin you click on the link below to access your profile.</p>
+                    <a href="https://www.linkedin.com/in/" target="_blank">
+                      <div className="d-flex align-items-start">
+                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
+                          <path d={ICONS.EXTERNAL_LINK}></path>
+                        </svg>
+                        <p className="text-primary-high mb-0">Go to your Linkedin profile</p>
+                      </div>
+                    </a>
+                  </div> */}
                 </div>
                 <br />
                 <button type="submit" className="btn primary high">Sync data</button>
