@@ -26,6 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.register_once({"home page": "original"});
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
