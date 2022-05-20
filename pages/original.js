@@ -38,7 +38,7 @@ const Home = () => {
     .onAuthStateChanged((user) => {
       if (user) {
         setLoggedIn(true)
-        loggedInRoute(user)
+        // loggedInRoute(user)
       } else {
         setLoggedIn(false)
       }

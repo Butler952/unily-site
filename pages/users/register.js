@@ -26,13 +26,47 @@ const Register = () => {
   const [notify, setNotification] = useState('');
 
   useEffect(() => {
+    const unsubscribe =  fire.auth()
+    .onAuthStateChanged((user) => {
+      if (user) {
+        var docRef = fire.firestore().collection('users').doc(user.uid)
+      
+          docRef.get().then((doc) => {
+            if (doc.data().stage === "complete") {
+              router.push(doc.data().profileUrl);
+            } else {
+              router.push(doc.data().stage);
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          })
+        }
+    })
+      return () => {
+        // Unmouting
+        unsubscribe();
+      };
+  }, []);
+
+  useEffect(() => {
     mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
     mixpanel.track('Get started');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
+
       if (user) {
         setLoggedIn(true)
-        addUserDocument(user)
+        var docRef = fire.firestore().collection('users').doc(user.uid)
+      
+          docRef.get().then((doc) => {
+            if (doc.data().stage === "complete") {
+              router.push(doc.data().profileUrl);
+            } else {
+              router.push(doc.data().stage);
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          })
       } else {
         setLoggedIn(false)
       }
@@ -100,8 +134,21 @@ const Register = () => {
 
     fire.auth()
       .createUserWithEmailAndPassword(username, password)
+      .then((userCredential) => {
+        fire.firestore().collection('users').doc(userCredential.user.uid).set({
+          //receiveEmails,
+          email: userCredential.user.email,
+          stage: '/setup/emails',
+          created: fire.firestore.FieldValue.serverTimestamp(),
+          lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+        })
+      })
       .then(() => {
-        setCreating(false)
+        mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+        mixpanel.track('Register');
+      })
+      .then(() => {
+        router.push("/setup/emails")
       })
       .catch((err) => {
         if (err.code === 'auth/email-already-in-use') {

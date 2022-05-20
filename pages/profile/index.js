@@ -1,24 +1,32 @@
+// If logged in, send to their own profile
+// If there is a {profile} object in localStorage, then render a page with the prompt to sign up to save your profile
+// Else link to register
+
 import fire from '../../config/fire-config';
 import Link from 'next/link'
 import Header from '../../components/header/Header';
 import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import Head from 'next/head';
+import { useRouter } from 'next/router'
 
 import styles from './profile.module.scss'
-import SurveyBanner from '../../components/banner/SurveyBanner';
 import { useEffect, useState } from 'react';
 import ICONS from '../../components/icon/IconPaths';
+import ProfilePreviewBanner from '../../components/banner/ProfilePreviewBanner';
 
-const Profile = (props) => {
+const Profile = () => {
 
   const [currentUserId, setCurrentUserId] = useState('')
   const [showMore, setShowMore] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [localProfile, setLocalProfile] = useState('');
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
+
+  const router = useRouter()
 
   useEffect(() => {
     checkUser();
@@ -30,39 +38,65 @@ const Profile = (props) => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         setCurrentUserId(user.uid)
+        loggedInRoute(user)
         setLoggedIn(true)
         // ...
       } else {
         setLoggedIn(false)
         // User is signed out
         // ...
+        if (localStorage.profile !== undefined) {
+            setLocalProfile(JSON.parse(localStorage.profile))
+        } else {
+            router.push('/')
+        }
+        // If there is a {profile} object in localStorage, then render a page with the prompt to sign up to save your profile
+        // Else link to register
       }
     });
+  }
+
+  const loggedInRoute = (user) => {
+    var docRef = fire.firestore().collection('users').doc(user.uid)
+
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        if (doc.data().stage !== 'complete') {
+          router.push(doc.data().stage)
+        } else {
+          router.push(doc.data().profileUrl)
+        }
+      } else {
+        console.log("No such document!");
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    })
   }
                     
   const getSummaryText = () => {
     // For Text that is shorter than desired length
-    if (props.summary.length <= 258) return (
+    if (localProfile.summary.length <= 258) return (
       <p className={`large mb-0 ` + styles.summary}>
-        {props.summary}
+        {localProfile.summary}
       </p>
     );
     // If text is longer than desired length & showMore is true
-    if (props.summary.length > 258 && showMore) {
+    if (localProfile.summary.length > 258 && showMore) {
       return (
         <>
           <p className={`large mb-0 ` + styles.summary}>
-            {props.summary} <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
+            {localProfile.summary} <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
           </p>
         </>
       );
     }
       // If text is longer than desired length & showMore is false
-    if (props.summary.length > 258) {
+    if (localProfile.summary.length > 258) {
       return (
         <>
           <p className={`large mb-0 ` + styles.summary}>
-            {props.summary.slice(0, 258)}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(true)}>Read more</u>
+            {localProfile.summary.slice(0, 258)}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(true)}>Read more</u>
           </p>
         </>
       );
@@ -87,42 +121,42 @@ const Profile = (props) => {
   return (
     <div>
       <Head>
-        <title>{props.full_name} | {props.headline}</title>
-        { props.summary ? <meta name="description" content={props.summary} /> : null }
-        { (props.full_name && props.displayBasicInfo.each.name === true) ? <meta name="author" content={props.full_name} /> : null }
-        <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
-        { props.summary ? <meta property="og:description" content={props.summary} /> : null }
-        <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />
-        { props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null }
+        <title>{localProfile.full_name} | {localProfile.headline}</title>
+        { localProfile.summary ? <meta name="description" content={localProfile.summary} /> : null }
+        { localProfile.full_name ? <meta name="author" content={localProfile.full_name} /> : null }
+        <meta property="og:title" content={`${localProfile.full_name} | ${localProfile.headline}`} />
+        { localProfile.summary ? <meta property="og:description" content={localProfile.summary} /> : null }
+        <meta property="og:url" content={`https://www.vitaely.me/profile/${localProfile.pageId}`} />
+        { localProfile.background_cover_image_url ? <meta property="og:image" content={localProfile.background_cover_image_url} /> : null }
         <meta property="og:type" content="website" />
       </Head>
       { loggedIn ? <Header /> : '' }
-      { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
+      <ProfilePreviewBanner />
       <Container>
         <div className="text-center mb-5">
-          {(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) &&
-            <div className={styles.headerImage} style={{ backgroundImage: `url(${props.background_cover_image_url})`}} />
+          {localProfile.background_cover_image_url &&
+            <div className={styles.headerImage} style={{ backgroundImage: `url(${localProfile.background_cover_image_url})`}} />
           }
-          {(props.profile_pic_url && props.displayBasicInfo.each.profilePic === true) &&
-            <img src={props.profile_pic_url} style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} className={styles.profilePicture} />
+          {localProfile.profile_pic_url &&
+            <img src={localProfile.profile_pic_url} style={localProfile.background_cover_image_url ? {marginTop: '-80px'} : {marginTop: '48px'}} className={styles.profilePicture} />
           }
           <br /> <br />
           <div className="mb-1 d-flex flex-column align-items-center">
-            {(props.full_name && props.displayBasicInfo.each.name === true) &&
-              <h2 className="mb-1">{props.full_name}</h2>
+            {localProfile.full_name &&
+              <h2 className="mb-1">{localProfile.full_name}</h2>
             }
-            {(props.headline && props.displayBasicInfo.each.headline === true) &&
-              <h5 style={{maxWidth: '640px'}}>{props.headline}</h5>
+            {localProfile.headline &&
+              <h5 style={{maxWidth: '640px'}}>{localProfile.headline}</h5>
             }
           </div>
-          {(props.email && props.displayBasicInfo.each.email === true) &&
+          {localProfile.email &&
             <div className="d-flex m-auto justify-content-center">
-              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+              <a href={'mailto:' + localProfile.email} className="btn primary high">Contact me</a>
             </div>
           }
           <br /><br />
         </div>
-        {(props.summary && props.displayAbout === true) &&
+        {localProfile.summary &&
           <div className="mb-5">
             <h4>About</h4>
             <div className={styles.profileCard + ' card p-4'}>
@@ -131,13 +165,13 @@ const Profile = (props) => {
             <br /><br />
           </div>
         }
-        {(props.experiences && props.displayExperience.section === true) &&
+        {localProfile.experiences &&
           <div className="mb-5">
             <h4>Experience</h4>
             <div className={styles.profileCard + ' card'}>
-              {props.experiences.map((job, index) => (props.displayExperience.each[index].display) &&
+              {localProfile.experiences.map((job, index) =>
                   <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                      { (props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ? 
+                      { (localProfile.logoVisibility ? localProfile.logoVisibility.experience : null) && job.logo_url ? 
                         <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                           <a target="_blank" href={job.company_linkedin_profile_url}>
                             <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
@@ -176,13 +210,13 @@ const Profile = (props) => {
             <br /><br />
           </div>
         }
-        {(props.education && props.displayEducation.section === true) &&
+        {localProfile.education &&
           <div className="mb-5">
             <h4>Education</h4>
             <div className={styles.profileCard + ' card'}>
-              {props.education.map((school, index) => (props.displayEducation.each[index].display) &&
+              {localProfile.education.map((school, index) => 
                 <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                  { (props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ? 
+                  { (localProfile.logoVisibility ? localProfile.logoVisibility.education : null) && school.logo_url ? 
                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                       <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
                     </div>
@@ -204,11 +238,11 @@ const Profile = (props) => {
             <br /><br />
           </div>
         }
-        {(props.volunteer_work && props.displayVolunteering.section === true) &&
+        {localProfile.volunteer_work &&
           <div className="mb-5">
             <h4>Volunteering</h4>
             <div className={styles.profileCard + ' card'}>
-              {props.volunteer_work.map((volunteer, index) => (props.displayVolunteering.each[index].display) &&
+              {localProfile.volunteer_work.map((volunteer, index) =>
                 <div key={index} className={styles.job}>
                   <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
                   <p className="large mb-0">{volunteer.company}</p>
@@ -226,11 +260,11 @@ const Profile = (props) => {
             <br /><br />
           </div>
         }
-        {props.email &&
+        {localProfile.email &&
           <div className="text-center my-5">
             <h2>Get in touch</h2>
             <div className="d-flex m-auto justify-content-center">
-              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+              <a href={'mailto:' + localProfile.email} className="btn primary high">Contact me</a>
             </div>
             <br /><br />
           </div>
@@ -245,7 +279,7 @@ const Profile = (props) => {
   )
 }
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSidelocalProfile = async ({ query }) => {
   const content = {}
   await fire.firestore()
     .collection('users')

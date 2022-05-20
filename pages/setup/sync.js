@@ -112,10 +112,10 @@ const Sync = () => {
           });
           return result;
         })
-        .then((result) => {
-          console.log(result);
-          return result;
-        })
+        // .then((result) => {
+        //   console.log(result);
+        //   return result;
+        // })
         .then((result) => {
           if (currentProfile.receiveEmails) {
             fire.firestore().collection('mailingList').doc(userData.uid).update({

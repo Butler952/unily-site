@@ -23,10 +23,10 @@
   padding-top: 120%;
   width: 100%;
   border-radius: $radius-medium;
-  box-shadow: $shadow-2;
+  border: 1px solid $dark-300;
+  box-shadow: $shadow-4;
   transition: $transition-standard;
   &:hover {
-    transform: scale(1.05);
     box-shadow: $shadow-4;
   }
   @media (min-width: $breakpoint-lg) {

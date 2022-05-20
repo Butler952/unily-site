@@ -40,9 +40,9 @@ const Header = (props) => {
 
     docRef.get().then((doc) => {
       if (doc.exists) {
-        if (doc.data().stage !== 'complete') {
-          router.push(doc.data().stage)
-        }
+        // if (doc.data().stage !== 'complete') {
+        //   router.push(doc.data().stage)
+        // }
         if (doc.data().profileUrl) {
           setProfileUrl(doc.data().profileUrl)
         }
@@ -64,7 +64,7 @@ const Header = (props) => {
 
   return (
     <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2" style={props.hideShadow ? {boxShadow: 'none'} : null}>
-      {(loggedIn && profileUrl !== '/') ? <div>
+      {loggedIn ? <div>
         <div className="d-flex">
           <Link href={profileUrl}>
             <a className="btn primary low small">Profile</a>
