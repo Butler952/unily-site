@@ -275,4 +275,15 @@ const Home = () => {
   )
 }
 
+export const getServerSideProps = async ({ bucket }) => {
+  const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
+
+  return {
+    props: {
+      paths: buckets.map((bucket) => ({ params: { bucket } })),
+      fallback: false,
+    }
+  }
+}
+
 export default Home;
