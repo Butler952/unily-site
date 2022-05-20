@@ -59,7 +59,6 @@ import Footer from '../components/Footer';
 
 import Cookies from 'js-cookie'
 import { LANDING_BUCKETS } from '../lib/buckets'
-import PROFILE from './profile/sample';
 
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
