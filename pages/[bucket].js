@@ -109,9 +109,9 @@ const Home = () => {
       // OPTION 1: stay on page and set the button to loading/indicate that it is fetching somehow
       // OPTION 2: save the profileUrl to localstorage, redirect to new page, get the profileUrl from localstorage, show the progress bar as normal, redirect to profile when complete
       // We could save something to the profile that indicates that this user is part of the experiment group, and therefore we need to create an account and agree to emails later on
-      
+
       // Replace the bit below with 
-      
+
       // fetch("/api/linkedin?profileUrl=" + profileUrl)
       fetch("/api/fakeLinkedin")
         .then(res => res.json())
@@ -122,7 +122,7 @@ const Home = () => {
 
           //localStorage.setItem('profile', 'value');
           //localStorage.setItem('profile', JSON.stringify({"key": "value"}));
-          
+
           localStorage.setItem('profile', JSON.stringify(result));
 
 
@@ -164,7 +164,7 @@ const Home = () => {
           // });
         })
         .then(() => {
-          mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+          mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
           mixpanel.track('Synced');
           setTimeout(
             setLoadingState('Sync successfully completed'), 2000
@@ -226,41 +226,84 @@ const Home = () => {
       </a>
       <Header hideShadow />
       <Container className="mt-5 pt-5">
-        <div className="d-flex flex-column align-items-center justify-content-between">
-          <div style={{ maxWidth: '640px' }} className="mb-5 pb-5 text-center">
-            {screenWidth > 576 ? <h1>Turn your resume into a landing page</h1> : <h2>Turn your resume into a landing page</h2>}
-            {bucket == 'b' ?
+        {bucket == 'a' ?
+          < div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+            <div style={{ maxWidth: '560px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
+              {screenWidth > 576 ? <h1>Turn your CV into a landing page</h1> : <h2>Turn your CV into a landing page</h2>}
               <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-              :
-              <p className="large mb-4">Paste your Linkedin URL below to create your profile</p>
-            }
-            {bucket == 'b' ?
-              <div className="d-flex justify-content-center m-auto">
+              <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
                 <Link href="/users/register">
                   <a className="btn primary high large">Get started</a>
                 </Link>
               </div>
-              :
-              <div className="d-flex justify-content-center mx-auto" style={{maxWidth: '480px'}}>
-                <form onSubmit={handleSubmit} className="w-100">
-                  <div className="mb-3">
-                    <div>
-                      <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
-                      {urlError !== '' ? <p className="small mt-2">{urlError}. If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a>.</p> : null }
+              {showNewStuff ?
+                <div className="d-flex justify-content-center justify-content-lg-start mx-auto m-lg-0 mt-5">
+                  <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                      <p className="large text-dark-high">LinkedIn profile URL</p>
+                      <p>We will use this to collect your information on your profile.</p>
+                      <div>
+                        <input type="text" className="w-100" pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="https://www.linkedin.com/in/" />
+                      </div>
                     </div>
-                  </div>
-                  <button type="submit" className="btn w-100 primary high" disabled={loadingState !== ''}>{loadingState == '' ? 'Create my profile' : loadingState }</button>
-                </form>
+                    <br />
+                    <button type="submit" className="btn primary high">Sync data</button>
+                  </form>
+                </div>
+                : null}
+            </div>
+            <div className="position-relative d-none d-lg-block" style={{ background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius: '320px' }}>
+              <img src="/images/aaron-butler.jpg" style={{ width: '120px', height: '120px', borderRadius: '100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute' }}></img>
+              <div className="card py-4 pl-4" style={{ position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)' }}>
+                <p className="large text-dark-high font-weight-semibold mb-0">Product Designer</p>
+                <p className="large mb-0">Cuvva</p>
+                <p className="text-dark-low mb-0">London, United Kingdom</p>
+                <p className="text-dark-low mb-0">July 2021 – Present</p>
               </div>
-            }
+              <div className="card py-4 pl-4" style={{ position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)' }}>
+                <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
+                <p className="large mb-0">Loughborough University</p>
+                <p className="text-dark-low mb-0">2013 – 2017</p>
+              </div>
+            </div>
           </div>
-          <div className={styles.iframeWrapper}>
-            <iframe className={styles.iframeContent}
-              title="Example Vitaely.me online CV profile"
-              src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
-            </iframe>
+          :
+          <div className="d-flex flex-column align-items-center justify-content-between">
+            <div style={{ maxWidth: '640px' }} className="mb-5 pb-5 text-center">
+              {screenWidth > 576 ? <h1>Turn your resume into a landing page</h1> : <h2>Turn your resume into a landing page</h2>}
+              {bucket == 'b' ?
+                <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+                :
+                <p className="large mb-4">Paste your Linkedin URL below to create your profile</p>
+              }
+              {bucket == 'b' ?
+                <div className="d-flex justify-content-center m-auto">
+                  <Link href="/users/register">
+                    <a className="btn primary high large">Get started</a>
+                  </Link>
+                </div>
+                :
+                <div className="d-flex justify-content-center mx-auto" style={{ maxWidth: '480px' }}>
+                  <form onSubmit={handleSubmit} className="w-100">
+                    <div className="mb-3">
+                      <div>
+                        <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
+                        {urlError !== '' ? <p className="small mt-2">{urlError}. If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a>.</p> : null}
+                      </div>
+                    </div>
+                    <button type="submit" className="btn w-100 primary high" disabled={loadingState !== ''}>{loadingState == '' ? 'Create my profile' : loadingState}</button>
+                  </form>
+                </div>
+              }
+            </div>
+            <div className={styles.iframeWrapper}>
+              <iframe className={styles.iframeContent}
+                title="Example Vitaely.me online CV profile"
+                src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
+              </iframe>
+            </div>
           </div>
-        </div>
+        }
         <div className={`text-center ${styles.sectionWrapper}`}>
           {screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2>}
           <div className={styles.stepsContainer}>
@@ -294,7 +337,7 @@ const Home = () => {
             />
           </div>
         </div> */}
-      </Container>
+      </Container >
       {/* <Container>
             <h2>
             Landing page variant
@@ -319,7 +362,7 @@ const Home = () => {
             Remove bucket
             </button>
         </Container> */}
-      <div className={`overflow-hidden ${styles.primaryBackground}`}>
+      < div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
             {/*{ idList ?? <p>{idList}</p> }*/}
@@ -343,39 +386,39 @@ const Home = () => {
             </div>
           </div>
         </Container>
-      </div>
+      </div >
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
           {screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "640px" }}>Turn your resume into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2>}
           {bucket == 'b' ?
-              <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-              :
-              <p className="large mb-4">Paste your Linkedin URL below to create your profile</p>
-            }
-            {bucket == 'b' ?
-              <div className="d-flex justify-content-center m-auto">
-                <Link href="/users/register">
-                  <a className="btn primary high large">Get started</a>
-                </Link>
-              </div>
-              :
-              <div className="d-flex justify-content-center mx-auto" style={{maxWidth: '480px'}}>
-                <form onSubmit={handleSubmit} className="w-100">
-                  <div className="mb-3">
-                    <div>
-                      <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
-                      {urlError !== '' ? <p className="small mt-2">{urlError}. If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a>.</p> : null }
-                    </div>
+            <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+            :
+            <p className="large mb-4">Paste your Linkedin URL below to create your profile</p>
+          }
+          {bucket == 'b' ?
+            <div className="d-flex justify-content-center m-auto">
+              <Link href="/users/register">
+                <a className="btn primary high large">Get started</a>
+              </Link>
+            </div>
+            :
+            <div className="d-flex justify-content-center mx-auto" style={{ maxWidth: '480px' }}>
+              <form onSubmit={handleSubmit} className="w-100">
+                <div className="mb-3">
+                  <div>
+                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
+                    {urlError !== '' ? <p className="small mt-2">{urlError}. If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a>.</p> : null}
                   </div>
-                  <button type="submit" className="btn w-100 primary high" disabled={loadingState !== ''}>{loadingState == '' ? 'Create my profile' : loadingState }</button>
-                </form>
-              </div>
-            }
+                </div>
+                <button type="submit" className="btn w-100 primary high" disabled={loadingState !== ''}>{loadingState == '' ? 'Create my profile' : loadingState}</button>
+              </form>
+            </div>
+          }
         </div>
       </Container>
       <Footer />
       <br /><br />
-    </div>
+    </div >
   )
 }
 
