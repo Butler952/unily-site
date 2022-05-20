@@ -22,7 +22,7 @@ import UpgradeButton from './components/upgradeButton';
 import RenewButton from './components/renewButton';
 import SurveyBanner from '../../components/banner/SurveyBanner';
 import LogosSection from './components/logosSection';
-import { redirect } from 'next/dist/next-server/server/api-utils';
+// import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
   const [data, setData] = useState(options);

@@ -441,6 +441,19 @@ a.btn, input.btn, button.btn {
         color: $dark-900; 
       }
     }
+    &.ultraLow {
+      color: $dark-700; 
+      svg path {
+        fill: $dark-700;
+      }
+      &:hover {
+        background: $dark-light;
+        color: $dark-900;
+        svg path {
+          fill: $dark-900;
+        } 
+      }
+    }
   }
   &.light {
     &.high {

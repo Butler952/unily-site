@@ -26,6 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.register_once({"home page": "original"});
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
@@ -37,7 +38,7 @@ const Home = () => {
     .onAuthStateChanged((user) => {
       if (user) {
         setLoggedIn(true)
-        loggedInRoute(user)
+        // loggedInRoute(user)
       } else {
         setLoggedIn(false)
       }
@@ -272,6 +273,17 @@ const Home = () => {
       <br/><br/>
     </div>
   )
+}
+
+export const getServerSideProps = async ({ bucket }) => {
+  const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
+
+  return {
+    props: {
+      paths: buckets.map((bucket) => ({ params: { bucket } })),
+      fallback: false,
+    }
+  }
 }
 
 export default Home;
