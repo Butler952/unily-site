@@ -379,25 +379,85 @@ const Home = () => {
   )
 }
 
-export default Home;
-
-
-export async function getStaticPaths() {
-  /**
-   * For the marketing page, the `original` bucket (handled by `./original.tsx`)
-   * represents the current marketing page without any changes, this is
-   * useful if the variations are very different and you don't to merge
-   * them on the same page.
-   */
+export const getServerSideProps = async ({ bucket }) => {
   const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
 
   return {
-    paths: buckets.map((bucket) => ({ params: { bucket } })),
-    fallback: false,
+    props: {
+      paths: buckets.map((bucket) => ({ params: { bucket } })),
+      fallback: false,
+    }
   }
 }
 
-export async function getStaticProps() {
-  // Here you would return data about the bucket
-  return { props: {} }
-}
+export default Home;
+
+
+// export async function getStaticPaths() {
+//   /**
+//    * For the marketing page, the `original` bucket (handled by `./original.tsx`)
+//    * represents the current marketing page without any changes, this is
+//    * useful if the variations are very different and you don't to merge
+//    * them on the same page.
+//    */
+//   const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
+
+//   return {
+//     paths: buckets.map((bucket) => ({ params: { bucket } })),
+//     fallback: false,
+//   }
+// }
+
+// export async function getStaticProps() {
+//   // Here you would return data about the bucket
+//   return { props: {} }
+// }
+
+// export const getServerSideProps = async ({ query }) => {
+//   const content = {}
+//   await fire.firestore()
+//     .collection('users')
+//     .doc(query.id)
+//     .get()
+//     .then(result => {
+//       content['pageId'] = query.id ? query.id : null;
+//       content['email'] = result.data().email ? result.data().email : null;
+//       content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
+//       content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null ;
+//       content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
+//       content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
+//       content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
+//       content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
+//       content['education'] = result.data().profile.education ? result.data().profile.education : null;
+//       content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
+//       content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
+//       content['displayBasicInfo'] = result.data().displayInfo.basicInfo ? result.data().displayInfo.basicInfo : null;
+//       content['displayAbout'] = result.data().displayInfo.about ? result.data().displayInfo.about : null;
+//       content['displayExperience'] = result.data().displayInfo.experience ? result.data().displayInfo.experience : null;
+//       content['displayEducation'] = result.data().displayInfo.education ? result.data().displayInfo.education : null;
+//       content['displayVolunteering'] = result.data().displayInfo.volunteering ? result.data().displayInfo.volunteering : null;
+//       content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+//     });
+
+//   return {
+//     props: {
+//       pageId: content.pageId,
+//       email: content.email,
+//       profile_pic_url: content.profile_pic_url,
+//       background_cover_image_url: content.background_cover_image_url,
+//       full_name: content.full_name,
+//       headline: content.headline,
+//       summary: content.summary,
+//       experiences: content.experiences,
+//       education: content.education,
+//       logoVisibility: content.logoVisibility,
+//       volunteer_work: content.volunteer_work,
+//       displayBasicInfo: content.displayBasicInfo,
+//       displayAbout: content.displayAbout,
+//       displayExperience: content.displayExperience,
+//       displayEducation: content.displayEducation,
+//       displayVolunteering: content.displayVolunteering,
+//       surveyOnSignUpHide: content.surveyOnSignUpHide,
+//     }
+//   }
+// }
