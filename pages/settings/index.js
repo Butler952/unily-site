@@ -792,7 +792,7 @@ const Settings = () => {
         pauseOnHover
       />
       { redirectToStripe ? (
-        <div className="bg-light-900 position-fixed w-100 h-100" style={{top: 0, left: 0, zIndex: 101}}>
+        <div className="bg-light-900 position-fixed w-100 h-100" style={{top: 0, left: 0, zIndex: 1100}}>
           <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
           <Lottie options={defaultOptions} height={160} width={160} />
             <p>Redirecting to Stripe checkout</p>
