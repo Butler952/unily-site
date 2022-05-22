@@ -77,6 +77,14 @@ const Sync = () => {
         // .then(result => setUserResult(result))
         .then((result) => {
           setLoadingState('Storing your data');
+          if (currentProfile.receiveEmails) {
+            fire.firestore().collection('mailingList').doc(userData.uid).update({
+              firstName: result.first_name,
+              lastName: result.last_name,
+              stage: 'complete',
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+            })
+          }
           fire.firestore().collection('users').doc(userData.uid).update({
             profile: result,
             displayInfo: {

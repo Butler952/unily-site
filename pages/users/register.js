@@ -16,7 +16,7 @@ const Register = () => {
   const [passConf, setPassConf] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [termsAndPrivacy, setTermsAndPrivacy] = useState(false);
-  // const [receiveEmails, setReceiveEmails] = useState(false);
+  const [receiveEmails, setReceiveEmails] = useState(false);
   
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -116,6 +116,10 @@ const Register = () => {
     setNotification('')
   }
 
+  const receiveEmailsChange = () => {
+    setReceiveEmails(receiveEmails => !receiveEmails)
+  }
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -135,10 +139,18 @@ const Register = () => {
     fire.auth()
       .createUserWithEmailAndPassword(username, password)
       .then((userCredential) => {
+        if (receiveEmails) {
+          fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
+            subscriberEmail: userCredential.user.email,
+            stage: '/setup/sync',
+            subscribed: fire.firestore.FieldValue.serverTimestamp(),
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+          })
+        }
         fire.firestore().collection('users').doc(userCredential.user.uid).set({
-          //receiveEmails,
+          receiveEmails: receiveEmails,
           email: userCredential.user.email,
-          stage: '/setup/emails',
+          stage: '/setup/sync',
           created: fire.firestore.FieldValue.serverTimestamp(),
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })
@@ -148,7 +160,7 @@ const Register = () => {
         mixpanel.track('Register');
       })
       .then(() => {
-        router.push("/setup/emails")
+        router.push("/setup/sync")
       })
       .catch((err) => {
         if (err.code === 'auth/email-already-in-use') {
@@ -195,6 +207,10 @@ const Register = () => {
                 <input type="password" className={passConfError !== '' ? `error w-100` : `w-100`} value={passConf} onChange={({target}) => passConfChange(target.value)} />
                 {passConfError !== '' ? <p className="small text-error-high mt-2">{passConfError}</p> : null}
               </div>
+              <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
+                <input type="checkbox" onChange={() => receiveEmailsChange()} checked={receiveEmails}></input>
+                <span className="checkmark"></span>
+              </label>
               <label className="checkbox-container small mb-4">I agree to the <a href="/legal/terms" target="_blank">Terms</a> and <a href="/legal/privacy" target="_blank">Privacy Policy</a>
                 <input type="checkbox" onChange={() => termsAndPrivacyChange()} checked={termsAndPrivacy}></input>
                 {notify !== '' ? <p className="small text-error-high">{notify}</p> : null}
