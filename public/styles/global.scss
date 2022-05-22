@@ -1138,6 +1138,15 @@ textarea {
   }
 }
 
+// Dropdown
+
+.dropdown-menu {
+  background: $light-900;
+  border: 1px solid $dark-300;
+  box-shadow: $shadow-2;
+  border-radius: $radius-medium;
+}
+
 // Card
 
 .card {

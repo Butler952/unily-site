@@ -1,0 +1,59 @@
+@import '../../public/styles/variables.scss';
+
+.toggleLink {
+  padding: 14px 0;
+  border-radius: 16px;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  font-weight: 500;
+  text-decoration: none!important;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  svg path{
+    fill: $dark-900;
+  }
+  &:hover, &:focus {
+    background: $dark-200;
+    color: $dark-900;
+    svg path{
+      fill: $dark-900;
+    }
+  }
+}
+
+.dropdownItemLow {
+  color: $dark-700;
+  svg path{
+    fill: $dark-700;
+  }
+  &:hover, &:focus {
+    color: $dark-900;
+    svg path{
+      fill: $dark-900;
+    }
+  }
+}
+
+.dropdownItemHighlight {
+  color: $primary-900;
+  svg path{
+    fill: $primary-900;
+  }
+  &:hover, &:focus {
+    background: $primary-200;
+    color: $primary-900;
+    svg path{
+      fill: $primary-900;
+    }
+  }
+}

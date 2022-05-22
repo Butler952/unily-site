@@ -152,7 +152,7 @@ const LandingPage = (props) => {
                 <h5 className="text-light-med">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</h5>
               </div>
               <div className="d-flex flex-column align-items-center">
-                <Icon icon={ICONS.NO_DATA_ENTRY} size='64' className="fill-light-900" />
+                <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">No data entry</h3>
                 <h5 className="text-light-med">Syncing your information from your LinkedIn account.</h5>
               </div>
