@@ -262,7 +262,7 @@ const Header = (props) => {
                     Settings
                   </a>
                 </Link>
-                <a onclick={$crisp.push(['do', 'chat:open'])} className={`${styles.dropdownItem}`}>
+                <a onClick={$crisp.push(['do', 'chat:open'])} className={`${styles.dropdownItem}`}>
                   <Icon icon={ICONS.FEEDBACK} size='24' />
                   Submit feedback
                 </a>
