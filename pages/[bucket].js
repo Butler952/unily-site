@@ -113,7 +113,8 @@ const Home = () => {
       // Replace the bit below with 
 
       // fetch("/api/linkedin?profileUrl=" + profileUrl)
-      fetch("/api/fakeLinkedin")
+      //fetch("/api/fakeLinkedin")
+      fetch("/api/linkedin?profileUrl=" + profileUrl)
         .then(res => res.json())
         .then((result) => {
           setLoadingState('Storing your data');
