@@ -104,7 +104,7 @@ const LogosSection = ({
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Logos</h5>
-          <p className="text-dark-low mb-0">Show or hide the logos for companies and education</p>
+          <p className="text-dark-low mb-0">Show or hide the logos for experience and education</p>
         </div>
         <hr className="m-0"/>
         {sectionsLoading ?

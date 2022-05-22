@@ -451,7 +451,7 @@ const Settings = () => {
           <div className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Sections</h5>
-              <p className="text-dark-low mb-0">Control the visibility of content profile</p>
+              <p className="text-dark-low mb-0">Control the visibility of profile content</p>
             </div>
             <hr className="m-0"/>
             {sectionsLoading ?
