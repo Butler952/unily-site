@@ -388,6 +388,22 @@ const Home = () => {
           </div>
         </Container>
       </div >
+      { bucket == 'a' ?
+      <Container>
+        <div className={`text-center ${styles.sectionWrapper}`}>
+          { screenWidth > 576 ? <h2 className="mx-auto mb-5" style={{ maxWidth: '480px' }}>Check out the live demo below</h2> : <h2 className="mx-auto mb-5">Check out the live demo</h2> }    
+          <div className={styles.iframeWrapper}>
+            <iframe className={styles.iframeContent} 
+                title="Example Vitaely.me online CV profile"
+                src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
+            </iframe>
+          </div>
+          {/* <Link href="/users/register">
+            <a className="btn primary high large mx-auto mt-5">Create your page</a>
+          </Link> */}
+        </div>
+      </Container>
+      : null }
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
           {screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "640px" }}>Turn your resume into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2>}
@@ -396,7 +412,7 @@ const Home = () => {
             :
             <p className="large mb-4">Paste your Linkedin URL below to create your profile</p>
           }
-          {bucket == 'b' ?
+          {bucket !== 'c' ?
             <div className="d-flex justify-content-center m-auto">
               <Link href="/users/register">
                 <a className="btn primary high large">Get started</a>
