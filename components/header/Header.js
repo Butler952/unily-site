@@ -299,24 +299,20 @@ const Header = (props) => {
                 <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
               </Dropdown.Toggle>
 
-              <Dropdown.Menu as={CustomMenu} className="mt-2">
-                <Link href={profileUrl}>
-                  <a className={styles.dropdownItem}>
-                    <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
-                    {profile.full_name}
-                  </a>
-                </Link>
+              <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+                <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
+                  <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                  {profile.full_name}
+                </Dropdown.Item>
                 <hr className="m-0" />
-                <Link href={"/settings"}>
-                  <a className={styles.dropdownItem}>
-                    <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
-                    Settings
-                  </a>
-                </Link>
-                <a onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
+                <Dropdown.Item href={"/settings"} className={styles.dropdownItem}>
+                  <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
+                  Settings
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
                   <Icon icon={ICONS.FEEDBACK} size='24' />
                   Submit feedback
-                </a>
+                </Dropdown.Item>
                 {/* {product !== '' ?
                   (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
                     (status === 'active' ?
@@ -338,39 +334,39 @@ const Header = (props) => {
                   (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? 
                     (status === 'active' ? 
                         (cancelAtPeriodEnd ? 
-                          <a onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                          <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
                             <Icon icon={ICONS.STAR} size='24' />
                             Renew subscription
-                          </a> 
+                          </Dropdown.Item> 
                         : 
                           null
                         ) 
                       : 
-                        <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                        <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
                           <Icon icon={ICONS.STAR} size='24' />
                           Upgrade to premium
-                        </a> 
+                        </Dropdown.Item> 
                       ) 
                   : 
-                    <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                    <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
                       <Icon icon={ICONS.STAR} size='24' />
                       Upgrade to premium
-                    </a> 
+                    </Dropdown.Item> 
                   ) 
                 : 
-                  <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                  <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
                     <Icon icon={ICONS.STAR} size='24' />
                     Upgrade to premium
-                  </a> 
+                  </Dropdown.Item> 
                 }
 
 
 
                 <hr className="m-0" />
-                <a onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
+                <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
                   <Icon icon={ICONS.LOG_OUT} size='24' />
                   Sign out
-                </a>
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           }
@@ -401,7 +397,7 @@ const Header = (props) => {
               <form onSubmit={handleFeedbackSubmit}>
                 <div className="mb-4">
                   <p className="large text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
-                  <textarea className="w-100 small" disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({target}) => commentsAndSuggestionsChange(target.value)} />
+                  <textarea className="w-100 small" style={{minHeight: '10rem'}} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({target}) => commentsAndSuggestionsChange(target.value)} />
                   {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
                 </div>
                 <div className="mb-4">
