@@ -169,7 +169,6 @@ const Header = (props) => {
 
   const furtherResearchChange = () => {
     setFurtherResearch(furtherResearch => !furtherResearch)
-    setFurtherResearchError('')
   }
 
   const handleFeedbackSubmit = (e) => {
