@@ -30,6 +30,8 @@ const Header = (props) => {
   const [furtherResearch, setFurtherResearch] = useState(false);
   const [submittingFeedback, setSubmittingFeedback] = useState(false);
   const [submittedFeedback, setSubmittedFeedback] = useState(false);
+  const [headerImageError, setHeaderImageError] = useState(false);
+
 
   const [screenWidth, setScreenWidth] = useState('');
 
@@ -296,12 +298,36 @@ const Header = (props) => {
             :
             <Dropdown align="end">
               <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                <>
+                { !headerImageError ? 
+                    <img 
+                      src={profile.profile_pic_url} 
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        setHeaderImageError(true)
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                      }}
+                      style={{ width: '48px', borderRadius: '100%' }} 
+                    />
+                  :
+                    <button className="btn dark low small icon-only">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.MENU}></path>
+                      </svg>
+                    </button>
+                  }
+                </>
+                {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
+
               </Dropdown.Toggle>
 
               <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
                 <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
-                  <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                  { !headerImageError ? 
+                    <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%'}}>
+                      <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                    </div>
+                  : null }
                   {profile.full_name}
                 </Dropdown.Item>
                 <hr className="m-0" />

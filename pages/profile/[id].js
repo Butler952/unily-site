@@ -15,6 +15,8 @@ const Profile = (props) => {
   const [showMore, setShowMore] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [profilePictureError, setProfilePictureError] = useState(false);
+  const [headerImageError, setHeaderImageError] = useState(false);
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
@@ -100,11 +102,34 @@ const Profile = (props) => {
       { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
       <Container>
         <div className="text-center mb-5">
-          {(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) &&
-            <div className={styles.headerImage} style={{ backgroundImage: `url(${props.background_cover_image_url})`}} />
+          {((props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) && !headerImageError ) &&
+            <>
+              <img 
+                src={props.background_cover_image_url} 
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  setHeaderImageError(true)
+                  // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                }}
+                style={{display: 'none'}} 
+              />
+              <div 
+                className={styles.headerImage} 
+                style={{ backgroundImage: `url(${props.background_cover_image_url})`}} 
+              />
+            </>
           }
-          {(props.profile_pic_url && props.displayBasicInfo.each.profilePic === true) &&
-            <img src={props.profile_pic_url} style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} className={styles.profilePicture} />
+          {((props.profile_pic_url && props.displayBasicInfo.each.profilePic === true) && !profilePictureError) &&
+            <img 
+              src={props.profile_pic_url} 
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                setProfilePictureError(true)
+                // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+              }}
+              style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} 
+              className={styles.profilePicture} 
+            />
           }
           <br /> <br />
           <div className="mb-1 d-flex flex-column align-items-center">
