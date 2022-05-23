@@ -159,8 +159,13 @@ const Header = (props) => {
     }
   };
 
-  const handleFeedbackClose = () => setShowFeedbackModal(false);
-  const handleFeedbackShow = () => setShowFeedbackModal(true);
+  const handleFeedbackClose = () => {
+    setShowFeedbackModal(false);
+  };
+  const handleFeedbackShow = () => {
+    setSubmittedFeedback(false);
+    setShowFeedbackModal(true)
+  };
 
   const commentsAndSuggestionsChange = (value) => {
     setCommentsAndSuggestions(value)
@@ -189,9 +194,10 @@ const Header = (props) => {
       submitted: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
-      handleFeedbackClose()
       setSubmittedFeedback(true)
       setSubmittingFeedback(false)
+      setCommentsAndSuggestions('')
+      setFurtherResearch(false)
     })
     .catch((error) => {
         console.error("Error adding document: ", error);
