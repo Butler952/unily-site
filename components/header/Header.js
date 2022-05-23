@@ -2,7 +2,7 @@ import { useState, useEffect, forwardRef, Children } from 'react';
 import fire from '../../config/fire-config';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Modal } from 'react-bootstrap';
 import styles from './Header.module.scss'
 import Icon from '../icon/Icon';
 import ICONS from '../icon/IconPaths';
@@ -24,6 +24,12 @@ const Header = (props) => {
   const [status, setStatus] = useState('');
   const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
   const [cancelAt, setCancelAt] = useState('');
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+  const [commentsAndSuggestions, setCommentsAndSuggestions] = useState('');
+  const [commentsAndSuggestionsError, setCommentsAndSuggestionsError] = useState('');
+  const [furtherResearch, setFurtherResearch] = useState(false);
+  const [submittingFeedback, setSubmittingFeedback] = useState(false);
+  const [submittedFeedback, setSubmittedFeedback] = useState(false);
 
   const [screenWidth, setScreenWidth] = useState('');
 
@@ -153,6 +159,46 @@ const Header = (props) => {
     }
   };
 
+  const handleFeedbackClose = () => setShowFeedbackModal(false);
+  const handleFeedbackShow = () => setShowFeedbackModal(true);
+
+  const commentsAndSuggestionsChange = (value) => {
+    setCommentsAndSuggestions(value)
+    setCommentsAndSuggestionsError('')
+  }
+
+  const furtherResearchChange = () => {
+    setFurtherResearch(furtherResearch => !furtherResearch)
+    setFurtherResearchError('')
+  }
+
+  const handleFeedbackSubmit = (e) => {
+    e.preventDefault();
+
+    if (commentsAndSuggestions == ''
+    ) {
+      setCommentsAndSuggestionsError('Please provide a response')
+      return null;
+    }
+
+    setSubmittingFeedback(true)
+
+    fire.firestore().collection("surveys").doc('generalFeedback').collection("responses").add({
+      'commentsAndSuggestions': commentsAndSuggestions,
+      'furtherResearch': furtherResearch,
+      userID: userData.uid,
+      submitted: fire.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      handleFeedbackClose()
+      setSubmittedFeedback(true)
+      setSubmittingFeedback(false)
+    })
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+  }
+
   // The forwardRef is important!!
   // Dropdown needs access to the DOM node in order to position the Menu
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
@@ -262,7 +308,7 @@ const Header = (props) => {
                     Settings
                   </a>
                 </Link>
-                <a onClick={$crisp.push(['do', 'chat:open'])} className={`${styles.dropdownItem}`}>
+                <a onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
                   <Icon icon={ICONS.FEEDBACK} size='24' />
                   Submit feedback
                 </a>
@@ -329,6 +375,62 @@ const Header = (props) => {
            */}
         </div>
       }
+      <Modal
+        show={showFeedbackModal} 
+        onHide={handleFeedbackClose}
+        backdrop="static"
+        keyboard={false}
+        // size="lg"
+      >
+        { !submittedFeedback ? <Modal.Header closeButton>
+          <h5 className="text-dark-high mb-0">Feedback survey</h5>
+          <button onClick={handleFeedbackClose} className="btn dark low small icon-only">
+            <svg viewBox="0 0 24 24">
+              <path d={ICONS.CLOSE}></path>
+            </svg>
+          </button>
+        </Modal.Header> : '' }
+        { !submittedFeedback ? 
+          <Modal.Body>
+            <div>
+              <form onSubmit={handleFeedbackSubmit}>
+                <div className="mb-4">
+                  <p className="large text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
+                  <textarea className="w-100 small" disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({target}) => commentsAndSuggestionsChange(target.value)} />
+                  {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
+                </div>
+                <div className="mb-4">
+                  <p className="large text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
+                  <label className="checkbox-container small mb-4">I agree to be contacted for further research
+                    <input type="checkbox" disabled={submittingFeedback} onChange={() => furtherResearchChange()} checked={furtherResearch}></input>
+                    <span className="checkmark"></span>
+                  </label>
+                </div>
+                {/*}
+                <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
+                  <input type="checkbox" onChange={() => setReceiveEmails(receiveEmails => !receiveEmails)} checked={receiveEmails}></input>
+                  <span className="checkmark"></span>
+                </label>
+                */}
+                <br/>
+                <button type="submit" className="btn primary high w-100" disabled={submittingFeedback}>{submittingFeedback ? 'Submitting...' : 'Submit feedback'}</button>
+              </form>
+              {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
+                <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpdate}>Upgrade</button>
+                <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+              </div>*/}
+            </div>
+          </Modal.Body>
+        : 
+          <Modal.Body>
+            <div>
+              <h4 className="text-center">Feedback successfully submitted</h4>
+              <p className="text-center large mb-5">Thank you for taking the time to send over your comments and feedback. Your response will help us to make the product even better for you.</p>
+              <button type="button" onClick={handleFeedbackClose} className="btn primary high w-100">Close</button>
+            </div>
+          </Modal.Body>
+        }
+      </Modal>
       {redirectToStripe ? (
         <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
           <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
