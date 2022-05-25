@@ -11,7 +11,6 @@ import moment from 'moment'
 import ICONS from '../../components/icon/IconPaths';
 import Lottie from 'react-lottie';
 import animationData from '../../components/animations/loader.json'
-
 import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
@@ -22,6 +21,8 @@ import UpgradeButton from './components/upgradeButton';
 import RenewButton from './components/renewButton';
 import SurveyBanner from '../../components/banner/SurveyBanner';
 import LogosSection from './components/logosSection';
+import DownloadSection from './components/downloadSection';
+import mixpanel from 'mixpanel-browser';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -126,6 +127,8 @@ const Settings = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.track('Settings');
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")
     }
@@ -601,41 +604,7 @@ const Settings = () => {
               </div>
             }
           </div>
-          
-          {/* <div className="card mx-auto mb-5">
-            <div className="p-4">
-              <h5 className="text-dark-high mb-0">Logos</h5>
-              <p className="text-dark-low mb-0">Show or hide the logos for companies and education</p>
-            </div>
-            <hr className="m-0"/>
-            {sectionsLoading ?
-              <div className="p-4">
-                <p className="mb-0">Loading...</p>
-              </div>
-              :
-              <div className="p-0">
-                <form onSubmit={handleLogosSubmit}>
-                  <div className={styles.sectionCard + " card p-4"}>
-                    <label className="checkbox-container font-weight-medium text-dark-high large">
-                      Experience
-                  <input type="checkbox" checked={experienceLogos} onChange={(e) => setExperienceLogos(e.currentTarget.checked)} />
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
-                  <div className={styles.sectionCard + " card p-4"}>
-                    <label className="checkbox-container font-weight-medium text-dark-high large">
-                      Education
-                  <input type="checkbox" checked={educationLogos} onChange={(e) => setEducationLogos(e.currentTarget.checked)} />
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
-                  <div className="m-4">
-                    <button type="submit" className="btn primary high w-100 w-md-auto" disabled={savingLogos}>{!savingLogos ? 'Save' : 'Saving'}</button>
-                  </div>
-                </form>
-              </div>
-            }
-          </div> */}
+        
           <LogosSection
             userData={userData} 
             product={product}
@@ -650,6 +619,7 @@ const Settings = () => {
             educationLogos={educationLogos}
             setEducationLogos={setEducationLogos}
           />
+          <DownloadSection userData={userData} />
           <ResyncSection
             linkedinId={linkedinId} 
             userData={userData}

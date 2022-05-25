@@ -8,6 +8,7 @@ import styles from './profile.module.scss'
 import SurveyBanner from '../../components/banner/SurveyBanner';
 import { useEffect, useState } from 'react';
 import ICONS from '../../components/icon/IconPaths';
+import mixpanel from 'mixpanel-browser';
 
 const Profile = (props) => {
 
@@ -24,6 +25,8 @@ const Profile = (props) => {
 
   useEffect(() => {
     checkUser();
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.track('Profile');
   }, [])
 
   const checkUser = () => {
