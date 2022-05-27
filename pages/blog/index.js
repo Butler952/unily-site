@@ -38,6 +38,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image="/images/blog/how-to-get-your-resume-past-applicant-tracking-systems/how-to-get-your-resume-past-applicant-tracking-systems.jpg"
+            title="How to get your resume past Applicant Tracking Systems"
+            duration="8"
+            bodyPreview="Before your application ever gets seen by a recruiter or hiring manager, screening software checks whether or not you would be..."
+            postUrl="/blog/how-to-get-your-resume-past-applicant-tracking-systems"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image="/images/blog/cv-resume-builder-alternatives/cover-photo.jpg"
             title="Comparing online resume and CV builders in 2022"
             duration="8"
