@@ -182,7 +182,7 @@ const LogosSection = ({
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">
-                  <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
+                  <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{minWidth: '24px'}}>
                     <path d={ICONS.CHECK}></path>
                   </svg>
                   <p className="text-dark-high font-weight-medium mb-0">{feature}</p>

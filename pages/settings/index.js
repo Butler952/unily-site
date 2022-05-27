@@ -23,6 +23,7 @@ import SurveyBanner from '../../components/banner/SurveyBanner';
 import LogosSection from './components/logosSection';
 import DownloadSection from './components/downloadSection';
 import mixpanel from 'mixpanel-browser';
+import TemplateSection from './components/templateSection';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -619,6 +620,7 @@ const Settings = () => {
             educationLogos={educationLogos}
             setEducationLogos={setEducationLogos}
           />
+          <TemplateSection userData={userData} />
           <DownloadSection userData={userData} />
           <ResyncSection
             linkedinId={linkedinId} 
@@ -702,7 +704,7 @@ const Settings = () => {
                     'More coming soon'
                   ].map((feature, index) =>
                     <div key={index} className="d-flex align-items-start mt-2">
-                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
+                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{minWidth: '24px'}}>
                         <path d={ICONS.CHECK}></path>
                       </svg>
                       <p className="text-dark-high font-weight-medium mb-0">{feature}</p>

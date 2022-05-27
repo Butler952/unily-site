@@ -17,3 +17,11 @@
     background: $primary-100;
   }
 }
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+  width: 100%;
+  border-radius: $radius-small;
+  border: 1px solid $dark-300;
+}
