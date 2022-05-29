@@ -17,6 +17,7 @@ const Header = (props) => {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [profileUrl, setProfileUrl] = useState(userContext && userContext.profileUrl && userContext.profileUrl)
+  const [windowUrl, setWindowUrl] = useState("")
   // const [profile, setProfile] = useState('')
   const [userData, setUserData] = useState('')
   const [stage, setStage] = useState(userContext && userContext.stage && userContext.stage)
@@ -44,6 +45,7 @@ const Header = (props) => {
   };
 
   useEffect(() => {
+    setWindowUrl(window.location.pathname);
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -276,7 +278,7 @@ const Header = (props) => {
   );
 
   return (
-    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={window.location.pathname == '/' ? { boxShadow: 'none', minHeight: '64px' } : { minHeight: '64px' }}>
+    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={windowUrl == '/' ? { boxShadow: 'none', minHeight: '64px' } : { minHeight: '64px' }}>
       {userContext !== '' ?
         // {loggedIn ?
         <>
@@ -415,7 +417,7 @@ const Header = (props) => {
         :
         <div className="d-flex flex-row justify-content-between align-items-center w-100">
           <Link href="/">
-            <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={window.location.pathname === '/' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
+            <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
           </Link>
           <div className="d-flex" style={{ gap: '8px' }}>
             {screenWidth > 767 ? (
