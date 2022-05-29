@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef, Children } from 'react';
+import { useState, useEffect, forwardRef, Children, useContext } from 'react';
 import fire from '../../config/fire-config';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
@@ -9,11 +9,12 @@ import ICONS from '../icon/IconPaths';
 import { loadStripe } from '@stripe/stripe-js';
 import Lottie from 'react-lottie';
 import animationData from '../../components/animations/loader.json'
+import { UserContext } from '../../pages/_app';
 
 const Header = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [profileUrl, setProfileUrl] = useState('/')
-  const [profile, setProfile] = useState('')
+  // const [profile, setProfile] = useState('')
   const [windowUrl, setWindowUrl] = useState('')
   const [userData, setUserData] = useState('')
   const [stage, setStage] = useState('')
@@ -32,6 +33,8 @@ const Header = (props) => {
   const [submittedFeedback, setSubmittedFeedback] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
 
+  // const { profile, setProfile } = useContext(ProfileContext);
+  const { userContext, setUserContext } = useContext(UserContext);
 
   const [screenWidth, setScreenWidth] = useState('');
 
@@ -67,7 +70,8 @@ const Header = (props) => {
     docRef.get()
       .then((doc) => {
         if (doc.exists) {
-          setProfile(doc.data().profile)
+          setUserContext(doc.data())
+          //setProfile(doc.data().profile)
           setStage(doc.data().stage)
           // if (doc.data().stage !== 'complete') {
           //   router.push(doc.data().stage)
@@ -301,7 +305,7 @@ const Header = (props) => {
                 <>
                 { !headerImageError ? 
                     <img 
-                      src={profile.profile_pic_url} 
+                      src={userContext.profile.profile_pic_url} 
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         setHeaderImageError(true)
@@ -325,10 +329,10 @@ const Header = (props) => {
                 <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
                   { !headerImageError ? 
                     <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%'}}>
-                      <img src={profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                      <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
                     </div>
                   : null }
-                  {profile.full_name}
+                  {userContext.profile.full_name}
                 </Dropdown.Item>
                 <hr className="m-0" />
                 <Dropdown.Item href={"/settings"} className={styles.dropdownItem}>

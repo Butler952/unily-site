@@ -146,6 +146,46 @@ const Settings = () => {
       unsubscribe();
     };
   }, []);
+  
+/* Start loggedInRout pre-context */
+
+  // const loggedInRoute = (user) => {
+  //   var docRef = fire.firestore().collection('users').doc(user.uid)
+  //   docRef.get().then((doc) => {
+  //     if (doc.exists) {
+  //       setBasicInfo(doc.data().displayInfo.basicInfo)
+  //       setProfilePic(doc.data().displayInfo.basicInfo.each.profilePic)
+  //       setHeaderImage(doc.data().displayInfo.basicInfo.each.headerImage)
+  //       setFullname(doc.data().displayInfo.basicInfo.each.name)
+  //       setHeadline(doc.data().displayInfo.basicInfo.each.headline)
+  //       setEmail(doc.data().displayInfo.basicInfo.each.email)
+  //       setAbout(doc.data().displayInfo.about)
+  //       setExperience(doc.data().displayInfo.experience.section)
+  //       setExperienceEach(doc.data().displayInfo.experience.each)
+  //       setEducation(doc.data().displayInfo.education.section)
+  //       setEducationEach(doc.data().displayInfo.education.each)
+  //       setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
+  //       setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
+  //       setVolunteering(doc.data().displayInfo.volunteering.section)
+  //       setVolunteeringEach(doc.data().displayInfo.volunteering.each)
+  //       setLinkedinId(doc.data().profile.public_identifier)
+  //       setSurveyHide(doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : false) : false) : false)
+  //     } else {
+  //       console.log("No such document!");
+  //     }
+  //   })
+  //   .then(() => {
+  //     setSectionsLoading(false)
+  //     //console.log('Retreived display info from database')
+  //     //console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error getting document:", error);
+  //   })
+  // }
+
+/* End loggedInRout pre-context */
+
 
   const loggedInRoute = (user) => {
     var docRef = fire.firestore().collection('users').doc(user.uid)

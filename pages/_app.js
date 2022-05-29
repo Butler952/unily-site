@@ -1,10 +1,16 @@
-import { useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import fire from '../config/fire-config';
 import Head from 'next/head'
 import '../public/styles/global.scss';
 import LogRocket from 'logrocket';
 
+export const UserContext = createContext("")
+
 export default function App({ Component, pageProps }) {
+
+
+  const [userContext, setUserContext] = useState("");
+  const userValue = { userContext, setUserContext };
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -31,11 +37,13 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <title>Vitaely.me</title>
-        <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
-      </Head>
-      <Component {...pageProps} />
+      <UserContext.Provider value={userValue}>
+        <Head>
+          <title>Vitaely.me</title>
+          <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
+        </Head>
+        <Component {...pageProps} />
+      </UserContext.Provider>
     </>
   )
 }
