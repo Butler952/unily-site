@@ -101,7 +101,6 @@ const Profile = (props) => {
         { props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null }
         <meta property="og:type" content="website" />
       </Head>
-      { loggedIn ? <Header /> : '' }
       { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
       <Container>
         <div className="text-center mb-5">

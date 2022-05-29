@@ -474,7 +474,6 @@ const Settings = () => {
       <Head>
         <title>Settings</title>
       </Head>
-      <Header />
       { surveyHide ? '' : <SurveyBanner /> }
       <Container className="py-4">
         <div className="m-auto" style={{ maxWidth: "640px" }}>

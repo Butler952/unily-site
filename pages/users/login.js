@@ -85,7 +85,6 @@ const Login = () => {
       <Head>
         <title>Sign in to your account</title>
       </Head>
-      <Header/>
       <Container className="py-5">
         <div className="card m-auto" style={{maxWidth: "640px"}}>
           <div className="py-4 px-4 px-md-5">

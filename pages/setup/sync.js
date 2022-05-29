@@ -187,7 +187,6 @@ const Sync = () => {
       <Head>
         <title>Sync your data</title>
       </Head>
-      <Header />
 
       <Container className="py-5">
         <div className="card m-auto" style={{ maxWidth: "640px" }}>

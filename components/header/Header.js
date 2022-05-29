@@ -50,11 +50,8 @@ const Header = (props) => {
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
-          setLoggedIn(true)
           loggedInRoute(user)
           getSubscription(user)
-        } else {
-          setLoggedIn(false)
         }
       })
     return () => {
@@ -63,29 +60,61 @@ const Header = (props) => {
     };
   }, []);
 
+  /* Start old useEffect */
+
+  // useEffect(() => {
+  //   setWindowUrl(window.location.pathname);
+  //   setScreenWidth(window.innerWidth)
+  //   window.addEventListener('resize', handleResize);
+  //   const unsubscribe = fire.auth()
+  //     .onAuthStateChanged((user) => {
+  //       if (user) {
+  //         setLoggedIn(true)
+  //         loggedInRoute(user)
+  //         getSubscription(user)
+  //       } else {
+  //         setLoggedIn(false)
+  //       }
+  //     })
+  //   return () => {
+  //     // Unmouting
+  //     unsubscribe();
+  //   };
+  // }, []);
+
+  /* End old useEffect */
+
   const loggedInRoute = (user) => {
     setUserData(user)
-    var docRef = fire.firestore().collection('users').doc(user.uid)
+    if (userContext !== '') {
+      setStage(userContext.stage)
+      if (userContext.profileUrl) {
+        setProfileUrl(userContext.profileUrl)
+      }
+    } else {
 
-    docRef.get()
-      .then((doc) => {
-        if (doc.exists) {
-          setUserContext(doc.data())
-          //setProfile(doc.data().profile)
-          setStage(doc.data().stage)
-          // if (doc.data().stage !== 'complete') {
-          //   router.push(doc.data().stage)
-          // }
-          if (doc.data().profileUrl) {
-            setProfileUrl(doc.data().profileUrl)
+      var docRef = fire.firestore().collection('users').doc(user.uid)
+
+      docRef.get()
+        .then((doc) => {
+          if (doc.exists) {
+            setUserContext(doc.data())
+            //setProfile(doc.data().profile)
+            setStage(doc.data().stage)
+            // if (doc.data().stage !== 'complete') {
+            //   router.push(doc.data().stage)
+            // }
+            if (doc.data().profileUrl) {
+              setProfileUrl(doc.data().profileUrl)
+            }
+          } else {
+            console.log("No such document!");
           }
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      })
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        })
+    }
   }
 
   const handleLogout = () => {
@@ -147,14 +176,14 @@ const Header = (props) => {
   }
   // Dev Premium Subscription End
 
-    // Dev Customer Portal Start
-    async function handleUpdate(e){
-      e.preventDefault();
-      const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
-      const { data } = await functionRef({ returnUrl: window.location.origin  + '/settings' });
-      window.location.assign(data.url);
-    }
-    // Dev Customer Portal End
+  // Dev Customer Portal Start
+  async function handleUpdate(e) {
+    e.preventDefault();
+    const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
+    const { data } = await functionRef({ returnUrl: window.location.origin + '/settings' });
+    window.location.assign(data.url);
+  }
+  // Dev Customer Portal End
 
   const defaultOptions = {
     loop: true,
@@ -199,15 +228,15 @@ const Header = (props) => {
       userID: userData.uid,
       submitted: fire.firestore.FieldValue.serverTimestamp()
     })
-    .then(() => {
-      setSubmittedFeedback(true)
-      setSubmittingFeedback(false)
-      setCommentsAndSuggestions('')
-      setFurtherResearch(false)
-    })
-    .catch((error) => {
+      .then(() => {
+        setSubmittedFeedback(true)
+        setSubmittingFeedback(false)
+        setCommentsAndSuggestions('')
+        setFurtherResearch(false)
+      })
+      .catch((error) => {
         console.error("Error adding document: ", error);
-    });
+      });
   }
 
   // The forwardRef is important!!
@@ -247,13 +276,15 @@ const Header = (props) => {
   );
 
   return (
-    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={props.hideShadow ? { boxShadow: 'none', minHeight: '64px' } : {minHeight: '64px'}}>
-      {loggedIn ?
-        <div>
-          <Link href={profileUrl}>
-            <a><img src="/images/vitaely-logo-icon.svg" style={{ height: '32px' }} /></a>
-          </Link>
-          {/* <div className="d-flex">
+    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={windowUrl === '/' ? { boxShadow: 'none', minHeight: '64px' } : { minHeight: '64px' }}>
+      {userContext !== '' ?
+        // {loggedIn ?
+        <>
+          <div>
+            <Link href={profileUrl}>
+              <a><img src="/images/vitaely-logo-icon.svg" style={{ height: '32px' }} /></a>
+            </Link>
+            {/* <div className="d-flex">
           <Link href={profileUrl}>
             <a className="btn primary low small">Profile</a>
           </Link>
@@ -261,11 +292,121 @@ const Header = (props) => {
             <a className="btn primary low small">Settings</a>
           </Link>
         </div>      */}
-        </div>
-        : null
-      }
-      {!loggedIn
-        ?
+          </div>
+          <div className="d-flex">
+            {/* {profile.profile_pic_url &&
+            <img src={profile.profile_pic_url} style={{width: '48px', borderRadius:'100%'}} />
+          } */}
+            {stage !== 'complete' ?
+              <button className="btn primary low small" onClick={handleLogout}>Logout</button>
+              :
+              <Dropdown align="end">
+                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                  <>
+                    {!headerImageError ?
+                      <img
+                        src={userContext.profile.profile_pic_url}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          setHeaderImageError(true)
+                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                        }}
+                        style={{ width: '48px', borderRadius: '100%' }}
+                      />
+                      :
+                      <button className="btn dark low small icon-only">
+                        <svg viewBox="0 0 24 24">
+                          <path d={ICONS.MENU}></path>
+                        </svg>
+                      </button>
+                    }
+                  </>
+                  {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
+
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+                  <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
+                    {!headerImageError ?
+                      <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
+                        <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                      </div>
+                      : null}
+                    {userContext.profile.full_name}
+                  </Dropdown.Item>
+                  <hr className="m-0" />
+                  <Dropdown.Item href={"/settings"} className={styles.dropdownItem}>
+                    <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
+                    Settings
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
+                    <Icon icon={ICONS.FEEDBACK} size='24' />
+                    Submit feedback
+                  </Dropdown.Item>
+                  {/* {product !== '' ?
+                  (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
+                    (status === 'active' ?
+                      null
+                      :
+                      <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                        <Icon icon={ICONS.STAR} size='24' />
+                        Upgrade to premium
+                      </a>
+                    )
+                    :
+                    null
+                  )
+                  :
+                  null
+                } */}
+
+                  {product !== '' ?
+                    (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
+                      (status === 'active' ?
+                        (cancelAtPeriodEnd ?
+                          <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                            <Icon icon={ICONS.STAR} size='24' />
+                            Renew subscription
+                          </Dropdown.Item>
+                          :
+                          null
+                        )
+                        :
+                        <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                          <Icon icon={ICONS.STAR} size='24' />
+                          Upgrade to premium
+                        </Dropdown.Item>
+                      )
+                      :
+                      <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                        <Icon icon={ICONS.STAR} size='24' />
+                        Upgrade to premium
+                      </Dropdown.Item>
+                    )
+                    :
+                    <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                      <Icon icon={ICONS.STAR} size='24' />
+                      Upgrade to premium
+                    </Dropdown.Item>
+                  }
+
+
+
+                  <hr className="m-0" />
+                  <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
+                    <Icon icon={ICONS.LOG_OUT} size='24' />
+                    Sign out
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            }
+            {/* <Link href="/settings">
+            <a className="btn primary low small">Settings</a>
+          </Link>
+           */}
+          </div>
+        </>
+        :
         <div className="d-flex flex-row justify-content-between align-items-center w-100">
           <Link href="/">
             <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
@@ -292,142 +433,29 @@ const Header = (props) => {
             </Link>
           </div>
         </div>
-        :
-        <div className="d-flex">
-          {/* {profile.profile_pic_url &&
-            <img src={profile.profile_pic_url} style={{width: '48px', borderRadius:'100%'}} />
-          } */}
-          {stage !== 'complete' ?
-            <button className="btn primary low small" onClick={handleLogout}>Logout</button>
-            :
-            <Dropdown align="end">
-              <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                <>
-                { !headerImageError ? 
-                    <img 
-                      src={userContext.profile.profile_pic_url} 
-                      onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        setHeaderImageError(true)
-                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-                      }}
-                      style={{ width: '48px', borderRadius: '100%' }} 
-                    />
-                  :
-                    <button className="btn dark low small icon-only">
-                      <svg viewBox="0 0 24 24">
-                        <path d={ICONS.MENU}></path>
-                      </svg>
-                    </button>
-                  }
-                </>
-                {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
-
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
-                  { !headerImageError ? 
-                    <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%'}}>
-                      <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
-                    </div>
-                  : null }
-                  {userContext.profile.full_name}
-                </Dropdown.Item>
-                <hr className="m-0" />
-                <Dropdown.Item href={"/settings"} className={styles.dropdownItem}>
-                  <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
-                  Settings
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
-                  <Icon icon={ICONS.FEEDBACK} size='24' />
-                  Submit feedback
-                </Dropdown.Item>
-                {/* {product !== '' ?
-                  (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                    (status === 'active' ?
-                      null
-                      :
-                      <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                        <Icon icon={ICONS.STAR} size='24' />
-                        Upgrade to premium
-                      </a>
-                    )
-                    :
-                    null
-                  )
-                  :
-                  null
-                } */}
-
-                {product !== '' ? 
-                  (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? 
-                    (status === 'active' ? 
-                        (cancelAtPeriodEnd ? 
-                          <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                            <Icon icon={ICONS.STAR} size='24' />
-                            Renew subscription
-                          </Dropdown.Item> 
-                        : 
-                          null
-                        ) 
-                      : 
-                        <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                          <Icon icon={ICONS.STAR} size='24' />
-                          Upgrade to premium
-                        </Dropdown.Item> 
-                      ) 
-                  : 
-                    <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                      <Icon icon={ICONS.STAR} size='24' />
-                      Upgrade to premium
-                    </Dropdown.Item> 
-                  ) 
-                : 
-                  <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                    <Icon icon={ICONS.STAR} size='24' />
-                    Upgrade to premium
-                  </Dropdown.Item> 
-                }
-
-
-
-                <hr className="m-0" />
-                <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
-                  <Icon icon={ICONS.LOG_OUT} size='24' />
-                  Sign out
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          }
-          {/* <Link href="/settings">
-            <a className="btn primary low small">Settings</a>
-          </Link>
-           */}
-        </div>
       }
       <Modal
-        show={showFeedbackModal} 
+        show={showFeedbackModal}
         onHide={handleFeedbackClose}
         backdrop="static"
         keyboard={false}
-        // size="lg"
+      // size="lg"
       >
-        { !submittedFeedback ? <Modal.Header closeButton>
+        {!submittedFeedback ? <Modal.Header closeButton>
           <h5 className="text-dark-high mb-0">Feedback survey</h5>
           <button onClick={handleFeedbackClose} className="btn dark low small icon-only">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.CLOSE}></path>
             </svg>
           </button>
-        </Modal.Header> : '' }
-        { !submittedFeedback ? 
+        </Modal.Header> : ''}
+        {!submittedFeedback ?
           <Modal.Body>
             <div>
               <form onSubmit={handleFeedbackSubmit}>
                 <div className="mb-4">
                   <p className="large text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
-                  <textarea className="w-100 small" style={{minHeight: '10rem'}} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({target}) => commentsAndSuggestionsChange(target.value)} />
+                  <textarea className="w-100 small" style={{ minHeight: '10rem' }} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({ target }) => commentsAndSuggestionsChange(target.value)} />
                   {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
                 </div>
                 <div className="mb-4">
@@ -443,7 +471,7 @@ const Header = (props) => {
                   <span className="checkmark"></span>
                 </label>
                 */}
-                <br/>
+                <br />
                 <button type="submit" className="btn primary high w-100" disabled={submittingFeedback}>{submittingFeedback ? 'Submitting...' : 'Submit feedback'}</button>
               </form>
               {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
@@ -452,7 +480,7 @@ const Header = (props) => {
               </div>*/}
             </div>
           </Modal.Body>
-        : 
+          :
           <Modal.Body>
             <div>
               <h4 className="text-center">Feedback successfully submitted</h4>

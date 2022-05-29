@@ -3,6 +3,7 @@ import fire from '../config/fire-config';
 import Head from 'next/head'
 import '../public/styles/global.scss';
 import LogRocket from 'logrocket';
+import Layout from '../components/Layout';
 
 export const UserContext = createContext("")
 
@@ -42,7 +43,9 @@ export default function App({ Component, pageProps }) {
           <title>Vitaely.me</title>
           <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
         </Head>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </UserContext.Provider>
     </>
   )

@@ -24,8 +24,6 @@ const Blog = () => {
   return (
     <div>
       <Head>
-      </Head>
-      <Head>
       <title>Blog | Vitaely.me</title>
         <meta name="description" content="The latest news and tips on building a professional online presence" />
         <meta property="og:title" content="Blog | Vitaely.me" />
@@ -33,7 +31,6 @@ const Blog = () => {
         <meta property="og:url" content="https://www.vitaely.me/blog/" />
         <meta property="og:type" content="website" />
       </Head>
-      <Header />
       <div className="container py-5 mb-5">
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
