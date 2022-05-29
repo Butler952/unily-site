@@ -9,7 +9,6 @@ export const UserContext = createContext("")
 
 export default function App({ Component, pageProps }) {
 
-
   const [userContext, setUserContext] = useState("");
   const userValue = { userContext, setUserContext };
 

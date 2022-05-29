@@ -12,12 +12,14 @@ import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
 
 const Header = (props) => {
+
+  const { userContext, setUserContext } = useContext(UserContext);
+
   const [loggedIn, setLoggedIn] = useState(false);
-  const [profileUrl, setProfileUrl] = useState('/')
+  const [profileUrl, setProfileUrl] = useState(userContext && userContext.profileUrl && userContext.profileUrl)
   // const [profile, setProfile] = useState('')
-  const [windowUrl, setWindowUrl] = useState('')
   const [userData, setUserData] = useState('')
-  const [stage, setStage] = useState('')
+  const [stage, setStage] = useState(userContext && userContext.stage && userContext.stage)
   const router = useRouter();
   const [redirectToStripe, setRedirectToStripe] = useState(false);
   const [product, setProduct] = useState('');
@@ -34,7 +36,6 @@ const Header = (props) => {
   const [headerImageError, setHeaderImageError] = useState(false);
 
   // const { profile, setProfile } = useContext(ProfileContext);
-  const { userContext, setUserContext } = useContext(UserContext);
 
   const [screenWidth, setScreenWidth] = useState('');
 
@@ -42,9 +43,7 @@ const Header = (props) => {
     setScreenWidth(window.innerWidth)
   };
 
-
   useEffect(() => {
-    setWindowUrl(window.location.pathname);
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -87,10 +86,10 @@ const Header = (props) => {
   const loggedInRoute = (user) => {
     setUserData(user)
     if (userContext !== '') {
-      setStage(userContext.stage)
-      if (userContext.profileUrl) {
-        setProfileUrl(userContext.profileUrl)
-      }
+      // setStage(userContext.stage)
+      // if (userContext.profileUrl) {
+      //   setProfileUrl(userContext.profileUrl)
+      // }
     } else {
 
       var docRef = fire.firestore().collection('users').doc(user.uid)
@@ -118,6 +117,7 @@ const Header = (props) => {
   }
 
   const handleLogout = () => {
+    setUserContext("")
     fire.auth()
       .signOut()
       .then(() => {
@@ -276,7 +276,7 @@ const Header = (props) => {
   );
 
   return (
-    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={windowUrl === '/' ? { boxShadow: 'none', minHeight: '64px' } : { minHeight: '64px' }}>
+    <div className="card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3" style={window.location.pathname == '/' ? { boxShadow: 'none', minHeight: '64px' } : { minHeight: '64px' }}>
       {userContext !== '' ?
         // {loggedIn ?
         <>
@@ -326,19 +326,25 @@ const Header = (props) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                  <Dropdown.Item href={profileUrl} className={styles.dropdownItem}>
-                    {!headerImageError ?
-                      <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                        <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
-                      </div>
-                      : null}
-                    {userContext.profile.full_name}
+                  <Dropdown.Item onClick={() => router.push(profileUrl)} className={styles.dropdownItem}>
+                      {!headerImageError ?
+                        <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
+                          <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                        </div>
+                        : null}
+                      {userContext.profile.full_name}
                   </Dropdown.Item>
                   <hr className="m-0" />
-                  <Dropdown.Item href={"/settings"} className={styles.dropdownItem}>
+                  <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                     <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
                     Settings
                   </Dropdown.Item>
+                  {/* <Link href={"/settings"} >
+                    <div className={styles.dropdownItem}>
+                      <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
+                      Settings
+                    </div>
+                  </Link> */}
                   <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
                     <Icon icon={ICONS.FEEDBACK} size='24' />
                     Submit feedback
@@ -409,7 +415,7 @@ const Header = (props) => {
         :
         <div className="d-flex flex-row justify-content-between align-items-center w-100">
           <Link href="/">
-            <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl === '/' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
+            <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={window.location.pathname === '/' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
           </Link>
           <div className="d-flex" style={{ gap: '8px' }}>
             {screenWidth > 767 ? (
