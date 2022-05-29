@@ -39,7 +39,6 @@ const Post = (props) => {
         bgcolor="#6839EF"
         height="4px"
       />
-      <Header />
       <div className="d-flex flex-row justify-content-start m-3"></div>
         <div className="container" style={{maxWidth: '768px'}}>
           <div className=" pt-5 pb-4 background-light text-center">
