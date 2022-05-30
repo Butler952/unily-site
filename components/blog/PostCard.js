@@ -14,12 +14,13 @@ const PostCard = (props) => {
               </div>
             ) : null }
             <div className="order-2 order-lg-1 w-100">
+              <p className="font-weight-medium text-dark-low">{props.duration} min read</p>
               {props.screenWidth > 767 ?
                 <h3>{props.title}</h3>
                 :
                 <h3>{props.title}</h3>
               }
-              <p className="font-weight-medium text-dark-low">{props.duration} min read</p>
+              
               <p className="text-dark-med mb-0">{props.bodyPreview} <Link href={props.postUrl} className="text-dark-low"><u style={{cursor: 'pointer'}}>Continue reading</u></Link></p>
             </div>
           </div>
