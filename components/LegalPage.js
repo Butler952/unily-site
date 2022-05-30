@@ -29,7 +29,6 @@ const LegalPage = (props) => {
         <title>{heroTitle}</title>
         <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
       </Head>
-      <Header />
       <div className="container">
         <div className="card my-5">
           <div>
