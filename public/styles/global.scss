@@ -895,6 +895,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   //display: table;
   border-collapse: separate;
   width: auto;
+  flex-wrap: nowrap;
   &.small {
     .input-group-addon {
       padding: 8px 14px; 

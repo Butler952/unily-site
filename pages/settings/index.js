@@ -24,6 +24,8 @@ import LogosSection from './components/logosSection';
 import DownloadSection from './components/downloadSection';
 import mixpanel from 'mixpanel-browser';
 import TemplateSection from './components/templateSection';
+import CustomDomainSection from './components/customDomainSection';
+import PrettyUrlSection from './components/prettyUrlSection';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -661,6 +663,8 @@ const Settings = () => {
           />
           <TemplateSection userData={userData} />
           <DownloadSection userData={userData} />
+          <PrettyUrlSection userData={userData} />
+          {/* <CustomDomainSection userData={userData} /> */}
           <ResyncSection
             linkedinId={linkedinId} 
             userData={userData}

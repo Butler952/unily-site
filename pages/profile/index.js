@@ -130,7 +130,6 @@ const Profile = () => {
         { localProfile.background_cover_image_url ? <meta property="og:image" content={localProfile.background_cover_image_url} /> : null }
         <meta property="og:type" content="website" />
       </Head>
-      { loggedIn ? <Header /> : '' }
       <ProfilePreviewBanner />
       <Container>
         <div className="text-center mb-5">

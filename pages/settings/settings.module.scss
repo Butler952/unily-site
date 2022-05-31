@@ -9,6 +9,7 @@
   border: 2px solid $dark-100;
   transition: $transition-standard;
   &:hover{
+    border: 2px solid $primary-900;
     box-shadow: $shadow-5;
     transform: translateY(-1px);
   }
