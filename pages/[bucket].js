@@ -221,6 +221,7 @@ const Home = () => {
         <meta property="og:description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
         <meta property="og:url" content="https://www.vitaely.me/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=http://vitaely.me/" />
       </Head>
       <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="Vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{ width: '250px', height: '54px' }} width="250" height="54" />
