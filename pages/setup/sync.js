@@ -82,7 +82,7 @@ const Sync = () => {
               firstName: result.first_name,
               lastName: result.last_name,
               stage: 'complete',
-              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             })
           }
           fire.firestore().collection('users').doc(userData.uid).update({

@@ -243,6 +243,7 @@ const ProfilePreviewBanner = () => {
           lastName: localProfile.last_name,
           subscriberEmail: userCredential.user.email,
           stage: 'complete',
+          signUpSurveyComplete: false,
           subscribed: fire.firestore.FieldValue.serverTimestamp(),
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })

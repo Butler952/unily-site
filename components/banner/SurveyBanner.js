@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Modal } from 'react-bootstrap';
 import fire from '../../config/fire-config';
 import ICONS from '../icon/IconPaths';
+import { UserContext } from '../../pages/_app';
 
 const SurveyBanner = () => {
+
+  const { userContext, setUserContext } = useContext(UserContext);
 
   const [showBanner, setShowBanner] = useState(true)
   const [showModal, setShowModal] = useState(false)
@@ -153,6 +156,14 @@ const SurveyBanner = () => {
     }
 
     setSubmitting(true)
+
+
+    if (userContext.receiveEmails) {
+      fire.firestore().collection('mailingList').doc(user).update({
+        signUpSurveyComplete: true,
+        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+      })
+    }
 
     fire.firestore().collection("surveys").doc('surveyOnSignUp').collection("responses").add({
       'whySignUp': {

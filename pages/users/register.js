@@ -143,6 +143,7 @@ const Register = () => {
           fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
             subscriberEmail: userCredential.user.email,
             stage: '/setup/sync',
+            signUpSurveyComplete: false,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
           })

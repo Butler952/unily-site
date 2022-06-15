@@ -310,7 +310,7 @@ const Header = (props) => {
                   <>
                     {!headerImageError ?
                       <img
-                        src={userContext.profile.profile_pic_url}
+                        src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           setHeaderImageError(true)
@@ -334,10 +334,10 @@ const Header = (props) => {
                   <Dropdown.Item onClick={() => router.push(profileUrl)} className={styles.dropdownItem}>
                       {!headerImageError ?
                         <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                          <img src={userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                          <img src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
                         </div>
                         : null}
-                      {userContext.profile.full_name}
+                      {userContext && userContext.profile && userContext.profile.full_name}
                   </Dropdown.Item>
                   <hr className="m-0" />
                   <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
