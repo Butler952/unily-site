@@ -82,7 +82,7 @@ const Cookies = () => {
         <div className="Group">
           <h3>Where can I get further information?</h3>
           <br></br>
-          <p>If you have any questions about our use of cookies or other technologies, please email us at aaronbutlerdesign@gmail.com.</p>
+          <p>If you have any questions about our use of cookies or other technologies, please email us at aaron@vitaely.me.</p>
         </div>
       </div>
     </LegalPage>
