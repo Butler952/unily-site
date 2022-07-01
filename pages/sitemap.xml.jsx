@@ -56,7 +56,9 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/how-to-create-a-personal-landing-page",
     "/how-to-keep-your-profile-up-to-date",
     "/cv-resume-builder-alternatives",
-    "/how-to-get-your-resume-past-applicant-tracking-systems"
+    "/how-to-get-your-resume-past-applicant-tracking-systems",
+    "/three-things-for-presenting-in-an-interview",
+    "/red-flags-in-job-descriptions"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
