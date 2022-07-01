@@ -305,82 +305,95 @@ const Header = (props) => {
             {stage !== 'complete' ?
               <button className="btn primary low small" onClick={handleLogout}>Logout</button>
               :
-              <Dropdown align="end">
-                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                  <>
-                    {!headerImageError ?
-                      <img
-                        src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
-                        onError={({ currentTarget }) => {
-                          currentTarget.onerror = null; // prevents looping
-                          setHeaderImageError(true)
-                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-                        }}
-                        style={{ width: '48px', borderRadius: '100%' }}
-                      />
-                      :
-                      <button className="btn dark low small icon-only">
-                        <svg viewBox="0 0 24 24">
-                          <path d={ICONS.MENU}></path>
-                        </svg>
-                      </button>
-                    }
-                  </>
-                  {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
-
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                  <Dropdown.Item onClick={() => router.push(profileUrl)} className={styles.dropdownItem}>
+              <>
+                <div className="d-flex flex-row" style={{ gap: '8px' }}>
+                  <Link href="/blog">
+                    <a className="btn dark low small">Blog</a>
+                  </Link>
+                </div>
+                <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div>
+                <Dropdown align="end">
+                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
+                    <>
                       {!headerImageError ?
-                        <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                          <img src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
-                        </div>
-                        : null}
-                      {userContext && userContext.profile && userContext.profile.full_name}
-                  </Dropdown.Item>
-                  <hr className="m-0" />
-                  <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
-                    <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
-                    Settings
-                  </Dropdown.Item>
-                  {/* <Link href={"/settings"} >
-                    <div className={styles.dropdownItem}>
+                        <img
+                          src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            setHeaderImageError(true)
+                            // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                          }}
+                          style={{ width: '48px', borderRadius: '100%' }}
+                        />
+                        :
+                        <button className="btn dark low small icon-only">
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.MENU}></path>
+                          </svg>
+                        </button>
+                      }
+                    </>
+                    {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
+
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+                    <Dropdown.Item onClick={() => router.push(profileUrl)} className={styles.dropdownItem}>
+                        {!headerImageError ?
+                          <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
+                            <img src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                          </div>
+                          : null}
+                        {userContext && userContext.profile && userContext.profile.full_name}
+                    </Dropdown.Item>
+                    <hr className="m-0" />
+                    <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                       <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
                       Settings
-                    </div>
-                  </Link> */}
-                  <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
-                    <Icon icon={ICONS.FEEDBACK} size='24' />
-                    Submit feedback
-                  </Dropdown.Item>
-                  {/* {product !== '' ?
-                  (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                    (status === 'active' ?
-                      null
+                    </Dropdown.Item>
+                    {/* <Link href={"/settings"} >
+                      <div className={styles.dropdownItem}>
+                        <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
+                        Settings
+                      </div>
+                    </Link> */}
+                    <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
+                      <Icon icon={ICONS.FEEDBACK} size='24' />
+                      Submit feedback
+                    </Dropdown.Item>
+                    {/* {product !== '' ?
+                    (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
+                      (status === 'active' ?
+                        null
+                        :
+                        <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                          <Icon icon={ICONS.STAR} size='24' />
+                          Upgrade to premium
+                        </a>
+                      )
                       :
-                      <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                        <Icon icon={ICONS.STAR} size='24' />
-                        Upgrade to premium
-                      </a>
+                      null
                     )
                     :
                     null
-                  )
-                  :
-                  null
-                } */}
+                  } */}
 
-                  {product !== '' ?
-                    (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                      (status === 'active' ?
-                        (cancelAtPeriodEnd ?
-                          <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                            <Icon icon={ICONS.STAR} size='24' />
-                            Renew subscription
-                          </Dropdown.Item>
+                    {product !== '' ?
+                      (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
+                        (status === 'active' ?
+                          (cancelAtPeriodEnd ?
+                            <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                              <Icon icon={ICONS.STAR} size='24' />
+                              Renew subscription
+                            </Dropdown.Item>
+                            :
+                            null
+                          )
                           :
-                          null
+                          <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                            <Icon icon={ICONS.STAR} size='24' />
+                            Upgrade to premium
+                          </Dropdown.Item>
                         )
                         :
                         <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
@@ -393,23 +406,18 @@ const Header = (props) => {
                         <Icon icon={ICONS.STAR} size='24' />
                         Upgrade to premium
                       </Dropdown.Item>
-                    )
-                    :
-                    <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                      <Icon icon={ICONS.STAR} size='24' />
-                      Upgrade to premium
+                    }
+
+
+
+                    <hr className="m-0" />
+                    <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
+                      <Icon icon={ICONS.LOG_OUT} size='24' />
+                      Sign out
                     </Dropdown.Item>
-                  }
-
-
-
-                  <hr className="m-0" />
-                  <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
-                    <Icon icon={ICONS.LOG_OUT} size='24' />
-                    Sign out
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
             }
             {/* <Link href="/settings">
             <a className="btn primary low small">Settings</a>

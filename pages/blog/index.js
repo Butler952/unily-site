@@ -35,6 +35,22 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image="/images/blog/red-flags-in-job-descriptions/red-flags-in-job-descriptions.jpg"
+            title="Three things you should be doing if you ever have to present in an interview"
+            duration="2"
+            bodyPreview="You probably know about some of the typical red flags in job descriptions; things like describing themselves as a family or not..."
+            postUrl="/blog/red-flags-in-job-descriptions"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
+            image="/images/blog/three-things-for-presenting-in-an-interview/three-things-for-presenting-in-an-interview.jpg"
+            title="Three things you should be doing if you ever have to present in an interview"
+            duration="2"
+            bodyPreview="You might’ve heard this as the oft-misquoted advice: “Tell them what you are going to tell them, tell them, then tell them what..."
+            postUrl="/blog/three-things-for-presenting-in-an-interview"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image="/images/blog/how-to-get-your-resume-past-applicant-tracking-systems/how-to-get-your-resume-past-applicant-tracking-systems.jpg"
             title="How to get your resume past Applicant Tracking Systems"
             duration="8"
