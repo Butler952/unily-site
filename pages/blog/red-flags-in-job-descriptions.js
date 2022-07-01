@@ -20,9 +20,9 @@ const RedFlagsInJobDescriptions = () => {
   return (
     <div>
       <Post 
-        title="Three red flags to look out for in job descriptions"
+        title="Four red flags to look out for in job descriptions"
         image='/images/blog/red-flags-in-job-descriptions/red-flags-in-job-descriptions.jpg'
-        imageAlt="Three red flags to look out for in job descriptions"
+        imageAlt="Four red flags to look out for in job descriptions"
         readingDuration="2"
         hideFooter
         description="You probably know about some of the typical red flags in job descriptions; things like describing themselves as a family or not having the salary on the job description are recognisable enough to make you run for the hills."

@@ -36,7 +36,7 @@ const Blog = () => {
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
             image="/images/blog/red-flags-in-job-descriptions/red-flags-in-job-descriptions.jpg"
-            title="Three red flags to look out for in job descriptions"
+            title="Four red flags to look out for in job descriptions"
             duration="2"
             bodyPreview="You probably know about some of the typical red flags in job descriptions; things like describing themselves as a family or not..."
             postUrl="/blog/red-flags-in-job-descriptions"
