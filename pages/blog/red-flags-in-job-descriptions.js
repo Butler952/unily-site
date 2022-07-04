@@ -26,7 +26,7 @@ const RedFlagsInJobDescriptions = () => {
         readingDuration="2"
         hideFooter
         description="You probably know about some of the typical red flags in job descriptions; things like describing themselves as a family or not having the salary on the job description are recognisable enough to make you run for the hills."
-        url="how-to-get-your-resume-past-applicant-tracking-systems"
+        url="red-flags-in-job-descriptions"
       >
         <div id="content" className="py-4 background-light">
           <h3>Contents</h3>

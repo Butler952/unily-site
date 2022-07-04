@@ -26,7 +26,7 @@ const ThreeThingsFoPresentingInAnInterview = () => {
         readingDuration="2"
         hideFooter
         description="You might’ve heard this as the oft-misquoted advice: “Tell them what you are going to tell them, tell them, then tell them what you told them”. It’s a classic but it still rings truer than ever."
-        url="how-to-get-your-resume-past-applicant-tracking-systems"
+        url="three-things-for-presenting-in-an-interview"
       >
         <div id="content" className="py-4 background-light">
           <h3>Contents</h3>
