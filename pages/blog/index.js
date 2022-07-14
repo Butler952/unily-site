@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image="/images/blog/applying-for-a-role-without-years-of-experience/applying-for-a-role-without-years-of-experience.jpg"
+            title="Why you should apply for a role even if you don’t meet the years of experience"
+            duration="2"
+            bodyPreview="Have you ever found yourself doubting whether you should apply for a job because you don’t meet the years of experience listed..."
+            postUrl="/blog/applying-for-a-role-without-years-of-experience"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image="/images/blog/red-flags-in-job-descriptions/red-flags-in-job-descriptions.jpg"
             title="Four red flags to look out for in job descriptions"
             duration="2"

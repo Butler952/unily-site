@@ -39,6 +39,7 @@
   border-color: $dark-300;
   gap: 24px;
   height: 100%;
+  box-shadow: $shadow-2;
   @media (min-width: $breakpoint-md) {
     gap: 48px;
   }
