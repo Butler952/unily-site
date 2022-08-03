@@ -1,16 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
+import { PDFDownloadLink, PDFViewer, BlobProvider } from '@react-pdf/renderer';
+import BasicResume from '../../../components/resumeExports/basicResume';
 
-const DownloadSection = ({userData}) => {
+const DownloadSection = ({userData, allUserData}) => {
   const [showModal, setShowModal] = useState(false);
   const [sendingData, setSendingData] = useState(false);
   const [fileType, setFileType] = useState('');
   const [notificationRequested, setNotificationRequested] = useState(false);
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const handleClose = () => {
     setShowModal(false)
@@ -73,12 +80,27 @@ const DownloadSection = ({userData}) => {
         </div>
         <hr className="m-0"/>
         <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>
-          <button type="button" onClick={() => handleDownloadPdf()} className="btn primary medium icon-left w-100 w-md-auto">
+          {/* <button type="button" onClick={() => handleDownloadPdf()} className="btn primary medium icon-left w-100 w-md-auto">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.DOWNLOAD}></path>
             </svg>
             PDF
-          </button>
+          </button> */}
+          {isClient && allUserData && (
+            <PDFDownloadLink 
+              document={<BasicResume allUserData={allUserData} />} 
+              fileName="basic_document.pdf"
+            >
+              {({ blob, url, loading, error }) => (
+                <button type="button" disabled={loading} className="btn primary medium icon-left w-100 w-md-auto">
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOWNLOAD}></path>
+                  </svg>
+                  PDF
+                </button>
+                )}
+            </PDFDownloadLink>
+          )}
           <button type="button" onClick={() => handleDownloadDocx()} className="btn primary medium icon-left w-100 w-md-auto">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.DOWNLOAD}></path>
@@ -86,6 +108,14 @@ const DownloadSection = ({userData}) => {
             DOCX
           </button>
         </div>
+        <hr className="m-0" />
+        {/* {isClient && allUserData && (
+          <div className="d-flex flex-column">
+            <PDFViewer height={1000}>
+              <BasicResume allUserData={allUserData} />
+            </PDFViewer >
+          </div>
+        )} */}
       </div>
       <Modal 
         show={showModal} 

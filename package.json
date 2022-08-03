@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^2.3.0",
     "@stripe/stripe-js": "^1.15.0",
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",

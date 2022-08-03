@@ -95,6 +95,7 @@ const EducationCheckbox = ({ options, onChange }) => {
 const Settings = () => {
   const router = useRouter();
   const [userData, setUserData] = useState('');
+  const [allUserData, setAllUserData] = useState('');
   const [basicInfo, setBasicInfo] = useState(true);
   const [profilePic, setProfilePic] = useState(true);
   const [headerImage, setHeaderImage] = useState(true);
@@ -210,6 +211,7 @@ const Settings = () => {
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
         setSurveyHide(doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : false) : false) : false)
+        setAllUserData(doc.data())
       } else {
         console.log("No such document!");
       }
@@ -662,7 +664,10 @@ const Settings = () => {
             setEducationLogos={setEducationLogos}
           />
           <TemplateSection userData={userData} />
-          <DownloadSection userData={userData} />
+          <DownloadSection 
+            userData={userData} 
+            allUserData={allUserData}
+          />
           <PrettyUrlSection userData={userData} />
           {/* <CustomDomainSection userData={userData} /> */}
           <ResyncSection
