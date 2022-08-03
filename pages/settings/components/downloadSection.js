@@ -89,7 +89,7 @@ const DownloadSection = ({userData, allUserData}) => {
           {isClient && allUserData && (
             <PDFDownloadLink 
               document={<BasicResume allUserData={allUserData} />} 
-              fileName="basic_document.pdf"
+              fileName={`${allUserData.profile.first_name}_${allUserData.profile.last_name}_resume.pdf`}
             >
               {({ blob, url, loading, error }) => (
                 <button type="button" disabled={loading} className="btn primary medium icon-left w-100 w-md-auto">
