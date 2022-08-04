@@ -92,7 +92,7 @@ const Profile = (props) => {
   return (
     <div>
       <Head>
-        <title>{props.full_name} | {props.headline}</title>
+        <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
         { props.summary ? <meta name="description" content={props.summary} /> : null }
         { (props.full_name && props.displayBasicInfo.each.name === true) ? <meta name="author" content={props.full_name} /> : null }
         <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
