@@ -216,7 +216,7 @@ const Profile = (props) => {
                   : null }
                   <div>
                     <p className="large text-dark-high font-weight-semibold mb-0">
-                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : (school.degree_name && school.degree_name)}`}
+                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                     </p>
                     <p className="large mb-0">{school.school}</p>
                     <p className="text-dark-low mb-0">

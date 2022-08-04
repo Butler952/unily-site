@@ -366,7 +366,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
                 <View style={styles.sectionFillRow}>
                   <View style={styles.highEmphasis}>
                     <Text style={styles.pBold}>
-                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : (school.degree_name && school.degree_name)}`}
+                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                     </Text>
                   </View>
                   <Text style={styles.pRegular}>{school.school}</Text>
