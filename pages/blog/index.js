@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image="/images/blog/how-to-explain-leaving-a-job-after-a-short-amount-of-time/how-to-explain-leaving-a-job-after-a-short-amount-of-time.jpg"
+            title="How to explain leaving a job after a short amount of time"
+            duration="2"
+            bodyPreview="Thinking of leaving your job? You’re not the only one. According to the U.S. Bureau of Labor Statistics; 4.4 million workers..."
+            postUrl="/blog/how-to-explain-leaving-a-job-after-a-short-amount-of-time"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image="/images/blog/applying-for-a-role-without-years-of-experience/applying-for-a-role-without-years-of-experience.jpg"
             title="Why you should apply for a role even if you don’t meet the years of experience"
             duration="2"

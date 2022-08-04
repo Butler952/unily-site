@@ -58,7 +58,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/cv-resume-builder-alternatives",
     "/how-to-get-your-resume-past-applicant-tracking-systems",
     "/three-things-for-presenting-in-an-interview",
-    "/red-flags-in-job-descriptions"
+    "/red-flags-in-job-descriptions",
+    "/how-to-explain-leaving-a-job-after-a-short-amount-of-time"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
