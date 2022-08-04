@@ -215,7 +215,9 @@ const Profile = (props) => {
                     </div>
                   : null }
                   <div>
-                    <p className="large text-dark-high font-weight-semibold mb-0">{school.degree_name} {school.field_of_study}</p>
+                    <p className="large text-dark-high font-weight-semibold mb-0">
+                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : school.degree_name}`}
+                    </p>
                     <p className="large mb-0">{school.school}</p>
                     <p className="text-dark-low mb-0">
                       {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null} 
