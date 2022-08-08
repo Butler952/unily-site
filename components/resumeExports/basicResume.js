@@ -229,7 +229,7 @@ const BasicResume = ({ allUserData }) => {
         <View style={styles.mb3}></View>
         <View style={styles.card}>
           {allUserData.profile.experiences.map((job, index) => (allUserData.displayInfo.experience.each[index].display) &&
-            <>
+            <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
                 { allUserData.logoVisibility && allUserData.logoVisibility.experience && job.logo_url &&
@@ -264,7 +264,7 @@ const BasicResume = ({ allUserData }) => {
               </View>
             </View>
             <View style={styles.horizontalBorder}></View>
-            </>
+            </div>
           )}
             {/* <div key={index} className="d-flex flex-column flex-lg-row align-items-start">
               {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
@@ -352,7 +352,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
         <View style={styles.mb3}></View>
         <View style={styles.card}>
           {allUserData.profile.education.map((school, index) => (allUserData.displayInfo.education.each[index].display) &&
-            <>
+            <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
                 { allUserData.logoVisibility && allUserData.logoVisibility.education && school.logo_url &&
@@ -389,7 +389,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
               </View>
             </View>
             <View style={styles.horizontalBorder}></View>
-            </>
+            </div>
           )}
         </View>
         <View style={styles.mb5}></View>
@@ -399,7 +399,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
         <View style={styles.mb3}></View>
         <View style={styles.card}>
           {allUserData.profile.volunteer_work.map((volunteer, index) => (allUserData.displayInfo.volunteering.each[index].display) &&
-            <>
+            <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
                 { allUserData.logoVisibility && allUserData.logoVisibility.education && school.logo_url &&
@@ -433,7 +433,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
               </View>
             </View>
             <View style={styles.horizontalBorder}></View>
-            </>
+            </div>
           )}
         </View>
         {/* <View style={styles.card}>
