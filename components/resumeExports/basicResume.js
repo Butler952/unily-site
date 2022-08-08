@@ -402,11 +402,11 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
-                { allUserData.logoVisibility && allUserData.logoVisibility.education && school.logo_url &&
+                { allUserData.logoVisibility && allUserData.logoVisibility.education && volunteer.logo_url &&
                 // { job.logo_url &&
                   <Image
                     style={styles.orgImage}
-                    src={school.logo_url}
+                    src={volunteer.logo_url}
                   />
                 }
                 <View style={styles.sectionFillRow}>
