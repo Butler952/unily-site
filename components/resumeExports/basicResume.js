@@ -6,7 +6,6 @@ import { Page, Text, View, Image, Document, Font, StyleSheet } from '@react-pdf/
 const BasicResume = ({ allUserData }) => {
 
   useEffect(() => {
-    console.log(allUserData)
   }, [])
 
   const convertMonth = (mon) => {
