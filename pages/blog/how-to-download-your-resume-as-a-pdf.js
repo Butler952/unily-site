@@ -51,7 +51,7 @@ const HowToDownloadYourResumeAsAPdf = () => {
           <br></br>
           <h4>1. Head to your <i>settings</i></h4>
           <p className="large">You will need to be <Link href="/users/login">logged in</Link> to your account before you can access your settings.</p>
-          <p className="large">Once your logged in you can get to your settings page via the link in the navigation bar or simply follow <Link href="/settings">this link</Link> to head straight there.</p>
+          <p className="large">Once you're logged in you can get to your settings page via the link in the navigation bar or simply follow <Link href="/settings">this link</Link> to head straight there.</p>
           <div className={`${styles.heroImageWrapper} mt-5`}>
             <Image alt="Accessing your settings page from the dropdown menu in the nav bar" src='/images/blog/how-to-download-your-resume-as-a-pdf/vitaely-go-to-settings.jpg' layout="fill" objectFit="cover" />
           </div>
