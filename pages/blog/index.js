@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/how-to-download-your-resume-as-a-pdf/How to download your resume as a PDF.jpg'
+            title="How to download your resume as a PDF"
+            duration="2"
+            bodyPreview="You’ve created your profile with Vitaely.me and you’ve now got a beautiful personal landing page with all your information..."
+            postUrl="/blog/how-to-download-your-resume-as-a-pdf"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image="/images/blog/how-to-explain-leaving-a-job-after-a-short-amount-of-time/how-to-explain-leaving-a-job-after-a-short-amount-of-time.jpg"
             title="How to explain leaving a job after a short amount of time"
             duration="2"

@@ -108,7 +108,6 @@ const DownloadSection = ({userData, allUserData}) => {
             DOCX
           </button>
         </div>
-        <hr className="m-0" />
         {/* {isClient && allUserData && (
           <div className="d-flex flex-column">
             <PDFViewer height={1000}>

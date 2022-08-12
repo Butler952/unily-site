@@ -59,7 +59,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/how-to-get-your-resume-past-applicant-tracking-systems",
     "/three-things-for-presenting-in-an-interview",
     "/red-flags-in-job-descriptions",
-    "/how-to-explain-leaving-a-job-after-a-short-amount-of-time"
+    "/how-to-explain-leaving-a-job-after-a-short-amount-of-time",
+    "/how-to-download-your-resume-as-a-pdf"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
