@@ -46,20 +46,41 @@ const LandingPage = (props) => {
               </Link>
             </div>
           </div>
-          <div className="position-relative d-none d-lg-block" style={{background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius:'320px'}}>
-            <img src="/images/aaron-butler.jpg" style={{width: '120px', height: '120px', borderRadius:'100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute'}}></img>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
-              <p className="large text-dark-high font-weight-semibold mb-0">Product Designer</p>
-              <p className="large mb-0">Cuvva</p>
-              <p className="text-dark-low mb-0">London, United Kingdom</p>
-              <p className="text-dark-low mb-0">July 2021 – Present</p>
+          { !props.heroImage ? 
+            <div className="position-relative d-none d-lg-block" style={{background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius:'320px'}}>
+              <img src="/images/aaron-butler.jpg" style={{width: '120px', height: '120px', borderRadius:'100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute'}}></img>
+              <div className="card py-4 pl-4" style={{position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
+                <p className="large text-dark-high font-weight-semibold mb-0">Product Designer</p>
+                <p className="large mb-0">Cuvva</p>
+                <p className="text-dark-low mb-0">London, United Kingdom</p>
+                <p className="text-dark-low mb-0">July 2021 – Present</p>
+              </div>
+              <div className="card py-4 pl-4" style={{position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
+                <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
+                <p className="large mb-0">Loughborough University</p>
+                <p className="text-dark-low mb-0">2013 – 2017</p>
+              </div>
             </div>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
-              <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
-              <p className="large mb-0">Loughborough University</p>
-              <p className="text-dark-low mb-0">2013 – 2017</p>
+          : (
+            <>
+            <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between ml-lg-5" style={{gap: '64px'}}>
+              <div className="w-100 order-1 order-lg-0">
+                <img
+                  className="w-100"
+                  src={props.heroImage}
+                />
+              </div>
             </div>
-          </div>
+              {/* <Image 
+                alt={props.title ? props.title : null} 
+                src={props.heroImage} 
+                layout="fill" 
+                objectFit="cover" 
+              /> */}
+            </>
+            )
+          }
+
         </div>
         {/* <div className="d-flex flex-column align-items-center justify-content-center">
           <div style={{ maxWidth: '560px' }} className="mb-5 text-center">
@@ -101,10 +122,11 @@ const LandingPage = (props) => {
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">3</h3>
               </div>
-              <h3 className="text-primary-high">Share your profile</h3>
+              <h3 className="text-primary-high">{!props.stepThree ? 'Share your profile' : props.stepThree}</h3>
             </div>
           </div>
         </div>
+        {props.sectionTwoTitle ? 
         <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.sectionWrapper}`} style={{gap: '64px'}}>
           <div className="w-100 order-1 order-lg-0">
             <img
@@ -117,6 +139,8 @@ const LandingPage = (props) => {
             <p className="large">{props.sectionTwoSubtitle}</p>
           </div>
         </div>
+        : '' }
+        {props.sectionOneTitle ?
         <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.sectionWrapper}`} style={{gap: '64px'}}>
           <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-0">
             { screenWidth > 576 ? <h1>{props.sectionOneTitle}</h1> : <h2>{props.sectionOneTitle}</h2> }
@@ -129,6 +153,7 @@ const LandingPage = (props) => {
             />
           </div>
         </div>
+        : '' }
         {/* <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
           <div className={styles.heroImageWrapper}>

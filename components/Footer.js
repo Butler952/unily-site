@@ -13,6 +13,7 @@ const Footer = () => {
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
               <Link href="/online-cv-builder"><a className="text-dark-high mb-0">Online CV builder</a></Link>
               <Link href="/online-resume-builder"><a className="text-dark-high mb-0">Online resume builder</a></Link>
+              <Link href="//pdf-resume-builder"><a className="text-dark-high mb-0">PDF resume builder</a></Link>
               <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
             </div>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
