@@ -60,8 +60,7 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/three-things-for-presenting-in-an-interview",
     "/red-flags-in-job-descriptions",
     "/how-to-explain-leaving-a-job-after-a-short-amount-of-time",
-    "/how-to-download-your-resume-as-a-pdf",
-    "/pdf-resume-builder"
+    "/how-to-download-your-resume-as-a-pdf"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
