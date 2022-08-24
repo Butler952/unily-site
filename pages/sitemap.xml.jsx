@@ -47,7 +47,7 @@ const Sitemap = () => {};
 }*/
 
 Sitemap.getInitialProps = ({ res, req }) => {
-  const routes = ["", "online-cv-builder", "online-resume-builder"];
+  const routes = ["", "online-cv-builder", "online-resume-builder", "pdf-resume-builder"];
   const legals = ["cookies", "privacy", "terms"];  //You can fetch the products from an API
   const users = ["login", "register", "reset"];  //You can fetch the products from an API
   const blogs = [
