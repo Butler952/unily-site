@@ -11,9 +11,10 @@ const Footer = () => {
           <Link href="/"><a className="w-lg-100"><img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" /></a></Link>
           <div className="d-flex flex-column flex-md-row text-center" style={{gap: '48px', whiteSpace: 'nowrap'}}>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
+              <Link href="/linkedin-to-resume"><a className="text-dark-high mb-0">Linkedin to resume</a></Link>
+              <Link href="/pdf-resume-builder"><a className="text-dark-high mb-0">Linkedin to PDF</a></Link>
               <Link href="/online-cv-builder"><a className="text-dark-high mb-0">Online CV builder</a></Link>
               <Link href="/online-resume-builder"><a className="text-dark-high mb-0">Online resume builder</a></Link>
-              <Link href="/pdf-resume-builder"><a className="text-dark-high mb-0">PDF resume builder</a></Link>
               <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
             </div>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
