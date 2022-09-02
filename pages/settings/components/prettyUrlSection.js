@@ -96,7 +96,7 @@ const PrettyUrlSection = ({ userData }) => {
           </div>
           <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{cursor: 'pointer'}}>
             <p className="large text-dark-high mb-0">Use my own domain</p>
-            <p className="text-dark-low mb-0">Display your vitaely profile on your own domain</p>
+            <p className="text-dark-low mb-0">Display your Vitaely profile on your own domain</p>
             {/* <button type="submit" className="btn primary high">Add domain</button> */}
             {/* <form onSubmit={handleSubmitCustomDomain}>
             <div className="d-flex flex-column flex-md-row" style={{gap: '16px'}}>
