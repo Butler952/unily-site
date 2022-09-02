@@ -34,14 +34,14 @@ const Blog = () => {
       <div className="container py-5 mb-5">
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
-          <PostCard 
+          {/* <PostCard 
             image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
             title="What to send in a follow up email after an interview"
             duration="2"
             bodyPreview="So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All..."
             postUrl="/blog/what-to-send-in-a-follow-up-email-after-an-interview"
             screenWidth={screenWidth}
-          />
+          /> */}
           <PostCard 
             image='/images/blog/how-to-download-your-resume-as-a-pdf/How to download your resume as a PDF.jpg'
             title="How to download your resume as a PDF"
