@@ -134,12 +134,12 @@ const Profile = (props) => {
             />
           }
           <br /> <br />
-          <div className="mb-1 d-flex flex-column align-items-center">
+          <div className="mb-4 d-flex flex-column align-items-center">
             {(props.full_name && props.displayBasicInfo.each.name === true) &&
               <h2 className="mb-1">{props.full_name}</h2>
             }
             {(props.headline && props.displayBasicInfo.each.headline === true) &&
-              <h5 style={{maxWidth: '640px'}}>{props.headline}</h5>
+              <h5 className="mb-0" style={{maxWidth: '640px'}}>{props.headline}</h5>
             }
           </div>
           {(props.email && props.displayBasicInfo.each.email === true) &&
