@@ -10,6 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import Lottie from 'react-lottie';
 import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
+import EditProfile from '../editProfile/EditProfile';
 
 const Header = (props) => {
 
@@ -28,6 +29,9 @@ const Header = (props) => {
   const [status, setStatus] = useState('');
   const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
   const [cancelAt, setCancelAt] = useState('');
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+  const [editProfileModalState, setEditProfileModalState] = useState('default')
+  const [editProfileModalIndex, setEditProfileModalIndex] = useState('')
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [commentsAndSuggestions, setCommentsAndSuggestions] = useState('');
   const [commentsAndSuggestionsError, setCommentsAndSuggestionsError] = useState('');
@@ -91,6 +95,7 @@ const Header = (props) => {
   const loggedInRoute = (user) => {
     setUserData(user)
     if (userContext !== '') {
+      // setStage(userContext && userContext.stage && userContext.stage)
       // setStage(userContext.stage)
       // if (userContext.profileUrl) {
       //   setProfileUrl(userContext.profileUrl)
@@ -104,7 +109,7 @@ const Header = (props) => {
           if (doc.exists) {
             setUserContext(doc.data())
             //setProfile(doc.data().profile)
-            setStage(doc.data().stage)
+            //setStage(doc.data().stage)
             // if (doc.data().stage !== 'complete') {
             //   router.push(doc.data().stage)
             // }
@@ -207,6 +212,21 @@ const Header = (props) => {
     setShowFeedbackModal(true)
   };
 
+  const handleEditProfileClose = () => {
+    setShowEditProfileModal(false);
+    // setEditProfileModalState('default')
+  };
+  const handleEditProfileShow = () => {
+    setShowEditProfileModal(true)
+    setEditProfileModalState('default')
+    setEditProfileModalIndex('')
+  };
+
+  const handleEditProfileChangeView = (page, index) => {
+    setEditProfileModalState(page)
+    setEditProfileModalIndex(index)
+  }
+
   const commentsAndSuggestionsChange = (value) => {
     setCommentsAndSuggestions(value)
     setCommentsAndSuggestionsError('')
@@ -302,16 +322,16 @@ const Header = (props) => {
             {/* {profile.profile_pic_url &&
             <img src={profile.profile_pic_url} style={{width: '48px', borderRadius:'100%'}} />
           } */}
-            {stage !== 'complete' ?
+            {(userContext && userContext.stage && userContext.stage !== undefined) && (userContext && userContext.stage && userContext.stage !== 'complete') ?
               <button className="btn primary low small" onClick={handleLogout}>Logout</button>
               :
               <>
-                <div className="d-flex flex-row" style={{ gap: '8px' }}>
+                {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                   <Link href="/blog">
                     <a className="btn dark low small">Blog</a>
                   </Link>
                 </div>
-                <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div>
+                <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div> */}
                 <Dropdown align="end">
                   <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                     <>
@@ -321,7 +341,6 @@ const Header = (props) => {
                           onError={({ currentTarget }) => {
                             currentTarget.onerror = null; // prevents looping
                             setHeaderImageError(true)
-                            // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
                           }}
                           style={{ width: '48px', borderRadius: '100%' }}
                         />
@@ -347,6 +366,10 @@ const Header = (props) => {
                         {userContext && userContext.profile && userContext.profile.full_name}
                     </Dropdown.Item>
                     <hr className="m-0" />
+                    <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
+                      <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
+                      Edit profile
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                       <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
                       Settings
@@ -453,6 +476,14 @@ const Header = (props) => {
           </div>
         </div>
       }
+      <EditProfile 
+        showEditProfileModal={showEditProfileModal}
+        editProfileModalState={editProfileModalState}
+        setEditProfileModalIndex={setEditProfileModalIndex}
+        handleEditProfileChangeView={(page, index) => handleEditProfileChangeView(page, index)}
+        handleEditProfileClose={() => handleEditProfileClose()}
+        editProfileModalIndex={editProfileModalIndex}
+      />
       <Modal
         show={showFeedbackModal}
         onHide={handleFeedbackClose}

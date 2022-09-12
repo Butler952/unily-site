@@ -30,6 +30,10 @@
   padding: 32px;
   transition: $transition-standard;
   overflow: hidden;
+  background: none;
+  border: none;
+  align-items: left;
+  text-align: left;
   &:not(:last-child) {
     border-bottom: 1px solid $dark-300;
   }

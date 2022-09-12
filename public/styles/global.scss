@@ -1104,6 +1104,10 @@ textarea {
 
 // Modal
 
+.modal {
+  backdrop-filter: blur(6px);
+}
+
 .modal-content {
   position: relative;
   display: flex;
@@ -1113,6 +1117,7 @@ textarea {
   border: 1px solid $dark-light;
   border-radius: $radius-medium;
   outline: 0;
+  overflow: hidden;
 }
 
 .modal-header {

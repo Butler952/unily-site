@@ -1,13 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
 import styles from '../settings.module.scss'
 import Image from 'next/image'
 import { UserContext } from '../../_app';
+import { toast } from 'react-toastify';
 
 const PrettyUrlSection = ({ userData }) => {
 
@@ -148,17 +147,6 @@ const PrettyUrlSection = ({ userData }) => {
           </Modal.Body>
         }
       </Modal>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   )
 }

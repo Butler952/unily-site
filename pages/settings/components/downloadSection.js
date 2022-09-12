@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
 import { PDFDownloadLink, PDFViewer, BlobProvider } from '@react-pdf/renderer';
 import BasicResume from '../../../components/resumeExports/basicResume';
+import { toast } from 'react-toastify';
 
 const DownloadSection = ({userData, allUserData}) => {
   const [showModal, setShowModal] = useState(false);
@@ -150,17 +149,6 @@ const DownloadSection = ({userData, allUserData}) => {
           </Modal.Body>
         }
       </Modal>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   )
 }

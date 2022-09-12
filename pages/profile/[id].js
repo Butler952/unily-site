@@ -25,7 +25,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     checkUser();
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
     mixpanel.track('Profile');
   }, [])
 
@@ -44,7 +44,7 @@ const Profile = (props) => {
       }
     });
   }
-                    
+
   const getSummaryText = () => {
     // For Text that is shorter than desired length
     if (props.summary.length <= 258) return (
@@ -57,17 +57,17 @@ const Profile = (props) => {
       return (
         <>
           <p className={`large mb-0 ` + styles.summary}>
-            {props.summary} <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
+            {props.summary} <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setShowMore(false)}>Show less</u>
           </p>
         </>
       );
     }
-      // If text is longer than desired length & showMore is false
+    // If text is longer than desired length & showMore is false
     if (props.summary.length > 258) {
       return (
         <>
           <p className={`large mb-0 ` + styles.summary}>
-            {props.summary.slice(0, 258)}... <u style={{cursor: 'pointer'}} className="text-dark-low" onClick={() => setShowMore(true)}>Read more</u>
+            {props.summary.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setShowMore(true)}>Read more</u>
           </p>
         </>
       );
@@ -93,44 +93,44 @@ const Profile = (props) => {
     <div>
       <Head>
         <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
-        { props.summary ? <meta name="description" content={props.summary} /> : null }
-        { (props.full_name && props.displayBasicInfo.each.name === true) ? <meta name="author" content={props.full_name} /> : null }
+        {props.summary ? <meta name="description" content={props.summary} /> : null}
+        {(props.full_name && props.displayBasicInfo.each.name === true) ? <meta name="author" content={props.full_name} /> : null}
         <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
-        { props.summary ? <meta property="og:description" content={props.summary} /> : null }
+        {props.summary ? <meta property="og:description" content={props.summary} /> : null}
         <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />
-        { props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null }
+        {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
         <meta property="og:type" content="website" />
       </Head>
-      { props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : '' }
+      {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
       <Container>
         <div className="text-center mb-5">
-          {((props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) && !headerImageError ) &&
+          {((props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) && !headerImageError) &&
             <>
-              <img 
-                src={props.background_cover_image_url} 
+              <img
+                src={props.background_cover_image_url}
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
                   setHeaderImageError(true)
                   // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
                 }}
-                style={{display: 'none'}} 
+                style={{ display: 'none' }}
               />
-              <div 
-                className={styles.headerImage} 
-                style={{ backgroundImage: `url(${props.background_cover_image_url})`}} 
+              <div
+                className={styles.headerImage}
+                style={{ backgroundImage: `url(${props.background_cover_image_url})` }}
               />
             </>
           }
           {((props.profile_pic_url && props.displayBasicInfo.each.profilePic === true) && !profilePictureError) &&
-            <img 
-              src={props.profile_pic_url} 
+            <img
+              src={props.profile_pic_url}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 setProfilePictureError(true)
                 // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
               }}
-              style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? {marginTop: '-80px'} : {marginTop: '48px'}} 
-              className={styles.profilePicture} 
+              style={(props.background_cover_image_url && props.displayBasicInfo.each.headerImage === true) ? { marginTop: '-80px' } : { marginTop: '48px' }}
+              className={styles.profilePicture}
             />
           }
           <br /> <br />
@@ -139,7 +139,7 @@ const Profile = (props) => {
               <h2 className="mb-1">{props.full_name}</h2>
             }
             {(props.headline && props.displayBasicInfo.each.headline === true) &&
-              <h5 className="mb-0" style={{maxWidth: '640px'}}>{props.headline}</h5>
+              <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
             }
           </div>
           {(props.email && props.displayBasicInfo.each.email === true) &&
@@ -163,42 +163,42 @@ const Profile = (props) => {
             <h4>Experience</h4>
             <div className={styles.profileCard + ' card'}>
               {props.experiences.map((job, index) => (props.displayExperience.each[index].display) &&
-                  <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                      { (props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ? 
-                        <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                          <a target="_blank" href={job.company_linkedin_profile_url}>
-                            <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                          </a>
-                        </div>
-                      : null }
-                      <div className="w-100">
-                        <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                        {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
-                          <p className="large text-dark-med mb-0">{job.company}</p>
-                        {/* </a> */}
-                        <p className="text-dark-low mb-0">{job.location}</p>
-                        <p className="text-dark-low mb-0">
-                          {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null} 
-                          {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                          {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                          {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                          {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                        </p>
-                        {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
+                <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
+                  {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
+                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                      <a target="_blank" href={job.company_linkedin_profile_url}>
+                        <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                      </a>
+                    </div>
+                    : null}
+                  <div className="w-100">
+                    <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                    {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
+                    <p className="large text-dark-med mb-0">{job.company}</p>
+                    {/* </a> */}
+                    <p className="text-dark-low mb-0">{job.location}</p>
+                    <p className="text-dark-low mb-0">
+                      {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                      {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                      {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                      {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                      {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                    </p>
+                    {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
 
-                        {/* {job.description ? 
+                    {/* {job.description ? 
                           <Accordion.Collapse eventKey={index}>
                             <p className="text-dark-med mb-0 mt-3">{job.description}</p>
                           </Accordion.Collapse>
                           : null
                         } */}
-        
-                      </div>
-                      {/* <div className="d-flex flex-row justify-content-between align-items-center">
+
+                  </div>
+                  {/* <div className="d-flex flex-row justify-content-between align-items-center">
                         <CustomToggle eventKey={index} />
                       </div> */}
-                  </Accordion>
-        )}
+                </Accordion>
+              )}
             </div>
             <br /><br />
           </div>
@@ -209,18 +209,18 @@ const Profile = (props) => {
             <div className={styles.profileCard + ' card'}>
               {props.education.map((school, index) => (props.displayEducation.each[index].display) &&
                 <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                  { (props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ? 
+                  {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                       <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
                     </div>
-                  : null }
+                    : null}
                   <div>
                     <p className="large text-dark-high font-weight-semibold mb-0">
                       {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                     </p>
                     <p className="large mb-0">{school.school}</p>
                     <p className="text-dark-low mb-0">
-                      {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null} 
+                      {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
                       {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
                       {school.starts_at && school.ends_at == null ? ' – Present' : null}
                       {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
@@ -242,7 +242,7 @@ const Profile = (props) => {
                   <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
                   <p className="large mb-0">{volunteer.company}</p>
                   <p className="text-dark-low mb-0">
-                    {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null} 
+                    {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
                     {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
                     {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
                     {volunteer.starts_at && volunteer.ends_at ? " – " + (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') : null}
@@ -284,7 +284,7 @@ export const getServerSideProps = async ({ query }) => {
       content['pageId'] = query.id ? query.id : null;
       content['email'] = result.data().email ? result.data().email : null;
       content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
-      content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null ;
+      content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null;
       content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
       content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
       content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
