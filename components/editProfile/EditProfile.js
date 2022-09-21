@@ -8,6 +8,7 @@ import BasicInformation from './BasicInformation';
 import About from './About';
 import Experience from './Experience';
 import EditExperience from './EditExperience';
+import AddExperience from './AddExperience';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -40,6 +41,34 @@ const EditProfile = ({
   const [experiencesTitle, setExperiencesTitle] = useState('');
   const [experiencesTitleChanged, setExperiencesTitleChanged] = useState(false);
   const [experiencesTitleError, setExperiencesTitleError] = useState('');
+  const [experiencesLocation, setExperiencesLocation] = useState('');
+  const [experiencesLocationChanged, setExperiencesLocationChanged] = useState(false);
+  const [experiencesLocationError, setExperiencesLocationError] = useState('');
+  const [experiencesStartDate, setExperiencesStartDate] = useState('');
+  const [experiencesStartDateInputType, setExperiencesStartDateInputType] = useState('text');
+  const [experiencesStartDateChanged, setExperiencesStartDateChanged] = useState(false);
+  const [experiencesStartDateError, setExperiencesStartDateError] = useState('');
+  const [experiencesEndDate, setExperiencesEndDate] = useState('');
+  const [experiencesEndDateInputType, setExperiencesEndDateInputType] = useState('text');
+  const [experiencesEndDateChanged, setExperiencesEndDateChanged] = useState(false);
+  const [experiencesEndDateError, setExperiencesEndDateError] = useState('');
+  const [experiencesEndDatePresent, setExperiencesEndDatePresent] = useState(false);
+  const [experiencesEndDatePresentChanged, setExperiencesEndDatePresentChanged] = useState(false);
+  const [experiencesDescription, setExperiencesDescription] = useState('');
+  const [experiencesDescriptionChanged, setExperiencesDescriptionChanged] = useState(false);
+  const [experiencesDescriptionError, setExperiencesDescriptionError] = useState('');
+  const [experiencesShowDeleteExperienceModal, setExperiencesShowDeleteExperienceModal] = useState(false);
+   // const [experiencesStartDateMonthChanged, setExperiencesStartDateMonthChanged] = useState(false);
+  // const [experiencesStartDateMonthError, setExperiencesStartDateMonthError] = useState('');
+  // const [experiencesStartDateYear, setExperiencesStartDateYear] = useState('');
+  // const [experiencesStartDateYearChanged, setExperiencesStartDateYearChanged] = useState(false);
+  // const [experiencesStartDateYearError, setExperiencesStartDateYearError] = useState('');
+  // const [experiencesEndDateMonth, setExperiencesEndDateMonth] = useState('');
+  // const [experiencesEndDateMonthChanged, setExperiencesEndDateMonthChanged] = useState(false);
+  // const [experiencesEndDateMonthError, setExperiencesEndDateMonthError] = useState('');
+  // const [experiencesEndDateYear, setExperiencesEndDateYear] = useState('');
+  // const [experiencesEndDateYearChanged, setExperiencesEndDateYearChanged] = useState(false);
+  // const [experiencesEndDateYearError, setExperiencesEndDateYearError] = useState('');
 
   useEffect(() => {
     const unsubscribe = fire.auth()
@@ -74,6 +103,35 @@ const EditProfile = ({
     setExperiencesTitle('')
     setExperiencesTitleChanged(false)
     setExperiencesTitleError('')
+    setExperiencesLocation('')
+    setExperiencesLocationChanged(false)
+    setExperiencesLocationError('')
+    setExperiencesStartDate('')
+    setExperiencesStartDateInputType('text')
+    setExperiencesStartDateChanged(false)
+    setExperiencesStartDateError('')
+    setExperiencesEndDate('')
+    setExperiencesEndDateInputType('text')
+    setExperiencesEndDateChanged(false)
+    setExperiencesEndDateError('')
+    setExperiencesEndDatePresent(false)
+    setExperiencesEndDatePresentChanged(false)
+    setExperiencesDescription('')
+    setExperiencesDescriptionChanged(false)
+    setExperiencesDescriptionError('')
+    setExperiencesShowDeleteExperienceModal(false)
+    // setExperiencesStartDateMonth('')
+    // setExperiencesStartDateMonthChanged(false)
+    // setExperiencesStartDateMonthError('')
+    // setExperiencesStartDateYear('')
+    // setExperiencesStartDateYearChanged(false)
+    // setExperiencesStartDateYearError('')
+    // setExperiencesEndDateMonth('')
+    // setExperiencesEndDateMonthChanged(false)
+    // setExperiencesEndDateMonthError('')
+    // setExperiencesEndDateYear('')
+    // setExperiencesEndDateYearChanged(false)
+    // setExperiencesEndDateYearError('')
   }
 
   const handleClick = (title) => {
@@ -82,7 +140,7 @@ const EditProfile = ({
 
   const handleBack = () => {
     resetFields()
-    if (editProfileModalState == "Edit experience") {
+    if (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") {
       handleEditProfileChangeView('Experience')
     } 
     else {
@@ -226,6 +284,96 @@ const EditProfile = ({
             setExperiencesTitleChanged={setExperiencesTitleChanged}
             experiencesTitleError={experiencesTitleError}
             setExperiencesTitleError={setExperiencesTitleError}
+            experiencesLocation={experiencesLocation}
+            setExperiencesLocation={setExperiencesLocation}
+            experiencesLocationChanged={experiencesLocationChanged}
+            setExperiencesLocationChanged={setExperiencesLocationChanged}
+            experiencesLocationError={experiencesLocationError}
+            setExperiencesLocationError={setExperiencesLocationError}
+            experiencesStartDate={experiencesStartDate}
+            setExperiencesStartDate={setExperiencesStartDate}
+            experiencesStartDateInputType={experiencesStartDateInputType}
+            setExperiencesStartDateInputType={setExperiencesStartDateInputType}
+            experiencesStartDateChanged={experiencesStartDateChanged}
+            setExperiencesStartDateChanged={setExperiencesStartDateChanged}
+            experiencesStartDateError={experiencesStartDateError}
+            setExperiencesStartDateError={setExperiencesStartDateError}
+            experiencesEndDate={experiencesEndDate}
+            setExperiencesEndDate={setExperiencesEndDate}
+            experiencesEndDateInputType={experiencesEndDateInputType}
+            setExperiencesEndDateInputType={setExperiencesEndDateInputType}
+            experiencesEndDateChanged={experiencesEndDateChanged}
+            setExperiencesEndDateChanged={setExperiencesEndDateChanged}
+            experiencesEndDateError={experiencesEndDateError}
+            setExperiencesEndDateError={setExperiencesEndDateError}
+            experiencesEndDatePresent={experiencesEndDatePresent}
+            setExperiencesEndDatePresent={setExperiencesEndDatePresent}
+            experiencesEndDatePresentChanged={experiencesEndDatePresentChanged}
+            setExperiencesEndDatePresentChanged={setExperiencesEndDatePresentChanged}
+            experiencesDescription={experiencesDescription}
+            setExperiencesDescription={setExperiencesDescription}
+            experiencesDescriptionChanged={experiencesDescriptionChanged}
+            setExperiencesDescriptionChanged={setExperiencesDescriptionChanged}
+            experiencesDescriptionError={experiencesDescriptionError}
+            setExperiencesDescriptionError={setExperiencesDescriptionError}
+            experiencesShowDeleteExperienceModal={experiencesShowDeleteExperienceModal}
+            setExperiencesShowDeleteExperienceModal={setExperiencesShowDeleteExperienceModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Add experience' && (
+          <>
+          <AddExperience 
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            experiencesCompany={experiencesCompany}
+            setExperiencesCompany={setExperiencesCompany}
+            experiencesCompanyChanged={experiencesCompanyChanged}
+            setExperiencesCompanyChanged={setExperiencesCompanyChanged}
+            experiencesCompanyError={experiencesCompanyError}
+            setExperiencesCompanyError={setExperiencesCompanyError}
+            experiencesTitle={experiencesTitle}
+            setExperiencesTitle={setExperiencesTitle}
+            experiencesTitleChanged={experiencesTitleChanged}
+            setExperiencesTitleChanged={setExperiencesTitleChanged}
+            experiencesTitleError={experiencesTitleError}
+            setExperiencesTitleError={setExperiencesTitleError}
+            experiencesLocation={experiencesLocation}
+            setExperiencesLocation={setExperiencesLocation}
+            experiencesLocationChanged={experiencesLocationChanged}
+            setExperiencesLocationChanged={setExperiencesLocationChanged}
+            experiencesLocationError={experiencesLocationError}
+            setExperiencesLocationError={setExperiencesLocationError}
+            experiencesStartDate={experiencesStartDate}
+            setExperiencesStartDate={setExperiencesStartDate}
+            experiencesStartDateInputType={experiencesStartDateInputType}
+            setExperiencesStartDateInputType={setExperiencesStartDateInputType}
+            experiencesStartDateChanged={experiencesStartDateChanged}
+            setExperiencesStartDateChanged={setExperiencesStartDateChanged}
+            experiencesStartDateError={experiencesStartDateError}
+            setExperiencesStartDateError={setExperiencesStartDateError}
+            experiencesEndDate={experiencesEndDate}
+            setExperiencesEndDate={setExperiencesEndDate}
+            experiencesEndDateInputType={experiencesEndDateInputType}
+            setExperiencesEndDateInputType={setExperiencesEndDateInputType}
+            experiencesEndDateChanged={experiencesEndDateChanged}
+            setExperiencesEndDateChanged={setExperiencesEndDateChanged}
+            experiencesEndDateError={experiencesEndDateError}
+            setExperiencesEndDateError={setExperiencesEndDateError}
+            experiencesEndDatePresent={experiencesEndDatePresent}
+            setExperiencesEndDatePresent={setExperiencesEndDatePresent}
+            experiencesEndDatePresentChanged={experiencesEndDatePresentChanged}
+            setExperiencesEndDatePresentChanged={setExperiencesEndDatePresentChanged}
+            experiencesDescription={experiencesDescription}
+            setExperiencesDescription={setExperiencesDescription}
+            experiencesDescriptionChanged={experiencesDescriptionChanged}
+            setExperiencesDescriptionChanged={setExperiencesDescriptionChanged}
+            experiencesDescriptionError={experiencesDescriptionError}
+            setExperiencesDescriptionError={setExperiencesDescriptionError}
+            experiencesShowDeleteExperienceModal={experiencesShowDeleteExperienceModal}
+            setExperiencesShowDeleteExperienceModal={setExperiencesShowDeleteExperienceModal}
+            handleBack={handleBack}
           />
           </>
         )}

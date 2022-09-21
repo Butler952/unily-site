@@ -764,11 +764,12 @@ a.btn, input.btn, button.btn {
 
 // Text field
 
-input[type="text"], input[type="password"], input[type="email"] { 
+input[type="text"], input[type="password"], input[type="email"], input[type="month"] { 
   border-radius: $radius-small; 
   padding: 10px 18px;  
   font-size: 20px;
   line-height: 32px;
+  height: 56px;
   border: 2px solid $dark-light;
   outline: 0;
   //width: 100%; //maybe delete
@@ -794,6 +795,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding: 8px 14px; 
     font-size: 16px; 
     line-height: 28px;
+    height: 48px;
     &.icon-left {
       padding-left: 45px; 
     }
@@ -805,6 +807,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding: 12px 22px; 
     font-size: 24px;
     line-height: 36px;
+    height: 64px;
     &.icon-left {
       padding-left: 53px; 
     }
@@ -852,6 +855,49 @@ input[type="text"], input[type="password"], input[type="email"] {
     }
   }
 } 
+
+input[type="date"], input[type="month"] {
+  position: relative;
+}
+
+/* create a new arrow, because we are going to mess up the native one
+see "List of symbols" below if you want another, you could also try to add a font-awesome icon.. */
+input[type="date"], input[type="month"]:after {
+  // content: "\25BC"; 
+  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.12236 9.00204L12.0024 12.882L15.8824 9.00204C15.9749 8.90946 16.0848 8.83602 16.2058 8.78592C16.3268 8.73581 16.4564 8.71002 16.5874 8.71002C16.7183 8.71002 16.8479 8.73581 16.9689 8.78592C17.0899 8.83602 17.1998 8.90946 17.2924 9.00204C17.3849 9.09462 17.4584 9.20454 17.5085 9.3255C17.5586 9.44646 17.5844 9.57611 17.5844 9.70704C17.5844 9.83797 17.5586 9.96762 17.5085 10.0886C17.4584 10.2095 17.3849 10.3195 17.2924 10.412L12.7024 15.002C12.6098 15.0947 12.5 15.1683 12.379 15.2185C12.258 15.2687 12.1283 15.2945 11.9974 15.2945C11.8664 15.2945 11.7367 15.2687 11.6157 15.2185C11.4948 15.1683 11.3849 15.0947 11.2924 15.002L6.70236 10.412C6.60965 10.3195 6.53611 10.2096 6.48592 10.0887C6.43574 9.96769 6.40991 9.83801 6.40991 9.70704C6.40991 9.57607 6.43574 9.44639 6.48592 9.32542C6.53611 9.20445 6.60965 9.09456 6.70236 9.00204C7.09236 8.62204 7.73236 8.61204 8.12236 9.00204Z' fill='%23231F20'/%3E%3C/svg%3E");
+  color: $dark-600;
+  height: 24px;
+  // padding: 0 5px;
+}
+
+/* change color of symbol on hover */
+input[type="date"], input[type="month"]:hover:after {
+  color: $dark-900;
+}
+
+/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+input[type="date"], input[type="month"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+/* adjust increase/decrease button */
+input[type="date"], input[type="month"]::-webkit-inner-spin-button {
+  z-index: 1;
+}
+
+/* adjust clear button */
+input[type="date"], input[type="month"]::-webkit-clear-button {
+   z-index: 1;
+}
+
 .input-group-addon {
   padding: 10px 18px;  
   font-size: 20px;
@@ -956,6 +1002,7 @@ textarea {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: fit-content;
   &.small {
     font-size: 16px;
     line-height: 28px;
@@ -1118,6 +1165,7 @@ textarea {
   border-radius: $radius-medium;
   outline: 0;
   overflow: hidden;
+  box-shadow: $shadow-5;
 }
 
 .modal-header {

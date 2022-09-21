@@ -21,15 +21,84 @@ const Experience = ({
     handleEditProfileChangeView('Edit experience', index)
   }
 
+  const handleAdd = () => {
+    handleEditProfileChangeView('Add experience')
+  }
+
+  const sortExperiences = (a,b) => {
+    if (a.ends_at && 
+        a.ends_at.year && 
+        a.ends_at.month && 
+        b.ends_at && 
+        b.ends_at.year && 
+        b.ends_at.month &&
+        a.starts_at &&
+        a.starts_at.year && 
+        a.starts_at.month && 
+        b.starts_at && 
+        b.starts_at.year && 
+        b.starts_at.month
+      ) {
+      if (b.ends_at.year < a.ends_at.year)
+        return -1;
+      if (b.ends_at.year > a.ends_at.year)
+        return 1;
+      if (b.ends_at.year = a.ends_at.year) {
+        if (b.ends_at.month < a.ends_at.month)
+          return -1;
+        if (b.ends_at.month > a.ends_at.month)
+          return 1;
+        if (b.ends_at.month = a.ends_at.month) {
+          if (b.starts_at.year < a.starts_at.year)
+            return -1;
+          if (b.starts_at.year > a.starts_at.year)
+            return 1;
+          if (b.starts_at.year = a.starts_at.year) {
+            if (b.starts_at.month < a.starts_at.month)
+              return -1;
+            if (b.starts_at.month > a.starts_at.month)
+              return 1;
+          }
+        }
+      }
+    }
+    if (a.ends_at == undefined & b.ends_at == undefined) {
+      if (b.starts_at.year < a.starts_at.year)
+        return -1;
+      if (b.starts_at.year > a.starts_at.year)
+        return 1;
+      if (b.starts_at.year = a.starts_at.year) {
+        if (b.starts_at.month < a.starts_at.month)
+          return -1;
+        if (b.starts_at.month > a.starts_at.month)
+          return 1;
+      }
+    }
+    return 0;
+  }
+
   return (
     <>
-      {userContext.profile.experiences && userContext.profile.experiences.map((job, index) => 
+    {/* <p>{
+      userContext &&
+      userContext.profile &&
+      userContext.profile.experiences &&
+      userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
+        <div key={index}>
+          <p>{job.title}</p>
+        </div>
+      )
+    }</p> */}
+      { userContext &&
+        userContext.profile &&
+        userContext.profile.experiences &&
+        userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
             { job.logo_url ?
             <div>
               <a target="_blank" href={job.company_linkedin_profile_url}>
-                <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} style={{width: '72px'}}/>
               </a>
             </div>
             : null}
@@ -54,7 +123,7 @@ const Experience = ({
         </div>
       )}
       <div className="d-flex flex-row justify-content-end p-4">
-        <button type="button" className="btn primary medium icon-left w-100 w-sm-auto">
+        <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">
           <svg viewBox="0 0 24 24">
             <path d={ICONS.PLUS}></path>
           </svg>

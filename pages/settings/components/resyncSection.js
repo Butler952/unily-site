@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import fire from '../../../config/fire-config';
 import { useRouter } from 'next/router'
 import ICONS from '../../../components/icon/IconPaths';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import styles from '../settings.module.scss'
 import { ProgressBar, Modal } from 'react-bootstrap';
 import UpgradeButton from './upgradeButton';
+import { UserContext } from '../../_app';
 
 const ResyncSection = ({
     linkedinId, 
@@ -19,6 +20,9 @@ const ResyncSection = ({
     handleUpdate,
     handleUpgrade
   }) => {
+
+  const { userContext, setUserContext } = useContext(UserContext);
+
   const router = useRouter();
   const [syncingState, setSyncingState] = useState('');
   const [saving, setSaving] = useState(false);
@@ -28,6 +32,7 @@ const ResyncSection = ({
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+  
 
   {/*useEffect(() => {
     const unsubscribe = fire.auth()
@@ -114,6 +119,37 @@ const ResyncSection = ({
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
           })
+          return result;
+        })
+        .then((result) => {
+          let newUserContext = userContext;
+          newUserContext.profile = result;
+          newUserContext.displayInfo = {
+            'basicInfo': {
+              'section': true,
+              'each': {
+                'profilePic': true,
+                'headerImage': true,
+                'name': true,
+                'headline': true,
+                'email': true
+              }
+            },
+            about: result.summary === null ? false : true,
+            'experience': {
+              'section': result.experiences < 1 ? false : true,
+              'each': createExperienceList(result.experiences)
+            },
+            'education': {
+              'section': result.education < 1 ? false : true,
+              'each': createEducationList(result.education)
+            },
+            'volunteering': {
+              'section': result.volunteer_work < 1 ? false : true,
+              'each': createVolunteerList(result.volunteer_work)
+            },
+          }
+          setUserContext(newUserContext)
         })
         .then(() => {
           setSyncingState('Sync successfully completed')
