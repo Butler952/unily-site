@@ -201,7 +201,7 @@ const Profile = (props) => {
               <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
             }
           </div>
-          {props.email &&
+          {props.email && props.displayInfo.basicInfo.each.email &&
             <div className="d-flex m-auto justify-content-center">
               <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
             </div>
@@ -384,7 +384,8 @@ export const getServerSideProps = async ({ query }) => {
       content['education'] = result.data().profile.education ? result.data().profile.education : null;
       content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
       content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
-       content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+      content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+      content['displayInfo'] = result.data().displayInfo ? result.data().displayInfo : null;
     });
 
   return {
@@ -401,6 +402,7 @@ export const getServerSideProps = async ({ query }) => {
       logoVisibility: content.logoVisibility,
       volunteer_work: content.volunteer_work,
       surveyOnSignUpHide: content.surveyOnSignUpHide,
+      displayInfo: content.displayInfo
     }
   }
 }

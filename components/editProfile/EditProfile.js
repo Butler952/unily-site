@@ -15,6 +15,7 @@ import AddEducation from './AddEducation';
 import EditVolunteering from './EditVolunteering';
 import Volunteering from './Volunteering';
 import AddVolunteering from './AddVolunteering';
+import EditLinks from './EditLinks';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -36,6 +37,12 @@ const EditProfile = ({
   const [basicInfoHeadline, setBasicInfoHeadline] = useState('');
   const [basicInfoHeadlineChanged, setBasicInfoHeadlineChanged] = useState(false);
   const [basicInfoHeadlineError, setBasicInfoHeadlineError] = useState('');
+
+  const [linksContact, setLinksContact] = useState('');
+  const [linksContactChanged, setLinksContactChanged] = useState(false);
+  const [linksContactError, setLinksContactError] = useState('');
+  const [linksContactShow, setLinksContactShow] = useState(false);
+  const [linksContactShowChanged, setLinksContactShowChanged] = useState(false);
 
   const [about, setAbout] = useState('');
   const [aboutChanged, setAboutChanged] = useState(false);
@@ -140,6 +147,11 @@ const EditProfile = ({
     setBasicInfoHeadline('')
     setBasicInfoHeadlineChanged(false)
     setBasicInfoHeadlineError('')
+    setLinksContact('')
+    setLinksContactChanged(false)
+    setLinksContactError('')
+    setLinksContactShow(false)
+    setLinksContactShowChanged(false)
     setAbout('')
     setAboutChanged(false)
     setAboutError('')
@@ -215,18 +227,6 @@ const EditProfile = ({
     setVolunteeringDescriptionChanged(false)
     setVolunteeringDescriptionError('')
     setVolunteeringShowDeleteVolunteeringModal(false)
-    // setExperiencesStartDateMonth('')
-    // setExperiencesStartDateMonthChanged(false)
-    // setExperiencesStartDateMonthError('')
-    // setExperiencesStartDateYear('')
-    // setExperiencesStartDateYearChanged(false)
-    // setExperiencesStartDateYearError('')
-    // setExperiencesEndDateMonth('')
-    // setExperiencesEndDateMonthChanged(false)
-    // setExperiencesEndDateMonthError('')
-    // setExperiencesEndDateYear('')
-    // setExperiencesEndDateYearChanged(false)
-    // setExperiencesEndDateYearError('')
   }
 
   const handleClick = (title) => {
@@ -254,18 +254,22 @@ const EditProfile = ({
     },
     {
       "id": 1,
-      "title": "About",
+      "title": "Links",
     },
     {
       "id": 2,
-      "title": "Experience",
+      "title": "About",
     },
     {
       "id": 3,
-      "title": "Education",
+      "title": "Experience",
     },
     {
       "id": 4,
+      "title": "Education",
+    },
+    {
+      "id": 5,
       "title": "Volunteering",
     },
     // {
@@ -336,6 +340,22 @@ const EditProfile = ({
             setBasicInfoHeadline={setBasicInfoHeadline}
             setBasicInfoHeadlineChanged={setBasicInfoHeadlineChanged}
             setBasicInfoHeadlineError={setBasicInfoHeadlineError}
+          />
+        )}
+        { editProfileModalState == 'Links' && (
+          <EditLinks
+            user={user}
+            linksContact={linksContact}
+            setLinksContact={setLinksContact}
+            linksContactChanged={linksContactChanged}
+            setLinksContactChanged={setLinksContactChanged}
+            linksContactError={linksContactError}
+            setLinksContactError={setLinksContactError}
+            linksContactShow={linksContactShow}
+            setLinksContactShow={setLinksContactShow}
+            linksContactShowChanged={linksContactShowChanged}
+            setLinksContactShowChanged={setLinksContactShowChanged}
+            handleBack={handleBack}
           />
         )}
         { editProfileModalState == 'About' && (
