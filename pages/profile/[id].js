@@ -104,6 +104,35 @@ const Profile = (props) => {
     }
   };
 
+  const getDescriptionText = (description, descriptionShowMore , setDescriptionShowMore) => {
+    // For Text that is shorter than desired length
+    if (description.length <= 258) return (
+      <p className="text-dark-med mb-0 mt-3">
+        {description}
+      </p>
+    );
+    // If text is longer than desired length & showMore is true
+    if (description.length > 258 && descriptionShowMore) {
+      return (
+        <>
+          <p className="text-dark-med mb-0 mt-3">
+            {description} <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setDescriptionShowMore(false)}>Show less</u>
+          </p>
+        </>
+      );
+    }
+    // If text is longer than desired length & showMore is false
+    if (description.length > 258) {
+      return (
+        <>
+          <p className="text-dark-med mb-0 mt-3">
+            {description.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setDescriptionShowMore(true)}>Read more</u>
+          </p>
+        </>
+      );
+    }
+  };
+
   const CustomToggle = ({ eventKey }) => {
     // const [dropdownOpen, setDropdownOpen] = useState(false);
     const decoratedOnClick = useAccordionToggle(eventKey, () => {
@@ -192,30 +221,34 @@ const Profile = (props) => {
           <div className="mb-5">
             <h4>Experience</h4>
             <div className={styles.profileCard + ' card'}>
-              {props.experiences.map((job, index) => 
-                <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                  {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
-                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                      <a target="_blank" href={job.company_linkedin_profile_url}>
-                        <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                      </a>
+              {props.experiences.map((job, index) => {
+                const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                return (
+                  <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
+                    {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
+                      <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                        <a target="_blank" href={job.company_linkedin_profile_url}>
+                          <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                        </a>
+                      </div>
+                      : null}
+                    <div className="w-100">
+                      <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                      <p className="large text-dark-med mb-0">{job.company}</p>
+                      <p className="text-dark-low mb-0">{job.location}</p>
+                      <p className="text-dark-low mb-0">
+                        {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                        {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                        {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                        {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                        {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                      </p>
+                      {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
+                      {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                     </div>
-                    : null}
-                  <div className="w-100">
-                    <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                    <p className="large text-dark-med mb-0">{job.company}</p>
-                    <p className="text-dark-low mb-0">{job.location}</p>
-                    <p className="text-dark-low mb-0">
-                      {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                      {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                      {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                      {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                      {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                    </p>
-                    {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
-                  </div>
-                </Accordion>
-              )}
+                  </Accordion>
+                )
+              })}
               {/* { userContext && 
                 userContext.profile && 
                 userContext.profile.experiences !== undefined ? userContext.profile.experiences.map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : ''
