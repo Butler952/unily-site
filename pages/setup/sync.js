@@ -2,7 +2,7 @@
 // Fail > Error message and try again
 // Success > Continue to next step
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
@@ -12,8 +12,11 @@ import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
 import ICONS from '../../components/icon/IconPaths';
+import { UserContext } from '../_app';
 
 const Sync = () => {
+  const { userContext, setUserContext } = useContext(UserContext);
+
   const [profileUrl, setProfileUrl] = useState('');
   const [loadingState, setLoadingState] = useState('');
   const [userData, setUserData] = useState('');
@@ -133,6 +136,39 @@ const Sync = () => {
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }
+          return result;
+        })
+        .then((result) => {
+          setUserContext({
+            profile: result,
+            displayInfo: {
+              'basicInfo': {
+                'section': true,
+                'each': {
+                  'profilePic': true,
+                  'headerImage': true,
+                  'name': true,
+                  'headline': true,
+                  'email': true
+                }
+              },
+              about: result.summary === null ? false : true,
+              'experience': {
+                'section': result.experiences < 1 ? false : true,
+                'each': createExperienceList(result.experiences)
+              },
+              'education': {
+                'section': result.education < 1 ? false : true,
+                'each': createEducationList(result.education)
+              },
+              'volunteering': {
+                'section': result.volunteer_work < 1 ? false : true,
+                'each': createVolunteerList(result.volunteer_work)
+              },
+            },
+            stage: 'complete',
+            profileUrl: '/profile/' + userData.uid,
+          })
         })
         .then(() => {
           mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 

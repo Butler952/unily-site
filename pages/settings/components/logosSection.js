@@ -4,9 +4,7 @@ import { useRouter } from 'next/router'
 import ICONS from '../../../components/icon/IconPaths';
 
 // import styles from './settings.module.scss'
-import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from '../settings.module.scss'
 import { ProgressBar, Modal } from 'react-bootstrap';
 import UpgradeButton from './upgradeButton';
@@ -256,17 +254,6 @@ const LogosSection = ({
         </Modal.Body>
       }
       </Modal> */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   )
 }

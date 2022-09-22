@@ -1,0 +1,15 @@
+@import '../../public/styles/variables.scss';
+
+.menuOption {
+  transition: $transition-standard;
+  overflow: hidden;
+  border: none;
+  background: none;
+  &:not(:last-child) {
+    border-bottom: 1px solid $dark-300;
+  }
+  &:hover {
+    background: $dark-100;
+    text-decoration: none;
+  }
+}

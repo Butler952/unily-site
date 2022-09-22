@@ -495,7 +495,7 @@ const Settings = () => {
               )
             : null }
 
-          <div className="card mx-auto mb-5">
+          {/* <div className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Sections</h5>
               <p className="text-dark-low mb-0">Control the visibility of profile content</p>
@@ -647,7 +647,7 @@ const Settings = () => {
                 </form>
               </div>
             }
-          </div>
+          </div> */}
         
           <LogosSection
             userData={userData} 
@@ -800,17 +800,6 @@ const Settings = () => {
           </div>
         </Modal.Body>
       </Modal>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       { redirectToStripe ? (
         <div className="bg-light-900 position-fixed w-100 h-100" style={{top: 0, left: 0, zIndex: 1100}}>
           <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">

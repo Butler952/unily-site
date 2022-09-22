@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
 import styles from '../settings.module.scss'
 import Image from 'next/image'
+import { toast } from 'react-toastify';
 
 const TemplateSection = ({userData}) => {
   const [showModal, setShowModal] = useState(false);
@@ -55,7 +54,7 @@ const TemplateSection = ({userData}) => {
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Template</h5>
-          <p className="text-dark-low mb-0">Change the template for you profile</p>
+          <p className="text-dark-low mb-0">Change the template for your profile</p>
         </div>
         <hr className="m-0"/>
         <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>
@@ -108,17 +107,6 @@ const TemplateSection = ({userData}) => {
           </Modal.Body>
         }
       </Modal>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   )
 }
