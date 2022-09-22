@@ -276,7 +276,7 @@ const AddExperience = ({
           </div>
           <div className="d-flex flex-column flex-sm-row justify-content-end" style={{gap: '12px'}}>
             <button type="button" onClick={handleBack} className="btn dark medium w-100 w-sm-auto" disabled={submitting}>Cancel</button>
-            <button type="submit" className="btn primary high w-100 w-sm-auto" disabled={submitting}>{!submitting ? 'Save' : 'Saving...'}</button>
+            <button type="submit" className="btn primary high w-100 w-sm-auto" disabled={submitting}>{!submitting ? 'Add' : 'Adding...'}</button>
           </div>
         </form>
       </div>

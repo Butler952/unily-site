@@ -54,7 +54,7 @@ const TemplateSection = ({userData}) => {
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Template</h5>
-          <p className="text-dark-low mb-0">Change the template for you profile</p>
+          <p className="text-dark-low mb-0">Change the template for your profile</p>
         </div>
         <hr className="m-0"/>
         <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>

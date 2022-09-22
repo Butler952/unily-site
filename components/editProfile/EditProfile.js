@@ -9,6 +9,12 @@ import About from './About';
 import Experience from './Experience';
 import EditExperience from './EditExperience';
 import AddExperience from './AddExperience';
+import Education from './Education';
+import EditEducation from './EditEducation';
+import AddEducation from './AddEducation';
+import EditVolunteering from './EditVolunteering';
+import Volunteering from './Volunteering';
+import AddVolunteering from './AddVolunteering';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -58,17 +64,57 @@ const EditProfile = ({
   const [experiencesDescriptionChanged, setExperiencesDescriptionChanged] = useState(false);
   const [experiencesDescriptionError, setExperiencesDescriptionError] = useState('');
   const [experiencesShowDeleteExperienceModal, setExperiencesShowDeleteExperienceModal] = useState(false);
-   // const [experiencesStartDateMonthChanged, setExperiencesStartDateMonthChanged] = useState(false);
-  // const [experiencesStartDateMonthError, setExperiencesStartDateMonthError] = useState('');
-  // const [experiencesStartDateYear, setExperiencesStartDateYear] = useState('');
-  // const [experiencesStartDateYearChanged, setExperiencesStartDateYearChanged] = useState(false);
-  // const [experiencesStartDateYearError, setExperiencesStartDateYearError] = useState('');
-  // const [experiencesEndDateMonth, setExperiencesEndDateMonth] = useState('');
-  // const [experiencesEndDateMonthChanged, setExperiencesEndDateMonthChanged] = useState(false);
-  // const [experiencesEndDateMonthError, setExperiencesEndDateMonthError] = useState('');
-  // const [experiencesEndDateYear, setExperiencesEndDateYear] = useState('');
-  // const [experiencesEndDateYearChanged, setExperiencesEndDateYearChanged] = useState(false);
-  // const [experiencesEndDateYearError, setExperiencesEndDateYearError] = useState('');
+
+  const [educationSchool, setEducationSchool] = useState('');
+  const [educationSchoolChanged, setEducationSchoolChanged] = useState(false);
+  const [educationSchoolError, setEducationSchoolError] = useState('');
+  const [educationFieldOfStudy, setEducationFieldOfStudy] = useState('');
+  const [educationFieldOfStudyChanged, setEducationFieldOfStudyChanged] = useState(false);
+  const [educationFieldOfStudyError, setEducationFieldOfStudyError] = useState('');
+  const [educationDegreeName, setEducationDegreeName] = useState('');
+  const [educationDegreeNameChanged, setEducationDegreeNameChanged] = useState(false);
+  const [educationDegreeNameError, setEducationDegreeNameError] = useState('');
+  const [educationLocation, setEducationLocation] = useState('');
+  const [educationLocationChanged, setEducationLocationChanged] = useState(false);
+  const [educationLocationError, setEducationLocationError] = useState('');
+  const [educationStartDate, setEducationStartDate] = useState('');
+  const [educationStartDateInputType, setEducationStartDateInputType] = useState('text');
+  const [educationStartDateChanged, setEducationStartDateChanged] = useState(false);
+  const [educationStartDateError, setEducationStartDateError] = useState('');
+  const [educationEndDate, setEducationEndDate] = useState('');
+  const [educationEndDateInputType, setEducationEndDateInputType] = useState('text');
+  const [educationEndDateChanged, setEducationEndDateChanged] = useState(false);
+  const [educationEndDateError, setEducationEndDateError] = useState('');
+  const [educationEndDatePresent, setEducationEndDatePresent] = useState(false);
+  const [educationEndDatePresentChanged, setEducationEndDatePresentChanged] = useState(false);
+  const [educationDescription, setEducationDescription] = useState('');
+  const [educationDescriptionChanged, setEducationDescriptionChanged] = useState(false);
+  const [educationDescriptionError, setEducationDescriptionError] = useState('');
+  const [educationShowDeleteEducationModal, setEducationShowDeleteEducationModal] = useState(false);
+
+  const [volunteeringCompany, setVolunteeringCompany] = useState('');
+  const [volunteeringCompanyChanged, setVolunteeringCompanyChanged] = useState(false);
+  const [volunteeringCompanyError, setVolunteeringCompanyError] = useState('');
+  const [volunteeringTitle, setVolunteeringTitle] = useState('');
+  const [volunteeringTitleChanged, setVolunteeringTitleChanged] = useState(false);
+  const [volunteeringTitleError, setVolunteeringTitleError] = useState('');
+  const [volunteeringLocation, setVolunteeringLocation] = useState('');
+  const [volunteeringLocationChanged, setVolunteeringLocationChanged] = useState(false);
+  const [volunteeringLocationError, setVolunteeringLocationError] = useState('');
+  const [volunteeringStartDate, setVolunteeringStartDate] = useState('');
+  const [volunteeringStartDateInputType, setVolunteeringStartDateInputType] = useState('text');
+  const [volunteeringStartDateChanged, setVolunteeringStartDateChanged] = useState(false);
+  const [volunteeringStartDateError, setVolunteeringStartDateError] = useState('');
+  const [volunteeringEndDate, setVolunteeringEndDate] = useState('');
+  const [volunteeringEndDateInputType, setVolunteeringEndDateInputType] = useState('text');
+  const [volunteeringEndDateChanged, setVolunteeringEndDateChanged] = useState(false);
+  const [volunteeringEndDateError, setVolunteeringEndDateError] = useState('');
+  const [volunteeringEndDatePresent, setVolunteeringEndDatePresent] = useState(false);
+  const [volunteeringEndDatePresentChanged, setVolunteeringEndDatePresentChanged] = useState(false);
+  const [volunteeringDescription, setVolunteeringDescription] = useState('');
+  const [volunteeringDescriptionChanged, setVolunteeringDescriptionChanged] = useState(false);
+  const [volunteeringDescriptionError, setVolunteeringDescriptionError] = useState('');
+  const [volunteeringShowDeleteVolunteeringModal, setVolunteeringShowDeleteVolunteeringModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = fire.auth()
@@ -120,6 +166,55 @@ const EditProfile = ({
     setExperiencesDescriptionChanged(false)
     setExperiencesDescriptionError('')
     setExperiencesShowDeleteExperienceModal(false)
+    setEducationSchool('')
+    setEducationSchoolChanged(false)
+    setEducationSchoolError('')
+    setEducationFieldOfStudy('')
+    setEducationFieldOfStudyChanged(false)
+    setEducationFieldOfStudyError('')
+    setEducationDegreeName('')
+    setEducationDegreeNameChanged(false)
+    setEducationDegreeNameError('')
+    setEducationLocation('')
+    setEducationLocationChanged(false)
+    setEducationLocationError('')
+    setEducationStartDate('')
+    setEducationStartDateInputType('text')
+    setEducationStartDateChanged(false)
+    setEducationStartDateError('')
+    setEducationEndDate('')
+    setEducationEndDateInputType('text')
+    setEducationEndDateChanged(false)
+    setEducationEndDateError('')
+    setEducationEndDatePresent(false)
+    setEducationEndDatePresentChanged(false)
+    setEducationDescription('')
+    setEducationDescriptionChanged(false)
+    setEducationDescriptionError('')
+    setEducationShowDeleteEducationModal(false)
+    setVolunteeringCompany('')
+    setVolunteeringCompanyChanged(false)
+    setVolunteeringCompanyError('')
+    setVolunteeringTitle('')
+    setVolunteeringTitleChanged(false)
+    setVolunteeringTitleError('')
+    setVolunteeringLocation('')
+    setVolunteeringLocationChanged(false)
+    setVolunteeringLocationError('')
+    setVolunteeringStartDate('')
+    setVolunteeringStartDateInputType('text')
+    setVolunteeringStartDateChanged(false)
+    setVolunteeringStartDateError('')
+    setVolunteeringEndDate('')
+    setVolunteeringEndDateInputType('text')
+    setVolunteeringEndDateChanged(false)
+    setVolunteeringEndDateError('')
+    setVolunteeringEndDatePresent(false)
+    setVolunteeringEndDatePresentChanged(false)
+    setVolunteeringDescription('')
+    setVolunteeringDescriptionChanged(false)
+    setVolunteeringDescriptionError('')
+    setVolunteeringShowDeleteVolunteeringModal(false)
     // setExperiencesStartDateMonth('')
     // setExperiencesStartDateMonthChanged(false)
     // setExperiencesStartDateMonthError('')
@@ -139,13 +234,12 @@ const EditProfile = ({
   }
 
   const handleBack = () => {
-    resetFields()
-    if (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") {
-      handleEditProfileChangeView('Experience')
-    } 
-    else {
-      handleEditProfileChangeView('default')
-    }
+    resetFields();
+    (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") ? handleEditProfileChangeView('Experience') : (
+      (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
+        (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : handleEditProfileChangeView('default')
+      )
+    )
   }
 
   const handleClose = () => {
@@ -174,10 +268,10 @@ const EditProfile = ({
       "id": 4,
       "title": "Volunteering",
     },
-    {
-      "id": 5,
-      "title": "Skills",
-    }
+    // {
+    //   "id": 5,
+    //   "title": "Skills",
+    // }
   ]
 
   return (
@@ -186,7 +280,7 @@ const EditProfile = ({
       <Modal
         show={showEditProfileModal} 
         onHide={handleEditProfileClose}
-        // backdrop="static"
+        backdrop="static"
         keyboard={false}
         size="lg"
       >
@@ -259,12 +353,6 @@ const EditProfile = ({
           <Experience
             user={user}
             handleEditProfileChangeView={handleEditProfileChangeView}
-            about={about}
-            aboutChanged={aboutChanged}
-            aboutError={aboutError}
-            setAbout={setAbout}
-            setAboutChanged={setAboutChanged}
-            setAboutError={setAboutError}
           />
         )}
         { editProfileModalState == 'Edit experience' && (
@@ -373,6 +461,250 @@ const EditProfile = ({
             setExperiencesDescriptionError={setExperiencesDescriptionError}
             experiencesShowDeleteExperienceModal={experiencesShowDeleteExperienceModal}
             setExperiencesShowDeleteExperienceModal={setExperiencesShowDeleteExperienceModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Education' && (
+          <Education
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Edit education' && (
+          <>
+          <EditEducation 
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            educationSchool={educationSchool}
+            setEducationSchool={setEducationSchool}
+            educationSchoolChanged={educationSchoolChanged}
+            setEducationSchoolChanged={setEducationSchoolChanged}
+            educationSchoolError={educationSchoolError}
+            setEducationSchoolError={setEducationSchoolError}
+            educationFieldOfStudy={educationFieldOfStudy}
+            setEducationFieldOfStudy={setEducationFieldOfStudy}
+            educationFieldOfStudyChanged={educationFieldOfStudyChanged}
+            setEducationFieldOfStudyChanged={setEducationFieldOfStudyChanged}
+            educationFieldOfStudyError={educationFieldOfStudyError}
+            setEducationFieldOfStudyError={setEducationFieldOfStudyError}
+            educationDegreeName={educationDegreeName}
+            setEducationDegreeName={setEducationDegreeName}
+            educationDegreeNameChanged={educationDegreeNameChanged}
+            setEducationDegreeNameChanged={setEducationDegreeNameChanged}
+            educationDegreeNameError={educationDegreeNameError}
+            setEducationDegreeNameError={setEducationDegreeNameError}
+            educationLocation={educationLocation}
+            setEducationLocation={setEducationLocation}
+            educationLocationChanged={educationLocationChanged}
+            setEducationLocationChanged={setEducationLocationChanged}
+            educationLocationError={educationLocationError}
+            setEducationLocationError={setEducationLocationError}
+            educationStartDate={educationStartDate}
+            setEducationStartDate={setEducationStartDate}
+            educationStartDateInputType={educationStartDateInputType}
+            setEducationStartDateInputType={setEducationStartDateInputType}
+            educationStartDateChanged={educationStartDateChanged}
+            setEducationStartDateChanged={setEducationStartDateChanged}
+            educationStartDateError={educationStartDateError}
+            setEducationStartDateError={setEducationStartDateError}
+            educationEndDate={educationEndDate}
+            setEducationEndDate={setEducationEndDate}
+            educationEndDateInputType={educationEndDateInputType}
+            setEducationEndDateInputType={setEducationEndDateInputType}
+            educationEndDateChanged={educationEndDateChanged}
+            setEducationEndDateChanged={setEducationEndDateChanged}
+            educationEndDateError={educationEndDateError}
+            setEducationEndDateError={setEducationEndDateError}
+            educationEndDatePresent={educationEndDatePresent}
+            setEducationEndDatePresent={setEducationEndDatePresent}
+            educationEndDatePresentChanged={educationEndDatePresentChanged}
+            setEducationEndDatePresentChanged={setEducationEndDatePresentChanged}
+            educationDescription={educationDescription}
+            setEducationDescription={setEducationDescription}
+            educationDescriptionChanged={educationDescriptionChanged}
+            setEducationDescriptionChanged={setEducationDescriptionChanged}
+            educationDescriptionError={educationDescriptionError}
+            setEducationDescriptionError={setEducationDescriptionError}
+            educationShowDeleteEducationModal={educationShowDeleteEducationModal}
+            setEducationShowDeleteEducationModal={setEducationShowDeleteEducationModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Add education' && (
+          <>
+          <AddEducation 
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            educationSchool={educationSchool}
+            setEducationSchool={setEducationSchool}
+            educationSchoolChanged={educationSchoolChanged}
+            setEducationSchoolChanged={setEducationSchoolChanged}
+            educationSchoolError={educationSchoolError}
+            setEducationSchoolError={setEducationSchoolError}
+            educationFieldOfStudy={educationFieldOfStudy}
+            setEducationFieldOfStudy={setEducationFieldOfStudy}
+            educationFieldOfStudyChanged={educationFieldOfStudyChanged}
+            setEducationFieldOfStudyChanged={setEducationFieldOfStudyChanged}
+            educationFieldOfStudyError={educationFieldOfStudyError}
+            setEducationFieldOfStudyError={setEducationFieldOfStudyError}
+            educationDegreeName={educationDegreeName}
+            setEducationDegreeName={setEducationDegreeName}
+            educationDegreeNameChanged={educationDegreeNameChanged}
+            setEducationDegreeNameChanged={setEducationDegreeNameChanged}
+            educationDegreeNameError={educationDegreeNameError}
+            setEducationDegreeNameError={setEducationDegreeNameError}
+            educationLocation={educationLocation}
+            setEducationLocation={setEducationLocation}
+            educationLocationChanged={educationLocationChanged}
+            setEducationLocationChanged={setEducationLocationChanged}
+            educationLocationError={educationLocationError}
+            setEducationLocationError={setEducationLocationError}
+            educationStartDate={educationStartDate}
+            setEducationStartDate={setEducationStartDate}
+            educationStartDateInputType={educationStartDateInputType}
+            setEducationStartDateInputType={setEducationStartDateInputType}
+            educationStartDateChanged={educationStartDateChanged}
+            setEducationStartDateChanged={setEducationStartDateChanged}
+            educationStartDateError={educationStartDateError}
+            setEducationStartDateError={setEducationStartDateError}
+            educationEndDate={educationEndDate}
+            setEducationEndDate={setEducationEndDate}
+            educationEndDateInputType={educationEndDateInputType}
+            setEducationEndDateInputType={setEducationEndDateInputType}
+            educationEndDateChanged={educationEndDateChanged}
+            setEducationEndDateChanged={setEducationEndDateChanged}
+            educationEndDateError={educationEndDateError}
+            setEducationEndDateError={setEducationEndDateError}
+            educationEndDatePresent={educationEndDatePresent}
+            setEducationEndDatePresent={setEducationEndDatePresent}
+            educationEndDatePresentChanged={educationEndDatePresentChanged}
+            setEducationEndDatePresentChanged={setEducationEndDatePresentChanged}
+            educationDescription={educationDescription}
+            setEducationDescription={setEducationDescription}
+            educationDescriptionChanged={educationDescriptionChanged}
+            setEducationDescriptionChanged={setEducationDescriptionChanged}
+            educationDescriptionError={educationDescriptionError}
+            setEducationDescriptionError={setEducationDescriptionError}
+            educationShowDeleteEducationModal={educationShowDeleteEducationModal}
+            setEducationShowDeleteEducationModal={setEducationShowDeleteEducationModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Volunteering' && (
+          <Volunteering
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Edit volunteering' && (
+          <>
+          <EditVolunteering 
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            volunteeringCompany={volunteeringCompany}
+            setVolunteeringCompany={setVolunteeringCompany}
+            volunteeringCompanyChanged={volunteeringCompanyChanged}
+            setVolunteeringCompanyChanged={setVolunteeringCompanyChanged}
+            volunteeringCompanyError={volunteeringCompanyError}
+            setVolunteeringCompanyError={setVolunteeringCompanyError}
+            volunteeringTitle={volunteeringTitle}
+            setVolunteeringTitle={setVolunteeringTitle}
+            volunteeringTitleChanged={volunteeringTitleChanged}
+            setVolunteeringTitleChanged={setVolunteeringTitleChanged}
+            volunteeringTitleError={volunteeringTitleError}
+            setVolunteeringTitleError={setVolunteeringTitleError}
+            volunteeringLocation={volunteeringLocation}
+            setVolunteeringLocation={setVolunteeringLocation}
+            volunteeringLocationChanged={volunteeringLocationChanged}
+            setVolunteeringLocationChanged={setVolunteeringLocationChanged}
+            volunteeringLocationError={volunteeringLocationError}
+            setVolunteeringLocationError={setVolunteeringLocationError}
+            volunteeringStartDate={volunteeringStartDate}
+            setVolunteeringStartDate={setVolunteeringStartDate}
+            volunteeringStartDateInputType={volunteeringStartDateInputType}
+            setVolunteeringStartDateInputType={setVolunteeringStartDateInputType}
+            volunteeringStartDateChanged={volunteeringStartDateChanged}
+            setVolunteeringStartDateChanged={setVolunteeringStartDateChanged}
+            volunteeringStartDateError={volunteeringStartDateError}
+            setVolunteeringStartDateError={setVolunteeringStartDateError}
+            volunteeringEndDate={volunteeringEndDate}
+            setVolunteeringEndDate={setVolunteeringEndDate}
+            volunteeringEndDateInputType={volunteeringEndDateInputType}
+            setVolunteeringEndDateInputType={setVolunteeringEndDateInputType}
+            volunteeringEndDateChanged={volunteeringEndDateChanged}
+            setVolunteeringEndDateChanged={setVolunteeringEndDateChanged}
+            volunteeringEndDateError={volunteeringEndDateError}
+            setVolunteeringEndDateError={setVolunteeringEndDateError}
+            volunteeringEndDatePresent={volunteeringEndDatePresent}
+            setVolunteeringEndDatePresent={setVolunteeringEndDatePresent}
+            volunteeringEndDatePresentChanged={volunteeringEndDatePresentChanged}
+            setVolunteeringEndDatePresentChanged={setVolunteeringEndDatePresentChanged}
+            volunteeringDescription={volunteeringDescription}
+            setVolunteeringDescription={setVolunteeringDescription}
+            volunteeringDescriptionChanged={volunteeringDescriptionChanged}
+            setVolunteeringDescriptionChanged={setVolunteeringDescriptionChanged}
+            volunteeringDescriptionError={volunteeringDescriptionError}
+            setVolunteeringDescriptionError={setVolunteeringDescriptionError}
+            volunteeringShowDeleteVolunteeringModal={volunteeringShowDeleteVolunteeringModal}
+            setVolunteeringShowDeleteVolunteeringModal={setVolunteeringShowDeleteVolunteeringModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Add volunteering' && (
+          <>
+          <AddVolunteering
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            volunteeringCompany={volunteeringCompany}
+            setVolunteeringCompany={setVolunteeringCompany}
+            volunteeringCompanyChanged={volunteeringCompanyChanged}
+            setVolunteeringCompanyChanged={setVolunteeringCompanyChanged}
+            volunteeringCompanyError={volunteeringCompanyError}
+            setVolunteeringCompanyError={setVolunteeringCompanyError}
+            volunteeringTitle={volunteeringTitle}
+            setVolunteeringTitle={setVolunteeringTitle}
+            volunteeringTitleChanged={volunteeringTitleChanged}
+            setVolunteeringTitleChanged={setVolunteeringTitleChanged}
+            volunteeringTitleError={volunteeringTitleError}
+            setVolunteeringTitleError={setVolunteeringTitleError}
+            volunteeringLocation={volunteeringLocation}
+            setVolunteeringLocation={setVolunteeringLocation}
+            volunteeringLocationChanged={volunteeringLocationChanged}
+            setVolunteeringLocationChanged={setVolunteeringLocationChanged}
+            volunteeringLocationError={volunteeringLocationError}
+            setVolunteeringLocationError={setVolunteeringLocationError}
+            volunteeringStartDate={volunteeringStartDate}
+            setVolunteeringStartDate={setVolunteeringStartDate}
+            volunteeringStartDateInputType={volunteeringStartDateInputType}
+            setVolunteeringStartDateInputType={setVolunteeringStartDateInputType}
+            volunteeringStartDateChanged={volunteeringStartDateChanged}
+            setVolunteeringStartDateChanged={setVolunteeringStartDateChanged}
+            volunteeringStartDateError={volunteeringStartDateError}
+            setVolunteeringStartDateError={setVolunteeringStartDateError}
+            volunteeringEndDate={volunteeringEndDate}
+            setVolunteeringEndDate={setVolunteeringEndDate}
+            volunteeringEndDateInputType={volunteeringEndDateInputType}
+            setVolunteeringEndDateInputType={setVolunteeringEndDateInputType}
+            volunteeringEndDateChanged={volunteeringEndDateChanged}
+            setVolunteeringEndDateChanged={setVolunteeringEndDateChanged}
+            volunteeringEndDateError={volunteeringEndDateError}
+            setVolunteeringEndDateError={setVolunteeringEndDateError}
+            volunteeringEndDatePresent={volunteeringEndDatePresent}
+            setVolunteeringEndDatePresent={setVolunteeringEndDatePresent}
+            volunteeringEndDatePresentChanged={volunteeringEndDatePresentChanged}
+            setVolunteeringEndDatePresentChanged={setVolunteeringEndDatePresentChanged}
+            volunteeringDescription={volunteeringDescription}
+            setVolunteeringDescription={setVolunteeringDescription}
+            volunteeringDescriptionChanged={volunteeringDescriptionChanged}
+            setVolunteeringDescriptionChanged={setVolunteeringDescriptionChanged}
+            volunteeringDescriptionError={volunteeringDescriptionError}
+            setVolunteeringDescriptionError={setVolunteeringDescriptionError}
+            volunteeringShowDeleteVolunteeringModal={volunteeringShowDeleteVolunteeringModal}
+            setVolunteeringShowDeleteVolunteeringModal={setVolunteeringShowDeleteVolunteeringModal}
             handleBack={handleBack}
           />
           </>

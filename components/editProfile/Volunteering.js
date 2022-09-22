@@ -5,7 +5,7 @@ import styles from '../../pages/profile/profile.module.scss'
 import ICONS from '../icon/IconPaths';
 import Icon from '../icon/Icon';
 
-const Experience = ({
+const Volunteering = ({
   user,
   handleEditProfileChangeView
 }) => {
@@ -18,14 +18,14 @@ const Experience = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit experience', index)
+    handleEditProfileChangeView('Edit volunteering', index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add experience')
+    handleEditProfileChangeView('Add volunteering')
   }
 
-  const sortExperiences = (a,b) => {
+  const sortVolunteering = (a,b) => {
     if (a.ends_at && 
         a.ends_at.year && 
         a.ends_at.month && 
@@ -82,8 +82,8 @@ const Experience = ({
     {/* <p>{
       userContext &&
       userContext.profile &&
-      userContext.profile.experiences &&
-      userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
+      userContext.profile.volunteer_work &&
+      userContext.profile.volunteer_work.sort(sortVolunteering).map((job, index) => 
         <div key={index}>
           <p>{job.title}</p>
         </div>
@@ -91,8 +91,8 @@ const Experience = ({
     }</p> */}
       { userContext &&
         userContext.profile &&
-        userContext.profile.experiences &&
-        userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
+        userContext.profile.volunteer_work &&
+        userContext.profile.volunteer_work.sort(sortVolunteering).map((job, index) => 
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
             {/* { job.logo_url ?
@@ -127,11 +127,11 @@ const Experience = ({
           <svg viewBox="0 0 24 24">
             <path d={ICONS.PLUS}></path>
           </svg>
-          Add experience
+          Add volunteering
         </button>
       </div>
     </>
   )
 }
 
-export default Experience;
+export default Volunteering;

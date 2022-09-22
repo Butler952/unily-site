@@ -417,7 +417,12 @@ const EditExperience = ({
             {experiencesDescriptionError !== '' ? <p className="small text-error-high mt-2">{experiencesDescriptionError}</p> : null}
           </div> */}
           <div className="d-flex flex-column flex-sm-row justify-content-between" style={{gap: '24px'}}>
-            <button type="button" onClick={handleDeleteExperienceShow} className="btn error medium w-100 w-sm-auto order-1 order-sm-0" disabled={submitting}>Delete</button>
+            {/* <button type="button" onClick={handleDeleteExperienceShow} className="btn error medium w-100 w-sm-auto order-1 order-sm-0" disabled={submitting}>Delete</button> */}
+            <button type="button" onClick={handleDeleteExperienceShow} className="btn dark low icon-only w-100 w-sm-auto order-1 order-sm-0" disabled={submitting}>
+              <svg viewBox="0 0 24 24">
+                <path d={ICONS.DELETE}></path>
+              </svg>
+            </button>
             <div className="d-flex flex-column flex-sm-row order-0 order-sm-1" style={{gap: '12px'}}>
               <button type="button" onClick={handleBack} className="btn dark medium w-100 w-sm-auto" disabled={submitting}>Cancel</button>
               <button type="submit" className="btn primary high w-100 w-sm-auto" disabled={submitting}>{!submitting ? 'Save' : 'Saving...'}</button>
@@ -454,7 +459,7 @@ const EditExperience = ({
               </svg>
             </button>
           </div>
-          <p className="mb-4">Are you sure you would like to delete this experience?</p>
+          <p className="mb-4">Are you sure you would like to delete this?</p>
           { userContext &&
               userContext.profile &&
               userContext.profile.experiences &&
@@ -483,7 +488,7 @@ const EditExperience = ({
             </div>
           }
           <div className="d-flex flex-column flex-sm-row justify-content-end" style={{gap: '12px'}}>
-            <button type="button" className="btn dark medium w-100 w-sm-auto" disabled={deleting}>Cancel</button>
+            <button type="button" onClick={handleDeleteExperienceClose} className="btn dark medium w-100 w-sm-auto" disabled={deleting}>Cancel</button>
             <button type="button" onClick={handleDeleteExperienceSubmit} className="btn error high w-100 w-sm-auto order-1 order-sm-0" disabled={deleting}>{!deleting ? 'Delete' : 'Deleting...'}</button>
           </div>
         </div>

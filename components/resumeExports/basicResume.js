@@ -188,7 +188,7 @@ const BasicResume = ({ allUserData }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.keyInfoSection}>
-          {allUserData.profile.profile_pic_url && allUserData.displayInfo.basicInfo.each.profilePic && (
+          {allUserData.profile.profile_pic_url && (
             <View style={styles.userImageSection}>
               <View style={styles.userImageWrapper}>
                 <Image
@@ -209,7 +209,7 @@ const BasicResume = ({ allUserData }) => {
           )}
         </View>
         <View style={styles.mb5}></View>
-        {allUserData.profile.summary && allUserData.displayInfo.about && (
+        {allUserData.profile.summary && (
           <>
             <View style={styles.highEmphasis}>
               <Text style={styles.pLargeBold}>Summary</Text>
@@ -231,7 +231,7 @@ const BasicResume = ({ allUserData }) => {
           { allUserData &&
             allUserData.profile &&
             allUserData.profile.experiences &&
-            allUserData.profile.experiences.map((job, index) => (allUserData.displayInfo.experience.each[index].display) &&
+            allUserData.profile.experiences.map((job, index) =>
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
@@ -357,7 +357,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
           { allUserData &&
             allUserData.profile &&
             allUserData.profile.education &&
-            allUserData.profile.education.map((school, index) => (allUserData.displayInfo.education.each[index].display) &&
+            allUserData.profile.education.map((school, index) => 
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
@@ -407,7 +407,7 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
           { allUserData &&
             allUserData.profile &&
             allUserData.profile.volunteer_work &&
-            allUserData.profile.volunteer_work.map((volunteer, index) => (allUserData.displayInfo.volunteering.each[index].display) &&
+            allUserData.profile.volunteer_work.map((volunteer, index) => 
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>

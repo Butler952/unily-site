@@ -5,7 +5,7 @@ import styles from '../../pages/profile/profile.module.scss'
 import ICONS from '../icon/IconPaths';
 import Icon from '../icon/Icon';
 
-const Experience = ({
+const Education = ({
   user,
   handleEditProfileChangeView
 }) => {
@@ -18,14 +18,14 @@ const Experience = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit experience', index)
+    handleEditProfileChangeView('Edit education', index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add experience')
+    handleEditProfileChangeView('Add education')
   }
 
-  const sortExperiences = (a,b) => {
+  const sortEducation = (a,b) => {
     if (a.ends_at && 
         a.ends_at.year && 
         a.ends_at.month && 
@@ -79,43 +79,36 @@ const Experience = ({
 
   return (
     <>
-    {/* <p>{
-      userContext &&
-      userContext.profile &&
-      userContext.profile.experiences &&
-      userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
-        <div key={index}>
-          <p>{job.title}</p>
-        </div>
-      )
-    }</p> */}
       { userContext &&
         userContext.profile &&
-        userContext.profile.experiences &&
-        userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
+        userContext.profile.education &&
+        userContext.profile.education.sort(sortEducation).map((school, index) => 
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
-            {/* { job.logo_url ?
+            {/* { school.logo_url ?
             <div>
-              <a target="_blank" href={job.company_linkedin_profile_url}>
-                <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} style={{width: '72px'}}/>
+              <a target="_blank" href={school.school_linkedin_profile_url}>
+                <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} style={{width: '72px'}}/>
               </a>
             </div>
             : null} */}
             <div className="w-100">
-              <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-              {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
-              <p className="large text-dark-med mb-0">{job.company}</p>
-              {/* </a> */}
-              <p className="text-dark-low mb-0">{job.location}</p>
-              <p className="text-dark-low mb-0">
-                {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+              <p className="large text-dark-high font-weight-semibold mb-0">
+                {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
               </p>
-              {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
+              {/* <p className="large text-dark-high font-weight-semibold mb-0">{school.field_of_study}</p> */}
+              {/* <a target="_blank" href={school.school_linkedin_profile_url} className="text-decoration-none"> */}
+              <p className="large text-dark-med mb-0">{school.school}</p>
+              {/* </a> */}
+              <p className="text-dark-low mb-0">{school.location}</p>
+              <p className="text-dark-low mb-0">
+                {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
+                {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
+                {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
+              </p>
+              {/* {school.description ? <p className="text-dark-med mb-0 mt-3">{school.description}</p> : null} */}
             </div>
             <div className="d-lg-none"><Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" /></div>
           </div>
@@ -127,11 +120,11 @@ const Experience = ({
           <svg viewBox="0 0 24 24">
             <path d={ICONS.PLUS}></path>
           </svg>
-          Add experience
+          Add education
         </button>
       </div>
     </>
   )
 }
 
-export default Experience;
+export default Education;

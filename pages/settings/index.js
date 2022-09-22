@@ -495,7 +495,7 @@ const Settings = () => {
               )
             : null }
 
-          <div className="card mx-auto mb-5">
+          {/* <div className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Sections</h5>
               <p className="text-dark-low mb-0">Control the visibility of profile content</p>
@@ -647,7 +647,7 @@ const Settings = () => {
                 </form>
               </div>
             }
-          </div>
+          </div> */}
         
           <LogosSection
             userData={userData} 
