@@ -193,7 +193,7 @@ const Profile = (props) => {
             />
           }
           <br /> <br />
-          <div className="mb-4 d-flex flex-column align-items-center">
+          <div className="mb-5 d-flex flex-column align-items-center">
             {props.full_name &&
               <h2 className="mb-1">{props.full_name}</h2>
             }
@@ -201,11 +201,19 @@ const Profile = (props) => {
               <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
             }
           </div>
-          {props.email && props.displayInfo.basicInfo.each.email &&
-            <div className="d-flex m-auto justify-content-center">
-              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+          { props.displayInfo.basicInfo.each.email || props.links ? 
+            <div className="d-flex align-items-center flex-column flex-md-row m-auto justify-content-center" style={{gap: '12px'}}>
+              {props.email && props.displayInfo.basicInfo.each.email &&
+                <a href={'mailto:' + props.email} className="btn primary high w-100 w-md-auto">Contact me</a>
+              }
+              {props.links &&
+                props.links.map((link, index) => {
+                  return (
+                    <a key={index} href={link.url} target="_blank" className="btn dark medium w-100 w-md-auto">{link.label}</a>
+                  )
+              })}
             </div>
-          }
+          : ''}
           <br /><br />
         </div>
         {props.summary &&
@@ -375,6 +383,7 @@ export const getServerSideProps = async ({ query }) => {
     .then(result => {
       content['pageId'] = query.id ? query.id : null;
       content['email'] = result.data().email ? result.data().email : null;
+      content['links'] = result.data().links ? result.data().links : null;
       content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
       content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null;
       content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
@@ -392,6 +401,7 @@ export const getServerSideProps = async ({ query }) => {
     props: {
       pageId: content.pageId,
       email: content.email,
+      links: content.links,
       profile_pic_url: content.profile_pic_url,
       background_cover_image_url: content.background_cover_image_url,
       full_name: content.full_name,

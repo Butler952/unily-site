@@ -16,6 +16,9 @@ import EditVolunteering from './EditVolunteering';
 import Volunteering from './Volunteering';
 import AddVolunteering from './AddVolunteering';
 import EditLinks from './EditLinks';
+import Links from './Links';
+import AddLink from './AddLink';
+import EditLink from './EditLink';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -43,6 +46,13 @@ const EditProfile = ({
   const [linksContactError, setLinksContactError] = useState('');
   const [linksContactShow, setLinksContactShow] = useState(false);
   const [linksContactShowChanged, setLinksContactShowChanged] = useState(false);
+  const [linksLabel, setLinksLabel] = useState('');
+  const [linksLabelChanged, setLinksLabelChanged] = useState(false);
+  const [linksLabelError, setLinksLabelError] = useState('');
+  const [linksUrl, setLinksUrl] = useState('');
+  const [linksUrlChanged, setLinksUrlChanged] = useState(false);
+  const [linksUrlError, setLinksUrlError] = useState('');
+  const [linksShowDeleteLinkModal, setLinksShowDeleteLinkModal] = useState(false);
 
   const [about, setAbout] = useState('');
   const [aboutChanged, setAboutChanged] = useState(false);
@@ -152,6 +162,13 @@ const EditProfile = ({
     setLinksContactError('')
     setLinksContactShow(false)
     setLinksContactShowChanged(false)
+    setLinksLabel('')
+    setLinksLabelChanged(false)
+    setLinksLabelError('')
+    setLinksUrl('')
+    setLinksUrlChanged(false)
+    setLinksUrlError('')
+    setLinksShowDeleteLinkModal(false)
     setAbout('')
     setAboutChanged(false)
     setAboutError('')
@@ -237,7 +254,9 @@ const EditProfile = ({
     resetFields();
     (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") ? handleEditProfileChangeView('Experience') : (
       (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
-        (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : handleEditProfileChangeView('default')
+        (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : (
+          (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : handleEditProfileChangeView('default')
+        )
       )
     )
   }
@@ -343,6 +362,53 @@ const EditProfile = ({
           />
         )}
         { editProfileModalState == 'Links' && (
+          <Links
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add link' && (
+          <>
+          <AddLink
+            user={user}
+            linksLabel={linksLabel}
+            setLinksLabel={setLinksLabel}
+            linksLabelChanged={linksLabelChanged}
+            setLinksLabelChanged={setLinksLabelChanged}
+            linksLabelError={linksLabelError}
+            setLinksLabelError={setLinksLabelError}
+            linksUrl={linksUrl}
+            setLinksUrl={setLinksUrl}
+            linksUrlChanged={linksUrlChanged}
+            setLinksUrlChanged={setLinksUrlChanged}
+            linksUrlError={linksUrlError}
+            setLinksUrlError={setLinksUrlError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit link' && (
+          <EditLink
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            linksLabel={linksLabel}
+            setLinksLabel={setLinksLabel}
+            linksLabelChanged={linksLabelChanged}
+            setLinksLabelChanged={setLinksLabelChanged}
+            linksLabelError={linksLabelError}
+            setLinksLabelError={setLinksLabelError}
+            linksUrl={linksUrl}
+            setLinksUrl={setLinksUrl}
+            linksUrlChanged={linksUrlChanged}
+            setLinksUrlChanged={setLinksUrlChanged}
+            linksUrlError={linksUrlError}
+            setLinksUrlError={setLinksUrlError}
+            linksShowDeleteLinkModal={linksShowDeleteLinkModal}
+            setLinksShowDeleteLinkModal={setLinksShowDeleteLinkModal}
+            handleBack={handleBack}
+          />
+        )}
+        {/* { editProfileModalState == 'Edit links' && (
           <EditLinks
             user={user}
             linksContact={linksContact}
@@ -357,7 +423,7 @@ const EditProfile = ({
             setLinksContactShowChanged={setLinksContactShowChanged}
             handleBack={handleBack}
           />
-        )}
+        )} */}
         { editProfileModalState == 'About' && (
           <About 
             user={user}
@@ -479,8 +545,6 @@ const EditProfile = ({
             setExperiencesDescriptionChanged={setExperiencesDescriptionChanged}
             experiencesDescriptionError={experiencesDescriptionError}
             setExperiencesDescriptionError={setExperiencesDescriptionError}
-            experiencesShowDeleteExperienceModal={experiencesShowDeleteExperienceModal}
-            setExperiencesShowDeleteExperienceModal={setExperiencesShowDeleteExperienceModal}
             handleBack={handleBack}
           />
           </>
