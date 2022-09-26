@@ -16,7 +16,8 @@ const Layout = (props) => {
 
   return (
     <>
-      { windowUrl !== "/profile" ? <Header/>: null }
+      { windowUrl !== "/profile" ? <Header/> : null }
+      {windowUrl.includes("profile") | windowUrl.includes("settings") ? <><br></br><br></br><br></br></> : null}
       {props.children}
       <ToastContainer
         position="top-right"
