@@ -5,9 +5,18 @@
   border-radius: 16px;
   &:hover {
     opacity: 0.8;
+    .menuButton {
+      box-shadow: $shadow-3;
+    }
   }
 }
-
+.menuButton {
+  box-shadow: $shadow-1;
+  transition: $transition-standard;
+  &.hover {
+    box-shadow: $shadow-3; 
+  }
+}
 .dropdownItem {
   display: flex;
   flex-direction: row;

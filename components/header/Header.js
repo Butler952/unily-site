@@ -335,6 +335,12 @@ const Header = (props) => {
                 <Dropdown align="end">
                   <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                     <>
+                    <div className={`d-flex flex-row align-items-center radius-4 border-1 border-solid border-dark-300 shadow-3 p-2 ${styles.menuButton}`} style={{gap:'4px'}}>
+                      <div className="px-2">
+                        <svg viewBox="0 0 24 24" width='24px'>
+                          <path d={ICONS.MENU}></path>
+                        </svg>
+                      </div>
                       {!headerImageError ?
                         <img
                           src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
@@ -342,15 +348,18 @@ const Header = (props) => {
                             currentTarget.onerror = null; // prevents looping
                             setHeaderImageError(true)
                           }}
-                          style={{ width: '48px', borderRadius: '100%' }}
+                          style={{ width: '32px', borderRadius: '100%' }}
                         />
                         :
-                        <button className="btn dark low small icon-only">
-                          <svg viewBox="0 0 24 24">
-                            <path d={ICONS.MENU}></path>
-                          </svg>
-                        </button>
+                        <div className="bg-dark-200 radius-5" style={{width: '32px', height: '32px'}} />
+
+                        // <button className="btn dark low small icon-only">
+                        //   <svg viewBox="0 0 24 24">
+                        //     <path d={ICONS.MENU}></path>
+                        //   </svg>
+                        // </button>
                       }
+                    </div>
                     </>
                     {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
 

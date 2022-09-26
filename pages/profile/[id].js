@@ -180,7 +180,7 @@ const Profile = (props) => {
               />
             </>
           }
-          {(props.profile_pic_url && !profilePictureError) &&
+          {!profilePictureError &&
             <img
               src={props.profile_pic_url}
               onError={({ currentTarget }) => {
@@ -374,10 +374,27 @@ const Profile = (props) => {
   )
 }
 
+// - When searching for a profile
+// - Get id prop from Url
+// - Does the value match a user’s ‘prettyUrl’ field’? (I think there're a .where() query in firebase)
+// OR check if the user has the 'prettyUrl' property?
+// - If not, load the profile from the user’s id
+
+// export const getServerSideProps = async ({ query }) => {
+//   const content = {}
+//   await fire.firestore()
+//     .collection('users')
+//     .doc(query.id)
+//     .get()
+//     .then(result => {
+
 export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
     .collection('users')
+    // if there is one with a "prettyUrl" that matches {query.id}, then get that one
+    // ELSE get .doc(query.id)
+    // .where("prettyUrl", "==", query.id)
     .doc(query.id)
     .get()
     .then(result => {
