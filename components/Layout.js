@@ -16,8 +16,14 @@ const Layout = (props) => {
 
   return (
     <>
-      { windowUrl !== "/profile" ? <Header/> : null }
-      {windowUrl.includes("profile") | windowUrl.includes("settings") ? <><br></br><br></br><br></br></> : null}
+      {/* {windowUrl.includes("profile") | windowUrl.includes("settings") ? (windowUrl !== "/profile" ? 
+      <div style={{marginBottom: '66px', height: 0}}>
+        <Header/> 
+      </div> 
+      : null)
+      : windowUrl !== "/profile" ? <Header/> : null} */}
+      {windowUrl !== "/profile" ? <Header/> : null }
+      {/* {windowUrl.includes("profile") | windowUrl.includes("settings") ? <div><br></br><br></br><br></br></> : null} */}
       {props.children}
       <ToastContainer
         position="top-right"

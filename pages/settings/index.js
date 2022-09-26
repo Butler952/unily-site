@@ -3,7 +3,7 @@ import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Accordion, Container, ModalBody, useAccordionToggle } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
@@ -131,7 +131,7 @@ const Settings = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
     mixpanel.track('Settings');
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")
@@ -149,8 +149,8 @@ const Settings = () => {
       unsubscribe();
     };
   }, []);
-  
-/* Start loggedInRout pre-context */
+
+  /* Start loggedInRout pre-context */
 
   // const loggedInRoute = (user) => {
   //   var docRef = fire.firestore().collection('users').doc(user.uid)
@@ -187,7 +187,7 @@ const Settings = () => {
   //   })
   // }
 
-/* End loggedInRout pre-context */
+  /* End loggedInRout pre-context */
 
 
   const loggedInRoute = (user) => {
@@ -216,22 +216,22 @@ const Settings = () => {
         console.log("No such document!");
       }
     })
-    .then(() => {
-      setSectionsLoading(false)
-      //console.log('Retreived display info from database')
-      //console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    })
+      .then(() => {
+        setSectionsLoading(false)
+        //console.log('Retreived display info from database')
+        //console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      })
   }
 
   const getSubscription = (user) => {
     var docRef = fire.firestore().collection('users').doc(user.uid).collection('subscriptions')
     //docRef.get()
     docRef.where("status", "==", "active").get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           setProduct(doc.data().items[0].plan.product)
           setActive(doc.data().items[0].plan.active)
@@ -243,14 +243,14 @@ const Settings = () => {
           // console.log(doc.data().items[0].plan.active)
           // prod_Jdg7o4VDoipc7d = Premium
           // prod_Jdg7ZdcmfuNm0P = Free
-      });
-    })
-    .then(() => {
-      // console.log('Retreived subscription data from database')
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    })
+        });
+      })
+      .then(() => {
+        // console.log('Retreived subscription data from database')
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      })
   }
 
   const handleSectionsSubmit = (e) => {
@@ -392,18 +392,18 @@ const Settings = () => {
     window.location.assign(data.url);
   }*/
 
-  async function handleUpgrade(e, user){
+  async function handleUpgrade(e, user) {
     e.preventDefault();
     setRedirectToStripe(true);
     const docRef = await fire.firestore()
-    .collection('users')
-    .doc(userData.uid)
-    .collection('checkout_sessions')
-    .add({
-      price: process.env.NEXT_PUBLIC_STRIPE_PRICE_PREMIUM,
-      success_url: window.location.origin + '/settings?upgrade=success',
-      cancel_url: window.location.origin + '/settings?upgrade=cancelled',
-    });
+      .collection('users')
+      .doc(userData.uid)
+      .collection('checkout_sessions')
+      .add({
+        price: process.env.NEXT_PUBLIC_STRIPE_PRICE_PREMIUM,
+        success_url: window.location.origin + '/settings?upgrade=success',
+        cancel_url: window.location.origin + '/settings?upgrade=cancelled',
+      });
     // Wait for the CheckoutSession to get attached by the extension
     docRef.onSnapshot(async (snap) => {
       const { error, sessionId } = snap.data();
@@ -423,10 +423,10 @@ const Settings = () => {
   // Dev Premium Subscription End
 
   // Dev Customer Portal Start
-  async function handleUpdate(e){
+  async function handleUpdate(e) {
     e.preventDefault();
     const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
-    const { data } = await functionRef({ returnUrl: window.location.origin  + '/settings' });
+    const { data } = await functionRef({ returnUrl: window.location.origin + '/settings' });
     window.location.assign(data.url);
   }
   // Dev Customer Portal End
@@ -446,7 +446,7 @@ const Settings = () => {
     );
   }
 
- {/*} const UpgradeButton = () => {
+  {/*} const UpgradeButton = () => {
     return (
       <button type="button" className="btn primary high w-100 mt-5" onClick={handleUpgrade}>Upgrade</button>
     )
@@ -466,7 +466,7 @@ const Settings = () => {
 
   const defaultOptions = {
     loop: true,
-    autoplay: true, 
+    autoplay: true,
     animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
@@ -478,24 +478,25 @@ const Settings = () => {
       <Head>
         <title>Settings</title>
       </Head>
-      { surveyHide ? '' : <SurveyBanner /> }
-      <Container className="py-4">
-        <div className="m-auto" style={{ maxWidth: "640px" }}>
-          <h2 className="my-5">Settings</h2>
-          { cancelAtPeriodEnd ? (
-                <> 
-                  <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
-                    <h5 className="text-light-high">Premium expiring {moment.unix(cancelAt).startOf('hour').fromNow()}</h5>
-                    <p className="text-light-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. You won't be able to re-sync your profile with LinkedIn. Renew your subscription to keep access to all Premium features.</p>
-                    <div>
-                      <RenewButton handleUpdate={handleUpdate} className="w-md-auto light" />
-                    </div>
+      <div style={{ marginTop: '66px' }}>
+        {surveyHide ? '' : <SurveyBanner />}
+        <Container className="py-4">
+          <div className="m-auto" style={{ maxWidth: "640px" }}>
+            <h2 className="my-5">Settings</h2>
+            {cancelAtPeriodEnd ? (
+              <>
+                <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
+                  <h5 className="text-light-high">Premium expiring {moment.unix(cancelAt).startOf('hour').fromNow()}</h5>
+                  <p className="text-light-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. You won't be able to re-sync your profile with LinkedIn. Renew your subscription to keep access to all Premium features.</p>
+                  <div>
+                    <RenewButton handleUpdate={handleUpdate} className="w-md-auto light" />
                   </div>
-                </>
-              )
-            : null }
+                </div>
+              </>
+            )
+              : null}
 
-          {/* <div className="card mx-auto mb-5">
+            {/* <div className="card mx-auto mb-5">
             <div className="p-4">
               <h5 className="text-dark-high mb-0">Sections</h5>
               <p className="text-dark-low mb-0">Control the visibility of profile content</p>
@@ -648,46 +649,46 @@ const Settings = () => {
               </div>
             }
           </div> */}
-        
-          <LogosSection
-            userData={userData} 
-            product={product}
-            active={active}
-            status={status}
-            handleUpdate={handleUpdate}
-            handleUpgrade={handleUpgrade}
-            // handleLogosSubmit={handleLogosSubmit}
-            sectionsLoading={sectionsLoading}
-            experienceLogos={experienceLogos}
-            setExperienceLogos={setExperienceLogos}
-            educationLogos={educationLogos}
-            setEducationLogos={setEducationLogos}
-          />
-          <TemplateSection userData={userData} />
-          <DownloadSection 
-            userData={userData} 
-            allUserData={allUserData}
-          />
-          <PrettyUrlSection userData={userData} />
-          {/* <CustomDomainSection userData={userData} /> */}
-          <ResyncSection
-            linkedinId={linkedinId} 
-            userData={userData}
-            //syncsRemaining={syncsRemaining}
-            loggedInRoute={loggedInRoute}
-            product={product}
-            active={active}
-            status={status}
-            handleUpdate={handleUpdate}
-            handleUpgrade={handleUpgrade}
-          />
-          <div id="plan" className="card mx-auto mb-5">
-            <div className="p-4">
-              <h5 className="text-dark-high mb-0">Plan</h5>
-              <p className="text-dark-low mb-0">Manage your plan and payment information</p>
-            </div>
-            <hr className="m-0"/>
-           {/*}
+
+            <LogosSection
+              userData={userData}
+              product={product}
+              active={active}
+              status={status}
+              handleUpdate={handleUpdate}
+              handleUpgrade={handleUpgrade}
+              // handleLogosSubmit={handleLogosSubmit}
+              sectionsLoading={sectionsLoading}
+              experienceLogos={experienceLogos}
+              setExperienceLogos={setExperienceLogos}
+              educationLogos={educationLogos}
+              setEducationLogos={setEducationLogos}
+            />
+            <TemplateSection userData={userData} />
+            <DownloadSection
+              userData={userData}
+              allUserData={allUserData}
+            />
+            <PrettyUrlSection userData={userData} />
+            {/* <CustomDomainSection userData={userData} /> */}
+            <ResyncSection
+              linkedinId={linkedinId}
+              userData={userData}
+              //syncsRemaining={syncsRemaining}
+              loggedInRoute={loggedInRoute}
+              product={product}
+              active={active}
+              status={status}
+              handleUpdate={handleUpdate}
+              handleUpgrade={handleUpgrade}
+            />
+            <div id="plan" className="card mx-auto mb-5">
+              <div className="p-4">
+                <h5 className="text-dark-high mb-0">Plan</h5>
+                <p className="text-dark-low mb-0">Manage your plan and payment information</p>
+              </div>
+              <hr className="m-0" />
+              {/*}
             <div className="m-4">
               <p>{product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
               <p>{active === true ? 'Active' : 'Cancelled'}</p>
@@ -696,7 +697,7 @@ const Settings = () => {
             </div>
             <hr className="m-0"/>
           */}
-          {/*}
+              {/*}
               <div className="m-4">
                 <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).endOf('day').fromNow() : null }</p>
                 <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).format('MMMM Do YYYY, h:mm:ss a') : null }</p>
@@ -704,9 +705,9 @@ const Settings = () => {
               </div>
             <hr className="m-0"/>
         */}
-        
-            <div className="m-4">
-              {/*}
+
+              <div className="m-4">
+                {/*}
             { cancelAtPeriodEnd ? (
               <>
                   <div className="d-flex flex-column bg-error-100 radius-3 p-4 mb-4">
@@ -716,99 +717,100 @@ const Settings = () => {
                 </>
               )
             : null }*/}
-              <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <h5 className="text-primary-high mb-1">Basic</h5>
-                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
-                  </div>
-                  <h4 className="text-dark-high mb-4">Free</h4>
-                  {[
-                    'Vitaely.me domain', 
-                    'Basic presentation'
-                  ].map((feature, index) =>
-                    <div key={index} className="d-flex align-items-start mt-2">
-                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
-                        <path d={ICONS.CHECK}></path>
-                      </svg>
-                      <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
+                  <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                    <div className="d-flex justify-content-between align-items-center w-100">
+                      <h5 className="text-primary-high mb-1">Basic</h5>
+                      {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
                     </div>
-                  )}
-                  {/*<button type="button" className="btn primary high w-100 mt-3" onClick={handleUpdate}>Upgrade</button>*/}
-                </div>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <h5 className="text-primary-high mb-1">Premium</h5>
-                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                    <h4 className="text-dark-high mb-4">Free</h4>
+                    {[
+                      'Vitaely.me domain',
+                      'Basic presentation'
+                    ].map((feature, index) =>
+                      <div key={index} className="d-flex align-items-start mt-2">
+                        <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
+                          <path d={ICONS.CHECK}></path>
+                        </svg>
+                        <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                      </div>
+                    )}
+                    {/*<button type="button" className="btn primary high w-100 mt-3" onClick={handleUpdate}>Upgrade</button>*/}
                   </div>
-                  <div className="d-flex align-items-end mb-4">
-                    <h4 className="text-dark-high mr-1 mb-0">$3</h4>
-                    <p className="text-dark-high mb-0">/month</p>
-                  </div>
-                  {[
-                    'All Basic features', 
-                    'Unlimited re-syncing', 
-                    'Logos for experience and education',
-                    'More coming soon'
-                  ].map((feature, index) =>
-                    <div key={index} className="d-flex align-items-start mt-2">
-                      <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{minWidth: '24px'}}>
-                        <path d={ICONS.CHECK}></path>
-                      </svg>
-                      <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                  <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                    <div className="d-flex justify-content-between align-items-center w-100">
+                      <h5 className="text-primary-high mb-1">Premium</h5>
+                      {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
                     </div>
-                  )}
-                  { cancelAtPeriodEnd ? (
+                    <div className="d-flex align-items-end mb-4">
+                      <h4 className="text-dark-high mr-1 mb-0">$3</h4>
+                      <p className="text-dark-high mb-0">/month</p>
+                    </div>
+                    {[
+                      'All Basic features',
+                      'Unlimited re-syncing',
+                      'Logos for experience and education',
+                      'More coming soon'
+                    ].map((feature, index) =>
+                      <div key={index} className="d-flex align-items-start mt-2">
+                        <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{ minWidth: '24px' }}>
+                          <path d={ICONS.CHECK}></path>
+                        </svg>
+                        <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                      </div>
+                    )}
+                    {cancelAtPeriodEnd ? (
                       <>
                         <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
                       </>
                     )
-                  : null }
-                  {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? ( cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
-                  {/*<button type="button" className="btn primary high small w-100 mt-5" onClick={handleUpdate}>Upgrade</button>
+                      : null}
+                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                    {/*<button type="button" className="btn primary high small w-100 mt-5" onClick={handleUpdate}>Upgrade</button>
                     <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? styles.active : '') : '') : ''}`}>
                     <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
                     <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button></div>*/}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </Container>
-      <br /><br />
-      <Modal 
-        show={showModal} 
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <h5 className="text-dark-high mb-0">Re-sync data</h5>
-          {/*<button type="button" onClick={handleClose} className="btn dark low small icon-only">
+        </Container>
+        <br /><br />
+        <Modal
+          show={showModal}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <h5 className="text-dark-high mb-0">Re-sync data</h5>
+            {/*<button type="button" onClick={handleClose} className="btn dark low small icon-only">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.CLOSE}></path>
             </svg>
           </button>*/}
-        </Modal.Header>
-        <Modal.Body>
-          <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
-          <p>Re-syncing your data will overwrite any changes you have made in the <b>Sections</b> settings.</p>
-          <br />
-          <div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
-            <button type="button" className="btn primary high w-100 w-md-auto mr-0 mr-md-3 mb-3 mb-md-0" onClick={handleClose}>Re-sync data from Linkedin</button>
-            <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+          </Modal.Header>
+          <Modal.Body>
+            <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
+            <p>Re-syncing your data will overwrite any changes you have made in the <b>Sections</b> settings.</p>
+            <br />
+            <div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
+              <button type="button" className="btn primary high w-100 w-md-auto mr-0 mr-md-3 mb-3 mb-md-0" onClick={handleClose}>Re-sync data from Linkedin</button>
+              <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+        {redirectToStripe ? (
+          <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
+            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+              <Lottie options={defaultOptions} height={160} width={160} />
+              <p>Redirecting to Stripe checkout</p>
+            </div>
           </div>
-        </Modal.Body>
-      </Modal>
-      { redirectToStripe ? (
-        <div className="bg-light-900 position-fixed w-100 h-100" style={{top: 0, left: 0, zIndex: 1100}}>
-          <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-          <Lottie options={defaultOptions} height={160} width={160} />
-            <p>Redirecting to Stripe checkout</p>
-          </div> 
-        </div>
-      )
-      : null }
+        )
+          : null}
+      </div>
     </div>
   )
 }

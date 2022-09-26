@@ -208,7 +208,7 @@ const SurveyBanner = () => {
   return (
     <>
     { showBanner ? 
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center bg-primary-900 p-3" style={{marginTop: '66px'}}>
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center bg-primary-900 p-3">
         <div>
           <p className="text-light-high mb-1">Thank you for signing up for vitaely.me</p>
           <p className="text-light-med mb-0">We’d love to hear why you signed up and what you’re hoping to get out of the product.</p>

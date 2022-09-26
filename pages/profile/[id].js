@@ -48,7 +48,7 @@ const Profile = (props) => {
     });
   }
 
-  const Experience = ({job, index}) => {
+  const Experience = ({ job, index }) => {
     return (
       <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
         {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
@@ -104,7 +104,7 @@ const Profile = (props) => {
     }
   };
 
-  const getDescriptionText = (description, descriptionShowMore , setDescriptionShowMore) => {
+  const getDescriptionText = (description, descriptionShowMore, setDescriptionShowMore) => {
     // For Text that is shorter than desired length
     if (description.length <= 258) return (
       <p className="text-dark-med mb-0 mt-3">
@@ -160,104 +160,105 @@ const Profile = (props) => {
         {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
         <meta property="og:type" content="website" />
       </Head>
-      {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
-      <Container>
-        <div className="text-center mb-5">
-          {(props.background_cover_image_url && !headerImageError) &&
-            <>
+      <div style={{ marginTop: '66px' }}>
+        {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
+        <Container>
+          <div className="text-center mb-5">
+            {(props.background_cover_image_url && !headerImageError) &&
+              <>
+                <img
+                  src={props.background_cover_image_url}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    setHeaderImageError(true)
+                    // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                  }}
+                  style={{ display: 'none' }}
+                />
+                <div
+                  className={styles.headerImage}
+                  style={{ backgroundImage: `url(${props.background_cover_image_url})` }}
+                />
+              </>
+            }
+            {!profilePictureError &&
               <img
-                src={props.background_cover_image_url}
+                src={props.profile_pic_url}
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
-                  setHeaderImageError(true)
+                  setProfilePictureError(true)
                   // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
                 }}
-                style={{ display: 'none' }}
+                style={props.background_cover_image_url ? { marginTop: '-80px' } : { marginTop: '48px' }}
+                className={styles.profilePicture}
               />
-              <div
-                className={styles.headerImage}
-                style={{ backgroundImage: `url(${props.background_cover_image_url})` }}
-              />
-            </>
-          }
-          {!profilePictureError &&
-            <img
-              src={props.profile_pic_url}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                setProfilePictureError(true)
-                // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-              }}
-              style={props.background_cover_image_url ? { marginTop: '-80px' } : { marginTop: '48px' }}
-              className={styles.profilePicture}
-            />
-          }
-          <br /> <br />
-          <div className="mb-5 d-flex flex-column align-items-center">
-            {props.full_name &&
-              <h2 className="mb-1">{props.full_name}</h2>
             }
-            {props.headline &&
-              <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
-            }
-          </div>
-          { props.displayInfo.basicInfo.each.email || props.links ? 
-            <div className="d-flex align-items-center flex-column flex-md-row m-auto justify-content-center" style={{gap: '12px'}}>
-              {props.email && props.displayInfo.basicInfo.each.email &&
-                <a href={'mailto:' + props.email} className="btn primary high w-100 w-md-auto">Contact me</a>
+            <br /> <br />
+            <div className="mb-5 d-flex flex-column align-items-center">
+              {props.full_name &&
+                <h2 className="mb-1">{props.full_name}</h2>
               }
-              {props.links &&
-                props.links.map((link, index) => {
-                  return (
-                    <a key={index} href={link.url} target="_blank" className="btn dark medium w-100 w-md-auto">{link.label}</a>
-                  )
-              })}
+              {props.headline &&
+                <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
+              }
             </div>
-          : ''}
-          <br /><br />
-        </div>
-        {props.summary &&
-          <div className="mb-5">
-            <h4>About</h4>
-            <div className={styles.profileCard + ' card p-4'}>
-              {getSummaryText()}
-            </div>
+            {props.displayInfo.basicInfo.each.email || props.links ?
+              <div className="d-flex align-items-center flex-column flex-md-row m-auto justify-content-center" style={{ gap: '12px' }}>
+                {props.email && props.displayInfo.basicInfo.each.email &&
+                  <a href={'mailto:' + props.email} className="btn primary high w-100 w-md-auto">Contact me</a>
+                }
+                {props.links &&
+                  props.links.map((link, index) => {
+                    return (
+                      <a key={index} href={link.url} target="_blank" className="btn dark medium w-100 w-md-auto">{link.label}</a>
+                    )
+                  })}
+              </div>
+              : ''}
             <br /><br />
           </div>
-        }
-        {(props.experiences && props.experiences.length) &&
-          <div className="mb-5">
-            <h4>Experience</h4>
-            <div className={styles.profileCard + ' card'}>
-              {props.experiences.map((job, index) => {
-                const [descriptionShowMore, setDescriptionShowMore] = useState(false);
-                return (
-                  <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                    {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
-                      <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                        <a target="_blank" href={job.company_linkedin_profile_url}>
-                          <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                        </a>
+          {props.summary &&
+            <div className="mb-5">
+              <h4>About</h4>
+              <div className={styles.profileCard + ' card p-4'}>
+                {getSummaryText()}
+              </div>
+              <br /><br />
+            </div>
+          }
+          {(props.experiences && props.experiences.length) &&
+            <div className="mb-5">
+              <h4>Experience</h4>
+              <div className={styles.profileCard + ' card'}>
+                {props.experiences.map((job, index) => {
+                  const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                  return (
+                    <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
+                      {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
+                        <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                          <a target="_blank" href={job.company_linkedin_profile_url}>
+                            <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                          </a>
+                        </div>
+                        : null}
+                      <div className="w-100">
+                        <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                        <p className="large text-dark-med mb-0">{job.company}</p>
+                        <p className="text-dark-low mb-0">{job.location}</p>
+                        <p className="text-dark-low mb-0">
+                          {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                          {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                          {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                          {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                          {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                        </p>
+                        {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
+                        {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                       </div>
-                      : null}
-                    <div className="w-100">
-                      <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                      <p className="large text-dark-med mb-0">{job.company}</p>
-                      <p className="text-dark-low mb-0">{job.location}</p>
-                      <p className="text-dark-low mb-0">
-                        {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                        {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                        {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                        {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                        {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                      </p>
-                      {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
-                      {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
-                    </div>
-                  </Accordion>
-                )
-              })}
-              {/* { userContext && 
+                    </Accordion>
+                  )
+                })}
+                {/* { userContext && 
                 userContext.profile && 
                 userContext.profile.experiences !== undefined ? userContext.profile.experiences.map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : ''
               }
@@ -265,7 +266,7 @@ const Profile = (props) => {
                 userContext.profile && 
                 userContext.profile.experiences == undefined ? (props.experiences).map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : '' 
               } */}
-              {/* <UserContext.Consumer>
+                {/* <UserContext.Consumer>
               {({ userValue }) => (
                   userValue && 
                   userValue.profile && 
@@ -299,76 +300,77 @@ const Profile = (props) => {
               )}
               
               </UserContext.Consumer> */}
+              </div>
+              <br /><br />
             </div>
-            <br /><br />
-          </div>
-        }
-        {(props.education && props.education.length > 0) &&
-          <div className="mb-5">
-            <h4>Education</h4>
-            <div className={styles.profileCard + ' card'}>
-              {props.education.map((school, index) => 
-                <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                  {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
-                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                      <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
+          }
+          {(props.education && props.education.length > 0) &&
+            <div className="mb-5">
+              <h4>Education</h4>
+              <div className={styles.profileCard + ' card'}>
+                {props.education.map((school, index) =>
+                  <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
+                    {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
+                      <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                        <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
+                      </div>
+                      : null}
+                    <div>
+                      <p className="large text-dark-high font-weight-semibold mb-0">
+                        {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
+                      </p>
+                      <p className="large mb-0">{school.school}</p>
+                      <p className="text-dark-low mb-0">
+                        {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
+                        {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                        {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                        {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
+                        {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
+                      </p>
                     </div>
-                    : null}
-                  <div>
-                    <p className="large text-dark-high font-weight-semibold mb-0">
-                      {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
-                    </p>
-                    <p className="large mb-0">{school.school}</p>
-                    <p className="text-dark-low mb-0">
-                      {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
-                      {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
-                      {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                      {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
-                      {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
-                    </p>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+              <br /><br />
             </div>
-            <br /><br />
-          </div>
-        }
-        {(props.volunteer_work && props.volunteer_work.length > 0) &&
-          <div className="mb-5">
-            <h4>Volunteering</h4>
-            <div className={styles.profileCard + ' card'}>
-              {props.volunteer_work.map((volunteer, index) =>
-                <div key={index} className={styles.job}>
-                  <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                  <p className="large mb-0">{volunteer.company}</p>
-                  <p className="text-dark-low mb-0">
-                    {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
-                    {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
-                    {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
-                    {volunteer.starts_at && volunteer.ends_at ? " – " + (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') : null}
-                    {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.year ? " " + volunteer.ends_at.year : null) : null}
-                  </p>
-                  {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
-                </div>
-              )}
+          }
+          {(props.volunteer_work && props.volunteer_work.length > 0) &&
+            <div className="mb-5">
+              <h4>Volunteering</h4>
+              <div className={styles.profileCard + ' card'}>
+                {props.volunteer_work.map((volunteer, index) =>
+                  <div key={index} className={styles.job}>
+                    <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
+                    <p className="large mb-0">{volunteer.company}</p>
+                    <p className="text-dark-low mb-0">
+                      {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
+                      {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
+                      {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
+                      {volunteer.starts_at && volunteer.ends_at ? " – " + (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') : null}
+                      {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.year ? " " + volunteer.ends_at.year : null) : null}
+                    </p>
+                    {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
+                  </div>
+                )}
+              </div>
+              <br /><br />
             </div>
-            <br /><br />
-          </div>
-        }
-        {props.email &&
-          <div className="text-center my-5">
-            <h2>Get in touch</h2>
-            <div className="d-flex m-auto justify-content-center">
-              <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+          }
+          {props.email &&
+            <div className="text-center my-5">
+              <h2>Get in touch</h2>
+              <div className="d-flex m-auto justify-content-center">
+                <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+              </div>
+              <br /><br />
             </div>
-            <br /><br />
-          </div>
-        }
-      </Container>
-      <div className='py-5 text-center'>
-        <Container>
-          <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p>
+          }
         </Container>
+        <div className='py-5 text-center'>
+          <Container>
+            <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p>
+          </Container>
+        </div>
       </div>
     </div >
   )
