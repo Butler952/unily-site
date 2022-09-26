@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import fire from '../../config/fire-config';
 import ICONS from '../icon/IconPaths';
-import styles from './EditProfile.module.scss'
+import styles from './editProfile.module.scss'
 import Icon from '../icon/Icon';
 import BasicInformation from './BasicInformation';
 import About from './About';
