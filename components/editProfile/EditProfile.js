@@ -14,7 +14,6 @@ import AddEducation from './AddEducation';
 import EditVolunteering from './EditVolunteering';
 import Volunteering from './Volunteering';
 import AddVolunteering from './AddVolunteering';
-import EditLinks from './EditLinks';
 import Links from './Links';
 import AddLink from './AddLink';
 import EditLink from './EditLink';
@@ -408,22 +407,6 @@ const EditProfile = ({
             handleBack={handleBack}
           />
         )}
-        {/* { editProfileModalState == 'Edit links' && (
-          <EditLinks
-            user={user}
-            linksContact={linksContact}
-            setLinksContact={setLinksContact}
-            linksContactChanged={linksContactChanged}
-            setLinksContactChanged={setLinksContactChanged}
-            linksContactError={linksContactError}
-            setLinksContactError={setLinksContactError}
-            linksContactShow={linksContactShow}
-            setLinksContactShow={setLinksContactShow}
-            linksContactShowChanged={linksContactShowChanged}
-            setLinksContactShowChanged={setLinksContactShowChanged}
-            handleBack={handleBack}
-          />
-        )} */}
         { editProfileModalState == 'About' && (
           <About 
             user={user}
