@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '../../components/header/Header';
 import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import Head from 'next/head';
+import { useRouter } from 'next/router'
 
 import styles from './profile.module.scss'
 import SurveyBanner from '../../components/banner/SurveyBanner';
@@ -21,7 +22,7 @@ const Profile = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
-
+  
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
@@ -390,49 +391,125 @@ const Profile = (props) => {
 //     .get()
 //     .then(result => {
 
+
+// If
+
 export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
     .collection('users')
-    // if there is one with a "prettyUrl" that matches {query.id}, then get that one
-    // ELSE get .doc(query.id)
-    // .where("prettyUrl", "==", query.id)
-    .doc(query.id)
+    .where("profileUrl", "==", `/profile/${query.id}`)
+    .limit(1)
     .get()
-    .then(result => {
-      content['pageId'] = query.id ? query.id : null;
-      content['email'] = result.data().email ? result.data().email : null;
-      content['links'] = result.data().links ? result.data().links : null;
-      content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
-      content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null;
-      content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
-      content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
-      content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
-      content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
-      content['education'] = result.data().profile.education ? result.data().profile.education : null;
-      content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
-      content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
-      content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
-      content['displayInfo'] = result.data().displayInfo ? result.data().displayInfo : null;
-    });
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        content['pageId'] = query.id ? query.id : null;
+        content['email'] = doc.data().email ? doc.data().email : null;
+        content['links'] = doc.data().links ? doc.data().links : null;
+        content['profile_pic_url'] = doc.data().profile.profile_pic_url ? doc.data().profile.profile_pic_url : null;
+        content['background_cover_image_url'] = doc.data().profile.background_cover_image_url ? doc.data().profile.background_cover_image_url : null;
+        content['full_name'] = doc.data().profile.full_name ? doc.data().profile.full_name : null;
+        content['headline'] = doc.data().profile.headline ? doc.data().profile.headline : null;
+        content['summary'] = doc.data().profile.summary ? doc.data().profile.summary : null;
+        content['experiences'] = doc.data().profile.experiences ? doc.data().profile.experiences : null;
+        content['education'] = doc.data().profile.education ? doc.data().profile.education : null;
+        content['volunteer_work'] = doc.data().profile.volunteer_work ? doc.data().profile.volunteer_work : null;
+        content['logoVisibility'] = doc.data().logoVisibility ? doc.data().logoVisibility : null;
+        content['surveyOnSignUpHide'] = doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+        content['displayInfo'] = doc.data().displayInfo ? doc.data().displayInfo : null;
+      })
+    })
+    .catch((err) => {
+      console.log(err.code, err.message)
+    })
+  
+  // .then(() => {
+  //   fire.firestore()
+  //   .collection('users')
+  //   .doc(query.id)
+  //   .get()
+  //   .then(result => {
+  //     // content['pageId'] = query.id ? query.id : null;
+  //     content['email'] = result.data().email ? result.data().email : null;
+  //     content['links'] = result.data().links ? result.data().links : null;
+  //     content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
+  //     content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null;
+  //     content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
+  //     content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
+  //     content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
+  //     content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
+  //     content['education'] = result.data().profile.education ? result.data().profile.education : null;
+  //     content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
+  //     content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
+  //     content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+  //     content['displayInfo'] = result.data().displayInfo ? result.data().displayInfo : null;
+  //   });
+  // })
+  // .then((querySnapshot) => {
+  //   if ()
+  //   return querySnapshot
+  // })
+  // .then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //     content['pageId'] = query.id ? query.id : null;
+  //     content['email'] = doc.data().email ? doc.data().email : null;
+  //     content['links'] = doc.data().links ? doc.data().links : null;
+  //     content['profile_pic_url'] = doc.data().profile.profile_pic_url ? doc.data().profile.profile_pic_url : null;
+  //     content['background_cover_image_url'] = doc.data().profile.background_cover_image_url ? doc.data().profile.background_cover_image_url : null;
+  //     content['full_name'] = doc.data().profile.full_name ? doc.data().profile.full_name : null;
+  //     content['headline'] = doc.data().profile.headline ? doc.data().profile.headline : null;
+  //     content['summary'] = doc.data().profile.summary ? doc.data().profile.summary : null;
+  //     content['experiences'] = doc.data().profile.experiences ? doc.data().profile.experiences : null;
+  //     content['education'] = doc.data().profile.education ? doc.data().profile.education : null;
+  //     content['volunteer_work'] = doc.data().profile.volunteer_work ? doc.data().profile.volunteer_work : null;
+  //     content['logoVisibility'] = doc.data().logoVisibility ? doc.data().logoVisibility : null;
+  //     content['surveyOnSignUpHide'] = doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+  //     content['displayInfo'] = doc.data().displayInfo ? doc.data().displayInfo : null;
+  //   });
+  // })
+
+  // export const getServerSideProps = async ({ query }) => {
+  //   const content = {}
+  //   await fire.firestore()
+  //     .collection('users')
+  //     .doc(query.id)
+  //     .get()
+  //     .then(result => {
+  //       content['pageId'] = query.id ? query.id : null;
+  //       content['email'] = result.data().email ? result.data().email : null;
+  //       content['links'] = result.data().links ? result.data().links : null;
+  //       content['profile_pic_url'] = result.data().profile.profile_pic_url ? result.data().profile.profile_pic_url : null;
+  //       content['background_cover_image_url'] = result.data().profile.background_cover_image_url ? result.data().profile.background_cover_image_url : null;
+  //       content['full_name'] = result.data().profile.full_name ? result.data().profile.full_name : null;
+  //       content['headline'] = result.data().profile.headline ? result.data().profile.headline : null;
+  //       content['summary'] = result.data().profile.summary ? result.data().profile.summary : null;
+  //       content['experiences'] = result.data().profile.experiences ? result.data().profile.experiences : null;
+  //       content['education'] = result.data().profile.education ? result.data().profile.education : null;
+  //       content['volunteer_work'] = result.data().profile.volunteer_work ? result.data().profile.volunteer_work : null;
+  //       content['logoVisibility'] = result.data().logoVisibility ? result.data().logoVisibility : null;
+  //       content['surveyOnSignUpHide'] = result.data().surveys ? (result.data().surveys.surveyOnSignUp ? (result.data().surveys.surveyOnSignUp.surveyHide ? result.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
+  //       content['displayInfo'] = result.data().displayInfo ? result.data().displayInfo : null;
+  //     });
+
+  const props = {
+    pageId: content.pageId,
+    email: content.email,
+    links: content.links,
+    profile_pic_url: content.profile_pic_url,
+    background_cover_image_url: content.background_cover_image_url,
+    full_name: content.full_name,
+    headline: content.headline,
+    summary: content.summary,
+    experiences: content.experiences,
+    education: content.education,
+    logoVisibility: content.logoVisibility,
+    volunteer_work: content.volunteer_work,
+    surveyOnSignUpHide: content.surveyOnSignUpHide,
+    displayInfo: content.displayInfo
+  }
 
   return {
-    props: {
-      pageId: content.pageId,
-      email: content.email,
-      links: content.links,
-      profile_pic_url: content.profile_pic_url,
-      background_cover_image_url: content.background_cover_image_url,
-      full_name: content.full_name,
-      headline: content.headline,
-      summary: content.summary,
-      experiences: content.experiences,
-      education: content.education,
-      logoVisibility: content.logoVisibility,
-      volunteer_work: content.volunteer_work,
-      surveyOnSignUpHide: content.surveyOnSignUpHide,
-      displayInfo: content.displayInfo
-    }
+    props: JSON.parse(JSON.stringify(props)) 
   }
 }
 
