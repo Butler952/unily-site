@@ -217,7 +217,7 @@ const PrettyUrlSection = ({
               <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
             </div> */}
           </div>
-          <div role="button" onClick={() => {setSelectedDomainTypeChange('personalised')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
+          {/* <div role="button" onClick={() => {setSelectedDomainTypeChange('personalised')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
             <p className="large text-dark-high mb-0">Personalised</p>
             <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
             <div className="mt-3">
@@ -256,10 +256,9 @@ const PrettyUrlSection = ({
                 }
               </p>
               {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
-              {/* need and onChange check which checks if a URL is availeable (effectively a .where() query to all users) */}
             </div>
 
-          </div>
+          </div> */}
           <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{cursor: 'pointer'}}>
             <p className="large text-dark-high mb-0">Use my own domain</p>
             <p className="text-dark-low mb-0">Display your Vitaely profile on your own domain</p>
