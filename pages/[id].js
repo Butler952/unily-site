@@ -1,16 +1,16 @@
-import fire from '../../config/fire-config';
+import fire from '../config/fire-config';
 import Link from 'next/link'
-import Header from '../../components/header/Header';
+import Header from '../components/header/Header';
 import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
 
-import styles from './profile.module.scss'
-import SurveyBanner from '../../components/banner/SurveyBanner';
+import styles from './profile/profile.module.scss'
+import SurveyBanner from '../components/banner/SurveyBanner';
 import { useEffect, useState, useContext } from 'react';
-import ICONS from '../../components/icon/IconPaths';
+import ICONS from '../components/icon/IconPaths';
 import mixpanel from 'mixpanel-browser';
-import { UserContext } from '../_app';
+import { UserContext } from './_app';
 
 const Profile = (props) => {
 
@@ -22,7 +22,7 @@ const Profile = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
-
+  
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
@@ -134,58 +134,6 @@ const Profile = (props) => {
     }
   };
 
-  const sortByDate = (a,b) => {
-    if (a.ends_at && 
-        a.ends_at.year && 
-        a.ends_at.month && 
-        b.ends_at && 
-        b.ends_at.year && 
-        b.ends_at.month &&
-        a.starts_at &&
-        a.starts_at.year && 
-        a.starts_at.month && 
-        b.starts_at && 
-        b.starts_at.year && 
-        b.starts_at.month
-      ) {
-      if (b.ends_at.year < a.ends_at.year)
-        return -1;
-      if (b.ends_at.year > a.ends_at.year)
-        return 1;
-      if (b.ends_at.year = a.ends_at.year) {
-        if (b.ends_at.month < a.ends_at.month)
-          return -1;
-        if (b.ends_at.month > a.ends_at.month)
-          return 1;
-        if (b.ends_at.month = a.ends_at.month) {
-          if (b.starts_at.year < a.starts_at.year)
-            return -1;
-          if (b.starts_at.year > a.starts_at.year)
-            return 1;
-          if (b.starts_at.year = a.starts_at.year) {
-            if (b.starts_at.month < a.starts_at.month)
-              return -1;
-            if (b.starts_at.month > a.starts_at.month)
-              return 1;
-          }
-        }
-      }
-    }
-    if (a.ends_at == undefined & b.ends_at == undefined) {
-      if (b.starts_at.year < a.starts_at.year)
-        return -1;
-      if (b.starts_at.year > a.starts_at.year)
-        return 1;
-      if (b.starts_at.year = a.starts_at.year) {
-        if (b.starts_at.month < a.starts_at.month)
-          return -1;
-        if (b.starts_at.month > a.starts_at.month)
-          return 1;
-      }
-    }
-    return 0;
-  }
-
   const CustomToggle = ({ eventKey }) => {
     // const [dropdownOpen, setDropdownOpen] = useState(false);
     const decoratedOnClick = useAccordionToggle(eventKey, () => {
@@ -209,7 +157,7 @@ const Profile = (props) => {
         {props.full_name && <meta name="author" content={props.full_name} />}
         <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
         {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-        <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />
+        <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />
         {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
         <meta property="og:type" content="website" />
       </Head>
@@ -283,7 +231,7 @@ const Profile = (props) => {
             <div className="mb-5">
               <h4>Experience</h4>
               <div className={styles.profileCard + ' card'}>
-                {props.experiences.sort(sortByDate).map((job, index) => {
+                {props.experiences.map((job, index) => {
                   const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                   return (
                     <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
@@ -450,7 +398,7 @@ export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
     .collection('users')
-    .where("profileUrl", "==", `/profile/${query.id}`)
+    .where("profileUrl", "==", `/${query.id}`)
     .limit(1)
     .get()
     .then((querySnapshot) => {

@@ -669,7 +669,10 @@ const Settings = () => {
               userData={userData}
               allUserData={allUserData}
             />
-            <PrettyUrlSection userData={userData} />
+            <PrettyUrlSection 
+              userData={userData} 
+              allUserData={allUserData}
+            />
             {/* <CustomDomainSection userData={userData} /> */}
             <ResyncSection
               linkedinId={linkedinId}

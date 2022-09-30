@@ -303,7 +303,21 @@ const Header = (props) => {
   return (
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
     userData == '' && windowUrl.includes("profile") ? null : 
-      <div className={`card rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 ${windowUrl.includes("profile") | windowUrl.includes("settings") ? 'position-fixed' : null}`} style={windowUrl == '' ? { boxShadow: 'none', minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
+      <div 
+        className={`bg-light-900 rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
+        ${
+          windowUrl !== '/' ? 'shadow-2 bg-light-900' : null
+        }
+        ${
+          // windowUrl.includes("profile") || 
+          // windowUrl.includes("settings") || 
+          windowUrl.includes("blog") || 
+          windowUrl.includes("legal") || 
+          windowUrl.includes("setup") ||
+          windowUrl == '/'
+          ? null : 'position-fixed'
+        }`} 
+        style={windowUrl == '' ? { boxShadow: 'none', minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
         {userContext !== '' ?
           // {loggedIn ?
           <>
@@ -368,10 +382,10 @@ const Header = (props) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                      <Dropdown.Item onClick={() => router.push(profileUrl)} className={styles.dropdownItem}>
+                      <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}>
                         {!headerImageError ?
                           <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                            <img src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                            <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
                           </div>
                           : null}
                         {userContext && userContext.profile && userContext.profile.full_name}

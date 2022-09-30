@@ -142,46 +142,22 @@ const Home = () => {
       <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="Vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a>
-      <Header hideShadow />
       <Container className="mt-5 py-5">
-        <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
-          <div style={{ maxWidth: '560px' }} className="mb-5 mr-lg-4 text-center text-lg-left">
-          { screenWidth > 576 ? <h1>Turn your CV into a landing page</h1> : <h2>Turn your CV into a landing page</h2> }
+        <div className="d-flex flex-column align-items-center justify-content-between">
+          <div style={{ maxWidth: '640px' }} className="mb-5 pb-5 text-center">
+            {screenWidth > 576 ? <h1>Turn your resume into a landing page</h1> : <h2>Turn your resume into a landing page</h2>}
             <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-            <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
+            <div className="d-flex justify-content-center m-auto">
               <Link href="/users/register">
                 <a className="btn primary high large">Get started</a>
               </Link>
             </div>
-            { showNewStuff ? 
-            <div className="d-flex justify-content-center justify-content-lg-start mx-auto m-lg-0 mt-5">
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <p className="large text-dark-high">LinkedIn profile URL</p>
-                  <p>We will use this to collect your information on your profile.</p>
-                  <div>
-                    <input type="text" className="w-100" pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="https://www.linkedin.com/in/" />
-                  </div>
-                </div>
-                <br />
-                <button type="submit" className="btn primary high">Sync data</button>
-              </form>
-            </div>
-            : null }
           </div>
-          <div className="position-relative d-none d-lg-block" style={{background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius:'320px'}}>
-            <img src="/images/aaron-butler.jpg" style={{width: '120px', height: '120px', borderRadius:'100%', border: '4px solid white', boxShadow: '0 0 1px 0 rgba(35, 31, 32, 0.08), 0 6px 6px -1px rgba(35, 31, 32, 0.08)', backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute'}}></img>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '140px', left: '-64px', paddingRight: '120px', transform: 'scale(0.8)', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
-              <p className="large text-dark-high font-weight-semibold mb-0">Product Designer</p>
-              <p className="large mb-0">Cuvva</p>
-              <p className="text-dark-low mb-0">London, United Kingdom</p>
-              <p className="text-dark-low mb-0">July 2021 – Present</p>
-            </div>
-            <div className="card py-4 pl-4" style={{position: 'absolute', top: '300px', left: '-24px', transform: 'scale(0.8)', paddingRight: '96px', border: '1px solid rgba(35, 31, 32, 0.08)'}}>
-              <p className="large text-dark-high font-weight-semibold mb-0">Industrial Design & Technology</p>
-              <p className="large mb-0">Loughborough University</p>
-              <p className="text-dark-low mb-0">2013 – 2017</p>
-            </div>
+          <div className={styles.iframeWrapper}>
+            <iframe className={styles.iframeContent}
+              title="Example Vitaely.me online CV profile"
+              src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
+            </iframe>
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
@@ -243,21 +219,6 @@ const Home = () => {
           </div>
         </Container>
       </div>
-        <Container>
-        <div className={`text-center ${styles.sectionWrapper}`}>
-          { screenWidth > 576 ? <h2 className="mx-auto mb-5" style={{ maxWidth: '480px' }}>Check out the live demo below</h2> : <h2 className="mx-auto mb-5">Check out the live demo</h2> }    
-          <div className={styles.iframeWrapper}>
-            <iframe className={styles.iframeContent} 
-                title="Example Vitaely.me online CV profile"
-                src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3">
-            </iframe>
-          </div>
-          {/* <Link href="/users/register">
-            <a className="btn primary high large mx-auto mt-5">Create your page</a>
-          </Link> */}
-        </div>
-      </Container>
-     
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    
@@ -275,15 +236,15 @@ const Home = () => {
   )
 }
 
-export const getServerSideProps = async ({ bucket }) => {
-  const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
+// export const getServerSideProps = async ({ bucket }) => {
+//   const buckets = LANDING_BUCKETS.filter((bucket) => bucket !== 'original')
 
-  return {
-    props: {
-      paths: buckets.map((bucket) => ({ params: { bucket } })),
-      fallback: false,
-    }
-  }
-}
+//   return {
+//     props: {
+//       paths: buckets.map((bucket) => ({ params: { bucket } })),
+//       fallback: false,
+//     }
+//   }
+// }
 
 export default Home;

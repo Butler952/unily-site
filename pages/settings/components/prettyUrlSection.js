@@ -8,21 +8,65 @@ import Image from 'next/image'
 import { UserContext } from '../../_app';
 import { toast } from 'react-toastify';
 
-const PrettyUrlSection = ({ userData }) => {
+const PrettyUrlSection = ({ 
+  userData,
+  allUserData
+ }) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [domain, setDomain] = useState('');
+  const [domainChanged, setDomainChanged] = useState('');
+  const [domainError, setDomainError] = useState('');
+  const [defaultDomain, setDefaultDomain] = useState('');
+  const [selectedDomainType, setSelectedDomainType] = useState('');
+  const [selectedDomainTypeChanged, setSelectedDomainTypeChanged] = useState(false);
   const [customDomain, setCustomDomain] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [sendingData, setSendingData] = useState(false);
   const [notificationRequested, setNotificationRequested] = useState(false);
+  const [saving, setSaving] = useState('');
+
+  let domainType = (
+    selectedDomainTypeChanged ? selectedDomainType : (
+      userContext && 
+      userContext.profileUrl && 
+      userContext.profileUrl.includes("profile") ? 
+      'standard' : 
+      'personalised'
+    )
+  )
+
+    // value={domainChanged ? domain : 
+    //   (
+    //     userContext && 
+    //     userContext.profileUrl &&
+    //     userContext.profileUrl.includes("profile") ? 
+    //     userContext && 
+    //     userContext.profileUrl.split('/profile/')[1]
+    //   : 
+    //     userContext && 
+    //     userContext.profileUrl &&
+    //     userContext.profileUrl.substring(1)
+    //   )
+    // }
 
   useEffect(() => {
+    setDomain(
+      userContext && userContext.profileUrl.includes("profile") ? 
+      (userContext.profileUrl.split('/profile/')[1]) : 
+      userContext.profileUrl
+    )
+    setSelectedDomainType(
+      userContext && 
+      userContext.profileUrl && 
+      userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
+    // setSelectedDomainType(userContext && userContext.profileUrl && userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
+    // need to ge the domain from the profileUrl itself as it could be different from the uid
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
-          setDomain(user.uid)
+          setDefaultDomain(user.uid)
         }
       })
     return () => {
@@ -33,10 +77,89 @@ const PrettyUrlSection = ({ userData }) => {
 
   const domainChange = (value) => {
     setDomain(value)
+    setDomainChanged(true)
+    setDomainError('')
+  }
+
+  const setSelectedDomainTypeChange = (value) => {
+    setSelectedDomainType(value)
+    setSelectedDomainTypeChanged(true)
+    if (value == 'standard') {
+      setDomainError('')
+    } 
   }
 
   const customDomainChange = (value) => {
     setCustomDomain(value)
+  }
+
+  let matchingUrls = []
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (selectedDomainType == 'personalised') {
+      if (domainChanged && domain === '') {
+        setCompanyError('Domain cannot be empty')
+        return null;
+      } else {
+        setSaving(true)
+
+        fire.firestore()
+          .collection('users')
+          .where("profileUrl", "==", `/${domain}`)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              matchingUrls = [...matchingUrls, doc.id];
+            })
+          })
+          .then(() => {
+            if ((matchingUrls && matchingUrls).length > 0) {
+              setSaving(false)
+              setDomainError('This URL is not available 😔')
+            } else {
+              fire.firestore().collection('users').doc(userData.uid).update({
+                'profileUrl': `/${domain}`,
+                lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                let newUserContext = userContext;
+                newUserContext.profileUrl = `/${domain}`;
+                setUserContext(newUserContext)
+              })
+              .then(() => {
+                setSaving(false)
+                toast('Profile URL updated')
+              })
+              .catch((err) => {
+                // console.log(err.code, err.message)
+                toast(err.message)
+              })
+            }
+          })
+      }
+    }
+    if (selectedDomainType == 'standard') {
+      setSaving(true)
+
+      fire.firestore().collection('users').doc(userData.uid).update({
+        'profileUrl': `/profile/${defaultDomain}`,
+        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.profileUrl = `/profile/${defaultDomain}`;
+        setUserContext(newUserContext)
+      })
+      .then(() => {
+        setSaving(false)
+        toast('Profile URL updated')
+      })
+      .catch((err) => {
+        // console.log(err.code, err.message)
+        toast(err.message)
+      })
+    }
   }
 
   const handleClose = () => {
@@ -85,13 +208,57 @@ const PrettyUrlSection = ({ userData }) => {
         </div>
         <hr className="m-0" />
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
-          <div className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${styles.active}`}>
-            <p className="large text-dark-high mb-0">Vitaely domain</p>
-            <p className="text-dark-low mb-0">Domain hosted by Vitaely</p>
-            {/* <div>
-              <input type="text" className="w-100" value={domain} onChange={({ target }) => domainChange(target.value)} />
+          <div role="button" onClick={() => {setSelectedDomainTypeChange('standard')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
+            <p className="large text-dark-high mb-0">Standard</p>
+            <p className="text-dark-low mb-0">Standard profile URL on the vitaely.me domain</p>
+            <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{defaultDomain}</p>
+            {/* <div className="mt-3">
+              <input type="text" className="small w-100" value={domain} onChange={({ target }) => domainChange(target.value)} />
               <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
             </div> */}
+          </div>
+          <div role="button" onClick={() => {setSelectedDomainTypeChange('personalised')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
+            <p className="large text-dark-high mb-0">Personalised</p>
+            <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
+            <div className="mt-3">
+              <input 
+                type="text" 
+                className={`small w-100 ${domainError !== '' ? 'error' : null}`}
+                disabled={saving} 
+                value={domainChanged ? domain : 
+                  (
+                    userContext && 
+                    userContext.profileUrl &&
+                    userContext.profileUrl.includes("profile") ? 
+                    userContext && 
+                    userContext.profileUrl.split('/profile/')[1]
+                  : 
+                    userContext && 
+                    userContext.profileUrl &&
+                    userContext.profileUrl.substring(1)
+                  )
+                }
+                onChange={({ target }) => domainChange(target.value)} 
+              />
+              <p className="small text-dark-med mt-2 mb-0">vitaely.me/
+                {domainChanged ? domain : 
+                  (
+                    userContext && 
+                    userContext.profileUrl &&
+                    userContext.profileUrl.includes("profile") ? 
+                    userContext && 
+                    userContext.profileUrl.split('/profile/')[1]
+                  : 
+                    userContext && 
+                    userContext.profileUrl &&
+                    userContext.profileUrl.substring(1)
+                  )
+                }
+              </p>
+              {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
+              {/* need and onChange check which checks if a URL is availeable (effectively a .where() query to all users) */}
+            </div>
+
           </div>
           <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{cursor: 'pointer'}}>
             <p className="large text-dark-high mb-0">Use my own domain</p>
@@ -108,10 +275,11 @@ const PrettyUrlSection = ({ userData }) => {
         {/* <div className="d-flex flex-column bg-dark-100 radius-3 p-4 m-4">
           <p className="text-dark-low text-dark-high mb-0">You have not added a custom domain yet</p>
         </div> */}
-        {/* <hr className="m-0" />
+        <hr className="m-0" />
         <div className="m-4">
-          <button type="button" onClick={handleShow} className="btn primary high mr-md-3 w-100 w-md-auto">Save</button>
-        </div> */}
+          <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
+
+        </div>
       </div>
       <Modal
         show={showModal}
@@ -129,7 +297,7 @@ const PrettyUrlSection = ({ userData }) => {
               </div>
               <div className="mx-auto" style={{ maxWidth: '320px' }}>
                 <h4 className="text-dark-high text-center mb-3">Wow, you're fast!</h4>
-                <p className="text-center mb-4">Unfortunately adding your own custom domain is not quite ready yet</p>
+                <p className="text-center mb-4">Unfortunately adding your own domain is not quite ready yet</p>
               </div>
               <button type="button" className="btn primary high small w-100 mt-3" disabled={sendingData} onClick={() => handleNotifyMe()}>{!sendingData ? 'Notify me when this is ready' : 'Saving...'}</button>
               <button type="button" className="btn dark low small w-100 mt-3" onClick={handleClose}>No thanks</button>
@@ -142,7 +310,7 @@ const PrettyUrlSection = ({ userData }) => {
                 <h4 className="text-dark-high text-center mb-3">You're first in line</h4>
                 <p className="text-center mb-4">Thanks for letting us know that you're interested. Once the feature is ready to go, you'll be the first to know!</p>
               </div>
-              <button type="button" className="btn primary high small w-100 mt-3" onClick={handleClose}>Close</button>
+              <button type="button" onClick={handleSave} className="btn primary high small w-100 mt-3">Close</button>
             </div>
           </Modal.Body>
         }
