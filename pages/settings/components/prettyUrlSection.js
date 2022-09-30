@@ -7,11 +7,16 @@ import styles from '../settings.module.scss'
 import Image from 'next/image'
 import { UserContext } from '../../_app';
 import { toast } from 'react-toastify';
+import UpgradeButton from './upgradeButton';
 
-const PrettyUrlSection = ({ 
+const PrettyUrlSection = ({
   userData,
-  allUserData
- }) => {
+  allUserData,
+  product,
+  active,
+  status,
+  handleUpgrade
+}) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
 
@@ -26,41 +31,45 @@ const PrettyUrlSection = ({
   const [sendingData, setSendingData] = useState(false);
   const [notificationRequested, setNotificationRequested] = useState(false);
   const [saving, setSaving] = useState('');
+  const [showUpsellModal, setShowUpsellModal] = useState(false);
+
+  const handleUpsellClose = () => setShowUpsellModal(false);
+  const handleUpsellShow = () => setShowUpsellModal(true);
 
   let domainType = (
     selectedDomainTypeChanged ? selectedDomainType : (
-      userContext && 
-      userContext.profileUrl && 
-      userContext.profileUrl.includes("profile") ? 
-      'standard' : 
-      'personalised'
+      userContext &&
+        userContext.profileUrl &&
+        userContext.profileUrl.includes("profile") ?
+        'standard' :
+        'personalised'
     )
   )
 
-    // value={domainChanged ? domain : 
-    //   (
-    //     userContext && 
-    //     userContext.profileUrl &&
-    //     userContext.profileUrl.includes("profile") ? 
-    //     userContext && 
-    //     userContext.profileUrl.split('/profile/')[1]
-    //   : 
-    //     userContext && 
-    //     userContext.profileUrl &&
-    //     userContext.profileUrl.substring(1)
-    //   )
-    // }
+  // value={domainChanged ? domain : 
+  //   (
+  //     userContext && 
+  //     userContext.profileUrl &&
+  //     userContext.profileUrl.includes("profile") ? 
+  //     userContext && 
+  //     userContext.profileUrl.split('/profile/')[1]
+  //   : 
+  //     userContext && 
+  //     userContext.profileUrl &&
+  //     userContext.profileUrl.substring(1)
+  //   )
+  // }
 
   useEffect(() => {
     setDomain(
-      userContext && userContext.profileUrl.includes("profile") ? 
-      (userContext.profileUrl.split('/profile/')[1]) : 
-      userContext.profileUrl
+      userContext && userContext.profileUrl.includes("profile") ?
+        (userContext.profileUrl.split('/profile/')[1]) :
+        userContext.profileUrl
     )
     setSelectedDomainType(
-      userContext && 
-      userContext.profileUrl && 
-      userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
+      userContext &&
+        userContext.profileUrl &&
+        userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // setSelectedDomainType(userContext && userContext.profileUrl && userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // need to ge the domain from the profileUrl itself as it could be different from the uid
     const unsubscribe = fire.auth()
@@ -86,7 +95,7 @@ const PrettyUrlSection = ({
     setSelectedDomainTypeChanged(true)
     if (value == 'standard') {
       setDomainError('')
-    } 
+    }
   }
 
   const customDomainChange = (value) => {
@@ -97,46 +106,52 @@ const PrettyUrlSection = ({
 
   const handleSave = (e) => {
     e.preventDefault();
+
     if (selectedDomainType == 'personalised') {
       if (domainChanged && domain === '') {
         setCompanyError('Domain cannot be empty')
         return null;
       } else {
-        setSaving(true)
 
-        fire.firestore()
-          .collection('users')
-          .where("profileUrl", "==", `/${domain}`)
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              matchingUrls = [...matchingUrls, doc.id];
+        if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+          setSaving(true)
+
+          fire.firestore()
+            .collection('users')
+            .where("profileUrl", "==", `/${domain}`)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                matchingUrls = [...matchingUrls, doc.id];
+              })
             })
-          })
-          .then(() => {
-            if ((matchingUrls && matchingUrls).length > 0) {
-              setSaving(false)
-              setDomainError('This URL is not available 😔')
-            } else {
-              fire.firestore().collection('users').doc(userData.uid).update({
-                'profileUrl': `/${domain}`,
-                lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-              })
-              .then(() => {
-                let newUserContext = userContext;
-                newUserContext.profileUrl = `/${domain}`;
-                setUserContext(newUserContext)
-              })
-              .then(() => {
+            .then(() => {
+              if ((matchingUrls && matchingUrls).length > 0) {
                 setSaving(false)
-                toast('Profile URL updated')
-              })
-              .catch((err) => {
-                // console.log(err.code, err.message)
-                toast(err.message)
-              })
-            }
-          })
+                setDomainError('This URL is not available 😔')
+              } else {
+                fire.firestore().collection('users').doc(userData.uid).update({
+                  'profileUrl': `/${domain}`,
+                  lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+                })
+                  .then(() => {
+                    let newUserContext = userContext;
+                    newUserContext.profileUrl = `/${domain}`;
+                    setUserContext(newUserContext)
+                  })
+                  .then(() => {
+                    setSaving(false)
+                    toast('Profile URL updated')
+                  })
+                  .catch((err) => {
+                    // console.log(err.code, err.message)
+                    toast(err.message)
+                  })
+              }
+            })
+        } else {
+          handleUpsellShow()
+        }
       }
     }
     if (selectedDomainType == 'standard') {
@@ -146,19 +161,19 @@ const PrettyUrlSection = ({
         'profileUrl': `/profile/${defaultDomain}`,
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-      .then(() => {
-        let newUserContext = userContext;
-        newUserContext.profileUrl = `/profile/${defaultDomain}`;
-        setUserContext(newUserContext)
-      })
-      .then(() => {
-        setSaving(false)
-        toast('Profile URL updated')
-      })
-      .catch((err) => {
-        // console.log(err.code, err.message)
-        toast(err.message)
-      })
+        .then(() => {
+          let newUserContext = userContext;
+          newUserContext.profileUrl = `/profile/${defaultDomain}`;
+          setUserContext(newUserContext)
+        })
+        .then(() => {
+          setSaving(false)
+          toast('Profile URL updated')
+        })
+        .catch((err) => {
+          // console.log(err.code, err.message)
+          toast(err.message)
+        })
     }
   }
 
@@ -208,7 +223,7 @@ const PrettyUrlSection = ({
         </div>
         <hr className="m-0" />
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
-          <div role="button" onClick={() => {setSelectedDomainTypeChange('standard')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
+          <div role="button" onClick={() => { setSelectedDomainTypeChange('standard') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
             <p className="large text-dark-high mb-0">Standard</p>
             <p className="text-dark-low mb-0">Standard profile URL on the vitaely.me domain</p>
             <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{defaultDomain}</p>
@@ -217,49 +232,49 @@ const PrettyUrlSection = ({
               <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
             </div> */}
           </div>
-          {/* <div role="button" onClick={() => {setSelectedDomainTypeChange('personalised')}} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
+          <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
             <p className="large text-dark-high mb-0">Personalised</p>
             <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
             <div className="mt-3">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 className={`small w-100 ${domainError !== '' ? 'error' : null}`}
-                disabled={saving} 
-                value={domainChanged ? domain : 
+                disabled={saving}
+                value={domainChanged ? domain :
                   (
-                    userContext && 
-                    userContext.profileUrl &&
-                    userContext.profileUrl.includes("profile") ? 
-                    userContext && 
-                    userContext.profileUrl.split('/profile/')[1]
-                  : 
-                    userContext && 
-                    userContext.profileUrl &&
-                    userContext.profileUrl.substring(1)
+                    userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.includes("profile") ?
+                      userContext &&
+                      userContext.profileUrl.split('/profile/')[1]
+                      :
+                      userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.substring(1)
                   )
                 }
-                onChange={({ target }) => domainChange(target.value)} 
+                onChange={({ target }) => domainChange(target.value)}
               />
               <p className="small text-dark-med mt-2 mb-0">vitaely.me/
-                {domainChanged ? domain : 
+                {domainChanged ? domain :
                   (
-                    userContext && 
-                    userContext.profileUrl &&
-                    userContext.profileUrl.includes("profile") ? 
-                    userContext && 
-                    userContext.profileUrl.split('/profile/')[1]
-                  : 
-                    userContext && 
-                    userContext.profileUrl &&
-                    userContext.profileUrl.substring(1)
+                    userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.includes("profile") ?
+                      userContext &&
+                      userContext.profileUrl.split('/profile/')[1]
+                      :
+                      userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.substring(1)
                   )
                 }
               </p>
               {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
             </div>
 
-          </div> */}
-          <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{cursor: 'pointer'}}>
+          </div>
+          <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{ cursor: 'pointer' }}>
             <p className="large text-dark-high mb-0">Use my own domain</p>
             <p className="text-dark-low mb-0">Display your Vitaely profile on your own domain</p>
             {/* <button type="submit" className="btn primary high">Add domain</button> */}
@@ -313,6 +328,46 @@ const PrettyUrlSection = ({
             </div>
           </Modal.Body>
         }
+      </Modal>
+      <Modal 
+        show={showUpsellModal} 
+        onHide={handleUpsellClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Body>
+          <div>
+            <h4 className="text-dark-high text-center mb-3">Stand out from the crowd</h4>
+            <p className="text-center mb-4">Upgrade to Premium to customise your profile URL</p>
+            <div className={`${styles.planCard} ${styles.active} radius-3 p-4 w-100 w-md-50 `}>
+              <h5 className="text-primary-high mb-1">Premium</h5>
+              <div className="d-flex align-items-end mb-4">
+                <h4 className="text-dark-high mr-1 mb-0">$3</h4>
+                <p className="text-dark-high mb-0">/month</p>
+              </div>
+              {[
+                'All Basic features', 
+                'Custom URL on vitaely.me domain', 
+                'Logos for experience and education',
+                'Unlimited re-syncing', 
+                'More coming soon'
+              ].map((feature, index) =>
+                <div key={index} className="d-flex mt-2">
+                  <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{minWidth: '24px'}}>
+                    <path d={ICONS.CHECK}></path>
+                  </svg>
+                  <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                </div>
+              )}
+              <UpgradeButton handleUpgrade={handleUpgrade} />
+            </div>
+            <button type="button" className="btn dark low small w-100 mt-3" onClick={handleUpsellClose}>Not right now</button>
+            {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
+              <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpdate}>Upgrade</button>
+              <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+            </div>*/}
+          </div>
+        </Modal.Body>
       </Modal>
     </div>
   )

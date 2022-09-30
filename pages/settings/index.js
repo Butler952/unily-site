@@ -672,6 +672,10 @@ const Settings = () => {
             <PrettyUrlSection 
               userData={userData} 
               allUserData={allUserData}
+              product={product}
+              active={active}
+              status={status}
+              handleUpgrade={handleUpgrade}
             />
             {/* <CustomDomainSection userData={userData} /> */}
             <ResyncSection
