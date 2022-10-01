@@ -314,6 +314,7 @@ const Header = (props) => {
           windowUrl.includes("blog") || 
           windowUrl.includes("legal") || 
           windowUrl.includes("setup") ||
+          windowUrl.includes("users") ||
           windowUrl == '/'
           ? null : 'position-fixed'
         }`} 
