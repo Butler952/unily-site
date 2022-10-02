@@ -337,7 +337,7 @@ const PrettyUrlSection = ({
       >
         <Modal.Body>
           <div>
-            <h4 className="text-dark-high text-center mb-3">Stand out from the crowd</h4>
+            <h4 className="text-dark-high text-center mb-3">Make your profile your own</h4>
             <p className="text-center mb-4">Upgrade to Premium to customise your profile URL</p>
             <div className={`${styles.planCard} ${styles.active} radius-3 p-4 w-100 w-md-50 `}>
               <h5 className="text-primary-high mb-1">Premium</h5>
