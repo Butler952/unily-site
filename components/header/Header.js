@@ -323,7 +323,7 @@ const Header = (props) => {
           // {loggedIn ?
           <>
             <div>
-              <Link href={profileUrl}>
+              <Link href="/">
                 <a><img src="/images/vitaely-logo-icon.svg" style={{ height: '32px' }} /></a>
               </Link>
               {/* <div className="d-flex">

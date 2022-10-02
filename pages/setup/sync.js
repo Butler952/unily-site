@@ -1,7 +1,3 @@
-// Step 1 -  Enter LinkedIn Profile URL (sync)
-// Fail > Error message and try again
-// Success > Continue to next step
-
 import { useState, useEffect, useContext } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
@@ -52,7 +48,11 @@ const Sync = () => {
     docRef.get().then((doc) => {
       setCurrentProfile(doc.data())
       if (doc.exists) {
-        router.push(doc.data().stage)
+        if (doc.data().stage !== 'complete') {
+          router.push(doc.data().stage)
+        } else {
+          router.push(doc.data().profileUrl)
+        }
       } else {
         console.log("No such document!");
       }
@@ -117,7 +117,7 @@ const Sync = () => {
             },
             //syncsRemaining: 1,
             stage: 'complete',
-            profileUrl: '/profile/' + userData.uid,
+            // profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
           });
@@ -167,7 +167,7 @@ const Sync = () => {
               },
             },
             stage: 'complete',
-            profileUrl: '/profile/' + userData.uid,
+            // profileUrl: '/profile/' + userData.uid,
           })
         })
         .then(() => {
@@ -178,7 +178,7 @@ const Sync = () => {
           )
         })
         .then(() => {
-          router.push('/profile/' + userData.uid)
+          router.push(currentProfile.profileUrl)
         })
         .catch(error => console.log('error', error));
     } else {

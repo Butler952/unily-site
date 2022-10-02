@@ -62,9 +62,11 @@ const PrettyUrlSection = ({
 
   useEffect(() => {
     setDomain(
-      userContext && userContext.profileUrl.includes("profile") ?
-        (userContext.profileUrl.split('/profile/')[1]) :
-        userContext.profileUrl
+      userContext &&
+      userContext.profileUrl &&
+      userContext.profileUrl.includes("profile") ?
+      (userContext.profileUrl.split('/profile/')[1]) :
+      userContext.profileUrl
     )
     setSelectedDomainType(
       userContext &&
@@ -109,7 +111,7 @@ const PrettyUrlSection = ({
 
     if (selectedDomainType == 'personalised') {
       if (domainChanged && domain === '') {
-        setCompanyError('Domain cannot be empty')
+        setDomainError('Domain cannot be empty')
         return null;
       } else {
 

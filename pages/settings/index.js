@@ -649,46 +649,6 @@ const Settings = () => {
               </div>
             }
           </div> */}
-
-            <LogosSection
-              userData={userData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpdate={handleUpdate}
-              handleUpgrade={handleUpgrade}
-              // handleLogosSubmit={handleLogosSubmit}
-              sectionsLoading={sectionsLoading}
-              experienceLogos={experienceLogos}
-              setExperienceLogos={setExperienceLogos}
-              educationLogos={educationLogos}
-              setEducationLogos={setEducationLogos}
-            />
-            <TemplateSection userData={userData} />
-            <DownloadSection
-              userData={userData}
-              allUserData={allUserData}
-            />
-            <PrettyUrlSection 
-              userData={userData} 
-              allUserData={allUserData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpgrade={handleUpgrade}
-            />
-            {/* <CustomDomainSection userData={userData} /> */}
-            <ResyncSection
-              linkedinId={linkedinId}
-              userData={userData}
-              //syncsRemaining={syncsRemaining}
-              loggedInRoute={loggedInRoute}
-              product={product}
-              active={active}
-              status={status}
-              handleUpdate={handleUpdate}
-              handleUpgrade={handleUpgrade}
-            />
             <div id="plan" className="card mx-auto mb-5">
               <div className="p-4">
                 <h5 className="text-dark-high mb-0">Plan</h5>
@@ -696,34 +656,34 @@ const Settings = () => {
               </div>
               <hr className="m-0" />
               {/*}
-            <div className="m-4">
-              <p>{product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
-              <p>{active === true ? 'Active' : 'Cancelled'}</p>
-              <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
-              <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button>
-            </div>
-            <hr className="m-0"/>
-          */}
+                <div className="m-4">
+                  <p>{product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (active === true ? 'Premium' : 'Free') : 'Free') : 'Free'}</p>
+                  <p>{active === true ? 'Active' : 'Cancelled'}</p>
+                  <button type="button" className="btn primary medium w-100 w-md-auto" onClick={handleUpdate}>Update</button>
+                  <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpgrade}>Upgrade</button>
+                </div>
+                <hr className="m-0"/>
+              */}
               {/*}
               <div className="m-4">
                 <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).endOf('day').fromNow() : null }</p>
                 <p>{ cancelAtPeriodEnd ? moment.unix(cancelAt).format('MMMM Do YYYY, h:mm:ss a') : null }</p>
                 <p>{ cancelAtPeriodEnd ? cancelAt : null }</p>
               </div>
-            <hr className="m-0"/>
-        */}
+              <hr className="m-0"/>
+              */}
 
               <div className="m-4">
                 {/*}
-            { cancelAtPeriodEnd ? (
-              <>
-                  <div className="d-flex flex-column bg-error-100 radius-3 p-4 mb-4">
-                    <p className="text-error-high">Your subscription is expiring soon</p>
-                    <p className="text-dark-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. Renew your subscription to keep access to all Premium features.</p>
-                  </div>
-                </>
-              )
-            : null }*/}
+              { cancelAtPeriodEnd ? (
+                <>
+                    <div className="d-flex flex-column bg-error-100 radius-3 p-4 mb-4">
+                      <p className="text-error-high">Your subscription is expiring soon</p>
+                      <p className="text-dark-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. Renew your subscription to keep access to all Premium features.</p>
+                    </div>
+                  </>
+                )
+              : null }*/}
                 <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
                   <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
                     <div className="d-flex justify-content-between align-items-center w-100">
@@ -781,6 +741,46 @@ const Settings = () => {
                 </div>
               </div>
             </div>
+            <PrettyUrlSection
+              userData={userData}
+              allUserData={allUserData}
+              product={product}
+              active={active}
+              status={status}
+              handleUpgrade={handleUpgrade}
+            />
+            <LogosSection
+              userData={userData}
+              product={product}
+              active={active}
+              status={status}
+              handleUpdate={handleUpdate}
+              handleUpgrade={handleUpgrade}
+              // handleLogosSubmit={handleLogosSubmit}
+              sectionsLoading={sectionsLoading}
+              experienceLogos={experienceLogos}
+              setExperienceLogos={setExperienceLogos}
+              educationLogos={educationLogos}
+              setEducationLogos={setEducationLogos}
+            />
+            <TemplateSection userData={userData} />
+            <DownloadSection
+              userData={userData}
+              allUserData={allUserData}
+            />
+            {/* <CustomDomainSection userData={userData} /> */}
+            <ResyncSection
+              linkedinId={linkedinId}
+              userData={userData}
+              //syncsRemaining={syncsRemaining}
+              loggedInRoute={loggedInRoute}
+              product={product}
+              active={active}
+              status={status}
+              handleUpdate={handleUpdate}
+              handleUpgrade={handleUpgrade}
+            />
+
           </div>
         </Container>
         <br /><br />

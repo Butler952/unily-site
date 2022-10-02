@@ -142,7 +142,7 @@ const Register = () => {
         if (receiveEmails) {
           fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
             subscriberEmail: userCredential.user.email,
-            stage: '/setup/sync',
+            stage: '/setup/handle',
             signUpSurveyComplete: false,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
@@ -151,7 +151,7 @@ const Register = () => {
         fire.firestore().collection('users').doc(userCredential.user.uid).set({
           receiveEmails: receiveEmails,
           email: userCredential.user.email,
-          stage: '/setup/sync',
+          stage: '/setup/handle',
           created: fire.firestore.FieldValue.serverTimestamp(),
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })
@@ -161,7 +161,7 @@ const Register = () => {
         mixpanel.track('Register');
       })
       .then(() => {
-        router.push("/setup/sync")
+        router.push("/setup/handle")
       })
       .catch((err) => {
         if (err.code === 'auth/email-already-in-use') {
