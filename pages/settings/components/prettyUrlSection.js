@@ -134,19 +134,32 @@ const PrettyUrlSection = ({
                   'profileUrl': `/${domain}`,
                   lastUpdated: fire.firestore.FieldValue.serverTimestamp()
                 })
-                  .then(() => {
-                    let newUserContext = userContext;
-                    newUserContext.profileUrl = `/${domain}`;
-                    setUserContext(newUserContext)
-                  })
-                  .then(() => {
-                    setSaving(false)
-                    toast('Profile URL updated')
+                .then(() => {
+                  fire.firestore()
+                  .collection('redirects')
+                  .doc(userData.uid)
+                  .set({ 
+                    'source': `/profile/${defaultDomain}`, 
+                    'destination': `/${domain}`,
+                    'permanent': true
                   })
                   .catch((err) => {
-                    // console.log(err.code, err.message)
                     toast(err.message)
                   })
+                })
+                .then(() => {
+                  let newUserContext = userContext;
+                  newUserContext.profileUrl = `/${domain}`;
+                  setUserContext(newUserContext)
+                })
+                .then(() => {
+                  setSaving(false)
+                  toast('Profile URL updated')
+                })
+                .catch((err) => {
+                  // console.log(err.code, err.message)
+                  toast(err.message)
+                })
               }
             })
         } else {
@@ -161,6 +174,15 @@ const PrettyUrlSection = ({
         'profileUrl': `/profile/${defaultDomain}`,
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
+        .then(() => {
+          fire.firestore()
+          .collection('redirects')
+          .doc(userData.uid)
+          .delete()
+          .catch((err) => {
+            toast(err.message)
+          })
+        })
         .then(() => {
           let newUserContext = userContext;
           newUserContext.profileUrl = `/profile/${defaultDomain}`;
