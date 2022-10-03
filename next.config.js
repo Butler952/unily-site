@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import fire from '../config/fire-config';
+import fire from './config/fire-config';
 
 module.exports = {
   /*env: {
