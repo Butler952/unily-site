@@ -1,5 +1,3 @@
-import fire from './config/fire-config';
-
 module.exports = {
   /*env: {
     STRIPE_PRODUCT_PREMIUM: 'prod_Jdg7o4VDoipc7d',
@@ -28,32 +26,40 @@ module.exports = {
       }
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: "/profile/(.*)",
+        destination: "/api/profileRedirects"
+      }
+    ]
+  }
 
   //   /*const profiles = fetch("/api/getProfilelist")*/
-  async redirects() {
+  // async redirects() {
 
-    const redirectUrls = []
+  //   const redirectUrls = []
 
-    fire.firestore()
-    .collection('redirects')
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((redirect) => {
-        redirectUrls = [...redirectUrls, { 
-          'source': redirect.source, 
-          'destination': redirect.destination,
-          'permanent': true
-        }];
-      })
-    })
+  //   fire.firestore()
+  //   .collection('redirects')
+  //   .get()
+  //   .then((querySnapshot) => {
+  //     querySnapshot.forEach((redirect) => {
+  //       redirectUrls = [...redirectUrls, { 
+  //         'source': redirect.source, 
+  //         'destination': redirect.destination,
+  //         'permanent': true
+  //       }];
+  //     })
+  //   })
 
-    return redirectUrls
-    // return [
-    //   {
-    //     source: '/',
-    //     destination: '/welcome',
-    //     permanent: true,
-    //   },
-    // ]
-  },
+  //   return redirectUrls
+  //   // return [
+  //   //   {
+  //   //     source: '/',
+  //   //     destination: '/welcome',
+  //   //     permanent: true,
+  //   //   },
+  //   // ]
+  // },
 };

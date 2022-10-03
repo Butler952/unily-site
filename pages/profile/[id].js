@@ -255,7 +255,13 @@ const Profile = (props) => {
                 <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
               }
             </div>
-            {props.displayInfo.basicInfo.each.email || props.links ?
+            {props && 
+            props.displayInfo && 
+            props.displayInfo.basicInfo &&
+            props.displayInfo.basicInfo.each &&
+            props.displayInfo.basicInfo.each.email &&
+            props.displayInfo.basicInfo.each.email 
+            || props.links ?
               <div className="d-flex align-items-center flex-column flex-md-row m-auto justify-content-center" style={{ gap: '12px' }}>
                 {props.email && props.displayInfo.basicInfo.each.email &&
                   <a href={'mailto:' + props.email} className="btn primary high w-100 w-md-auto">Contact me</a>

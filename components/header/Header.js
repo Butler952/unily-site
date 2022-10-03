@@ -315,6 +315,10 @@ const Header = (props) => {
           windowUrl.includes("legal") || 
           windowUrl.includes("setup") ||
           windowUrl.includes("users") ||
+          windowUrl.includes("linkedin-to-resume") ||
+          windowUrl.includes("online-cv-builder") ||
+          windowUrl.includes("online-resume-builder") ||
+          windowUrl.includes("pdf-resume-builder") ||
           windowUrl == '/'
           ? null : 'position-fixed'
         }`} 
