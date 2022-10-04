@@ -346,13 +346,29 @@ const Header = (props) => {
               {(userContext && userContext.stage && userContext.stage !== undefined) && (userContext && userContext.stage && userContext.stage !== 'complete') ?
                 <button className="btn primary low small" onClick={handleLogout}>Logout</button>
                 :
-                <>
+                <div className="d-flex flex-row justify-content-center align-items-center">
+                  { windowUrl.includes("blog") || 
+                    windowUrl.includes("legal") || 
+                    windowUrl.includes("setup") ||
+                    windowUrl.includes("users") ||
+                    windowUrl.includes("linkedin-to-resume") ||
+                    windowUrl.includes("online-cv-builder") ||
+                    windowUrl.includes("online-resume-builder") ||
+                    windowUrl.includes("pdf-resume-builder") ||
+                    windowUrl == '/' ?                 
+                    <div className="mr-4">
+                      <Link href="/blog">
+                        <a className="btn dark low small">Blog</a>
+                      </Link>
+                    </div> 
+                  : null}
+
                   {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                   <Link href="/blog">
                     <a className="btn dark low small">Blog</a>
                   </Link>
-                </div>
-                <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div> */}
+                  </div>
+                  <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div> */}
                   <Dropdown align="end">
                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                       <>
@@ -470,7 +486,7 @@ const Header = (props) => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </>
+                </div>
               }
               {/* <Link href="/settings">
             <a className="btn primary low small">Settings</a>
