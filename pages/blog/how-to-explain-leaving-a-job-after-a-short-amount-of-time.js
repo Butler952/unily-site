@@ -64,18 +64,18 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
           <p className="large">If you’ve already left the job and you’re looking for a new position without being employed currently, try to look quite broad and talk about things like “the company wasn’t going in the direction that I wanted to go in” or “it wasn’t quite aligned to my mission and to my values”.</p>
         </div>
         <div className="py-5 background-light">
-            <div className="d-flex flex-column align-items-center container text-center">
-              {screenWidth > 767 ?
-                <h1 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes</h1>
-                :
-                <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes</h2>
-              }
-              <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-              <Link href="/users/register">
-                <a className="btn primary high large">Get started</a>
-              </Link>
-            </div>
+          <div className="d-flex flex-column align-items-center container text-center">
+            {screenWidth > 767 ?
+              <h1 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes</h1>
+              :
+              <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes</h2>
+            }
+            <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+            <Link href="/users/register">
+              <a className="btn primary high large">Get started</a>
+            </Link>
           </div>
+        </div>
       </Post>
     </div>
   )

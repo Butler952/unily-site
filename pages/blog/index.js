@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/how-to-change-your-profile-url/how-to-change-your-profile-url.jpg'
+            title="How to change the URL of your profile"
+            duration="2"
+            bodyPreview="When you create your Vitaely profile, we will automatically create a URL for your profile. As an example, this will be..."
+            postUrl="/blog/how-to-change-your-profile-url"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
             title="What to send in a follow up email after an interview"
             duration="2"
