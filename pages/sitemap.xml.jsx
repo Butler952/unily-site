@@ -67,7 +67,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/red-flags-in-job-descriptions",
     "/how-to-explain-leaving-a-job-after-a-short-amount-of-time",
     "/how-to-download-your-resume-as-a-pdf",
-    "/what-to-send-in-a-follow-up-email-after-an-interview"
+    "/what-to-send-in-a-follow-up-email-after-an-interview",
+    "/how-to-change-your-profile-url"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
