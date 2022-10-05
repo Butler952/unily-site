@@ -355,6 +355,7 @@ const Header = (props) => {
                     windowUrl.includes("online-cv-builder") ||
                     windowUrl.includes("online-resume-builder") ||
                     windowUrl.includes("pdf-resume-builder") ||
+                    windowUrl.includes("aaronbutler") ||
                     windowUrl == '/' ?                 
                     <div className="mr-4">
                       <Link href="/blog">
