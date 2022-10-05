@@ -302,7 +302,7 @@ const Header = (props) => {
 
   return (
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
-    userData == '' && windowUrl.includes("/profile/") || windowUrl.includes("aaronbutler") ? null : 
+    userData == '' && windowUrl.includes("/profile/") || userData == '' && windowUrl.includes("/aaronbutler") ? null : 
       <div 
         className={`bg-light-900 rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
         ${
