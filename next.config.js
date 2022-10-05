@@ -26,14 +26,14 @@ module.exports = {
       }
     ]
   },
-  async rewrites() {
-    return [
-      {
-        source: "/profile/(.*)",
-        destination: "/api/profileRedirects"
-      }
-    ]
-  }
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/profile/(.*)",
+  //       destination: "/api/profileRedirects"
+  //     }
+  //   ]
+  // }
 
   //   /*const profiles = fetch("/api/getProfilelist")*/
   // async redirects() {
