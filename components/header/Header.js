@@ -302,7 +302,7 @@ const Header = (props) => {
 
   return (
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
-    userData == '' && windowUrl.includes("/profile/") ? null : 
+    userData == '' && windowUrl.includes("/profile/") || windowUrl.includes("aaronbutler") ? null : 
       <div 
         className={`bg-light-900 rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
         ${
@@ -355,7 +355,6 @@ const Header = (props) => {
                     windowUrl.includes("online-cv-builder") ||
                     windowUrl.includes("online-resume-builder") ||
                     windowUrl.includes("pdf-resume-builder") ||
-                    windowUrl.includes("aaronbutler") ||
                     windowUrl == '/' ?                 
                     <div className="mr-4">
                       <Link href="/blog">
