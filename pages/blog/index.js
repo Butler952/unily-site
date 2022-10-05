@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/how-to-add-links-to-your-profile/how-to-add-links-to-your-profile.jpg'
+            title="How to add links to your profile"
+            duration="2"
+            bodyPreview="Your profile is a place to show yourself off online professionally. This of course includes your experience and education..."
+            postUrl="/blog/how-to-add-links-to-your-profile"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image='/images/blog/how-to-change-your-profile-url/how-to-change-your-profile-url.jpg'
             title="How to change the URL of your profile"
             duration="2"
