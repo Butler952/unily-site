@@ -68,7 +68,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/how-to-explain-leaving-a-job-after-a-short-amount-of-time",
     "/how-to-download-your-resume-as-a-pdf",
     "/what-to-send-in-a-follow-up-email-after-an-interview",
-    "/how-to-change-your-profile-url"
+    "/how-to-change-your-profile-url",
+    "/how-to-add-links-to-your-profile"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
