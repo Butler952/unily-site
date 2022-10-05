@@ -142,6 +142,8 @@ const Settings = () => {
           loggedInRoute(user)
           getSubscription(user)
           setUserData(user)
+        } else {
+          router.push('users/login')
         }
       })
     return () => {
