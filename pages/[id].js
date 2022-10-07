@@ -291,7 +291,7 @@ const Profile = (props) => {
               <br /><br />
             </div>
           }
-          {(props.experiences && props.experiences.length) &&
+          {(props.experiences && props.experiences.length > 0) &&
             <div className="mb-5">
               <h4>Experience</h4>
               <div className={styles.profileCard + ' card'}>

@@ -291,7 +291,7 @@ const Profile = (props) => {
               <br /><br />
             </div>
           }
-          {(props.experiences && props.experiences.length) &&
+          {(props.experiences && props.experiences.length > 0) &&
             <div className="mb-5">
               <h4>Experience</h4>
               <div className={styles.profileCard + ' card'}>
@@ -370,7 +370,7 @@ const Profile = (props) => {
               <br /><br />
             </div>
           }
-          {(props.education && props.education.length) &&
+          {(props.education && props.education.length > 0) &&
             <div className="mb-5">
               <h4>Education</h4>
               <div className={styles.profileCard + ' card'}>
@@ -400,7 +400,7 @@ const Profile = (props) => {
               <br /><br />
             </div>
           }
-          {(props.volunteer_work && props.volunteer_work.length) &&
+          {(props.volunteer_work && props.volunteer_work.length > 0) &&
             <div className="mb-5">
               <h4>Volunteering</h4>
               <div className={styles.profileCard + ' card'}>
