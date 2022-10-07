@@ -50,7 +50,7 @@ const HowToAddLinksToYourProfile = () => {
           <ul>
           <li><p className="large mb-2">Your own personal website</p></li>
           <li><p className="large mb-2">Social media accounts (e.g. Twitter, Instagram, TikTok)</p></li>
-          <li><p className="large mb-2">Places that show off your work (Dribbble, GitHub )</p></li>
+          <li><p className="large mb-2">Places that show off your work (Dribbble, GitHub)</p></li>
           </ul>
           <p className="large">But there’s no need to limit yourself to these options.</p>
         </div>

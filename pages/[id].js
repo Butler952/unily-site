@@ -134,6 +134,64 @@ const Profile = (props) => {
     }
   };
 
+  const sortByDate = (a,b) => {
+    if (a.starts_at &&
+        b.starts_at) {
+      console.log(`sorted ${a.company}`)
+      if (a.ends_at == undefined & b.ends_at == undefined) {
+        if (b.starts_at.year < a.starts_at.year)
+          return -1;
+        if (b.starts_at.year > a.starts_at.year)
+          return 1;
+        if (b.starts_at.year == a.starts_at.year) {
+          if (b.starts_at.month < a.starts_at.month)
+            return -1;
+          if (b.starts_at.month > a.starts_at.month)
+            return 1;
+        }
+      }
+      if (a.ends_at == undefined) {
+        return -1;
+      }
+      if (b.ends_at == undefined) {
+        return 1;
+      }
+      if (b.ends_at.year < a.ends_at.year){
+        console.log(`${b.company} end year is earlier than ${a.company}`)
+        return -1;
+      }
+      if (b.ends_at.year > a.ends_at.year) {
+        console.log(`${b.company} end year is later than ${a.company}`)
+        return 1;
+      }
+      if (b.ends_at.year == a.ends_at.year) {
+        console.log(`${b.company} end year is the same as ${a.company}`)
+        if (b.ends_at.month < a.ends_at.month) {
+          console.log(`${b.company} end month is the earlier as ${a.company}`)
+          return -1;
+        }
+        if (b.ends_at.month > a.ends_at.month) {
+          console.log(`${b.company} end month is later than ${a.company}`)
+          return 1;
+        }
+        if (b.ends_at.month == a.ends_at.month) {
+          console.log(`${b.company} end month is the same as ${a.company}`)
+          if (b.starts_at.year < a.starts_at.year)
+            return -1;
+          if (b.starts_at.year > a.starts_at.year)
+            return 1;
+          if (b.starts_at.year == a.starts_at.year) {
+            if (b.starts_at.month < a.starts_at.month)
+              return -1;
+            if (b.starts_at.month > a.starts_at.month)
+              return 1;
+          }
+        }
+      }
+    }
+    return 1;
+  }
+
   const CustomToggle = ({ eventKey }) => {
     // const [dropdownOpen, setDropdownOpen] = useState(false);
     const decoratedOnClick = useAccordionToggle(eventKey, () => {
@@ -237,7 +295,8 @@ const Profile = (props) => {
             <div className="mb-5">
               <h4>Experience</h4>
               <div className={styles.profileCard + ' card'}>
-                {props.experiences.map((job, index) => {
+                {props.experiences.sort(sortByDate).map((job, index) => {
+                // {props.experiences.map((job, index) => {
                   const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                   return (
                     <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
