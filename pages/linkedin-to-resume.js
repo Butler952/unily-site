@@ -25,9 +25,9 @@ const LinkedinToResume = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Head>
         <title>Turn your Linkedin profile into a resume | Vitaely.me</title>
-        <meta name="description" content="Use your LinkedIn profile to create a clean, professional resume in just two minutes." />
+        <meta name="description" content="Turn your Linkedin profile into a resume in just two minutes." />
         <meta property="og:title" content="Turn your Linkedin profile into a resume | Vitaely.me" />
-        <meta property="og:description" content="Use your LinkedIn profile to create a clean, professional resume in just two minutes." />
+        <meta property="og:description" content="Turn your Linkedin profile into a resume in just two minutes." />
         <meta property="og:url" content="https://www.vitaely.me/linkedin-to-resume" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/>
