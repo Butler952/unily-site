@@ -35,6 +35,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
+            title="Four things to research about a company before an interview"
+            duration="2"
+            bodyPreview="When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to..."
+            postUrl="/blog/four-things-to-research-about-a-company-before-an-interview"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image='/images/blog/how-to-add-links-to-your-profile/how-to-add-links-to-your-profile.jpg'
             title="How to add links to your profile"
             duration="2"

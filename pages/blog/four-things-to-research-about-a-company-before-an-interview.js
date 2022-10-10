@@ -55,7 +55,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
         </div>
         <div id="why-were-they-founded" className="py-4 background-light">
           <h3>Why were they founded?</h3>
-          <p className="large">Finding out the origin story of a company will tell you a great deal the company.</p>
+          <p className="large">Finding out the origin story of a company will tell you a great deal about the company.</p>
           <p className="large">The DNA of the founding mission is embedded and can often be found, to some extent, in a company decades after its inception.</p>
           <p className="large">Try to discover who founded the company in the first place? Were they faced by a problem that motivated them to start the company? Did they have a vision in mind?</p>
           <p className="large">This all helps to explain what impact they want to have on the world, why the company behaves the way they do, and the direction that the company is heading.</p>
