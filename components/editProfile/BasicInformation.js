@@ -80,11 +80,97 @@ const BasicInformation = ({
       });
   }
 
+  const uploadProfilePicture = (file) => {
+
+    var filename = "images/" + userData.uid + "/profile_picture.jpg"
+
+    var metadata = {
+      contentType: 'image/jpeg',
+      name: filename
+    };
+
+    var uploadTask = fire.storage().ref().child(filename).put(file, metadata);
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case fire.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case fire.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, 
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            toast("Upload cancelled")
+            break;
+    
+          // ...
+    
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      }, 
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          // console.log('File available at', downloadURL);
+          fire.firestore().collection('users').doc(user).update({
+            'profile.profile_picture_url': downloadURL,
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+          })
+          .then(() => {
+            setSubmitting(false)
+            toast("Profile picture updated")
+          })
+          .catch((error) => {
+            setSubmitting(false)
+            toast("Unable to upload profile picture")
+          });
+        });
+        // Add this link to firestore
+        
+      }
+    );
+  }
+
+  const pauseUpload = () => {
+    uploadTask.pause();
+  }
+  const resumeUpload = () => {
+    uploadTask.resume();
+  }
+  const cancelUpload = () => {
+    uploadTask.cancel();
+  }
+
   return (
     <>
       <div className="p-4">
         <form onSubmit={handleBasicInfoSubmit}>
           <div className="d-flex flex-column flex-sm-row mb-3 " style={{ gap: '16px' }}>
+            <div>
+              <input type="file" accept="image/*" />
+            </div>
             <div className="w-100">
               <p className="text-dark-high mb-2">First name</p>
               <input
