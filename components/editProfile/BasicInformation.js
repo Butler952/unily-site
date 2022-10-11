@@ -238,7 +238,7 @@ const BasicInformation = ({
     <>
       <div className="p-4">
         <form onSubmit={handleBasicInfoSubmit}>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <p className="text-dark-high mb-2">Profile picture</p>
             { profilePictureUrlChanged ? (profilePictureUrl !== '' ? 
               <>
@@ -273,8 +273,7 @@ const BasicInformation = ({
               onChange={handleChange} 
               style={{display: 'none'}}
             />
-            {/* <button className="btn dark medium small" onClick={uploadProfilePicture(profilePictureFile)}>Upload</button> */}
-          </div>
+          </div> */}
           <div className="d-flex flex-column flex-sm-row mb-3" style={{ gap: '16px' }}>
             <div className="w-100">
               <p className="text-dark-high mb-2">First name</p>
