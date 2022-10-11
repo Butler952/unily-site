@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import fire from '../../config/fire-config';
 import { UserContext } from '../../pages/_app';
 import { ToastContainer } from 'react-toastify';
@@ -24,27 +24,38 @@ const BasicInformation = ({
   setBasicInfoLastNameError,
   setBasicInfoHeadline,
   setBasicInfoHeadlineChanged,
-  setBasicInfoHeadlineError
+  setBasicInfoHeadlineError,
+  profilePictureUrl,
+  setProfilePictureUrl,
+  profilePictureUrlChanged,
+  setProfilePictureUrlChanged
 }) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [profilePictureFile, setProfilePictureFile] = useState(null); 
 
   const basicInfoFirstNameChange = (value) => {
     setBasicInfoFirstName(value),
-      setBasicInfoFirstNameChanged(true),
-      setBasicInfoFirstNameError('')
+    setBasicInfoFirstNameChanged(true),
+    setBasicInfoFirstNameError('')
   }
 
   const basicInfoLastNameChange = (value) => {
     setBasicInfoLastName(value),
-      setBasicInfoLastNameChanged(true),
-      setBasicInfoLastNameError('')
+    setBasicInfoLastNameChanged(true),
+    setBasicInfoLastNameError('')
   }
 
   const basicInfoHeadlineChange = (value) => {
     setBasicInfoHeadline(value),
-      setBasicInfoHeadlineChanged(true)
+    setBasicInfoHeadlineChanged(true)
+  }
+  const profilePictureUrlChange = (value) => {
+    setProfilePictureUrl(value),
+    setProfilePictureUrlChanged(true)
   }
 
   const handleBasicInfoSubmit = (e) => {
@@ -80,9 +91,61 @@ const BasicInformation = ({
       });
   }
 
+  const hiddenFileInput = useRef(null);
+
+  const handleDeleteProfilePicture = (e) => {
+    e.preventDefault();
+
+    setDeleting(true)
+
+    let filename = "images/" + user + "/profile_picture.jpg"
+
+    fire.storage().ref().child(filename).delete()
+    .then(() => {
+      fire.firestore().collection('users').doc(user).update({
+        'profile.profile_pic_url': null,
+        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.profile.profile_pic_url = '';
+        setUserContext(newUserContext)
+        profilePictureUrlChange('')
+      })
+      .then(() => {
+        setDeleting(false)
+        toast("Profile picture deleted")
+      })
+      .catch((error) => {
+        setDeleting(false)
+        toast("Unable to delete profile picture")
+      });
+    }).catch((error) => {
+      // Uh-oh, an error occurred!
+    });
+  }
+
+  const handleChangeProfilePicture = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  function handleChange(event) {
+    // setProfilePictureFile(event.target.files[0]);
+    uploadProfilePicture(event.target.files[0])
+  }
+
+  // const handleChange = event => {
+  //   const fileUploaded = event.target.files[0];
+  //   props.handleFile(fileUploaded);
+  // };
+
   const uploadProfilePicture = (file) => {
 
-    var filename = "images/" + userData.uid + "/profile_picture.jpg"
+    setUploading(true)
+
+    if (file == null) return;
+
+    let filename = "images/" + user + "/profile_picture.jpg"
 
     var metadata = {
       contentType: 'image/jpeg',
@@ -135,15 +198,23 @@ const BasicInformation = ({
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           // console.log('File available at', downloadURL);
           fire.firestore().collection('users').doc(user).update({
-            'profile.profile_picture_url': downloadURL,
+            'profile.profile_pic_url': downloadURL,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
           })
           .then(() => {
-            setSubmitting(false)
+            let newUserContext = userContext;
+            newUserContext.profile.profile_pic_url = downloadURL;
+            setUserContext(newUserContext)
+          })
+          .then(() => {
+            profilePictureUrlChange(downloadURL)
+          })
+          .then(() => {
+            setUploading(false)
             toast("Profile picture updated")
           })
           .catch((error) => {
-            setSubmitting(false)
+            setUploading(false)
             toast("Unable to upload profile picture")
           });
         });
@@ -167,10 +238,44 @@ const BasicInformation = ({
     <>
       <div className="p-4">
         <form onSubmit={handleBasicInfoSubmit}>
-          <div className="d-flex flex-column flex-sm-row mb-3 " style={{ gap: '16px' }}>
-            <div>
-              <input type="file" accept="image/*" />
-            </div>
+          <div className="mb-3">
+            <p className="text-dark-high mb-2">Profile picture</p>
+            { profilePictureUrlChanged ? (profilePictureUrl !== '' ? 
+              <>
+                <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
+                  <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/>
+                  <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Change' : 'Uploading'}</button>
+                  <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deleting} onClick={handleDeleteProfilePicture}>{!deleting ? 'Delete' : 'Deleting'}</button>
+                </div>
+              </>
+            :
+              <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Upload' : 'Uploading'}</button>
+            )
+            // userContext.profile.profile_pic_url !== '' ?
+            
+            : 
+              (userContext.profile.profile_pic_url !== null ? 
+                <>
+                  <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
+                    <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/>
+                    <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Change' : 'Uploading'}</button>
+                    <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deleting} onClick={handleDeleteProfilePicture}>{!deleting ? 'Delete' : 'Deleting'}</button>
+                  </div>
+                </>
+              :
+                <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Upload' : 'Uploading'}</button>
+              )
+            }
+            <input 
+              type="file" 
+              ref={hiddenFileInput}
+              accept="image/*" 
+              onChange={handleChange} 
+              style={{display: 'none'}}
+            />
+            {/* <button className="btn dark medium small" onClick={uploadProfilePicture(profilePictureFile)}>Upload</button> */}
+          </div>
+          <div className="d-flex flex-column flex-sm-row mb-3" style={{ gap: '16px' }}>
             <div className="w-100">
               <p className="text-dark-high mb-2">First name</p>
               <input

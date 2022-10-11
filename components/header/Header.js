@@ -378,14 +378,15 @@ const Header = (props) => {
                               <path d={ICONS.MENU}></path>
                             </svg>
                           </div>
-                          {!headerImageError ?
+                          {!headerImageError || userContext && userContext.profileUrl && userContext.profile.profile_pic_url !== '' ? 
                             <img
+                              className="bg-dark-200 radius-5"
                               src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
                               onError={({ currentTarget }) => {
                                 currentTarget.onerror = null; // prevents looping
                                 setHeaderImageError(true)
                               }}
-                              style={{ width: '32px', borderRadius: '100%' }}
+                              style={{ width: '32px', height: '32px', borderRadius: '100%' }}
                             />
                             :
                             <div className="bg-dark-200 radius-5" style={{ width: '32px', height: '32px' }} />
@@ -406,7 +407,7 @@ const Header = (props) => {
                       <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}>
                         {!headerImageError ?
                           <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                            <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', borderRadius: '100%' }} />
+                            <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
                           </div>
                           : null}
                         {userContext && userContext.profile && userContext.profile.full_name}
