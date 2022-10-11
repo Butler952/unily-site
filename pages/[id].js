@@ -137,7 +137,7 @@ const Profile = (props) => {
   const sortByDate = (a,b) => {
     if (a.starts_at &&
         b.starts_at) {
-      console.log(`sorted ${a.company}`)
+      // console.log(`sorted ${a.company}`)
       if (a.ends_at == undefined & b.ends_at == undefined) {
         if (b.starts_at.year < a.starts_at.year)
           return -1;
@@ -157,25 +157,25 @@ const Profile = (props) => {
         return 1;
       }
       if (b.ends_at.year < a.ends_at.year){
-        console.log(`${b.company} end year is earlier than ${a.company}`)
+        // console.log(`${b.company} end year is earlier than ${a.company}`)
         return -1;
       }
       if (b.ends_at.year > a.ends_at.year) {
-        console.log(`${b.company} end year is later than ${a.company}`)
+        // console.log(`${b.company} end year is later than ${a.company}`)
         return 1;
       }
       if (b.ends_at.year == a.ends_at.year) {
-        console.log(`${b.company} end year is the same as ${a.company}`)
+        // console.log(`${b.company} end year is the same as ${a.company}`)
         if (b.ends_at.month < a.ends_at.month) {
-          console.log(`${b.company} end month is the earlier as ${a.company}`)
+          // console.log(`${b.company} end month is the earlier as ${a.company}`)
           return -1;
         }
         if (b.ends_at.month > a.ends_at.month) {
-          console.log(`${b.company} end month is later than ${a.company}`)
+          // console.log(`${b.company} end month is later than ${a.company}`)
           return 1;
         }
         if (b.ends_at.month == a.ends_at.month) {
-          console.log(`${b.company} end month is the same as ${a.company}`)
+          // console.log(`${b.company} end month is the same as ${a.company}`)
           if (b.starts_at.year < a.starts_at.year)
             return -1;
           if (b.starts_at.year > a.starts_at.year)
@@ -240,7 +240,7 @@ const Profile = (props) => {
                 />
               </>
             }
-            {!profilePictureError &&
+            {!profilePictureError | props.profile_pic_url !== '' &&
               <img
                 src={props.profile_pic_url}
                 onError={({ currentTarget }) => {

@@ -40,6 +40,9 @@ const EditProfile = ({
   const [basicInfoHeadlineChanged, setBasicInfoHeadlineChanged] = useState(false);
   const [basicInfoHeadlineError, setBasicInfoHeadlineError] = useState('');
 
+  const [profilePictureUrl, setProfilePictureUrl] = useState('');
+  const [profilePictureUrlChanged, setProfilePictureUrlChanged] = useState(false);
+
   const [linksContact, setLinksContact] = useState('');
   const [linksContactChanged, setLinksContactChanged] = useState(false);
   const [linksContactError, setLinksContactError] = useState('');
@@ -156,6 +159,8 @@ const EditProfile = ({
     setBasicInfoHeadline('')
     setBasicInfoHeadlineChanged(false)
     setBasicInfoHeadlineError('')
+    setProfilePictureUrl('')
+    setProfilePictureUrlChanged(false)
     setLinksContact('')
     setLinksContactChanged(false)
     setLinksContactError('')
@@ -358,6 +363,10 @@ const EditProfile = ({
             setBasicInfoHeadline={setBasicInfoHeadline}
             setBasicInfoHeadlineChanged={setBasicInfoHeadlineChanged}
             setBasicInfoHeadlineError={setBasicInfoHeadlineError}
+            profilePictureUrl={profilePictureUrl}
+            setProfilePictureUrl={setProfilePictureUrl}
+            profilePictureUrlChanged={profilePictureUrlChanged}
+            setProfilePictureUrlChanged={setProfilePictureUrlChanged}
           />
         )}
         { editProfileModalState == 'Links' && (
