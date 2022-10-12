@@ -22,15 +22,26 @@ const Profile = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
+
+  // const router = useRouter()
   
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     checkUser();
     mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
     mixpanel.track('Profile');
+    // if (empty) router.push
   }, [])
 
   const checkUser = () => {
@@ -209,6 +220,8 @@ const Profile = (props) => {
 
   return (
     <div>
+      { props.email !== undefined ? 
+      <>
       <Head>
         <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
         {props.summary ? <meta name="description" content={props.summary} /> : null}
@@ -242,7 +255,7 @@ const Profile = (props) => {
             }
             {!profilePictureError | props.profile_pic_url !== '' &&
               <img
-                src={props.profile_pic_url}
+                src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
                   setProfilePictureError(true)
@@ -438,6 +451,26 @@ const Profile = (props) => {
           </Container>
         </div>
       </div>
+      </>
+      : 
+      <div className="d-flex justify-content-center align-items-center bg-light-900 py-5" style={{minHeight: '100vh'}}>
+        <Container>
+          <div className="py-5 background-light">
+            <div className="d-flex flex-column align-items-center container text-center">
+              {screenWidth > 767 ?
+                <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{maxWidth: '560px'}}>Page not found</h2>
+                :
+                <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{maxWidth: '560px'}}>Page not found</h2>
+              }
+              <p className="mx-auto mb-5 text-dark-med large">Turn your Linkedin profile into a landing page in two minutes</p>
+              <Link href="/users/register">
+                <a className="btn primary high large">Get started</a>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </div>
+      }
     </div >
   )
 }
@@ -570,7 +603,8 @@ export const getServerSideProps = async ({ query }) => {
     logoVisibility: content.logoVisibility,
     volunteer_work: content.volunteer_work,
     surveyOnSignUpHide: content.surveyOnSignUpHide,
-    displayInfo: content.displayInfo
+    displayInfo: content.displayInfo,
+    empty: content.empty
   }
 
   return {

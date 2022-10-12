@@ -139,7 +139,57 @@ const BasicInformation = ({
   //   props.handleFile(fileUploaded);
   // };
 
+  // const uploadProfilePicture = (file) => {
+
+  //   // Convert Image to Blob
+  //   // Send blob and user ID as query parameters of the API
+  //   // API: Add image blob to storage
+  //   // API: Return status code and DownloadURL
+  //   // Update user database with DownloadURL
+  //   // Update usecontext with DownloadURL
+
+  //   setUploading(true)
+
+  //   if (file == null) return;
+
+  //   fetch(file)
+  //   .then(function(response) {
+  //     return response.blob()
+  //   })
+  //   .then(function(blob) {
+  //     fetch(`/api/uploadProfilePic?user=${user}&blob=${blob}`)
+  //     .then(res => res.json())
+  //     .then(res => fire.firestore().collection('users').doc(user).update({
+  //       'profile.profile_pic_url': res.downloadURL,
+  //       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+  //     }))
+  //     .then((res) => {
+  //       let newUserContext = userContext;
+  //       newUserContext.profile.profile_pic_url = res.downloadURL;
+  //       setUserContext(newUserContext)
+  //     })
+  //     .then((res) => {
+  //       profilePictureUrlChange(res.downloadURL)
+  //     })
+  //     .then(() => {
+  //       setUploading(false)
+  //       toast("Profile picture updated")
+  //     })
+  //     .catch((error) => {
+  //       setUploading(false)
+  //       toast("Unable to upload profile picture")
+  //     });
+  //   });
+  // }
+
   const uploadProfilePicture = (file) => {
+
+    // Convert Image to Blob
+    // Send blob and user ID as query parameters of the API
+    // API: Add image blob to storage
+    // API: Return status code and DownloadURL
+    // Update user database with DownloadURL
+    // Update usecontext with DownloadURL
 
     setUploading(true)
 
