@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import fire from '../../config/fire-config';
 import { UserContext } from '../../pages/_app';
 import { toast } from 'react-toastify';
@@ -6,10 +6,15 @@ import { Modal } from 'react-bootstrap';
 import ICONS from '../icon/IconPaths';
 import styles from '../../pages/profile/profile.module.scss'
 import Icon from '../icon/Icon';
+import { v4 as uuidv4 } from 'uuid';
 
 const EditVolunteering = ({
   user,
   editProfileModalIndex,
+  volunteeringLogo,
+  setVolunteeringLogo,
+  volunteeringLogoChanged,
+  setVolunteeringLogoChanged,
   volunteeringCompany,
   setVolunteeringCompany,
   volunteeringCompanyChanged,
@@ -62,11 +67,18 @@ const EditVolunteering = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [deletingLogo, setDeletingLogo] = useState(false);
   const [originalVolunteering, setOriginalVolunteering] = useState( userContext.profile.volunteer_work);
 
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
+  }
+
+  const volunteeringLogoChange = (value) => {
+    setVolunteeringLogo(value),
+    setVolunteeringLogoChanged(true)
   }
 
   const volunteeringCompanyChange = (value) => {
@@ -202,6 +214,143 @@ const EditVolunteering = ({
     });
   }
 
+  const hiddenFileInput = useRef(null);
+
+  const handleChangeLogo = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  function handleChange(event) {
+    // setProfilePictureFile(event.target.files[0]);
+    uploadLogo(event.target.files[0])
+  }
+
+  const uploadLogo = (file) => {
+
+    setUploading(true)
+
+    if (file == null) return;
+
+    let uid = userContext.profile.volunteer_work[editProfileModalIndex].logo_ref ? userContext.profile.volunteer_work[editProfileModalIndex].logo_ref : uuidv4()
+    let filename = `images/${user}/volunteering/${userContext.profile.volunteer_work[editProfileModalIndex].logo_ref ? userContext.profile.volunteer_work[editProfileModalIndex].logo_ref : uid}.jpg`
+
+    var metadata = {
+      contentType: 'image/jpeg',
+      name: filename
+    };
+
+    var uploadTask = fire.storage().ref().child(filename).put(file, metadata);
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case fire.storage.TaskState.PAUSED: // or 'paused'
+            // console.log('Upload is paused');
+            break;
+          case fire.storage.TaskState.RUNNING: // or 'running'
+            // console.log('Upload is running');
+            break;
+        }
+      }, 
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            toast("Upload cancelled")
+            break;
+    
+          // ...
+    
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      }, 
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          originalVolunteering[editProfileModalIndex].logo_url = downloadURL
+          originalVolunteering[editProfileModalIndex].logo_ref = uid
+          // console.log('File available at', downloadURL);
+          fire.firestore().collection('users').doc(user).update({
+            'profile.volunteer_work': originalVolunteering,
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+          })
+          .then(() => {
+            let newUserContext = userContext;
+            newUserContext.profile.volunteer_work[editProfileModalIndex].logo_url = downloadURL;
+            newUserContext.profile.volunteer_work[editProfileModalIndex].logo_ref = uid;
+            setUserContext(newUserContext)
+          })
+          .then(() => {
+            volunteeringLogoChange(downloadURL)
+          })
+          .then(() => {
+            setUploading(false)
+            toast("Logo updated")
+          })
+          .catch((error) => {
+            setUploading(false)
+            toast("Unable to upload logo")
+            // toast("Unable to upload logo")
+          });
+        });
+        // Add this link to firestore
+        
+      }
+    );
+  }
+
+  const handleDeleteLogo = (e) => {
+    e.preventDefault();
+
+    setDeletingLogo(true)
+
+    // let filename = originalVolunteering[editProfileModalIndex].logo_url
+    // let filename = userContext.profile.volunteer_work[editProfileModalIndex].logo_url
+    let filename = `images/${user}/volunteering/${userContext.profile.volunteer_work[editProfileModalIndex].logo_ref}.jpg`
+
+    fire.storage().ref().child(filename).delete()
+    .then(() => {
+      originalVolunteering[editProfileModalIndex].logo_url = null
+      fire.firestore().collection('users').doc(user).update({
+        'profile.volunteer_work': originalVolunteering,
+        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.profile.volunteer_work[editProfileModalIndex].logo_url = null;
+        setUserContext(newUserContext)
+        volunteeringLogoChange('')
+      })
+      .then(() => {
+        setDeletingLogo(false)
+        toast("Logo deleted")
+      })
+      .catch((error) => {
+        setDeletingLogo(false)
+        toast("Unable to delete logo")
+        console.log(error)
+      });
+    }).catch((error) => {
+      // Uh-oh, an error occurred!
+    });
+  }
+
   // const deleteVolunteering = (index) => {
   //   delete originalVolunteering[index]
   // }
@@ -305,6 +454,47 @@ const EditVolunteering = ({
     <>
       <div className="p-4">
         <form onSubmit={handleEditVolunteeringsSubmit}>
+        <div className="mb-3">
+            <p className="text-dark-high mb-2">Logo</p>
+            { volunteeringLogoChanged ? (volunteeringLogo !== '' ? 
+              <>
+                <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
+                  <img src={volunteeringLogoChanged ? volunteeringLogo : (userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].logo_url && userContext.profile.volunteer_work[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].logo_url && userContext.profile.volunteer_work[editProfileModalIndex].logo_url : '')} className="radius-3" style={{width: '96px', height: '96px'}}/>
+                  <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Change' : 'Uploading'}</button>
+                  <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deletingLogo} onClick={handleDeleteLogo}>{!deletingLogo ? 'Delete' : 'Deleting'}</button>
+                </div>
+              </>
+            :
+              <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Upload' : 'Uploading'}</button>
+            )
+            // userContext.profile.profile_pic_url !== '' ?
+            
+            : 
+              ( userContext && 
+                userContext.profile && 
+                userContext.profile.volunteer_work[editProfileModalIndex] && 
+                userContext.profile.volunteer_work[editProfileModalIndex].logo_url &&
+                userContext.profile.volunteer_work[editProfileModalIndex].logo_url ?
+                <>
+                  <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
+                  <img src={volunteeringLogoChanged ? volunteeringLogo : (userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].logo_url && userContext.profile.volunteer_work[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].logo_url && userContext.profile.volunteer_work[editProfileModalIndex].logo_url : '')} className="radius-3" style={{width: '96px', height: '96px'}}/>
+                    <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Change' : 'Uploading'}</button>
+                    <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deletingLogo} onClick={handleDeleteLogo}>{!deletingLogo ? 'Delete' : 'Deleting'}</button>
+                  </div>
+                </>
+              :
+                <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Upload' : 'Uploading'}</button>
+              )
+            }
+            <input 
+              type="file" 
+              ref={hiddenFileInput}
+              accept="image/*" 
+              onChange={handleChange} 
+              style={{display: 'none'}}
+            />
+            {/* <button className="btn dark medium small" onClick={uploadProfilePicture(profilePictureFile)}>Upload</button> */}
+          </div>
           <div className="mb-3">
             <p className="text-dark-high mb-2">Title</p>
             <input

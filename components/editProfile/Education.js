@@ -92,6 +92,35 @@ const Education = ({
               </a>
             </div>
             : null} */}
+            { school.logo_url ?
+            <div>
+              <a target="_blank" href={school.school_linkedin_profile_url} className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
+                {/* <img 
+                  className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} 
+                  style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
+                /> */}
+                <img 
+                  className="radius-3"
+                  src={school.logo_url ? school.logo_url : null}
+                  onError={({ currentTarget }) => {
+                    // currentTarget.onerror = null; // prevents looping
+                    currentTarget.className = 'd-none' 
+                    // currentTarget.style = "display: 'none'" 
+                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                    // currentTarget.src="https://via.placeholder.com/150";
+                  }}
+                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px', zIndex: '1'}}
+                />
+                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px'}}>
+                  <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                </div>
+              </a>
+            </div>
+            : 
+            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center" style={{width: '72px', height: '72px', minWidth: '72px', minHeight:'72px'}}>
+              <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+            </div>
+            }
             <div className="w-100">
               <p className="large text-dark-high font-weight-semibold mb-0">
                 {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}

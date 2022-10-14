@@ -7,6 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const BasicInformation = ({
   user,
+  profilePictureUrl,
+  setProfilePictureUrl,
+  profilePictureUrlChanged,
+  setProfilePictureUrlChanged,
   basicInfoFirstName,
   basicInfoFirstNameChanged,
   basicInfoFirstNameError,
@@ -24,11 +28,7 @@ const BasicInformation = ({
   setBasicInfoLastNameError,
   setBasicInfoHeadline,
   setBasicInfoHeadlineChanged,
-  setBasicInfoHeadlineError,
-  profilePictureUrl,
-  setProfilePictureUrl,
-  profilePictureUrlChanged,
-  setProfilePictureUrlChanged
+  setBasicInfoHeadlineError
 }) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
@@ -36,6 +36,11 @@ const BasicInformation = ({
   const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [profilePictureFile, setProfilePictureFile] = useState(null); 
+
+  const profilePictureUrlChange = (value) => {
+    setProfilePictureUrl(value),
+    setProfilePictureUrlChanged(true)
+  }
 
   const basicInfoFirstNameChange = (value) => {
     setBasicInfoFirstName(value),
@@ -52,10 +57,6 @@ const BasicInformation = ({
   const basicInfoHeadlineChange = (value) => {
     setBasicInfoHeadline(value),
     setBasicInfoHeadlineChanged(true)
-  }
-  const profilePictureUrlChange = (value) => {
-    setProfilePictureUrl(value),
-    setProfilePictureUrlChanged(true)
   }
 
   const handleBasicInfoSubmit = (e) => {

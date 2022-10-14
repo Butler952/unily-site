@@ -60,6 +60,8 @@ const EditProfile = ({
   const [aboutChanged, setAboutChanged] = useState(false);
   const [aboutError, setAboutError] = useState('');
 
+  const [experiencesLogo, setExperiencesLogo] = useState('');
+  const [experiencesLogoChanged, setExperiencesLogoChanged] = useState(false);
   const [experiencesCompany, setExperiencesCompany] = useState('');
   const [experiencesCompanyChanged, setExperiencesCompanyChanged] = useState(false);
   const [experiencesCompanyError, setExperiencesCompanyError] = useState('');
@@ -84,6 +86,8 @@ const EditProfile = ({
   const [experiencesDescriptionError, setExperiencesDescriptionError] = useState('');
   const [experiencesShowDeleteExperienceModal, setExperiencesShowDeleteExperienceModal] = useState(false);
 
+  const [educationLogo, setEducationLogo] = useState('');
+  const [educationLogoChanged, setEducationLogoChanged] = useState(false);
   const [educationSchool, setEducationSchool] = useState('');
   const [educationSchoolChanged, setEducationSchoolChanged] = useState(false);
   const [educationSchoolError, setEducationSchoolError] = useState('');
@@ -111,6 +115,8 @@ const EditProfile = ({
   const [educationDescriptionError, setEducationDescriptionError] = useState('');
   const [educationShowDeleteEducationModal, setEducationShowDeleteEducationModal] = useState(false);
 
+  const [volunteeringLogo, setVolunteeringLogo] = useState('');
+  const [volunteeringLogoChanged, setVolunteeringLogoChanged] = useState(false);
   const [volunteeringCompany, setVolunteeringCompany] = useState('');
   const [volunteeringCompanyChanged, setVolunteeringCompanyChanged] = useState(false);
   const [volunteeringCompanyError, setVolunteeringCompanyError] = useState('');
@@ -176,6 +182,8 @@ const EditProfile = ({
     setAbout('')
     setAboutChanged(false)
     setAboutError('')
+    setExperiencesLogo('')
+    setExperiencesLogoChanged(false)
     setExperiencesCompany('')
     setExperiencesCompanyChanged(false)
     setExperiencesCompanyError('')
@@ -199,6 +207,8 @@ const EditProfile = ({
     setExperiencesDescriptionChanged(false)
     setExperiencesDescriptionError('')
     setExperiencesShowDeleteExperienceModal(false)
+    setEducationLogo(''),
+    setEducationLogoChanged(false),
     setEducationSchool('')
     setEducationSchoolChanged(false)
     setEducationSchoolError('')
@@ -225,6 +235,8 @@ const EditProfile = ({
     setEducationDescriptionChanged(false)
     setEducationDescriptionError('')
     setEducationShowDeleteEducationModal(false)
+    setVolunteeringLogo('')
+    setVolunteeringLogoChanged(false)
     setVolunteeringCompany('')
     setVolunteeringCompanyChanged(false)
     setVolunteeringCompanyError('')
@@ -274,26 +286,32 @@ const EditProfile = ({
     {
       "id": 0,
       "title": "Basic information",
+      "icon": ICONS.USER
     },
     {
       "id": 1,
       "title": "Links",
+      "icon": ICONS.LINK
     },
     {
       "id": 2,
       "title": "About",
+      "icon": ICONS.ABOUT
     },
     {
       "id": 3,
       "title": "Experience",
+      "icon": ICONS.WORK
     },
     {
       "id": 4,
       "title": "Education",
+      "icon": ICONS.SCHOOL
     },
     {
       "id": 5,
       "title": "Volunteering",
+      "icon": ICONS.VOLUNTEERING
     },
     // {
     //   "id": 5,
@@ -334,9 +352,12 @@ const EditProfile = ({
           <>
           {editProfileOptions.map((option) =>
             <button key={option.id} onClick={() => handleClick(option.title)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-4`}>
-              <p className="font-weight-medium text-dark-high large m-0">
-                {option.title}
-              </p>
+              <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
+                <Icon icon={option.icon} size='24' className="fill-dark-900" />
+                <p className="font-weight-medium text-dark-high large m-0">
+                  {option.title}
+                </p>
+              </div>
               <Icon icon={ICONS.ARROW_RIGHT} size='20' className="iconDarkHigh" />
             </button>
           )}
@@ -437,6 +458,10 @@ const EditProfile = ({
           <>
           <EditExperience 
             user={user}
+            experiencesLogo={experiencesLogo}
+            setExperiencesLogo={setExperiencesLogo}
+            experiencesLogoChanged={experiencesLogoChanged}
+            setExperiencesLogoChanged={setExperiencesLogoChanged}
             editProfileModalIndex={editProfileModalIndex}
             experiencesCompany={experiencesCompany}
             setExperiencesCompany={setExperiencesCompany}
@@ -552,6 +577,10 @@ const EditProfile = ({
           <EditEducation 
             user={user}
             editProfileModalIndex={editProfileModalIndex}
+            educationLogo={educationLogo}
+            setEducationLogo={setEducationLogo}
+            educationLogoChanged={educationLogoChanged}
+            setEducationLogoChanged={setEducationLogoChanged}
             educationSchool={educationSchool}
             setEducationSchool={setEducationSchool}
             educationSchoolChanged={educationSchoolChanged}
@@ -680,6 +709,10 @@ const EditProfile = ({
           <EditVolunteering 
             user={user}
             editProfileModalIndex={editProfileModalIndex}
+            volunteeringLogo={volunteeringLogo}
+            setVolunteeringLogo={setVolunteeringLogo}
+            volunteeringLogoChanged={volunteeringLogoChanged}
+            setVolunteeringLogoChanged={setVolunteeringLogoChanged}
             volunteeringCompany={volunteeringCompany}
             setVolunteeringCompany={setVolunteeringCompany}
             volunteeringCompanyChanged={volunteeringCompanyChanged}

@@ -117,6 +117,7 @@ const Settings = () => {
   const [savingSections, setSavingSections] = useState(false);
   const [experienceLogos, setExperienceLogos] = useState(false);
   const [educationLogos, setEducationLogos] = useState(false);
+  const [volunteeringLogos, setVolunteeringLogos] = useState(false);
   const [savingLogos, setSavingLogos] = useState(false);
   const [syncError, setSyncError] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -209,6 +210,7 @@ const Settings = () => {
         setEducationEach(doc.data().displayInfo.education.each)
         setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
         setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
+        setVolunteeringLogos(doc.data().logoVisibility ? doc.data().logoVisibility.volunteering : false)
         setVolunteering(doc.data().displayInfo.volunteering.section)
         setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
@@ -239,7 +241,7 @@ const Settings = () => {
           setActive(doc.data().items[0].plan.active)
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
-          setCancelAt(doc.data().cancel_at.seconds)
+          // setCancelAt(doc.data().cancel_at.seconds)
           // console.log(doc.id, " => ", doc.data());
           // console.log(doc.data().items[0].plan.product);
           // console.log(doc.data().items[0].plan.active)
@@ -764,6 +766,8 @@ const Settings = () => {
               setExperienceLogos={setExperienceLogos}
               educationLogos={educationLogos}
               setEducationLogos={setEducationLogos}
+              volunteeringLogos={volunteeringLogos}
+              setVolunteeringLogos={setVolunteeringLogos}
             />
             <TemplateSection userData={userData} />
             <DownloadSection

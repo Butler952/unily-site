@@ -28,7 +28,7 @@ const Experience = ({
   const sortExperiences = (a,b) => {
     if (a.starts_at &&
         b.starts_at) {
-      console.log(`sorted ${a.company}`)
+      // console.log(`sorted ${a.company}`)
       if (a.ends_at == undefined & b.ends_at == undefined) {
         if (b.starts_at.year < a.starts_at.year)
           return -1;
@@ -48,25 +48,25 @@ const Experience = ({
         return 1;
       }
       if (b.ends_at.year < a.ends_at.year){
-        console.log(`${b.company} end year is earlier than ${a.company}`)
+        // console.log(`${b.company} end year is earlier than ${a.company}`)
         return -1;
       }
       if (b.ends_at.year > a.ends_at.year) {
-        console.log(`${b.company} end year is later than ${a.company}`)
+        // console.log(`${b.company} end year is later than ${a.company}`)
         return 1;
       }
       if (b.ends_at.year == a.ends_at.year) {
-        console.log(`${b.company} end year is the same as ${a.company}`)
+        // console.log(`${b.company} end year is the same as ${a.company}`)
         if (b.ends_at.month < a.ends_at.month) {
-          console.log(`${b.company} end month is the earlier as ${a.company}`)
+          // console.log(`${b.company} end month is the earlier as ${a.company}`)
           return -1;
         }
         if (b.ends_at.month > a.ends_at.month) {
-          console.log(`${b.company} end month is later than ${a.company}`)
+          // console.log(`${b.company} end month is later than ${a.company}`)
           return 1;
         }
         if (b.ends_at.month == a.ends_at.month) {
-          console.log(`${b.company} end month is the same as ${a.company}`)
+          // console.log(`${b.company} end month is the same as ${a.company}`)
           if (b.starts_at.year < a.starts_at.year)
             return -1;
           if (b.starts_at.year > a.starts_at.year)
@@ -162,16 +162,40 @@ const Experience = ({
         userContext.profile &&
         userContext.profile.experiences &&
         // userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
-        userContext.profile.experiences.sort(sortExperiences).map((job, index) => 
+        userContext.profile.experiences.sort(sortExperiences).map((job, index) => {
+
+        return (
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
-            {/* { job.logo_url ?
+            { job.logo_url ?
             <div>
-              <a target="_blank" href={job.company_linkedin_profile_url}>
-                <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} style={{width: '72px'}}/>
+              <a target="_blank" href={job.company_linkedin_profile_url} className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
+                {/* <img 
+                  className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
+                  style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
+                /> */}
+                <img 
+                  className="radius-3 bg-light-900"
+                  src={job.logo_url ? job.logo_url : null}
+                  onError={({ currentTarget }) => {
+                    // currentTarget.onerror = null; // prevents looping
+                    currentTarget.className = 'd-none' 
+                    // currentTarget.style = "display: 'none'" 
+                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                    // currentTarget.src="https://via.placeholder.com/150";
+                  }}
+                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px', zIndex: '1'}}
+                />
+                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px'}}>
+                  <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                </div>
               </a>
             </div>
-            : null} */}
+            : 
+            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center" style={{width: '72px', height: '72px', minWidth: '72px', minHeight:'72px'}}>
+              <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+            </div>
+            }
             <div className="w-100">
               <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
               {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
@@ -191,6 +215,7 @@ const Experience = ({
           </div>
           <div className="d-none d-lg-block"><Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" /></div>
         </div>
+        )}
       )}
       <div className="d-flex flex-row p-4">
         <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">

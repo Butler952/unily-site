@@ -22,7 +22,9 @@ const LogosSection = ({
     experienceLogos,
     setExperienceLogos,
     educationLogos,
-    setEducationLogos
+    setEducationLogos,
+    volunteeringLogos,
+    setVolunteeringLogos,
   }) => {
   const router = useRouter();
   const [syncingState, setSyncingState] = useState('');
@@ -70,6 +72,14 @@ const LogosSection = ({
     }
   }
 
+  const toggleVolunteering = (e) => {
+    if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+      setVolunteeringLogos(e)
+    } else {
+      handleShow()
+    }
+  }
+
   const handleLogosSubmit = (e) => {
     e.preventDefault();
     if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
@@ -78,6 +88,7 @@ const LogosSection = ({
         logoVisibility: {
           'experience': experienceLogos,
           'education': educationLogos,
+          'volunteering': volunteeringLogos,
         },
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
@@ -115,14 +126,21 @@ const LogosSection = ({
               <div className={styles.sectionCard + " card p-4"}>
                 <label className="checkbox-container font-weight-medium text-dark-high large">
                   Experience
-              <input type="checkbox" checked={experienceLogos} onChange={(e) => toggleExperience(e.currentTarget.checked)} />
+                <input type="checkbox" checked={experienceLogos} onChange={(e) => toggleExperience(e.currentTarget.checked)} />
                   <span className="checkmark"></span>
                 </label>
               </div>
               <div className={styles.sectionCard + " card p-4"}>
                 <label className="checkbox-container font-weight-medium text-dark-high large">
                   Education
-              <input type="checkbox" checked={educationLogos} onChange={(e) => toggleEducation(e.currentTarget.checked)} /* onClick={(e) => toggleEducation(e)} */ /* onChange={(e) => setEducationLogos(e.currentTarget.checked)} */ />
+                <input type="checkbox" checked={educationLogos} onChange={(e) => toggleEducation(e.currentTarget.checked)} /* onClick={(e) => toggleEducation(e)} */ /* onChange={(e) => setEducationLogos(e.currentTarget.checked)} */ />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div className={styles.sectionCard + " card p-4"}>
+                <label className="checkbox-container font-weight-medium text-dark-high large">
+                  Volunteering
+                <input type="checkbox" checked={volunteeringLogos} onChange={(e) => toggleVolunteering(e.currentTarget.checked)} /* onClick={(e) => toggleVolunteering(e)} */ /* onChange={(e) => setVolunteeringLogos(e.currentTarget.checked)} */ />
                   <span className="checkmark"></span>
                 </label>
               </div>
