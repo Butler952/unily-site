@@ -12,8 +12,6 @@ import mixpanel from 'mixpanel-browser';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
 
-
-
 const BasicProfile = (props) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
@@ -258,7 +256,7 @@ const BasicProfile = (props) => {
                   || props.links ?
                   <div className="d-flex align-items-center flex-column flex-md-row m-auto justify-content-center" style={{ gap: '12px' }}>
                     {props.email && props.displayInfo.basicInfo.each.email &&
-                      <a href={'mailto:' + props.email} className="btn primary high w-100 w-md-auto">Contact me</a>
+                      <a href={'mailto:' + props.email} target="_blank" className="btn primary high w-100 w-md-auto">Contact me</a>
                     }
                     {props.links &&
                       props.links.map((link, index) => {
@@ -502,7 +500,7 @@ const BasicProfile = (props) => {
                 <div className="text-center my-5">
                   <h2>Get in touch</h2>
                   <div className="d-flex m-auto justify-content-center">
-                    <a href={'mailto:' + props.email} className="btn primary high">Contact me</a>
+                    <a href={'mailto:' + props.email} target="_blank" className="btn primary high">Contact me</a>
                   </div>
                   <br /><br />
                 </div>
