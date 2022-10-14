@@ -188,7 +188,7 @@ const BasicResume = ({ allUserData }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.keyInfoSection}>
-          {allUserData.profile.profile_pic_url && (
+          {/* {allUserData.profile.profile_pic_url && (
             <View style={styles.userImageSection}>
               <View style={styles.userImageWrapper}>
                 <Image
@@ -197,7 +197,7 @@ const BasicResume = ({ allUserData }) => {
                 />
               </View>
             </View>
-          )}
+          )} */}
           <View style={styles.mb3}></View>
           {allUserData.profile.full_name && (
             <View style={styles.highEmphasis}>
@@ -235,13 +235,13 @@ const BasicResume = ({ allUserData }) => {
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
-                { allUserData.logoVisibility && allUserData.logoVisibility.experience && job.logo_url &&
+                {/* { allUserData.logoVisibility && allUserData.logoVisibility.experience && job.logo_url &&
                 // { job.logo_url &&
                   <Image
                     style={styles.orgImage}
                     src={job.logo_url}
                   />
-                }
+                } */}
                 <View style={styles.sectionFillRow}>
                   <View style={styles.highEmphasis}>
                     <Text style={styles.pBold}>{job.title}</Text>
@@ -361,13 +361,13 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
-                { allUserData.logoVisibility && allUserData.logoVisibility.education && school.logo_url &&
+                {/* { allUserData.logoVisibility && allUserData.logoVisibility.education && school.logo_url &&
                 // { job.logo_url &&
                   <Image
                     style={styles.orgImage}
                     src={school.logo_url}
                   />
-                }
+                } */}
                 <View style={styles.sectionFillRow}>
                   <View style={styles.highEmphasis}>
                     <Text style={styles.pBold}>
@@ -411,13 +411,13 @@ We deliver hands-on acceleration programmes to help founders go from idea to an 
             <div key={index}>
             <View style={styles.section}>
               <View style={styles.sectionRow}>
-                { allUserData.logoVisibility && allUserData.logoVisibility.education && volunteer.logo_url &&
+                {/* { allUserData.logoVisibility && allUserData.logoVisibility.education && volunteer.logo_url &&
                 // { job.logo_url &&
                   <Image
                     style={styles.orgImage}
                     src={volunteer.logo_url}
                   />
-                }
+                } */}
                 <View style={styles.sectionFillRow}>
                   <View style={styles.highEmphasis}>
                     <Text style={styles.pBold}>{volunteer.title}</Text>

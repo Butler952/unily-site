@@ -107,13 +107,13 @@ const DownloadSection = ({userData, allUserData}) => {
             DOCX
           </button>
         </div>
-        {/* {isClient && allUserData && (
+        {isClient && allUserData && (
           <div className="d-flex flex-column">
             <PDFViewer height={1000}>
               <BasicResume allUserData={allUserData} />
             </PDFViewer >
           </div>
-        )} */}
+        )}
       </div>
       <Modal 
         show={showModal} 
