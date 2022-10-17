@@ -18,9 +18,12 @@
 .profileCard {
   transition: $transition-standard;
   overflow:hidden;
-  // border:1px solid $dark-300 ;
+  border: 1px solid $dark-300 ;
   &:hover {
     box-shadow: $shadow-5;
+    * {
+      text-decoration: none;
+    }
   }
 }
 .summary {
@@ -34,6 +37,7 @@
   border: none;
   align-items: left;
   text-align: left;
+  height: 100%;
   &:not(:last-child) {
     border-bottom: 1px solid $dark-300;
   }
@@ -45,4 +49,16 @@
 .experienceImage {
   width: 80px;
   border-radius: $radius-medium; 
+}
+.projectGrid {
+  display: grid;
+  gap: 16px;
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &:hover {
+    * {
+      text-decoration: none;
+    }
+  }
 }

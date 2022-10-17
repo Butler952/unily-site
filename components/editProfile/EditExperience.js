@@ -33,6 +33,12 @@ const EditExperience = ({
   setExperiencesLocationChanged,
   experiencesLocationError,
   setExperiencesLocationError,
+  experiencesUrl,
+  setExperiencesUrl,
+  experiencesUrlChanged,
+  setExperiencesUrlChanged,
+  experiencesUrlError,
+  setExperiencesUrlError,
   experiencesStartDate,
   setExperiencesStartDate,
   experiencesStartDateInputType,
@@ -99,6 +105,12 @@ const EditExperience = ({
     setExperiencesLocationError('')
   }
 
+  const experiencesUrlChange = (value) => {
+    setExperiencesUrl(value),
+    setExperiencesUrlChanged(true),
+    setExperiencesUrlError('')
+  }
+
   const experiencesStartDateChange = (value) => {
     setExperiencesStartDate(value),
     setExperiencesStartDateChanged(true),
@@ -148,6 +160,9 @@ const EditExperience = ({
     if (experiencesLocationChanged) {
       originalExperiences[index].location = experiencesLocation
     }
+    if (experiencesUrlChanged) {
+      originalExperiences[index].company_linkedin_profile_url = experiencesUrl
+    }
     if (experiencesStartDateChanged) {
       let startDateMonth = Number(experiencesStartDate.split('-')[1]);
       let startDateYear = Number(experiencesStartDate.split('-')[0]);
@@ -158,21 +173,19 @@ const EditExperience = ({
           'year': startDateYear
         }
     }
-    if (experiencesEndDatePresentChanged) {
-      if (!experiencesEndDatePresent) {
-        if (experiencesEndDateChanged) {
-          let endDateMonth = Number(experiencesEndDate.split('-')[1]);
-          let endDateYear = Number(experiencesEndDate.split('-')[0]);
-          originalExperiences[index].ends_at = 
-            { 
-              'day': 31,
-              'month': endDateMonth,
-              'year': endDateYear
-            }
-        }
-      } else {
-        delete originalExperiences[index].ends_at
+    if (!experiencesEndDatePresent) {
+      if (experiencesEndDateChanged) {
+        let endDateMonth = Number(experiencesEndDate.split('-')[1]);
+        let endDateYear = Number(experiencesEndDate.split('-')[0]);
+        originalExperiences[index].ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
       }
+    } else {
+      delete originalExperiences[index].ends_at
     }
     if (experiencesDescriptionChanged) {
       originalExperiences[index].description = experiencesDescription
@@ -183,11 +196,11 @@ const EditExperience = ({
     e.preventDefault();
 
     if (experiencesCompanyChanged && experiencesCompany === '') {
-      setCompanyError('Your first name cannot be empty')
+      setExperiencesCompanyError('Company name cannot be empty')
       return null;
     }
     if (experiencesTitleChanged && experiencesTitle === '') {
-      setTitleError('Job title cannot be empty')
+      setExperiencesTitleError('Job title cannot be empty')
       return null;
     }
 
@@ -524,6 +537,16 @@ const EditExperience = ({
               onChange={({ target }) => experiencesLocationChange(target.value)}
             />
             {experiencesLocationError !== '' ? <p className="small text-error-high mt-2">{experiencesLocationError}</p> : null}
+          </div>
+          <div className="mb-3">
+            <p className="text-dark-high mb-2">Link</p>
+            <input
+              type="text"
+              className={experiencesUrlError !== '' ? `error w-100 small` : `w-100 small`}
+              value={experiencesUrlChanged ? experiencesUrl : (userContext && userContext.profile && userContext.profile.experiences[editProfileModalIndex] && userContext.profile.experiences[editProfileModalIndex].company_linkedin_profile_url && userContext.profile.experiences[editProfileModalIndex].company_linkedin_profile_url !== undefined ? userContext && userContext.profile && userContext.profile.experiences[editProfileModalIndex] && userContext.profile.experiences[editProfileModalIndex].company_linkedin_profile_url && userContext.profile.experiences[editProfileModalIndex].company_linkedin_profile_url : '')}
+              onChange={({ target }) => experiencesUrlChange(target.value)}
+            />
+            {experiencesUrlError !== '' ? <p className="small text-error-high mt-2">{experiencesUrlError}</p> : null}
           </div>
           <div className="mb-3">
             <p className="text-dark-high mb-2">Start date</p>

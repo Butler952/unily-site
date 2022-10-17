@@ -39,6 +39,12 @@ const EditEducation = ({
   setEducationLocationChanged,
   educationLocationError,
   setEducationLocationError,
+  educationUrl,
+  setEducationUrl,
+  educationUrlChanged,
+  setEducationUrlChanged,
+  educationUrlError,
+  setEducationUrlError,
   educationStartDate,
   setEducationStartDate,
   educationStartDateInputType,
@@ -111,6 +117,12 @@ const EditEducation = ({
     setEducationLocationError('')
   }
 
+  const educationUrlChange = (value) => {
+    setEducationUrl(value),
+    setEducationUrlChanged(true),
+    setEducationUrlError('')
+  }
+
   const educationStartDateChange = (value) => {
     setEducationStartDate(value),
     setEducationStartDateChanged(true),
@@ -163,6 +175,9 @@ const EditEducation = ({
     if (educationLocationChanged) {
       originalEducation[index].location = educationLocation
     }
+    if (educationUrlChanged) {
+      originalEducation[index].school_linkedin_profile_url = educationUrl
+    }
     if (educationStartDateChanged) {
       let startDateMonth = Number(educationStartDate.split('-')[1]);
       let startDateYear = Number(educationStartDate.split('-')[0]);
@@ -173,21 +188,19 @@ const EditEducation = ({
           'year': startDateYear
         }
     }
-    if (educationEndDatePresentChanged) {
-      if (!educationEndDatePresent) {
-        if (educationEndDateChanged) {
-          let endDateMonth = Number(educationEndDate.split('-')[1]);
-          let endDateYear = Number(educationEndDate.split('-')[0]);
-          originalEducation[index].ends_at = 
-            { 
-              'day': 31,
-              'month': endDateMonth,
-              'year': endDateYear
-            }
-        }
-      } else {
-        delete originalEducation[index].ends_at
+    if (!educationEndDatePresent) {
+      if (educationEndDateChanged) {
+        let endDateMonth = Number(educationEndDate.split('-')[1]);
+        let endDateYear = Number(educationEndDate.split('-')[0]);
+        originalEducation[index].ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
       }
+    } else {
+      delete originalEducation[index].ends_at
     }
     if (educationDescriptionChanged) {
       originalEducation[index].description = educationDescription
@@ -521,7 +534,7 @@ const EditEducation = ({
             {educationFieldOfStudyError !== '' ? <p className="small text-error-high mt-2">{educationFieldOfStudyError}</p> : null}
           </div>
           <div className="mb-3">
-            <p className="text-dark-high mb-2">Degree name</p>
+            <p className="text-dark-high mb-2">Degree type</p>
             <input
               type="text"
               className={educationDegreeNameError !== '' ? `error w-100 small` : `w-100 small`}
@@ -549,6 +562,16 @@ const EditEducation = ({
               onChange={({ target }) => educationLocationChange(target.value)}
             />
             {educationLocationError !== '' ? <p className="small text-error-high mt-2">{educationLocationError}</p> : null}
+          </div>
+          <div className="mb-3">
+            <p className="text-dark-high mb-2">Link</p>
+            <input
+              type="text"
+              className={educationUrlError !== '' ? `error w-100 small` : `w-100 small`}
+              value={educationUrlChanged ? educationUrl : (userContext && userContext.profile && userContext.profile.education[editProfileModalIndex] && userContext.profile.education[editProfileModalIndex].school_linkedin_profile_url && userContext.profile.education[editProfileModalIndex].school_linkedin_profile_url !== undefined ? userContext && userContext.profile && userContext.profile.education[editProfileModalIndex] && userContext.profile.education[editProfileModalIndex].school_linkedin_profile_url && userContext.profile.education[editProfileModalIndex].school_linkedin_profile_url : '')}
+              onChange={({ target }) => educationUrlChange(target.value)}
+            />
+            {educationUrlError !== '' ? <p className="small text-error-high mt-2">{educationUrlError}</p> : null}
           </div>
           <div className="mb-3">
             <p className="text-dark-high mb-2">Start date</p>

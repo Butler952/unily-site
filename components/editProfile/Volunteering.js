@@ -110,7 +110,7 @@ const Volunteering = ({
                   style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
                 /> */}
                 <img 
-                  className="radius-3"
+                  className="radius-3 bg-light-900"
                   src={job.logo_url ? job.logo_url : null}
                   onError={({ currentTarget }) => {
                     // currentTarget.onerror = null; // prevents looping
@@ -141,8 +141,7 @@ const Volunteering = ({
                 {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
                 {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
                 {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                {job.starts_at && job.ends_at && job.ends_at.month && job.ends_at.year ? ( job.starts_at.month == job.ends_at.month & job.starts_at.year == job.ends_at.year ? null : ` – ${convertMonth(job.ends_at.month)} ${job.ends_at.year}`) : null }
               </p>
               {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
             </div>

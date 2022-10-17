@@ -107,9 +107,9 @@ const BasicProfile = (props) => {
     }
   };
 
-  const sortByDate = (a,b) => {
+  const sortByDate = (a, b) => {
     if (a.starts_at &&
-        b.starts_at) {
+      b.starts_at) {
       // console.log(`sorted ${a.company}`)
       if (a.ends_at == undefined & b.ends_at == undefined) {
         if (b.starts_at.year < a.starts_at.year)
@@ -129,7 +129,7 @@ const BasicProfile = (props) => {
       if (b.ends_at == undefined) {
         return 1;
       }
-      if (b.ends_at.year < a.ends_at.year){
+      if (b.ends_at.year < a.ends_at.year) {
         // console.log(`${b.company} end year is earlier than ${a.company}`)
         return -1;
       }
@@ -190,8 +190,8 @@ const BasicProfile = (props) => {
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} /> }
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} /> }
+            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -285,103 +285,164 @@ const BasicProfile = (props) => {
                       // {props.experiences.map((job, index) => {
                       const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                       return (
-                        <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                          {/* {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
-                            <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                              <a target="_blank" href={job.company_linkedin_profile_url}>
-                                <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                              </a>
-                            </div>
-                            : null} */}
-                          {props.logoVisibility && props.logoVisibility.experience ? 
-                            (job.logo_url ?
-                            <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                              <a target="_blank" href={job.company_linkedin_profile_url} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
-                                {/* <img 
-                                className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
-                                style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px'}}
-                              /> */}
-                                <img
-                                  className="radius-3 bg-light-900"
-                                  src={job.logo_url ? job.logo_url : null}
-                                  onError={({ currentTarget }) => {
-                                    // currentTarget.onerror = null; // prevents looping
-                                    currentTarget.className = 'd-none'
-                                    // currentTarget.style = "display: 'none'" 
-                                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                    // currentTarget.src="https://via.placeholder.com/150";
-                                  }}
-                                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
-                                />
-                                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
+                        <a key={index} target="_blank" href={job.company_linkedin_profile_url} className={`${styles.job}`}>
+                          <Accordion key={index} className="d-flex flex-column flex-lg-row align-items-start">
+                            {/* {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
+                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                <a target="_blank" href={job.company_linkedin_profile_url}>
+                                  <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                                </a>
+                              </div>
+                              : null} */}
+                            {props.logoVisibility && props.logoVisibility.experience ?
+                              (job.logo_url ?
+                                <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                  <a target="_blank" href={job.company_linkedin_profile_url ? job.company_linkedin_profile_url : null} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
+                                    {/* <img 
+                                  className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
+                                  style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px'}}
+                                /> */}
+                                    <img
+                                      className="radius-3 bg-light-900"
+                                      src={job.logo_url ? job.logo_url : null}
+                                      onError={({ currentTarget }) => {
+                                        // currentTarget.onerror = null; // prevents looping
+                                        currentTarget.className = 'd-none'
+                                        // currentTarget.style = "display: 'none'" 
+                                        // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                        // currentTarget.src="https://via.placeholder.com/150";
+                                      }}
+                                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
+                                    />
+                                    <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
+                                      <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                                    </div>
+                                  </a>
+                                </div>
+                                :
+                                <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
                                   <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
                                 </div>
-                              </a>
+                              ) : null}
+                            <div className="w-100">
+                              <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                              <p className="large text-dark-med mb-0">{job.company}</p>
+                              <p className="text-dark-low mb-0">{job.location}</p>
+                              <p className="text-dark-low mb-0">
+                                {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                                {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                                {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                                {job.starts_at && job.ends_at && job.ends_at.month && job.ends_at.year ? ( job.starts_at.month == job.ends_at.month & job.starts_at.year == job.ends_at.year ? null : ` – ${convertMonth(job.ends_at.month)} ${job.ends_at.year}`) : null }
+                              </p>
+                              {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
+                              {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                             </div>
-                            :
-                            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
-                              <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
-                            </div>
-                          ) : null}
-                          <div className="w-100">
-                            <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                            <p className="large text-dark-med mb-0">{job.company}</p>
-                            <p className="text-dark-low mb-0">{job.location}</p>
-                            <p className="text-dark-low mb-0">
-                              {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                              {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                              {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                              {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                              {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                            </p>
-                            {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
-                            {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
-                          </div>
-                        </Accordion>
+                          </Accordion>
+                        </a>
                       )
                     })}
                     {/* { userContext && 
-                userContext.profile && 
-                userContext.profile.experiences !== undefined ? userContext.profile.experiences.map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : ''
+                        userContext.profile && 
+                        userContext.profile.experiences !== undefined ? userContext.profile.experiences.map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : ''
+                      }
+                      { userContext && 
+                        userContext.profile && 
+                        userContext.profile.experiences == undefined ? (props.experiences).map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : '' 
+                      } */}
+                            {/* <UserContext.Consumer>
+                      {({ userValue }) => (
+                          userValue && 
+                          userValue.profile && 
+                          userValue.profile.experiences
+                          .map((job, index) => (props.displayExperience.each[index].display) &&
+                          <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
+                            {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
+                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                <a target="_blank" href={job.company_linkedin_profile_url}>
+                                  <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
+                                </a>
+                              </div>
+                              : null}
+                            <div className="w-100">
+                              <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+                              <p className="large text-dark-med mb-0">{job.company}</p>
+                              <p className="text-dark-low mb-0">{job.location}</p>
+                              <p className="text-dark-low mb-0">
+                                {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                                {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
+                                {job.starts_at && job.ends_at == null ? ' – Present' : null}
+                                {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
+                                {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
+                              </p>
+                              {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
+          
+          
+                            </div>
+                          </Accordion>
+                        )
+                      )}
+                      
+                      </UserContext.Consumer> */}
+                  </div>
+                  <br /><br />
+                </div>
               }
-              { userContext && 
-                userContext.profile && 
-                userContext.profile.experiences == undefined ? (props.experiences).map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : '' 
-              } */}
-                    {/* <UserContext.Consumer>
-              {({ userValue }) => (
-                  userValue && 
-                  userValue.profile && 
-                  userValue.profile.experiences
-                  .map((job, index) => (props.displayExperience.each[index].display) &&
-                  <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                    {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
-                      <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                        <a target="_blank" href={job.company_linkedin_profile_url}>
-                          <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                        </a>
-                      </div>
-                      : null}
-                    <div className="w-100">
-                      <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                      <p className="large text-dark-med mb-0">{job.company}</p>
-                      <p className="text-dark-low mb-0">{job.location}</p>
-                      <p className="text-dark-low mb-0">
-                        {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                        {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                        {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                        {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                        {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                      </p>
-                      {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
-  
-  
-                    </div>
-                  </Accordion>
-                )
-              )}
-              
-              </UserContext.Consumer> */}
+              {(props.projects && props.projects.length > 0) &&
+                <div className="mb-5">
+                  <h4>Projects</h4>
+                  <div className={`${styles.projectGrid}`}>
+                      {props.projects.sort(sortByDate).map((project, index) => {
+                        const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                        return (
+                          <a key={index} target="_blank" href={project.url}>
+                            <div className={styles.profileCard + ' card'}>
+                              <Accordion className={`${styles.job} d-flex flex-column align-items-start`}>
+                                {props.logoVisibility && props.logoVisibility.experience ?
+                                  (project.logo_url ?
+                                    <div className="mb-3 w-100">
+                                      <a target="_blank" href={project.url} className="d-block position-relative w-100">    
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
+                                            <img
+                                              src={project.logo_url ? project.logo_url : null}
+                                              onError={({ currentTarget }) => {
+                                                currentTarget.className = 'd-none'
+                                              }}
+                                              className="position-absolute radius-2 shadow-2 bg-light-900 w-100 h-100" 
+                                              style={{ top: 0, left: 0, zIndex: 1 }}
+                                            />
+                                            <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+                                              <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        </a>
+                                    </div>
+                                    :
+                                    <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                      <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
+                                        <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+                                          <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : null}
+                                <div className="w-100">
+                                  <p className="large text-dark-high font-weight-semibold mb-0">{project.name}</p>
+                                  <p className="text-dark-low mb-0">
+                                    {project.starts_at ? (project.starts_at.month ? convertMonth(project.starts_at.month) + " " : '') : null}
+                                    {project.starts_at ? (project.starts_at.year ? project.starts_at.year + " " : null) : null}
+                                    {project.starts_at && project.ends_at == null ? ' – Present' : null}
+                                    {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
+                                  </p>
+                                  {project.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                </div>
+                              </Accordion>
+                            </div>
+                          </a>
+                        )
+                      })}
                   </div>
                   <br /><br />
                 </div>
@@ -391,52 +452,53 @@ const BasicProfile = (props) => {
                   <h4>Education</h4>
                   <div className={styles.profileCard + ' card'}>
                     {props.education.map((school, index) =>
-                      <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                        {/* {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
-                          <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                            <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
-                          </div>
-                          : null} */}
-                          {props.logoVisibility && props.logoVisibility.education ? 
-                            (school.logo_url ?
+                      <a key={index} target="_blank" href={school.school_linkedin_profile_url ? school.school_linkedin_profile_url : null} className={`${styles.job}`}>
+                        <div className="d-flex flex-column flex-lg-row">
+                          {/* {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
                             <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                              <a target="_blank" href={school.school_linkedin_profile_url} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
-                                <img
-                                  className="radius-3"
-                                  src={school.logo_url ? school.logo_url : null}
-                                  onError={({ currentTarget }) => {
-                                    // currentTarget.onerror = null; // prevents looping
-                                    currentTarget.className = 'd-none'
-                                    // currentTarget.style = "display: 'none'" 
-                                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                    // currentTarget.src="https://via.placeholder.com/150";
-                                  }}
-                                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
-                                />
-                                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
-                                  <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
-                                </div>
-                              </a>
+                              <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
                             </div>
-                            :
-                            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
-                              <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
-                            </div>
-                          ) : null}
-                        <div>
-                          <p className="large text-dark-high font-weight-semibold mb-0">
-                            {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
-                          </p>
-                          <p className="large mb-0">{school.school}</p>
-                          <p className="text-dark-low mb-0">
-                            {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
-                            {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
-                            {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                            {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
-                            {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
-                          </p>
+                            : null} */}
+                          {props.logoVisibility && props.logoVisibility.education ?
+                            (school.logo_url ?
+                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                <a target="_blank" href={school.school_linkedin_profile_url} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
+                                  <img
+                                    className="radius-3 bg-light-900"
+                                    src={school.logo_url ? school.logo_url : null}
+                                    onError={({ currentTarget }) => {
+                                      // currentTarget.onerror = null; // prevents looping
+                                      currentTarget.className = 'd-none'
+                                      // currentTarget.style = "display: 'none'" 
+                                      // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                      // currentTarget.src="https://via.placeholder.com/150";
+                                    }}
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
+                                  />
+                                  <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
+                                    <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                                  </div>
+                                </a>
+                              </div>
+                              :
+                              <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
+                                <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                              </div>
+                            ) : null}
+                          <div>
+                            <p className="large text-dark-high font-weight-semibold mb-0">
+                              {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
+                            </p>
+                            <p className="large text-dark-med mb-0">{school.school}</p>
+                            <p className="text-dark-low mb-0">
+                              {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
+                              {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                              {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                              {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? ( school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month)} ${school.ends_at.year}`) : null }
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </a>
                     )}
                   </div>
                   <br /><br />
@@ -447,50 +509,51 @@ const BasicProfile = (props) => {
                   <h4>Volunteering</h4>
                   <div className={styles.profileCard + ' card'}>
                     {props.volunteer_work.map((volunteer, index) =>
-                      <div key={index} className={`${styles.job} d-flex flex-column flex-lg-row`}>
-                        {props.logoVisibility && props.logoVisibility.volunteering ? 
-                          (volunteer.logo_url ?
-                            <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                              <a target="_blank" href={volunteer.company_linkedin_profile_url} className="d-block position-relative" style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden'}}>
-                                {/* <img 
-                                  className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
-                                  style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px'}}
-                                /> */}
-                                <img 
-                                  className="radius-3"
-                                  src={volunteer.logo_url ? volunteer.logo_url : null}
-                                  onError={({ currentTarget }) => {
-                                    // currentTarget.onerror = null; // prevents looping
-                                    currentTarget.className = 'd-none' 
-                                    // currentTarget.style = "display: 'none'" 
-                                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                    // currentTarget.src="https://via.placeholder.com/150";
-                                  }}
-                                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight:'80px', zIndex: '1'}}
-                                />
-                                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight:'80px'}}>
-                                  <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
-                                </div>
-                              </a>
-                            </div>
-                            : 
-                            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{width: '80px', height: '80px', minWidth: '80px', minHeight:'80px'}}>
-                              <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
-                            </div>
-                          ) : null}
-                        <div>
-                          <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                          <p className="large mb-0">{volunteer.company}</p>
-                          <p className="text-dark-low mb-0">
-                            {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
-                            {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
-                            {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
-                            {volunteer.starts_at && volunteer.ends_at ? " – " + (volunteer.ends_at.month ? convertMonth(volunteer.ends_at.month) : '') : null}
-                            {volunteer.starts_at && volunteer.ends_at ? (volunteer.ends_at.year ? " " + volunteer.ends_at.year : null) : null}
-                          </p>
-                          {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
+                      <a key={index} target="_blank" href={volunteer.company_linkedin_profile_url ? volunteer.company_linkedin_profile_url : null} className={`${styles.job}`}>
+                        <div className="d-flex flex-column flex-lg-row">
+                          {props.logoVisibility && props.logoVisibility.volunteering ?
+                            (volunteer.logo_url ?
+                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                <a target="_blank" href={volunteer.company_linkedin_profile_url} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
+                                  {/* <img 
+                                    className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
+                                    style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px'}}
+                                  /> */}
+                                  <img
+                                    className="radius-3 bg-light-900"
+                                    src={volunteer.logo_url ? volunteer.logo_url : null}
+                                    onError={({ currentTarget }) => {
+                                      // currentTarget.onerror = null; // prevents looping
+                                      currentTarget.className = 'd-none'
+                                      // currentTarget.style = "display: 'none'" 
+                                      // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                      // currentTarget.src="https://via.placeholder.com/150";
+                                    }}
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
+                                  />
+                                  <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
+                                    <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
+                                  </div>
+                                </a>
+                              </div>
+                              :
+                              <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
+                                <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
+                              </div>
+                            ) : null}
+                          <div>
+                            <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
+                            <p className="large text-dark-med mb-0">{volunteer.company}</p>
+                            <p className="text-dark-low mb-0">
+                              {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
+                              {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
+                              {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
+                              {volunteer.starts_at && volunteer.ends_at && volunteer.ends_at.month && volunteer.ends_at.year ? ( volunteer.starts_at.month == volunteer.ends_at.month & volunteer.starts_at.year == volunteer.ends_at.year ? null : ` – ${convertMonth(volunteer.ends_at.month)} ${volunteer.ends_at.year}`) : null }
+                            </p>
+                            {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
+                          </div>
                         </div>
-                      </div>
+                      </a>
                     )}
                   </div>
                   <br /><br />

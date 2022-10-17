@@ -100,7 +100,7 @@ const Education = ({
                   style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
                 /> */}
                 <img 
-                  className="radius-3"
+                  className="radius-3 bg-light-900"
                   src={school.logo_url ? school.logo_url : null}
                   onError={({ currentTarget }) => {
                     // currentTarget.onerror = null; // prevents looping
@@ -134,8 +134,7 @@ const Education = ({
                 {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
                 {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
                 {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                {school.starts_at && school.ends_at ? " – " + (school.ends_at.month ? convertMonth(school.ends_at.month) : '') : null}
-                {school.starts_at && school.ends_at ? (school.ends_at.year ? " " + school.ends_at.year : null) : null}
+                {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? ( school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month)} ${school.ends_at.year}`) : null }
               </p>
               {/* {school.description ? <p className="text-dark-med mb-0 mt-3">{school.description}</p> : null} */}
             </div>

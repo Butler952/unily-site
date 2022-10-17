@@ -33,6 +33,12 @@ const EditVolunteering = ({
   setVolunteeringLocationChanged,
   volunteeringLocationError,
   setVolunteeringLocationError,
+  volunteeringUrl,
+  setVolunteeringUrl,
+  volunteeringUrlChanged,
+  setVolunteeringUrlChanged,
+  volunteeringUrlError,
+  setVolunteeringUrlError,
   volunteeringStartDate,
   setVolunteeringStartDate,
   volunteeringStartDateInputType,
@@ -99,6 +105,12 @@ const EditVolunteering = ({
     setVolunteeringLocationError('')
   }
 
+  const volunteeringUrlChange = (value) => {
+    setVolunteeringUrl(value),
+    setVolunteeringUrlChanged(true),
+    setVolunteeringUrlError('')
+  }
+
   const volunteeringStartDateChange = (value) => {
     setVolunteeringStartDate(value),
     setVolunteeringStartDateChanged(true),
@@ -148,6 +160,9 @@ const EditVolunteering = ({
     if (volunteeringLocationChanged) {
       originalVolunteering[index].location = volunteeringLocation
     }
+    if (volunteeringUrlChanged) {
+      originalVolunteering[index].company_linkedin_profile_url = volunteeringUrl
+    }
     if (volunteeringStartDateChanged) {
       let startDateMonth = Number(volunteeringStartDate.split('-')[1]);
       let startDateYear = Number(volunteeringStartDate.split('-')[0]);
@@ -158,21 +173,19 @@ const EditVolunteering = ({
           'year': startDateYear
         }
     }
-    if (volunteeringEndDatePresentChanged) {
-      if (!volunteeringEndDatePresent) {
-        if (volunteeringEndDateChanged) {
-          let endDateMonth = Number(volunteeringEndDate.split('-')[1]);
-          let endDateYear = Number(volunteeringEndDate.split('-')[0]);
-          originalVolunteering[index].ends_at = 
-            { 
-              'day': 31,
-              'month': endDateMonth,
-              'year': endDateYear
-            }
-        }
-      } else {
-        delete originalVolunteering[index].ends_at
+    if (!volunteeringEndDatePresent) {
+      if (volunteeringEndDateChanged) {
+        let endDateMonth = Number(volunteeringEndDate.split('-')[1]);
+        let endDateYear = Number(volunteeringEndDate.split('-')[0]);
+        originalVolunteering[index].ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
       }
+    } else {
+      delete originalVolunteering[index].ends_at
     }
     if (volunteeringDescriptionChanged) {
       originalVolunteering[index].description = volunteeringDescription
@@ -524,6 +537,16 @@ const EditVolunteering = ({
               onChange={({ target }) => volunteeringLocationChange(target.value)}
             />
             {volunteeringLocationError !== '' ? <p className="small text-error-high mt-2">{volunteeringLocationError}</p> : null}
+          </div>
+          <div className="mb-3">
+            <p className="text-dark-high mb-2">Link</p>
+            <input
+              type="text"
+              className={volunteeringUrlError !== '' ? `error w-100 small` : `w-100 small`}
+              value={volunteeringUrlChanged ? volunteeringUrl : (userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].company_linkedin_profile_url && userContext.profile.volunteer_work[editProfileModalIndex].company_linkedin_profile_url !== undefined ? userContext && userContext.profile && userContext.profile.volunteer_work[editProfileModalIndex] && userContext.profile.volunteer_work[editProfileModalIndex].company_linkedin_profile_url && userContext.profile.volunteer_work[editProfileModalIndex].company_linkedin_profile_url : '')}
+              onChange={({ target }) => volunteeringUrlChange(target.value)}
+            />
+            {volunteeringUrlError !== '' ? <p className="small text-error-high mt-2">{volunteeringUrlError}</p> : null}
           </div>
           <div className="mb-3">
             <p className="text-dark-high mb-2">Start date</p>

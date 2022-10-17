@@ -18,6 +18,9 @@ import Links from './Links';
 import AddLink from './AddLink';
 import EditLink from './EditLink';
 import styles from './EditProfile.module.scss'
+import Projects from './Projects';
+import AddProject from './AddProject';
+import EditProject from './EditProject';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -81,6 +84,9 @@ const EditProfile = ({
   const [experiencesEndDateError, setExperiencesEndDateError] = useState('');
   const [experiencesEndDatePresent, setExperiencesEndDatePresent] = useState(false);
   const [experiencesEndDatePresentChanged, setExperiencesEndDatePresentChanged] = useState(false);
+  const [experiencesUrl, setExperiencesUrl] = useState('');
+  const [experiencesUrlChanged, setExperiencesUrlChanged] = useState(false);
+  const [experiencesUrlError, setExperiencesUrlError] = useState('');
   const [experiencesDescription, setExperiencesDescription] = useState('');
   const [experiencesDescriptionChanged, setExperiencesDescriptionChanged] = useState(false);
   const [experiencesDescriptionError, setExperiencesDescriptionError] = useState('');
@@ -110,6 +116,9 @@ const EditProfile = ({
   const [educationEndDateError, setEducationEndDateError] = useState('');
   const [educationEndDatePresent, setEducationEndDatePresent] = useState(false);
   const [educationEndDatePresentChanged, setEducationEndDatePresentChanged] = useState(false);
+  const [educationUrl, setEducationUrl] = useState('');
+  const [educationUrlChanged, setEducationUrlChanged] = useState(false);
+  const [educationUrlError, setEducationUrlError] = useState('');
   const [educationDescription, setEducationDescription] = useState('');
   const [educationDescriptionChanged, setEducationDescriptionChanged] = useState(false);
   const [educationDescriptionError, setEducationDescriptionError] = useState('');
@@ -136,10 +145,36 @@ const EditProfile = ({
   const [volunteeringEndDateError, setVolunteeringEndDateError] = useState('');
   const [volunteeringEndDatePresent, setVolunteeringEndDatePresent] = useState(false);
   const [volunteeringEndDatePresentChanged, setVolunteeringEndDatePresentChanged] = useState(false);
+  const [volunteeringUrl, setVolunteeringUrl] = useState('');
+  const [volunteeringUrlChanged, setVolunteeringUrlChanged] = useState(false);
+  const [volunteeringUrlError, setVolunteeringUrlError] = useState('');
   const [volunteeringDescription, setVolunteeringDescription] = useState('');
   const [volunteeringDescriptionChanged, setVolunteeringDescriptionChanged] = useState(false);
   const [volunteeringDescriptionError, setVolunteeringDescriptionError] = useState('');
   const [volunteeringShowDeleteVolunteeringModal, setVolunteeringShowDeleteVolunteeringModal] = useState(false);
+
+  const [projectsImage, setProjectsImage] = useState('');
+  const [projectsImageChanged, setProjectsImageChanged] = useState(false);
+  const [projectsName, setProjectsName] = useState('');
+  const [projectsNameChanged, setProjectsNameChanged] = useState(false);
+  const [projectsNameError, setProjectsNameError] = useState('');
+  const [projectsUrl, setProjectsUrl] = useState('');
+  const [projectsUrlChanged, setProjectsUrlChanged] = useState(false);
+  const [projectsUrlError, setProjectsUrlError] = useState('');
+  const [projectsStartDate, setProjectsStartDate] = useState('');
+  const [projectsStartDateInputType, setProjectsStartDateInputType] = useState('text');
+  const [projectsStartDateChanged, setProjectsStartDateChanged] = useState(false);
+  const [projectsStartDateError, setProjectsStartDateError] = useState('');
+  const [projectsEndDate, setProjectsEndDate] = useState('');
+  const [projectsEndDateInputType, setProjectsEndDateInputType] = useState('text');
+  const [projectsEndDateChanged, setProjectsEndDateChanged] = useState(false);
+  const [projectsEndDateError, setProjectsEndDateError] = useState('');
+  const [projectsEndDatePresent, setProjectsEndDatePresent] = useState(false);
+  const [projectsEndDatePresentChanged, setProjectsEndDatePresentChanged] = useState(false);
+  const [projectsDescription, setProjectsDescription] = useState('');
+  const [projectsDescriptionChanged, setProjectsDescriptionChanged] = useState(false);
+  const [projectsDescriptionError, setProjectsDescriptionError] = useState('');
+  const [projectsShowDeleteProjectModal, setProjectsShowDeleteProjectModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = fire.auth()
@@ -203,6 +238,9 @@ const EditProfile = ({
     setExperiencesEndDateError('')
     setExperiencesEndDatePresent(false)
     setExperiencesEndDatePresentChanged(false)
+    setExperiencesUrl('')
+    setExperiencesUrlChanged(false)
+    setExperiencesUrlError('')
     setExperiencesDescription('')
     setExperiencesDescriptionChanged(false)
     setExperiencesDescriptionError('')
@@ -231,6 +269,9 @@ const EditProfile = ({
     setEducationEndDateError('')
     setEducationEndDatePresent(false)
     setEducationEndDatePresentChanged(false)
+    setEducationUrl('')
+    setEducationUrlChanged(false)
+    setEducationUrlError('')
     setEducationDescription('')
     setEducationDescriptionChanged(false)
     setEducationDescriptionError('')
@@ -256,10 +297,35 @@ const EditProfile = ({
     setVolunteeringEndDateError('')
     setVolunteeringEndDatePresent(false)
     setVolunteeringEndDatePresentChanged(false)
+    setVolunteeringUrl('')
+    setVolunteeringUrlChanged(false)
+    setVolunteeringUrlError('')
     setVolunteeringDescription('')
     setVolunteeringDescriptionChanged(false)
     setVolunteeringDescriptionError('')
     setVolunteeringShowDeleteVolunteeringModal(false)
+    setProjectsImage('')
+    setProjectsImageChanged(false)
+    setProjectsName('')
+    setProjectsNameChanged(false)
+    setProjectsNameError('')
+    setProjectsUrl('')
+    setProjectsUrlChanged(false)
+    setProjectsUrlError('')
+    setProjectsStartDate('')
+    setProjectsStartDateInputType('text')
+    setProjectsStartDateChanged(false)
+    setProjectsStartDateError('')
+    setProjectsEndDate('')
+    setProjectsEndDateInputType('text')
+    setProjectsEndDateChanged(false)
+    setProjectsEndDateError('')
+    setProjectsEndDatePresent(false)
+    setProjectsEndDatePresentChanged(false)
+    setProjectsDescription('')
+    setProjectsDescriptionChanged(false)
+    setProjectsDescriptionError('')
+    setProjectsShowDeleteProjectModal(false)
   }
 
   const handleClick = (title) => {
@@ -271,7 +337,9 @@ const EditProfile = ({
     (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") ? handleEditProfileChangeView('Experience') : (
       (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
         (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : (
-          (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : handleEditProfileChangeView('default')
+          (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : (
+            (editProfileModalState == "Add project" || editProfileModalState == "Edit project") ? handleEditProfileChangeView('Projects') : handleEditProfileChangeView('default')
+          )
         )
       )
     )
@@ -305,11 +373,16 @@ const EditProfile = ({
     },
     {
       "id": 4,
+      "title": "Projects",
+      "icon": ICONS.PROJECTS
+    },
+    {
+      "id": 5,
       "title": "Education",
       "icon": ICONS.SCHOOL
     },
     {
-      "id": 5,
+      "id": 6,
       "title": "Volunteering",
       "icon": ICONS.VOLUNTEERING
     },
@@ -501,6 +574,12 @@ const EditProfile = ({
             setExperiencesEndDatePresent={setExperiencesEndDatePresent}
             experiencesEndDatePresentChanged={experiencesEndDatePresentChanged}
             setExperiencesEndDatePresentChanged={setExperiencesEndDatePresentChanged}
+            experiencesUrl={experiencesUrl}
+            setExperiencesUrl={setExperiencesUrl}
+            experiencesUrlChanged={experiencesUrlChanged}
+            setExperiencesUrlChanged={setExperiencesUrlChanged}
+            experiencesUrlError={experiencesUrlError}
+            setExperiencesUrlError={setExperiencesUrlError}
             experiencesDescription={experiencesDescription}
             setExperiencesDescription={setExperiencesDescription}
             experiencesDescriptionChanged={experiencesDescriptionChanged}
@@ -518,6 +597,10 @@ const EditProfile = ({
           <AddExperience 
             user={user}
             editProfileModalIndex={editProfileModalIndex}
+            experiencesLogo={experiencesLogo}
+            setExperiencesLogo={setExperiencesLogo}
+            experiencesLogoChanged={experiencesLogoChanged}
+            setExperiencesLogoChanged={setExperiencesLogoChanged}
             experiencesCompany={experiencesCompany}
             setExperiencesCompany={setExperiencesCompany}
             experiencesCompanyChanged={experiencesCompanyChanged}
@@ -556,12 +639,128 @@ const EditProfile = ({
             setExperiencesEndDatePresent={setExperiencesEndDatePresent}
             experiencesEndDatePresentChanged={experiencesEndDatePresentChanged}
             setExperiencesEndDatePresentChanged={setExperiencesEndDatePresentChanged}
+            experiencesUrl={experiencesUrl}
+            setExperiencesUrl={setExperiencesUrl}
+            experiencesUrlChanged={experiencesUrlChanged}
+            setExperiencesUrlChanged={setExperiencesUrlChanged}
+            experiencesUrlError={experiencesUrlError}
+            setExperiencesUrlError={setExperiencesUrlError}
             experiencesDescription={experiencesDescription}
             setExperiencesDescription={setExperiencesDescription}
             experiencesDescriptionChanged={experiencesDescriptionChanged}
             setExperiencesDescriptionChanged={setExperiencesDescriptionChanged}
             experiencesDescriptionError={experiencesDescriptionError}
             setExperiencesDescriptionError={setExperiencesDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Projects' && (
+          <Projects
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add project' && (
+          <>
+          <AddProject 
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            projectsImage={projectsImage}
+            setProjectsImage={setProjectsImage}
+            projectsImageChanged={projectsImageChanged}
+            setProjectsImageChanged={setProjectsImageChanged}
+            projectsName={projectsName}
+            setProjectsName={setProjectsName}
+            projectsNameChanged={projectsNameChanged}
+            setProjectsNameChanged={setProjectsNameChanged}
+            projectsNameError={projectsNameError}
+            setProjectsNameError={setProjectsNameError}
+            projectsUrl={projectsUrl}
+            setProjectsUrl={setProjectsUrl}
+            projectsUrlChanged={projectsUrlChanged}
+            setProjectsUrlChanged={setProjectsUrlChanged}
+            projectsUrlError={projectsUrlError}
+            setProjectsUrlError={setProjectsUrlError}
+            projectsStartDate={projectsStartDate}
+            setProjectsStartDate={setProjectsStartDate}
+            projectsStartDateInputType={projectsStartDateInputType}
+            setProjectsStartDateInputType={setProjectsStartDateInputType}
+            projectsStartDateChanged={projectsStartDateChanged}
+            setProjectsStartDateChanged={setProjectsStartDateChanged}
+            projectsStartDateError={projectsStartDateError}
+            setProjectsStartDateError={setProjectsStartDateError}
+            projectsEndDate={projectsEndDate}
+            setProjectsEndDate={setProjectsEndDate}
+            projectsEndDateInputType={projectsEndDateInputType}
+            setProjectsEndDateInputType={setProjectsEndDateInputType}
+            projectsEndDateChanged={projectsEndDateChanged}
+            setProjectsEndDateChanged={setProjectsEndDateChanged}
+            projectsEndDateError={projectsEndDateError}
+            setProjectsEndDateError={setProjectsEndDateError}
+            projectsEndDatePresent={projectsEndDatePresent}
+            setProjectsEndDatePresent={setProjectsEndDatePresent}
+            projectsEndDatePresentChanged={projectsEndDatePresentChanged}
+            setProjectsEndDatePresentChanged={setProjectsEndDatePresentChanged}
+            projectsDescription={projectsDescription}
+            setProjectsDescription={setProjectsDescription}
+            projectsDescriptionChanged={projectsDescriptionChanged}
+            setProjectsDescriptionChanged={setProjectsDescriptionChanged}
+            projectsDescriptionError={projectsDescriptionError}
+            setProjectsDescriptionError={setProjectsDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit project' && (
+          <>
+          <EditProject
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            projectsImage={projectsImage}
+            setProjectsImage={setProjectsImage}
+            projectsImageChanged={projectsImageChanged}
+            setProjectsImageChanged={setProjectsImageChanged}
+            projectsName={projectsName}
+            setProjectsName={setProjectsName}
+            projectsNameChanged={projectsNameChanged}
+            setProjectsNameChanged={setProjectsNameChanged}
+            projectsNameError={projectsNameError}
+            setProjectsNameError={setProjectsNameError}
+            projectsUrl={projectsUrl}
+            setProjectsUrl={setProjectsUrl}
+            projectsUrlChanged={projectsUrlChanged}
+            setProjectsUrlChanged={setProjectsUrlChanged}
+            projectsUrlError={projectsUrlError}
+            setProjectsUrlError={setProjectsUrlError}
+            projectsStartDate={projectsStartDate}
+            setProjectsStartDate={setProjectsStartDate}
+            projectsStartDateInputType={projectsStartDateInputType}
+            setProjectsStartDateInputType={setProjectsStartDateInputType}
+            projectsStartDateChanged={projectsStartDateChanged}
+            setProjectsStartDateChanged={setProjectsStartDateChanged}
+            projectsStartDateError={projectsStartDateError}
+            setProjectsStartDateError={setProjectsStartDateError}
+            projectsEndDate={projectsEndDate}
+            setProjectsEndDate={setProjectsEndDate}
+            projectsEndDateInputType={projectsEndDateInputType}
+            setProjectsEndDateInputType={setProjectsEndDateInputType}
+            projectsEndDateChanged={projectsEndDateChanged}
+            setProjectsEndDateChanged={setProjectsEndDateChanged}
+            projectsEndDateError={projectsEndDateError}
+            setProjectsEndDateError={setProjectsEndDateError}
+            projectsEndDatePresent={projectsEndDatePresent}
+            setProjectsEndDatePresent={setProjectsEndDatePresent}
+            projectsEndDatePresentChanged={projectsEndDatePresentChanged}
+            setProjectsEndDatePresentChanged={setProjectsEndDatePresentChanged}
+            projectsDescription={projectsDescription}
+            setProjectsDescription={setProjectsDescription}
+            projectsDescriptionChanged={projectsDescriptionChanged}
+            setProjectsDescriptionChanged={setProjectsDescriptionChanged}
+            projectsDescriptionError={projectsDescriptionError}
+            setProjectsDescriptionError={setProjectsDescriptionError}
+            projectsShowDeleteProjectModal={projectsShowDeleteProjectModal}
+            setProjectsShowDeleteProjectModal={setProjectsShowDeleteProjectModal}
             handleBack={handleBack}
           />
           </>
@@ -625,6 +824,12 @@ const EditProfile = ({
             setEducationEndDatePresent={setEducationEndDatePresent}
             educationEndDatePresentChanged={educationEndDatePresentChanged}
             setEducationEndDatePresentChanged={setEducationEndDatePresentChanged}
+            educationUrl={educationUrl}
+            setEducationUrl={setEducationUrl}
+            educationUrlChanged={educationUrlChanged}
+            setEducationUrlChanged={setEducationUrlChanged}
+            educationUrlError={educationUrlError}
+            setEducationUrlError={setEducationUrlError}
             educationDescription={educationDescription}
             setEducationDescription={setEducationDescription}
             educationDescriptionChanged={educationDescriptionChanged}
@@ -642,6 +847,10 @@ const EditProfile = ({
           <AddEducation 
             user={user}
             editProfileModalIndex={editProfileModalIndex}
+            educationLogo={educationLogo}
+            setEducationLogo={setEducationLogo}
+            educationLogoChanged={educationLogoChanged}
+            setEducationLogoChanged={setEducationLogoChanged}
             educationSchool={educationSchool}
             setEducationSchool={setEducationSchool}
             educationSchoolChanged={educationSchoolChanged}
@@ -686,6 +895,12 @@ const EditProfile = ({
             setEducationEndDatePresent={setEducationEndDatePresent}
             educationEndDatePresentChanged={educationEndDatePresentChanged}
             setEducationEndDatePresentChanged={setEducationEndDatePresentChanged}
+            educationUrl={educationUrl}
+            setEducationUrl={setEducationUrl}
+            educationUrlChanged={educationUrlChanged}
+            setEducationUrlChanged={setEducationUrlChanged}
+            educationUrlError={educationUrlError}
+            setEducationUrlError={setEducationUrlError}
             educationDescription={educationDescription}
             setEducationDescription={setEducationDescription}
             educationDescriptionChanged={educationDescriptionChanged}
@@ -751,6 +966,12 @@ const EditProfile = ({
             setVolunteeringEndDatePresent={setVolunteeringEndDatePresent}
             volunteeringEndDatePresentChanged={volunteeringEndDatePresentChanged}
             setVolunteeringEndDatePresentChanged={setVolunteeringEndDatePresentChanged}
+            volunteeringUrl={volunteeringUrl}
+            setVolunteeringUrl={setVolunteeringUrl}
+            volunteeringUrlChanged={volunteeringUrlChanged}
+            setVolunteeringUrlChanged={setVolunteeringUrlChanged}
+            volunteeringUrlError={volunteeringUrlError}
+            setVolunteeringUrlError={setVolunteeringUrlError}
             volunteeringDescription={volunteeringDescription}
             setVolunteeringDescription={setVolunteeringDescription}
             volunteeringDescriptionChanged={volunteeringDescriptionChanged}
@@ -768,6 +989,10 @@ const EditProfile = ({
           <AddVolunteering
             user={user}
             editProfileModalIndex={editProfileModalIndex}
+            volunteeringLogo={volunteeringLogo}
+            setVolunteeringLogo={setVolunteeringLogo}
+            volunteeringLogoChanged={volunteeringLogoChanged}
+            setVolunteeringLogoChanged={setVolunteeringLogoChanged}
             volunteeringCompany={volunteeringCompany}
             setVolunteeringCompany={setVolunteeringCompany}
             volunteeringCompanyChanged={volunteeringCompanyChanged}
@@ -806,6 +1031,12 @@ const EditProfile = ({
             setVolunteeringEndDatePresent={setVolunteeringEndDatePresent}
             volunteeringEndDatePresentChanged={volunteeringEndDatePresentChanged}
             setVolunteeringEndDatePresentChanged={setVolunteeringEndDatePresentChanged}
+            volunteeringUrl={volunteeringUrl}
+            setVolunteeringUrl={setVolunteeringUrl}
+            volunteeringUrlChanged={volunteeringUrlChanged}
+            setVolunteeringUrlChanged={setVolunteeringUrlChanged}
+            volunteeringUrlError={volunteeringUrlError}
+            setVolunteeringUrlError={setVolunteeringUrlError}
             volunteeringDescription={volunteeringDescription}
             setVolunteeringDescription={setVolunteeringDescription}
             volunteeringDescriptionChanged={volunteeringDescriptionChanged}

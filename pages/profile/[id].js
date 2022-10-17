@@ -51,6 +51,7 @@ const Profile = (props) => {
         headline={props.headline}
         summary={props.summary}
         experiences={props.experiences}
+        projects={props.projects}
         education={props.education}
         logoVisibility={props.logoVisibility}
         volunteer_work={props.volunteer_work}
@@ -79,8 +80,10 @@ export const getServerSideProps = async ({ query }) => {
         content['headline'] = doc.data().profile.headline ? doc.data().profile.headline : null;
         content['summary'] = doc.data().profile.summary ? doc.data().profile.summary : null;
         content['experiences'] = doc.data().profile.experiences ? doc.data().profile.experiences : null;
+        content['projects'] = doc.data().profile.projects ? doc.data().profile.projects : null;
         content['education'] = doc.data().profile.education ? doc.data().profile.education : null;
         content['volunteer_work'] = doc.data().profile.volunteer_work ? doc.data().profile.volunteer_work : null;
+        content['featured'] = doc.data().profile.featured ? doc.data().profile.featured : null;
         content['logoVisibility'] = doc.data().logoVisibility ? doc.data().logoVisibility : null;
         content['surveyOnSignUpHide'] = doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : null) : null) : null;
         content['displayInfo'] = doc.data().displayInfo ? doc.data().displayInfo : null;
@@ -100,9 +103,11 @@ export const getServerSideProps = async ({ query }) => {
     headline: content.headline,
     summary: content.summary,
     experiences: content.experiences,
+    projects: content.projects,
     education: content.education,
-    logoVisibility: content.logoVisibility,
     volunteer_work: content.volunteer_work,
+    featured: content.featured,
+    logoVisibility: content.logoVisibility,
     surveyOnSignUpHide: content.surveyOnSignUpHide,
     displayInfo: content.displayInfo
   }
