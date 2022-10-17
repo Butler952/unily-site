@@ -412,7 +412,7 @@ const BasicProfile = (props) => {
                                               style={{ top: 0, left: 0, zIndex: 1 }}
                                             />
                                             <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-                                              <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                                              <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
                                             </div>
                                           </div>
                                         </div>
@@ -420,10 +420,10 @@ const BasicProfile = (props) => {
                                         </a>
                                     </div>
                                     :
-                                    <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                    <div className="d-flex flex-column mb-3 w-100" style={{ gap: '16px' }}>
                                       <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
                                         <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-                                          <Icon icon={ICONS.WORK} size='32' className="fill-dark-700" />
+                                          <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
                                         </div>
                                       </div>
                                     </div>
