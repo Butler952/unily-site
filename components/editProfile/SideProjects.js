@@ -29,7 +29,7 @@ const SideProjects = ({
     if (a.starts_at &&
         b.starts_at) {
       // console.log(`sorted ${a.company}`)
-      if (a.ends_at == undefined & b.ends_at == undefined) {
+      if (a.ends_at == undefined & b.ends_at == undefined ) {
         if (b.starts_at.year < a.starts_at.year)
           return -1;
         if (b.starts_at.year > a.starts_at.year)
@@ -113,7 +113,7 @@ const SideProjects = ({
                 {side_project.starts_at ? (side_project.starts_at.month ? convertMonth(side_project.starts_at.month) + " " : '') : null}
                 {side_project.starts_at ? (side_project.starts_at.year ? side_project.starts_at.year + " " : null) : null}
                 {side_project.starts_at && side_project.ends_at == null ? ' – Present' : null}
-                {side_project.starts_at && side_project.ends_at.month && side_project.ends_at.year ? ( side_project.starts_at.month == side_project.ends_at.month & side_project.starts_at.year == side_project.ends_at.year ? null : ` – ${convertMonth(side_project.ends_at.month)} ${side_project.ends_at.year}`) : null }
+                {side_project.starts_at && side_project.ends_at && side_project.ends_at.month && side_project.ends_at.year ? ( side_project.starts_at.month == side_project.ends_at.month & side_project.starts_at.year == side_project.ends_at.year ? null : ` – ${convertMonth(side_project.ends_at.month)} ${side_project.ends_at.year}`) : null }
               </p>
               {/* {project.description ? <p className="text-dark-med mb-0 mt-3">{project.description}</p> : null} */}
             </div>

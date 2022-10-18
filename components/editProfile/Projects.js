@@ -113,7 +113,7 @@ const Projects = ({
                 {project.starts_at ? (project.starts_at.month ? convertMonth(project.starts_at.month) + " " : '') : null}
                 {project.starts_at ? (project.starts_at.year ? project.starts_at.year + " " : null) : null}
                 {project.starts_at && project.ends_at == null ? ' – Present' : null}
-                {project.starts_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
+                {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
               </p>
               {/* {project.description ? <p className="text-dark-med mb-0 mt-3">{project.description}</p> : null} */}
             </div>
