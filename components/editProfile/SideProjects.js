@@ -104,6 +104,35 @@ const SideProjects = ({
         return (
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column align-items-start`} style={{gap:'16px'}}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
+          { side_project.logo_url ?
+            <div>
+              <a target="_blank" href={side_project.url} className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
+                {/* <img 
+                  className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
+                  style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
+                /> */}
+                <img 
+                  className="radius-3 bg-light-900"
+                  src={side_project.logo_url ? side_project.logo_url : null}
+                  onError={({ currentTarget }) => {
+                    // currentTarget.onerror = null; // prevents looping
+                    currentTarget.className = 'd-none' 
+                    // currentTarget.style = "display: 'none'" 
+                    // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                    // currentTarget.src="https://via.placeholder.com/150";
+                  }}
+                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px', zIndex: '1'}}
+                />
+                <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px'}}>
+                  <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
+                </div>
+              </a>
+            </div>
+            : 
+            <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center" style={{width: '72px', height: '72px', minWidth: '72px', minHeight:'72px'}}>
+              <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
+            </div>
+            }
             <div className="w-100">
               <p className="large text-dark-high font-weight-semibold mb-0">{side_project.name}</p>
               {/* <a target="_blank" href={project.company_linkedin_profile_url} className="text-decoration-none"> */}
