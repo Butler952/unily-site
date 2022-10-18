@@ -114,7 +114,7 @@ const AddProject = ({
   const updateProjects = (downloadURL, uid) => {
     let newProject = {}
 
-    newProject.logo_url = downloadURL ? uid : null
+    newProject.logo_url = downloadURL ? downloadURL : null
     newProject.logo_ref = uid ? uid : null
     newProject.name = projectsName
     newProject.url = projectsUrl

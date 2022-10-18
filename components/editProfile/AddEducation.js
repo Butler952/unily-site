@@ -149,7 +149,7 @@ const AddEducation = ({
   const updateEducation = (downloadURL, uid) => {
     let newEducation = {}
 
-    newEducation.logo_url = downloadURL ? uid : null
+    newEducation.logo_url = downloadURL ? downloadURL : null
     newEducation.logo_ref = uid ? uid : null
     newEducation.school = educationSchool
     newEducation.field_of_study = educationFieldOfStudy

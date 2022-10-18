@@ -137,7 +137,7 @@ const AddVolunteering = ({
   const updateVolunteering = (downloadURL, uid) => {
     let newVolunteering = {}
 
-    newVolunteering.logo_url = downloadURL ? uid : null
+    newVolunteering.logo_url = downloadURL ? downloadURL : null
     newVolunteering.logo_ref = uid ? uid : null
     newVolunteering.title = volunteeringTitle
     newVolunteering.company = volunteeringCompany

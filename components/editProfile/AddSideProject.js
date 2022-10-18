@@ -123,7 +123,7 @@ const AddSideProject = ({
   const updateSideProjects = (downloadURL, uid) => {
     let newSideProject = {}
 
-    newSideProject.logo_url = downloadURL ? uid : null
+    newSideProject.logo_url = downloadURL ? downloadURL : null
     newSideProject.logo_ref = uid ? uid : null
     newSideProject.name = sideProjectsName
     newSideProject.tagline = sideProjectsTagline
@@ -192,7 +192,7 @@ const AddSideProject = ({
   //     },
   //     'description': sideProjectsDescription
   //   };
-  
+
   //   if (originalSideProjects !== undefined) {
   //     originalSideProjects.unshift(newSideProject)
   //   } else {

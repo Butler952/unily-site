@@ -137,7 +137,7 @@ const AddExperience = ({
   const updateExperiences = (downloadURL, uid) => {
     let newExperience = {}
 
-    newExperience.logo_url = downloadURL ? uid : null
+    newExperience.logo_url = downloadURL ? downloadURL : null
     newExperience.logo_ref = uid ? uid : null
     newExperience.title = experiencesTitle
     newExperience.company = experiencesCompany
