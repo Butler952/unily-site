@@ -228,7 +228,8 @@ const BasicProfile = (props) => {
                   //   className={styles.profilePicture}
                   // />
                   <img
-                    src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
+                    // src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
+                    src={props.profile_pic_url}
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
                       currentTarget.className = 'd-none'

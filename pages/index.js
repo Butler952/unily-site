@@ -153,37 +153,14 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.iframeWrapper}>
+          {/* <div className={styles.iframeWrapper}>
             <iframe className={styles.iframeContent}
               title="Example Vitaely.me online CV profile"
               src="https://www.vitaely.me/aaronbutler">
-              {/* src="https://www.vitaely.me/profile/A7BBld6PVxb2VJg3l0ToUVxaXzB3"> */}
             </iframe>
-          </div>
+          </div> */}
         </div>
-        <div className={`text-center ${styles.sectionWrapper}`}>
-        { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
-          <div className={styles.stepsContainer}>
-            <div className="d-flex flex-column align-items-center">
-              <div className={styles.stepNumber}>
-                <h3 className="text-light-high m-0">1</h3>
-              </div>
-              <h3 className="text-primary-high">Sync with LinkedIn</h3>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-              <div className={styles.stepNumber}>
-                <h3 className="text-light-high m-0">2</h3>
-              </div>
-              <h3 className="text-primary-high">Choose information to display</h3>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-              <div className={styles.stepNumber}>
-                <h3 className="text-light-high m-0">3</h3>
-              </div>
-              <h3 className="text-primary-high">Share your profile</h3>
-            </div>
-          </div>
-        </div>
+        
         {/* <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
           <div className={styles.heroImageWrapper}>
@@ -221,6 +198,29 @@ const Home = () => {
         </Container>
       </div>
       <Container>
+      <div className={`text-center ${styles.sectionWrapper}`}>
+        { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
+          <div className={styles.stepsContainer}>
+            <div className="d-flex flex-column align-items-center">
+              <div className={styles.stepNumber}>
+                <h3 className="text-light-high m-0">1</h3>
+              </div>
+              <h3 className="text-primary-high">Sync with LinkedIn</h3>
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <div className={styles.stepNumber}>
+                <h3 className="text-light-high m-0">2</h3>
+              </div>
+              <h3 className="text-primary-high">Choose information to display</h3>
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <div className={styles.stepNumber}>
+                <h3 className="text-light-high m-0">3</h3>
+              </div>
+              <h3 className="text-primary-high">Share your profile</h3>
+            </div>
+          </div>
+        </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    
           <p className="large mx-auto mb-5">Create your landing page in just 2 minutes</p>

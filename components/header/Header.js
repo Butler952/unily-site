@@ -309,18 +309,18 @@ const Header = (props) => {
           windowUrl !== '/' ? 'shadow-2 bg-light-900' : null
         }
         ${
-          // windowUrl.includes("profile") || 
-          // windowUrl.includes("settings") || 
-          windowUrl.includes("blog") || 
-          windowUrl.includes("legal") || 
-          windowUrl.includes("setup") ||
-          windowUrl.includes("users") ||
-          windowUrl.includes("linkedin-to-resume") ||
-          windowUrl.includes("online-cv-builder") ||
-          windowUrl.includes("online-resume-builder") ||
-          windowUrl.includes("pdf-resume-builder") ||
-          windowUrl == '/'
-          ? null : 'position-fixed'
+          windowUrl.includes("profile") || 
+          windowUrl.includes("settings")
+          // windowUrl.includes("blog") || 
+          // windowUrl.includes("legal") || 
+          // windowUrl.includes("setup") ||
+          // windowUrl.includes("users") ||
+          // windowUrl.includes("linkedin-to-resume") ||
+          // windowUrl.includes("online-cv-builder") ||
+          // windowUrl.includes("online-resume-builder") ||
+          // windowUrl.includes("pdf-resume-builder") ||
+          // windowUrl == '/'
+          ? 'position-fixed' : null
         }`} 
         style={windowUrl == '' ? { boxShadow: 'none', minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
         {userContext !== '' ?
