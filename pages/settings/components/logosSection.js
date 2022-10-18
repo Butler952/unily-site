@@ -19,6 +19,8 @@ const LogosSection = ({
     handleUpdate,
     handleUpgrade,
     sectionsLoading,
+    sideProjectsLogos,
+    setSideProjectsLogos,
     experienceLogos,
     setExperienceLogos,
     educationLogos,
@@ -55,6 +57,14 @@ const LogosSection = ({
 
    // Handle Logos Display Options Start
 
+  const toggleSideProjects = (e) => {
+    if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+      setSideProjectsLogos(e)
+    } else {
+      handleShow()
+    }
+  }
+
   const toggleExperience = (e) => {
     if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
       setExperienceLogos(e)
@@ -86,6 +96,7 @@ const LogosSection = ({
       setSavingLogos(true)
       fire.firestore().collection('users').doc(userData.uid).update({
         logoVisibility: {
+          'sideProjects': sideProjectsLogos,
           'experience': experienceLogos,
           'education': educationLogos,
           'volunteering': volunteeringLogos,
@@ -113,7 +124,7 @@ const LogosSection = ({
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Logos</h5>
-          <p className="text-dark-low mb-0">Show or hide the logos for experience and education</p>
+          <p className="text-dark-low mb-0">Show or hide the logos for sections on the profile</p>
         </div>
         <hr className="m-0"/>
         {sectionsLoading ?
@@ -123,6 +134,13 @@ const LogosSection = ({
           :
           <div className="p-0">
             <form onSubmit={handleLogosSubmit}>
+              <div className={styles.sectionCard + " card p-4"}>
+                <label className="checkbox-container font-weight-medium text-dark-high large">
+                  Side projects
+                <input type="checkbox" checked={sideProjectsLogos} onChange={(e) => toggleSideProjects(e.currentTarget.checked)} />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
               <div className={styles.sectionCard + " card p-4"}>
                 <label className="checkbox-container font-weight-medium text-dark-high large">
                   Experience
@@ -193,7 +211,7 @@ const LogosSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Logos for experience and education',
+                'Logos for experience, edication and more',
                 'Unlimited re-syncing', 
                 'More coming soon'
               ].map((feature, index) =>

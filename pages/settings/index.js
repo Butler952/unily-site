@@ -116,6 +116,7 @@ const Settings = () => {
   const [syncLoading, setSyncLoading] = useState('');
   const [savingSections, setSavingSections] = useState(false);
   const [experienceLogos, setExperienceLogos] = useState(false);
+  const [sideProjectsLogos, setSideProjectsLogos] = useState(false);
   const [educationLogos, setEducationLogos] = useState(false);
   const [volunteeringLogos, setVolunteeringLogos] = useState(false);
   const [savingLogos, setSavingLogos] = useState(false);
@@ -208,6 +209,7 @@ const Settings = () => {
         setExperienceEach(doc.data().displayInfo.experience.each)
         setEducation(doc.data().displayInfo.education.section)
         setEducationEach(doc.data().displayInfo.education.each)
+        setSideProjectsLogos(doc.data().logoVisibility ? doc.data().logoVisibility.sideProjects : false)
         setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
         setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
         setVolunteeringLogos(doc.data().logoVisibility ? doc.data().logoVisibility.volunteering : false)
@@ -762,6 +764,8 @@ const Settings = () => {
               handleUpgrade={handleUpgrade}
               // handleLogosSubmit={handleLogosSubmit}
               sectionsLoading={sectionsLoading}
+              sideProjectsLogos={sideProjectsLogos}
+              setSideProjectsLogos={setSideProjectsLogos}
               experienceLogos={experienceLogos}
               setExperienceLogos={setExperienceLogos}
               educationLogos={educationLogos}

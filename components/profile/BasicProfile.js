@@ -295,7 +295,7 @@ const BasicProfile = (props) => {
                                 </a>
                               </div>
                               : null} */}
-                            {props.logoVisibility && props.logoVisibility.experience ?
+                            {props.logoVisibility && props.logoVisibility.sideProjects ?
                               (sideProject.logo_url ?
                                 <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                   <a target="_blank" href={sideProject.url ? sideProject.url : null} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
@@ -426,36 +426,35 @@ const BasicProfile = (props) => {
                           <a key={index} target="_blank" href={project.url}>
                             <div className={styles.profileCard + ' card'}>
                               <Accordion className={`${styles.job} d-flex flex-column align-items-start`}>
-                                {props.logoVisibility && props.logoVisibility.experience ?
-                                  (project.logo_url ?
-                                    <div className="mb-3 w-100">
-                                      <a target="_blank" href={project.url} className="d-block position-relative w-100">    
-                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                          <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
-                                            <img
-                                              src={project.logo_url ? project.logo_url : null}
-                                              onError={({ currentTarget }) => {
-                                                currentTarget.className = 'd-none'
-                                              }}
-                                              className="position-absolute radius-2 shadow-2 bg-light-900 w-100 h-100" 
-                                              style={{ top: 0, left: 0, zIndex: 1 }}
-                                            />
-                                            <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-                                              <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
-                                            </div>
+                                {project.logo_url ?
+                                  <div className="mb-3 w-100">
+                                    <a target="_blank" href={project.url} className="d-block position-relative w-100">    
+                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                        <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
+                                          <img
+                                            src={project.logo_url ? project.logo_url : null}
+                                            onError={({ currentTarget }) => {
+                                              currentTarget.className = 'd-none'
+                                            }}
+                                            className="position-absolute radius-2 shadow-2 bg-light-900 w-100 h-100" 
+                                            style={{ top: 0, left: 0, zIndex: 1 }}
+                                          />
+                                          <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+                                            <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
                                           </div>
                                         </div>
-                                      </a>
-                                    </div>
-                                    :
-                                    <div className="d-flex flex-column mb-3 w-100" style={{ gap: '16px' }}>
-                                      <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
-                                        <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-                                          <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
-                                        </div>
+                                      </div>
+                                    </a>
+                                  </div>
+                                  :
+                                  <div className="d-flex flex-column mb-3 w-100" style={{ gap: '16px' }}>
+                                    <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
+                                      <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+                                        <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
                                       </div>
                                     </div>
-                                  ) : null}
+                                  </div>
+                                }
                                 <div className="w-100">
                                   <p className="large text-dark-high font-weight-semibold mb-0">{project.name}</p>
                                   <p className="text-dark-low mb-0">
