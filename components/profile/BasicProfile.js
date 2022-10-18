@@ -353,7 +353,7 @@ const BasicProfile = (props) => {
                       // {props.experiences.map((job, index) => {
                       const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                       return (
-                        <a key={index} target="_blank" href={job.company_linkedin_profile_url} className={`${styles.job}`}>
+                        <div key={index} className={`${styles.job}`}>
                           <Accordion key={index} className="d-flex flex-column flex-lg-row align-items-start">
                             {/* {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
                               <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -394,7 +394,9 @@ const BasicProfile = (props) => {
                               ) : null}
                             <div className="w-100">
                               <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                              <p className="large text-dark-med mb-0">{job.company}</p>
+                              <a target="_blank" href={job.company_linkedin_profile_url}>
+                                <p className="large text-dark-med mb-0">{job.company}</p>
+                              </a>
                               <p className="text-dark-low mb-0">{job.location}</p>
                               <p className="text-dark-low mb-0">
                                 {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
@@ -406,7 +408,7 @@ const BasicProfile = (props) => {
                               {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                             </div>
                           </Accordion>
-                        </a>
+                        </div>
                       )
                     })}
                   </div>
@@ -477,7 +479,7 @@ const BasicProfile = (props) => {
                   <h4>Education</h4>
                   <div className={styles.profileCard + ' card'}>
                     {props.education.map((school, index) =>
-                      <a key={index} target="_blank" href={school.school_linkedin_profile_url ? school.school_linkedin_profile_url : null} className={`${styles.job}`}>
+                      <div key={index} className={`${styles.job}`}>
                         <div className="d-flex flex-column flex-lg-row">
                           {/* {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
                             <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -514,7 +516,9 @@ const BasicProfile = (props) => {
                             <p className="large text-dark-high font-weight-semibold mb-0">
                               {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                             </p>
-                            <p className="large text-dark-med mb-0">{school.school}</p>
+                            <a target="_blank" href={school.school_linkedin_profile_url ? school.school_linkedin_profile_url : null}>
+                              <p className="large text-dark-med mb-0">{school.school}</p>
+                            </a>
                             <p className="text-dark-low mb-0">
                               {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
                               {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
@@ -523,7 +527,7 @@ const BasicProfile = (props) => {
                             </p>
                           </div>
                         </div>
-                      </a>
+                      </div>
                     )}
                   </div>
                   <br /><br />
@@ -534,7 +538,7 @@ const BasicProfile = (props) => {
                   <h4>Volunteering</h4>
                   <div className={styles.profileCard + ' card'}>
                     {props.volunteer_work.map((volunteer, index) =>
-                      <a key={index} target="_blank" href={volunteer.company_linkedin_profile_url ? volunteer.company_linkedin_profile_url : null} className={`${styles.job}`}>
+                      <div key={index} className={`${styles.job}`}>
                         <div className="d-flex flex-column flex-lg-row">
                           {props.logoVisibility && props.logoVisibility.volunteering ?
                             (volunteer.logo_url ?
@@ -568,7 +572,9 @@ const BasicProfile = (props) => {
                             ) : null}
                           <div>
                             <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                            <p className="large text-dark-med mb-0">{volunteer.company}</p>
+                            <a target="_blank" href={volunteer.company_linkedin_profile_url ? volunteer.company_linkedin_profile_url : null}>
+                              <p className="large text-dark-med mb-0">{volunteer.company}</p>
+                            </a>
                             <p className="text-dark-low mb-0">
                               {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
                               {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
@@ -578,7 +584,7 @@ const BasicProfile = (props) => {
                             {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
                           </div>
                         </div>
-                      </a>
+                      </div>
                     )}
                   </div>
                   <br /><br />
