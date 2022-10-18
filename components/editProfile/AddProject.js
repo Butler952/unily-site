@@ -112,30 +112,42 @@ const AddProject = ({
   }
 
   const updateProjects = (downloadURL, uid) => {
+    let newProject = {}
 
-    let startDateMonth = Number(projectsStartDate.split('-')[1]);
-    let startDateYear = Number(projectsStartDate.split('-')[0]);
+    newProject.logo_url = downloadURL ? uid : null
+    newProject.logo_ref = uid ? uid : null
+    newProject.name = projectsName
+    newProject.url = projectsUrl
 
-    let endDateMonth = Number(projectsEndDate.split('-')[1]);
-    let endDateYear = Number(projectsEndDate.split('-')[0]);
-
-    let newProject = {
-      'logo_url': downloadURL !== undefined ? downloadURL : '',
-      'logo_ref': uid !== undefined ? uid : '',
-      'name': projectsName,
-      'url': projectsUrl,
-      'starts_at': {
-        'day': 1,
-        'month': startDateMonth,
-        'year': startDateYear
-      },
-      'ends_at': {
-        'day': 31,
-        'month': endDateMonth,
-        'year': endDateYear
-      },
-      'description': projectsDescription
-    };
+    if (projectsStartDate) {
+      let startDateMonth = Number(projectsStartDate.split('-')[1]);
+      let startDateYear = Number(projectsStartDate.split('-')[0]);
+      newProject.starts_at = 
+        { 
+          'day': 1,
+          'month': startDateMonth,
+          'year': startDateYear
+        }
+    } else {
+      newProject.starts_at = null
+    }
+    if (!projectsEndDatePresent) {
+      if (projectsEndDate) {
+        let endDateMonth = Number(projectsEndDate.split('-')[1]);
+        let endDateYear = Number(projectsEndDate.split('-')[0]);
+        newProject.ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
+      } else {
+        newProject.ends_at = null
+      }
+    } else {
+      newProject.ends_at = null
+    }
+    newProject.description = projectsDescription
 
     if (originalProjects !== undefined) {
       originalProjects.unshift(newProject)
@@ -143,6 +155,39 @@ const AddProject = ({
       originalProjects = [newProject]
     }
   }
+
+  // const updateProjects = (downloadURL, uid) => {
+
+  //   let startDateMonth = Number(projectsStartDate.split('-')[1]);
+  //   let startDateYear = Number(projectsStartDate.split('-')[0]);
+
+  //   let endDateMonth = Number(projectsEndDate.split('-')[1]);
+  //   let endDateYear = Number(projectsEndDate.split('-')[0]);
+
+  //   let newProject = {
+  //     'logo_url': downloadURL !== undefined ? downloadURL : '',
+  //     'logo_ref': uid !== undefined ? uid : '',
+  //     'name': projectsName,
+  //     'url': projectsUrl,
+  //     'starts_at': {
+  //       'day': 1,
+  //       'month': startDateMonth,
+  //       'year': startDateYear
+  //     },
+  //     'ends_at': {
+  //       'day': 31,
+  //       'month': endDateMonth,
+  //       'year': endDateYear
+  //     },
+  //     'description': projectsDescription
+  //   };
+
+  //   if (originalProjects !== undefined) {
+  //     originalProjects.unshift(newProject)
+  //   } else {
+  //     originalProjects = [newProject]
+  //   }
+  // }
   
   const handleAddProjectsSubmit = (e) => {
     e.preventDefault();
@@ -362,7 +407,7 @@ const AddProject = ({
                 userContext.profile.projects[editProfileModalIndex].ends_at !== undefined ? <EndDateInput /> : '' 
               ) : ''}  */}
             {projectsEndDateError !== '' ? <p className="small text-error-high mt-2">{projectsEndDateError}</p> : null}
-            <label className="checkbox-container small mt-2 mb-4">I currently work here
+            <label className="checkbox-container small mt-2 mb-4">I'm currently working on this
               <input 
                 type="checkbox" 
                 onChange={() => projectsEndDatePresentChange()} 

@@ -147,40 +147,88 @@ const AddEducation = ({
   }
 
   const updateEducation = (downloadURL, uid) => {
+    let newEducation = {}
 
-    let startDateMonth = Number(educationStartDate.split('-')[1]);
-    let startDateYear = Number(educationStartDate.split('-')[0]);
+    newEducation.logo_url = downloadURL ? uid : null
+    newEducation.logo_ref = uid ? uid : null
+    newEducation.school = educationSchool
+    newEducation.field_of_study = educationFieldOfStudy
+    newEducation.degree_name = educationDegreeName
+    newEducation.location = educationLocation
+    newEducation.school_linkedin_profile_url = educationUrl
 
-    let endDateMonth = Number(educationEndDate.split('-')[1]);
-    let endDateYear = Number(educationEndDate.split('-')[0]);
+    if (educationStartDate) {
+      let startDateMonth = Number(educationStartDate.split('-')[1]);
+      let startDateYear = Number(educationStartDate.split('-')[0]);
+      newEducation.starts_at = 
+        { 
+          'day': 1,
+          'month': startDateMonth,
+          'year': startDateYear
+        }
+    } else {
+      newEducation.starts_at = null
+    }
+    if (!educationEndDatePresent) {
+      if (educationEndDate) {
+        let endDateMonth = Number(educationEndDate.split('-')[1]);
+        let endDateYear = Number(educationEndDate.split('-')[0]);
+        newEducation.ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
+      } else {
+        newEducation.ends_at = null
+      }
+    } else {
+      newEducation.ends_at = null
+    }
+    newEducation.description = educationDescription
 
-    let newEducation = {
-      'logo_url': downloadURL !== undefined ? downloadURL : '',
-      'logo_ref': uid !== undefined ? uid : '',
-      'school': educationSchool,
-      'field_of_study': educationFieldOfStudy,
-      'degree_name': educationDegreeName,
-      'location': educationLocation,
-      'school_linkedin_profile_url': educationUrl,
-      'starts_at': {
-        'day': 1,
-        'month': startDateMonth,
-        'year': startDateYear
-      },
-      'ends_at': {
-        'day': 31,
-        'month': endDateMonth,
-        'year': endDateYear
-      },
-      'description': educationDescription
-    };
-    
     if (originalEducation !== undefined) {
       originalEducation.unshift(newEducation)
     } else {
       originalEducation = [newEducation]
     }
   }
+
+  // const updateEducation = (downloadURL, uid) => {
+
+  //   let startDateMonth = Number(educationStartDate.split('-')[1]);
+  //   let startDateYear = Number(educationStartDate.split('-')[0]);
+
+  //   let endDateMonth = Number(educationEndDate.split('-')[1]);
+  //   let endDateYear = Number(educationEndDate.split('-')[0]);
+
+  //   let newEducation = {
+  //     'logo_url': downloadURL !== undefined ? downloadURL : '',
+  //     'logo_ref': uid !== undefined ? uid : '',
+  //     'school': educationSchool,
+  //     'field_of_study': educationFieldOfStudy,
+  //     'degree_name': educationDegreeName,
+  //     'location': educationLocation,
+  //     'school_linkedin_profile_url': educationUrl,
+  //     'starts_at': {
+  //       'day': 1,
+  //       'month': startDateMonth,
+  //       'year': startDateYear
+  //     },
+  //     'ends_at': {
+  //       'day': 31,
+  //       'month': endDateMonth,
+  //       'year': endDateYear
+  //     },
+  //     'description': educationDescription
+  //   };
+    
+  //   if (originalEducation !== undefined) {
+  //     originalEducation.unshift(newEducation)
+  //   } else {
+  //     originalEducation = [newEducation]
+  //   }
+  // }
   
   const handleAddEducationSubmit = (e) => {
     e.preventDefault();

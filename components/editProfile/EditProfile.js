@@ -21,6 +21,9 @@ import styles from './EditProfile.module.scss'
 import Projects from './Projects';
 import AddProject from './AddProject';
 import EditProject from './EditProject';
+import SideProjects from './SideProjects';
+import EditSideProject from './EditSideProject';
+import AddSideProject from './AddSideProject';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -175,6 +178,32 @@ const EditProfile = ({
   const [projectsDescriptionChanged, setProjectsDescriptionChanged] = useState(false);
   const [projectsDescriptionError, setProjectsDescriptionError] = useState('');
   const [projectsShowDeleteProjectModal, setProjectsShowDeleteProjectModal] = useState(false);
+  
+  const [sideProjectsLogo, setSideProjectsLogo] = useState('');
+  const [sideProjectsLogoChanged, setSideProjectsLogoChanged] = useState(false);
+  const [sideProjectsName, setSideProjectsName] = useState('');
+  const [sideProjectsNameChanged, setSideProjectsNameChanged] = useState(false);
+  const [sideProjectsNameError, setSideProjectsNameError] = useState('');
+  const [sideProjectsTagline, setSideProjectsTagline] = useState('');
+  const [sideProjectsTaglineChanged, setSideProjectsTaglineChanged] = useState(false);
+  const [sideProjectsTaglineError, setSideProjectsTaglineError] = useState('');
+  const [sideProjectsUrl, setSideProjectsUrl] = useState('');
+  const [sideProjectsUrlChanged, setSideProjectsUrlChanged] = useState(false);
+  const [sideProjectsUrlError, setSideProjectsUrlError] = useState('');
+  const [sideProjectsStartDate, setSideProjectsStartDate] = useState('');
+  const [sideProjectsStartDateInputType, setSideProjectsStartDateInputType] = useState('text');
+  const [sideProjectsStartDateChanged, setSideProjectsStartDateChanged] = useState(false);
+  const [sideProjectsStartDateError, setSideProjectsStartDateError] = useState('');
+  const [sideProjectsEndDate, setSideProjectsEndDate] = useState('');
+  const [sideProjectsEndDateInputType, setSideProjectsEndDateInputType] = useState('text');
+  const [sideProjectsEndDateChanged, setSideProjectsEndDateChanged] = useState(false);
+  const [sideProjectsEndDateError, setSideProjectsEndDateError] = useState('');
+  const [sideProjectsEndDatePresent, setSideProjectsEndDatePresent] = useState(false);
+  const [sideProjectsEndDatePresentChanged, setSideProjectsEndDatePresentChanged] = useState(false);
+  const [sideProjectsDescription, setSideProjectsDescription] = useState('');
+  const [sideProjectsDescriptionChanged, setSideProjectsDescriptionChanged] = useState(false);
+  const [sideProjectsDescriptionError, setSideProjectsDescriptionError] = useState('');
+  const [sideProjectsShowDeleteProjectModal, setSideProjectsShowDeleteProjectModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = fire.auth()
@@ -326,6 +355,31 @@ const EditProfile = ({
     setProjectsDescriptionChanged(false)
     setProjectsDescriptionError('')
     setProjectsShowDeleteProjectModal(false)
+    setSideProjectsLogo('')
+    setSideProjectsLogoChanged(false)
+    setSideProjectsName('')
+    setSideProjectsNameChanged(false)
+    setSideProjectsNameError('')
+    setSideProjectsTagline('')
+    setSideProjectsTaglineChanged(false)
+    setSideProjectsTaglineError('')
+    setSideProjectsUrl('')
+    setSideProjectsUrlChanged(false)
+    setSideProjectsUrlError('')
+    setSideProjectsStartDate('')
+    setSideProjectsStartDateInputType('text')
+    setSideProjectsStartDateChanged(false)
+    setSideProjectsStartDateError('')
+    setSideProjectsEndDate('')
+    setSideProjectsEndDateInputType('text')
+    setSideProjectsEndDateChanged(false)
+    setSideProjectsEndDateError('')
+    setSideProjectsEndDatePresent(false)
+    setSideProjectsEndDatePresentChanged(false)
+    setSideProjectsDescription('')
+    setSideProjectsDescriptionChanged(false)
+    setSideProjectsDescriptionError('')
+    setSideProjectsShowDeleteProjectModal(false)
   }
 
   const handleClick = (title) => {
@@ -338,7 +392,9 @@ const EditProfile = ({
       (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
         (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : (
           (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : (
-            (editProfileModalState == "Add project" || editProfileModalState == "Edit project") ? handleEditProfileChangeView('Projects') : handleEditProfileChangeView('default')
+            (editProfileModalState == "Add project" || editProfileModalState == "Edit project") ? handleEditProfileChangeView('Projects') : (
+              (editProfileModalState == "Add side project" || editProfileModalState == "Edit side project") ? handleEditProfileChangeView('Side projects') : handleEditProfileChangeView('default')
+            )
           )
         )
       )
@@ -368,21 +424,26 @@ const EditProfile = ({
     },
     {
       "id": 3,
+      "title": "Side projects",
+      "icon": ICONS.SIDE_PROJECTS
+    },
+    {
+      "id": 4,
       "title": "Experience",
       "icon": ICONS.WORK
     },
     {
-      "id": 4,
+      "id": 5,
       "title": "Projects",
       "icon": ICONS.PROJECTS
     },
     {
-      "id": 5,
+      "id": 6,
       "title": "Education",
       "icon": ICONS.SCHOOL
     },
     {
-      "id": 6,
+      "id": 7,
       "title": "Volunteering",
       "icon": ICONS.VOLUNTEERING
     },
@@ -520,6 +581,128 @@ const EditProfile = ({
             setAboutChanged={setAboutChanged}
             setAboutError={setAboutError}
           />
+        )}
+        { editProfileModalState == 'Side projects' && (
+          <SideProjects
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add side project' && (
+          <>
+          <AddSideProject
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            sideProjectsLogo={sideProjectsLogo}
+            setSideProjectsLogo={setSideProjectsLogo}
+            sideProjectsLogoChanged={sideProjectsLogoChanged}
+            setSideProjectsLogoChanged={setSideProjectsLogoChanged}
+            sideProjectsName={sideProjectsName}
+            setSideProjectsName={setSideProjectsName}
+            sideProjectsNameChanged={sideProjectsNameChanged}
+            setSideProjectsNameChanged={setSideProjectsNameChanged}
+            sideProjectsNameError={sideProjectsNameError}
+            setSideProjectsNameError={setSideProjectsNameError}
+            sideProjectsTagline={sideProjectsTagline}
+            setSideProjectsTagline={setSideProjectsTagline}
+            sideProjectsTaglineChanged={sideProjectsTaglineChanged}
+            setSideProjectsTaglineChanged={setSideProjectsTaglineChanged}
+            sideProjectsTaglineError={sideProjectsTaglineError}
+            setSideProjectsTaglineError={setSideProjectsTaglineError}
+            sideProjectsUrl={sideProjectsUrl}
+            setSideProjectsUrl={setSideProjectsUrl}
+            sideProjectsUrlChanged={sideProjectsUrlChanged}
+            setSideProjectsUrlChanged={setSideProjectsUrlChanged}
+            sideProjectsUrlError={sideProjectsUrlError}
+            setSideProjectsUrlError={setSideProjectsUrlError}
+            sideProjectsStartDate={sideProjectsStartDate}
+            setSideProjectsStartDate={setSideProjectsStartDate}
+            sideProjectsStartDateInputType={sideProjectsStartDateInputType}
+            setSideProjectsStartDateInputType={setSideProjectsStartDateInputType}
+            sideProjectsStartDateChanged={sideProjectsStartDateChanged}
+            setSideProjectsStartDateChanged={setSideProjectsStartDateChanged}
+            sideProjectsStartDateError={sideProjectsStartDateError}
+            setSideProjectsStartDateError={setSideProjectsStartDateError}
+            sideProjectsEndDate={sideProjectsEndDate}
+            setSideProjectsEndDate={setSideProjectsEndDate}
+            sideProjectsEndDateInputType={sideProjectsEndDateInputType}
+            setSideProjectsEndDateInputType={setSideProjectsEndDateInputType}
+            sideProjectsEndDateChanged={sideProjectsEndDateChanged}
+            setSideProjectsEndDateChanged={setSideProjectsEndDateChanged}
+            sideProjectsEndDateError={sideProjectsEndDateError}
+            setSideProjectsEndDateError={setSideProjectsEndDateError}
+            sideProjectsEndDatePresent={sideProjectsEndDatePresent}
+            setSideProjectsEndDatePresent={setSideProjectsEndDatePresent}
+            sideProjectsEndDatePresentChanged={sideProjectsEndDatePresentChanged}
+            setSideProjectsEndDatePresentChanged={setSideProjectsEndDatePresentChanged}
+            sideProjectsDescription={sideProjectsDescription}
+            setSideProjectsDescription={setSideProjectsDescription}
+            sideProjectsDescriptionChanged={sideProjectsDescriptionChanged}
+            setSideProjectsDescriptionChanged={setSideProjectsDescriptionChanged}
+            sideProjectsDescriptionError={sideProjectsDescriptionError}
+            setSideProjectsDescriptionError={setSideProjectsDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit side project' && (
+          <>
+          <EditSideProject
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            sideProjectsLogo={sideProjectsLogo}
+            setSideProjectsLogo={setSideProjectsLogo}
+            sideProjectsLogoChanged={sideProjectsLogoChanged}
+            setSideProjectsLogoChanged={setSideProjectsLogoChanged}
+            sideProjectsName={sideProjectsName}
+            setSideProjectsName={setSideProjectsName}
+            sideProjectsNameChanged={sideProjectsNameChanged}
+            setSideProjectsNameChanged={setSideProjectsNameChanged}
+            sideProjectsNameError={sideProjectsNameError}
+            setSideProjectsNameError={setSideProjectsNameError}
+            sideProjectsTagline={sideProjectsTagline}
+            setSideProjectsTagline={setSideProjectsTagline}
+            sideProjectsTaglineChanged={sideProjectsTaglineChanged}
+            setSideProjectsTaglineChanged={setSideProjectsTaglineChanged}
+            sideProjectsTaglineError={sideProjectsTaglineError}
+            setSideProjectsTaglineError={setSideProjectsTaglineError}
+            sideProjectsUrl={sideProjectsUrl}
+            setSideProjectsUrl={setSideProjectsUrl}
+            sideProjectsUrlChanged={sideProjectsUrlChanged}
+            setSideProjectsUrlChanged={setSideProjectsUrlChanged}
+            sideProjectsUrlError={sideProjectsUrlError}
+            setSideProjectsUrlError={setSideProjectsUrlError}
+            sideProjectsStartDate={sideProjectsStartDate}
+            setSideProjectsStartDate={setSideProjectsStartDate}
+            sideProjectsStartDateInputType={sideProjectsStartDateInputType}
+            setSideProjectsStartDateInputType={setSideProjectsStartDateInputType}
+            sideProjectsStartDateChanged={sideProjectsStartDateChanged}
+            setSideProjectsStartDateChanged={setSideProjectsStartDateChanged}
+            sideProjectsStartDateError={sideProjectsStartDateError}
+            setSideProjectsStartDateError={setSideProjectsStartDateError}
+            sideProjectsEndDate={sideProjectsEndDate}
+            setSideProjectsEndDate={setSideProjectsEndDate}
+            sideProjectsEndDateInputType={sideProjectsEndDateInputType}
+            setSideProjectsEndDateInputType={setSideProjectsEndDateInputType}
+            sideProjectsEndDateChanged={sideProjectsEndDateChanged}
+            setSideProjectsEndDateChanged={setSideProjectsEndDateChanged}
+            sideProjectsEndDateError={sideProjectsEndDateError}
+            setSideProjectsEndDateError={setSideProjectsEndDateError}
+            sideProjectsEndDatePresent={sideProjectsEndDatePresent}
+            setSideProjectsEndDatePresent={setSideProjectsEndDatePresent}
+            sideProjectsEndDatePresentChanged={sideProjectsEndDatePresentChanged}
+            setSideProjectsEndDatePresentChanged={setSideProjectsEndDatePresentChanged}
+            sideProjectsDescription={sideProjectsDescription}
+            setSideProjectsDescription={setSideProjectsDescription}
+            sideProjectsDescriptionChanged={sideProjectsDescriptionChanged}
+            setSideProjectsDescriptionChanged={setSideProjectsDescriptionChanged}
+            sideProjectsDescriptionError={sideProjectsDescriptionError}
+            setSideProjectsDescriptionError={setSideProjectsDescriptionError}
+            sideProjectsShowDeleteProjectModal={sideProjectsShowDeleteProjectModal}
+            setSideProjectsShowDeleteProjectModal={setSideProjectsShowDeleteProjectModal}
+            handleBack={handleBack}
+          />
+          </>
         )}
         { editProfileModalState == 'Experience' && (
           <Experience

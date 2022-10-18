@@ -5,7 +5,7 @@ import styles from '../../pages/profile/profile.module.scss'
 import ICONS from '../icon/IconPaths';
 import Icon from '../icon/Icon';
 
-const Projects = ({
+const SideProjects = ({
   user,
   handleEditProfileChangeView
 }) => {
@@ -18,11 +18,11 @@ const Projects = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit project', index)
+    handleEditProfileChangeView('Edit side project', index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add project')
+    handleEditProfileChangeView('Add side project')
   }
 
   const sortProjects = (a,b) => {
@@ -97,23 +97,23 @@ const Projects = ({
     }</p> */}
       { userContext &&
         userContext.profile &&
-        userContext.profile.projects &&
+        userContext.profile.side_projects &&
         // userContext.profile.projects.sort(sortProjects).map((project, index) => 
-        userContext.profile.projects.sort(sortProjects).map((project, index) => {
+        userContext.profile.side_projects.sort(sortProjects).map((side_project, index) => {
 
         return (
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column align-items-start`} style={{gap:'16px'}}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
             <div className="w-100">
-              <p className="large text-dark-high font-weight-semibold mb-0">{project.name}</p>
+              <p className="large text-dark-high font-weight-semibold mb-0">{side_project.name}</p>
               {/* <a target="_blank" href={project.company_linkedin_profile_url} className="text-decoration-none"> */}
               {/* <p className="large text-dark-med mb-0">{project.company}</p> */}
               {/* </a> */}
               <p className="text-dark-low mb-0">
-                {project.starts_at ? (project.starts_at.month ? convertMonth(project.starts_at.month) + " " : '') : null}
-                {project.starts_at ? (project.starts_at.year ? project.starts_at.year + " " : null) : null}
-                {project.starts_at && project.ends_at == null ? ' – Present' : null}
-                {project.starts_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
+                {side_project.starts_at ? (side_project.starts_at.month ? convertMonth(side_project.starts_at.month) + " " : '') : null}
+                {side_project.starts_at ? (side_project.starts_at.year ? side_project.starts_at.year + " " : null) : null}
+                {side_project.starts_at && side_project.ends_at == null ? ' – Present' : null}
+                {side_project.starts_at && side_project.ends_at.month && side_project.ends_at.year ? ( side_project.starts_at.month == side_project.ends_at.month & side_project.starts_at.year == side_project.ends_at.year ? null : ` – ${convertMonth(side_project.ends_at.month)} ${side_project.ends_at.year}`) : null }
               </p>
               {/* {project.description ? <p className="text-dark-med mb-0 mt-3">{project.description}</p> : null} */}
             </div>
@@ -128,11 +128,11 @@ const Projects = ({
           <svg viewBox="0 0 24 24">
             <path d={ICONS.PLUS}></path>
           </svg>
-          Add project
+          Add side project
         </button>
       </div>
     </>
   )
 }
 
-export default Projects;
+export default SideProjects;

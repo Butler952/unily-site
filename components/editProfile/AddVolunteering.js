@@ -135,32 +135,44 @@ const AddVolunteering = ({
   }
 
   const updateVolunteering = (downloadURL, uid) => {
-    
-    let startDateMonth = Number(volunteeringStartDate.split('-')[1]);
-    let startDateYear = Number(volunteeringStartDate.split('-')[0]);
+    let newVolunteering = {}
 
-    let endDateMonth = Number(volunteeringEndDate.split('-')[1]);
-    let endDateYear = Number(volunteeringEndDate.split('-')[0]);
+    newVolunteering.logo_url = downloadURL ? uid : null
+    newVolunteering.logo_ref = uid ? uid : null
+    newVolunteering.title = volunteeringTitle
+    newVolunteering.company = volunteeringCompany
+    newVolunteering.location = volunteeringLocation
+    newVolunteering.company_linkedin_profile_url = volunteeringUrl
 
-    let newVolunteering = {
-      'logo_url': downloadURL !== undefined ? downloadURL : '',
-      'logo_ref': uid !== undefined ? uid : '',
-      'company': volunteeringCompany,
-      'title': volunteeringTitle,
-      'location': volunteeringLocation,
-      'company_linkedin_profile_url': volunteeringUrl,
-      'starts_at': {
-        'day': 1,
-        'month': startDateMonth,
-        'year': startDateYear
-      },
-      'ends_at': {
-        'day': 31,
-        'month': endDateMonth,
-        'year': endDateYear
-      },
-      'description': volunteeringDescription
-    };
+    if (volunteeringStartDate) {
+      let startDateMonth = Number(volunteeringStartDate.split('-')[1]);
+      let startDateYear = Number(volunteeringStartDate.split('-')[0]);
+      newVolunteering.starts_at = 
+        { 
+          'day': 1,
+          'month': startDateMonth,
+          'year': startDateYear
+        }
+    } else {
+      newVolunteering.starts_at = null
+    }
+    if (!volunteeringEndDatePresent) {
+      if (volunteeringEndDate) {
+        let endDateMonth = Number(volunteeringEndDate.split('-')[1]);
+        let endDateYear = Number(volunteeringEndDate.split('-')[0]);
+        newVolunteering.ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
+      } else {
+        newVolunteering.ends_at = null
+      }
+    } else {
+      newVolunteering.ends_at = null
+    }
+    newVolunteering.description = volunteeringDescription
 
     if (originalVolunteering !== undefined) {
       originalVolunteering.unshift(newVolunteering)
@@ -168,6 +180,41 @@ const AddVolunteering = ({
       originalVolunteering = [newVolunteering]
     }
   }
+
+  // const updateVolunteering = (downloadURL, uid) => {
+    
+  //   let startDateMonth = Number(volunteeringStartDate.split('-')[1]);
+  //   let startDateYear = Number(volunteeringStartDate.split('-')[0]);
+
+  //   let endDateMonth = Number(volunteeringEndDate.split('-')[1]);
+  //   let endDateYear = Number(volunteeringEndDate.split('-')[0]);
+
+  //   let newVolunteering = {
+  //     'logo_url': downloadURL !== undefined ? downloadURL : '',
+  //     'logo_ref': uid !== undefined ? uid : '',
+  //     'company': volunteeringCompany,
+  //     'title': volunteeringTitle,
+  //     'location': volunteeringLocation,
+  //     'company_linkedin_profile_url': volunteeringUrl,
+  //     'starts_at': {
+  //       'day': 1,
+  //       'month': startDateMonth,
+  //       'year': startDateYear
+  //     },
+  //     'ends_at': {
+  //       'day': 31,
+  //       'month': endDateMonth,
+  //       'year': endDateYear
+  //     },
+  //     'description': volunteeringDescription
+  //   };
+
+  //   if (originalVolunteering !== undefined) {
+  //     originalVolunteering.unshift(newVolunteering)
+  //   } else {
+  //     originalVolunteering = [newVolunteering]
+  //   }
+  // }
   
   const handleAddVolunteeringSubmit = (e) => {
     e.preventDefault();

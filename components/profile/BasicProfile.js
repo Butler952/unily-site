@@ -277,6 +277,74 @@ const BasicProfile = (props) => {
                   <br /><br />
                 </div>
               }
+              {(props.side_projects && props.side_projects.length > 0) &&
+                <div className="mb-5">
+                  <h4>Side projects</h4>
+                  <div className={styles.profileCard + ' card'}>
+                    {props.side_projects.sort(sortByDate).map((sideProject, index) => {
+                      // {props.side_projects.map((sideProject, index) => {
+                      const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                      return (
+                        <a key={index} target="_blank" href={sideProject.url} className={`${styles.job}`}>
+                          <Accordion key={index} className="d-flex flex-column flex-lg-row align-items-start">
+                            {/* {(props.logoVisibility ? props.logoVisibility.experience : null) && sideProject.logo_url ?
+                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                <a target="_blank" href={sideProject.url}>
+                                  <img className={styles.experienceImage} src={sideProject.logo_url ? sideProject.logo_url : null} />
+                                </a>
+                              </div>
+                              : null} */}
+                            {props.logoVisibility && props.logoVisibility.experience ?
+                              (sideProject.logo_url ?
+                                <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                  <a target="_blank" href={sideProject.url ? sideProject.url : null} className="d-block position-relative" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px', maxWidth: '80px', maxHeight: '80px', overflow: 'hidden' }}>
+                                    {/* <img 
+                                  className={styles.experienceImage} src={sideProject.logo_url ? sideProject.logo_url : null} 
+                                  style={{width: '80px', height: '80px', minWidth: '80px', minHeight: '80px'}}
+                                /> */}
+                                    <img
+                                      className="radius-3 bg-light-900"
+                                      src={sideProject.logo_url ? sideProject.logo_url : null}
+                                      onError={({ currentTarget }) => {
+                                        // currentTarget.onerror = null; // prevents looping
+                                        currentTarget.className = 'd-none'
+                                        // currentTarget.style = "display: 'none'" 
+                                        // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                        // currentTarget.src="https://via.placeholder.com/150";
+                                      }}
+                                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px', zIndex: '1' }}
+                                    />
+                                    <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '80px', minHeight: '80px' }}>
+                                      <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
+                                    </div>
+                                  </a>
+                                </div>
+                                :
+                                <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '80px', height: '80px', minWidth: '80px', minHeight: '80px' }}>
+                                  <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
+                                </div>
+                              ) : null}
+                            <div className="w-100">
+                              <p className="large text-dark-high font-weight-semibold mb-0">{sideProject.name}</p>
+                              {/* <p className="large text-dark-med mb-0">{sideProject.tagline}</p> */}
+                              <p className="text-dark-med mb-0">{sideProject.tagline}</p>
+                              <p className="text-dark-low mb-0">
+                                {sideProject.starts_at ? (sideProject.starts_at.month ? convertMonth(sideProject.starts_at.month) + " " : '') : null}
+                                {sideProject.starts_at ? (sideProject.starts_at.year ? sideProject.starts_at.year + " " : null) : null}
+                                {sideProject.starts_at && sideProject.ends_at == null ? ' – Present' : null}
+                                {sideProject.starts_at && sideProject.ends_at && sideProject.ends_at.month && sideProject.ends_at.year ? ( sideProject.starts_at.month == sideProject.ends_at.month & sideProject.starts_at.year == sideProject.ends_at.year ? null : ` – ${convertMonth(sideProject.ends_at.month)} ${sideProject.ends_at.year}`) : null }
+                              </p>
+                              {/* {sideProject.description ? <p className="text-dark-med mb-0 mt-3">{sideProject.description}</p> : null} */}
+                              {sideProject.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(sideProject.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                            </div>
+                          </Accordion>
+                        </a>
+                      )
+                    })}
+                  </div>
+                  <br /><br />
+                </div>
+              }
               {(props.experiences && props.experiences.length > 0) &&
                 <div className="mb-5">
                   <h4>Experience</h4>
@@ -341,48 +409,6 @@ const BasicProfile = (props) => {
                         </a>
                       )
                     })}
-                    {/* { userContext && 
-                        userContext.profile && 
-                        userContext.profile.experiences !== undefined ? userContext.profile.experiences.map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : ''
-                      }
-                      { userContext && 
-                        userContext.profile && 
-                        userContext.profile.experiences == undefined ? (props.experiences).map((job, index) => (props.displayExperience.each[index].display) && <Experience job={job} index={index}/>) : '' 
-                      } */}
-                            {/* <UserContext.Consumer>
-                      {({ userValue }) => (
-                          userValue && 
-                          userValue.profile && 
-                          userValue.profile.experiences
-                          .map((job, index) => (props.displayExperience.each[index].display) &&
-                          <Accordion key={index} className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
-                            {(props.logoVisibility ? props.logoVisibility.experience : null) && job.logo_url ?
-                              <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                <a target="_blank" href={job.company_linkedin_profile_url}>
-                                  <img className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} />
-                                </a>
-                              </div>
-                              : null}
-                            <div className="w-100">
-                              <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                              <p className="large text-dark-med mb-0">{job.company}</p>
-                              <p className="text-dark-low mb-0">{job.location}</p>
-                              <p className="text-dark-low mb-0">
-                                {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
-                                {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
-                                {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                                {job.starts_at && job.ends_at ? " – " + (job.ends_at.month ? convertMonth(job.ends_at.month) : '') : null}
-                                {job.starts_at && job.ends_at ? (job.ends_at.year ? " " + job.ends_at.year : null) : null}
-                              </p>
-                              {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null}
-          
-          
-                            </div>
-                          </Accordion>
-                        )
-                      )}
-                      
-                      </UserContext.Consumer> */}
                   </div>
                   <br /><br />
                 </div>
@@ -416,8 +442,7 @@ const BasicProfile = (props) => {
                                             </div>
                                           </div>
                                         </div>
-
-                                        </a>
+                                      </a>
                                     </div>
                                     :
                                     <div className="d-flex flex-column mb-3 w-100" style={{ gap: '16px' }}>

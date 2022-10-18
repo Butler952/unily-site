@@ -537,7 +537,7 @@ const EditProject = ({
                 userContext.profile.projects[editProfileModalIndex].ends_at !== undefined ? <EndDateInput /> : '' 
               ) : ''} 
             {projectsEndDateError !== '' ? <p className="small text-error-high mt-2">{projectsEndDateError}</p> : null}
-            <label className="checkbox-container small mt-2 mb-4">I currently work here
+            <label className="checkbox-container small mt-2 mb-4">I'm currently working on this
               <input 
                 type="checkbox" 
                 onChange={() => projectsEndDatePresentChange()} 

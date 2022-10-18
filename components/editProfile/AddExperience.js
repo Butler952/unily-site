@@ -115,8 +115,8 @@ const AddExperience = ({
 
   const experiencesEndDateChange = (value) => {
     setExperiencesEndDate(value),
-      setExperiencesEndDateChanged(true),
-      setExperiencesEndDateError('')
+    setExperiencesEndDateChanged(true),
+    setExperiencesEndDateError('')
   }
 
   const experiencesEndDateChangeInputType = () => {
@@ -130,37 +130,49 @@ const AddExperience = ({
 
   const experiencesDescriptionChange = (value) => {
     setExperiencesDescription(value),
-      setExperiencesDescriptionChanged(true),
-      setExperiencesDescriptionError('')
+    setExperiencesDescriptionChanged(true),
+    setExperiencesDescriptionError('')
   }
 
   const updateExperiences = (downloadURL, uid) => {
+    let newExperience = {}
 
-    let startDateMonth = Number(experiencesStartDate.split('-')[1]);
-    let startDateYear = Number(experiencesStartDate.split('-')[0]);
+    newExperience.logo_url = downloadURL ? uid : null
+    newExperience.logo_ref = uid ? uid : null
+    newExperience.title = experiencesTitle
+    newExperience.company = experiencesCompany
+    newExperience.location = experiencesLocation
+    newExperience.company_linkedin_profile_url = experiencesUrl
 
-    let endDateMonth = Number(experiencesEndDate.split('-')[1]);
-    let endDateYear = Number(experiencesEndDate.split('-')[0]);
-
-    let newExperience = {
-      'logo_url': downloadURL !== undefined ? downloadURL : '',
-      'logo_ref': uid !== undefined ? uid : '',
-      'company': experiencesCompany,
-      'title': experiencesTitle,
-      'location': experiencesLocation,
-      'url': experiencesUrl,
-      'starts_at': {
-        'day': 1,
-        'month': startDateMonth,
-        'year': startDateYear
-      },
-      'ends_at': {
-        'day': 31,
-        'month': endDateMonth,
-        'year': endDateYear
-      },
-      'description': experiencesDescription
-    };
+    if (experiencesStartDate) {
+      let startDateMonth = Number(experiencesStartDate.split('-')[1]);
+      let startDateYear = Number(experiencesStartDate.split('-')[0]);
+      newExperience.starts_at = 
+        { 
+          'day': 1,
+          'month': startDateMonth,
+          'year': startDateYear
+        }
+    } else {
+      newExperience.starts_at = null
+    }
+    if (!experiencesEndDatePresent) {
+      if (experiencesEndDate) {
+        let endDateMonth = Number(experiencesEndDate.split('-')[1]);
+        let endDateYear = Number(experiencesEndDate.split('-')[0]);
+        newExperience.ends_at = 
+          { 
+            'day': 31,
+            'month': endDateMonth,
+            'year': endDateYear
+          }
+      } else {
+        newExperience.ends_at = null
+      }
+    } else {
+      newExperience.ends_at = null
+    }
+    newExperience.description = experiencesDescription
 
     if (originalExperiences !== undefined) {
       originalExperiences.unshift(newExperience)
@@ -168,6 +180,42 @@ const AddExperience = ({
       originalExperiences = [newExperience]
     }
   }
+
+
+  // const updateExperiences = (downloadURL, uid) => {
+
+  //   let startDateMonth = Number(experiencesStartDate.split('-')[1]);
+  //   let startDateYear = Number(experiencesStartDate.split('-')[0]);
+
+  //   let endDateMonth = Number(experiencesEndDate.split('-')[1]);
+  //   let endDateYear = Number(experiencesEndDate.split('-')[0]);
+
+  //   let newExperience = {
+  //     'logo_url': downloadURL !== undefined ? downloadURL : '',
+  //     'logo_ref': uid !== undefined ? uid : '',
+  //     'company': experiencesCompany,
+  //     'title': experiencesTitle,
+  //     'location': experiencesLocation,
+  //     'url': experiencesUrl,
+  //     'starts_at': {
+  //       'day': 1,
+  //       'month': startDateMonth,
+  //       'year': startDateYear
+  //     },
+  //     'ends_at': {
+  //       'day': 31,
+  //       'month': endDateMonth,
+  //       'year': endDateYear
+  //     },
+  //     'description': experiencesDescription
+  //   };
+
+  //   if (originalExperiences !== undefined) {
+  //     originalExperiences.unshift(newExperience)
+  //   } else {
+  //     originalExperiences = [newExperience]
+  //   }
+  // }
 
   const handleAddExperiencesSubmit = (e) => {
     e.preventDefault();
@@ -394,7 +442,7 @@ const AddExperience = ({
               value={experiencesStartDate}
               onChange={({ target }) => experiencesStartDateChange(target.value)}
             />
-            {experiencesLocationError !== '' ? <p className="small text-error-high mt-2">{experiencesLocationError}</p> : null}
+            {experiencesStartDateError !== '' ? <p className="small text-error-high mt-2">{experiencesStartDateError}</p> : null}
           </div>
           <div className="mb-3">
             <p className="text-dark-high mb-2">End date</p>
@@ -406,7 +454,7 @@ const AddExperience = ({
                 userContext.profile.experiences[editProfileModalIndex].ends_at && 
                 userContext.profile.experiences[editProfileModalIndex].ends_at !== undefined ? <EndDateInput /> : '' 
               ) : ''}  */}
-            {experiencesLocationError !== '' ? <p className="small text-error-high mt-2">{experiencesLocationError}</p> : null}
+            {experiencesEndDateError !== '' ? <p className="small text-error-high mt-2">{experiencesEndDateError}</p> : null}
             <label className="checkbox-container small mt-2 mb-4">I currently work here
               <input
                 type="checkbox"
