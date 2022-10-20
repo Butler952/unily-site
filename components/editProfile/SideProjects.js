@@ -106,7 +106,7 @@ const SideProjects = ({
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
           { side_project.logo_url ?
             <div>
-              <a target="_blank" href={side_project.url} className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
+              <div className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
                 {/* <img 
                   className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
                   style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
@@ -126,7 +126,7 @@ const SideProjects = ({
                 <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight:'72px'}}>
                   <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
                 </div>
-              </a>
+              </div>
             </div>
             : 
             <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center" style={{width: '72px', height: '72px', minWidth: '72px', minHeight:'72px'}}>
