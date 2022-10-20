@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import mixpanel from 'mixpanel-browser';
 import { UserContext } from './_app';
 import BasicProfile from '../components/profile/BasicProfile';
+import DocumentProfile from '../components/profile/DocumentProfile';
 
 const Profile = (props) => {
 
@@ -48,7 +49,7 @@ const Profile = (props) => {
 
   return (
     <div>
-      <BasicProfile 
+      <DocumentProfile
         level="baseLevel"
 
         pageId={props.pageId}
