@@ -67,7 +67,7 @@ const EditLink = ({
 
     setSubmitting(true)
 
-    if (editProfileModalIndex == !undefined) {
+    if (editProfileModalIndex !== undefined) {
       updateLinks(editProfileModalIndex)
       fire.firestore().collection('users').doc(user).update({
         'links': originalLinks,
@@ -88,8 +88,7 @@ const EditLink = ({
         toast("Unable to add link")
         //console.error("Error adding document: ", error);
       });
-    }
-    if (editProfileModalIndex == undefined) {
+    } else {
       fire.firestore().collection('users').doc(user).update({
         'email': linksUrl,
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
