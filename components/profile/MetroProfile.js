@@ -232,7 +232,7 @@ const MetroProfile = (props) => {
                   </div>
                   : ''}
               </div>
-            <Container className="py-5 px-5">
+            <Container className="py-5 px-5" style={{maxWidth: '960px'}}>
               <div className="">
                 <div className="px-0 px-md-5">
                   <div className="mt-0 mt-md-5 mb-5 py-3">

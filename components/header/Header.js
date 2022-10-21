@@ -314,7 +314,8 @@ const Header = (props) => {
           }
           ${
             windowUrl.includes("profile") || 
-            windowUrl.includes("settings")
+            windowUrl.includes("settings") || 
+            windowUrl.includes("/aaronbutler")
             // windowUrl.includes("blog") || 
             // windowUrl.includes("legal") || 
             // windowUrl.includes("setup") ||
