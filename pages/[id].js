@@ -49,8 +49,8 @@ const Profile = (props) => {
 
   return (
     <div>
-      { !props.template || 
-        props.template == 'original' &&
+      { (props.template == undefined ||
+        props.template == 'original') ?
         <BasicProfile
           level="baseLevel"
 
@@ -72,6 +72,7 @@ const Profile = (props) => {
           surveyOnSignUpHide={props.surveyOnSignUpHide}
           displayInfo={props.displayInfo}
         />
+        : null
       }
       { props.template == 'document' &&
         <DocumentProfile
