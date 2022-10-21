@@ -83,7 +83,7 @@ const TemplateSection = ({
       'id': 1,
       'label': 'Metro',
       'string': 'metro',
-      'img': '/images/metro-template.png',
+      'img': '/images/metro-template.jpeg',
       'active':     
         templateChanged ?    
         userContext &&
