@@ -11,6 +11,7 @@ import ICONS from '../icon/IconPaths';
 import mixpanel from 'mixpanel-browser';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
+import convertToLink from '../../utils/convertToLink';
 
 const BasicProfile = (props) => {
 
@@ -264,9 +265,7 @@ const BasicProfile = (props) => {
                         return (
                           <a 
                           key={index} 
-                          href={
-                            link.url.includes('https://') || link.url.includes('http://') ? link.url : `https://${link.url}`
-                          } 
+                          href={convertToLink(link.url)}
                           target="_blank" 
                           className="btn dark medium w-100 w-md-auto">
                             {link.label}
@@ -294,7 +293,7 @@ const BasicProfile = (props) => {
                       // {props.side_projects.map((sideProject, index) => {
                       const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                       return (
-                        <a key={index} target="_blank" href={sideProject.url} className={`${styles.job}`}>
+                        <div key={index} className={`${styles.job}`}>
                           <Accordion key={index} className="d-flex flex-column flex-lg-row align-items-start">
                             {/* {(props.logoVisibility ? props.logoVisibility.experience : null) && sideProject.logo_url ?
                               <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -334,7 +333,9 @@ const BasicProfile = (props) => {
                                 </div>
                               ) : null}
                             <div className="w-100">
-                              <p className="large text-dark-high font-weight-semibold mb-0">{sideProject.name}</p>
+                              <a target="_blank" href={convertToLink(sideProject.url)}>
+                                <p className="large text-dark-high font-weight-semibold mb-0">{sideProject.name}</p>
+                              </a>
                               {/* <p className="large text-dark-med mb-0">{sideProject.tagline}</p> */}
                               <p className="text-dark-med mb-0">{sideProject.tagline}</p>
                               <p className="text-dark-low mb-0">
@@ -347,7 +348,7 @@ const BasicProfile = (props) => {
                               {sideProject.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(sideProject.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                             </div>
                           </Accordion>
-                        </a>
+                        </div>
                       )
                     })}
                   </div>
@@ -403,7 +404,7 @@ const BasicProfile = (props) => {
                               ) : null}
                             <div className="w-100">
                               <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                              <a target="_blank" href={job.company_linkedin_profile_url}>
+                              <a target="_blank" href={convertToLink(job.company_linkedin_profile_url)}>
                                 <p className="large text-dark-med mb-0">{job.company}</p>
                               </a>
                               <p className="text-dark-low mb-0">{job.location}</p>
@@ -431,12 +432,12 @@ const BasicProfile = (props) => {
                       {props.projects.sort(sortByDate).map((project, index) => {
                         const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                         return (
-                          <a key={index} target="_blank" href={project.url}>
+                          <a key={index} target="_blank" href={convertToLink(project.url)}>
                             <div className={styles.profileCard + ' card'}>
                               <Accordion className={`${styles.job} d-flex flex-column align-items-start`}>
                                 {project.logo_url ?
                                   <div className="mb-3 w-100">
-                                    <a target="_blank" href={project.url} className="d-block position-relative w-100">    
+                                    <a target="_blank" href={convertToLink(project.url)} className="d-block position-relative w-100">    
                                       <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
                                         <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
                                           <img
@@ -497,7 +498,7 @@ const BasicProfile = (props) => {
                           {props.logoVisibility && props.logoVisibility.education ?
                             (school.logo_url ?
                               <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                <a target="_blank" href={school.school_linkedin_profile_url} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                   <img
                                     className="radius-3 bg-light-900"
                                     src={school.logo_url ? school.logo_url : null}
@@ -524,7 +525,7 @@ const BasicProfile = (props) => {
                             <p className="large text-dark-high font-weight-semibold mb-0">
                               {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                             </p>
-                            <a target="_blank" href={school.school_linkedin_profile_url ? school.school_linkedin_profile_url : null}>
+                            <a target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)}>
                               <p className="large text-dark-med mb-0">{school.school}</p>
                             </a>
                             <p className="text-dark-low mb-0">
@@ -551,7 +552,7 @@ const BasicProfile = (props) => {
                           {props.logoVisibility && props.logoVisibility.volunteering ?
                             (volunteer.logo_url ?
                               <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                <a target="_blank" href={volunteer.company_linkedin_profile_url} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                   {/* <img 
                                     className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
                                     style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
@@ -580,7 +581,7 @@ const BasicProfile = (props) => {
                             ) : null}
                           <div>
                             <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                            <a target="_blank" href={volunteer.company_linkedin_profile_url ? volunteer.company_linkedin_profile_url : null}>
+                            <a target="_blank" href={volunteer.company_linkedin_profile_url && convertToLink(volunteer.company_linkedin_profile_url)}>
                               <p className="large text-dark-med mb-0">{volunteer.company}</p>
                             </a>
                             <p className="text-dark-low mb-0">

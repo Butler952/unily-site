@@ -12,6 +12,7 @@ import ICONS from '../icon/IconPaths';
 import mixpanel from 'mixpanel-browser';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
+import convertToLink from '../../utils/convertToLink';
 
 const DocumentProfile = (props) => {
 
@@ -251,7 +252,7 @@ const DocumentProfile = (props) => {
                         {props.links &&
                           props.links.map((link, index) => {
                             return (
-                              <a key={index} href={link.url} target="_blank" className={`${profileStyles.link}`}>
+                              <a key={index} href={convertToLink(link.url)} target="_blank" className={`${profileStyles.link}`}>
                                 {link.label}
                                 <svg width="24" viewBox="0 0 24 24">
                                   <path d={ICONS.ARROW_LINK}></path>
@@ -292,7 +293,7 @@ const DocumentProfile = (props) => {
                                 {props.logoVisibility && props.logoVisibility.sideProjects ?
                                   (sideProject.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                      <a target="_blank" href={sideProject.url ? sideProject.url : null} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                      <a target="_blank" href={sideProject.url && convertToLink(sideProject.url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         {/* <img 
                                       className={styles.experienceImage} src={sideProject.logo_url ? sideProject.logo_url : null} 
                                       style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
@@ -320,7 +321,7 @@ const DocumentProfile = (props) => {
                                     </div>
                                   ) : null}
                                 <div className="w-100">
-                                  <a target="_blank" href={sideProject.url ? sideProject.url : null}>
+                                  <a target="_blank" href={sideProject.url && convertToLink(sideProject.url)}>
                                     <p className="large text-dark-high font-weight-semibold mb-0">{sideProject.name}</p>
                                   </a>
                                   {/* <p className="large text-dark-med mb-0">{sideProject.tagline}</p> */}
@@ -362,7 +363,7 @@ const DocumentProfile = (props) => {
                                 {props.logoVisibility && props.logoVisibility.experience ?
                                   (job.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                      <a target="_blank" href={job.company_linkedin_profile_url ? job.company_linkedin_profile_url : null} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                      <a target="_blank" href={job.company_linkedin_profile_url && convertToLink(job.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         {/* <img 
                                       className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
                                       style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
@@ -391,7 +392,7 @@ const DocumentProfile = (props) => {
                                   ) : null}
                                 <div className="w-100">
                                   <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
-                                  <a target="_blank" href={job.company_linkedin_profile_url}>
+                                  <a target="_blank" href={convertToLink(job.company_linkedin_profile_url)}>
                                     <p className="large text-dark-med mb-0">{job.company}</p>
                                   </a>
                                   <p className="text-dark-low mb-0">{job.location}</p>
@@ -424,7 +425,7 @@ const DocumentProfile = (props) => {
                                   <Accordion className={`d-flex flex-column align-items-start`}>
                                     {project.logo_url ?
                                       <div className="mb-3 w-100">
-                                        <a target="_blank" href={project.url} className="d-block position-relative w-100">    
+                                        <a target="_blank" href={convertToLink(project.url)} className="d-block position-relative w-100">    
                                           <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
                                             <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
                                               <img
@@ -452,7 +453,7 @@ const DocumentProfile = (props) => {
                                       </div>
                                     }
                                     <div className="w-100">
-                                      <a  target="_blank" href={project.url}>
+                                      <a  target="_blank" href={convertToLink(project.url)}>
                                         <p className="large text-dark-high font-weight-semibold mb-0">{project.name}</p>
                                       </a>
                                       <p className="text-dark-low mb-0">
@@ -487,7 +488,7 @@ const DocumentProfile = (props) => {
                               {props.logoVisibility && props.logoVisibility.education ?
                                 (school.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                    <a target="_blank" href={school.school_linkedin_profile_url} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                    <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                       <img
                                         className="radius-3 bg-light-900"
                                         src={school.logo_url ? school.logo_url : null}
@@ -514,7 +515,7 @@ const DocumentProfile = (props) => {
                                 <p className="large text-dark-high font-weight-semibold mb-0">
                                   {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                                 </p>
-                                <a target="_blank" href={school.school_linkedin_profile_url ? school.school_linkedin_profile_url : null}>
+                                <a target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)}>
                                   <p className="large text-dark-med mb-0">{school.school}</p>
                                 </a>
                                 <p className="text-dark-low mb-0">
@@ -541,7 +542,7 @@ const DocumentProfile = (props) => {
                               {props.logoVisibility && props.logoVisibility.volunteering ?
                                 (volunteer.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                    <a target="_blank" href={volunteer.company_linkedin_profile_url} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                    <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                       {/* <img 
                                         className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
                                         style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
@@ -570,7 +571,7 @@ const DocumentProfile = (props) => {
                                 ) : null}
                               <div>
                                 <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                                <a target="_blank" href={volunteer.company_linkedin_profile_url ? volunteer.company_linkedin_profile_url : null}>
+                                <a target="_blank" href={volunteer.company_linkedin_profile_url && convertToLink(volunteer.company_linkedin_profile_url)}>
                                   <p className="large text-dark-med mb-0">{volunteer.company}</p>
                                 </a>
                                 <p className="text-dark-low mb-0">
