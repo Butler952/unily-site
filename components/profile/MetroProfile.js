@@ -201,7 +201,32 @@ const MetroProfile = (props) => {
           {/* <div style={{ marginTop: '66px' }}> */}
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
               <div className="d-flex flex-column flex-md-row justify-content-md-between p-4">
-                <p className="mb-0 text-dark-low">{props.full_name}</p>
+                <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
+                  {!profilePictureError | props.profile_pic_url !== '' &&
+                      // <img
+                      //   src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
+                      //   onError={({ currentTarget }) => {
+                      //     currentTarget.onerror = null; // prevents looping
+                      //     setProfilePictureError(true)
+                      //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                      //   }}
+                      //   style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
+                      //   className={styles.profilePicture}
+                      // />
+                      <img
+                        // src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
+                        src={props.profile_pic_url}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.className = 'd-none'
+                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                        }}
+                        style={{ height: '32px', width: '32px', borderRadius: '100%'}}
+                        className="border-1 border-solid border-dark-300 shadow-3"
+                      />
+                    }
+                  {/* <p className="mb-0 font-weight-medium text-dark-low">{props.full_name}</p> */}
+                </div>
                 {props &&
                   props.displayInfo &&
                   props.displayInfo.basicInfo &&
@@ -260,10 +285,10 @@ const MetroProfile = (props) => {
                     } */}
                     <div className="d-flex flex-column ">
                       {props.full_name &&
-                        <h2 className="mb-1 font-weight-medium">Hello there!<br></br>I'm {props.full_name}</h2>
+                        <h1 className="mb-3 font-weight-medium">Hello there!<br></br>I'm {props.full_name}</h1>
                       }
                       {props.headline &&
-                        <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
+                        <h5 className="mb-5" style={{ maxWidth: '640px' }}>{props.headline}</h5>
                       }
                     </div>
                   </div>
