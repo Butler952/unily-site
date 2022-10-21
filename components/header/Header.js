@@ -304,7 +304,11 @@ const Header = (props) => {
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
     userData == '' && windowUrl.includes("/profile/") || userData == '' && windowUrl.includes("/aaronbutler") ? null : 
       <div
-        style={windowUrl.includes("profile") || windowUrl.includes("settings") ? {paddingTop:'66px'} : null}
+        style={ 
+          windowUrl.includes("profile") || 
+          windowUrl.includes("settings") ||
+          windowUrl.includes("/aaronbutler")
+          ? {paddingTop:'66px'} : null}
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
         <div 
