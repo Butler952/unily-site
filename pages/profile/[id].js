@@ -40,7 +40,7 @@ const Profile = (props) => {
 
   return (
     <div>
-      { props.template == 'original' &&
+      { props.template == undefined | props.template == 'original' &&
         <BasicProfile
           level="baseLevel"
 
