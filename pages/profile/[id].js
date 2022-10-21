@@ -4,6 +4,7 @@ import mixpanel from 'mixpanel-browser';
 import { UserContext } from '../_app';
 import BasicProfile from '../../components/profile/BasicProfile';
 import DocumentProfile from '../../components/profile/DocumentProfile';
+import MetroProfile from '../../components/profile/MetroProfile';
 
 const Profile = (props) => {
 
@@ -67,6 +68,29 @@ const Profile = (props) => {
       }
       { props.template == 'document' &&
         <DocumentProfile
+          level="baseLevel"
+
+          pageId={props.pageId}
+          template={props.template}
+          email={props.email}
+          links={props.links}
+          profile_pic_url={props.profile_pic_url}
+          background_cover_image_url={props.background_cover_image_url}
+          full_name={props.full_name}
+          headline={props.headline}
+          summary={props.summary}
+          experiences={props.experiences}
+          projects={props.projects}
+          side_projects={props.side_projects}
+          education={props.education}
+          logoVisibility={props.logoVisibility}
+          volunteer_work={props.volunteer_work}
+          surveyOnSignUpHide={props.surveyOnSignUpHide}
+          displayInfo={props.displayInfo}
+        />
+      }
+      { props.template == 'metro' &&
+        <MetroProfile
           level="baseLevel"
 
           pageId={props.pageId}

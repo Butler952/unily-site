@@ -81,6 +81,21 @@ const TemplateSection = ({
     },
     {
       'id': 1,
+      'label': 'Metro',
+      'string': 'metro',
+      'img': '/images/metro-template.png',
+      'active':     
+        templateChanged ?    
+        userContext &&
+        userContext.template && 
+        userContext.template == 'metro' 
+        :
+        allUserData &&
+        allUserData.template && 
+        allUserData.template == 'metro'
+    },
+    {
+      'id': 2,
       'label': 'Document',
       'string': 'document',
       'img': '/images/document-template.jpeg',
@@ -93,7 +108,7 @@ const TemplateSection = ({
         allUserData &&
         allUserData.template && 
         allUserData.template == 'document'
-    }
+    },
   ]
 
   const changeTemplate = (newTemplate) => {
@@ -127,7 +142,7 @@ const TemplateSection = ({
           <p className="text-dark-low mb-0">Change the template for your profile</p>
         </div>
         <hr className="m-0"/>
-        <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>
+        <div className="d-flex flex-column m-4" style={{gap: '16px'}}>
         
         {templates.map((template, index) => 
           <div role="button" onClick={() => changeTemplate(template.string)} className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${template.active && styles.active}`}>

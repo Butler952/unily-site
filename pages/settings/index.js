@@ -484,7 +484,8 @@ const Settings = () => {
       <Head>
         <title>Settings</title>
       </Head>
-      <div style={{ marginTop: '66px' }}>
+      <div>
+      {/* <div style={{ marginTop: '66px' }}> */}
         {surveyHide ? '' : <SurveyBanner />}
         <Container className="py-4">
           <div className="m-auto" style={{ maxWidth: "640px" }}>

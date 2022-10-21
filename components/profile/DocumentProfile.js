@@ -197,7 +197,8 @@ const DocumentProfile = (props) => {
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
-          <div style={{ marginTop: '66px' }}>
+          {/* <div style={{ marginTop: '66px' }}> */}
+          <div>
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
             <Container className="py-5 px-5">
               <div className={`${profileStyles.profileCard} p-5 shadow-2 radius-4 bg-light-900`}>
