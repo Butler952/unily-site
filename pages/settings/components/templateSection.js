@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
 import { Modal } from 'react-bootstrap';
@@ -6,11 +6,22 @@ import mixpanel from 'mixpanel-browser';
 import styles from '../settings.module.scss'
 import Image from 'next/image'
 import { toast } from 'react-toastify';
+import { UserContext } from '../../_app';
 
-const TemplateSection = ({userData}) => {
+const TemplateSection = ({
+  userData,
+  allUserData
+}) => {
+
+  const { userContext, setUserContext } = useContext(UserContext);
+
   const [showModal, setShowModal] = useState(false);
   const [sendingData, setSendingData] = useState(false);
   const [notificationRequested, setNotificationRequested] = useState(false);
+
+  const [templateChanged, setTemplateChanged] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [templateSelection, setTemplateSelection] = useState(userContext.template);
 
   const handleClose = () => {
     setShowModal(false)
@@ -49,6 +60,65 @@ const TemplateSection = ({userData}) => {
       })
   }
 
+  let templates = [
+    {
+      'id': 0,
+      'label': 'Original',
+      'string': 'original',
+      'img': '/images/profile-preview.png',
+      'active': 
+        templateChanged ? 
+        !userContext.template ||
+        userContext &&
+        userContext.template && 
+        userContext.template == 'original'
+        :
+        allUserData &&
+        !allUserData.template ||
+        allUserData &&
+        allUserData.template && 
+        allUserData.template == 'original'
+    },
+    {
+      'id': 1,
+      'label': 'Document',
+      'string': 'document',
+      'img': '/images/document-template.jpeg',
+      'active':     
+        templateChanged ?    
+        userContext &&
+        userContext.template && 
+        userContext.template == 'document' 
+        :
+        allUserData &&
+        allUserData.template && 
+        allUserData.template == 'document'
+    }
+  ]
+
+  const changeTemplate = (newTemplate) => {
+    setSubmitting(true)
+    fire.firestore().collection('users').doc(userData.uid).update({
+      template: newTemplate,
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+    })
+    .then((result) => {
+      let newUserContext = userContext;
+      newUserContext.template = newTemplate;
+      setUserContext(newUserContext)
+    })
+    .then(() => {
+      setSubmitting(false)
+      setTemplateChanged(true)
+      toast("Template updated")
+    })
+    .catch((err) => {
+      console.log(err.code, err.message)
+      //setNotification(err.message)
+      toast(err.message)
+    })
+  }
+
   return (
     <div>
       <div className="card mx-auto mb-5">
@@ -58,7 +128,21 @@ const TemplateSection = ({userData}) => {
         </div>
         <hr className="m-0"/>
         <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>
-          <div className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${styles.active}`}>
+        
+        {templates.map((template, index) => 
+          <div role="button" onClick={() => changeTemplate(template.string)} className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${template.active && styles.active}`}>
+            <p className="large font-weight-bold text-dark-high">{template.label}</p>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={template.img}
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
+          </div>
+        )}
+
+          {/* <div className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${styles.active}`}>
             <p className="large font-weight-bold text-dark-high">Original</p>
             <div className={styles.imageWrapper}>
               <Image
@@ -68,9 +152,23 @@ const TemplateSection = ({userData}) => {
               />
             </div>
           </div>
-          <div className={`d-flex align-items-center justify-content-center radius-3 p-3 w-100 ${styles.planCard}`}>
+          <div className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard}`}>
+            <p className="large font-weight-bold text-dark-high">Document</p>
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/images/document-template.jpeg"
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
+          </div> */}
+          {/* <div className={`d-flex align-items-center justify-content-center radius-3 p-3 w-100 ${styles.planCard}`}>
             <button type="button" onClick={() => handleClick()} className="btn primary medium w-100 w-md-auto">Browse more</button>
-          </div>
+          </div> */}
+        </div>
+        <hr className="m-0"/>
+        <div className="m-4">
+          <button type="button" onClick={() => handleClick()} className="btn primary medium w-100 w-md-auto">Browse more</button>
         </div>
       </div>
       <Modal 

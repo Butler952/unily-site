@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import mixpanel from 'mixpanel-browser';
 import { UserContext } from './_app';
 import BasicProfile from '../components/profile/BasicProfile';
+import DocumentProfile from '../components/profile/DocumentProfile';
 
 const Profile = (props) => {
 
@@ -48,26 +49,52 @@ const Profile = (props) => {
 
   return (
     <div>
-      <BasicProfile 
-        level="baseLevel"
+      { props.template == 'original' &&
+        <BasicProfile
+          level="baseLevel"
 
-        pageId={props.pageId}
-        email={props.email}
-        links={props.links}
-        profile_pic_url={props.profile_pic_url}
-        background_cover_image_url={props.background_cover_image_url}
-        full_name={props.full_name}
-        headline={props.headline}
-        summary={props.summary}
-        experiences={props.experiences}
-        projects={props.projects}
-        side_projects={props.side_projects}
-        education={props.education}
-        logoVisibility={props.logoVisibility}
-        volunteer_work={props.volunteer_work}
-        surveyOnSignUpHide={props.surveyOnSignUpHide}
-        displayInfo={props.displayInfo}
-      />
+          pageId={props.pageId}
+          template={props.template}
+          email={props.email}
+          links={props.links}
+          profile_pic_url={props.profile_pic_url}
+          background_cover_image_url={props.background_cover_image_url}
+          full_name={props.full_name}
+          headline={props.headline}
+          summary={props.summary}
+          experiences={props.experiences}
+          projects={props.projects}
+          side_projects={props.side_projects}
+          education={props.education}
+          logoVisibility={props.logoVisibility}
+          volunteer_work={props.volunteer_work}
+          surveyOnSignUpHide={props.surveyOnSignUpHide}
+          displayInfo={props.displayInfo}
+        />
+      }
+      { props.template == 'document' &&
+        <DocumentProfile
+          level="baseLevel"
+
+          pageId={props.pageId}
+          template={props.template}
+          email={props.email}
+          links={props.links}
+          profile_pic_url={props.profile_pic_url}
+          background_cover_image_url={props.background_cover_image_url}
+          full_name={props.full_name}
+          headline={props.headline}
+          summary={props.summary}
+          experiences={props.experiences}
+          projects={props.projects}
+          side_projects={props.side_projects}
+          education={props.education}
+          logoVisibility={props.logoVisibility}
+          volunteer_work={props.volunteer_work}
+          surveyOnSignUpHide={props.surveyOnSignUpHide}
+          displayInfo={props.displayInfo}
+        />
+      }
     </div>
   )
 }
@@ -82,6 +109,7 @@ export const getServerSideProps = async ({ query }) => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         content['pageId'] = query.id ? query.id : null;
+        content['template'] = doc.data().template ? doc.data().template : null;
         content['email'] = doc.data().email ? doc.data().email : null;
         content['links'] = doc.data().links ? doc.data().links : null;
         content['profile_pic_url'] = doc.data().profile.profile_pic_url ? doc.data().profile.profile_pic_url : null;
@@ -106,6 +134,7 @@ export const getServerSideProps = async ({ query }) => {
 
   const props = {
     pageId: content.pageId,
+    template: content.template,
     email: content.email,
     links: content.links,
     profile_pic_url: content.profile_pic_url,
