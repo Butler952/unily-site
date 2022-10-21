@@ -96,6 +96,21 @@ const TemplateSection = ({
     },
     {
       'id': 2,
+      'label': 'Metro Night',
+      'string': 'metro_night',
+      'img': '/images/metro-night-template.jpeg',
+      'active':     
+        templateChanged ?    
+        userContext &&
+        userContext.template && 
+        userContext.template == 'metro_night' 
+        :
+        allUserData &&
+        allUserData.template && 
+        allUserData.template == 'metro_night'
+    },
+    {
+      'id': 3,
       'label': 'Document',
       'string': 'document',
       'img': '/images/document-template.jpeg',
