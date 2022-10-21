@@ -773,7 +773,10 @@ const Settings = () => {
               volunteeringLogos={volunteeringLogos}
               setVolunteeringLogos={setVolunteeringLogos}
             />
-            <TemplateSection userData={userData} />
+            <TemplateSection 
+              userData={userData} 
+              allUserData={allUserData}
+            />
             <DownloadSection
               userData={userData}
               allUserData={allUserData}

@@ -262,7 +262,15 @@ const BasicProfile = (props) => {
                     {props.links &&
                       props.links.map((link, index) => {
                         return (
-                          <a key={index} href={link.url} target="_blank" className="btn dark medium w-100 w-md-auto">{link.label}</a>
+                          <a 
+                          key={index} 
+                          href={
+                            link.url.includes('https://') || link.url.includes('http://') ? link.url : `https://${link.url}`
+                          } 
+                          target="_blank" 
+                          className="btn dark medium w-100 w-md-auto">
+                            {link.label}
+                          </a>
                         )
                       })}
                   </div>
@@ -602,7 +610,18 @@ const BasicProfile = (props) => {
             </Container>
             <div className='py-5 text-center'>
               <Container>
-                <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p>
+                <a href="/" style={{textDecoration: 'none'}}>
+                  <svg height="32" viewBox="0 0 85 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                      className="fill-dark-700"
+                      fill-rule="evenodd" 
+                      clip-rule="evenodd" 
+                      d={ICONS.LOGO} 
+                    />
+                  </svg>
+                  <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
+                </a>
+                {/* <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p> */}
               </Container>
             </div>
           </div>
