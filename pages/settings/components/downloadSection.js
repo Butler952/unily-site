@@ -75,7 +75,7 @@ const DownloadSection = ({userData, allUserData}) => {
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Download resume</h5>
-          <p className="text-dark-low mb-0">Export you resume as a PDF or DOCX file</p>
+          <p className="text-dark-low mb-0">Export your resume as a PDF or DOCX file</p>
         </div>
         <hr className="m-0"/>
         <div className="d-flex flex-column flex-md-row m-4" style={{gap: '16px'}}>
