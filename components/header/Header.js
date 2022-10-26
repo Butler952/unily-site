@@ -352,7 +352,14 @@ const Header = (props) => {
                 {/* {profile.profile_pic_url &&
               <img src={profile.profile_pic_url} style={{width: '48px', borderRadius:'100%'}} />
             } */}
-                {(userContext && userContext.stage && userContext.stage !== undefined) && (userContext && userContext.stage && userContext.stage !== 'complete') ?
+                { (userContext && 
+                  userContext.stage && 
+                  userContext.stage !== undefined) 
+                    && 
+                  (userContext && 
+                  userContext.stage && 
+                  userContext.stage !== 'complete' && userContext.stage !== '/setup/template') 
+                   ?
                   <button className="btn primary low small" onClick={handleLogout}>Logout</button>
                   :
                   <div className="d-flex flex-row justify-content-center align-items-center">

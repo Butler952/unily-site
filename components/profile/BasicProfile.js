@@ -633,7 +633,7 @@ const BasicProfile = (props) => {
           <Container>
             <div className="py-5 background-light">
               <div className="d-flex flex-column align-items-center container text-center">
-                {screenWidth > 767 ?
+                {screenWidth && screenWidth > 767 ?
                   <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
                   :
                   <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>

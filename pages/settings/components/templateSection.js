@@ -100,7 +100,7 @@ const TemplateSection = ({
       'string': 'metro_night',
       'img': '/images/metro-night-template.jpeg',
       'active':     
-        templateChanged ?    
+        templateChanged ?
         userContext &&
         userContext.template && 
         userContext.template == 'metro_night' 

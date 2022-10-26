@@ -9,8 +9,10 @@ import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
+import styles from '../settings/settings.module.scss'
+import Image from 'next/image';
 
-const Sync = () => {
+const Template = () => {
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [profileUrl, setProfileUrl] = useState('');
@@ -23,6 +25,12 @@ const Sync = () => {
   const [urlError, setUrlError] = useState('');
   const [notify, setNotification] = useState('');
   const router = useRouter();
+
+  const [saving, setSaving] = useState('');
+
+  const [templateChanged, setTemplateChanged] = useState(false);
+  const [templateSelection, setTemplateSelection] = useState('');
+
 
   useEffect(() => {
     const unsubscribe = fire.auth()
@@ -84,7 +92,7 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               firstName: result.first_name,
               lastName: result.last_name,
-              stage: '/setup/template',
+              stage: 'complete',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             })
           }
@@ -116,7 +124,7 @@ const Sync = () => {
               },
             },
             //syncsRemaining: 1,
-            stage: '/setup/template',
+            stage: 'complete',
             // profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
@@ -132,7 +140,7 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               firstName: result.first_name,
               lastName: result.last_name,
-              stage: '/setup/template',
+              stage: 'complete',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }
@@ -166,7 +174,7 @@ const Sync = () => {
                 'each': createVolunteerList(result.volunteer_work)
               },
             },
-            stage: '/setup/template',
+            stage: 'complete',
             // profileUrl: '/profile/' + userData.uid,
           })
         })
@@ -178,7 +186,7 @@ const Sync = () => {
           )
         })
         .then(() => {
-          router.push('/setup/template')
+          router.push(currentProfile.profileUrl)
         })
         .catch(error => console.log('error', error));
     } else {
@@ -217,62 +225,97 @@ const Sync = () => {
     )
   }
 
+  const changeTemplate = (template) => {
+    setTemplateChanged(true)
+    setTemplateSelection(template)
+  }
+
+  let templates = [
+    {
+      'id': 0,
+      'label': 'Original',
+      'string': 'original',
+      'img': '/images/profile-preview.png',
+      'active': templateSelection == 'original'
+    },
+    {
+      'id': 1,
+      'label': 'Metro',
+      'string': 'metro',
+      'img': '/images/metro-template.jpeg',
+      'active': templateSelection == 'metro'
+    },
+    {
+      'id': 2,
+      'label': 'Metro Night',
+      'string': 'metro_night',
+      'img': '/images/metro-night-template.jpeg',
+      'active': templateSelection == 'metro_night'
+    },
+    {
+      'id': 3,
+      'label': 'Document',
+      'string': 'document',
+      'img': '/images/document-template.jpeg',
+      'active': templateSelection == 'document'
+    },
+  ]
+
+  const handleSave = (e) => {
+    e.preventDefault();
+
+    if (!templateChanged) {
+      setChoiceError('Please choose a template')
+    }
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      'stage': 'complete',
+      'template': templateSelection,
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      let newUserContext = userContext;
+      newUserContext.stage = 'complete'
+      newUserContext.template = templateSelection;
+      setUserContext(newUserContext)
+    })
+    .then(() => {
+      router.push(currentProfile.profileUrl)
+    })
+    .catch((err) => {
+      // console.log(err.code, err.message)
+      toast(err.message)
+    })
+  }
+
   return (
     <div>
      
       <Head>
-        <title>Sync your data</title>
+        <title>Choose a template</title>
       </Head>
-
       <Container className="py-5">
         <div className="card m-auto" style={{ maxWidth: "640px" }}>
           <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Sync data from LinkedIn</h5>
+            <h5 className="text-dark-high mb-0">Choose a template</h5>
           </div>
           <hr className="m-0" />
-          <div className="p-4 p-md-5">
-            {loadingState === '' ?
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <p className="large text-dark-high">LinkedIn profile URL</p>
-                  <p>The information on your Linkedin profile is used to create your Vitaely profile.</p>
-                  <div>
-                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
-                    {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a></p> }
-                  </div>
-                  <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                    <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
-                    <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
-                      <div className="d-flex align-items-start">
-                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
-                          <path d={ICONS.EXTERNAL_LINK}></path>
-                        </svg>
-                        {/*<a href="https://www.linkedin.com/public-profile/settings" className="text-primary-high">Manage your LinkedIn profile's visibility</a>*/}
-                        <p className="text-primary-high mb-0">Manage your LinkedIn profile's visibility</p>
-                      </div>
-                    </a>
-                  </div>
-                  {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                    <p className="text-dark-high">If you're already logged in on Linkedin you click on the link below to access your profile.</p>
-                    <a href="https://www.linkedin.com/in/" target="_blank">
-                      <div className="d-flex align-items-start">
-                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
-                          <path d={ICONS.EXTERNAL_LINK}></path>
-                        </svg>
-                        <p className="text-primary-high mb-0">Go to your Linkedin profile</p>
-                      </div>
-                    </a>
-                  </div> */}
+          <div className="d-flex flex-column p-4 p-md-5" style={{gap: '16px'}}>
+            {templates.map((template, index) => 
+              <div role="button" onClick={() => changeTemplate(template.string)} className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${template.active && styles.active}`}>
+                <p className="large font-weight-bold text-dark-high">{template.label}</p>
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={template.img}
+                    layout='fill'
+                    objectFit='cover'
+                  />
                 </div>
-                <br />
-                <button type="submit" className="btn primary high">Sync data</button>
-              </form>
-              :
-              <div>
-                <p className="large text-dark-high">{loadingState}</p>
-                {<ProgressBar animated now={loadingState === 'Fetching data from LinkedIn' ? 10 : (loadingState === 'Storing your data' ? 60 : (loadingState === 'Sync successfully completed' ? 100 : null))} /> }
               </div>
-            }
+            )}
+            <div className="mt-4">
+              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+            </div>
           </div>
         </div>
       </Container>
@@ -281,4 +324,4 @@ const Sync = () => {
 
 }
 
-export default Sync
+export default Template
