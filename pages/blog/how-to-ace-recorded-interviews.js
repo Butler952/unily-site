@@ -51,8 +51,16 @@ const HowToAceRecordedInterviews = () => {
         </div>
         <div id="recorded-interviews-are-interviews" className="py-4 background-light">
           <h3>1. Recorded interview = Interview</h3>
-          <p className="large">First things first, prepare for it as if it is a real interview. They’re going to be asking real interview questions so make sure the you’ve done the usual prep beforehand.</p>
+          <p className="large">First things first, treat it like a real interview.</p>
+          <p className="large">
+            One of the reasons employers do recorded interviews is to check your communication skills. If you treat it like you're speaking to a screen you don't come off as natural.
+          </p>
+          <p className="large">
+            To combat this, try to pretend as much as possible that you're speaking to a real person.
+          </p>
+          <p className="large">It also means you need to prepare for the interview like any other. They’re going to be asking real interview questions so make sure the you’ve done the usual prep beforehand.</p>
           <p className="large">Our post on <a href="/blog/four-things-to-research-about-a-company-before-an-interview">four things to research about a company before an interview</a> is a good place to start.</p>
+
         </div>
         <div id="you-will-have-time-to-prepare-an-answer" className="py-4 background-light">
           <h3>2. Don’t fret about having to give answers on the spot</h3>

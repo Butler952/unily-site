@@ -34,14 +34,14 @@ const Blog = () => {
       <div className="container py-5 mb-5">
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
-          {/* <PostCard 
+          <PostCard 
             image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
             title="How to ace recorded interviews"
             duration="2"
             bodyPreview="Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you..."
             postUrl="/blog/how-to-ace-recorded-interviews"
             screenWidth={screenWidth}
-          /> */}
+          />
           <PostCard 
             image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
             title="Four things to research about a company before an interview"
