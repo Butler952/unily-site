@@ -265,7 +265,7 @@ const Sync = () => {
                   </div> */}
                 </div>
                 <br />
-                <button type="submit" className="btn primary high">Sync data</button>
+                <button type="submit" className="btn primary high" disabled={profileUrl == ''}>Sync data</button>
               </form>
               :
               <div>

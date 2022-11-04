@@ -314,7 +314,7 @@ const Template = () => {
               </div>
             )}
             <div className="mt-4">
-              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
             </div>
           </div>
         </div>

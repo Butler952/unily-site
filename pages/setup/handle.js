@@ -348,7 +348,7 @@ const Handle = () => {
             </div>
             {choiceError !== '' ? <p className="small text-error-high mt-2 mb-0">{choiceError}</p> : null}
             <div className="mt-4">
-              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={!selectedDomainTypeChanged || saving}>{!saving ? 'Continue' : 'Saving'}</button>
             </div>
           </div>
         </div>
