@@ -23,6 +23,7 @@ const Blog = () => {
 
   return (
     <div>
+      <Header />
       <Head>
       <title>Blog | Vitaely.me</title>
         <meta name="description" content="The latest news and tips on building a professional online presence" />

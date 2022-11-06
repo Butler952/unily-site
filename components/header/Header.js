@@ -12,7 +12,10 @@ import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
 import EditProfile from '../editProfile/EditProfile';
 
-const Header = (props) => {
+const Header = ({
+  hideShadow,
+  positionFixed
+}) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
 
@@ -313,25 +316,14 @@ const Header = (props) => {
       >
         <div 
           className={`bg-light-900 rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
-          ${
-            windowUrl !== '/' ? 'shadow-2 bg-light-900' : null
-          }
-          ${
-            windowUrl.includes("profile") || 
-            windowUrl.includes("settings") || 
-            windowUrl.includes("/aaronbutler")
-            // windowUrl.includes("blog") || 
-            // windowUrl.includes("legal") || 
-            // windowUrl.includes("setup") ||
-            // windowUrl.includes("users") ||
-            // windowUrl.includes("linkedin-to-resume") ||
-            // windowUrl.includes("online-cv-builder") ||
-            // windowUrl.includes("online-resume-builder") ||
-            // windowUrl.includes("pdf-resume-builder") ||
-            // windowUrl == '/'
-            ? 'position-fixed' : null
-          }`} 
-          style={windowUrl == '' ? { boxShadow: 'none', minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
+            ${hideShadow ? 'shadow-0' : 'shadow-2'}
+            ${
+              // windowUrl !== '/' ? 'shadow-2 bg-light-900' : null
+              windowUrl !== '/' ? 'bg-light-900' : null
+            }
+            ${positionFixed && 'position-fixed'}
+          `} 
+          style={windowUrl == '' ? { minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
           {userContext !== '' ?
             // {loggedIn ?
             <>
@@ -388,7 +380,7 @@ const Header = (props) => {
                     <Dropdown align="end">
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
-                          <div className={`d-flex flex-row align-items-center radius-4 border-1 border-solid border-dark-300 shadow-3 p-2 ${styles.menuButton}`} style={{ gap: '4px' }}>
+                          <div className={`d-flex flex-row align-items-center radius-4 border-1 border-solid border-dark-300 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
                                 <path d={ICONS.MENU}></path>

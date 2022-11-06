@@ -10,7 +10,10 @@ import mixpanel from 'mixpanel-browser';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 import styles from '../settings/settings.module.scss'
+import pageStyles from './template.module.scss'
 import Image from 'next/image';
+import Lottie from 'react-lottie';
+import animationData from '../../components/animations/loaderLight.json'
 
 const Template = () => {
   const { userContext, setUserContext } = useContext(UserContext);
@@ -21,6 +24,9 @@ const Template = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userResult, setUserResult] = useState('');
   const [currentProfile, setCurrentProfile] = useState('');
+  const [showBuildingOverlay, setShowBuildingOverlay] = useState(false);
+  const [showBuildingOverlayContentOne, setShowBuildingOverlayContentOne] = useState(true);
+  const [showBuildingOverlayContentTwo, setShowBuildingOverlayContentTwo] = useState(false);
 
   const [urlError, setUrlError] = useState('');
   const [notify, setNotification] = useState('');
@@ -30,9 +36,26 @@ const Template = () => {
 
   const [templateChanged, setTemplateChanged] = useState(false);
   const [templateSelection, setTemplateSelection] = useState('');
+  const [buildingMessage, setBuildingMessage] = useState('Building your profile');
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -67,162 +90,6 @@ const Template = () => {
     }).catch((error) => {
       console.log("Error getting document:", error);
     })
-  }
-
-  const urlChange = (value) => {
-    setProfileUrl(value),
-      setUrlError('')
-  }
-
-  const onUrlInvalid = () => {
-    setUrlError('Please enter a valid LinkedIn URL')
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (profileUrl !== '') {
-      setLoadingState('Fetching data from LinkedIn');
-
-      fetch("/api/linkedin?profileUrl=" + profileUrl)
-        .then(res => res.json())
-        // .then(result => setUserResult(result))
-        .then((result) => {
-          setLoadingState('Storing your data');
-          if (currentProfile.receiveEmails) {
-            fire.firestore().collection('mailingList').doc(userData.uid).update({
-              firstName: result.first_name,
-              lastName: result.last_name,
-              stage: 'complete',
-              lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-            })
-          }
-          fire.firestore().collection('users').doc(userData.uid).update({
-            profile: result,
-            displayInfo: {
-              'basicInfo': {
-                'section': true,
-                'each': {
-                  'profilePic': true,
-                  'headerImage': true,
-                  'name': true,
-                  'headline': true,
-                  'email': true
-                }
-              },
-              about: result.summary === null ? false : true,
-              'experience': {
-                'section': result.experiences < 1 ? false : true,
-                'each': createExperienceList(result.experiences)
-              },
-              'education': {
-                'section': result.education < 1 ? false : true,
-                'each': createEducationList(result.education)
-              },
-              'volunteering': {
-                'section': result.volunteer_work < 1 ? false : true,
-                'each': createVolunteerList(result.volunteer_work)
-              },
-            },
-            //syncsRemaining: 1,
-            stage: 'complete',
-            // profileUrl: '/profile/' + userData.uid,
-            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-            lastSync: fire.firestore.FieldValue.serverTimestamp(),
-          });
-          return result;
-        })
-        // .then((result) => {
-        //   console.log(result);
-        //   return result;
-        // })
-        .then((result) => {
-          if (currentProfile.receiveEmails) {
-            fire.firestore().collection('mailingList').doc(userData.uid).update({
-              firstName: result.first_name,
-              lastName: result.last_name,
-              stage: 'complete',
-              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-            })
-          }
-          return result;
-        })
-        .then((result) => {
-          setUserContext({
-            profile: result,
-            displayInfo: {
-              'basicInfo': {
-                'section': true,
-                'each': {
-                  'profilePic': true,
-                  'headerImage': true,
-                  'name': true,
-                  'headline': true,
-                  'email': true
-                }
-              },
-              about: result.summary === null ? false : true,
-              'experience': {
-                'section': result.experiences < 1 ? false : true,
-                'each': createExperienceList(result.experiences)
-              },
-              'education': {
-                'section': result.education < 1 ? false : true,
-                'each': createEducationList(result.education)
-              },
-              'volunteering': {
-                'section': result.volunteer_work < 1 ? false : true,
-                'each': createVolunteerList(result.volunteer_work)
-              },
-            },
-            stage: 'complete',
-            // profileUrl: '/profile/' + userData.uid,
-          })
-        })
-        .then(() => {
-          mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
-          mixpanel.track('Synced');
-          setTimeout(
-            setLoadingState('Sync successfully completed'), 2000
-          )
-        })
-        .then(() => {
-          router.push(currentProfile.profileUrl)
-        })
-        .catch(error => console.log('error', error));
-    } else {
-      setUrlError('Please enter the URL for your LinkedIn profile')
-    }
-
-  }
-
-  const createExperienceList = (data) => {
-    return data.map((object, i) =>
-    ({
-      'display': true,
-      'title': object.title,
-      'company': object.company
-    })
-    )
-  }
-
-  const createEducationList = (data) => {
-    return data.map((object, i) =>
-    ({
-      'display': true,
-      'name': object.field_of_study,
-      'school': object.school
-    })
-    )
-  }
-
-  const createVolunteerList = (data) => {
-    return data.map((object, i) =>
-    ({
-      'display': true,
-      'title': object.title,
-      'company': object.company
-    })
-    )
   }
 
   const changeTemplate = (template) => {
@@ -261,27 +128,71 @@ const Template = () => {
     },
   ]
 
+  const handleShowBuildingOverlay = () => {
+    document.body.style.overflowY = "hidden";
+    setShowBuildingOverlay(true)
+    setTimeout(
+      () => setBuildingMessage('Sprinkling some magic'), 
+      2000
+    );
+    setTimeout(
+      () => setBuildingMessage('Applying finishing touches'), 
+      4000
+    );
+    setTimeout(
+      () => {
+        setShowBuildingOverlayContentOne(false)
+      },
+      8000
+    );
+    setTimeout(
+      () => {
+        setShowBuildingOverlayContentTwo(true)
+      },
+      9000
+    );
+    setTimeout(
+      () => {
+        let newUserContext = userContext;
+        newUserContext.stage = 'complete'
+        newUserContext.template = templateSelection;
+        setUserContext(newUserContext)
+      },
+      13000
+    );
+    setTimeout(
+      () => {
+        document.body.style.overflowY = "auto";
+        router.push(currentProfile.profileUrl)
+      },
+      13001
+    );
+
+  }
+
   const handleSave = (e) => {
     e.preventDefault();
 
     if (!templateChanged) {
       setChoiceError('Please choose a template')
     }
-
     fire.firestore().collection('users').doc(userData.uid).update({
       'stage': 'complete',
       'template': templateSelection,
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
-      let newUserContext = userContext;
-      newUserContext.stage = 'complete'
-      newUserContext.template = templateSelection;
-      setUserContext(newUserContext)
+      handleShowBuildingOverlay()
     })
-    .then(() => {
-      router.push(currentProfile.profileUrl)
-    })
+    // .then(() => {
+    //   let newUserContext = userContext;
+    //   newUserContext.stage = 'complete'
+    //   newUserContext.template = templateSelection;
+    //   setUserContext(newUserContext)
+    // })
+    // .then(() => {
+    //   router.push(currentProfile.profileUrl)
+    // })
     .catch((err) => {
       // console.log(err.code, err.message)
       toast(err.message)
@@ -289,18 +200,21 @@ const Template = () => {
   }
 
   return (
-    <div>
+    <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
       <Head>
         <title>Choose a template</title>
       </Head>
-      <Container className="py-5">
-        <div className="card m-auto" style={{ maxWidth: "640px" }}>
-          <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Choose a template</h5>
-          </div>
-          <hr className="m-0" />
-          <div className="d-flex flex-column p-4 p-md-5" style={{gap: '16px'}}>
+      <Header hideShadow />
+      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+        {screenWidth > 575 ?
+          <h2 className="text-dark-high text-center mb-3">Choose a template</h2>
+          :
+          <h3 className="text-dark-high text-center mb-3">Choose a template</h3>
+        }
+        <p className="large text-center" style={{maxWidth: '480px'}}>You can always change this later</p>
+        <div className="w-100" style={{ maxWidth: "640px" }}>
+          <div className="d-flex flex-column p-4 p-md-5 align-items-center" style={{gap: '16px'}}>
             {templates.map((template, index) => 
               <div role="button" onClick={() => changeTemplate(template.string)} className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${template.active && styles.active}`}>
                 <p className="large font-weight-bold text-dark-high">{template.label}</p>
@@ -313,12 +227,33 @@ const Template = () => {
                 </div>
               </div>
             )}
-            <div className="mt-4">
-              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+            <div className="d-flex flex-column align-items-center my-4 my-sm-5 w-100">
+              {screenWidth > 575 ?
+                <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+              :
+                <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+              }
             </div>
           </div>
         </div>
       </Container>
+      {showBuildingOverlay &&
+      <div className="d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100" style={{top: 0, left:0}}>
+        <div className={`d-flex flex-column align-items-center justify-content-center bg-primary-900 position-fixed ${pageStyles.overlayBackground}`} style={{ zIndex:2}}></div>
+        { showBuildingOverlayContentOne &&
+          <div className={`d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100 ${pageStyles.overlayContentOne}`} style={{top: 0, left:0, zIndex:3}}>
+            <Lottie options={defaultOptions} height={160} width={160} />
+            <h4 className="text-light-high text-center mb-3">{buildingMessage}</h4>
+            {/* <button type="button" onClick={() => handleShowBuildingOverlay()}>Overflow hidden</button> */}
+          </div>
+        }
+        { showBuildingOverlayContentTwo &&
+          <div className={`d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100 ${pageStyles.overlayContentTwo}`} style={{top: 0, left:0, zIndex:2}}>
+            <h4 className="text-light-high text-center mb-3">Welcome to your Vitaely profile</h4>
+          </div>
+        }
+      </div>
+      }
     </div>
   )
 

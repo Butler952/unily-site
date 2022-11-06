@@ -24,6 +24,7 @@ const LandingPage = (props) => {
 
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
+      <Header hideShadow />
       <Head>
         <title>{`${props.title} | Vitaely.me`}</title>
         { props.subtitle ? <meta name="description" content={props.subtitle} /> : null }

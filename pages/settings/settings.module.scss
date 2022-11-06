@@ -8,6 +8,7 @@
 .planCard {
   border: 2px solid $dark-100;
   transition: $transition-standard;
+  background: $light-900;
   &:hover{
     border: 2px solid $primary-900;
     box-shadow: $shadow-5;

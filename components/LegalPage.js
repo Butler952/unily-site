@@ -25,6 +25,8 @@ const LegalPage = (props) => {
 
   return (
     <div>
+      <Header />
+
       <Head>
         <title>{heroTitle}</title>
         <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />

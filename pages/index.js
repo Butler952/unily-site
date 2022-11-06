@@ -131,6 +131,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
+      <Header hideShadow />
       <Head>
         <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
         <meta name="description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />

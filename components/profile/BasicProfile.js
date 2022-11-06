@@ -196,7 +196,6 @@ const BasicProfile = (props) => {
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
-          {/* <div style={{ marginTop: '66px' }}> */}
           <div>
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
             <Container>
@@ -218,7 +217,7 @@ const BasicProfile = (props) => {
                     />
                   </>
                 }
-                {!profilePictureError | props.profile_pic_url !== '' &&
+                {!profilePictureError | props.profile_pic_url !== '' | props.profile_pic_url !== null &&
                   // <img
                   //   src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
                   //   onError={({ currentTarget }) => {
@@ -230,7 +229,6 @@ const BasicProfile = (props) => {
                   //   className={styles.profilePicture}
                   // />
                   <img
-                    // src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
                     src={props.profile_pic_url}
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
@@ -633,7 +631,7 @@ const BasicProfile = (props) => {
           <Container>
             <div className="py-5 background-light">
               <div className="d-flex flex-column align-items-center container text-center">
-                {screenWidth && screenWidth > 767 ?
+                {props.screenWidth && props.screenWidth > 767 ?
                   <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
                   :
                   <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>

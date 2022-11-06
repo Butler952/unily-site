@@ -49,9 +49,17 @@ const Handle = () => {
   const handleUpsellClose = () => setShowUpsellModal(false);
   const handleUpsellShow = () => setShowUpsellModal(true);
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
   let domainType = selectedDomainType;
 
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     setDefaultDomain(userData && userData.uid)
     // setDomain(
     //   userContext && 
@@ -283,76 +291,79 @@ const Handle = () => {
   };
 
   return (
-    <div>
+    <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
       <Head>
         <title>Choose your profile handle</title>
       </Head>
+      <Header hideShadow />
 
-      <Container className="py-5">
-        <div className="card m-auto" style={{ maxWidth: "640px" }}>
-          <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Choose your profile handle</h5>
+      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+        {screenWidth > 575 ?
+          <h2 className="text-dark-high text-center mb-3">Choose your profile handle</h2>
+          :
+          <h3 className="text-dark-high text-center mb-3">Choose your profile handle</h3>
+        }
+        <p className="large text-center" style={{maxWidth: '480px'}}>You can always change this later</p>
+        <div className="d-flex flex-column py-5 w-100" style={{ gap: '16px' }}>
+          <div role="button" onClick={() => { setSelectedDomainTypeChange('standard') }} className={`d-flex flex-column radius-3 p-4 w-100 shadow-2 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
+            <h5 className="mb-1 text-dark-high">Standard</h5>
+            <p className="text-dark-low mb-0">Standard profile URL on the vitaely.me domain</p>
+            <p className="small text-dark-med mt-2 mb-0" style={{lineBreak: 'anywhere'}}>{`vitaely.me/profile/${defaultDomain}`}</p>
+            {/* <div className="mt-3">
+              <input type="text" className="small w-100" value={domain} onChange={({ target }) => domainChange(target.value)} />
+              <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
+            </div> */}
           </div>
-          <hr className="m-0" />
-          <div className="d-flex flex-column p-4 p-md-5" style={{ gap: '16px' }}>
-            <div role="button" onClick={() => { setSelectedDomainTypeChange('standard') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
-              <p className="large text-dark-high mb-0">Standard</p>
-              <p className="text-dark-low mb-0">Standard profile URL on the vitaely.me domain</p>
-              <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{defaultDomain}</p>
-              {/* <div className="mt-3">
-                <input type="text" className="small w-100" value={domain} onChange={({ target }) => domainChange(target.value)} />
-                <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
-              </div> */}
-            </div>
-            <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
-              <p className="large text-dark-high mb-0">Personalised</p>
-              <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
-              <div className="mt-3">
-                <input
-                  type="text"
-                  className={`small w-100 ${domainError !== '' ? 'error' : null}`}
-                  disabled={saving}
-                  value={domainChanged ? domain :
-                    (
+          <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 shadow-2 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
+            <h5 className="mb-1 text-dark-high">Personalised</h5>
+            <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
+            <div className="mt-3">
+              <input
+                type="text"
+                className={`small w-100 ${domainError !== '' ? 'error' : null}`}
+                disabled={saving}
+                value={domainChanged ? domain :
+                  (
+                    userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.includes("profile") ?
                       userContext &&
-                        userContext.profileUrl &&
-                        userContext.profileUrl.includes("profile") ?
-                        userContext &&
-                        userContext.profileUrl.split('/profile/')[1]
-                        :
-                        userContext &&
-                        userContext.profileUrl &&
-                        userContext.profileUrl.substring(1)
-                    )
-                  }
-                  onChange={({ target }) => domainChange(target.value)}
-                />
-                <p className="small text-dark-med mt-2 mb-0">vitaely.me/
-                  {domainChanged ? domain :
-                    (
+                      userContext.profileUrl.split('/profile/')[1]
+                      :
                       userContext &&
-                        userContext.profileUrl &&
-                        userContext.profileUrl.includes("profile") ?
-                        userContext &&
-                        userContext.profileUrl.split('/profile/')[1]
-                        :
-                        userContext &&
-                        userContext.profileUrl &&
-                        userContext.profileUrl.substring(1)
-                    )
-                  }
-                </p>
-                {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
-              </div>
-            </div>
-            {choiceError !== '' ? <p className="small text-error-high mt-2 mb-0">{choiceError}</p> : null}
-            <div className="mt-4">
-              <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={!selectedDomainTypeChanged || saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                      userContext.profileUrl &&
+                      userContext.profileUrl.substring(1)
+                  )
+                }
+                onChange={({ target }) => domainChange(target.value)}
+              />
+              <p className="small text-dark-med mt-2 mb-0" style={{lineBreak: 'anywhere'}}>vitaely.me/
+                {domainChanged ? domain :
+                  (
+                    userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.includes("profile") ?
+                      userContext &&
+                      userContext.profileUrl.split('/profile/')[1]
+                      :
+                      userContext &&
+                      userContext.profileUrl &&
+                      userContext.profileUrl.substring(1)
+                  )
+                }
+              </p>
+              {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
             </div>
           </div>
+          {choiceError !== '' ? <p className="small text-error-high mt-2 mb-0">{choiceError}</p> : null}
         </div>
-      </Container>
+        {screenWidth > 575 ?
+          <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={!selectedDomainTypeChanged || saving}>{!saving ? 'Continue' : 'Saving'}</button>
+        :
+          <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={!selectedDomainTypeChanged || saving}>{!saving ? 'Continue' : 'Saving'}</button>
+        }
+          </Container>
       <Modal 
         show={showUpsellModal} 
         onHide={handleUpsellClose}

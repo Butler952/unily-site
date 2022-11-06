@@ -24,7 +24,15 @@ const Sync = () => {
   const [notify, setNotification] = useState('');
   const router = useRouter();
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -218,62 +226,70 @@ const Sync = () => {
   }
 
   return (
-    <div>
+    <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
       <Head>
         <title>Sync your data</title>
       </Head>
+      <Header hideShadow />
 
-      <Container className="py-5">
-        <div className="card m-auto" style={{ maxWidth: "640px" }}>
-          <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Sync data from LinkedIn</h5>
-          </div>
-          <hr className="m-0" />
-          <div className="p-4 p-md-5">
-            {loadingState === '' ?
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <p className="large text-dark-high">LinkedIn profile URL</p>
-                  <p>The information on your Linkedin profile is used to create your Vitaely profile.</p>
-                  <div>
-                    <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="e.g. https://www.linkedin.com/in/butler952" />
-                    {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">If you're already logged in on Linkedin you can access your profile <a href="https://www.linkedin.com/in/">here</a></p> }
-                  </div>
-                  <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                    <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
-                    <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
-                      <div className="d-flex align-items-start">
-                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
-                          <path d={ICONS.EXTERNAL_LINK}></path>
-                        </svg>
-                        {/*<a href="https://www.linkedin.com/public-profile/settings" className="text-primary-high">Manage your LinkedIn profile's visibility</a>*/}
-                        <p className="text-primary-high mb-0">Manage your LinkedIn profile's visibility</p>
-                      </div>
-                    </a>
-                  </div>
-                  {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                    <p className="text-dark-high">If you're already logged in on Linkedin you click on the link below to access your profile.</p>
-                    <a href="https://www.linkedin.com/in/" target="_blank">
-                      <div className="d-flex align-items-start">
-                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
-                          <path d={ICONS.EXTERNAL_LINK}></path>
-                        </svg>
-                        <p className="text-primary-high mb-0">Go to your Linkedin profile</p>
-                      </div>
-                    </a>
-                  </div> */}
+      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+        {screenWidth > 575 ?
+          <h2 className="text-dark-high text-center mb-3">Sync data from LinkedIn</h2>
+          :
+          <h3 className="text-dark-high text-center mb-3">Sync data from LinkedIn</h3>
+        }
+        <p className="large text-center" style={{maxWidth: '480px'}}>The information on your Linkedin profile is used to populate your Vitaely profile.</p>
+
+        {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
+        <div className="d-flex flex-column w-100">
+          {loadingState === '' ?
+            <form onSubmit={handleSubmit}>
+              <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
+                  <p className="text-dark-high">If you're already logged in on Linkedin you can click on the link below to get to your Linkedin profile.</p>
+                  <a href="https://www.linkedin.com/in/" target="_blank">
+                    <div className="d-flex align-items-start">
+                      <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
+                        <path d={ICONS.EXTERNAL_LINK}></path>
+                      </svg>
+                      <p className="text-primary-high mb-0">Go to your Linkedin profile</p>
+                    </div>
+                  </a>
                 </div>
-                <br />
-                <button type="submit" className="btn primary high" disabled={profileUrl == ''}>Sync data</button>
-              </form>
-              :
-              <div>
-                <p className="large text-dark-high">{loadingState}</p>
-                {<ProgressBar animated now={loadingState === 'Fetching data from LinkedIn' ? 10 : (loadingState === 'Storing your data' ? 60 : (loadingState === 'Sync successfully completed' ? 100 : null))} /> }
+                <div>
+                  <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="Linkedin profile URL" />
+                  {/* {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">If you're already logged in on Linkedin you can get to your Linkedin profile <a href="https://www.linkedin.com/in/">here</a></p> } */}
+                  {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">E.g. https://www.linkedin.com/in/butler952</p> }
+                </div>
+                {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
+                  <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
+                  <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
+                    <div className="d-flex align-items-start">
+                      <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
+                        <path d={ICONS.EXTERNAL_LINK}></path>
+                      </svg>
+                      <p className="text-primary-high mb-0">Manage your LinkedIn profile's visibility</p>
+                    </div>
+                  </a>
+                </div> */}
+                
               </div>
-            }
-          </div>
+              <div className="d-flex flex-column align-items-center my-4 my-sm-5">
+                {screenWidth > 575 ?
+                  <button type="submit" className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={profileUrl == ''}>Get data from Linkedin</button>
+                :
+                  <button type="submit" className="btn primary high w-100" disabled={profileUrl == ''}>Get data from Linkedin</button>
+                }
+              </div>
+              <br />
+            </form>
+            :
+            <div className="py-5">
+              <p className="large text-dark-high">{loadingState}</p>
+              {<ProgressBar animated now={loadingState === 'Fetching data from LinkedIn' ? 10 : (loadingState === 'Storing your data' ? 60 : (loadingState === 'Sync successfully completed' ? 100 : null))} /> }
+            </div>
+          }
         </div>
       </Container>
     </div>

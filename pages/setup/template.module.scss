@@ -1,0 +1,59 @@
+@import '../../public/styles/variables.scss';
+
+.overlayBackground {
+  background: $primary-900;
+  animation: createBackground 800ms;
+  min-width: 200%; min-height: 200%;
+  border-radius: 100%;
+  padding-top: 200vw;
+  padding-left: 200vh;
+}
+@keyframes createBackground {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.overlayContentOne {
+  animation: showContent 8000ms;
+  animation-fill-mode: forwards;
+}
+@keyframes showContent {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.overlayContentTwo {
+  animation: showContentTwo 4000ms;
+  animation-fill-mode: forwards;
+}
+@keyframes showContentTwo {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -8,6 +8,7 @@ import Icon from '../components/icon/Icon';
 import ICONS from '../components/icon/IconPaths';
 import Footer from '../components/Footer';
 import PostCard from '../components/blog/PostCard';
+import Header from '../components/header/Header';
 
 const LinkedinToResume = () => {
   const [screenWidth, setScreenWidth] = useState('');
@@ -23,6 +24,7 @@ const LinkedinToResume = () => {
 
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
+      <Header hideShadow />
       <Head>
         <title>Turn your Linkedin profile into a resume | Vitaely.me</title>
         <meta name="description" content="Turn your Linkedin profile into a resume in just two minutes." />

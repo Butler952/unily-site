@@ -180,6 +180,7 @@ const Register = () => {
 
   return (
     <div>
+      <Header />
       <Head>
         <title>Create an account</title>
       </Head>

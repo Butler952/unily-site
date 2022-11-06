@@ -82,6 +82,7 @@ const Login = () => {
 
   return (
     <div>
+      <Header />
       <Head>
         <title>Sign in to your account</title>
       </Head>

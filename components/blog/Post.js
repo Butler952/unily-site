@@ -26,6 +26,7 @@ const Post = (props) => {
 
   return (
     <div style={{background: 'white'}}>
+      <Header hideShadow/>
       <Head>
         <title>{props.title} | Vitaely.me</title>
         { props.description ? <meta name="description" content={props.description} /> : null }

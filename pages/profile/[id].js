@@ -6,6 +6,7 @@ import BasicProfile from '../../components/profile/BasicProfile';
 import DocumentProfile from '../../components/profile/DocumentProfile';
 import MetroProfile from '../../components/profile/MetroProfile';
 import MetroProfileDark from '../../components/profile/MetroProfileDark';
+import Header from '../../components/header/Header';
 
 const Profile = (props) => {
 
@@ -18,7 +19,15 @@ const Profile = (props) => {
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
 
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
     checkUser();
     mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
     mixpanel.track('Profile');
@@ -42,11 +51,12 @@ const Profile = (props) => {
 
   return (
     <div>
+      <Header positionFixed />
       { (props.template == undefined ||
         props.template == 'original') ?
         <BasicProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -70,7 +80,7 @@ const Profile = (props) => {
       { props.template == 'document' &&
         <DocumentProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -93,7 +103,7 @@ const Profile = (props) => {
       { props.template == 'metro' &&
         <MetroProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -116,7 +126,7 @@ const Profile = (props) => {
       { props.template == 'metro_night' &&
         <MetroProfileDark
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}

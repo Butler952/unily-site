@@ -6,6 +6,7 @@ import BasicProfile from '../components/profile/BasicProfile';
 import DocumentProfile from '../components/profile/DocumentProfile';
 import MetroProfile from '../components/profile/MetroProfile';
 import MetroProfileDark from '../components/profile/MetroProfileDark';
+import Header from '../components/header/Header';
 
 const Profile = (props) => {
 
@@ -51,11 +52,12 @@ const Profile = (props) => {
 
   return (
     <div>
+      <Header positionFixed />
       { (props.template == undefined ||
         props.template == 'original') ?
         <BasicProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -79,7 +81,7 @@ const Profile = (props) => {
       { props.template == 'document' &&
         <DocumentProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -102,7 +104,7 @@ const Profile = (props) => {
       { props.template == 'metro' &&
         <MetroProfile
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}
@@ -125,7 +127,7 @@ const Profile = (props) => {
       { props.template == 'metro_night' &&
         <MetroProfileDark
           level="baseLevel"
-
+          screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
           email={props.email}

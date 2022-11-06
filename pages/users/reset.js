@@ -65,6 +65,7 @@ const Reset = () => {
 
   return (
     <div>
+      <Header />
       <Head>
         <title>Reset your password</title>
       </Head>

@@ -484,6 +484,7 @@ const Settings = () => {
       <Head>
         <title>Settings</title>
       </Head>
+      <Header positionFixed />
       <div>
       {/* <div style={{ marginTop: '66px' }}> */}
         {surveyHide ? '' : <SurveyBanner />}

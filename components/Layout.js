@@ -22,7 +22,7 @@ const Layout = (props) => {
       </div> 
       : null)
       : windowUrl !== "/profile" ? <Header/> : null} */}
-      {windowUrl !== "/profile" ? <Header/> : null }
+      {/* {windowUrl !== "/profile" ? <Header/> : null } */}
       {/* {windowUrl.includes("profile") | windowUrl.includes("settings") ? <div><br></br><br></br><br></br></> : null} */}
       {props.children}
       <ToastContainer
