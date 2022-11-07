@@ -36,6 +36,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg'
+            title="How to edit the information on your profile"
+            duration="1"
+            bodyPreview="To edit the content of your profile, start by tapping the menu button in the top right (you will need to be logged in and..."
+            postUrl="/blog/how-to-edit-the-information-on-your-profile"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
             title="How to ace recorded interviews"
             duration="2"

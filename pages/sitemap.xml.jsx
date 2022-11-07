@@ -71,7 +71,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/how-to-change-your-profile-url",
     "/how-to-add-links-to-your-profile",
     "/four-things-to-research-about-a-company-before-an-interview",
-    "/how-to-ace-recorded-interviews"
+    "/how-to-ace-recorded-interviews",
+    "/how-to-edit-the-information-on-your-profile"
   ]; 
   const profiles = [
     "09WevWLHMwWKSx2fagTePUBcO492",
