@@ -12,6 +12,7 @@ import styles from './index.module.scss'
 import Icon from '../components/icon/Icon';
 import ICONS from '../components/icon/IconPaths';
 import Footer from '../components/Footer';
+import PostCard from '../components/blog/PostCard';
 
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -220,6 +221,35 @@ const Home = () => {
               </div>
               <h3 className="text-primary-high">Share your profile</h3>
             </div>
+          </div>
+        </div>
+        <div className={`container ${styles.sectionWrapper}`}>
+          <h2 className="mx-auto text-center mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
+          <div className="d-flex flex-column" style={{gap: '24px'}}>
+            <PostCard 
+              image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
+              title="How to ace recorded interviews"
+              duration="2"
+              bodyPreview="Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you..."
+              postUrl="/blog/how-to-ace-recorded-interviews"
+              screenWidth={screenWidth}
+            />
+            <PostCard 
+              image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
+              title="Four things to research about a company before an interview"
+              duration="2"
+              bodyPreview="When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to..."
+              postUrl="/blog/four-things-to-research-about-a-company-before-an-interview"
+              screenWidth={screenWidth}
+            />
+            <PostCard 
+              image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
+              title="What to send in a follow up email after an interview"
+              duration="2"
+              bodyPreview="So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All..."
+              postUrl="/blog/what-to-send-in-a-follow-up-email-after-an-interview"
+              screenWidth={screenWidth}
+            />
           </div>
         </div>
         <div className={`text-center ${styles.sectionWrapper}`}>
