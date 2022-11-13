@@ -364,13 +364,23 @@ const Header = ({
                       windowUrl.includes("online-resume-builder") ||
                       windowUrl.includes("pdf-resume-builder") ||
                       windowUrl == '/' ?                 
-                      <div className="mr-4">
+                      <div className="mr-2">
                         <Link href="/blog">
                           <a className="btn dark low small">Blog</a>
                         </Link>
                       </div> 
                     : null}
-
+                
+                    <button 
+                      type="button" 
+                      onClick={() => handleEditProfileShow()}
+                      className={`btn primary high small mr-2 ${screenWidth > 767 ? 'icon-left' : 'icon-only'}`}
+                    >
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.EDIT}></path>
+                      </svg>
+                      {screenWidth > 575 ? 'Edit profile' : null}
+                    </button>
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
@@ -380,7 +390,7 @@ const Header = ({
                     <Dropdown align="end">
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
-                          <div className={`d-flex flex-row align-items-center radius-4 border-1 border-solid border-dark-300 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
+                          <div className={`d-flex flex-row align-items-center radius-2 border-1 border-solid border-dark-300 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
                                 <path d={ICONS.MENU}></path>
