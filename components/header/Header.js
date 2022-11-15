@@ -11,6 +11,7 @@ import Lottie from 'react-lottie';
 import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
 import EditProfile from '../editProfile/EditProfile';
+import { toast } from 'react-toastify';
 
 const Header = ({
   hideShadow,
@@ -239,6 +240,11 @@ const Header = ({
     setFurtherResearch(furtherResearch => !furtherResearch)
   }
 
+  const copyProfileAddress = () => {
+    navigator.clipboard.writeText(`${window.location.origin}${profileUrl}`);
+    toast("Copied profile link to clipboard")
+  }
+
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
 
@@ -445,6 +451,10 @@ const Header = ({
                           Settings
                         </div>
                       </Link> */}
+                        <Dropdown.Item onClick={() => copyProfileAddress()} className={styles.dropdownItem}>
+                          <Icon icon={ICONS.SHARE} size='24' className="fill-dark-900" />
+                          Share profile
+                        </Dropdown.Item>
                         <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
                           <Icon icon={ICONS.FEEDBACK} size='24' />
                           Submit feedback
