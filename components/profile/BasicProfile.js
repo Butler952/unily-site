@@ -200,7 +200,7 @@ const BasicProfile = (props) => {
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
             <Container>
               <div className="text-center mb-5">
-                {(props.background_cover_image_url && !headerImageError) &&
+                {/* {(props.background_cover_image_url && !headerImageError) &&
                   <>
                     <img
                       src={props.background_cover_image_url}
@@ -216,7 +216,7 @@ const BasicProfile = (props) => {
                       style={{ backgroundImage: `url(${props.background_cover_image_url})` }}
                     />
                   </>
-                }
+                } */}
                 {!profilePictureError | props.profile_pic_url !== '' | props.profile_pic_url !== null &&
                   // <img
                   //   src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
@@ -235,7 +235,8 @@ const BasicProfile = (props) => {
                       currentTarget.className = 'd-none'
                       // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
                     }}
-                    style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
+                    // style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
+                    style={{marginTop: '48px' }}
                     className={styles.profilePicture}
                   />
                 }
