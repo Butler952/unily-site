@@ -673,12 +673,23 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $white;
       }
+      &.interactive {
+        &:hover {
+          background: $primary-900-hover;
+        }
+      }
     }
     &.medium {
       background: $primary-light; 
       color: $primary-900; 
       svg path {
         fill: $primary-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $primary-900;
+          color: $white;
+        }
       }
     }
   }
@@ -689,12 +700,23 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $white;
       }
+      &.interactive {
+        &:hover {
+          background: $dark-900-hover;
+        }
+      }
     }
     &.medium {
       background: $dark-light; 
       color: $dark-900; 
       svg path {
         fill: $dark-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $dark-900;
+          color: $white;
+        }
       }
     }
   }
@@ -705,12 +727,23 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $white;
       }
+      &.interactive {
+        &:hover {
+          background: $error-900-hover;
+        }
+      }
     }
     &.medium {
       background: $error-light; 
       color: $error-900; 
       svg path {
         fill: $error-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $error-900;
+          color: $white;
+        }
       }
     }
   }
@@ -721,12 +754,23 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $white;
       }
+      &.interactive {
+        &:hover {
+          background: $warning-900-hover;
+        }
+      }
     }
     &.medium {
       background: $warning-light; 
       color: $warning-900; 
       svg path {
         fill: $warning-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $warning-900;
+          color: $white;
+        }
       }
     }
   }
@@ -737,6 +781,11 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $white;
       }
+      &.interactive {
+        &:hover {
+          background: $success-900-hover;
+        }
+      }
     }
     &.medium {
       background: $success-light; 
@@ -744,11 +793,23 @@ a.btn, input.btn, button.btn {
       svg path {
         fill: $success-900;
       }
+      &.interactive {
+        &:hover {
+          background: $success-900;
+          color: $white;
+        }
+      }
     }
     &.low {
       color: $success-900; 
       svg path {
         fill: $success-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $success-light;
+          color: $white;
+        }
       }
     }
   }

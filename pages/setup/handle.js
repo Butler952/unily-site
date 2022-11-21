@@ -183,7 +183,7 @@ const Handle = () => {
                 setDomainError('This URL is not available 😔')
               } else {
                 fire.firestore().collection('users').doc(userData.uid).update({
-                  'stage': '/setup/sync',
+                  'stage': '/setup/source',
                   'profileUrl': `/${domain}`,
                   lastUpdated: fire.firestore.FieldValue.serverTimestamp()
                 })
@@ -206,7 +206,7 @@ const Handle = () => {
                   setUserContext(newUserContext)
                 })
                .then(() => {
-                  router.push('/setup/sync')
+                  router.push('/setup/source')
                 })
                 .catch((err) => {
                   // console.log(err.code, err.message)
@@ -223,7 +223,7 @@ const Handle = () => {
       setSaving(true)
 
       fire.firestore().collection('users').doc(userData.uid).update({
-        'stage': '/setup/sync',
+        'stage': '/setup/source',
         'profileUrl': `/profile/${defaultDomain}`,
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
@@ -242,7 +242,7 @@ const Handle = () => {
           setUserContext(newUserContext)
         })
         .then(() => {
-          router.push('/setup/sync')
+          router.push('/setup/source')
         })
         .catch((err) => {
           // console.log(err.code, err.message)
