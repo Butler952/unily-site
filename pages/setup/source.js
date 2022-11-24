@@ -86,7 +86,7 @@ const HowDidYouHearAboutUs = () => {
           :
           <h3 className="text-dark-high text-center mb-3">How did you hear about Vitaely?</h3>
         }
-        {/* <p className="large text-center" style={{ maxWidth: '480px' }}>This really helps us to figure out what to do next!</p> */}
+        <p className="large text-center" style={{ maxWidth: '480px' }}>Select one option</p>
 
         <div className="d-flex flex-column w-100 mt-4">
           <div className="d-flex flex-wrap justify-content-center" style={{gap: '8px'}}>
