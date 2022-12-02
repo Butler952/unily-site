@@ -181,6 +181,8 @@ const EditProfile = ({
   
   const [sideProjectsLogo, setSideProjectsLogo] = useState('');
   const [sideProjectsLogoChanged, setSideProjectsLogoChanged] = useState(false);
+  const [sideProjectsImage, setSideProjectsImage] = useState('');
+  const [sideProjectsImageChanged, setSideProjectsImageChanged] = useState(false);
   const [sideProjectsName, setSideProjectsName] = useState('');
   const [sideProjectsNameChanged, setSideProjectsNameChanged] = useState(false);
   const [sideProjectsNameError, setSideProjectsNameError] = useState('');
@@ -357,6 +359,8 @@ const EditProfile = ({
     setProjectsShowDeleteProjectModal(false)
     setSideProjectsLogo('')
     setSideProjectsLogoChanged(false)
+    setSideProjectsImage('')
+    setSideProjectsImageChanged(false)
     setSideProjectsName('')
     setSideProjectsNameChanged(false)
     setSideProjectsNameError('')
@@ -597,6 +601,10 @@ const EditProfile = ({
             setSideProjectsLogo={setSideProjectsLogo}
             sideProjectsLogoChanged={sideProjectsLogoChanged}
             setSideProjectsLogoChanged={setSideProjectsLogoChanged}
+            sideProjectsImage={sideProjectsImage}
+            setSideProjectsImage={setSideProjectsImage}
+            sideProjectsImageChanged={sideProjectsImageChanged}
+            setSideProjectsImageChanged={setSideProjectsImageChanged}
             sideProjectsName={sideProjectsName}
             setSideProjectsName={setSideProjectsName}
             sideProjectsNameChanged={sideProjectsNameChanged}

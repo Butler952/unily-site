@@ -14,6 +14,10 @@ const AddSideProject = ({
   setSideProjectsLogo,
   sideProjectsLogoChanged,
   setSideProjectsLogoChanged,
+  sideProjectsImage,
+  setSideProjectsImage,
+  sideProjectsImageChanged,
+  setSideProjectsImageChanged,
   sideProjectsName,
   setSideProjectsName,
   sideProjectsNameChanged,
@@ -69,6 +73,11 @@ const AddSideProject = ({
   const sideProjectsLogoChange = (value) => {
     setSideProjectsLogo(value),
     setSideProjectsLogoChanged(true)
+  }
+
+  const sideProjectsImageChange = (value) => {
+    setSideProjectsImage(value),
+    setSideProjectsImageChanged(true)
   }
 
   const sideProjectsNameChange = (value) => {

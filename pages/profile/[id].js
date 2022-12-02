@@ -7,6 +7,7 @@ import DocumentProfile from '../../components/profile/DocumentProfile';
 import MetroProfile from '../../components/profile/MetroProfile';
 import MetroProfileDark from '../../components/profile/MetroProfileDark';
 import Header from '../../components/header/Header';
+import Bento from '../../components/profile/Bento';
 
 const Profile = (props) => {
 
@@ -125,6 +126,29 @@ const Profile = (props) => {
       }
       { props.template == 'metro_night' &&
         <MetroProfileDark
+          level="baseLevel"
+          screenWidth={screenWidth}
+          pageId={props.pageId}
+          template={props.template}
+          email={props.email}
+          links={props.links}
+          profile_pic_url={props.profile_pic_url}
+          background_cover_image_url={props.background_cover_image_url}
+          full_name={props.full_name}
+          headline={props.headline}
+          summary={props.summary}
+          experiences={props.experiences}
+          projects={props.projects}
+          side_projects={props.side_projects}
+          education={props.education}
+          logoVisibility={props.logoVisibility}
+          volunteer_work={props.volunteer_work}
+          surveyOnSignUpHide={props.surveyOnSignUpHide}
+          displayInfo={props.displayInfo}
+        />
+      }
+      { props.template == 'bento' &&
+        <Bento
           level="baseLevel"
           screenWidth={screenWidth}
           pageId={props.pageId}

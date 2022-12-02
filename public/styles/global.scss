@@ -650,6 +650,7 @@ a.btn, input.btn, button.btn {
   align-items: center;
   justify-content: center;
   width: fit-content;
+  height: fit-content;
   svg {
     height: 16px;
     width: 16px;
@@ -716,6 +717,33 @@ a.btn, input.btn, button.btn {
         &:hover {
           background: $dark-900;
           color: $white;
+        }
+      }
+    }
+  }
+  &.light {
+    &.high {
+      background: $light-900; 
+      color: $dark-900; 
+      svg path {
+        fill: $dark-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $light-900-hover;
+        }
+      }
+    }
+    &.medium {
+      background: $light-light; 
+      color: $light-900; 
+      svg path {
+        fill: $light-900;
+      }
+      &.interactive {
+        &:hover {
+          background: $light-900;
+          color: $dark-900;
         }
       }
     }
