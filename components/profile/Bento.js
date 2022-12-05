@@ -374,27 +374,6 @@ const Bento = (props) => {
                           return (
                             <a key={uuidv4()} href={convertToLink(project.url)} target="_blank" className={`${profileStyles.bentoCard} ${profileStyles.bentoCardImage} p-4`} style={{ backgroundImage: `url(${project.logo_url})` }}>
                               <div className="d-flex flex-row justify-content-between">
-                                {/* {project.logo_url ?
-                                  <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                    <div  className="d-block position-relative" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px', maxWidth: '56px', maxHeight: '56px', overflow: 'hidden' }}>
-                                      <img
-                                        className="radius-3 bg-dark-900"
-                                        src={project.logo_url ? project.logo_url : null}
-                                        onError={({ currentTarget }) => {
-                                          currentTarget.className = 'd-none'
-                                        }}
-                                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '56px', minHeight: '56px', zIndex: '1' }}
-                                      />
-                                      <div id="placeholder" className="bg-light-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '56px', minHeight: '56px' }}>
-                                        <Icon icon={ICONS.WORK} size='32' className="fill-light-700" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  :
-                                  <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
-                                    <Icon icon={ICONS.WORK} size='32' className="fill-light-700" />
-                                  </div>
-                                } */}
                                 <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
                                   <Icon icon={ICONS.PROJECTS} size='32' className="fill-light-700" />
                                 </div>
