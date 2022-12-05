@@ -130,7 +130,7 @@ const DownloadSection = ({userData, allUserData}) => {
                 </svg>
               </div>
               <div className="mx-auto" style={{maxWidth: '320px'}}>
-                <h4 className="text-dark-high text-center mb-3">Wow, you're fast!</h4>
+                <h4 className="text-dark-high text-center mb-2">Wow, you're fast!</h4>
                 <p className="text-center mb-4">Unfortunately downloading your profile is not quite ready yet</p>
               </div>
               <button type="button" className="btn primary high small w-100 mt-3" disabled={sendingData} onClick={() => handleNotifyMe(fileType)}>{ !sendingData ? 'Notify me when this is ready' : 'Saving...'}</button>
@@ -141,7 +141,7 @@ const DownloadSection = ({userData, allUserData}) => {
           <Modal.Body>
             <div className="d-flex flex-column align-items-center">
               <div className="mx-auto">
-                <h4 className="text-dark-high text-center mb-3">You're first in line</h4>
+                <h4 className="text-dark-high text-center mb-2">You're first in line</h4>
                 <p className="text-center mb-4">Thanks for letting us know that you're interested. Once the feature is ready to go, you'll be the first to know!</p>
               </div>
               <button type="button" className="btn primary high small w-100 mt-3" onClick={handleClose}>Close</button>

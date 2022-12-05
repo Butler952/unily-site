@@ -235,9 +235,9 @@ const Sync = () => {
 
       <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-3">Sync data from LinkedIn</h2>
+          <h2 className="text-dark-high text-center mb-2">Sync data from LinkedIn</h2>
           :
-          <h3 className="text-dark-high text-center mb-3">Sync data from LinkedIn</h3>
+          <h3 className="text-dark-high text-center mb-2">Sync data from LinkedIn</h3>
         }
         <p className="large text-center" style={{maxWidth: '480px'}}>The information on your Linkedin profile is used to populate your Vitaely profile.</p>
 

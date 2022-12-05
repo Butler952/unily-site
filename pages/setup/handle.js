@@ -300,9 +300,9 @@ const Handle = () => {
 
       <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-3">Choose your profile handle</h2>
+          <h2 className="text-dark-high text-center mb-2">Choose your profile handle</h2>
           :
-          <h3 className="text-dark-high text-center mb-3">Choose your profile handle</h3>
+          <h3 className="text-dark-high text-center mb-2">Choose your profile handle</h3>
         }
         <p className="large text-center" style={{maxWidth: '480px'}}>You can always change this later</p>
         <div className="d-flex flex-column py-5 w-100" style={{ gap: '16px' }}>
@@ -372,7 +372,7 @@ const Handle = () => {
       >
         <Modal.Body>
           <div>
-            <h4 className="text-dark-high text-center mb-3">Make your profile your own</h4>
+            <h4 className="text-dark-high text-center mb-2">Make your profile your own</h4>
             <p className="text-center mb-4">Upgrade to Premium to customise your profile URL</p>
             <div className={`${styles.planCard} ${styles.active} radius-3 p-4 w-100 w-md-50 `}>
               <h5 className="text-primary-high mb-1">Premium</h5>

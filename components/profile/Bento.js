@@ -13,6 +13,7 @@ import mixpanel from 'mixpanel-browser';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
 import convertToLink from '../../utils/convertToLink';
+import { v4 as uuidv4 } from 'uuid';
 
 const Bento = (props) => {
 
@@ -245,7 +246,7 @@ const Bento = (props) => {
                       <>
                         {props.links.sort(sortByDate).map((link, index) => {
                           return (
-                            <a key={index} href={convertToLink(link.url)} target="_blank" className={`${profileStyles.bentoCard} p-4`}>
+                            <a key={uuidv4()} href={convertToLink(link.url)} target="_blank" className={`${profileStyles.bentoCard} p-4`}>
                               <div className="d-flex flex-row justify-content-between">
                                 <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
                                   <Icon icon={ICONS.LINK} size='32' className="fill-light-700" />
@@ -269,7 +270,7 @@ const Bento = (props) => {
                       <>
                         {props.side_projects.sort(sortByDate).map((sideProject, index) => {
                           return (
-                            <div key={index} className={`${profileStyles.bentoCard} p-4`}>
+                            <a key={uuidv4()} target="_blank" href={sideProject.url} className={`${profileStyles.bentoCard} p-4`}>
                               <div className="d-flex flex-row justify-content-between">
                                 {sideProject.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -310,7 +311,7 @@ const Bento = (props) => {
                                 </div>
                                 {/* {job.description ? <p className="text-light-low mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null} */}
                               </div>
-                            </div>
+                            </a>
                           )
                         })}
                       </>
@@ -320,11 +321,11 @@ const Bento = (props) => {
                       <>
                         {props.experiences.sort(sortByDate).map((job, index) => {
                           return (
-                            <div key={index} className={`${profileStyles.bentoCard} p-4`}>
+                            <a key={uuidv4()} target="_blank" href={job.company_linkedin_profile_url && convertToLink(job.company_linkedin_profile_url)} className={`${profileStyles.bentoCard} p-4`}>
                               <div className="d-flex flex-row justify-content-between">
                                 {job.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                    <a target="_blank" href={job.company_linkedin_profile_url && convertToLink(job.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px', maxWidth: '56px', maxHeight: '56px', overflow: 'hidden' }}>
+                                    <div className="d-block position-relative" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px', maxWidth: '56px', maxHeight: '56px', overflow: 'hidden' }}>
                                       <img
                                         className="radius-3 bg-dark-900"
                                         src={job.logo_url ? job.logo_url : null}
@@ -336,7 +337,7 @@ const Bento = (props) => {
                                       <div id="placeholder" className="bg-light-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '56px', minHeight: '56px' }}>
                                         <Icon icon={ICONS.WORK} size='32' className="fill-light-700" />
                                       </div>
-                                    </a>
+                                    </div>
                                   </div>
                                   :
                                   <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
@@ -348,14 +349,8 @@ const Bento = (props) => {
                               <div className="w-100" style={props.logoVisibility && props.logoVisibility.experience ? { marginTop: '10px' } : null}>
                                 <div className={`${profileStyles.jobContent}`}>
                                   <div className="">
-                                    <a target="_blank" href={job.company_linkedin_profile_url && convertToLink(job.company_linkedin_profile_url)} className={`${profileStyles.link}`}>
-                                      <p className="text-light-high font-weight-medium mb-0">{job.company}</p>
-                                      {/* <svg width="24" viewBox="0 0 24 24">
-                                        <path d={ICONS.ARROW_LINK}></path>
-                                      </svg> */}
-                                    </a>
-                                    {/* <p className="large text-light-low mb-0">{sideProject.tagline}</p> */}
-                                    <p className="text-light-low mb-0">{job.title}</p>
+                                    <p className="text-light-high font-weight-medium mb-0">{job.title}</p>
+                                    <p className="text-light-low mb-0">{job.company}</p>
                                     <p className="text-light-low mb-0">
                                       {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
                                       {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
@@ -366,7 +361,7 @@ const Bento = (props) => {
                                 </div>
                                 {/* {job.description ? <p className="text-light-low mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null} */}
                               </div>
-                            </div>
+                            </a>
                           )
                         })}
                       </>
@@ -377,7 +372,7 @@ const Bento = (props) => {
                         {props.projects.sort(sortByDate).map((project, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                           return (
-                            <a key={index} href={convertToLink(project.url)} target="_blank" className={`${profileStyles.bentoCard} ${profileStyles.bentoCardImage} p-4`} style={{ backgroundImage: `url(${project.logo_url})` }}>
+                            <a key={uuidv4()} href={convertToLink(project.url)} target="_blank" className={`${profileStyles.bentoCard} ${profileStyles.bentoCardImage} p-4`} style={{ backgroundImage: `url(${project.logo_url})` }}>
                               <div className="d-flex flex-row justify-content-between">
                                 {/* {project.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -429,7 +424,7 @@ const Bento = (props) => {
                       <>
                         {props.education.sort(sortByDate).map((school, index) => {
                           return (
-                            <div key={index} className={`${profileStyles.bentoCard} p-4`}>
+                            <a key={uuidv4()} target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)} className={`${profileStyles.bentoCard} p-4`}>
                               <div className="d-flex flex-row justify-content-between">
                                 {school.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -457,13 +452,10 @@ const Bento = (props) => {
                               <div className="w-100" style={props.logoVisibility && props.logoVisibility.experience ? { marginTop: '10px' } : null}>
                                 <div className={`${profileStyles.jobContent}`}>
                                   <div className="">
-                                    <a target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)} className={`${profileStyles.link}`}>
-                                      <p className="text-light-high font-weight-medium mb-0">{school.company}</p>
-                                    </a>
-                                    <p className="text-light-high font-weight-medium mb-0">{school.school}</p>
-                                    <p className="text-light-low mb-0">
+                                    <p className="text-light-high font-weight-medium mb-0">
                                       {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
                                     </p>
+                                    <p className="text-light-low mb-0">{school.school}</p>
                                     <p className="text-light-low mb-0">
                                       {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
                                       {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
@@ -473,7 +465,7 @@ const Bento = (props) => {
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </a>
                           )
                         })}
                       </>
@@ -483,7 +475,7 @@ const Bento = (props) => {
                       <>
                         {props.volunteer_work.sort(sortByDate).map((volunteer, index) => {
                           return (
-                            <div key={index} className={`${profileStyles.bentoCard} p-4`}>
+                            <div key={uuidv4()} className={`${profileStyles.bentoCard} p-4`}>
                               <div className="d-flex flex-row justify-content-between">
                                 {volunteer.logo_url ?
                                   <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
@@ -552,6 +544,8 @@ const Bento = (props) => {
                 </div>
               </div>
             </div>
+            <br></br>
+            <br></br>
             <div className='py-5 text-center'>
               <Container>
                 <a href="/" style={{ textDecoration: 'none' }}>
