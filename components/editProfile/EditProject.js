@@ -439,10 +439,14 @@ const EditProject = ({
             <p className="text-dark-high mb-2">Image</p>
             { projectsImageChanged ? (projectsImage !== '' ? 
               <>
-                <div className="d-flex flex-column mt-3" style={{ gap: '16px' }}>
-                  <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
-                    <img src={projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')} className="position-absolute radius-3 w-100 h-100" style={{ top: 0, left: 0 }} />
+                <div className="d-flex flex-column mt-3 w-100" style={{ gap: '16px' }}>
+                  <div className="w-100 position-relative radius-2 overflow-hidden" style={{ paddingTop: '100%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')})` }}>
                   </div>
+                </div>
+                <div className="d-flex flex-column mt-3" style={{ gap: '16px' }}>
+                  {/* <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
+                    <img src={projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')} className="position-absolute radius-3 w-100 h-100" style={{ top: 0, left: 0 }} />
+                  </div> */}
                   <div className="d-flex flex-row align-items-center" style={{ gap: '16px' }}>
                     <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Change' : 'Uploading'}</button>
                     <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deletingLogo} onClick={handleDeleteLogo}>{!deletingLogo ? 'Delete' : 'Deleting'}</button>
@@ -459,10 +463,14 @@ const EditProject = ({
                 userContext.profile.projects[editProfileModalIndex].logo_url &&
                 userContext.profile.projects[editProfileModalIndex].logo_url ?
                 <>
-                  <div className="d-flex flex-column mt-3" style={{ gap: '16px' }}>
-                    <div className="w-100 position-relative" style={{paddingTop: '56.25%'}}>
-                      <img src={projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')} className="position-absolute radius-3 w-100 h-100" style={{ top: 0, left: 0 }} />
+                  <div className="d-flex flex-column mt-3 w-100" style={{ gap: '16px' }}>
+                    <div className="w-100 position-relative radius-2 overflow-hidden" style={{ paddingTop: '100%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')})` }}>
                     </div>
+                  </div>
+                  <div className="d-flex flex-column mt-3" style={{ gap: '16px' }}>
+                    {/* <div className="w-100 position-relative" style={{paddingTop: '100%'}}>
+                      <img src={projectsImageChanged ? projectsImage : (userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url !== undefined ? userContext && userContext.profile && userContext.profile.projects[editProfileModalIndex] && userContext.profile.projects[editProfileModalIndex].logo_url && userContext.profile.projects[editProfileModalIndex].logo_url : '')} className="position-absolute radius-3 w-100 h-100" style={{ top: 0, left: 0 }} />
+                    </div> */}
                     <div className="d-flex flex-row align-items-center" style={{ gap: '16px' }}>
                       <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeLogo}>{!uploading ? 'Change' : 'Uploading'}</button>
                       <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deletingLogo} onClick={handleDeleteLogo}>{!deletingLogo ? 'Delete' : 'Deleting'}</button>

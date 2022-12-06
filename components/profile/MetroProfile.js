@@ -202,29 +202,7 @@ const MetroProfile = (props) => {
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
               <div className="d-flex flex-column flex-md-row justify-content-md-between p-4">
                 <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
-                  {!profilePictureError | props.profile_pic_url !== '' &&
-                      // <img
-                      //   src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
-                      //   onError={({ currentTarget }) => {
-                      //     currentTarget.onerror = null; // prevents looping
-                      //     setProfilePictureError(true)
-                      //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-                      //   }}
-                      //   style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
-                      //   className={styles.profilePicture}
-                      // />
-                      <img
-                        // src={userContext && userContext.profile && userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : props.profile_pic_url}
-                        src={props.profile_pic_url}
-                        onError={({ currentTarget }) => {
-                          currentTarget.onerror = null; // prevents looping
-                          currentTarget.className = 'd-none'
-                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-                        }}
-                        style={{ height: '32px', width: '32px', borderRadius: '100%'}}
-                        className="border-1 border-solid border-dark-300 shadow-3"
-                      />
-                    }
+                  
                   {/* <p className="mb-0 font-weight-medium text-dark-low">{props.full_name}</p> */}
                 </div>
                 {props &&
@@ -467,25 +445,14 @@ const MetroProfile = (props) => {
                                     <div className="mb-3 w-100">
                                       <a target="_blank" href={convertToLink(project.url)} className="d-block position-relative w-100">
                                         <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                          <div className="w-100 position-relative" style={{ paddingTop: '56.25%' }}>
-                                            <img
-                                              src={project.logo_url ? project.logo_url : null}
-                                              onError={({ currentTarget }) => {
-                                                currentTarget.className = 'd-none'
-                                              }}
-                                              className="position-absolute radius-2 shadow-2 bg-light-900 w-100 h-100"
-                                              style={{ top: 0, left: 0, zIndex: 1 }}
-                                            />
-                                            <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-                                              <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
-                                            </div>
+                                          <div className="w-100 position-relative radius-2 overflow-hidden" style={{ paddingTop: '100%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${project.logo_url ? project.logo_url : null})` }}>
                                           </div>
                                         </div>
                                       </a>
                                     </div>
                                     :
                                     <div className="d-flex flex-column mb-3 w-100" style={{ gap: '16px' }}>
-                                      <div className="w-100 position-relative" style={{ paddingTop: '56.25%' }}>
+                                      <div className="w-100 position-relative" style={{ paddingTop: '100%' }}>
                                         <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
                                           <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
                                         </div>
