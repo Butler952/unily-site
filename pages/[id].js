@@ -183,6 +183,8 @@ const Profile = (props) => {
           profile_pic_url={props.profile_pic_url}
           background_cover_image_url={props.background_cover_image_url}
           full_name={props.full_name}
+          first_name={props.first_name}
+          last_name={props.last_name}
           headline={props.headline}
           summary={props.summary}
           experiences={props.experiences}
@@ -215,6 +217,8 @@ export const getServerSideProps = async ({ query }) => {
         content['profile_pic_url'] = doc.data().profile.profile_pic_url ? doc.data().profile.profile_pic_url : null;
         content['background_cover_image_url'] = doc.data().profile.background_cover_image_url ? doc.data().profile.background_cover_image_url : null;
         content['full_name'] = doc.data().profile.full_name ? doc.data().profile.full_name : null;
+        content['first_name'] = doc.data().profile.first_name ? doc.data().profile.first_name : null;
+        content['last_name'] = doc.data().profile.last_name ? doc.data().profile.last_name : null;
         content['headline'] = doc.data().profile.headline ? doc.data().profile.headline : null;
         content['summary'] = doc.data().profile.summary ? doc.data().profile.summary : null;
         content['experiences'] = doc.data().profile.experiences ? doc.data().profile.experiences : null;
@@ -240,6 +244,8 @@ export const getServerSideProps = async ({ query }) => {
     profile_pic_url: content.profile_pic_url,
     background_cover_image_url: content.background_cover_image_url,
     full_name: content.full_name,
+    first_name: content.first_name,
+    last_name: content.last_name,
     headline: content.headline,
     summary: content.summary,
     experiences: content.experiences,
