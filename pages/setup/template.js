@@ -189,6 +189,14 @@ const Template = () => {
     },
     {
       'id': 2,
+      'label': 'Staccato',
+      'string': 'staccato',
+      'img': '/images/staccato-template.jpeg',
+      'active': templateSelection == 'staccato',
+      'premium': true
+    },
+    {
+      'id': 3,
       'label': 'Metro',
       'string': 'metro',
       'img': '/images/metro-template.jpeg',
@@ -196,7 +204,7 @@ const Template = () => {
       'premium': false
     },
     {
-      'id': 3,
+      'id': 4,
       'label': 'Metro Night',
       'string': 'metro_night',
       'img': '/images/metro-night-template.jpeg',
@@ -204,7 +212,7 @@ const Template = () => {
       'premium': false
     },
     {
-      'id': 4,
+      'id': 5,
       'label': 'Document',
       'string': 'document',
       'img': '/images/document-template.jpeg',
