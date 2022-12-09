@@ -213,7 +213,7 @@ const StaccatoProfile = (props) => {
               <button className="btn dark high">say hello</button>
               </div> */}
               <div className="">
-                <div className="d-flex flex-column px-0" style={{gap: '160px'}}>
+                <div className={`d-flex flex-column px-0 ${profileStyles.contentWrapper}`}>
                   <div className="d-flex flex-column mt-0 mt-md-5 pt-5" style={{gap: '64px'}}>
                     <div className="d-flex flex-column">
                       {props.full_name &&
@@ -313,7 +313,7 @@ const StaccatoProfile = (props) => {
                                 <div className="mb-4 pb-4 w-100">
                                   <a target="_blank" href={convertToLink(project.url)} className="d-block position-relative w-100">
                                     <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                      <div className="w-100 position-relative radius-4 overflow-hidden" style={{ paddingTop: '56.25%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${project.logo_url ? project.logo_url : null})` }}>
+                                      <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${project.logo_url ? project.logo_url : null})` }}>
                                       </div>
                                     </div>
                                   </a>

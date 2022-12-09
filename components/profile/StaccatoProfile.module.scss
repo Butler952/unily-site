@@ -44,6 +44,22 @@
   }
 }
 
+.contentWrapper {
+  gap: 96px;
+  @media (min-width: $breakpoint-md) {
+    gap: 160px;
+  }
+}
+
+.heroImage {
+  padding-top: 56.25%; 
+  background-position: center;  
+  background-size: cover;
+  border-radius: $radius-medium;
+  @media (min-width: $breakpoint-md) {
+    border-radius: $radius-large;
+  }
+}
 
 
 .profileCard {
