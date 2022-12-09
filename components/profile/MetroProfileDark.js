@@ -185,7 +185,7 @@ const MetroProfileDark = (props) => {
           <div>
           {/* <div style={{ marginTop: '66px' }}> */}
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
-              <div className="d-flex flex-column flex-md-row justify-content-md-between p-4">
+              <div className="d-flex flex-column flex-md-row justify-content-md-between p-3 p-md-4">
                 <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
                   {/* <p className="mb-0 font-weight-medium text-light-low">{props.full_name}</p> */}
                 </div>
@@ -219,7 +219,7 @@ const MetroProfileDark = (props) => {
                   </div>
                   : ''}
               </div>
-            <Container className="py-5 px-5" style={{maxWidth: '960px'}}>
+            <Container className="py-5 px-3 px-md-5" style={{maxWidth: '960px'}}>
               <div className="">
                 <div className="px-0 px-md-5">
                   <div className="mt-0 mt-md-5 mb-5 py-3">
