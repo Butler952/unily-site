@@ -200,7 +200,7 @@ const StaccatoProfile = (props) => {
           <div>
           {/* <div style={{ marginTop: '66px' }}> */}
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
-            <Container className="py-5 px-5 mx-auto" style={{maxWidth: '1440px'}}>
+            <Container className="py-5 px-3 px-md-5 mx-auto" style={{maxWidth: '1440px'}}>
               {/* <div className="d-flex flex-row justify-content-between align-items-center">
               <svg width="24" viewBox="0 0 24 24">
                 <path 

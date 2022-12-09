@@ -8,28 +8,40 @@
 }
 
 .heading1 {
-  font-size: 120px;
+  font-size: 80px;
   letter-spacing: 0;
+  @media (min-width: $breakpoint-md) {
+    font-size: 120px;
+  }
 }
 .heading2 {
-  font-size: 88px;
+  font-size: 56px;
   letter-spacing: 0;
+  @media (min-width: $breakpoint-md) {
+    font-size: 88px;
+  }
 }
 
 .subheading {
   font-family: 'Inter', 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 300;
   letter-spacing: -0.05rem;
   line-height: 120%;
+  @media (min-width: $breakpoint-md) {
+    font-size: 40px;
+  }
 }
 
 .body {
   font-family: 'Inter', 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 300;
   letter-spacing: -0.03rem;
-  color: #7B8386
+  color: #7B8386;
+  @media (min-width: $breakpoint-md) {
+    font-size: 28px;
+  }
 }
 
 
