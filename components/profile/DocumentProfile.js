@@ -200,8 +200,8 @@ const DocumentProfile = (props) => {
           {/* <div style={{ marginTop: '66px' }}> */}
           <div>
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
-            <Container className="py-5 px-5">
-              <div className={`${profileStyles.profileCard} p-5 shadow-2 radius-4 bg-light-900`}>
+            <Container className="py-5 px-3 px-md-3">
+              <div className={`${profileStyles.profileCard} p-4 p-md-5 shadow-2 radius-4 bg-light-900`}>
                 <div className="px-0 px-md-5">
                   <div className="mt-0 mt-md-5 mb-5 py-3">
                     {/* {!profilePictureError | props.profile_pic_url !== '' &&
