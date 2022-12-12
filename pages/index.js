@@ -225,7 +225,7 @@ const Home = () => {
       <div className={`text-center ${styles.sectionWrapper}`}>
         <div className={styles.stepsContainer}>
           <div className="d-flex flex-column align-items-center">
-            <h2 className="mb-3">1000+</h2>
+            <h2 className="mb-3">917+</h2>
             <h5>Professional profiles created</h5>
           </div>
           <div className="d-flex flex-column align-items-center">
