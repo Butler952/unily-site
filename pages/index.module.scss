@@ -17,6 +17,63 @@
     box-shadow: $shadow-4;
   }
 }
+.imageCarouselWrapper {
+  position: relative;
+  height: 480px;
+}
+.imageCarousel {
+  position: absolute;
+  height: 480px;
+  img {
+    border-radius: $radius-medium;
+  }
+}
+.featureCard {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: $radius-large;
+  div:nth-of-type(1) {
+    padding: 24px;
+  }
+  @media (min-width: $breakpoint-sm) {
+    div:nth-of-type(1) {
+      padding: 48px;
+    }
+  }
+  @media (min-width: $breakpoint-lg) {
+    flex-direction: row;
+    div:nth-of-type(1) {
+      padding: 80px;
+    }
+  }
+}
+.postCard {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: $radius-large;
+  width: 100%;
+  svg {
+    transition: $transition-standard;
+  }
+  div:nth-of-type(1) {
+    padding: 24px;
+  }
+  @media (min-width: $breakpoint-sm) {
+    div:nth-of-type(1) {
+      padding: 48px;
+    }
+  }
+  @media (min-width: $breakpoint-lg) {
+    div:nth-of-type(1) {
+      padding: 48px;
+    }
+  }
+  &:hover{
+    svg { margin-left: 12px}
+  }
+}
 .iframeWrapper {
   position: relative;
   overflow: hidden;

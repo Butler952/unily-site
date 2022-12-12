@@ -38,7 +38,7 @@ const Post = (props) => {
         { props.image ? <meta name="twitter:image" content={`https://www.vitaely.me${props.image}`} /> : null }
       </Head>
       <ProgressBar
-        bgcolor="#6839EF"
+        bgcolor="#15121c"
         height="4px"
       />
         <div className="container" style={{maxWidth: '768px'}}>

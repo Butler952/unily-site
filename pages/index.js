@@ -31,7 +31,22 @@ const Home = () => {
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px`
+    }
   }, []);
+
+  const handleScroll = () => {
+    if (typeof window !== 'undefined') {
+
+      document.getElementById('imageCarousel') !== null ? document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px` : null
+
+      // window.scrollY
+      // window.innerWidth
+      // carousel.offsetWidth
+    }
+  }
 
   const router = useRouter();
 
@@ -146,9 +161,9 @@ const Home = () => {
       </a>
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column align-items-center justify-content-between">
-          <div style={{ maxWidth: '640px' }} className="mb-5 pb-5 text-center">
-            {screenWidth > 576 ? <h1>Turn your resume into a landing page</h1> : <h2>Turn your resume into a landing page</h2>}
-            <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
+          <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
+            {screenWidth > 576 ? <h1>Turn your Linkedin profile into a website</h1> : <h2>Turn your Linkedin profile into a website</h2>}
+            <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
             <div className="d-flex justify-content-center m-auto">
               <Link href="/users/register">
                 <a className="btn primary high large">Get started</a>
@@ -162,22 +177,29 @@ const Home = () => {
             </iframe>
           </div> */}
         </div>
-        
-        {/* <div className={`text-center ${styles.sectionWrapper}`}>
-          { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
-          <div className={styles.heroImageWrapper}>
-            <Image
-              src="/images/profile-preview.png"
-              layout='fill'
-              objectFit='cover'
-            />
-          </div>
-        </div> */}
-        </Container> 
-        <div className={`overflow-hidden ${styles.primaryBackground}`}>
+      </Container> 
+      <div className={`${styles.imageCarouselWrapper}`}>
+        <div id="imageCarousel" className={`d-flex flex-row ${styles.imageCarousel}`} style={{gap: '24px'}}>
+          <img src="/images/landing-page/template-previews/bento-template.png"></img>
+          <img src="/images/landing-page/template-previews/staccato-template.png"></img>
+          <img src="/images/landing-page/template-previews/original-desktop-preview.png"></img>
+          <img src="/images/landing-page/template-previews/metro-night-preview.png"></img>
+          <img src="/images/landing-page/template-previews/metro-template.png"></img>
+        </div>
+      </div>
+      {/* <div className={`text-center ${styles.sectionWrapper}`}>
+        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
+        <div className={styles.heroImageWrapper}>
+          <Image
+            src="/images/profile-preview.png"
+            layout='fill'
+            objectFit='cover'
+          />
+        </div>
+      </div> */}
+      {/* <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
-          {/*{ idList ?? <p>{idList}</p> }*/}
             { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
@@ -198,9 +220,25 @@ const Home = () => {
             </div>
           </div>
         </Container>
-      </div>
+      </div> */}
       <Container>
       <div className={`text-center ${styles.sectionWrapper}`}>
+        <div className={styles.stepsContainer}>
+          <div className="d-flex flex-column align-items-center">
+            <h2 className="mb-3">1000+</h2>
+            <h5>Professional profiles created</h5>
+          </div>
+          <div className="d-flex flex-column align-items-center">
+            <h2 className="mb-3">150+</h2>
+            <h5>Upvotes on Product Hunt</h5>
+          </div>
+          <div className="d-flex flex-column align-items-center">
+            <h2 className="mb-3">6+</h2>
+            <h5>Templates to choose from </h5>
+          </div>
+        </div>
+      </div>
+      {/* <div className={`text-center ${styles.sectionWrapper}`}>
         { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
@@ -222,9 +260,87 @@ const Home = () => {
               <h3 className="text-primary-high">Share your profile</h3>
             </div>
           </div>
+        </div> */}
+        <div className={`container ${styles.sectionWrapper}`}>
+          <div className="d-flex flex-column" style={{gap: '24px'}}>
+            <div className={`${styles.featureCard}`} style={{background: '#FBFBF8'}}>
+              <div className="w-100 order-1 order-lg-1">
+                {screenWidth > 576 ? <h2>Show off your best work</h2> : <h3>Show off your best work</h3>}
+                <p className="large">Choose the information from your Linkedin profile that you want to display on your resume.</p>
+              </div>
+              <div className="w-100 order-0 order-lg-1">
+                <img className="w-100" src="/images/landing-page/project-highlight.png" style={{mixBlendMode: 'darken'}}></img>
+              </div>
+            </div>
+            <div className={`${styles.featureCard}`} style={{background: '#FBFBF8'}}>
+              <div className="w-100 order-1 order-lg-1">
+                {screenWidth > 576 ? <h2>Links to your best content</h2> : <h3>Links to your best content</h3>}
+                <p className="large">Choose the information from your Linkedin profile that you want to display on your resume.</p>
+              </div>
+              <div className="w-100 order-0 order-lg-1">
+                <img className="w-100" src="/images/landing-page/links-highlight.png" style={{mixBlendMode: 'darken'}}></img>
+              </div>
+            </div>
+            <div className={`align-items-end ${styles.featureCard}`} style={{background: '#FBFBF8'}}>
+              <div className="w-100 order-1 order-lg-1">
+                {screenWidth > 576 ? <h2>Sync your data from Linkedin</h2> : <h3>Sync your data from Linkedin</h3>}
+                <p className="large">Choose the information from your Linkedin profile that you want to display on your resume.</p>
+              </div>
+              <div className="w-100 order-0 order-lg-1">
+                <img className="w-100" src="/images/landing-page/sync-highlight.png"></img>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={`container ${styles.sectionWrapper}`}>
-          <h2 className="mx-auto text-center mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
+          <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
+          <div className="d-flex flex-column flex-lg-row" style={{gap: '24px'}}>
+            <Link href="/blog/four-things-to-research-about-a-company-before-an-interview">
+              <a style={{textDecoration: 'none'}}>
+                <div className={`${styles.postCard}`} style={{background: '#FBFBF8'}}>
+                  <div className="w-100 order-1 order-lg-1">
+                    {screenWidth > 576 ? <h4>How to ace recorded interviews</h4> : <h4>How to ace recorded interviews</h4>}
+                    <p className="large text-dark-med">Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you...</p>
+                    <div className="d-flex flex-row align-items-center p-0" style={{gap: '8px'}}>
+                      <p className="mb-0">Read more</p>
+                      <Icon icon={ICONS.ARROW_RIGHT_STACCATO} size='24' className="fill-dark-900" />
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+            <Link href="/blog/how-to-ace-recorded-interviews">
+              <a style={{textDecoration: 'none'}}>
+                <div className={`${styles.postCard}`} style={{background: '#FBFBF8'}}>
+                  <div className="w-100 order-1 order-lg-1">
+                    {screenWidth > 576 ? <h4>Four things to research about a company before an interview</h4> : <h4>Four things to research about a company before an interview</h4>}
+                    <p className="large text-dark-med">When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to...</p>
+                    <div className="d-flex flex-row align-items-center p-0" style={{gap: '8px'}}>
+                      <p className="mb-0">Read more</p>
+                      <Icon icon={ICONS.ARROW_RIGHT_STACCATO} size='24' className="fill-dark-900" />
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+            <Link href="/blog/four-things-to-research-about-a-company-before-an-interview">
+              <a style={{textDecoration: 'none'}}>
+                <div className={`align-items-end ${styles.postCard}`} style={{background: '#FBFBF8'}}>
+                  <div className="w-100 order-1 order-lg-1">
+                    {screenWidth > 576 ? <h4>What to send in a follow up email after an interview</h4> : <h4>What to send in a follow up email after an interview</h4>}
+                    <p className="large text-dark-med">So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All...</p>
+                    <div className="d-flex flex-row align-items-center p-0" style={{gap: '8px'}}>
+                      <p className="mb-0">Read more</p>
+                      <Icon icon={ICONS.ARROW_RIGHT_STACCATO} size='24' className="fill-dark-900" />
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </div>
+        </div>
+        {/* <div className={`container ${styles.sectionWrapper}`}>
+          <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
           <div className="d-flex flex-column" style={{gap: '24px'}}>
             <PostCard 
               image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
@@ -251,10 +367,10 @@ const Home = () => {
               screenWidth={screenWidth}
             />
           </div>
-        </div>
-        <div className={`text-center ${styles.sectionWrapper}`}>
-          { screenWidth > 576 ? <h1 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your CV into a landing page</h1> : <h2 className="mx-auto">Start turning your CV into a landing page</h2> }    
-          <p className="large mx-auto mb-5">Create your landing page in just 2 minutes</p>
+        </div> */}
+        <div className={`text-center mx-auto ${styles.sectionWrapper}`} style={{ maxWidth: '720px' }}>
+          {screenWidth > 576 ? <h1>Turn your Linkedin profile into a website</h1> : <h2>Turn your Linkedin profile into a website</h2>}
+          <p className="large mx-auto mb-5" style={{ maxWidth: '640px' }}>Create your very own professional website in just two minutes</p>
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register">
               <a className="btn primary high large m-auto">Get started</a>

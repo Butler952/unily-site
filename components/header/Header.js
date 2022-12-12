@@ -314,8 +314,8 @@ const Header = ({
     userData == '' && windowUrl.includes("/profile/") || userData == '' && windowUrl.includes("/aaronbutler") ? null : 
       <div
         style={ 
-          windowUrl.includes("profile") || 
-          windowUrl.includes("settings") ||
+          windowUrl.includes("/profile/") || 
+          windowUrl.includes("/settings") ||
           windowUrl.includes("/aaronbutler")
           ? {paddingTop:'66px'} : null}
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
@@ -361,7 +361,7 @@ const Header = ({
                   <button className="btn primary low small" onClick={handleLogout}>Logout</button>
                   :
                   <div className="d-flex flex-row justify-content-center align-items-center">
-                    { windowUrl.includes("blog") || 
+                    {/* { windowUrl.includes("blog") || 
                       windowUrl.includes("legal") || 
                       windowUrl.includes("setup") ||
                       windowUrl.includes("users") ||
@@ -375,7 +375,7 @@ const Header = ({
                           <a className="btn dark low small">Blog</a>
                         </Link>
                       </div> 
-                    : null}
+                    : null} */}
                 
                     <button 
                       type="button" 
@@ -525,19 +525,25 @@ const Header = ({
             </>
             :
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
-              <Link href="/">
-                <a><img src={screenWidth > 767 ? "/images/vitaely-logo-full.svg" : "/images/vitaely-logo-icon.svg"} style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
-              </Link>
-              <div className="d-flex" style={{ gap: '8px' }}>
-                {screenWidth > 767 ? (
-                  <>
+              <div className="d-flex align-items-center" style={{ gap: '32px' }}>
+                <Link href="/">
+                  <a><img src="/images/vitaely-logo-icon.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
+                </Link>
+                {screenWidth > 767 && (
+                  <div className="d-flex align-items-center" style={{ gap: '8px' }}>
+                    <Link href="/templates">
+                      <a className="btn dark low small">Templates</a>
+                    </Link>
+                    <Link href="/pricing">
+                      <a className="btn dark low small">Pricing</a>
+                    </Link>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
                     </Link>
-                    <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div>
-                  </>
-                )
-                  : null}
+                  </div>
+                )}
+              </div>
+              <div className="d-flex" style={{ gap: '8px' }}>
 
                 {/* <Link href="/users/register">
                 <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
