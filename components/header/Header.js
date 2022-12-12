@@ -531,12 +531,12 @@ const Header = ({
                 </Link>
                 {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>
-                    <Link href="/templates">
+                    {/* <Link href="/templates">
                       <a className="btn dark low small">Templates</a>
                     </Link>
                     <Link href="/pricing">
                       <a className="btn dark low small">Pricing</a>
-                    </Link>
+                    </Link> */}
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
                     </Link>
