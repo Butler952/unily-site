@@ -49,6 +49,7 @@ const Sitemap = () => {};
 Sitemap.getInitialProps = ({ res, req }) => {
   const routes = [
     "", 
+    "templates",
     "online-cv-builder", 
     "online-resume-builder", 
     "pdf-resume-builder", 
