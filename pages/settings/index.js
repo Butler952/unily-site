@@ -701,7 +701,7 @@ const Settings = () => {
                     <h4 className="text-dark-high mb-4">Free</h4>
                     {[
                       'Vitaely.me domain',
-                      'Basic presentation'
+                      'Basic templates'
                     ].map((feature, index) =>
                       <div key={index} className="d-flex align-items-start mt-2">
                         <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
@@ -723,8 +723,9 @@ const Settings = () => {
                     </div>
                     {[
                       'All Basic features',
-                      'Unlimited re-syncing',
-                      'Logos for experience and education',
+                      'Choose your page handle',
+                      'Premium templates',
+                      'Logos on some templates',
                       'More coming soon'
                     ].map((feature, index) =>
                       <div key={index} className="d-flex align-items-start mt-2">

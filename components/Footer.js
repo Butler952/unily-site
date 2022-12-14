@@ -15,6 +15,7 @@ const Footer = () => {
               <Link href="/online-cv-builder"><a className="text-dark-high mb-0">Online CV builder</a></Link>
               <Link href="/online-resume-builder"><a className="text-dark-high mb-0">Online resume builder</a></Link>
               <Link href="/templates"><a className="text-dark-high mb-0">Templates</a></Link>
+              <Link href="/pricing"><a className="text-dark-high mb-0">Pricing</a></Link>
               <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
             </div>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>

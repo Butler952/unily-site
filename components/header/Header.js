@@ -534,9 +534,9 @@ const Header = ({
                     <Link href="/templates">
                       <a className="btn dark low small">Templates</a>
                     </Link>
-                    {/*<Link href="/pricing">
+                    <Link href="/pricing">
                       <a className="btn dark low small">Pricing</a>
-                    </Link> */}
+                    </Link>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
                     </Link>
