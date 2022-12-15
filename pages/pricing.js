@@ -57,7 +57,7 @@ const Pricing = () => {
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
           <div style={{ maxWidth: '560px' }}>
             {screenWidth > 576 ? <h1>Pricing</h1> : <h2>Pricing</h2>}
-            <p className="large mb-0">Get started for free or upgrade to Premium to experience the all that your Vitaely profile has to offer.</p>
+            <p className="large mb-0">Get started for free, or upgrade to Premium to experience all that your Vitaely profile has to offer.</p>
           </div>
         </div>
         <div className={`${styles.sectionWrapper} d-flex flex-column align-items-center`}>
