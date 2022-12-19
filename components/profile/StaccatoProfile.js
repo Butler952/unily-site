@@ -221,7 +221,7 @@ const StaccatoProfile = (props) => {
                       }
                       {props.headline &&
                         // <h3 className="text-error-med mb-5" style={{ maxWidth: '640px', fontWeight: 400 }}>{props.headline}</h3>
-                        <h3 className={`mb-0 ${profileStyles.subheading}`} style={{ maxWidth: '640px', color: '#7B8386' }}>{props.headline}</h3>
+                        <h3 className={`mb-0 text-dark-med ${profileStyles.subheading}`} style={{ maxWidth: '640px' }}>{props.headline}</h3>
                       }
                     </div>
                     {/* {props.background_cover_image_url && <div className="w-100 position-relative radius-4 overflow-hidden" style={{ paddingTop: '56.25%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${props.background_cover_image_url})` }}></div>} */}
