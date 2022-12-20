@@ -156,9 +156,9 @@ const Home = () => {
         <meta property="og:url" content="https://www.vitaely.me/" />
         <meta property="og:type" content="website" />
       </Head>
-      <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
+      {/* <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="Vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
-      </a>
+      </a> */}
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column align-items-center justify-content-between">
           <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
