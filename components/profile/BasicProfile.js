@@ -199,7 +199,7 @@ const BasicProfile = (props) => {
           <div>
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
             <Container>
-              <div className="text-center mb-5">
+              <div className="text-center mb-5 d-flex flex-column align-items-center">
                 {/* {(props.background_cover_image_url && !headerImageError) &&
                   <>
                     <img
@@ -228,17 +228,30 @@ const BasicProfile = (props) => {
                   //   style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                   //   className={styles.profilePicture}
                   // />
-                  <img
-                    src={props.profile_pic_url}
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.className = 'd-none'
-                      // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
-                    }}
-                    // style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
-                    style={{marginTop: '48px' }}
-                    className={styles.profilePicture}
-                  />
+                  <>
+                    {/* <img
+                      src={props.profile_pic_url}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.className = 'd-none'
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                      }}
+                      // style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
+                      style={{marginTop: '48px' }}
+                      className={styles.profilePicture}
+                    /> */}
+                    <div
+                      style={{
+                        backgroundImage: `url(${props.profile_pic_url})`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        marginTop: '48px'
+                      }}
+                      className={styles.profilePicture}
+                    >
+                    </div>
+                  </>
                 }
                 <br /> <br />
                 <div className="mb-5 d-flex flex-column align-items-center">
