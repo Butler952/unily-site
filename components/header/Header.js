@@ -311,12 +311,15 @@ const Header = ({
 
   return (
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
-    userData == '' && windowUrl.includes("/profile/") || userData == '' && windowUrl.includes("/aaronbutler") ? null : 
+    userData == '' && windowUrl.includes("/profile/") || 
+    userData == '' && windowUrl.includes("/aaronbutler") ||
+    userData == '' && windowUrl.includes("/alvaro_cuesta") ? null : 
       <div
         style={ 
           windowUrl.includes("/profile/") || 
           windowUrl.includes("/settings") ||
-          windowUrl.includes("/aaronbutler")
+          windowUrl.includes("/aaronbutler") ||
+          windowUrl.includes("/alvaro_cuesta")
           ? {paddingTop:'66px'} : null}
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
