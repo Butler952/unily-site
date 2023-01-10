@@ -294,7 +294,19 @@ const BasicInformation = ({
             { profilePictureUrlChanged ? (profilePictureUrl !== '' ? 
               <>
                 <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
-                  <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/>
+                  {/* <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/> */}
+                  <div
+                    style={{
+                      backgroundImage: `url(${profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''})`,
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover',
+                      width: '120px', 
+                      height: '120px',
+                      borderRadius: '100%'
+                    }}
+                    // className={styles.profilePicture}
+                  ></div>
                   <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Change' : 'Uploading'}</button>
                   <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deleting} onClick={handleDeleteProfilePicture}>{!deleting ? 'Delete' : 'Deleting'}</button>
                 </div>
@@ -308,7 +320,19 @@ const BasicInformation = ({
               (userContext.profile.profile_pic_url !== null ? 
                 <>
                   <div className="d-flex flex-column flex-sm-row align-items-center mt-3" style={{gap: '16px'}}>
-                    <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/>
+                    {/* <img src={profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''}  style={{width: '120px', height: '120px',borderRadius: '100%'}}/> */}
+                    <div
+                      style={{
+                        backgroundImage: `url(${profilePictureUrlChanged ? profilePictureUrl : userContext.profile.profile_pic_url !== undefined ? userContext.profile.profile_pic_url : ''})`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        width: '120px', 
+                        height: '120px',
+                        borderRadius: '100%'
+                      }}
+                      // className={styles.profilePicture}
+                    ></div>
                     <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={uploading} onClick={handleChangeProfilePicture}>{!uploading ? 'Change' : 'Uploading'}</button>
                     <button type="button" className="btn dark medium small w-100 w-sm-auto" disabled={deleting} onClick={handleDeleteProfilePicture}>{!deleting ? 'Delete' : 'Deleting'}</button>
                   </div>
