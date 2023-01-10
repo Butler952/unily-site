@@ -253,7 +253,7 @@ const BasicProfile = (props) => {
                     </div>
                   </>
                 }
-                <br /> <br />
+                <br />
                 <div className="mb-5 d-flex flex-column align-items-center">
                   {props.full_name &&
                     <h2 className="mb-1">{props.full_name}</h2>
