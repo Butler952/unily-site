@@ -406,15 +406,29 @@ const Header = ({
                               </svg>
                             </div>
                             {!headerImageError || userContext && userContext.profileUrl && userContext.profile.profile_pic_url !== '' ? 
-                              <img
-                                className="bg-dark-200 radius-5"
-                                src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
-                                onError={({ currentTarget }) => {
-                                  currentTarget.onerror = null; // prevents looping
-                                  setHeaderImageError(true)
-                                }}
-                                style={{ width: '32px', height: '32px', borderRadius: '100%' }}
-                              />
+                              <>
+                                <div
+                                  style={{
+                                    backgroundImage: `url(${userContext && userContext.profileUrl && userContext.profile.profile_pic_url})`,
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundSize: 'cover',
+                                    width: '32px', 
+                                    height: '32px', 
+                                    borderRadius: '100%'
+                                  }}
+                                  // className={styles.profilePicture}
+                                ></div>
+                                {/* <img
+                                  className="bg-dark-200 radius-5"
+                                  src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
+                                  onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    setHeaderImageError(true)
+                                  }}
+                                  style={{ width: '32px', height: '32px', borderRadius: '100%' }}
+                                /> */}
+                              </>
                               :
                               <div className="bg-dark-200 radius-5" style={{ width: '32px', height: '32px' }} />
 
