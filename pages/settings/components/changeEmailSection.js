@@ -131,6 +131,9 @@ const ChangeEmailSection = ({
         toast('Email updated')
       })
       .catch((err) => {
+        if (err.code == 'auth/requires-recent-login') {
+          setEmailError('We need you to have recently logged into your account to perform this action. Please log out and back in, then try again.')
+        }
         if (err.code === 'auth/email-already-in-use') {
           setEmailError('This email is already in use')
         }
