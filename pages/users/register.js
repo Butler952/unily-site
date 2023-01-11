@@ -13,7 +13,7 @@ const Register = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [passConf, setPassConf] = useState('');
+  // const [passConf, setPassConf] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [termsAndPrivacy, setTermsAndPrivacy] = useState(false);
   const [receiveEmails, setReceiveEmails] = useState(false);
@@ -105,11 +105,11 @@ const Register = () => {
     setPassConfError('')
   }
 
-  const passConfChange = (value) => {
-    setPassConf(value)
-    setPasswordError('')
-    setPassConfError('')
-  }
+  // const passConfChange = (value) => {
+  //   setPassConf(value)
+  //   setPasswordError('')
+  //   setPassConfError('')
+  // }
 
   const termsAndPrivacyChange = () => {
     setTermsAndPrivacy(termsAndPrivacy => !termsAndPrivacy)
@@ -123,11 +123,11 @@ const Register = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (password !== passConf) {
-      setPasswordError('Password and confirm password do not match')
-      setPassConfError('Password and confirm password do not match')
-      return null;
-    }
+    // if (password !== passConf) {
+    //   setPasswordError('Password and confirm password do not match')
+    //   setPassConfError('Password and confirm password do not match')
+    //   return null;
+    // }
 
     if (!termsAndPrivacy) {
       setNotification('Please accept the terms and conditions')
@@ -203,11 +203,11 @@ const Register = () => {
                 <input type="password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <p className="large text-dark-high">Confirm password</p>
                 <input type="password" className={passConfError !== '' ? `error w-100` : `w-100`} value={passConf} onChange={({target}) => passConfChange(target.value)} />
                 {passConfError !== '' ? <p className="small text-error-high mt-2">{passConfError}</p> : null}
-              </div>
+              </div> */}
               <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
                 <input type="checkbox" onChange={() => receiveEmailsChange()} checked={receiveEmails}></input>
                 <span className="checkmark"></span>
