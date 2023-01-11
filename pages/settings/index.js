@@ -26,6 +26,7 @@ import mixpanel from 'mixpanel-browser';
 import TemplateSection from './components/templateSection';
 import CustomDomainSection from './components/customDomainSection';
 import PrettyUrlSection from './components/prettyUrlSection';
+import ChangeEmailSection from './components/changeEmailSection';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -783,6 +784,14 @@ const Settings = () => {
             <DownloadSection
               userData={userData}
               allUserData={allUserData}
+            />
+            <ChangeEmailSection
+              userData={userData}
+              allUserData={allUserData}
+              product={product}
+              active={active}
+              status={status}
+              handleUpgrade={handleUpgrade}
             />
             {/* <CustomDomainSection userData={userData} /> */}
             <ResyncSection
