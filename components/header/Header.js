@@ -313,13 +313,15 @@ const Header = ({
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
     userData == '' && windowUrl.includes("/profile/") || 
     userData == '' && windowUrl.includes("/aaronbutler") ||
-    userData == '' && windowUrl.includes("/alvaro_cuesta") ? null : 
+    userData == '' && windowUrl.includes("/alvaro_cuesta") ||
+    userData == '' && windowUrl.includes("/kellyelsworth") ? null : 
       <div
         style={ 
           windowUrl.includes("/profile/") || 
           windowUrl.includes("/settings") ||
           windowUrl.includes("/aaronbutler") ||
-          windowUrl.includes("/alvaro_cuesta")
+          windowUrl.includes("/alvaro_cuesta") ||
+          windowUrl.includes("/kellyelsworth")
           ? {paddingTop:'66px'} : null}
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
