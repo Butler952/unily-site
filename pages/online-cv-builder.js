@@ -9,7 +9,7 @@ const OnlineCvBuilder = () => {
     <div>
       <LandingPage
         title="Build your online CV in 2 minutes"
-        subtitle="Stand out from the crowd and land your dream job with the Vitaely online CV builder."
+        subtitle="Stand out from the crowd and land your dream job with the ExpertPage online CV builder."
         url="online-cv-builder"
         stepsTitle="Three simple steps to build an online CV"
         sectionOneTitle="Sync your data from LinkedIn"
@@ -18,7 +18,7 @@ const OnlineCvBuilder = () => {
         sectionTwoTitle="Choose what information to show"
         sectionTwoSubtitle="Choose the information from your Linkedin profile that you want to display on your online CV."
         sectionTwoImg="custom-content.png"
-        whyVitaelyOne="Get yourself noticed with a unique online CV."
+        whyExpertPageOne="Get yourself noticed with a unique online CV."
       />
     </div>
   )

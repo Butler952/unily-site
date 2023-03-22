@@ -24,7 +24,7 @@ const PrettyUrlSection = ({
   const [domainChanged, setDomainChanged] = useState('');
   const [domainError, setDomainError] = useState('');
   const [defaultDomain, setDefaultDomain] = useState('');
-  const [selectedDomainType, setSelectedDomainType] = useState('');
+  const [selectedDomainType, setSelectedDomainType] = useState();
   const [selectedDomainTypeChanged, setSelectedDomainTypeChanged] = useState(false);
   const [customDomain, setCustomDomain] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -36,15 +36,17 @@ const PrettyUrlSection = ({
   const handleUpsellClose = () => setShowUpsellModal(false);
   const handleUpsellShow = () => setShowUpsellModal(true);
 
-  let domainType = (
-    selectedDomainTypeChanged ? selectedDomainType : (
-      userContext &&
-        userContext.profileUrl &&
-        userContext.profileUrl.includes("profile") ?
-        'standard' :
-        'personalised'
-    )
-  )
+  let domainType = 'personalised'
+  
+  // (
+  //   selectedDomainTypeChanged ? selectedDomainType : (
+  //     userContext &&
+  //       userContext.profileUrl &&
+  //       userContext.profileUrl.includes("profile") ?
+  //       'standard' :
+  //       'personalised'
+  //   )
+  // )
 
   // value={domainChanged ? domain : 
   //   (
@@ -64,14 +66,15 @@ const PrettyUrlSection = ({
     setDomain(
       userContext &&
       userContext.profileUrl &&
-      userContext.profileUrl.includes("profile") ?
-      (userContext.profileUrl.split('/profile/')[1]) :
       userContext.profileUrl
+      // userContext.profileUrl.includes("profile") ?
+      // (userContext.profileUrl.split('/profile/')[1]) :
+      // userContext.profileUrl
     )
-    setSelectedDomainType(
-      userContext &&
-        userContext.profileUrl &&
-        userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
+    // setSelectedDomainType(
+    //   userContext &&
+    //     userContext.profileUrl &&
+    //     userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // setSelectedDomainType(userContext && userContext.profileUrl && userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // need to ge the domain from the profileUrl itself as it could be different from the uid
     const unsubscribe = fire.auth()
@@ -243,28 +246,19 @@ const PrettyUrlSection = ({
       <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-0">Profile URL</h5>
-          <p className="text-dark-low mb-0">Manage the URL of your Vitaely profile</p>
+          <p className="text-dark-low mb-0">Manage the URL of your ExpertPage profile</p>
         </div>
         <hr className="m-0" />
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
-          <div role="button" onClick={() => { setSelectedDomainTypeChange('standard') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'standard' ? styles.active : null}`}>
-            <p className="large text-dark-high mb-0">Standard</p>
-            <p className="text-dark-low mb-0">Standard profile URL on the vitaely.me domain</p>
-            <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{defaultDomain}</p>
-            {/* <div className="mt-3">
-              <input type="text" className="small w-100" value={domain} onChange={({ target }) => domainChange(target.value)} />
-              <p className="small text-dark-med mt-2 mb-0">vitaely.me/profile/{domain}</p>
-            </div> */}
-          </div>
           <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
             <p className="large text-dark-high mb-0">Personalised</p>
-            <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
+            <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
             <div className="mt-3">
               <input
                 type="text"
                 className={`small w-100 ${domainError !== '' ? 'error' : null}`}
                 disabled={saving}
-                value={domainChanged ? domain :
+                value={domainChanged ? domain : 
                   (
                     userContext &&
                       userContext.profileUrl &&
@@ -279,7 +273,7 @@ const PrettyUrlSection = ({
                 }
                 onChange={({ target }) => domainChange(target.value)}
               />
-              <p className="small text-dark-med mt-2 mb-0">vitaely.me/
+              <p className="small text-dark-med mt-2 mb-0">expertpage.io/
                 {domainChanged ? domain :
                   (
                     userContext &&
@@ -300,7 +294,7 @@ const PrettyUrlSection = ({
           </div>
           <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{ cursor: 'pointer' }}>
             <p className="large text-dark-high mb-0">Use my own domain</p>
-            <p className="text-dark-low mb-0">Display your Vitaely profile on your own domain</p>
+            <p className="text-dark-low mb-0">Display your ExpertPage profile on your own domain</p>
             {/* <button type="submit" className="btn primary high">Add domain</button> */}
             {/* <form onSubmit={handleSubmitCustomDomain}>
             <div className="d-flex flex-column flex-md-row" style={{gap: '16px'}}>
@@ -371,7 +365,7 @@ const PrettyUrlSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Custom URL on vitaely.me domain', 
+                'Custom URL on expertpage.io domain', 
                 'Logos for experience and education',
                 'Unlimited re-syncing', 
                 'More coming soon'

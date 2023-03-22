@@ -126,7 +126,7 @@ const Profile = () => {
         { localProfile.full_name ? <meta name="author" content={localProfile.full_name} /> : null }
         <meta property="og:title" content={`${localProfile.full_name} | ${localProfile.headline}`} />
         { localProfile.summary ? <meta property="og:description" content={localProfile.summary} /> : null }
-        <meta property="og:url" content={`https://www.vitaely.me/profile/${localProfile.pageId}`} />
+        <meta property="og:url" content={`https://www.expertpage.io/profile/${localProfile.pageId}`} />
         { localProfile.background_cover_image_url ? <meta property="og:image" content={localProfile.background_cover_image_url} /> : null }
         <meta property="og:type" content="website" />
       </Head>
@@ -271,7 +271,7 @@ const Profile = () => {
       </Container>
       <div className='py-5 text-center'>
         <Container>
-          <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p>
+          <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p>
         </Container>
       </div>
     </div >

@@ -22,10 +22,10 @@ const HowToAddLinksToYourProfile = () => {
       <Post 
         title="How to add links to your profile"
         image='/images/blog/how-to-add-links-to-your-profile/how-to-add-links-to-your-profile.jpg'
-        imageAlt="A short guide on how to add link to your Vitaely.me profile."
+        imageAlt="A short guide on how to add link to your expertpage.io profile."
         readingDuration="2"
         hideFooter
-        description="A short guide on how to add link to your Vitaely.me profile."
+        description="A short guide on how to add link to your expertpage.io profile."
         url="how-to-add-links-to-your-profile"
       >
         <div className="py-4 background-light">

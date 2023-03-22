@@ -45,19 +45,19 @@ const Pricing = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>Pricing | Vitaely.me</title>
-        <meta name="description" content="Pricing and plans for Vitaely.me — Turn your Linkedin Profile into a landing page." />
-        <meta property="og:title" content="Pricing | Vitaely.me" />
-        <meta property="og:description" content="Pricing and plans for Vitaely.me — Turn your Linkedin Profile into a landing page." />
-        <meta property="og:url" content="https://www.vitaely.me/templates" />
+        <title>Pricing | expertpage.io</title>
+        <meta name="description" content="Pricing and plans for expertpage.io — Turn your Linkedin Profile into a landing page." />
+        <meta property="og:title" content="Pricing | expertpage.io" />
+        <meta property="og:description" content="Pricing and plans for expertpage.io — Turn your Linkedin Profile into a landing page." />
+        <meta property="og:url" content="https://www.expertpage.io/templates" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Fpricing" />
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io%2Fpricing" />
       </Head>
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
           <div style={{ maxWidth: '560px' }}>
             {screenWidth > 576 ? <h1>Pricing</h1> : <h2>Pricing</h2>}
-            <p className="large mb-0">Get started for free, or upgrade to Premium to experience all that your Vitaely profile has to offer.</p>
+            <p className="large mb-0">Get started for free, or upgrade to Premium to experience all that your ExpertPage profile has to offer.</p>
           </div>
         </div>
         <div className={`${styles.sectionWrapper} d-flex flex-column align-items-center`}>
@@ -70,7 +70,7 @@ const Pricing = () => {
                   </div>
                   <h4 className="text-dark-high mb-4">Free</h4>
                   {[
-                    'Vitaely.me domain',
+                    'expertpage.io domain',
                     'Basic templates'
                   ].map((feature, index) =>
                     <div key={index} className="d-flex align-items-start mt-2">

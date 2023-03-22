@@ -26,3 +26,19 @@
     border-bottom: 1px solid $dark-300;
   }
 }
+
+.editingImage {
+  padding-top: 66.66%; 
+  background-position: center;  
+  background-size: cover;
+  border-radius: $radius-medium;
+  // box-shadow: $shadow-2;
+}
+
+.editingAvatar {
+  // padding-top: 66.66%; 
+  background-position: center;  
+  background-size: cover;
+  border-radius: $radius-round;
+  // box-shadow: $shadow-2;
+}

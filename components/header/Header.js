@@ -311,18 +311,8 @@ const Header = ({
 
   return (
     // windowUrl.includes("profile") && windowUrl.includes(userContext.profileUrl) ?
-    userData == '' && windowUrl.includes("/profile/") || 
-    userData == '' && windowUrl.includes("/aaronbutler") ||
-    userData == '' && windowUrl.includes("/alvaro_cuesta") ||
-    userData == '' && windowUrl.includes("/kellyelsworth") ? null : 
       <div
-        style={ 
-          windowUrl.includes("/profile/") || 
-          windowUrl.includes("/settings") ||
-          windowUrl.includes("/aaronbutler") ||
-          windowUrl.includes("/alvaro_cuesta") ||
-          windowUrl.includes("/kellyelsworth")
-          ? {paddingTop:'66px'} : null}
+        // style={{paddingTop:'66px'}}
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
         <div 
@@ -340,7 +330,7 @@ const Header = ({
             <>
               <div>
                 <Link href="/">
-                  <a><img src="/images/vitaely-logo-icon.svg" style={{ height: '32px' }} /></a>
+                  <a><img src="/images/expertpage-logo-icon.svg" style={{ height: '48px' }} /></a>
                 </Link>
                 {/* <div className="d-flex">
             <Link href={profileUrl}>
@@ -390,7 +380,7 @@ const Header = ({
                       <svg viewBox="0 0 24 24">
                         <path d={ICONS.EDIT}></path>
                       </svg>
-                      {screenWidth > 575 ? 'Edit profile' : null}
+                      {screenWidth > 575 ? 'Edit content' : null}
                     </button>
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
@@ -401,7 +391,7 @@ const Header = ({
                     <Dropdown align="end">
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
-                          <div className={`d-flex flex-row align-items-center radius-2 border-1 border-solid border-dark-300 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
+                          <div className={`d-flex flex-row align-items-center radius-4 border-1 border-solid border-dark-300 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
                                 <path d={ICONS.MENU}></path>
@@ -458,7 +448,7 @@ const Header = ({
                         <hr className="m-0" />
                         <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
-                          Edit profile
+                          Edit content
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                           <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
@@ -495,7 +485,7 @@ const Header = ({
                       null
                     } */}
 
-                        {product !== '' ?
+                        {/* {product !== '' ?
                           (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
                             (status === 'active' ?
                               (cancelAtPeriodEnd ?
@@ -523,7 +513,7 @@ const Header = ({
                             <Icon icon={ICONS.STAR} size='24' />
                             Upgrade to premium
                           </Dropdown.Item>
-                        }
+                        } */}
 
 
 
@@ -546,7 +536,7 @@ const Header = ({
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
               <div className="d-flex align-items-center" style={{ gap: '32px' }}>
                 <Link href="/">
-                  <a><img src="/images/vitaely-logo-icon.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '32px' }} /></a>
+                  <a><img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /></a>
                 </Link>
                 {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>

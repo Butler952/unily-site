@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import fire from '../../config/fire-config';
+import { v4 as uuidv4 } from 'uuid';
 import ICONS from '../icon/IconPaths';
 import Icon from '../icon/Icon';
 import BasicInformation from './BasicInformation';
@@ -24,6 +25,21 @@ import EditProject from './EditProject';
 import SideProjects from './SideProjects';
 import EditSideProject from './EditSideProject';
 import AddSideProject from './AddSideProject';
+import AddPost from './AddPost';
+import EditPost from './EditPost';
+import Posts from './Posts';
+import Products from './Products';
+import AddProduct from './AddProduct';
+import EditProduct from './EditProduct';
+import AddService from './AddService';
+import Services from './Services';
+import EditService from './EditService';
+import Featured from './Featured';
+import EditFeature from './EditFeature';
+import AddFeature from './AddFeature';
+import Testimonials from './Testimonials';
+import AddTestimonial from './AddTestimonial';
+import EditTestimonial from './EditTestimonial';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -65,6 +81,42 @@ const EditProfile = ({
   const [about, setAbout] = useState('');
   const [aboutChanged, setAboutChanged] = useState(false);
   const [aboutError, setAboutError] = useState('');
+
+  const [productsImage, setProductsImage] = useState('');
+  const [productsImageChanged, setProductsImageChanged] = useState(false);
+  const [productsName, setProductsName] = useState('');
+  const [productsNameChanged, setProductsNameChanged] = useState(false);
+  const [productsNameError, setProductsNameError] = useState('');
+  const [productsUrl, setProductsUrl] = useState('');
+  const [productsUrlChanged, setProductsUrlChanged] = useState(false);
+  const [productsUrlError, setProductsUrlError] = useState('');
+  const [productsDescription, setProductsDescription] = useState('');
+  const [productsDescriptionChanged, setProductsDescriptionChanged] = useState(false);
+  const [productsDescriptionError, setProductsDescriptionError] = useState('');
+  const [productsShowDeleteProductModal, setProductsShowDeleteProductModal] = useState(false);
+
+  const [servicesImage, setServicesImage] = useState('');
+  const [servicesImageChanged, setServicesImageChanged] = useState(false);
+  const [servicesName, setServicesName] = useState('');
+  const [servicesNameChanged, setServicesNameChanged] = useState(false);
+  const [servicesNameError, setServicesNameError] = useState('');
+  const [servicesUrl, setServicesUrl] = useState('');
+  const [servicesUrlChanged, setServicesUrlChanged] = useState(false);
+  const [servicesUrlError, setServicesUrlError] = useState('');
+  const [servicesDescription, setServicesDescription] = useState('');
+  const [servicesDescriptionChanged, setServicesDescriptionChanged] = useState(false);
+  const [servicesDescriptionError, setServicesDescriptionError] = useState('');
+  const [servicesShowDeleteServiceModal, setServicesShowDeleteServiceModal] = useState(false);
+
+  const [featuredImage, setFeaturedImage] = useState('');
+  const [featuredImageChanged, setFeaturedImageChanged] = useState(false);
+  const [featuredName, setFeaturedName] = useState('');
+  const [featuredNameChanged, setFeaturedNameChanged] = useState(false);
+  const [featuredNameError, setFeaturedNameError] = useState('');
+  const [featuredUrl, setFeaturedUrl] = useState('');
+  const [featuredUrlChanged, setFeaturedUrlChanged] = useState(false);
+  const [featuredUrlError, setFeaturedUrlError] = useState('');
+  const [featuredShowDeleteFeatureModal, setFeaturedShowDeleteFeatureModal] = useState(false);
 
   const [experiencesLogo, setExperiencesLogo] = useState('');
   const [experiencesLogoChanged, setExperiencesLogoChanged] = useState(false);
@@ -179,6 +231,41 @@ const EditProfile = ({
   const [projectsDescriptionError, setProjectsDescriptionError] = useState('');
   const [projectsShowDeleteProjectModal, setProjectsShowDeleteProjectModal] = useState(false);
   
+  const [testimonialsAvatar, setTestimonialsAvatar] = useState('');
+  const [testimonialsAvatarChanged, setTestimonialsAvatarChanged] = useState(false);
+  const [testimonialsName, setTestimonialsName] = useState('');
+  const [testimonialsNameChanged, setTestimonialsNameChanged] = useState(false);
+  const [testimonialsNameError, setTestimonialsNameError] = useState('');
+  const [testimonialsTitle, setTestimonialsTitle] = useState('');
+  const [testimonialsTitleChanged, setTestimonialsTitleChanged] = useState(false);
+  const [testimonialsTitleError, setTestimonialsTitleError] = useState('');
+  const [testimonialsUrl, setTestimonialsUrl] = useState('');
+  const [testimonialsUrlChanged, setTestimonialsUrlChanged] = useState(false);
+  const [testimonialsUrlError, setTestimonialsUrlError] = useState('');
+  const [testimonialsDate, setTestimonialsDate] = useState('');
+  const [testimonialsDateChanged, setTestimonialsDateChanged] = useState(false);
+  const [testimonialsDateError, setTestimonialsDateError] = useState('');
+  const [testimonialsDescription, setTestimonialsDescription] = useState('');
+  const [testimonialsDescriptionChanged, setTestimonialsDescriptionChanged] = useState(false);
+  const [testimonialsDescriptionError, setTestimonialsDescriptionError] = useState('');
+  const [testimonialsShowDeleteTestimonialModal, setTestimonialsShowDeleteTestimonialModal] = useState(false);
+
+  const [postsImage, setPostsImage] = useState('');
+  const [postsImageChanged, setPostsImageChanged] = useState(false);
+  const [postsName, setPostsName] = useState('');
+  const [postsNameChanged, setPostsNameChanged] = useState(false);
+  const [postsNameError, setPostsNameError] = useState('');
+  const [postsUrl, setPostsUrl] = useState('');
+  const [postsUrlChanged, setPostsUrlChanged] = useState(false);
+  const [postsUrlError, setPostsUrlError] = useState('');
+  const [postsDate, setPostsDate] = useState('');
+  const [postsDateChanged, setPostsDateChanged] = useState(false);
+  const [postsDateError, setPostsDateError] = useState('');
+  const [postsDescription, setPostsDescription] = useState('');
+  const [postsDescriptionChanged, setPostsDescriptionChanged] = useState(false);
+  const [postsDescriptionError, setPostsDescriptionError] = useState('');
+  const [postsShowDeletePostModal, setPostsShowDeletePostModal] = useState(false);
+  
   const [sideProjectsLogo, setSideProjectsLogo] = useState('');
   const [sideProjectsLogoChanged, setSideProjectsLogoChanged] = useState(false);
   const [sideProjectsImage, setSideProjectsImage] = useState('');
@@ -221,7 +308,9 @@ const EditProfile = ({
   }, []);
 
   const resetFields = () => {
+
     setEditProfileModalIndex('')
+
     setBasicInfoFirstName('')
     setBasicInfoFirstNameChanged(false)
     setBasicInfoFirstNameError('')
@@ -233,6 +322,7 @@ const EditProfile = ({
     setBasicInfoHeadlineError('')
     setProfilePictureUrl('')
     setProfilePictureUrlChanged(false)
+
     setLinksContact('')
     setLinksContactChanged(false)
     setLinksContactError('')
@@ -245,9 +335,47 @@ const EditProfile = ({
     setLinksUrlChanged(false)
     setLinksUrlError('')
     setLinksShowDeleteLinkModal(false)
+
     setAbout('')
     setAboutChanged(false)
     setAboutError('')
+
+    setProductsImage('')
+    setProductsImageChanged(false)
+    setProductsName('')
+    setProductsNameChanged(false)
+    setProductsNameError('')
+    setProductsUrl('')
+    setProductsUrlChanged(false)
+    setProductsUrlError('')
+    setProductsDescription('')
+    setProductsDescriptionChanged(false)
+    setProductsDescriptionError('')
+    setProductsShowDeleteProductModal(false)
+
+    setServicesImage('')
+    setServicesImageChanged(false)
+    setServicesName('')
+    setServicesNameChanged(false)
+    setServicesNameError('')
+    setServicesUrl('')
+    setServicesUrlChanged(false)
+    setServicesUrlError('')
+    setServicesDescription('')
+    setServicesDescriptionChanged(false)
+    setServicesDescriptionError('')
+    setServicesShowDeleteServiceModal(false)
+
+    setFeaturedImage('')
+    setFeaturedImageChanged(false)
+    setFeaturedName('')
+    setFeaturedNameChanged(false)
+    setFeaturedNameError('')
+    setFeaturedUrl('')
+    setFeaturedUrlChanged(false)
+    setFeaturedUrlError('')
+    setFeaturedShowDeleteFeatureModal(false)
+
     setExperiencesLogo('')
     setExperiencesLogoChanged(false)
     setExperiencesCompany('')
@@ -276,6 +404,7 @@ const EditProfile = ({
     setExperiencesDescriptionChanged(false)
     setExperiencesDescriptionError('')
     setExperiencesShowDeleteExperienceModal(false)
+
     setEducationLogo(''),
     setEducationLogoChanged(false),
     setEducationSchool('')
@@ -307,6 +436,7 @@ const EditProfile = ({
     setEducationDescriptionChanged(false)
     setEducationDescriptionError('')
     setEducationShowDeleteEducationModal(false)
+
     setVolunteeringLogo('')
     setVolunteeringLogoChanged(false)
     setVolunteeringCompany('')
@@ -335,6 +465,7 @@ const EditProfile = ({
     setVolunteeringDescriptionChanged(false)
     setVolunteeringDescriptionError('')
     setVolunteeringShowDeleteVolunteeringModal(false)
+
     setProjectsImage('')
     setProjectsImageChanged(false)
     setProjectsName('')
@@ -357,6 +488,42 @@ const EditProfile = ({
     setProjectsDescriptionChanged(false)
     setProjectsDescriptionError('')
     setProjectsShowDeleteProjectModal(false)
+
+    setTestimonialsAvatar('');
+    setTestimonialsAvatarChanged(false);
+    setTestimonialsName('');
+    setTestimonialsNameChanged(false);
+    setTestimonialsNameError('');
+    setTestimonialsTitle('');
+    setTestimonialsTitleChanged(false);
+    setTestimonialsTitleError('');
+    setTestimonialsUrl('');
+    setTestimonialsUrlChanged(false);
+    setTestimonialsUrlError('');
+    setTestimonialsDate('');
+    setTestimonialsDateChanged(false);
+    setTestimonialsDateError('');
+    setTestimonialsDescription('');
+    setTestimonialsDescriptionChanged(false);
+    setTestimonialsDescriptionError('');
+    setTestimonialsShowDeleteTestimonialModal(false);
+
+    setPostsImage('')
+    setPostsImageChanged(false)
+    setPostsName('')
+    setPostsNameChanged(false)
+    setPostsNameError('')
+    setPostsUrl('')
+    setPostsUrlChanged(false)
+    setPostsUrlError('')
+    setPostsDate('')
+    setPostsDateChanged(false)
+    setPostsDateError('')
+    setPostsDescription('')
+    setPostsDescriptionChanged(false)
+    setPostsDescriptionError('')
+    setPostsShowDeletePostModal(false)
+
     setSideProjectsLogo('')
     setSideProjectsLogoChanged(false)
     setSideProjectsImage('')
@@ -392,17 +559,57 @@ const EditProfile = ({
 
   const handleBack = () => {
     resetFields();
-    (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") ? handleEditProfileChangeView('Experience') : (
-      (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
-        (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : (
-          (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : (
-            (editProfileModalState == "Add project" || editProfileModalState == "Edit project") ? handleEditProfileChangeView('Projects') : (
-              (editProfileModalState == "Add side project" || editProfileModalState == "Edit side project") ? handleEditProfileChangeView('Side projects') : handleEditProfileChangeView('default')
-            )
-          )
-        )
-      )
-    )
+    switch (editProfileModalState) {
+      case 'Add product' || 'Edit product':
+        handleEditProfileChangeView('Products')
+        break;
+      case 'Add service' || 'Edit service':
+        handleEditProfileChangeView('Services')
+        break;
+      case 'Add feature' || 'Edit feature':
+        handleEditProfileChangeView('Featured')
+        break;
+      case 'Add experience' || 'Edit experience':
+        handleEditProfileChangeView('Experience')
+        break;
+      case 'Add education' || 'Edit education':
+        handleEditProfileChangeView('Education')
+        break;
+      case 'Add volunteering' || 'Edit volunteering':
+        handleEditProfileChangeView('Volunteering')
+        break;
+      case 'Add link' || 'Edit link':
+        handleEditProfileChangeView('Links')
+        break;
+      case 'Add project' || 'Edit project':
+        handleEditProfileChangeView('Projects')
+        break;
+      case 'Add testimonial' || 'Edit testimonial':
+        handleEditProfileChangeView('Testimonials')
+        break;
+      case 'Add post' || 'Edit post':
+        handleEditProfileChangeView('Posts')
+        break;
+      case 'Add side project' || 'Edit side project':
+        handleEditProfileChangeView('Side projects')
+        break;
+      default:  
+        handleEditProfileChangeView('default')
+        break;
+    }
+    // (editProfileModalState == "Add experience" || editProfileModalState == "Edit experience") ? handleEditProfileChangeView('Experience') : (
+    //   (editProfileModalState == "Add education" || editProfileModalState == "Edit education") ? handleEditProfileChangeView('Education') : (
+    //     (editProfileModalState == "Add volunteering" || editProfileModalState == "Edit volunteering") ? handleEditProfileChangeView('Volunteering') : (
+    //       (editProfileModalState == "Add link" || editProfileModalState == "Edit link") ? handleEditProfileChangeView('Links') : (
+    //         (editProfileModalState == "Add project" || editProfileModalState == "Edit project") ? handleEditProfileChangeView('Projects') : (
+    //           (editProfileModalState == "Add post" || editProfileModalState == "Edit post") ? handleEditProfileChangeView('Posts') : (
+    //             (editProfileModalState == "Add side project" || editProfileModalState == "Edit side project") ? handleEditProfileChangeView('Side projects') : handleEditProfileChangeView('default')
+    //           )
+    //         )
+    //       )
+    //     )
+    //   )
+    // )
   }
 
   const handleClose = () => {
@@ -412,45 +619,70 @@ const EditProfile = ({
 
   const editProfileOptions = [
     {
-      "id": 0,
+      "id": uuidv4(),
       "title": "Basic information",
       "icon": ICONS.USER
     },
     {
-      "id": 1,
+      "id": uuidv4(),
       "title": "Links",
       "icon": ICONS.LINK
     },
     {
-      "id": 2,
-      "title": "About",
-      "icon": ICONS.ABOUT
+      "id": uuidv4(),
+      "title": "Products",
+      "icon": ICONS.PRODUCT
     },
     {
-      "id": 3,
-      "title": "Side projects",
-      "icon": ICONS.SIDE_PROJECTS
+      "id": uuidv4(),
+      "title": "Services",
+      "icon": ICONS.SERVICE
     },
     {
-      "id": 4,
-      "title": "Experience",
-      "icon": ICONS.WORK
+      "id": uuidv4(),
+      "title": "Featured",
+      "icon": ICONS.FEATURED
     },
     {
-      "id": 5,
-      "title": "Projects",
-      "icon": ICONS.PROJECTS
+      "id": uuidv4(),
+      "title": "Posts",
+      "icon": ICONS.MAIL
     },
-    {
-      "id": 6,
-      "title": "Education",
-      "icon": ICONS.SCHOOL
-    },
-    {
-      "id": 7,
-      "title": "Volunteering",
-      "icon": ICONS.VOLUNTEERING
-    },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Side projects",
+    //   "icon": ICONS.SIDE_PROJECTS
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "About",
+    //   "icon": ICONS.ABOUT
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Experience",
+    //   "icon": ICONS.WORK
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Education",
+    //   "icon": ICONS.SCHOOL
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Projects",
+    //   "icon": ICONS.PROJECTS
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Testimonials",
+    //   "icon": ICONS.SIDE_PROJECTS
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Volunteering",
+    //   "icon": ICONS.VOLUNTEERING
+    // },
     // {
     //   "id": 5,
     //   "title": "Skills",
@@ -477,7 +709,7 @@ const EditProfile = ({
             </button>
             : '' 
             }
-            <h5 className="text-dark-high font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit profile' : editProfileModalState}</h5>
+            <h5 className="text-dark-high font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
           </div>
           <button onClick={handleClose} className="btn dark low small icon-only">
             <svg viewBox="0 0 24 24">
@@ -585,6 +817,204 @@ const EditProfile = ({
             setAboutChanged={setAboutChanged}
             setAboutError={setAboutError}
           />
+        )}
+        { editProfileModalState == 'Products' && (
+          <Products
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add product' && (
+          <>
+          <AddProduct
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            productsImage={productsImage}
+            setProductsImage={setProductsImage}
+            productsImageChanged={productsImageChanged}
+            setProductsImageChanged={setProductsImageChanged}
+            productsName={productsName}
+            setProductsName={setProductsName}
+            productsNameChanged={productsNameChanged}
+            setProductsNameChanged={setProductsNameChanged}
+            productsNameError={productsNameError}
+            setProductsNameError={setProductsNameError}
+            productsUrl={productsUrl}
+            setProductsUrl={setProductsUrl}
+            productsUrlChanged={productsUrlChanged}
+            setProductsUrlChanged={setProductsUrlChanged}
+            productsUrlError={productsUrlError}
+            setProductsUrlError={setProductsUrlError}
+            productsDescription={productsDescription}
+            setProductsDescription={setProductsDescription}
+            productsDescriptionChanged={productsDescriptionChanged}
+            setProductsDescriptionChanged={setProductsDescriptionChanged}
+            productsDescriptionError={productsDescriptionError}
+            setProductsDescriptionError={setProductsDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit product' && (
+          <>
+          <EditProduct
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            productsImage={productsImage}
+            setProductsImage={setProductsImage}
+            productsImageChanged={productsImageChanged}
+            setProductsImageChanged={setProductsImageChanged}
+            productsName={productsName}
+            setProductsName={setProductsName}
+            productsNameChanged={productsNameChanged}
+            setProductsNameChanged={setProductsNameChanged}
+            productsNameError={productsNameError}
+            setProductsNameError={setProductsNameError}
+            productsUrl={productsUrl}
+            setProductsUrl={setProductsUrl}
+            productsUrlChanged={productsUrlChanged}
+            setProductsUrlChanged={setProductsUrlChanged}
+            productsUrlError={productsUrlError}
+            setProductsUrlError={setProductsUrlError}
+            productsDescription={productsDescription}
+            setProductsDescription={setProductsDescription}
+            productsDescriptionChanged={productsDescriptionChanged}
+            setProductsDescriptionChanged={setProductsDescriptionChanged}
+            productsDescriptionError={productsDescriptionError}
+            setProductsDescriptionError={setProductsDescriptionError}
+            productsShowDeleteProductModal={productsShowDeleteProductModal}
+            setProductsShowDeleteProductModal={setProductsShowDeleteProductModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Services' && (
+          <Services
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add service' && (
+          <>
+          <AddService
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            servicesImage={servicesImage}
+            setServicesImage={setServicesImage}
+            servicesImageChanged={servicesImageChanged}
+            setServicesImageChanged={setServicesImageChanged}
+            servicesName={servicesName}
+            setServicesName={setServicesName}
+            servicesNameChanged={servicesNameChanged}
+            setServicesNameChanged={setServicesNameChanged}
+            servicesNameError={servicesNameError}
+            setServicesNameError={setServicesNameError}
+            servicesUrl={servicesUrl}
+            setServicesUrl={setServicesUrl}
+            servicesUrlChanged={servicesUrlChanged}
+            setServicesUrlChanged={setServicesUrlChanged}
+            servicesUrlError={servicesUrlError}
+            setServicesUrlError={setServicesUrlError}
+            servicesDescription={servicesDescription}
+            setServicesDescription={setServicesDescription}
+            servicesDescriptionChanged={servicesDescriptionChanged}
+            setServicesDescriptionChanged={setServicesDescriptionChanged}
+            servicesDescriptionError={servicesDescriptionError}
+            setServicesDescriptionError={setServicesDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit service' && (
+          <>
+          <EditService
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            servicesImage={servicesImage}
+            setServicesImage={setServicesImage}
+            servicesImageChanged={servicesImageChanged}
+            setServicesImageChanged={setServicesImageChanged}
+            servicesName={servicesName}
+            setServicesName={setServicesName}
+            servicesNameChanged={servicesNameChanged}
+            setServicesNameChanged={setServicesNameChanged}
+            servicesNameError={servicesNameError}
+            setServicesNameError={setServicesNameError}
+            servicesUrl={servicesUrl}
+            setServicesUrl={setServicesUrl}
+            servicesUrlChanged={servicesUrlChanged}
+            setServicesUrlChanged={setServicesUrlChanged}
+            servicesUrlError={servicesUrlError}
+            setServicesUrlError={setServicesUrlError}
+            servicesDescription={servicesDescription}
+            setServicesDescription={setServicesDescription}
+            servicesDescriptionChanged={servicesDescriptionChanged}
+            setServicesDescriptionChanged={setServicesDescriptionChanged}
+            servicesDescriptionError={servicesDescriptionError}
+            setServicesDescriptionError={setServicesDescriptionError}
+            servicesShowDeleteServiceModal={servicesShowDeleteServiceModal}
+            setServicesShowDeleteServiceModal={setServicesShowDeleteServiceModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Featured' && (
+          <Featured
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add feature' && (
+          <>
+          <AddFeature
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            featuredImage={featuredImage}
+            setFeaturedImage={setFeaturedImage}
+            featuredImageChanged={featuredImageChanged}
+            setFeaturedImageChanged={setFeaturedImageChanged}
+            featuredName={featuredName}
+            setFeaturedName={setFeaturedName}
+            featuredNameChanged={featuredNameChanged}
+            setFeaturedNameChanged={setFeaturedNameChanged}
+            featuredNameError={featuredNameError}
+            setFeaturedNameError={setFeaturedNameError}
+            featuredUrl={featuredUrl}
+            setFeaturedUrl={setFeaturedUrl}
+            featuredUrlChanged={featuredUrlChanged}
+            setFeaturedUrlChanged={setFeaturedUrlChanged}
+            featuredUrlError={featuredUrlError}
+            setFeaturedUrlError={setFeaturedUrlError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit feature' && (
+          <>
+          <EditFeature
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            featuredImage={featuredImage}
+            setFeaturedImage={setFeaturedImage}
+            featuredImageChanged={featuredImageChanged}
+            setFeaturedImageChanged={setFeaturedImageChanged}
+            featuredName={featuredName}
+            setFeaturedName={setFeaturedName}
+            featuredNameChanged={featuredNameChanged}
+            setFeaturedNameChanged={setFeaturedNameChanged}
+            featuredNameError={featuredNameError}
+            setFeaturedNameError={setFeaturedNameError}
+            featuredUrl={featuredUrl}
+            setFeaturedUrl={setFeaturedUrl}
+            featuredUrlChanged={featuredUrlChanged}
+            setFeaturedUrlChanged={setFeaturedUrlChanged}
+            featuredUrlError={featuredUrlError}
+            setFeaturedUrlError={setFeaturedUrlError}
+            featuredShowDeleteFeatureModal={featuredShowDeleteFeatureModal}
+            setFeaturedShowDeleteFeatureModal={setFeaturedShowDeleteFeatureModal}
+            handleBack={handleBack}
+          />
+          </>
         )}
         { editProfileModalState == 'Side projects' && (
           <SideProjects
@@ -952,6 +1382,182 @@ const EditProfile = ({
             setProjectsDescriptionError={setProjectsDescriptionError}
             projectsShowDeleteProjectModal={projectsShowDeleteProjectModal}
             setProjectsShowDeleteProjectModal={setProjectsShowDeleteProjectModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Testimonials' && (
+          <Testimonials
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add testimonial' && (
+          <>
+          <AddTestimonial
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            testimonialsAvatar={testimonialsAvatar}
+            setTestimonialsAvatar={setTestimonialsAvatar}
+            testimonialsAvatarChanged={testimonialsAvatarChanged}
+            setTestimonialsAvatarChanged={setTestimonialsAvatarChanged}
+            testimonialsName={testimonialsName}
+            setTestimonialsName={setTestimonialsName}
+            testimonialsNameChanged={testimonialsNameChanged}
+            setTestimonialsNameChanged={setTestimonialsNameChanged}
+            testimonialsNameError={testimonialsNameError}
+            setTestimonialsNameError={setTestimonialsNameError}
+            testimonialsTitle={testimonialsTitle}
+            setTestimonialsTitle={setTestimonialsTitle}
+            testimonialsTitleChanged={testimonialsTitleChanged}
+            setTestimonialsTitleChanged={setTestimonialsTitleChanged}
+            testimonialsTitleError={testimonialsTitleError}
+            setTestimonialsTitleError={setTestimonialsTitleError}
+            testimonialsUrl={testimonialsUrl}
+            setTestimonialsUrl={setTestimonialsUrl}
+            testimonialsUrlChanged={testimonialsUrlChanged}
+            setTestimonialsUrlChanged={setTestimonialsUrlChanged}
+            testimonialsUrlError={testimonialsUrlError}
+            setTestimonialsUrlError={setTestimonialsUrlError}
+            testimonialsDate={testimonialsDate}
+            setTestimonialsDate={setTestimonialsDate}
+            testimonialsDateChanged={testimonialsDateChanged}
+            setTestimonialsDateChanged={setTestimonialsDateChanged}
+            testimonialsDateError={testimonialsDateError}
+            setTestimonialsDateError={setTestimonialsDateError}
+            testimonialsDescription={testimonialsDescription}
+            setTestimonialsDescription={setTestimonialsDescription}
+            testimonialsDescriptionChanged={testimonialsDescriptionChanged}
+            setTestimonialsDescriptionChanged={setTestimonialsDescriptionChanged}
+            testimonialsDescriptionError={testimonialsDescriptionError}
+            setTestimonialsDescriptionError={setTestimonialsDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit testimonial' && (
+          <>
+          <EditTestimonial
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            testimonialsAvatar={testimonialsAvatar}
+            setTestimonialsAvatar={setTestimonialsAvatar}
+            testimonialsAvatarChanged={testimonialsAvatarChanged}
+            setTestimonialsAvatarChanged={setTestimonialsAvatarChanged}
+            testimonialsName={testimonialsName}
+            setTestimonialsName={setTestimonialsName}
+            testimonialsNameChanged={testimonialsNameChanged}
+            setTestimonialsNameChanged={setTestimonialsNameChanged}
+            testimonialsNameError={testimonialsNameError}
+            setTestimonialsNameError={setTestimonialsNameError}
+            testimonialsTitle={testimonialsTitle}
+            setTestimonialsTitle={setTestimonialsTitle}
+            testimonialsTitleChanged={testimonialsTitleChanged}
+            setTestimonialsTitleChanged={setTestimonialsTitleChanged}
+            testimonialsTitleError={testimonialsTitleError}
+            setTestimonialsTitleError={setTestimonialsTitleError}
+            testimonialsUrl={testimonialsUrl}
+            setTestimonialsUrl={setTestimonialsUrl}
+            testimonialsUrlChanged={testimonialsUrlChanged}
+            setTestimonialsUrlChanged={setTestimonialsUrlChanged}
+            testimonialsUrlError={testimonialsUrlError}
+            setTestimonialsUrlError={setTestimonialsUrlError}
+            testimonialsDate={testimonialsDate}
+            setTestimonialsDate={setTestimonialsDate}
+            testimonialsDateChanged={testimonialsDateChanged}
+            setTestimonialsDateChanged={setTestimonialsDateChanged}
+            testimonialsDateError={testimonialsDateError}
+            setTestimonialsDateError={setTestimonialsDateError}
+            testimonialsDescription={testimonialsDescription}
+            setTestimonialsDescription={setTestimonialsDescription}
+            testimonialsDescriptionChanged={testimonialsDescriptionChanged}
+            setTestimonialsDescriptionChanged={setTestimonialsDescriptionChanged}
+            testimonialsDescriptionError={testimonialsDescriptionError}
+            setTestimonialsDescriptionError={setTestimonialsDescriptionError}
+            testimonialsShowDeleteTestimonialModal={testimonialsShowDeleteTestimonialModal}
+            setTestimonialsShowDeleteTestimonialModal={setTestimonialsShowDeleteTestimonialModal}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Posts' && (
+          <Posts
+            user={user}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Add post' && (
+          <>
+          <AddPost
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            postsImage={postsImage}
+            setPostsImage={setPostsImage}
+            postsImageChanged={postsImageChanged}
+            setPostsImageChanged={setPostsImageChanged}
+            postsName={postsName}
+            setPostsName={setPostsName}
+            postsNameChanged={postsNameChanged}
+            setPostsNameChanged={setPostsNameChanged}
+            postsNameError={postsNameError}
+            setPostsNameError={setPostsNameError}
+            postsUrl={postsUrl}
+            setPostsUrl={setPostsUrl}
+            postsUrlChanged={postsUrlChanged}
+            setPostsUrlChanged={setPostsUrlChanged}
+            postsUrlError={postsUrlError}
+            setPostsUrlError={setPostsUrlError}
+            postsDate={postsDate}
+            setPostsDate={setPostsDate}
+            postsDateChanged={postsDateChanged}
+            setPostsDateChanged={setPostsDateChanged}
+            postsDateError={postsDateError}
+            setPostsDateError={setPostsDateError}
+            postsDescription={postsDescription}
+            setPostsDescription={setPostsDescription}
+            postsDescriptionChanged={postsDescriptionChanged}
+            setPostsDescriptionChanged={setPostsDescriptionChanged}
+            postsDescriptionError={postsDescriptionError}
+            setPostsDescriptionError={setPostsDescriptionError}
+            handleBack={handleBack}
+          />
+          </>
+        )}
+        { editProfileModalState == 'Edit post' && (
+          <>
+          <EditPost
+            user={user}
+            editProfileModalIndex={editProfileModalIndex}
+            postsImage={postsImage}
+            setPostsImage={setPostsImage}
+            postsImageChanged={postsImageChanged}
+            setPostsImageChanged={setPostsImageChanged}
+            postsName={postsName}
+            setPostsName={setPostsName}
+            postsNameChanged={postsNameChanged}
+            setPostsNameChanged={setPostsNameChanged}
+            postsNameError={postsNameError}
+            setPostsNameError={setPostsNameError}
+            postsUrl={postsUrl}
+            setPostsUrl={setPostsUrl}
+            postsUrlChanged={postsUrlChanged}
+            setPostsUrlChanged={setPostsUrlChanged}
+            postsUrlError={postsUrlError}
+            setPostsUrlError={setPostsUrlError}
+            postsDate={postsDate}
+            setPostsDate={setPostsDate}
+            postsDateChanged={postsDateChanged}
+            setPostsDateChanged={setPostsDateChanged}
+            postsDateError={postsDateError}
+            setPostsDateError={setPostsDateError}
+            postsDescription={postsDescription}
+            setPostsDescription={setPostsDescription}
+            postsDescriptionChanged={postsDescriptionChanged}
+            setPostsDescriptionChanged={setPostsDescriptionChanged}
+            postsDescriptionError={postsDescriptionError}
+            setPostsDescriptionError={setPostsDescriptionError}
+            postsShowDeletePostModal={postsShowDeletePostModal}
+            setPostsShowDeletePostModal={setPostsShowDeletePostModal}
             handleBack={handleBack}
           />
           </>

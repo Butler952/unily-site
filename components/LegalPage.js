@@ -29,7 +29,7 @@ const LegalPage = (props) => {
 
       <Head>
         <title>{heroTitle}</title>
-        <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
+        <link rel="shortcut icon" href="/images/ExpertPage-logo-icon-square.svg" />
       </Head>
       <div className="container">
         <div className="card my-5">
@@ -110,7 +110,7 @@ const LegalPage = (props) => {
       <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
-            <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1>
+            <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1>
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="iconLightHigh" />
@@ -145,7 +145,7 @@ const LegalPage = (props) => {
       <div>
         <Container className="py-5">
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5">
-            <img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" />
+            <img className="mb-5 mb-md-0" src="/images/expertpage-logo-full.svg" />
             <div className="d-flex flex-column text-center text-md-right">
               <Link href="/"><a className="text-dark-high mb-3">Terms & Conditions</a></Link>
               <Link href="/"><a className="text-dark-high mb-3">Privacy Policy</a></Link>
@@ -153,7 +153,7 @@ const LegalPage = (props) => {
             </div>
           </div>
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-            <p>© Copyright Vitaely {new Date().getFullYear()}</p>
+            <p>© Copyright ExpertPage {new Date().getFullYear()}</p>
             <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p>
           </div>
         </div>

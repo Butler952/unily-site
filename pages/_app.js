@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       fire.analytics();
-      LogRocket.init('qbfdxd/vitaelyme', {
+      LogRocket.init('qbfdxd/ExpertPageme', {
         dom: {
           inputSanitizer: true,
         },
@@ -39,8 +39,8 @@ export default function App({ Component, pageProps }) {
     <>
       <UserContext.Provider value={userValue}>
         <Head>
-          <title>Vitaely.me</title>
-          <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
+          <title>expertpage.io</title>
+          <link rel="shortcut icon" href="/images/ExpertPage-logo-icon-square.svg" />
         </Head>
         <Layout>
           <Component {...pageProps} />

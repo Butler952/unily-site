@@ -15,8 +15,8 @@ body {
   font-size: 16px; 
   line-height: 1.6;
   color: $dark-800; 
-  font-weight: 500;
-  font-family: 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +27,8 @@ h1, h2, h3, h4 {
   margin-bottom: 1.5rem; 
   line-height: 1.2;
   color: $dark-900; 
-  font-weight: 900;
+  font-weight: 800;
+  font-variant-ligatures: none;
   font-family: 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;}
@@ -36,6 +37,16 @@ h2 { font-size: 48px; }
 h3 { font-size: 34px; }
 h4 { font-size: 28px; }
 h5 { font-size: 24px; line-height: 1.5; margin-bottom: 1.5rem; }
+
+h1.display1 {
+  font-size: 104px;
+  line-height: 1.1;
+}
+
+h1.display2 {
+  font-size: 80px;
+  line-height: 1.1;
+}
 
 p.extra-large { font-size: 24px; }
 p.large {font-size: 20px; }
@@ -83,6 +94,22 @@ a {
 .font-weight-medium { font-weight: 500; }
 .font-weight-semibold { font-weight: 600; }
 .font-weight-bold { font-weight: 700; }
+
+.text-gradient-1 { 
+  background: $gradient-1;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-2 { 
+  background: $gradient-2;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-0 {
+  background: none;
+  -webkit-background-clip:initial ;
+  -webkit-text-fill-color: initial;
+}
 
 hr {border-top: 1px solid $dark-300;}
 
@@ -147,6 +174,9 @@ hr {border-top: 1px solid $dark-300;}
 .bg-error-300 { background: $error-300!important; }
 .bg-error-200 { background: $error-200!important; }
 .bg-error-100 { background: $error-100!important; }
+
+.bg-gradient-1 { background: $gradient-1; }
+.bg-gradient-2 { background: $gradient-2; }
 
 // Icon Fills
 
@@ -321,7 +351,7 @@ button.link {
 // Standard buttons
 
 a.btn, input.btn, button.btn { 
-  border-radius: $radius-small;
+  border-radius: $radius-large;
   padding: 12px 20px;  
   font-size: 20px;
   line-height: 32px;
@@ -1177,8 +1207,16 @@ textarea {
   transform: rotate(45deg);
 }
 
-// Progress bar
+// Container overrides
 
+
+// @media (min-width: $breakpoint-xl) {
+//   .container-xl, .container-lg, .container-md, .container-sm, .container {
+//       max-width: 1280px;
+//   }
+// }
+
+// Progress bar
 
 .progress {
   height: 1rem;

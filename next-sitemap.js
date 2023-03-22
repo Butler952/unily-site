@@ -1,10 +1,10 @@
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://vitaely.me',
+  siteUrl: process.env.SITE_URL || 'https://expertpage.io',
   generateRobotsTxt: true, // (optional)
   exclude: ['/server-sitemap.xml'], // <= exclude here
   robotsTxtOptions: {
     additionalSitemaps: [
-      'https://vitaely.me/server-sitemap.xml', // <==== Add here
+      'https://expertpage.io/server-sitemap.xml', // <==== Add here
     ],
   },
 }

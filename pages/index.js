@@ -31,10 +31,10 @@ const Home = () => {
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
-    if (typeof window !== 'undefined') {
-      document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px`
-    }
+    // window.addEventListener('scroll', handleScroll);
+    // if (typeof window !== 'undefined') {
+    //   document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px`
+    // }
   }, []);
 
   const handleScroll = () => {
@@ -149,15 +149,15 @@ const Home = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>Vitaely | Turn your LinkedIn profile into a landing page</title>
+        <title>ExpertPage | Turn your LinkedIn profile into a landing page</title>
         <meta name="description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
-        <meta property="og:title" content="Vitaely | Turn your LinkedIn profile into a landing page" />
+        <meta property="og:title" content="ExpertPage | Turn your LinkedIn profile into a landing page" />
         <meta property="og:description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
-        <meta property="og:url" content="https://www.vitaely.me/" />
+        <meta property="og:url" content="https://www.expertpage.io/" />
         <meta property="og:type" content="website" />
       </Head>
-      {/* <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
-        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="Vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
+      {/* <a className={styles.productHunt} href="https://www.producthunt.com/posts/ExpertPage-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ExpertPage-me" target="_blank">
+        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a> */}
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column align-items-center justify-content-between">
@@ -172,21 +172,22 @@ const Home = () => {
           </div>
           {/* <div className={styles.iframeWrapper}>
             <iframe className={styles.iframeContent}
-              title="Example Vitaely.me online CV profile"
-              src="https://www.vitaely.me/aaronbutler">
+              title="Example expertpage.io online CV profile"
+              src="https://www.expertpage.io/aaronbutler">
             </iframe>
           </div> */}
         </div>
       </Container> 
-      <div className={`${styles.imageCarouselWrapper}`}>
+      {/* <div className={`${styles.imageCarouselWrapper}`}>
         <div id="imageCarousel" className={`d-flex flex-row ${styles.imageCarousel}`} style={{gap: '24px'}}>
           <img src="/images/landing-page/template-previews/bento-template.png"></img>
           <img src="/images/landing-page/template-previews/staccato-template.png"></img>
           <img src="/images/landing-page/template-previews/original-desktop-preview.png"></img>
           <img src="/images/landing-page/template-previews/metro-night-preview.png"></img>
           <img src="/images/landing-page/template-previews/metro-template.png"></img>
-        </div>
-      </div>
+        </div> 
+      </div>*/}
+
       {/* <div className={`text-center ${styles.sectionWrapper}`}>
         { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '480px' }}>Stand out from the crowd</h1> : <h2 className="mx-auto pb-5">Stand out from the crowd</h2> }    
         <div className={styles.heroImageWrapper}>
@@ -200,7 +201,7 @@ const Home = () => {
       {/* <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
+            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use ExpertPage?</h2> }    
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
@@ -292,7 +293,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={`container ${styles.sectionWrapper}`}>
+        {/* <div className={`container ${styles.sectionWrapper}`}>
           <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
           <div className="d-flex flex-column flex-lg-row" style={{gap: '24px'}}>
             <Link href="/blog/four-things-to-research-about-a-company-before-an-interview">
@@ -338,7 +339,7 @@ const Home = () => {
               </a>
             </Link>
           </div>
-        </div>
+        </div> */}
         {/* <div className={`container ${styles.sectionWrapper}`}>
           <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
           <div className="d-flex flex-column" style={{gap: '24px'}}>

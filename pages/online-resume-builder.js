@@ -9,7 +9,7 @@ const OnlineResumeBuilder = () => {
     <div>
       <LandingPage
         title="Build your online resume in 2 minutes"
-        subtitle="Stand out from the crowd and land your dream job with the Vitaely online resume builder."
+        subtitle="Stand out from the crowd and land your dream job with the ExpertPage online resume builder."
         url="online-resume-builder"
         stepsTitle="Three simple steps to build an online resume"
         sectionOneTitle="Sync your data from LinkedIn"
@@ -18,7 +18,7 @@ const OnlineResumeBuilder = () => {
         sectionTwoTitle="Choose what information to show"
         sectionTwoSubtitle="Choose the information from your Linkedin profile that you want to display on your online resume."
         sectionTwoImg="custom-content.png"
-        whyVitaelyOne="Get yourself noticed with a unique online resume."
+        whyExpertPageOne="Get yourself noticed with a unique online resume."
       />
     </div>
   )

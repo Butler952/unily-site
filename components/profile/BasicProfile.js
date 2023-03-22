@@ -191,8 +191,8 @@ const BasicProfile = (props) => {
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
+            {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -207,7 +207,7 @@ const BasicProfile = (props) => {
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         setHeaderImageError(true)
-                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
                       }}
                       style={{ display: 'none' }}
                     />
@@ -223,7 +223,7 @@ const BasicProfile = (props) => {
                   //   onError={({ currentTarget }) => {
                   //     currentTarget.onerror = null; // prevents looping
                   //     setProfilePictureError(true)
-                  //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                  //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
                   //   }}
                   //   style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                   //   className={styles.profilePicture}
@@ -234,7 +234,7 @@ const BasicProfile = (props) => {
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.className = 'd-none'
-                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/vitaely-me/128x128_vitaely-me.webp?1653343176406";
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
                       }}
                       // style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                       style={{marginTop: '48px' }}
@@ -633,9 +633,9 @@ const BasicProfile = (props) => {
                       d={ICONS.LOGO} 
                     />
                   </svg>
-                  <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
+                  <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
                 </a>
-                {/* <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p> */}
+                {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
               </Container>
             </div>
           </div>

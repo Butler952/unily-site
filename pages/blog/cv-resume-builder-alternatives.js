@@ -34,7 +34,7 @@ const CvResumeBuilderAlternatives = () => {
           <ul>
           <li><p className="large mb-2"><a href="#zety">Zety</a></p></li>
           <li><p className="large mb-2"><a href="#cvlibrary">CV Library</a></p></li>
-          <li><p className="large mb-2"><a href="#vitaely">Vitaely</a></p></li>
+          <li><p className="large mb-2"><a href="#ExpertPage">ExpertPage</a></p></li>
           <li><p className="large mb-2"><a href="#resumeio">Resume.io</a></p></li>
           <li><p className="large mb-2"><a href="#myperfectcv">My Perfect CV</a></p></li>
           <li><p className="large mb-2"><a href="#reed">Reed.co.uk</a></p></li>
@@ -99,11 +99,11 @@ const CvResumeBuilderAlternatives = () => {
           </div>
           <p className="large">At the end of the review, you will receive a number of key recommendations and next steps for improving your CV and giving yourself the best chance at landing that next role.</p>
         </div>
-        <div id="vitaely" className="py-4 background-light">
+        <div id="ExpertPage" className="py-4 background-light">
           <Link href="/">
-            <a><h3>Vitaely</h3></a>
+            <a><h3>ExpertPage</h3></a>
           </Link>
-          <p className="large">Vitaely.me offers a super simple way to turn your LinkedIn profile into a personal online CV in just 2 minutes:</p>
+          <p className="large">expertpage.io offers a super simple way to turn your LinkedIn profile into a personal online CV in just 2 minutes:</p>
           <p className="large">
             <ol>
               <li>Grab the URL of your Linkedin profile</li>
@@ -112,18 +112,18 @@ const CvResumeBuilderAlternatives = () => {
             </ol>
           </p>
           <div className={`${styles.heroImageWrapper} my-5`}>
-            <Image alt="Vitaely online resume builder" src='/images/blog/cv-resume-builder-alternatives/vitaely-landing-page.jpeg' layout="fill" objectFit="cover" />
+            <Image alt="ExpertPage online resume builder" src='/images/blog/cv-resume-builder-alternatives/ExpertPage-landing-page.jpeg' layout="fill" objectFit="cover" />
           </div>
-          <p className="large">With Vitaely, there's no need to enter all of your work history and education again. To create your profile, all you have to do is paste the URL for your Linkedin profile and Vitaely will instantly generate an online resume.</p>
+          <p className="large">With ExpertPage, there's no need to enter all of your work history and education again. To create your profile, all you have to do is paste the URL for your Linkedin profile and ExpertPage will instantly generate an online resume.</p>
           {/* <div className={`${styles.featureCard} my-5`}>
-            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='/images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4' />
+            <video controls alt="Sycning your data from LinkedIn to expertpage.io" src='/images/blog/how-to-create-an-online-cv/ExpertPage-me-sync-with-linked.mp4' />
           </div> */}
           <p className="large">The clean and modern template helps you to stand out from the crowd and land your dream job. You can share your profile by simply grabbing the public URL for your profile and sharing the link wherever you need to.</p>
           <div className={`${styles.heroImageWrapper} my-5`}>
-            <Image alt="Vitaely online resume" src='/images/blog/cv-resume-builder-alternatives/vitaely-profile.jpeg' layout="fill" objectFit="cover" />
+            <Image alt="ExpertPage online resume" src='/images/blog/cv-resume-builder-alternatives/ExpertPage-profile.jpeg' layout="fill" objectFit="cover" />
           </div>
           <p className="large">It's completely free to create and share your profile. If you want to resync your profile with Linkedin then you will need to upgrade to the premium plan. Although you do also get the ability to add company and organisation logos to your work experience and education sections. Premium costs $2.99 per month via secure Stripe Checkout and you can cancel anytime for free.</p>
-          <p className="large"><Link href="/users/register">Click here</Link> to create your online resume in two minutes with Vitaely.</p>
+          <p className="large"><Link href="/users/register">Click here</Link> to create your online resume in two minutes with ExpertPage.</p>
         </div>
         <div id="resumeio" className="py-4 background-light">
           <a href="https://resume.io/" target="_blank">
@@ -199,9 +199,9 @@ const CvResumeBuilderAlternatives = () => {
         <div className="py-5 background-light">
             <div className="d-flex flex-column align-items-center container text-center">
               {screenWidth > 767 ?
-                <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes with Vitaely</h2>
+                <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes with ExpertPage</h2>
                 :
-                <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes with Vitaely</h2>
+                <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes with ExpertPage</h2>
               }
               <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
               <Link href="/users/register">

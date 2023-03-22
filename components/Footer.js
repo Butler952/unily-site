@@ -7,7 +7,7 @@ const Footer = () => {
     <div>
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
-          <Link href="/"><a className="w-lg-100"><img className="mb-5 mb-md-0" src="/images/vitaely-logo-full.svg" /></a></Link>
+          <Link href="/"><a className="w-lg-100"><img className="mb-5 mb-md-0" style={{height: '48px'}} src="/images/expertpage-logo-full.svg" /></a></Link>
           <div className="d-flex flex-column flex-md-row text-center" style={{gap: '48px', whiteSpace: 'nowrap'}}>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
               <Link href="/linkedin-to-resume"><a className="text-dark-high mb-0">Linkedin to resume</a></Link>
@@ -22,12 +22,12 @@ const Footer = () => {
               <Link href="/legal/terms"><a className="text-dark-high mb-0">Terms & Conditions</a></Link>
               <Link href="/legal/privacy"><a className="text-dark-high mb-0">Privacy Policy</a></Link>
               <Link href="/legal/cookies"><a className="text-dark-high mb-0">Cookie Policy</a></Link>
-              <a href="https://vitaely.me/sitemap.xml" target="_blank" className="text-dark-high mb-0">Sitemap</a>
+              <a href="https://expertpage.io/sitemap.xml" target="_blank" className="text-dark-high mb-0">Sitemap</a>
             </div>
           </div>
         </div>
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-          <p>© Copyright Vitaely {new Date().getFullYear()}</p>
+          <p>© Copyright ExpertPage {new Date().getFullYear()}</p>
           <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p>
         </div>
       </Container>

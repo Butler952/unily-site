@@ -73,13 +73,13 @@ const Templates = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>Landing page templates | Vitaely.me</title>
+        <title>Landing page templates | expertpage.io</title>
         <meta name="description" content="Turn your Linkedin Profile into a landing page in seconds with our carefully crafted templates." />
-        <meta property="og:title" content="Landing page templates | Vitaely.me" />
+        <meta property="og:title" content="Landing page templates | expertpage.io" />
         <meta property="og:description" content="Turn your Linkedin Profile into a landing page in seconds with our carefully crafted templates." />
-        <meta property="og:url" content="https://www.vitaely.me/templates" />
+        <meta property="og:url" content="https://www.expertpage.io/templates" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Ftemplates"/>
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io%2Ftemplates"/>
       </Head>
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">

@@ -192,8 +192,8 @@ const StaccatoProfile = (props) => {
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
+            {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -389,7 +389,7 @@ const StaccatoProfile = (props) => {
                       d={ICONS.LOGO}
                     />
                   </svg>
-                  <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
+                  <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
                 </a>
               </Container>
             </div>

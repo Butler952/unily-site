@@ -22,7 +22,7 @@ const HowToCreateAPersonalLandingPage = () => {
       <Post 
         title="How to create a personal landing page"
         image='/images/profile-preview.png'
-        imageAlt="A personal landing page created with Vitaely.me"
+        imageAlt="A personal landing page created with expertpage.io"
         readingDuration="2"
         hideFooter
         description="A landing page is typically the first page that a user may come to when looking for information about a particular product, feature, service, or organisation. It could be likened to an interactive billboard on the internet."
@@ -35,7 +35,7 @@ const HowToCreateAPersonalLandingPage = () => {
           <li><p className="large mb-2"><a href="#key-elements-of-a-landing-page">Key elements of a landing page</a></p></li>
           <li><p className="large mb-2"><a href="#what-is-a-personal-landing-page">What is a personal landing page?</a></p></li>
           <li><p className="large mb-2"><a href="#why-do-you-need-one">Why do you need one?</a></p></li>
-          <li><p className="large mb-2"><a href="#guide">How create an online CV with Vitaely.me</a></p></li>
+          <li><p className="large mb-2"><a href="#guide">How create an online CV with expertpage.io</a></p></li>
           </ul>
         </div>
         {/* <div className="py-4 background-light">
@@ -77,14 +77,14 @@ const HowToCreateAPersonalLandingPage = () => {
           <p className="large">A benefit of having an independent personal landing page is that it removes the distraction of other people’s profiles that sites like LinkedIn present.</p>
         </div>
         <div id="guide" className="py-4 background-light">
-          <h3>How create a personal landing page with Vitaely.me</h3>
+          <h3>How create a personal landing page with expertpage.io</h3>
           <ul>
             <li><p className="large">Create your <Link href="/users/register">free account</Link></p></li>
             <li><p className="large">Grab the URL of your Linkedin profile and sync your data</p></li>
             <li><p className="large">You're done! Your personal landing page is ready</p></li>
           </ul>
           <div className={`${styles.featureCard} mt-5`}>
-            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='../../images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4'></video>
+            <video controls alt="Sycning your data from LinkedIn to expertpage.io" src='../../images/blog/how-to-create-an-online-cv/ExpertPage-me-sync-with-linked.mp4'></video>
           </div>
           <p className="mt-3">Sycning your data from LinkedIn is as easy as pasting the URL.</p>
         </div>

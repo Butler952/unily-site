@@ -22,10 +22,10 @@ const HowToEditYourProfile = () => {
       <Post 
         title="How to edit the information on your profile"
         image='/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg'
-        imageAlt="A short guide on how to edit your professional information on your Vitaely.me profile."
+        imageAlt="A short guide on how to edit your professional information on your expertpage.io profile."
         readingDuration="2"
         hideFooter
-        description="A short guide on how to edit your professional information on your Vitaely.me profile."
+        description="A short guide on how to edit your professional information on your expertpage.io profile."
         url="how-to-edit-the-information-on-your-profile"
       >
         <div id="why-add-links" className="py-4 background-light">
@@ -52,10 +52,10 @@ const HowToEditYourProfile = () => {
           <div className={`${styles.featureCard} my-5`}>
             <img alt="Edit profile option in the menu dropdown" src='../../images/blog/how-to-edit-the-information-on-your-profile/edit-experience-logo.jpeg'></img>
           </div>
-          <p className="large">To upgrade your plan, head to the <a href="/settings">settings</a> page of your Vitaely.me account.</p>
+          <p className="large">To upgrade your plan, head to the <a href="/settings">settings</a> page of your expertpage.io account.</p>
           <p className="large">Head to the “Plan” section and click “Upgrade” on the Premium plan. Complete the payment in the secure Stripe Checkout portal and you're ready to resync your profile.</p>
           <div className={`${styles.featureCard} my-5`}>
-            <img alt="Manage your Vitaely.me plan" src='../../images/blog/how-to-keep-your-profile-up-to-date/plan-section.jpeg'></img>
+            <img alt="Manage your expertpage.io plan" src='../../images/blog/how-to-keep-your-profile-up-to-date/plan-section.jpeg'></img>
           </div>
         </div>
         <div className="py-5 background-light">

@@ -189,7 +189,7 @@ const ResyncSection = ({
             <p className="text-dark-high m-0">Re-syncing your data will overwrite any changes you have made in the Sections settings above.</p>
           </div>*/}
           <div className="d-flex flex-column bg-primary-100 radius-3 p-4">
-            <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
+            <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into ExpertPage.</p>
             <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
               <div className="d-flex align-items-start">
                 <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">

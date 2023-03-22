@@ -26,16 +26,16 @@ const LinkedinToResume = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>Turn your Linkedin profile into a resume | Vitaely.me</title>
+        <title>Turn your Linkedin profile into a resume | expertpage.io</title>
         <meta name="description" content="Turn your Linkedin profile into a resume in just two minutes." />
-        <meta property="og:title" content="Turn your Linkedin profile into a resume | Vitaely.me" />
+        <meta property="og:title" content="Turn your Linkedin profile into a resume | expertpage.io" />
         <meta property="og:description" content="Turn your Linkedin profile into a resume in just two minutes." />
-        <meta property="og:url" content="https://www.vitaely.me/linkedin-to-resume" />
+        <meta property="og:url" content="https://www.expertpage.io/linkedin-to-resume" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/>
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io%2Flinkedin-to-resume"/>
       </Head>
-      <a className={styles.productHunt} href="https://www.producthunt.com/posts/vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-vitaely-me" target="_blank">
-        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="Vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
+      <a className={styles.productHunt} href="https://www.producthunt.com/posts/ExpertPage-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ExpertPage-me" target="_blank">
+        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a>
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
@@ -145,7 +145,7 @@ const LinkedinToResume = () => {
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
+            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use ExpertPage?</h2> }    
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
@@ -175,7 +175,7 @@ const LinkedinToResume = () => {
             image='/images/blog/how-to-download-your-resume-as-a-pdf/How to download your resume as a PDF.jpg'
             title="How to download your resume as a PDF"
             duration="2"
-            bodyPreview="You’ve created your profile with Vitaely.me and you’ve now got a beautiful personal landing page with all your information..."
+            bodyPreview="You’ve created your profile with expertpage.io and you’ve now got a beautiful personal landing page with all your information..."
             postUrl="/blog/how-to-download-your-resume-as-a-pdf"
             screenWidth={screenWidth}
           />

@@ -1,0 +1,64 @@
+@import '../../public/styles/variables.scss';
+
+.headerImage {
+  width: 100%;
+  min-height: 120px; 
+  border-radius: 0 0 $radius-medium $radius-medium; 
+  background-size: cover; 
+  background-position: center; 
+  padding-top: 25%;
+}
+.profilePicture {
+  height: 160px; 
+  width: 160px; 
+  border-radius: 100%; 
+  border: 4px solid white; 
+  // box-shadow: $shadow-2;
+}
+.profileCard {
+  transition: $transition-standard;
+  overflow:hidden;
+  border: 1px solid $dark-300 ;
+  &:hover {
+    box-shadow: $shadow-5;
+    a {
+      text-decoration: none;
+    }
+  }
+}
+.summary {
+  white-space: break-spaces;
+}
+.job {
+  padding: 32px;
+  transition: $transition-standard;
+  overflow: hidden;
+  background: none;
+  border: none;
+  align-items: left;
+  text-align: left;
+  height: 100%;
+  &:not(:last-child) {
+    border-bottom: 1px solid $dark-300;
+  }
+  &:hover {
+    background: $dark-100;
+    text-decoration: none;
+  }
+}
+.experienceImage {
+  width: 80px;
+  border-radius: $radius-medium; 
+}
+.projectGrid {
+  display: grid;
+  gap: 16px;
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &:hover {
+    * {
+      text-decoration: none;
+    }
+  }
+}

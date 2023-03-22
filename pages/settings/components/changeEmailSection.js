@@ -188,7 +188,7 @@ const ChangeEmailSection = ({
               value={email}
               onChange={({ target }) => emailChange(target.value)}
             />
-            {/* <p className="small text-dark-med mt-2 mb-0">vitaely.me/
+            {/* <p className="small text-dark-med mt-2 mb-0">expertpage.io/
               {domainChanged ? domain :
                 (
                   userContext &&

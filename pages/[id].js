@@ -9,6 +9,7 @@ import MetroProfileDark from '../components/profile/MetroProfileDark';
 import Header from '../components/header/Header';
 import Bento from '../components/profile/Bento';
 import StaccatoProfile from '../components/profile/StaccatoProfile';
+import Freelance from '../components/profile/Freelance';
 
 const Profile = (props) => {
 
@@ -197,6 +198,35 @@ const Profile = (props) => {
           displayInfo={props.displayInfo}
         />
       }
+      { props.template == 'freelance' &&
+        <Freelance
+          level="baseLevel"
+          screenWidth={screenWidth}
+          pageId={props.pageId}
+          template={props.template}
+          email={props.email}
+          links={props.links}
+          profile_pic_url={props.profile_pic_url}
+          background_cover_image_url={props.background_cover_image_url}
+          full_name={props.full_name}
+          first_name={props.first_name}
+          last_name={props.last_name}
+          headline={props.headline}
+          products={props.products}
+          services={props.services}
+          featured={props.featured}
+          experiences={props.experiences}
+          projects={props.projects}
+          side_projects={props.side_projects}
+          testimonials={props.testimonials}
+          posts={props.posts}
+          education={props.education}
+          logoVisibility={props.logoVisibility}
+          volunteer_work={props.volunteer_work}
+          surveyOnSignUpHide={props.surveyOnSignUpHide}
+          displayInfo={props.displayInfo}
+        />
+      }
     </div>
   )
 }
@@ -221,9 +251,14 @@ export const getServerSideProps = async ({ query }) => {
         content['last_name'] = doc.data().profile.last_name ? doc.data().profile.last_name : null;
         content['headline'] = doc.data().profile.headline ? doc.data().profile.headline : null;
         content['summary'] = doc.data().profile.summary ? doc.data().profile.summary : null;
+        content['products'] = doc.data().profile.products ? doc.data().profile.products : null;
+        content['services'] = doc.data().profile.services ? doc.data().profile.services : null;
+        content['featured'] = doc.data().profile.featured ? doc.data().profile.featured : null;
         content['experiences'] = doc.data().profile.experiences ? doc.data().profile.experiences : null;
         content['projects'] = doc.data().profile.projects ? doc.data().profile.projects : null;
         content['side_projects'] = doc.data().profile.side_projects ? doc.data().profile.side_projects : null;
+        content['testimonials'] = doc.data().profile.testimonials ? doc.data().profile.testimonials : null;
+        content['posts'] = doc.data().profile.posts ? doc.data().profile.posts : null;
         content['education'] = doc.data().profile.education ? doc.data().profile.education : null;
         content['volunteer_work'] = doc.data().profile.volunteer_work ? doc.data().profile.volunteer_work : null;
         content['featured'] = doc.data().profile.featured ? doc.data().profile.featured : null;
@@ -248,9 +283,14 @@ export const getServerSideProps = async ({ query }) => {
     last_name: content.last_name,
     headline: content.headline,
     summary: content.summary,
+    products: content.products,
+    services: content.services,
+    featured: content.featured,
     experiences: content.experiences,
     projects: content.projects,
     side_projects: content.side_projects,
+    testimonials: content.testimonials,
+    posts: content.posts,
     education: content.education,
     volunteer_work: content.volunteer_work,
     featured: content.featured,

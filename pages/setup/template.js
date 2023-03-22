@@ -345,7 +345,7 @@ const Template = () => {
         }
         { showBuildingOverlayContentTwo &&
           <div className={`d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100 ${pageStyles.overlayContentTwo}`} style={{top: 0, left:0, zIndex:2}}>
-            <h4 className="text-light-high text-center mb-3">Welcome to your Vitaely profile</h4>
+            <h4 className="text-light-high text-center mb-3">Welcome to your ExpertPage profile</h4>
           </div>
         }
       </div>
@@ -368,7 +368,7 @@ const Template = () => {
               </div>
               {[
                 'All Basic features', 
-                'Custom URL on vitaely.me domain', 
+                'Custom URL on expertpage.io domain', 
                 'Premium templates',
                 'Unlimited re-syncing', 
                 'More coming soon'

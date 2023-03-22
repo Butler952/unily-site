@@ -23,7 +23,7 @@ const HowToCreateAnOnlineCV = () => {
       <Post 
         title="How to create an online CV in 2 minutes"
         image='/images/profile-preview.png'
-        imageAlt="An online cv created with Vitaely.me"
+        imageAlt="An online cv created with expertpage.io"
         readingDuration="2"
         hideFooter
         description="Much like an offline CV; an online CV is a chance to share a bit about yourself, your professional experience and you education, amongst other things. Usually a CV is submitted as part of a job application and will very likely make up the first pieces of information that any potential employer, partner, or client will learn about you."
@@ -35,7 +35,7 @@ const HowToCreateAnOnlineCV = () => {
           <li><p className="large mb-2"><a href="#what-is-an-online-cv">What is an online CV?</a></p></li>
           <li><p className="large mb-2"><a href="#why-do-i-need-one">Why do I need one?</a></p></li>
           <li><p className="large mb-2"><a href="#how-do-i-make-one">How do I make an online CV?</a></p></li>
-          <li><p className="large mb-2"><a href="#guide">How create an online CV with Vitaely.me</a></p></li>
+          <li><p className="large mb-2"><a href="#guide">How create an online CV with expertpage.io</a></p></li>
           </ul>
         </div>
         {/* <div className="py-4 background-light">
@@ -60,17 +60,17 @@ const HowToCreateAnOnlineCV = () => {
         <div id="how-do-i-make-one" className="py-4 background-light">
           <h3>How do I make an online CV?</h3>
           <p className="large">There are many places where you can start building an online presence. Tools such as Squarespace, Webflow and Universe allow you to create websites relatively easily with no need to learn how to code.</p>
-          <p className="large">Vitaely.me offers a super simple way to turn your LinkedIn profile into a personal online CV in just 2 minutes.</p>
+          <p className="large">expertpage.io offers a super simple way to turn your LinkedIn profile into a personal online CV in just 2 minutes.</p>
         </div>
         <div id="guide" className="py-4 background-light">
-          <h3>How create an online CV with Vitaely.me</h3>
+          <h3>How create an online CV with expertpage.io</h3>
           <ul>
             <li><p className="large">Create your <Link href="/users/register">free account</Link></p></li>
             <li><p className="large">Grab the URL of your Linkedin profile and sync your data</p></li>
             <li><p className="large">You're done! Your online CV is ready</p></li>
           </ul>
           <div className={`${styles.featureCard} mt-5`}>
-            <video controls alt="Sycning your data from LinkedIn to Vitaely.me" src='../../images/blog/how-to-create-an-online-cv/vitaely-me-sync-with-linked.mp4'></video>
+            <video controls alt="Sycning your data from LinkedIn to expertpage.io" src='../../images/blog/how-to-create-an-online-cv/ExpertPage-me-sync-with-linked.mp4'></video>
           </div>
           <p className="mt-3">Sycning your data from LinkedIn is as easy as pasting the URL.</p>
         </div>

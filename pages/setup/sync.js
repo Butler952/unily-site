@@ -92,11 +92,15 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               firstName: result.first_name,
               lastName: result.last_name,
-              stage: '/setup/template',
+              stage: 'complete',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             })
           }
           fire.firestore().collection('users').doc(userData.uid).update({
+            // links: [{
+            //   'label': 'Contact me',
+            //   'url': userData.email
+            // }],
             profile: result,
             displayInfo: {
               'basicInfo': {
@@ -124,7 +128,8 @@ const Sync = () => {
               },
             },
             //syncsRemaining: 1,
-            stage: '/setup/template',
+            stage: 'complete',
+            template: 'freelance',
             // profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
@@ -140,7 +145,7 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               firstName: result.first_name,
               lastName: result.last_name,
-              stage: '/setup/template',
+              stage: 'complete',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }
@@ -174,7 +179,8 @@ const Sync = () => {
                 'each': createVolunteerList(result.volunteer_work)
               },
             },
-            stage: '/setup/template',
+            stage: 'complete',
+            template: 'freelance'
             // profileUrl: '/profile/' + userData.uid,
           })
         })
@@ -186,7 +192,7 @@ const Sync = () => {
           )
         })
         .then(() => {
-          router.push('/setup/template')
+          router.push(userContext.profileUrl)
         })
         .catch(error => console.log('error', error));
     } else {
@@ -239,7 +245,7 @@ const Sync = () => {
           :
           <h3 className="text-dark-high text-center mb-2">Sync data from LinkedIn</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>The information on your Linkedin profile is used to populate your Vitaely profile.</p>
+        <p className="large text-center" style={{maxWidth: '480px'}}>The information on your Linkedin profile is used to populate your ExpertPage profile.</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
         <div className="d-flex flex-column w-100">
@@ -263,7 +269,7 @@ const Sync = () => {
                   {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">E.g. https://www.linkedin.com/in/butler952</p> }
                 </div>
                 {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                  <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
+                  <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into ExpertPage.</p>
                   <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
                     <div className="d-flex align-items-start">
                       <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">

@@ -63,14 +63,18 @@ const Links = ({
           <div className="d-none d-lg-block"><Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" /></div>
         </div>
       )}
-      <div className="d-flex flex-row p-4">
-        <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">
-          <svg viewBox="0 0 24 24">
-            <path d={ICONS.PLUS}></path>
-          </svg>
-          Add link
-        </button>
-      </div>
+      { userContext && 
+        userContext.links &&
+        userContext.links.length < 1 &&
+          <div className="d-flex flex-row p-4">
+            <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">
+              <svg viewBox="0 0 24 24">
+                <path d={ICONS.PLUS}></path>
+              </svg>
+              Add link
+            </button>
+          </div>
+      }
     </>
   )
 }

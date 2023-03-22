@@ -39,7 +39,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
           </ul>
         </div>
         <div className="py-4 background-light">
-          <p className="large">When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to <a href="https://www.vitaely.me/blog/three-things-for-presenting-in-an-interview">deliver a presentation in an interview</a>, now let’s turn our attention to the researching the company itself.</p>
+          <p className="large">When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to <a href="https://www.expertpage.io/blog/three-things-for-presenting-in-an-interview">deliver a presentation in an interview</a>, now let’s turn our attention to the researching the company itself.</p>
         </div>
         <div id="why-research" className="py-4 background-light">
           <h3>Why should I research the company?</h3>
