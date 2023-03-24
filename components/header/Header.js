@@ -538,7 +538,7 @@ const Header = ({
                 <Link href="/">
                   <a><img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /></a>
                 </Link>
-                {screenWidth > 767 && (
+                {/* {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>
                     <Link href="/templates">
                       <a className="btn dark low small">Templates</a>
@@ -550,7 +550,7 @@ const Header = ({
                       <a className="btn dark low small">Blog</a>
                     </Link>
                   </div>
-                )}
+                )} */}
               </div>
               <div className="d-flex" style={{ gap: '8px' }}>
 
