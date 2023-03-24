@@ -241,8 +241,8 @@ const Freelance = (props) => {
   }
 
   return (
-    <body className={profileStyles.body} style={{paddingTop: '66px'}}>
-      <div>
+    // <body className={profileStyles.body}>
+      <div className={profileStyles.body} style={{paddingTop: '66px'}}>
         {props.email !== undefined ?
           <>
             <Head>
@@ -616,7 +616,7 @@ const Freelance = (props) => {
           </div>
         }
       </div>
-    </body>
+    // </body>
   )
 }
 

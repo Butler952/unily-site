@@ -162,7 +162,7 @@ const Home = () => {
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column align-items-center justify-content-between">
           <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
-            {screenWidth > 576 ? <h1>Turn your Linkedin profile into a website</h1> : <h2>Turn your Linkedin profile into a website</h2>}
+            {screenWidth > 576 ? <h1>Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
             <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
             <div className="d-flex justify-content-center m-auto">
               <Link href="/users/register">
@@ -223,7 +223,7 @@ const Home = () => {
         </Container>
       </div> */}
       <Container>
-      <div className={`text-center ${styles.sectionWrapper}`}>
+      {/* <div className={`text-center ${styles.sectionWrapper}`}>
         <div className={styles.stepsContainer}>
           <div className="d-flex flex-column align-items-center">
             <h2 className="mb-3">917+</h2>
@@ -238,7 +238,7 @@ const Home = () => {
             <h5>Templates to choose from </h5>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <div className={`text-center ${styles.sectionWrapper}`}>
         { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '560px' }}>Create your landing page in 2 minutes</h2> : <h2 className="mx-auto pb-5">Create your landing page in 2 minutes</h2> }    
           <div className={styles.stepsContainer}>
@@ -262,7 +262,7 @@ const Home = () => {
             </div>
           </div>
         </div> */}
-        <div className={`container ${styles.sectionWrapper}`}>
+        {/* <div className={`container ${styles.sectionWrapper}`}>
           <div className="d-flex flex-column" style={{gap: '24px'}}>
             <div className={`${styles.featureCard}`} style={{background: '#FBFBF8'}}>
               <div className="w-100 order-1 order-lg-1">
@@ -292,7 +292,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* <div className={`container ${styles.sectionWrapper}`}>
           <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
           <div className="d-flex flex-column flex-lg-row" style={{gap: '24px'}}>
@@ -369,7 +369,7 @@ const Home = () => {
             />
           </div>
         </div> */}
-        <div className={`text-center mx-auto ${styles.sectionWrapper}`} style={{ maxWidth: '720px' }}>
+        {/* <div className={`text-center mx-auto ${styles.sectionWrapper}`} style={{ maxWidth: '720px' }}>
           {screenWidth > 576 ? <h1>Turn your Linkedin profile into a website</h1> : <h2>Turn your Linkedin profile into a website</h2>}
           <p className="large mx-auto mb-5" style={{ maxWidth: '640px' }}>Create your very own professional website in just two minutes</p>
           <div className="d-flex m-auto justify-content-center">
@@ -377,7 +377,7 @@ const Home = () => {
               <a className="btn primary high large m-auto">Get started</a>
             </Link>
           </div>
-        </div>
+        </div> */}
       </Container>
       <Footer />
       <br/><br/>
