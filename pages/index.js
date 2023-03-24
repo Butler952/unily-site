@@ -149,10 +149,10 @@ const Home = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>ExpertPage | Turn your LinkedIn profile into a landing page</title>
-        <meta name="description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
-        <meta property="og:title" content="ExpertPage | Turn your LinkedIn profile into a landing page" />
-        <meta property="og:description" content="Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page." />
+        <title>ExpertPage | Build trust with your own personal freelance site</title>
+        <meta name="description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
+        <meta property="og:title" content="ExpertPage | Build trust with your own personal freelance site" />
+        <meta property="og:description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
         <meta property="og:url" content="https://www.expertpage.io/" />
         <meta property="og:type" content="website" />
       </Head>
