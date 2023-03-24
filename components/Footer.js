@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
           <p>© Copyright ExpertPage {new Date().getFullYear()}</p>
-          <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p>
+          {/* <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p> */}
         </div>
       </Container>
     </div>
