@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }) {
       <UserContext.Provider value={userValue}>
         <Head>
           <title>expertpage.io</title>
-          <link rel="shortcut icon" href="/images/ExpertPage-logo-icon-square.svg" />
+          <link rel="shortcut icon" href="/images/expertpage-logo-icon.svg" />
         </Head>
         <Layout>
           <Component {...pageProps} />

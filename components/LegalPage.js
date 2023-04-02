@@ -29,7 +29,7 @@ const LegalPage = (props) => {
 
       <Head>
         <title>{heroTitle}</title>
-        <link rel="shortcut icon" href="/images/ExpertPage-logo-icon-square.svg" />
+        <link rel="shortcut icon" href="/images/expertpage-logo-icon.svg" />
       </Head>
       <div className="container">
         <div className="card my-5">
