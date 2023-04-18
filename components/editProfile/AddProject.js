@@ -61,7 +61,7 @@ const AddProject = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalProjects, setOriginalProjects] = useState( userContext.profile.projects);
+  const [originalProjects, setOriginalProjects] = useState( userContext && userContext.profile && userContext.profile.projects);
 
   const projectsImageChange = (value) => {
     setProjectsImage(value),

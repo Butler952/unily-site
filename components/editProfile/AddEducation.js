@@ -78,7 +78,7 @@ const AddEducation = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalEducation, setOriginalEducation] = useState( userContext.profile.education);
+  const [originalEducation, setOriginalEducation] = useState( userContext && userContext.profile && userContext.profile.education);
 
   const educationLogoChange = (value) => {
     setEducationLogo(value),

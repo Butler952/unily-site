@@ -13,6 +13,7 @@ import { UserContext } from '../_app';
 const Sync = () => {
   const { userContext, setUserContext } = useContext(UserContext);
 
+  const [saving, setSaving] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [loadingState, setLoadingState] = useState('');
   const [userData, setUserData] = useState('');
@@ -198,7 +199,6 @@ const Sync = () => {
     } else {
       setUrlError('Please enter the URL for your LinkedIn profile')
     }
-
   }
 
   const createExperienceList = (data) => {
@@ -231,6 +231,27 @@ const Sync = () => {
     )
   }
 
+  const handleManualSubmit = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/name',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        setUserContext({
+          stage: '/setup/name',
+          template: 'freelance'
+        })
+      })
+      .then(() => {
+        router.push('/setup/name')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
@@ -241,28 +262,17 @@ const Sync = () => {
 
       <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">Sync data from LinkedIn</h2>
+          <h2 className="text-dark-high text-center mb-2">Import from LinkedIn</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">Sync data from LinkedIn</h3>
+          <h3 className="text-dark-high text-center mb-2">Import from LinkedIn</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>The information on your Linkedin profile is used to populate your ExpertPage profile.</p>
+        <p className="large text-center" style={{maxWidth: '640px'}}>Your Linkedin profile is used to create your ExpertPage page.</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
-        <div className="d-flex flex-column w-100">
+        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
           {loadingState === '' ?
             <form onSubmit={handleSubmit}>
               <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                  <p className="text-dark-high">If you're already logged in on Linkedin you can click on the link below to get to your Linkedin profile.</p>
-                  <a href="https://www.linkedin.com/in/" target="_blank">
-                    <div className="d-flex align-items-start">
-                      <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
-                        <path d={ICONS.EXTERNAL_LINK}></path>
-                      </svg>
-                      <p className="text-primary-high mb-0">Go to your Linkedin profile</p>
-                    </div>
-                  </a>
-                </div>
                 <div>
                   <input type="text" className={urlError !== '' ? `error w-100` : `w-100`} pattern="http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?" onInvalid={onUrlInvalid} value={profileUrl} onChange={({ target }) => urlChange(target.value)} placeholder="Linkedin profile URL" />
                   {/* {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">If you're already logged in on Linkedin you can get to your Linkedin profile <a href="https://www.linkedin.com/in/">here</a></p> } */}
@@ -281,12 +291,27 @@ const Sync = () => {
                 </div> */}
                 
               </div>
-              <div className="d-flex flex-column align-items-center my-4 my-sm-5">
-                {screenWidth > 575 ?
-                  <button type="submit" className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={profileUrl == ''}>Get data from Linkedin</button>
-                :
-                  <button type="submit" className="btn primary high w-100" disabled={profileUrl == ''}>Get data from Linkedin</button>
-                }
+              <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
+                <div className="d-flex flex-column gap-3">
+                  <button type="submit" className="btn primary high w-100" disabled={profileUrl == ''}>Import from Linkedin</button>
+                  <div className="d-flex flex-column bg-primary-100 radius-3 p-4">
+                    <p className="text-dark-high">If you're already logged in on Linkedin you can click on the link below to get to your Linkedin profile.</p>
+                    <a href="https://www.linkedin.com/in/" target="_blank">
+                      <div className="d-flex align-items-start">
+                        <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">
+                          <path d={ICONS.EXTERNAL_LINK}></path>
+                        </svg>
+                        <p className="text-primary-high font-weight-medium mb-0">Go to your Linkedin profile</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div className="d-flex flex-row align-items-center w-100 gap-3">
+                  <hr className="w-100 m-0"></hr>
+                  <p className="small mb-0">or</p>
+                  <hr className="w-100 m-0"></hr>
+                </div>
+                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary medium w-100" disabled={saving}>Add information manually</button>
               </div>
               <br />
             </form>

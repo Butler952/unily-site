@@ -72,7 +72,7 @@ const AddExperience = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalExperiences, setOriginalExperiences] = useState(userContext.profile.experiences);
+  const [originalExperiences, setOriginalExperiences] = useState(userContext && userContext.profile && userContext.profile.experiences);
 
   const experiencesLogoChange = (value) => {
     setExperiencesLogo(value),

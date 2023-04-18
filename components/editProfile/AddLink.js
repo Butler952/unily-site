@@ -28,7 +28,7 @@ const AddLink = ({
 
   const [submitting, setSubmitting] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [originalLinks, setOriginalLinks] = useState(userContext.links);
+  const [originalLinks, setOriginalLinks] = useState(userContext && userContext.links);
 
   const linksLabelChange = (value) => {
     setLinksLabel(value),

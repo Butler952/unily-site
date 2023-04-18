@@ -38,7 +38,7 @@ const AddService = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalServices, setOriginalServices] = useState( userContext.profile.services);
+  const [originalServices, setOriginalServices] = useState( userContext && userContext.profile && userContext.profile.services);
 
   const [displayServicesImage, setDisplayServicesImage] = useState('')
 

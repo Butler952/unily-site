@@ -7,8 +7,12 @@ $breakpoint-2xl: 1440px;
 
 // COLOURS
 
+// Background
+
+$background: #F4F3F1;
+
 // Primary colour
-$primary-900: #15121c; // High text
+$primary-900: #1F2430; // High text
 // $primary-900: #6839EF; // High text
 $primary-900-hover: lighten($primary-900, 10%);
 $primary-light: rgba($primary-900, 0.1);
@@ -64,7 +68,7 @@ $warning-200:rgba($warning-900, 0.05);
 $warning-100: rgba($warning-900, 0.03);
 
 // Dark colours
-$dark-900: #15121c; // High text
+$dark-900: #1F2430; // High text
 $dark-900-hover: lighten($dark-900, 10%);
 $dark-light: rgba($dark-900, 0.1);
 $dark-800: rgba($dark-900, 0.72); // Medium text
@@ -123,5 +127,6 @@ $shadow-5: 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.0
 // TRANSITIONS
 
 // Transitions
+$transition-short: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 $transition-standard: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 $transition-long: 1s cubic-bezier(0.2, 0.8, 0.2, 1);

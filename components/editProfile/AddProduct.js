@@ -38,7 +38,7 @@ const AddProduct = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalProducts, setOriginalProducts] = useState( userContext.profile.products);
+  const [originalProducts, setOriginalProducts] = useState(userContext && userContext.profile && userContext.profile.products);
 
   const [displayProductsImage, setDisplayProductsImage] = useState('')
 

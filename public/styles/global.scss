@@ -11,7 +11,7 @@ html {
 
 body {
   margin: 0;
-  background: $dark-100;
+  background: $background;
   font-size: 16px; 
   line-height: 1.6;
   color: $dark-800; 
@@ -90,6 +90,11 @@ a {
 .text-error-med { color: $error-800; }
 .text-error-low { color: $error-700; }
 .text-error-dis { color: $error-600; }
+
+.text-warning-high { color: $warning-900; }
+.text-warning-med { color: $warning-800; }
+.text-warning-low { color: $warning-700; }
+.text-warning-dis { color: $warning-600; }
 
 .font-weight-medium { font-weight: 500; }
 .font-weight-semibold { font-weight: 600; }
@@ -363,6 +368,7 @@ a.btn, input.btn, button.btn {
   justify-content: center;
   width: fit-content;
   white-space: nowrap;
+  transition: $transition-short;
   &:focus {
     box-shadow: 0 0 0 0.2rem $primary-600;
   }
@@ -899,14 +905,28 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   font-size: 20px;
   line-height: 32px;
   height: 56px;
-  border: 2px solid $dark-light;
+  border: 2px solid transparent;
   outline: 0;
-  //width: 100%; //maybe delete
+  background: $dark-200;
+  transition: $transition-short;
+  &.error {
+    // border-color: $error-900;
+    background: $error-200;
+  }
+  &:hover {
+    background: $dark-300;
+    // border-color: $dark-900;
+    &.error {
+      background: $error-300;
+    }
+  }
   &:focus {
     border-color: $primary-900;
-  }
-  &.error {
-    border-color: $error-900;
+    background: $light-900;
+    &.error {
+      border-color: $error-900;
+      background: $light-900;
+    }
   }
   /*&:invalid {
     border-color: $error-900;
@@ -1095,14 +1115,29 @@ textarea {
   padding: 10px 18px;  
   font-size: 20px;
   line-height: 32px;
-  border: 2px solid $dark-light;
+
+  border: 2px solid transparent;
   outline: 0;
-  //width: 100%; //maybe delete
+  background: $dark-200;
+  transition: $transition-short;
+  &.error {
+    // border-color: $error-900;
+    background: $error-200;
+  }
+  &:hover {
+    background: $dark-300;
+    // border-color: $dark-900;
+    &.error {
+      background: $error-300;
+    }
+  }
   &:focus {
     border-color: $primary-900;
-  }
-  &.error {
-    border-color: $error-900;
+    background: $light-900;
+    &.error {
+      border-color: $error-900;
+      background: $light-900;
+    }
   }
   &.small {
     padding: 8px 14px; 
@@ -1401,3 +1436,12 @@ textarea {
     width: 100%;
   }
 }
+
+// Gaps
+
+.gap-0 { gap: 0 }
+.gap-1 { gap: 4px }
+.gap-2 { gap: 8px }
+.gap-3 { gap: 16px }
+.gap-4 { gap: 24px }
+.gap-5 { gap: 48px }

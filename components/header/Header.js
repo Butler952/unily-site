@@ -316,12 +316,8 @@ const Header = ({
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
         <div 
-          className={`bg-light-900 rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
-            ${hideShadow ? 'shadow-0' : 'shadow-2'}
-            ${
-              // windowUrl !== '/' ? 'shadow-2 bg-light-900' : null
-              windowUrl !== '/' ? 'bg-light-900' : null
-            }
+          className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 
+            ${hideShadow ? 'shadow-0' : 'border-bottom-1 border-solid border-dark-300'}
             ${positionFixed && 'position-fixed'}
           `} 
           style={windowUrl == '' ? { minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
@@ -330,7 +326,7 @@ const Header = ({
             <>
               <div>
                 <Link href="/">
-                  <a><img src="/images/expertpage-logo-icon.svg" style={{ height: '48px' }} /></a>
+                  <a><img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} /></a>
                 </Link>
                 {/* <div className="d-flex">
             <Link href={profileUrl}>

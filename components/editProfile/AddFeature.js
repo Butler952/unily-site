@@ -32,7 +32,7 @@ const AddFeature = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalFeatured, setOriginalFeatured] = useState( userContext.profile.featured);
+  const [originalFeatured, setOriginalFeatured] = useState( userContext && userContext.profile && userContext.profile.featured);
 
   const [displayFeaturedImage, setDisplayFeaturedImage] = useState('')
 

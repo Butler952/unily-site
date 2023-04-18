@@ -53,7 +53,7 @@ const AddTestimonial = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalTestimonials, setOriginalTestimonials] = useState( userContext.profile.testimonials);
+  const [originalTestimonials, setOriginalTestimonials] = useState( userContext && userContext.profile && userContext.profile.testimonials);
   const [displayTestimonialsAvatar, setDisplayTestimonialsAvatar] = useState('')
 
   const testimonialsAvatarChange = (value) => {

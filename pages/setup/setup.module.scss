@@ -1,0 +1,17 @@
+@import '../../public/styles/variables.scss';
+
+.choiceCard {
+  transition: $transition-standard;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: $light-900;
+  border: 1px solid $dark-300;
+  border-radius: $radius-large;
+  width: 100%;
+  padding: 32px;
+  &:hover {
+    box-shadow: $shadow-5;
+    translate: 0 -1px;
+  }
+}

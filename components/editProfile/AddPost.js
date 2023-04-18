@@ -47,7 +47,7 @@ const AddPost = ({
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [submitting, setSubmitting] = useState(false);
-  const [originalPosts, setOriginalPosts] = useState( userContext.profile.posts);
+  const [originalPosts, setOriginalPosts] = useState( userContext && userContext.profile && userContext.profile.posts);
 
   const [displayPostsImage, setDisplayPostsImage] = useState('')
 
