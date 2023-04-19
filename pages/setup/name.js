@@ -105,6 +105,7 @@ const Name = () => {
       })
         .then(() => {
           let newUserContext = userContext;
+          newUserContext.profile = {},
           newUserContext.profile.first_name = firstName,
           newUserContext.profile.last_name = lastName,
           newUserContext.profile.full_name = `${firstName} ${lastName}`,
