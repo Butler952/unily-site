@@ -481,7 +481,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="bg-dark-100">
+    <div className="pt-5 mt-5">
       <Head>
         <title>Settings</title>
       </Head>

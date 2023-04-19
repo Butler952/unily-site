@@ -325,15 +325,9 @@ const Freelance = (props) => {
                       <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
                     } */}
                   </div>
-                  {props &&
-                    props.displayInfo &&
-                    props.displayInfo.basicInfo &&
-                    props.displayInfo.basicInfo.each &&
-                    props.displayInfo.basicInfo.each.email &&
-                    props.displayInfo.basicInfo.each.email
-                    || props.links ?
+                  {props.email &&
                     <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
-                      {props.email && props.displayInfo.basicInfo.each.email &&
+                      {props.email &&
                         <a href={'mailto:' + props.email} target="_blank" className="btn primary high large w-100 w-md-auto">Contact me</a>
                       }
                       {props.links &&
@@ -349,7 +343,7 @@ const Freelance = (props) => {
                           )
                         })}
                     </div>
-                    : ''}
+                  }
                 </div>
                 {/* {props.summary &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
