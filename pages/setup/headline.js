@@ -101,7 +101,7 @@ const Headline = () => {
           })
         })
         .then(() => {
-          router.push(userContext.profileUrl ? userContext.profileUrl : userData.profileUrl)
+          router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
           // router.push(
           //   userContext &&
           //   userContext.profileUrl &&
@@ -120,21 +120,20 @@ const Headline = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-left py-5" style={{ maxWidth: "480px"}}>
+      <Container className="d-flex flex-column align-items-left py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high mb-3">Your headline</h2>
           :
           <h3 className="text-dark-high mb-3">Your headline</h3>
         }
-        <p className="large" style={{maxWidth: '480px'}}>Write a short headline for your page. This should be a very short statement of who you are or what you do.</p>
-
+        <p className="large" style={{maxWidth: '560px'}}>Write a short headline for your page. This should be a very short statement of who you are or what you do.</p>
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
-        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
+        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '560px'}}>
           <form onSubmit={handleSubmit}>
             <div className="d-flex flex-column w-100 gap-4">
               <div>
                 <textarea type="text" className={headlineError !== '' ? `error w-100` : `w-100`} value={headline} onChange={({ target }) => headlineChange(target.value)} placeholder="Headline" />
-                {headlineError !== '' ? <p className="small text-error-high mt-2 mb-0">{headlineError}</p> : <p className="small text-dark-low mt-2 mb-0">E.g. “Product Designer & Indiemaker” or “I can help you to align strategy and sales.”</p>}
+                {headlineError !== '' ? <p className="small text-error-high mt-2 mb-0">{headlineError}</p> : <p className="small text-dark-low mt-2 mb-0">E.g. “Product Designer & Indiemaker” or “I can help you land more leads.”</p>}
               </div>
               <div className="d-flex flex-column mb-4 mb-sm-5 gap-3">
                 <div className="d-flex flex-column gap-3">

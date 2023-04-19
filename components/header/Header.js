@@ -371,7 +371,7 @@ const Header = ({
                     <button 
                       type="button" 
                       onClick={() => handleEditProfileShow()}
-                      className={`btn primary high small mr-2 ${screenWidth > 767 ? 'icon-left' : 'icon-only'}`}
+                      className={`btn primary high small mr-2 ${screenWidth > 575 ? 'icon-left' : 'icon-only'}`}
                     >
                       <svg viewBox="0 0 24 24">
                         <path d={ICONS.EDIT}></path>

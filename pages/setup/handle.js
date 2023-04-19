@@ -186,20 +186,21 @@ const Handle = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">Choose your profile handle</h2>
+          <h2 className="text-dark-high mb-2">Choose your handle</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">Choose your profile handle</h3>
+          <h3 className="text-dark-high mb-2">Choose your handle</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>You can always change this later</p>
+        <p className="large" style={{maxWidth: '480px'}}>Choose how people will find your profile</p>
+        <form onSubmit={handleSave} className="w-100">
         <div className="d-flex flex-column py-4 w-100" style={{ gap: '16px' }}>
-          <div className={`d-flex flex-column p-4 w-100`}>
-            <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
+          <div className={`d-flex flex-column w-100`}>
+            {/* <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p> */}
             <div className="mt-3">
               <input
                 type="text"
-                className={`small w-100 ${domainError !== '' ? 'error' : null}`}
+                className={`w-100 ${domainError !== '' ? 'error' : null}`}
                 disabled={saving}
                 value={domainChanged ? domain :
                   (
@@ -237,10 +238,11 @@ const Handle = () => {
           {/* {choiceError !== '' ? <p className="small text-error-high mt-2 mb-0">{choiceError}</p> : null} */}
         </div>
         {screenWidth > 575 ?
-          <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={domain == '' || saving}>{!saving ? 'Continue' : 'Saving'}</button>
+          <button type="submit" className="btn primary high" disabled={domain == '' || saving}>{!saving ? 'Continue' : 'Saving'}</button>
         :
-          <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={domain == '' || saving}>{!saving ? 'Continue' : 'Saving'}</button>
+          <button type="submit" className="btn primary high w-100" disabled={domain == '' || saving}>{!saving ? 'Continue' : 'Saving'}</button>
         }
+        </form>
           </Container>
     
     </div>

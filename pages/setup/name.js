@@ -124,13 +124,13 @@ const Name = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">What’s your name?</h2>
+          <h2 className="text-dark-high mb-2">What’s your name?</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">What’s your name?</h3>
+          <h3 className="text-dark-high mb-2">What’s your name?</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>This will be displayed on your page</p>
+        <p className="large" style={{maxWidth: '480px'}}>This will be displayed on your page</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
         <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
@@ -146,7 +146,11 @@ const Name = () => {
               </div>
               <div className="d-flex flex-column mb-4 mb-sm-5 gap-3">
                 <div className="d-flex flex-column gap-3">
-                  <button type="submit" className="btn primary high w-100" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                  {screenWidth > 575 ?
+                    <button type="submit" className="btn primary high" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                    :
+                    <button type="submit" className="btn primary high w-100" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                  }
                 </div>
               </div>
             </div>

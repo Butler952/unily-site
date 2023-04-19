@@ -164,6 +164,26 @@ const Avatar = () => {
     );
   }
 
+  const handleManualSubmit = (e) => {
+    e.preventDefault();
+
+    setSubmitting(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/headline',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        setUserContext({
+          stage: '/setup/headline',
+        })
+      })
+      .then(() => {
+        router.push('/setup/headline')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   const hiddenFileInput = useRef(null);
 
   const handleChangeImage = (event) => {
@@ -199,15 +219,15 @@ const Avatar = () => {
         <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
           <div className="d-flex flex-column align-items-center w-100 gap-4">
             {avatarChanged && avatar !== '' ?
-            <div className={`position-relative overflow-hidden`} style={{ backgroundImage: `url(${avatarImage})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '100%', height: '120px', width: '120px' }}></div>
+            <div className={`position-relative overflow-hidden`} style={{ backgroundImage: `url(${avatarImage})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '100%', height: '160px', width: '160px' }}></div>
             :
-            <div className="d-flex flex-column align-items-center justify-content-center bg-primary-200 radius-5 p-4" style={{width: '120px', height: '120px'}}>
-              <a href="https://www.linkedin.com/in/" target="_blank">
+            <button type="button" onClick={handleChangeImage} disabled={submitting} style={{border: 'none', background: 'none', borderRadius: '100%', overflow: 'hidden'}}>
+              <div className="d-flex flex-column align-items-center justify-content-center bg-primary-200 radius-5 p-4" style={{width: '160px', height: '160px'}}>
                 <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '48px'}} className="fill-primary-700">
                   <path d={ICONS.PLUS}></path>
                 </svg>
-              </a>
-            </div>
+              </div>
+            </button>
             }
             {avatarChanged ?
             // {avatar !== '' ?
@@ -235,7 +255,7 @@ const Avatar = () => {
           </div>
           {/* {loadingState === '' ?
             <div className="d-flex flex-column align-items-center w-100 gap-4">
-              <div className="d-flex flex-column align-items-center justify-content-center bg-primary-200 radius-5 p-4" style={{width: '120px', height: '120px'}}>
+              <div className="d-flex flex-column align-items-center justify-content-center bg-primary-200 radius-5 p-4" style={{width: '160px', height: '160px'}}>
                 <a href="https://www.linkedin.com/in/" target="_blank">
                   <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '48px'}} className="fill-primary-700">
                     <path d={ICONS.PLUS}></path>
