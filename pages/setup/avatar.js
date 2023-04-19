@@ -145,11 +145,9 @@ const Avatar = () => {
             })
               .then((result) => {
                 let newUserContext = userContext;
-                newUserContext.profile.profile_pic_url = downloadURL;
+                newUserContext.profile.profile_pic_url = downloadURL,
                 newUserContext.stage = '/setup/headline';
                 setUserContext(newUserContext)
-                // update setup step > headline
-                // push to headline
               })
               .then(() => {
                 router.push('/setup/headline')

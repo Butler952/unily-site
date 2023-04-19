@@ -393,11 +393,11 @@ const Header = ({
                                 <path d={ICONS.MENU}></path>
                               </svg>
                             </div>
-                            {!headerImageError || userContext && userContext.profileUrl && userContext.profile.profile_pic_url !== '' ? 
+                            {!headerImageError || userContext.userContext.profile && userContext.profile.profile_pic_url !== '' ? 
                               <>
                                 <div
                                   style={{
-                                    backgroundImage: `url(${userContext && userContext.profileUrl && userContext.profile.profile_pic_url})`,
+                                    backgroundImage: `url(${userContext && userContext.profile && userContext.profile.profile_pic_url})`,
                                     backgroundPosition: 'center',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundSize: 'cover',

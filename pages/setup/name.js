@@ -104,10 +104,13 @@ const Name = () => {
         lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
       })
         .then(() => {
-          setUserContext({
-            stage: '/setup/avatar',
-            template: 'freelance'
-          })
+          let newUserContext = userContext;
+          newUserContext.profile.first_name = firstName,
+          newUserContext.profile.last_name = lastName,
+          newUserContext.profile.full_name = `${firstName} ${lastName}`,
+          newUserContext.stage = '/setup/avatar';
+          newUserContext.template = 'freelance';
+          setUserContext(newUserContext)
         })
         .then(() => {
           router.push('/setup/avatar')
@@ -124,16 +127,16 @@ const Name = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high mb-2">What’s your name?</h2>
           :
           <h3 className="text-dark-high mb-2">What’s your name?</h3>
         }
-        <p className="large" style={{maxWidth: '480px'}}>This will be displayed on your page</p>
+        <p className="large" style={{maxWidth: '560px'}}>This will be displayed on your page</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
-        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
+        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '560px'}}>
           <form onSubmit={handleSubmit}>
             <div className="d-flex flex-column w-100 gap-4">
               <div>

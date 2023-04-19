@@ -140,7 +140,7 @@ const Handle = () => {
             .then(() => {
               if ((matchingUrls && matchingUrls).length > 0) {
                 setSaving(false)
-                setDomainError('This URL is not available 😔')
+                setDomainError('This handle is not available 😔')
               } else {
                 fire.firestore().collection('users').doc(userData.uid).update({
                   'stage': '/setup/source',
@@ -186,13 +186,13 @@ const Handle = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high mb-2">Choose your handle</h2>
           :
           <h3 className="text-dark-high mb-2">Choose your handle</h3>
         }
-        <p className="large" style={{maxWidth: '480px'}}>Choose how people will find your profile</p>
+        <p className="large" style={{maxWidth: '560px'}}>Choose how people will find your profile</p>
         <form onSubmit={handleSave} className="w-100">
         <div className="d-flex flex-column py-4 w-100" style={{ gap: '16px' }}>
           <div className={`d-flex flex-column w-100`}>
