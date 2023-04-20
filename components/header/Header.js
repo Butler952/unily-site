@@ -317,7 +317,7 @@ const Header = ({
       >
         <div 
           className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 
-            ${hideShadow ? 'shadow-0' : 'border-bottom-1 border-solid border-dark-300'}
+            ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid border-dark-300'}
             ${positionFixed && 'position-fixed'}
           `} 
           style={windowUrl == '' ? { minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
@@ -326,7 +326,13 @@ const Header = ({
             <>
               <div>
                 <Link href="/">
-                  <a><img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} /></a>
+                  <a>
+                    {screenWidth > 767 ?
+                      <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                    :
+                      <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
+                    }
+                  </a>
                 </Link>
                 {/* <div className="d-flex">
             <Link href={profileUrl}>
@@ -532,7 +538,14 @@ const Header = ({
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
               <div className="d-flex align-items-center" style={{ gap: '32px' }}>
                 <Link href="/">
-                  <a><img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /></a>
+                  <a>
+                    {screenWidth > 767 ?
+                      <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                    :
+                      <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
+                    }
+                    {/* <img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
+                  </a>
                 </Link>
                 {/* {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>

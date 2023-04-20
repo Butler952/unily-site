@@ -7,10 +7,6 @@ $breakpoint-2xl: 1440px;
 
 // COLOURS
 
-// Background
-
-$background: #F4F3F1;
-
 // Primary colour
 $primary-900: #1F2430; // High text
 // $primary-900: #6839EF; // High text
@@ -98,6 +94,10 @@ $white: #fff;
 $white-hover: darken($white, 10%);
 $black: #000;
 $black-hover: lighten($black, 10%);
+
+// Background
+
+$background: $primary-100;
 
 // Gradients
 

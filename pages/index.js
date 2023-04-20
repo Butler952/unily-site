@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import fire from '../config/fire-config';
 import { useRouter } from 'next/router'
@@ -15,6 +15,10 @@ import Footer from '../components/Footer';
 import PostCard from '../components/blog/PostCard';
 
 const Home = () => {
+  const ref = useRef(null)
+
+  const [footerHeight, setFooterHeight] = useState(0)
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
   // const [idList, setIdList] = useState("");
@@ -23,6 +27,7 @@ const Home = () => {
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
+    setFooterHeight(ref.current.clientHeight)
   };
 
   useEffect(() => {
@@ -30,6 +35,7 @@ const Home = () => {
     mixpanel.register_once({"home page": "original"});
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
+    setFooterHeight(ref.current.clientHeight)
     window.addEventListener('resize', handleResize);
     // window.addEventListener('scroll', handleScroll);
     // if (typeof window !== 'undefined') {
@@ -146,7 +152,7 @@ const Home = () => {
   // }, []);
 
   return (
-    <div className="overflow-hidden" style={{ background: 'white' }}>
+    <div className="overflow-hidden">
       <Header hideShadow />
       <Head>
         <title>ExpertPage | Build trust with your own personal freelance site</title>
@@ -159,25 +165,30 @@ const Home = () => {
       {/* <a className={styles.productHunt} href="https://www.producthunt.com/posts/ExpertPage-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ExpertPage-me" target="_blank">
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a> */}
-      <Container className="mt-5 py-5">
-        <div className="d-flex flex-column align-items-center justify-content-between">
-          <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
-            {screenWidth > 576 ? <h1>Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
-            <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-            <div className="d-flex justify-content-center m-auto">
-              <Link href="/users/register">
-                <a className="btn primary high large">Get started</a>
-              </Link>
+      <div className="bg-light-900" style={{marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
+        <br></br>
+        <br></br>
+        <Container className="py-5">
+          <div className="d-flex flex-column align-items-center justify-content-between">
+            <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
+              {screenWidth > 576 ? <h1>Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
+              <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
+              <div className="d-flex justify-content-center m-auto">
+                <Link href="/users/register">
+                  <a className="btn primary high large">Create my page</a>
+                </Link>
+              </div>
             </div>
+            {/* <div className={styles.iframeWrapper}>
+              <iframe className={styles.iframeContent}
+                title="Example expertpage.io online CV profile"
+                src="https://www.expertpage.io/aaronbutler">
+              </iframe>
+            </div> */}
           </div>
-          {/* <div className={styles.iframeWrapper}>
-            <iframe className={styles.iframeContent}
-              title="Example expertpage.io online CV profile"
-              src="https://www.expertpage.io/aaronbutler">
-            </iframe>
-          </div> */}
-        </div>
-      </Container> 
+        </Container> 
+        <br></br>
+      </div>
       {/* <div className={`${styles.imageCarouselWrapper}`}>
         <div id="imageCarousel" className={`d-flex flex-row ${styles.imageCarousel}`} style={{gap: '24px'}}>
           <img src="/images/landing-page/template-previews/bento-template.png"></img>
@@ -222,7 +233,7 @@ const Home = () => {
           </div>
         </Container>
       </div> */}
-      <Container>
+      {/* <Container> */}
       {/* <div className={`text-center ${styles.sectionWrapper}`}>
         <div className={styles.stepsContainer}>
           <div className="d-flex flex-column align-items-center">
@@ -378,9 +389,10 @@ const Home = () => {
             </Link>
           </div>
         </div> */}
-      </Container>
-      <Footer />
-      <br/><br/>
+      {/* </Container> */}
+      <div ref={ref} className="w-100" style={{zIndex: '1', position: 'fixed', bottom: 0}}>
+        <Footer />
+      </div>
     </div>
   )
 }
