@@ -241,10 +241,10 @@ const Sync = () => {
       lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
     })
       .then(() => {
-        setUserContext({
-          stage: '/setup/name',
-          template: 'freelance'
-        })
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/name';
+        newUserContext.template = 'freelance';
+        setUserContext(newUserContext)
       })
       .then(() => {
         router.push('/setup/name')

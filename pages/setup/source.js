@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
+import { UserContext } from '../_app';
 
-const HowDidYouHearAboutUs = () => {
+const Source = () => {
+  const { userContext, setUserContext } = useContext(UserContext);
+
   const [profileUrl, setProfileUrl] = useState('');
   const [notify, setNotification] = useState('');
   const [userData, setUserData] = useState('');
@@ -47,6 +50,11 @@ const HowDidYouHearAboutUs = () => {
         'other': selectedSource == 'Other' ? otherSourceReason : null
       },
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      let newUserContext = userContext;
+      newUserContext.stage = '/setup/sync';
+      setUserContext(newUserContext)
     })
     .then(() => {
       router.push('/setup/sync')
@@ -127,4 +135,4 @@ const HowDidYouHearAboutUs = () => {
 
 }
 
-export default HowDidYouHearAboutUs
+export default Source

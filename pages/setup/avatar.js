@@ -59,6 +59,7 @@ const Avatar = () => {
       // Unmouting
       unsubscribe();
     };
+
   }, []);
 
 

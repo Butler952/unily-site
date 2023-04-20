@@ -94,11 +94,11 @@ const Headline = () => {
         lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
       })
         .then(() => {
-          setUserContext({
-            'profile.headline': headline,
-            stage: 'complete',
-            template: 'freelance'
-          })
+          let newUserContext = userContext;
+          newUserContext.profile.headline = headline,
+          newUserContext.stage = 'complete',
+          newUserContext.template = 'freelance'
+          setUserContext(newUserContext)
         })
         .then(() => {
           router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
