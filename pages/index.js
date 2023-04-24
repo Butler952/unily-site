@@ -4,9 +4,10 @@ import fire from '../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../components/header/Header';
-import { Container } from 'react-bootstrap';
 import Image from 'next/image'
 import mixpanel from 'mixpanel-browser';
+import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './index.module.scss'
 import Icon from '../components/icon/Icon';
@@ -16,8 +17,12 @@ import PostCard from '../components/blog/PostCard';
 
 const Home = () => {
   const ref = useRef(null)
+  const heroRef = useRef(null)
 
   const [footerHeight, setFooterHeight] = useState(0)
+  const [heroHeight, setHeroHeight] = useState(0)
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [useCaseFeature, setUseCaseFeature] = useState(0)
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
@@ -27,7 +32,10 @@ const Home = () => {
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
-    setFooterHeight(ref.current.clientHeight)
+    if (ref?.current?.clientHeight) {
+      setFooterHeight(ref.current.clientHeight)
+      setHeroHeight(heroRef.current.clientHeight)
+    }
   };
 
   useEffect(() => {
@@ -35,9 +43,12 @@ const Home = () => {
     mixpanel.register_once({"home page": "original"});
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)
-    setFooterHeight(ref.current.clientHeight)
+    if (ref?.current?.clientHeight) {
+      setFooterHeight(ref.current.clientHeight)
+      setHeroHeight(heroRef.current.clientHeight)
+    }
     window.addEventListener('resize', handleResize);
-    // window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
     // if (typeof window !== 'undefined') {
     //   document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px`
     // }
@@ -45,8 +56,7 @@ const Home = () => {
 
   const handleScroll = () => {
     if (typeof window !== 'undefined') {
-
-      document.getElementById('imageCarousel') !== null ? document.getElementById('imageCarousel').style.left = `-${(window.scrollY + 640) / 2}px` : null
+      setScrollPosition(window.scrollY)
 
       // window.scrollY
       // window.innerWidth
@@ -151,9 +161,75 @@ const Home = () => {
   //   //.then(console.log(idList))
   // }, []);
 
+  const testData = [
+    {
+      name: 'Build trust',
+      logo_url: '../../images/landing-page/photo-1664575198308-3959904fa430.jpeg',
+      description: 'A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.',
+      url: 'bbc.co.uk'
+    },
+    {
+      name: 'Easy setup',
+      logo_url: '../../images/landing-page/photo-1588064549181-755cf87668ab.jpeg',
+      description: 'Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!',
+      url: 'bbc.co.uk'
+    },
+  ]
+
+  const CustomToggle = ({ eventKey }) => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const decoratedOnClick = useAccordionToggle(eventKey, () => {
+      setDropdownOpen(!dropdownOpen)
+    });
+
+    return (
+      <button type="button" onClick={decoratedOnClick} className="btn dark low small icon-only">
+        <svg viewBox="0 0 24 24">
+          <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
+        </svg>
+      </button>
+    );
+  }
+
+  const useCases = [
+    {
+      id: uuidv4(),
+      title: 'Land more in-bound sales calls',
+      description: 'Set up your page to link to your calendar booking page',
+    },
+    {
+      id: uuidv4(),
+      title: 'Land more in-bound sales calls',
+      description: 'Set up your page to link to your calendar booking page',
+    },
+    {
+      id: uuidv4(),
+      title: 'Land more in-bound sales calls',
+      description: 'Set up your page to link to your calendar booking page',
+    },
+  ]
+
+  const forwardUseCase = () => {
+    if (useCaseFeature < useCases.length - 1) {
+      let newUseCase = useCaseFeature;
+      newUseCase++
+      setUseCaseFeature(newUseCase)
+    }
+  }
+  const backwardUseCase = () => {
+    if (useCaseFeature > 0 ) {
+      let newUseCase = useCaseFeature;
+      newUseCase--
+      setUseCaseFeature(newUseCase)
+    }
+  }
+
   return (
-    <div className="overflow-hidden">
-      <Header hideShadow />
+    <div style={{overflowX: 'hidden'}}>
+      <Header/>
+      <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
+        <Header hideShadow={scrollPosition < heroHeight + 66} />
+      </div>
       <Head>
         <title>ExpertPage | Build trust with your own personal freelance site</title>
         <meta name="description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
@@ -169,13 +245,13 @@ const Home = () => {
         <br></br>
         <br></br>
         <Container className="py-5">
-          <div className="d-flex flex-column align-items-center justify-content-between">
-            <div style={{ maxWidth: '720px' }} className="d-flex flex-column align-items-center pb-5 text-center">
-              {screenWidth > 576 ? <h1>Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
+          <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between py-5">
+            <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center pb-5">
+              {screenWidth > 576 ? <h1  className="">Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
               <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-              <div className="d-flex justify-content-center m-auto">
+              <div className="d-flex justify-content-center">
                 <Link href="/users/register">
-                  <a className="btn primary high large">Create my page</a>
+                  <a className="btn primary high">Create my page</a>
                 </Link>
               </div>
             </div>
@@ -186,8 +262,298 @@ const Home = () => {
               </iframe>
             </div> */}
           </div>
+          <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <div className={`d-flex flex-column flex-lg-row align-items-center gap-5`}>
+              <div className="mb-4 w-100">
+                <a target="_blank" className="d-block position-relative w-100">
+                  <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                    <div className={`w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/photo-1664575198308-3959904fa430.jpeg)` }}>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div className="w-100">
+                <h2 className="mb-3">Build trust</h2>
+                <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
+                <Link href="/users/register">
+                  <a className="btn primary high medium mt-5">Get started</a>
+                </Link>
+              </div>
+            </div>
+           
+          </div>
+          <div style={{paddingBottom: '120px'}}>
+            <div className={`d-flex flex-column flex-lg-row align-items-center gap-5`}>
+              <div className="w-100 order-1 order-lg-0">
+                <h2 className="mb-3">Easy setup</h2>
+                <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
+                <Link href="/users/register">
+                  <a className="btn primary high medium mt-5">Get started</a>
+                </Link>
+              </div>
+              <div className="mb-4 w-100 order-0 order-lg-1">
+                <a target="_blank" className="d-block position-relative w-100">
+                  <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                    <div className={`w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/photo-1588064549181-755cf87668ab.jpeg)` }}>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         </Container> 
-        <br></br>
+        {/* <div className="bg-light-900">
+          <div className="bg-primary-100">
+            <div className={`container ${styles.sectionWrapper}`}>
+              <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
+              <div className="d-flex flex-column" style={{gap: '24px'}}>
+                <PostCard 
+                  image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
+                  title="How to ace recorded interviews"
+                  duration="2"
+                  bodyPreview="Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you..."
+                  postUrl="/blog/how-to-ace-recorded-interviews"
+                  screenWidth={screenWidth}
+                />
+                <PostCard 
+                  image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
+                  title="Four things to research about a company before an interview"
+                  duration="2"
+                  bodyPreview="When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to..."
+                  postUrl="/blog/four-things-to-research-about-a-company-before-an-interview"
+                  screenWidth={screenWidth}
+                />
+                <PostCard 
+                  image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
+                  title="What to send in a follow up email after an interview"
+                  duration="2"
+                  bodyPreview="So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All..."
+                  postUrl="/blog/what-to-send-in-a-follow-up-email-after-an-interview"
+                  screenWidth={screenWidth}
+                />
+              </div>
+            </div>
+          </div>
+        </div> */}
+        {/* <div className="bg-light-900">
+          <div className="">
+            <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
+              <div>
+                <h2 className="text-left mb-5 w-100" style={{ minWidth: '320px', maxWidth: '320px' }}>Use cases</h2>
+                <div className="d-flex flex-row gap-3">
+                  <button role="button" onClick={backwardUseCase} className="btn dark medium icon-only">
+                    <svg viewBox="0 0 24 24">
+                      <path d={ICONS.ARROW_LEFT}></path>
+                    </svg>
+                  </button>
+                  <button role="button" onClick={forwardUseCase} className="btn dark medium icon-only">
+                    <svg viewBox="0 0 24 24">
+                      <path d={ICONS.ARROW_RIGHT}></path>
+                    </svg>
+                  </button>
+                </div>
+                {useCaseFeature}
+              </div>
+              <div className="position-relative w-100" style={{height: '560px'}}>
+                <div className="d-flex flex-row gap-3 position-absolute" style={{left: 0, width: 'max-content'}}>
+                  {useCases.map((useCase, index) => {
+                    return (
+                      <div key={index} className={`d-flex flex-column justify-content-between bg-primary-300 radius-4 p-5 w-100 ${styles.useCaseCard} ${useCaseFeature > index && styles.useCaseCardHide}`} style={{maxWidth: '440px', height: '560px'}}>
+                        <div>
+                          <h3>{useCase.title}</h3>
+                          <p className="mb-0 extra-large text-dark-high font-weight-medium">{useCase.description}</p>
+                        </div>
+                        <Link href="/users/register">
+                          <a className="btn primary high mt-5">Get started</a>
+                        </Link>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
+        
+        <div className="bg-light-900">
+          <div className="bg-primary-100">
+            <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
+              <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Got a question?</h2>
+              <Accordion style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
+              <div className={`d-flex flex-column gap-4 w-100 ${styles.accordionWrapper}`}>
+                <div className="d-flex flex-column">
+                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                    <p className="mb-0 extra-large text-dark-high font-weight-medium">How much does it cost?</p>
+                    <CustomToggle eventKey="0">Click me!</CustomToggle>
+                  </div>
+                  <Accordion.Collapse eventKey="0">
+                    <p className="mt-2 large">Free during the Beta! We will only be charging for paid features in the future such as custom domains.</p>
+                  </Accordion.Collapse>
+                  <hr className="mb-0 w-100"></hr>
+                </div>
+                <div className="d-flex flex-column">
+                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                    <p className="mb-0 extra-large text-dark-high font-weight-medium">Who is this for?</p>
+                    <CustomToggle eventKey="1">Click me!</CustomToggle>
+                  </div>
+                  <Accordion.Collapse eventKey="1">
+                    <p className="mt-2 large">Anyone who wants to build a Personal Branding site without having to pay too much or spend too much time on it.</p>
+                  </Accordion.Collapse>      
+                  <hr className="mb-0 w-100"></hr>          
+                </div>
+                <div className="d-flex flex-column">
+                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                    <p className="mb-0 extra-large text-dark-high font-weight-medium">What makes this different?</p>
+                    <CustomToggle eventKey="2">Click me!</CustomToggle>
+                  </div>
+                  <Accordion.Collapse eventKey="2">
+                    <p className="mt-2 large">We are focused on speed! You can use your Linkedin profile to make the content and our tech to make a clean design for your site.</p>
+                  </Accordion.Collapse>      
+                  <hr className="mb-0 w-100"></hr>                 
+                </div>
+                <div className="d-flex flex-column">
+                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                    <p className="mb-0 extra-large text-dark-high font-weight-medium">How much does it cost?</p>
+                    <CustomToggle eventKey="3">Click me!</CustomToggle>
+                  </div>
+                  <Accordion.Collapse eventKey="3">
+                    <p className="mt-2 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
+                  </Accordion.Collapse>             
+                </div>
+              </div>
+              </Accordion>
+            </div>
+          </div>
+        </div>
+        <Container>
+          {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
+            <div className={`${styles.layoutGrid}`}>
+              <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
+              <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
+            </div>
+            <Link href="/users/register">
+              <a className="btn primary high medium mt-5">Get started</a>
+            </Link>
+          </div> */}
+          {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>A professional website to build relationships</h2>
+            <div className={`${styles.layoutGrid}`}>
+              <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p className="large mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+            <Link href="/users/register">
+              <a className="btn primary high medium mt-5">Get started</a>
+            </Link>
+            <div className="mb-4 w-100 mt-5 pt-5">
+              <div className="d-block position-relative w-100">
+                <div className="d-flex flex-column flex-lg-row w-100 gap-3">
+                  <div className="d-block position-relative col-12 col-lg-3 p-0">
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1671741519841-3cd1cd570274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80)`}}></div>
+                  </div>
+                  <div className="d-block position-relative col-12 col-lg-5 p-0">
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)` }}></div>
+                  </div>
+                  <div className="d-flex flex-column col-12 col-lg-3 p-0 gap-4" style={{marginTop: '-64px'}} >
+                    <div className="d-block position-relative">
+                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1676809172626-34d0538cc8e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80)` }}></div>
+                    </div>
+                    <div className="d-block position-relative">
+                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1672287578649-fd7370ca7b31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTV8fHByb2Zlc3Npb25hbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60)` }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>A professional website to build relationships</h2>
+            <div className={`${styles.layoutGrid}`}>
+              <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p className="large mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+            <Link href="/users/register">
+              <a className="btn primary high medium mt-5">Get started</a>
+            </Link>
+            <div className="mb-4 w-100 mt-5 pt-5">
+              <div className="d-block position-relative w-100">
+                <div className="d-flex flex-column w-100 gap-3">
+                  <div className="d-block position-relative p-0">
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/profile-preview-landing.png)`, boxShadow: 'none', }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          {/* <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
+            <div className={`${styles.layoutGrid}`}>
+                {testData.map((data, index) => {
+                  const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                  return (
+                    <div key={index} className={`d-flex flex-column align-items-start`}>
+                      {data.logo_url ?
+                        <div className="mb-4 w-100">
+                          <a target="_blank" href={data.url} className="d-block position-relative w-100">
+                            <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                              <div className={`w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(${data.logo_url ? data.logo_url : null})` }}>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        : null
+                      }
+                      <div className="w-100">
+                        <h4 className="mb-3">{data.name}</h4>
+                        {data.description ? <p className="large mb-0">{data.description}</p> : null}
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>
+            <Link href="/users/register">
+              <a className="btn primary high medium mt-5">Get started</a>
+            </Link>
+          </div> */}
+          {/* <div className={`container ${styles.sectionWrapper}`}>
+            <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
+            <div className="d-flex flex-column" style={{gap: '24px'}}>
+              <PostCard 
+                image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
+                title="How to ace recorded interviews"
+                duration="2"
+                bodyPreview="Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you..."
+                postUrl="/blog/how-to-ace-recorded-interviews"
+                screenWidth={screenWidth}
+              />
+              <PostCard 
+                image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
+                title="Four things to research about a company before an interview"
+                duration="2"
+                bodyPreview="When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to..."
+                postUrl="/blog/four-things-to-research-about-a-company-before-an-interview"
+                screenWidth={screenWidth}
+              />
+              <PostCard 
+                image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
+                title="What to send in a follow up email after an interview"
+                duration="2"
+                bodyPreview="So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All..."
+                postUrl="/blog/what-to-send-in-a-follow-up-email-after-an-interview"
+                screenWidth={screenWidth}
+              />
+            </div>
+          </div> */}
+          <div className={`d-flex flex-column align-items-center text-center mx-auto gap-4 ${styles.sectionWrapper}`} style={{ maxWidth: '720px', paddingBottom: '160px' }}>
+            {screenWidth > 576 ? <h1>Build your brand today with ExpertPage</h1> : <h2>Build your brand today with ExpertPage</h2>}
+            {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
+            <div className="d-flex m-auto justify-content-center">
+              <Link href="/users/register">
+                <a className="btn primary high large m-auto">Get started</a>
+              </Link>
+            </div>
+          </div>
+        </Container>
       </div>
       {/* <div className={`${styles.imageCarouselWrapper}`}>
         <div id="imageCarousel" className={`d-flex flex-row ${styles.imageCarousel}`} style={{gap: '24px'}}>
@@ -209,30 +575,7 @@ const Home = () => {
           />
         </div>
       </div> */}
-      {/* <div className={`overflow-hidden ${styles.primaryBackground}`}>
-        <Container className={styles.sectionWrapper}>
-          <div className="text-center">
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use ExpertPage?</h2> }    
-            <div className={styles.stepsContainer}>
-              <div className="d-flex flex-column align-items-center">
-                <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">Stand out</h3>
-                <h5 className="text-light-med">Get yourself noticed with a unique personal landing page.</h5>
-              </div>
-              <div className="d-flex flex-column align-items-center">
-                <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No data entry</h3>
-                <h5 className="text-light-med">Syncing your information from your LinkedIn account.</h5>
-              </div>
-              <div className="d-flex flex-column align-items-center">
-                <Icon icon={ICONS.FOCUS} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No distractions</h3>
-                <h5 className="text-light-med">It’s your profile. It’s no place for other people’s profiles.</h5>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div> */}
+      
       {/* <Container> */}
       {/* <div className={`text-center ${styles.sectionWrapper}`}>
         <div className={styles.stepsContainer}>
@@ -351,44 +694,7 @@ const Home = () => {
             </Link>
           </div>
         </div> */}
-        {/* <div className={`container ${styles.sectionWrapper}`}>
-          <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Learn how to land your dream role</h2>
-          <div className="d-flex flex-column" style={{gap: '24px'}}>
-            <PostCard 
-              image='/images/blog/how-to-ace-recorded-interviews/how-to-ace-recorded-interviews.jpg'
-              title="How to ace recorded interviews"
-              duration="2"
-              bodyPreview="Recorded interviews are much like a phone or online video interview, except at no point in a recorded interview will you..."
-              postUrl="/blog/how-to-ace-recorded-interviews"
-              screenWidth={screenWidth}
-            />
-            <PostCard 
-              image='/images/blog/four-things-to-research-about-a-company-before-an-interview/four-things-to-research-about-a-company-before-an-interview.jpg'
-              title="Four things to research about a company before an interview"
-              duration="2"
-              bodyPreview="When it comes to interviewing for a role, it pays to be prepared. We’ve already talked about what to do if you have to..."
-              postUrl="/blog/four-things-to-research-about-a-company-before-an-interview"
-              screenWidth={screenWidth}
-            />
-            <PostCard 
-              image='/images/blog/what-to-send-in-a-follow-up-email-after-an-interview/what-to-send-in-a-follow-up-email-after-an-interview.jpg'
-              title="What to send in a follow up email after an interview"
-              duration="2"
-              bodyPreview="So you just nailed the interview. You’re now enjoying a well-earned coffee. Your future is now in the hands of fate. All..."
-              postUrl="/blog/what-to-send-in-a-follow-up-email-after-an-interview"
-              screenWidth={screenWidth}
-            />
-          </div>
-        </div> */}
-        {/* <div className={`text-center mx-auto ${styles.sectionWrapper}`} style={{ maxWidth: '720px' }}>
-          {screenWidth > 576 ? <h1>Turn your Linkedin profile into a website</h1> : <h2>Turn your Linkedin profile into a website</h2>}
-          <p className="large mx-auto mb-5" style={{ maxWidth: '640px' }}>Create your very own professional website in just two minutes</p>
-          <div className="d-flex m-auto justify-content-center">
-            <Link href="/users/register">
-              <a className="btn primary high large m-auto">Get started</a>
-            </Link>
-          </div>
-        </div> */}
+        
       {/* </Container> */}
       <div ref={ref} className="w-100" style={{zIndex: '1', position: 'fixed', bottom: 0}}>
         <Footer />

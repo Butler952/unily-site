@@ -314,13 +314,13 @@ const Freelance = (props) => {
               <div className="py-5 background-light">
                 <div className="d-flex flex-column align-items-center container text-center">
                   {props.screenWidth && props.screenWidth > 767 ?
-                    <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
+                    <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here</h2>
                     :
-                    <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
+                    <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here</h2>
                   }
-                  <p className="mx-auto mb-5 text-dark-med large">Turn your Linkedin profile into a landing page in two minutes</p>
-                  <Link href="/users/register">
-                    <a className="btn primary high large">Get started</a>
+                  <p className="mx-auto mb-5 text-dark-med large">It's possible that this page was in the lighthouse at Alexandria.</p>
+                  <Link href="/">
+                    <a className="btn primary high large">Head home</a>
                   </Link>
                 </div>
               </div>

@@ -9,7 +9,7 @@ const Terms = () => {
       heroTitle="Terms and Conditions"
       lastUpdated="9th Apr 2021"
     >
-      <div className="m-4 m-sm-5" >
+      <div className="my-4 my-sm-5" >
         <div className="Group">
           <h3>1.   Agreement to Terms</h3>
           <br></br>
@@ -29,7 +29,7 @@ const Terms = () => {
         </div>
       </div >
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>2.    Acceptable Use</h3>
           <br></br>
@@ -67,7 +67,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3> 3.   Our content</h3>
           <br></br>
@@ -81,7 +81,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3> 4.    Site Management</h3>
           <br></br>
@@ -91,7 +91,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>5.    Modifications to and availability of the Site</h3>
           <br></br>
@@ -101,7 +101,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>6.    Disclaimer/Limitation of Liability</h3>
           <br></br>
@@ -123,7 +123,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>7.    Term and Termination</h3>
           <br></br>
@@ -134,7 +134,7 @@ const Terms = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>8.    General</h3>
           <br></br>

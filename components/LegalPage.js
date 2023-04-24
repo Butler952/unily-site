@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Head from 'next/head';
 import Link from 'next/link';
 import Header from './header/Header';
@@ -11,41 +11,54 @@ const LegalPage = (props) => {
     lastUpdated,
     children
   } = props;
+
+  const ref = useRef(null)
+
+  const [footerHeight, setFooterHeight] = useState(0)
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [screenWidth, setScreenWidth] = useState('');
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
+    if (ref?.current?.clientHeight) {
+      setFooterHeight(ref.current.clientHeight)
+    }
     window.addEventListener('resize', handleResize);
   }, []);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
+    if (ref?.current?.clientHeight) {
+      setFooterHeight(ref.current.clientHeight)
+    }
   };
 
   return (
     <div>
-      <Header />
+      <Header positionFixed/>
 
       <Head>
         <title>{heroTitle}</title>
         <link rel="shortcut icon" href="/images/expertpage-logo-icon.svg" />
       </Head>
-      <div className="container">
-        <div className="card my-5">
+      <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
+        <div className="container py-5">
           <div>
-            <div className="m-4 m-sm-5">
+            <div className="my-4 my-sm-5">
               {screenWidth > 767 ?
-                <h2 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h2>
+                <h1 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h1>
                 :
-                <h3 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h3>
+                <h2 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h2>
               }
-              <p className="m-0">Last updated {lastUpdated}</p>
             </div>
           </div>
-          <hr className="m-0" />
+          <br></br>
           {children}
+          <p className="my-5 py-4 text-dark-low">Last updated {lastUpdated}</p>
         </div>
+      </div>
+      <div ref={ref} className="w-100" style={{zIndex: '1', position: 'fixed', bottom: 0}}>
         <Footer />
       </div>
      {/* <Container className="mt-5 py-5">

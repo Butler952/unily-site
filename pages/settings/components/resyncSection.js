@@ -203,7 +203,7 @@ const ResyncSection = ({
         </div>
         <hr className="m-0"/>
         <div className="m-4">
-        <button type="button" onClick={handleShow} className="btn primary high mr-md-3 w-100 w-md-auto">Re-sync from Linkedin</button>
+        <button type="button" onClick={handleShow} className="btn primary medium mr-md-3 w-100 w-md-auto">Re-sync from Linkedin</button>
           {/* {syncError !== '' ? <p className="small text-error-high mt-2">{syncError}</p> : null} */}
         </div>
         {/*<div className="m-4">

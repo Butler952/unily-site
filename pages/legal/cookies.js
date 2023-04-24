@@ -7,14 +7,14 @@ const Cookies = () => {
       heroTitle="Cookie Policy"
       lastUpdated="9th Apr 2021"
     >
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <p>This Cookie Policy explains how expertpage.io ("<strong>Company</strong>", "<strong>we</strong>", "<strong>us</strong>", and "<strong>our</strong>") uses cookies and similar technologies to recognize you when you visit our websites at https://www.expertpage.io, ("<strong>Websites</strong>"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.</p>
           <p>In some cases we may use cookies to collect personal information, or that becomes personal information if we combine it with other information.</p>
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>What are cookies?</h3>
           <br></br>
@@ -23,7 +23,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>Why do we use cookies?</h3>
           <br></br>
@@ -32,7 +32,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>How can I control cookies?</h3>
           <br></br>
@@ -43,7 +43,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>What about other tracking technologies, like web beacons?</h3>
           <br></br>
@@ -51,7 +51,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>Do you use Flash cookies or Local Shared Objects?</h3>
           <br></br>
@@ -61,7 +61,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>Do you serve targeted advertising?</h3>
           <br></br>
@@ -69,7 +69,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>How often will you update this Cookie Policy?</h3>
           <br></br>
@@ -78,7 +78,7 @@ const Cookies = () => {
         </div>
       </div>
       <hr></hr>
-      <div className="m-4 m-sm-5">
+      <div className="my-4 my-sm-5">
         <div className="Group">
           <h3>Where can I get further information?</h3>
           <br></br>

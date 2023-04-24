@@ -309,7 +309,7 @@ const PrettyUrlSection = ({
         </div> */}
         <hr className="m-0" />
         <div className="m-4">
-          <button type="button" onClick={handleSave} className="btn primary high w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
+          <button type="button" onClick={handleSave} className="btn primary medium w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
 
         </div>
       </div>

@@ -185,22 +185,17 @@ const Register = () => {
         <title>Create an account</title>
       </Head>
       <Container className="py-5">
-        <div className="card m-auto" style={{maxWidth: "640px"}}>
-          <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Sign up</h5>
-          </div>
-          <hr className="m-0"/>
-          <div className="p-4 p-md-5">
+        <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
+          <h3 className="text-dark-high">Create my page</h3>
+          <div className="">
             <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
             <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <p className="large text-dark-high">Email</p>
-                <input type="text" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
+                <input type="text" placeholder="Email" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
                 {emailError !== '' ? <p className="small text-error-high mt-2">{emailError}</p> : null}
               </div>
               <div className="mb-4">
-                <p className="large text-dark-high">Password</p>
-                <input type="password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
+                <input type="password" placeholder="Password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
               {/* <div className="mb-4">

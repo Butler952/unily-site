@@ -87,25 +87,20 @@ const Login = () => {
         <title>Sign in to your account</title>
       </Head>
       <Container className="py-5">
-        <div className="card m-auto" style={{maxWidth: "640px"}}>
-          <div className="py-4 px-4 px-md-5">
-            <h5 className="text-dark-high mb-0">Sign in</h5>
-          </div>
-          <hr className="m-0"/>
-          <div className="p-4 p-md-5">
+      <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
+          <div className="">
+          <h3 className="text-dark-high">Sign in</h3>
+
             <p className="mb-4">Not got an account? <Link href="/users/register">Sign up</Link></p>
             <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <p className="large text-dark-high">Email</p>
-                <input type="text" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
+                <input type="text" placeholder="Email" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
                 {emailError !== '' ? <p className="small text-error-high mt-2">{emailError}</p> : null}
               </div>
               <div className="mb-4">
-                <p className="large text-dark-high">Password</p>
-                <input type="password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
+                <input type="password" placeholder="Password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
-              <br />
               <p className="mb-4">Forgot your password? <Link href="/users/reset">Reset your password</Link></p>
               <br />
               <button type="submit" className="btn primary high"disabled={signingIn}>{signingIn ? 'Logging in...' : 'Login'}</button>

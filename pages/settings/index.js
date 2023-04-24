@@ -739,7 +739,7 @@ const Settings = () => {
               handleUpgrade={handleUpgrade}
             />
             {/* <CustomDomainSection userData={userData} /> */}
-            <ResyncSection
+            {/* <ResyncSection
               linkedinId={linkedinId}
               userData={userData}
               //syncsRemaining={syncsRemaining}
@@ -749,7 +749,7 @@ const Settings = () => {
               status={status}
               handleUpdate={handleUpdate}
               handleUpgrade={handleUpgrade}
-            />
+            /> */}
 
           </div>
         </Container>

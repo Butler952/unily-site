@@ -7,6 +7,7 @@
 
 html {
   transition: $transition-standard;
+  border: 0;
 }
 
 body {
@@ -23,9 +24,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   white-space: pre-line;
 }
-h1, h2, h3, h4 {  
+h1, h2, h3, h4, h5 {  
   margin-bottom: 1.5rem; 
-  line-height: 1.2;
+  line-height: 1.1;
   color: $dark-900; 
   font-weight: 800;
   font-variant-ligatures: none;
@@ -36,7 +37,7 @@ h1 { font-size: 64px; }
 h2 { font-size: 48px; }
 h3 { font-size: 34px; }
 h4 { font-size: 28px; }
-h5 { font-size: 24px; line-height: 1.5; margin-bottom: 1.5rem; }
+h5 { font-size: 24px; }
 
 h1.display1 {
   font-size: 104px;
@@ -89,7 +90,7 @@ a {
 .text-error-high { color: $error-900; }
 .text-error-med { color: $error-800; }
 .text-error-low { color: $error-700; }
-.text-error-dis { color: $error-600; }
+.text-error-dis { color: error-600; }
 
 .text-warning-high { color: $warning-900; }
 .text-warning-med { color: $warning-800; }
@@ -388,7 +389,7 @@ a.btn, input.btn, button.btn {
   justify-content: center;
   width: fit-content;
   white-space: nowrap;
-  transition: $transition-short;
+  transition: $transition-short, box-shadow $transition-standard;
   &:focus {
     box-shadow: 0 0 0 0.2rem $primary-600;
   }
@@ -437,38 +438,45 @@ a.btn, input.btn, button.btn {
   }
   &.primary {
     &.high {
-      background: $primary-900; 
+      // background: $primary-900; 
+      background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
       color: $white; 
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $primary-900-hover;
         color: $white; 
+        text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 40px;
       }
     }
     &.medium {
-      background: $primary-light; 
-      color: $primary-900; 
+      // background: $primary-light; 
+      // background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+      background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
+      color: $primary-900;
       svg path {
         fill: $primary-900;
       }
       &:hover {
-        background: $primary-900;
         color: $white; 
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 40px;
+        background: linear-gradient(92.88deg, rgba(69, 94, 181, 1) 9.16%, rgba(86, 67, 204, 1) 43.89%, rgba(103, 63, 215, 1) 64.72%);
+        // background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+        // background: -webkit-linear-gradient(#eee, #333);
+
         svg path {
           fill: $white;
         }
       }
     }
     &.low {
-      color: $primary-900; 
+      color: $primary-900;
       svg path {
         fill: $primary-900;
       }
       &:hover {
-        background: $primary-light;
-        color: $primary-900; 
+        background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
       }
     }
   }
@@ -724,6 +732,11 @@ a.btn, input.btn, button.btn {
       order: 1;
       margin-left: 8px;
     }
+  }
+  &.small {
+    padding: 2px 8px;  
+    font-size: 12px;
+    line-height: 20px;
   }
   &.primary {
     &.high {
@@ -1358,7 +1371,7 @@ textarea {
   width: 100%;
   background-clip: padding-box;
   border: 1px solid $dark-light;
-  border-radius: $radius-medium;
+  border-radius: $radius-large;
   outline: 0;
   overflow: hidden;
   box-shadow: $shadow-5;
@@ -1403,7 +1416,7 @@ textarea {
 .card {
   background-color: $white;
   border: none;
-  border-radius: $radius-medium;
+  border-radius: $radius-large;
   box-shadow: $shadow-2;
 }
 
@@ -1465,3 +1478,129 @@ textarea {
 .gap-3 { gap: 16px }
 .gap-4 { gap: 24px }
 .gap-5 { gap: 48px }
+
+.gap-sm-0 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 0;
+  }
+}
+.gap-md-0 {
+  @media (min-width: $breakpoint-md) {
+    gap: 0;
+  }
+}
+.gap-lg-0 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 0;
+  }
+}
+.gap-xl-0 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 0;
+  }
+}
+
+.gap-sm-1 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 4px;
+  }
+}
+.gap-md-1 {
+  @media (min-width: $breakpoint-md) {
+    gap: 4px;
+  }
+}
+.gap-lg-1 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 4px;
+  }
+}
+.gap-xl-1 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 4px;
+  }
+}
+
+.gap-sm-2 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 8px;
+  }
+}
+.gap-md-2 {
+  @media (min-width: $breakpoint-md) {
+    gap: 8px;
+  }
+}
+.gap-lg-2 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 8px;
+  }
+}
+.gap-xl-2 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 8px;
+  }
+}
+
+.gap-sm-3 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 16px;
+  }
+}
+.gap-md-3 {
+  @media (min-width: $breakpoint-md) {
+    gap: 16px;
+  }
+}
+.gap-lg-3 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 16px;
+  }
+}
+.gap-xl-3 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 16px;
+  }
+}
+
+.gap-sm-4 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 24px;
+  }
+}
+.gap-md-4 {
+  @media (min-width: $breakpoint-md) {
+    gap: 24px;
+  }
+}
+.gap-lg-4 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 24px;
+  }
+}
+.gap-xl-4 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 24px;
+  }
+}
+
+.gap-sm-5 {
+  @media (min-width: $breakpoint-sm) {
+    gap: 48px;
+  }
+}
+.gap-md-5 {
+  @media (min-width: $breakpoint-md) {
+    gap: 48px;
+  }
+}
+.gap-lg-5 {
+  @media (min-width: $breakpoint-lg) {
+    gap: 48px;
+  }
+}
+.gap-xl-5 {
+  @media (min-width: $breakpoint-xl) {
+    gap: 48px;
+  }
+}

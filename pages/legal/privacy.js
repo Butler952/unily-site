@@ -9,7 +9,7 @@ const Terms = () => {
       heroTitle="Privacy Policy"
       lastUpdated="9th Apr 2021"
     >
-       <div className="m-4 m-sm-5">
+       <div className="my-4 my-sm-5">
             <div className="Group">
                 <p>Thank you for choosing to be part of our community at expertpage.io (“<strong>Company</strong>”, “<strong>we</strong>”, “<strong>us</strong>”, or “<strong>our</strong>”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at aaron@expertpage.io.</p>
                 <p>When you visit our <Link href="/">website</Link>, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy policy, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites and our services.</p>
@@ -18,7 +18,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>1. What information do we collect?</h3>
                 <br></br>
@@ -37,7 +37,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>2. How do we use your information?</h3>
                 <br></br>
@@ -51,7 +51,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>3. Will your information be shared with anyone?</h3>
                 <br></br>
@@ -72,7 +72,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>4. Do we use cookies and other tracking technologies?</h3>
                 <br></br>
@@ -81,7 +81,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>5. How long do we keep your information?</h3>
                 <br></br>
@@ -91,7 +91,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>6. How do we keep your information safe?</h3>
                 <br></br>
@@ -100,7 +100,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>7. Do we collect information from minors?</h3>
                 <br></br>
@@ -109,7 +109,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>8. What are your privacy rights?</h3>
                 <br></br>
@@ -121,7 +121,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>9. Data breach</h3>
                 <br></br>
@@ -129,7 +129,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>10. Controls for do-not-track features</h3>
                 <br></br>
@@ -137,7 +137,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>11. Do we make updates to this policy?</h3>
                 <br></br>
@@ -146,7 +146,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>12. How can you contact us about this policy?</h3>
                 <br></br>
@@ -155,7 +155,7 @@ const Terms = () => {
             </div>
         </div>
         <hr></hr>
-        <div className="m-4 m-sm-5">
+        <div className="my-4 my-sm-5">
             <div className="Group">
                 <h3>How can you review, update, or delete the data we collect from you?</h3>
                 <br></br>

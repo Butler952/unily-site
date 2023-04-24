@@ -320,11 +320,11 @@ const Header = ({
             ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid border-dark-300'}
             ${positionFixed && 'position-fixed'}
           `} 
-          style={windowUrl == '' ? { minHeight: '64px', zIndex: '2', top: 0 } : { minHeight: '64px', zIndex: '2', top: 0 }}>
+          style={windowUrl == '' ? { minHeight: '64px', zIndex: '3', top: 0, position: 'relative' } : { minHeight: '64px', zIndex: '3', top: 0, position: 'relative' }}>
           {userContext !== '' ?
             // {loggedIn ?
             <>
-              <div>
+              <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
                   <a>
                     {screenWidth > 767 ?
@@ -334,6 +334,8 @@ const Header = ({
                     }
                   </a>
                 </Link>
+                <div className="tag small primary medium">Beta</div>
+
                 {/* <div className="d-flex">
             <Link href={profileUrl}>
               <a className="btn primary low small">Profile</a>
@@ -374,7 +376,7 @@ const Header = ({
                       </div> 
                     : null} */}
                 
-                    <button 
+                    {/* <button 
                       type="button" 
                       onClick={() => handleEditProfileShow()}
                       className={`btn primary high small mr-2 ${screenWidth > 575 ? 'icon-left' : 'icon-only'}`}
@@ -383,7 +385,7 @@ const Header = ({
                         <path d={ICONS.EDIT}></path>
                       </svg>
                       {screenWidth > 575 ? 'Edit content' : null}
-                    </button>
+                    </button> */}
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
@@ -536,7 +538,7 @@ const Header = ({
             </>
             :
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
-              <div className="d-flex align-items-center" style={{ gap: '32px' }}>
+              <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
                   <a>
                     {screenWidth > 767 ?
@@ -547,6 +549,7 @@ const Header = ({
                     {/* <img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
                   </a>
                 </Link>
+                <div className="tag small primary medium">Beta</div>
                 {/* {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>
                     <Link href="/templates">

@@ -130,8 +130,8 @@
   margin-bottom: 16px;
 }
 .sectionWrapper {
-  margin-top: 160px;
-  margin-bottom: 160px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 .primaryBackground {
   background: $primary-900;
@@ -153,3 +153,53 @@
     box-shadow: $shadow-5;
   }
 }*/
+
+.layoutGrid {
+  display: grid;
+  gap: 48px;
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &:hover {
+    * {
+      text-decoration: none;
+    }
+  }
+}
+
+.sectionImage {
+  padding-top: 66.66%; 
+  background-position: center;  
+  background-size: cover;
+  border-radius: $radius-large;
+  box-shadow: $shadow-2;
+}
+
+.accordionWrapper {
+  @media (min-width: $breakpoint-lg) {
+    max-width: 640px;
+  }
+}
+
+.useCaseCard {
+  transition: $transition-long;
+}
+
+.useCaseCardHide {
+  position: absolute;
+  left: 0;
+  scale: 0.2;
+}
+
+.fixedHeader {
+  position: fixed;
+  transition: $transition-standard;
+  top: -66px;
+  width: 100%;
+  z-index: 3;
+}
+
+.fixedHeaderScrolled {
+  position: fixed;
+  top: 0;
+}

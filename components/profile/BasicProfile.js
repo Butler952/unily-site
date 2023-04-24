@@ -646,13 +646,13 @@ const BasicProfile = (props) => {
             <div className="py-5 background-light">
               <div className="d-flex flex-column align-items-center container text-center">
                 {props.screenWidth && props.screenWidth > 767 ?
-                  <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
+                  <h2 className="hero-title mx-auto mb-3 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here!</h2>
                   :
-                  <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
+                  <h2 className="hero-title mx-auto mb-3 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here!</h2>
                 }
-                <p className="mx-auto mb-5 text-dark-med large">Turn your Linkedin profile into a landing page in two minutes</p>
-                <Link href="/users/register">
-                  <a className="btn primary high large">Get started</a>
+                <p className="mx-auto text-dark-med mb-4 large">Either the page you're looking for is very good at hiding or it doesn't exist.</p>
+                <Link href="/">
+                  <a className="btn primary high">Head home</a>
                 </Link>
               </div>
             </div>
