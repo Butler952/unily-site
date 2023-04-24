@@ -245,9 +245,9 @@ const Home = () => {
         <br></br>
         <br></br>
         <Container className="py-5">
-          <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between py-5">
+          <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
             <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center pb-5">
-              {screenWidth > 576 ? <h1  className="">Build trust with your own personal freelance site</h1> : <h2>Build trust with your own personal freelance site</h2>}
+              {screenWidth > 576 ? <h1  className="">Build trust with your own personal freelance site</h1> : <h2 className="">Build trust with your own personal freelance site</h2>}
               <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
               <div className="d-flex justify-content-center">
                 <Link href="/users/register">
@@ -262,7 +262,22 @@ const Home = () => {
               </iframe>
             </div> */}
           </div>
-          <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+        </Container>
+        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
+          <Container>
+            <div className="w-100">
+              <div className="d-block position-relative w-100">
+                <div className="d-flex flex-column w-100 gap-3">
+                  <div className="d-block position-relative px-lg-5">
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+        <Container>
+          {/* <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
             <div className={`d-flex flex-column flex-lg-row align-items-center gap-5`}>
               <div className="mb-4 w-100">
                 <a target="_blank" className="d-block position-relative w-100">
@@ -273,7 +288,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="w-100">
-                <h2 className="mb-3">Build trust</h2>
+                <h2 className="mb-3 ">Build trust</h2>
                 <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
                 <Link href="/users/register">
                   <a className="btn primary high medium mt-5">Get started</a>
@@ -285,7 +300,7 @@ const Home = () => {
           <div style={{paddingBottom: '120px'}}>
             <div className={`d-flex flex-column flex-lg-row align-items-center gap-5`}>
               <div className="w-100 order-1 order-lg-0">
-                <h2 className="mb-3">Easy setup</h2>
+                <h2 className="mb-3 ">Easy setup</h2>
                 <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
                 <Link href="/users/register">
                   <a className="btn primary high medium mt-5">Get started</a>
@@ -300,6 +315,16 @@ const Home = () => {
                 </a>
               </div>
             </div>
+          </div> */}
+          <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
+            <div className={`${styles.layoutGrid}`}>
+              <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
+              <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
+            </div>
+            <Link href="/users/register">
+              <a className="btn primary high medium mt-5">Get started</a>
+            </Link>
           </div>
         </Container> 
         {/* <div className="bg-light-900">
@@ -378,7 +403,7 @@ const Home = () => {
         <div className="bg-light-900">
           <div className="bg-primary-100">
             <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
-              <h2 className="text-left mb-5" style={{ maxWidth: '560px' }}>Got a question?</h2>
+              <h2 className="text-left mb-5 " style={{ maxWidth: '560px' }}>Got a question?</h2>
               <Accordion style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
               <div className={`d-flex flex-column gap-4 w-100 ${styles.accordionWrapper}`}>
                 <div className="d-flex flex-column">
@@ -387,7 +412,7 @@ const Home = () => {
                     <CustomToggle eventKey="0">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="0">
-                    <p className="mt-2 large">Free during the Beta! We will only be charging for paid features in the future such as custom domains.</p>
+                    <p className="mt-2mb-0 large">Free during the Beta! We will only be charging for paid features in the future such as custom domains.</p>
                   </Accordion.Collapse>
                   <hr className="mb-0 w-100"></hr>
                 </div>
@@ -397,7 +422,7 @@ const Home = () => {
                     <CustomToggle eventKey="1">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="1">
-                    <p className="mt-2 large">Anyone who wants to build a Personal Branding site without having to pay too much or spend too much time on it.</p>
+                    <p className="mt-2 mb-0 large">Anyone who wants to build a Personal Branding site without having to pay too much or spend too much time on it.</p>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>          
                 </div>
@@ -407,7 +432,7 @@ const Home = () => {
                     <CustomToggle eventKey="2">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="2">
-                    <p className="mt-2 large">We are focused on speed! You can use your Linkedin profile to make the content and our tech to make a clean design for your site.</p>
+                    <p className="mt-2 mb-0 large">We are focused on speed! You can use your Linkedin profile to make the content and our tech to make a clean design for your site.</p>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>                 
                 </div>
@@ -417,7 +442,7 @@ const Home = () => {
                     <CustomToggle eventKey="3">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="3">
-                    <p className="mt-2 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
+                    <p className="mt-2 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
                   </Accordion.Collapse>             
                 </div>
               </div>
@@ -429,14 +454,24 @@ const Home = () => {
           {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
             <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
             <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
-              <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
+              <div className="d-flex flex-column gap-5">
+                <div className="d-block position-relative p-0">
+                  <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)` }}></div>
+                </div>
+                <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+              <div className="d-flex flex-column gap-5">
+                <div className="d-block position-relative p-0">
+                  <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)` }}></div>
+                </div>
+                <p className="large mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              </div>
             </div>
             <Link href="/users/register">
               <a className="btn primary high medium mt-5">Get started</a>
             </Link>
           </div> */}
-          {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
+          <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
             <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>A professional website to build relationships</h2>
             <div className={`${styles.layoutGrid}`}>
               <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -465,26 +500,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div> */}
-          {/* <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
-            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>A professional website to build relationships</h2>
-            <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p className="large mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
-            <Link href="/users/register">
-              <a className="btn primary high medium mt-5">Get started</a>
-            </Link>
-            <div className="mb-4 w-100 mt-5 pt-5">
-              <div className="d-block position-relative w-100">
-                <div className="d-flex flex-column w-100 gap-3">
-                  <div className="d-block position-relative p-0">
-                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/profile-preview-landing.png)`, boxShadow: 'none', }}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+          </div>
           {/* <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
             <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
             <div className={`${styles.layoutGrid}`}>
@@ -545,7 +561,7 @@ const Home = () => {
             </div>
           </div> */}
           <div className={`d-flex flex-column align-items-center text-center mx-auto gap-4 ${styles.sectionWrapper}`} style={{ maxWidth: '720px', paddingBottom: '160px' }}>
-            {screenWidth > 576 ? <h1>Build your brand today with ExpertPage</h1> : <h2>Build your brand today with ExpertPage</h2>}
+            {screenWidth > 576 ? <h1 className="">Build your brand today with ExpertPage</h1> : <h2 className="">Build your brand today with ExpertPage</h2>}
             {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
             <div className="d-flex m-auto justify-content-center">
               <Link href="/users/register">

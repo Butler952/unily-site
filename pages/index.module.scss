@@ -171,6 +171,7 @@
   padding-top: 66.66%; 
   background-position: center;  
   background-size: cover;
+  background-repeat: no-repeat;
   border-radius: $radius-large;
   box-shadow: $shadow-2;
 }
@@ -202,4 +203,8 @@
 .fixedHeaderScrolled {
   position: fixed;
   top: 0;
+}
+
+.gradientSection {
+  background: radial-gradient(at bottom, $primary-700, transparent 50vw);
 }

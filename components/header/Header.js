@@ -376,7 +376,7 @@ const Header = ({
                       </div> 
                     : null} */}
                 
-                    {/* <button 
+                    <button 
                       type="button" 
                       onClick={() => handleEditProfileShow()}
                       className={`btn primary high small mr-2 ${screenWidth > 575 ? 'icon-left' : 'icon-only'}`}
@@ -385,7 +385,7 @@ const Header = ({
                         <path d={ICONS.EDIT}></path>
                       </svg>
                       {screenWidth > 575 ? 'Edit content' : null}
-                    </button> */}
+                    </button>
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
