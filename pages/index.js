@@ -480,7 +480,7 @@ const Home = () => {
             <Link href="/users/register">
               <a className="btn primary high medium mt-5">Get started</a>
             </Link>
-            <div className="mb-4 w-100 mt-5 pt-5">
+            <div className="d-none d-lg-block mb-4 w-100 mt-5 pt-5">
               <div className="d-block position-relative w-100">
                 <div className="d-flex flex-column flex-lg-row w-100 gap-3">
                   <div className="d-block position-relative col-12 col-lg-3 p-0">
