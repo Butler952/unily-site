@@ -155,7 +155,7 @@ const ChangeEmailSection = ({
     <div>
       <div className="card mx-auto mb-5">
         <div className="p-4">
-          <h5 className="text-dark-high mb-0">Manage account</h5>
+          <h5 className="text-dark-high mb-2">Manage account</h5>
           <p className="text-dark-low mb-0">Edit the email address of your account</p>
         </div>
         <hr className="m-0" />

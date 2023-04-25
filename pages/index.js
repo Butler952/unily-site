@@ -242,11 +242,9 @@ const Home = () => {
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a> */}
       <div className="bg-light-900" style={{marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
-        <br></br>
-        <br></br>
         <Container className="py-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
-            <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center pb-5">
+            <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center">
               {screenWidth > 576 ? <h1  className="">Build trust with your own personal freelance site</h1> : <h2 className="">Build trust with your own personal freelance site</h2>}
               <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
               <div className="d-flex justify-content-center">
