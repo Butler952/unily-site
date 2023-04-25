@@ -399,7 +399,9 @@ const Home = () => {
             </div>
           </div>
         </div> */}
-        
+        <div className="d-block position-relative w-100 p-0">
+          <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)`, borderRadius: 0, boxShadow: 'none' }}></div>
+        </div>
         <div className="bg-light-900">
           <div className="bg-primary-100">
             <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
@@ -487,7 +489,7 @@ const Home = () => {
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1671741519841-3cd1cd570274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80)`}}></div>
                   </div>
                   <div className="d-block position-relative col-12 col-lg-5 p-0">
-                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)` }}></div>
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1621274790572-7c32596bc67f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=654&q=80)` }}></div>
                   </div>
                   <div className="d-flex flex-column col-12 col-lg-3 p-0 gap-4" style={{marginTop: '-64px'}} >
                     <div className="d-block position-relative">
