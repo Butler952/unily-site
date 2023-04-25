@@ -226,7 +226,7 @@ const Home = () => {
 
   return (
     <div style={{overflowX: 'hidden'}}>
-      <Header/>
+      <Header hideShadow/>
       <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
         <Header hideShadow={scrollPosition < heroHeight + 66} />
       </div>

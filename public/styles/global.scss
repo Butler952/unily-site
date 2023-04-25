@@ -446,7 +446,7 @@ a.btn, input.btn, button.btn {
   &.primary {
     &.high {
       // background: $primary-900; 
-      background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+      background: linear-gradient(80deg, rgb(69, 94, 181) 10%, rgb(86, 67, 204) 45%, rgb(103, 63, 215) 65%);
       color: $white; 
       svg path {
         fill: $white;
@@ -459,7 +459,7 @@ a.btn, input.btn, button.btn {
     }
     &.medium {
       // background: $primary-light; 
-      // background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+      // background: linear-gradient(80deg, rgb(69, 94, 181) 10%, rgb(86, 67, 204) 45%, rgb(103, 63, 215) 65%);
       background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
       color: $primary-900;
       svg path {
@@ -469,7 +469,7 @@ a.btn, input.btn, button.btn {
         color: $white; 
         box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 40px;
         background: linear-gradient(92.88deg, rgba(69, 94, 181, 1) 9.16%, rgba(86, 67, 204, 1) 43.89%, rgba(103, 63, 215, 1) 64.72%);
-        // background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+        // background: linear-gradient(80deg, rgb(69, 94, 181) 10%, rgb(86, 67, 204) 45%, rgb(103, 63, 215) 65%);
         // background: -webkit-linear-gradient(#eee, #333);
 
         svg path {
