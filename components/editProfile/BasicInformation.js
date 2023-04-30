@@ -82,6 +82,7 @@ const BasicInformation = ({
     })
 
       .then(() => {
+        handleEditProfileChangeView('default')
         setSubmitting(false)
         toast("Basic information updated")
       })

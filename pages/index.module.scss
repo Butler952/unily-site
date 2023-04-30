@@ -167,6 +167,16 @@
   }
 }
 
+.sectionImageTag {
+  position: absolute;
+  transition: $transition-standard;
+  opacity: 0;
+  text-decoration: none!important;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .sectionImage {
   padding-top: 66.66%; 
   background-position: center;  
@@ -174,6 +184,14 @@
   background-repeat: no-repeat;
   border-radius: $radius-large;
   box-shadow: $shadow-2;
+  &.sectionImageVerticle {
+    padding-top: calc(66.66% * 2); 
+  }
+  &:hover {
+    .sectionImageTag {
+      opacity: 1;
+    }
+  }
 }
 
 .accordionWrapper {

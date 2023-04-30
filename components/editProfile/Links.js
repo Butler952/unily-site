@@ -18,11 +18,11 @@ const Links = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit link', index)
+    handleEditProfileChangeView('Edit link', "Highlight anything you like", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add link')
+    handleEditProfileChangeView('Add link', "Highlight anything you like", )
   }
 
   let linksList = [

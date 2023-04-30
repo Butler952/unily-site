@@ -14,11 +14,11 @@ const Products = ({
   const [submitting, setSubmitting] = useState(false);
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit product', index)
+    handleEditProfileChangeView('Edit product', "What you're selling", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add product')
+    handleEditProfileChangeView('Add product', "What you're selling")
   }
 
   return (

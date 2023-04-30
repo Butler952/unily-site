@@ -51,7 +51,7 @@ h1.display2 {
 
 p.extra-large { font-size: 24px; }
 p.large {font-size: 20px; }
-p { font-size: 16px; }
+p { font-size: 16px;  color: $dark-800; }
 p.small { font-size: 14px; }
 p.caption { font-size: 12px; }
 p.error { color: $error-900; }
@@ -949,6 +949,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   outline: 0;
   background: $dark-200;
   transition: $transition-short;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   &.error {
     // border-color: $error-900;
     background: $error-200;

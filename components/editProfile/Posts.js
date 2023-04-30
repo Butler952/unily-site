@@ -18,11 +18,11 @@ const Posts = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit post', index)
+    handleEditProfileChangeView('Edit post', "Your best written content", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add post')
+    handleEditProfileChangeView('Add post', "Your best written content", )
   }
 
   const sortPosts = (a,b) => {

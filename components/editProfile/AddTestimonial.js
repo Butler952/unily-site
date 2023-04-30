@@ -330,7 +330,7 @@ const AddTestimonial = ({
             {testimonialsDateError !== '' ? <p className="small text-error-high mt-2">{testimonialsDateError}</p> : null}
           </div>
           <div className="w-100 mb-3">
-            <p className="text-dark-high mb-2">Description</p>
+            <p className="text-dark-high mb-2">Testimonial</p>
             <textarea 
               className={testimonialsDescriptionError !== '' ? `error w-100 small` : `w-100 small`}
               value={testimonialsDescription}

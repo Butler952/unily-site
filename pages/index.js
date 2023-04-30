@@ -165,13 +165,13 @@ const Home = () => {
     {
       name: 'Build trust',
       logo_url: '../../images/landing-page/photo-1664575198308-3959904fa430.jpeg',
-      description: 'A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.',
+      description: 'A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency helps to establish trust and ultimately lead to more opportunities.',
       url: 'bbc.co.uk'
     },
     {
       name: 'Easy setup',
       logo_url: '../../images/landing-page/photo-1588064549181-755cf87668ab.jpeg',
-      description: 'Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!',
+      description: 'Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started. No coding skills required!',
       url: 'bbc.co.uk'
     },
   ]
@@ -231,9 +231,9 @@ const Home = () => {
         <Header hideShadow={scrollPosition < heroHeight + 66} />
       </div>
       <Head>
-        <title>ExpertPage | Build trust with your own personal freelance site</title>
+        <title>ExpertPage | Build trust and sell more with your own freelance site</title>
         <meta name="description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
-        <meta property="og:title" content="ExpertPage | Build trust with your own personal freelance site" />
+        <meta property="og:title" content="ExpertPage | Build trust and sell more with your own freelance site" />
         <meta property="og:description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
         <meta property="og:url" content="https://www.expertpage.io/" />
         <meta property="og:type" content="website" />
@@ -245,8 +245,8 @@ const Home = () => {
         <Container className="py-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
             <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center">
-              {screenWidth > 576 ? <h1  className="">Build trust with your own personal freelance site</h1> : <h2 className="">Build trust with your own personal freelance site</h2>}
-              <p className="large mb-4" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
+              {screenWidth > 576 ? <h1  className="">Professional websites in two minutes</h1> : <h2 className="">Websites for freelancers and consultants</h2>}
+              <p className="extra-large mb-4" style={{ maxWidth: '640px' }}>Build trust and sell more. Create your own website in two minutes. No tech skills required.</p>
               <div className="d-flex justify-content-center">
                 <Link href="/users/register">
                   <a className="btn primary high">Create my page</a>
@@ -289,7 +289,7 @@ const Home = () => {
                 <h2 className="mb-3 ">Build trust</h2>
                 <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
                 <Link href="/users/register">
-                  <a className="btn primary high medium mt-5">Get started</a>
+                  <a className="btn primary high medium mt-5">Create my page</a>
                 </Link>
               </div>
             </div>
@@ -301,7 +301,7 @@ const Home = () => {
                 <h2 className="mb-3 ">Easy setup</h2>
                 <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
                 <Link href="/users/register">
-                  <a className="btn primary high medium mt-5">Get started</a>
+                  <a className="btn primary high medium mt-5">Create my page</a>
                 </Link>
               </div>
               <div className="mb-4 w-100 order-0 order-lg-1">
@@ -315,13 +315,13 @@ const Home = () => {
             </div>
           </div> */}
           <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
-            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Start building trust in just a few minutes</h2>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Show the world what you have to offer</h2>
             <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">A personal branding site allows you to build trust with potential clients by providing them with a platform to learn more about you and view your portfolio. This transparency can help establish trust and ultimately lead to more opportunities.</p>
-              <p className="large mb-0">Setting up your personal freelance site is easy and only takes two minutes using your LinkedIn profile. No coding skills required!</p>
+              <p className="large mb-0">ExpertPage allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
+              <p className="large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
             </div>
             <Link href="/users/register">
-              <a className="btn primary high medium mt-5">Get started</a>
+              <a className="btn primary high medium mt-5">Create my page</a>
             </Link>
           </div>
         </Container> 
@@ -387,7 +387,7 @@ const Home = () => {
                           <p className="mb-0 extra-large text-dark-high font-weight-medium">{useCase.description}</p>
                         </div>
                         <Link href="/users/register">
-                          <a className="btn primary high mt-5">Get started</a>
+                          <a className="btn primary high mt-5">Create my page</a>
                         </Link>
                       </div>
                     )
@@ -398,7 +398,16 @@ const Home = () => {
           </div>
         </div> */}
         <div className="d-block position-relative w-100 p-0">
-          <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)`, borderRadius: 0, boxShadow: 'none' }}></div>
+          <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/thisisengineering-raeng-TXxiFuQLBKQ-unsplash.jpg)`, borderRadius: 0, boxShadow: 'none' }}>
+            <a href="https://unsplash.com/@thisisengineering" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+              <div className="tag small light high icon-left">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.PHOTO}></path>
+                </svg>
+                ThisisEngineering RAEng
+              </div>
+            </a>
+          </div>
         </div>
         <div className="bg-light-900">
           <div className="bg-primary-100">
@@ -412,7 +421,7 @@ const Home = () => {
                     <CustomToggle eventKey="0">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="0">
-                    <p className="mt-2mb-0 large">Free during the Beta! We will only be charging for paid features in the future such as custom domains.</p>
+                    <p className="mt-3 mb-0 large">It's free to create your ExpertPage site! In the future, we plan to offer a paid plan that will allow you to connect your own domain.</p>
                   </Accordion.Collapse>
                   <hr className="mb-0 w-100"></hr>
                 </div>
@@ -422,7 +431,7 @@ const Home = () => {
                     <CustomToggle eventKey="1">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="1">
-                    <p className="mt-2 mb-0 large">Anyone who wants to build a Personal Branding site without having to pay too much or spend too much time on it.</p>
+                    <p className="mt-3 mb-0 large">Freelancers, consultants, small business owners, or anyone who wants to build a website to show off their products, services and customer testimonials but doesn't have the time or technical skills to build it on their own.</p>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>          
                 </div>
@@ -432,17 +441,20 @@ const Home = () => {
                     <CustomToggle eventKey="2">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="2">
-                    <p className="mt-2 mb-0 large">We are focused on speed! You can use your Linkedin profile to make the content and our tech to make a clean design for your site.</p>
+                    <>
+                      <p className="mt-3 large">Your ExpertPage site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p> 
+                      <p className="mb-0 large">You can create your site in under two minutes, making this the fastest way to get your page up and running.</p>
+                    </>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>                 
                 </div>
                 <div className="d-flex flex-column">
                   <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                    <p className="mb-0 extra-large text-dark-high font-weight-medium">How much does it cost?</p>
+                    <p className="mb-0 extra-large text-dark-high font-weight-medium">Why not use Wix or Squarespace?</p>
                     <CustomToggle eventKey="3">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="3">
-                    <p className="mt-2 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
+                    <p className="mt-3 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
                   </Accordion.Collapse>             
                 </div>
               </div>
@@ -468,33 +480,67 @@ const Home = () => {
               </div>
             </div>
             <Link href="/users/register">
-              <a className="btn primary high medium mt-5">Get started</a>
+              <a className="btn primary high medium mt-5">Create my page</a>
             </Link>
           </div> */}
           <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
-            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>A professional website to build relationships</h2>
+            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Build trust with potential clients</h2>
             <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p className="large mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              <p className="large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
+              <p className="large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
             </div>
             <Link href="/users/register">
-              <a className="btn primary high medium mt-5">Get started</a>
+              <a className="btn primary high medium mt-5">Create my page</a>
             </Link>
             <div className="d-none d-lg-block mb-4 w-100 mt-5 pt-5">
               <div className="d-block position-relative w-100">
                 <div className="d-flex flex-column flex-lg-row w-100 gap-3">
                   <div className="d-block position-relative col-12 col-lg-3 p-0">
-                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1671741519841-3cd1cd570274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80)`}}></div>
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-BWMxkGvbd_Y-unsplash.jpg)` }}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                        <div className="tag small light high icon-left">
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.PHOTO}></path>
+                          </svg>
+                          Good Faces
+                        </div>
+                      </a>
+                    </div>
                   </div>
                   <div className="d-block position-relative col-12 col-lg-5 p-0">
-                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://images.unsplash.com/photo-1621274790572-7c32596bc67f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=654&q=80)` }}></div>
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-J1r-0xdoEZY-unsplash.jpg)` }}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                        <div className="tag small light high icon-left">
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.PHOTO}></path>
+                          </svg>
+                          Good Faces
+                        </div>
+                      </a>
+                    </div>
                   </div>
                   <div className="d-flex flex-column col-12 col-lg-3 p-0 gap-4" style={{marginTop: '-64px'}} >
-                    <div className="d-block position-relative">
-                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1676809172626-34d0538cc8e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80)` }}></div>
-                    </div>
-                    <div className="d-block position-relative">
-                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(https://plus.unsplash.com/premium_photo-1672287578649-fd7370ca7b31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTV8fHByb2Zlc3Npb25hbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60)` }}></div>
+                    {/* <div className="d-block position-relative">
+                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/surface-8HPLpr3hebU-unsplash.jpg)` }}>
+                        <a href="https://unsplash.com/@surface" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                          <div className="tag light high icon-left">
+                            <svg viewBox="0 0 24 24">
+                              <path d={ICONS.PHOTO}></path>
+                            </svg>
+                            Surface
+                          </div>
+                        </a>
+                      </div>
+                    </div> */}
+                    <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-knoww5xIlWc-unsplash.jpg)`}}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                        <div className="tag small light high icon-left">
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.PHOTO}></path>
+                          </svg>
+                          Good Faces
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -528,7 +574,7 @@ const Home = () => {
                 })}
             </div>
             <Link href="/users/register">
-              <a className="btn primary high medium mt-5">Get started</a>
+              <a className="btn primary high medium mt-5">Create my page</a>
             </Link>
           </div> */}
           {/* <div className={`container ${styles.sectionWrapper}`}>
@@ -565,7 +611,7 @@ const Home = () => {
             {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
             <div className="d-flex m-auto justify-content-center">
               <Link href="/users/register">
-                <a className="btn primary high large m-auto">Get started</a>
+                <a className="btn primary high large m-auto">Create my page</a>
               </Link>
             </div>
           </div>

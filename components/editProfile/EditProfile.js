@@ -44,6 +44,7 @@ import EditTestimonial from './EditTestimonial';
 const EditProfile = ({
     showEditProfileModal, 
     editProfileModalState,
+    editProfileModalSubtitle,
     setEditProfileModalIndex,
     editProfileModalIndex,
     handleEditProfileChangeView,
@@ -553,46 +554,47 @@ const EditProfile = ({
     setSideProjectsShowDeleteProjectModal(false)
   }
 
-  const handleClick = (title) => {
-    handleEditProfileChangeView(title)
+  const handleClick = (title, subtitle) => {
+    handleEditProfileChangeView(title, subtitle)
   }
 
   const handleBack = () => {
     resetFields();
     switch (editProfileModalState) {
-      case 'Add product' || 'Edit product':
+      case 'Add product': case 'Edit product':
         handleEditProfileChangeView('Products')
         break;
-      case 'Add service' || 'Edit service':
+      case 'Add service': case 'Edit service':
         handleEditProfileChangeView('Services')
         break;
-      case 'Add feature' || 'Edit feature':
+      case 'Add feature': case 'Edit feature':
         handleEditProfileChangeView('Featured')
         break;
-      case 'Add experience' || 'Edit experience':
-        handleEditProfileChangeView('Experience')
-        break;
-      case 'Add education' || 'Edit education':
-        handleEditProfileChangeView('Education')
-        break;
-      case 'Add volunteering' || 'Edit volunteering':
-        handleEditProfileChangeView('Volunteering')
-        break;
-      case 'Add link' || 'Edit link':
+
+      case 'Add link': case 'Edit link':
         handleEditProfileChangeView('Links')
         break;
-      case 'Add project' || 'Edit project':
-        handleEditProfileChangeView('Projects')
-        break;
-      case 'Add testimonial' || 'Edit testimonial':
+      case 'Add testimonial': case 'Edit testimonial':
         handleEditProfileChangeView('Testimonials')
         break;
-      case 'Add post' || 'Edit post':
+      case 'Add post': case 'Edit post':
         handleEditProfileChangeView('Posts')
         break;
-      case 'Add side project' || 'Edit side project':
-        handleEditProfileChangeView('Side projects')
-        break;
+      // case 'Add project' || 'Edit project':
+      //   handleEditProfileChangeView('Projects')
+      //   break;
+      // case 'Add experience' || 'Edit experience':
+      //   handleEditProfileChangeView('Experience')
+      //   break;
+      // case 'Add education' || 'Edit education':
+      //   handleEditProfileChangeView('Education')
+      //   break;
+      // case 'Add volunteering' || 'Edit volunteering':
+      //   handleEditProfileChangeView('Volunteering')
+      //   break;
+      // case 'Add side project' || 'Edit side project':
+      //   handleEditProfileChangeView('Side projects')
+      //   break;
       default:  
         handleEditProfileChangeView('default')
         break;
@@ -612,6 +614,32 @@ const EditProfile = ({
     // )
   }
 
+  // const getEditProfileModalSubtitle = () => {
+  //   switch (editProfileModalState) {
+  //     case 'Add product' || 'Edit product' || 'Products':
+  //       setEditProfileModalSubtitle("What you're selling")
+  //       break;
+  //     case 'Add service' || 'Edit service' || 'Services':
+  //       setEditProfileModalSubtitle("What you're offering")
+  //       break;
+  //     case 'Add feature' || 'Edit feature' || 'Featured':
+  //       setEditProfileModalSubtitle("Publications where you've been featured")
+  //       break;
+  //     case 'Add link' || 'Edit link' || 'Links':
+  //       setEditProfileModalSubtitle("Highlight anything you like")
+  //       break;
+  //     case 'Add testimonial' || 'Edit testimonial' || 'Testimonials':
+  //       setEditProfileModalSubtitle("Highlight quotes from clients")
+  //       break;
+  //     case 'Add post' || 'Edit post' || 'Posts':
+  //       setEditProfileModalSubtitle("Your best written content")  
+  //       break;
+  //     default:  
+  //       setEditProfileModalSubtitle('')
+  //       break;
+  //   }
+  // }
+
   const handleClose = () => {
     resetFields()
     handleEditProfileClose();
@@ -621,31 +649,43 @@ const EditProfile = ({
     {
       "id": uuidv4(),
       "title": "Basic information",
-      "icon": ICONS.USER
+      "subtitle": "Avatar, name and headline",
+      "icon": ICONS.USER,
     },
     {
       "id": uuidv4(),
       "title": "Links",
+      "subtitle": "Highlight anything you like",
       "icon": ICONS.LINK
     },
     {
       "id": uuidv4(),
       "title": "Products",
+      "subtitle": "What you're selling",
       "icon": ICONS.PRODUCT
     },
     {
       "id": uuidv4(),
       "title": "Services",
+      "subtitle": "What you're offering",
+      "icon": ICONS.SERVICE
+    },
+    {
+      "id": uuidv4(),
+      "title": "Testimonials",
+      "subtitle": "Highlight quotes from clients",
       "icon": ICONS.SERVICE
     },
     {
       "id": uuidv4(),
       "title": "Featured",
+      "subtitle": "Publications where you've been featured",
       "icon": ICONS.FEATURED
     },
     {
       "id": uuidv4(),
       "title": "Posts",
+      "subtitle": "Your best written content",
       "icon": ICONS.MAIL
     },
     // {
@@ -709,7 +749,10 @@ const EditProfile = ({
             </button>
             : '' 
             }
-            <h5 className="text-dark-high font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
+            <div className="d-flex flex-column align-items-start gap-1">
+              <h5 className="text-dark-high font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
+              {editProfileModalSubtitle !== '' && <p className="mb-0 text-dark-low">{editProfileModalSubtitle}</p>}
+            </div>
           </div>
           <button onClick={handleClose} className="btn dark low small icon-only">
             <svg viewBox="0 0 24 24">
@@ -721,12 +764,15 @@ const EditProfile = ({
         { editProfileModalState == 'default' && (
           <>
           {editProfileOptions.map((option) =>
-            <button key={option.id} onClick={() => handleClick(option.title)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-4`}>
+            <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-4`}>
               <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
-                <Icon icon={option.icon} size='24' className="fill-dark-900" />
-                <p className="font-weight-medium text-dark-high large m-0">
+                {/* <Icon icon={option.icon} size='24' className="fill-dark-900" /> */}
+                <div className="d-flex flex-column align-items-start w-100 gap-0">
+                <p className="font-weight-medium text-dark-high large mb-0">
                   {option.title}
                 </p>
+                <p className="mb-0 text-dark-low">{option.subtitle && option.subtitle}</p>
+                </div>
               </div>
               <Icon icon={ICONS.ARROW_RIGHT} size='20' className="iconDarkHigh" />
             </button>

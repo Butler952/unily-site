@@ -18,11 +18,11 @@ const Testimonials = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit testimonial', index)
+    handleEditProfileChangeView('Edit testimonial', "Highlight quotes from clients", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add testimonial')
+    handleEditProfileChangeView('Add testimonial', "Highlight quotes from clients")
   }
 
   const sortTestimonials = (a,b) => {

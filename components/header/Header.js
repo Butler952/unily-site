@@ -35,6 +35,7 @@ const Header = ({
   const [cancelAt, setCancelAt] = useState('');
   const [showEditProfileModal, setShowEditProfileModal] = useState(false)
   const [editProfileModalState, setEditProfileModalState] = useState('default')
+  const [editProfileModalSubtitle, setEditProfileModalSubtitle] = useState('')
   const [editProfileModalIndex, setEditProfileModalIndex] = useState('')
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [commentsAndSuggestions, setCommentsAndSuggestions] = useState('');
@@ -226,8 +227,9 @@ const Header = ({
     setEditProfileModalIndex('')
   };
 
-  const handleEditProfileChangeView = (page, index) => {
+  const handleEditProfileChangeView = (page, subtitle, index) => {
     setEditProfileModalState(page)
+    setEditProfileModalSubtitle(subtitle)
     setEditProfileModalIndex(index)
   }
 
@@ -581,8 +583,9 @@ const Header = ({
           <EditProfile
             showEditProfileModal={showEditProfileModal}
             editProfileModalState={editProfileModalState}
+            editProfileModalSubtitle={editProfileModalSubtitle}
             setEditProfileModalIndex={setEditProfileModalIndex}
-            handleEditProfileChangeView={(page, index) => handleEditProfileChangeView(page, index)}
+            handleEditProfileChangeView={(page, subtitle, index) => handleEditProfileChangeView(page, subtitle, index)}
             handleEditProfileClose={() => handleEditProfileClose()}
             editProfileModalIndex={editProfileModalIndex}
           />

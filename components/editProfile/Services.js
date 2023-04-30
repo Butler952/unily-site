@@ -14,11 +14,11 @@ const Services = ({
   const [submitting, setSubmitting] = useState(false);
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit service', index)
+    handleEditProfileChangeView('Edit service', "What you're offering", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add service')
+    handleEditProfileChangeView('Add service', "What you're offering")
   }
 
   return (
