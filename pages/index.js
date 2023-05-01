@@ -231,12 +231,13 @@ const Home = () => {
         <Header hideShadow={scrollPosition < heroHeight + 66} />
       </div>
       <Head>
-        <title>ExpertPage | Build trust and sell more with your own freelance site</title>
-        <meta name="description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
-        <meta property="og:title" content="ExpertPage | Build trust and sell more with your own freelance site" />
-        <meta property="og:description" content="Use your LinkedIn profile to create your very own professional website in just two minutes." />
+        <title>ExpertPage | Build trust and sell more with your own professional site</title>
+        <meta name="description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
+        <meta property="og:title" content="ExpertPage | Build trust and sell more with your own professional site" />
+        <meta property="og:description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
         <meta property="og:url" content="https://www.expertpage.io/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io"/>
       </Head>
       {/* <a className={styles.productHunt} href="https://www.producthunt.com/posts/ExpertPage-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ExpertPage-me" target="_blank">
         <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
