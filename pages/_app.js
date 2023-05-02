@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       fire.analytics();
-      LogRocket.init('qbfdxd/ExpertPageme', {
+      LogRocket.init('qbfdxd/expertpageio', {
         dom: {
           inputSanitizer: true,
         },
