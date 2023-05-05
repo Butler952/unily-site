@@ -6,6 +6,7 @@ import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 
 const Register = () => {
 
@@ -26,6 +27,8 @@ const Register = () => {
   const [notify, setNotification] = useState('');
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Register');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
@@ -49,7 +52,7 @@ const Register = () => {
   }, []);
 
   useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init(mixpanelConfig); 
     mixpanel.track('Get started');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
@@ -86,8 +89,8 @@ const Register = () => {
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
-      mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
-      mixpanel.track('Register');
+      mixpanel.init(mixpanelConfig); 
+      mixpanel.track('Registered');
     })
     .then(() => {
       router.push("/setup/emails")
@@ -157,7 +160,7 @@ const Register = () => {
         })
       })
       .then(() => {
-        mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+        mixpanel.init(mixpanelConfig); 
         mixpanel.track('Register');
       })
       .then(() => {

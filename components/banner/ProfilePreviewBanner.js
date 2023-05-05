@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Modal } from 'react-bootstrap';
 import fire from '../../config/fire-config';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from '../../config/mixpanel-config';
 import ICONS from '../icon/IconPaths';
 
 const ProfilePreviewBanner = () => {
@@ -57,7 +58,8 @@ const ProfilePreviewBanner = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+
+    mixpanel.init(mixpanelConfig); 
     mixpanel.track('View create account');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
@@ -127,7 +129,7 @@ const ProfilePreviewBanner = () => {
   //           lastSync: fire.firestore.FieldValue.serverTimestamp(),
   //         })
   //         .then(() => {
-  //           mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+  //           mixpanel.init(mixpanelConfig);
   //           mixpanel.track('Register');
   //           mixpanel.track('Synced');
   //           setLoadingState('Profile created');
@@ -172,7 +174,7 @@ const ProfilePreviewBanner = () => {
   //         lastSync: fire.firestore.FieldValue.serverTimestamp(),
   //       })
   //       .then(() => {
-  //         mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+  //         mixpanel.init(mixpanelConfig);
   //         mixpanel.track('Register');
   //         mixpanel.track('Synced');
   //         setLoadingState('Profile created');
@@ -284,7 +286,7 @@ const ProfilePreviewBanner = () => {
         lastSync: fire.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
-        mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+        mixpanel.init(mixpanelConfig);
         mixpanel.track('Register');
         mixpanel.track('Synced');
         setLoadingState('Profile created');

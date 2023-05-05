@@ -1,6 +1,7 @@
 import fire from '../../config/fire-config';
 import { useEffect, useState, useContext } from 'react';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import { UserContext } from '../_app';
 import BasicProfile from '../../components/profile/BasicProfile';
 import DocumentProfile from '../../components/profile/DocumentProfile';
@@ -32,7 +33,7 @@ const Profile = (props) => {
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     checkUser();
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+    mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
   }, [])
 

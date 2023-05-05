@@ -23,6 +23,7 @@ import SurveyBanner from '../../components/banner/SurveyBanner';
 import LogosSection from './components/logosSection';
 import DownloadSection from './components/downloadSection';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import TemplateSection from './components/templateSection';
 import CustomDomainSection from './components/customDomainSection';
 import PrettyUrlSection from './components/prettyUrlSection';
@@ -134,7 +135,7 @@ const Settings = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+    mixpanel.init(mixpanelConfig);
     mixpanel.track('Settings');
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")

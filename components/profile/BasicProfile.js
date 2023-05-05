@@ -9,6 +9,7 @@ import SurveyBanner from '../banner/SurveyBanner';
 import { useEffect, useState, useContext } from 'react';
 import ICONS from '../icon/IconPaths';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
 import convertToLink from '../../utils/convertToLink';
@@ -30,7 +31,7 @@ const BasicProfile = (props) => {
 
   useEffect(() => {
     checkUser();
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e');
+    mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
   }, [])
 

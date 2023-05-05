@@ -3,6 +3,7 @@ import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import { PDFDownloadLink, PDFViewer, BlobProvider } from '@react-pdf/renderer';
 import BasicResume from '../../../components/resumeExports/basicResume';
 import { toast } from 'react-toastify';
@@ -26,7 +27,7 @@ const DownloadSection = ({userData, allUserData}) => {
 
   const handleDownloadPdf = () => {
     // Send mixpanel event for PDF Download
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init(mixpanelConfig); 
     mixpanel.track("False door", {
       "experiment": "Download profile",
       "stage": "click",
@@ -36,7 +37,7 @@ const DownloadSection = ({userData, allUserData}) => {
     handleShow()
   }
   const handleDownloadDocx = () => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init(mixpanelConfig); 
     mixpanel.track("False door", {
       "experiment": "Download profile",
       "stage": "click",
@@ -55,7 +56,7 @@ const DownloadSection = ({userData, allUserData}) => {
         requestedAt: fire.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
-        mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+        mixpanel.init(mixpanelConfig); 
         mixpanel.track("False door", {
           "experiment": "Download profile",
           "stage": "notify",

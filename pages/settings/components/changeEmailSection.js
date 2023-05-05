@@ -3,6 +3,7 @@ import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import styles from '../settings.module.scss'
 import Image from 'next/image'
 import { UserContext } from '../../_app';

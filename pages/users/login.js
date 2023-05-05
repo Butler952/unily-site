@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -35,6 +37,10 @@ const Login = () => {
     fire.auth()
       .signInWithEmailAndPassword(username, password)
       .then(() => {
+        mixpanel.init(mixpanelConfig); 
+        mixpanel.track('Signed in');
+      })
+      .then(() => {
         setSigningIn(false)
       })
       .catch((err) => {
@@ -58,6 +64,8 @@ const Login = () => {
   }
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Login');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {

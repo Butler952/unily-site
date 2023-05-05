@@ -3,6 +3,7 @@ import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
 import { Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import styles from '../settings.module.scss'
 import Image from 'next/image'
 import { toast } from 'react-toastify';
@@ -24,7 +25,7 @@ const CustomDomainSection = ({userData}) => {
 
   const handleClick = () => {
     // Send mixpanel event for PDF Download
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init(mixpanelConfig); 
     mixpanel.track("False door", {
       "experiment": "Templates",
       "stage": "click",
@@ -40,7 +41,7 @@ const CustomDomainSection = ({userData}) => {
         requestedAt: fire.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
-        mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+        mixpanel.init(mixpanelConfig); 
         mixpanel.track("False door", {
           "experiment": "Templates",
           "stage": "notify",

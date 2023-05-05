@@ -8,6 +8,7 @@ import styles from '../settings/settings.module.scss'
 import { Container, Modal, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 import { toast } from 'react-toastify';
@@ -54,6 +55,8 @@ const Handle = () => {
   let domainType = selectedDomainType;
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Handle');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     setDefaultDomain(userData && userData.uid)

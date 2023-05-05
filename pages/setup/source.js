@@ -3,6 +3,8 @@ import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Head from 'next/head';
+import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import { UserContext } from '../_app';
@@ -26,6 +28,8 @@ const Source = () => {
   };
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Source');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -55,6 +59,11 @@ const Source = () => {
       let newUserContext = userContext;
       newUserContext.stage = '/setup/sync';
       setUserContext(newUserContext)
+    })
+    .then(() => {
+      mixpanel.init(mixpanelConfig); 
+      mixpanel.register_once({"Source": selectedSource});
+      mixpanel.track('Source added');
     })
     .then(() => {
       router.push('/setup/sync')

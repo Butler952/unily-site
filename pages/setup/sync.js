@@ -7,6 +7,7 @@ import Header from '../../components/header/Header';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 
@@ -32,6 +33,8 @@ const Sync = () => {
   };
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Sync');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -186,7 +189,8 @@ const Sync = () => {
           })
         })
         .then(() => {
-          mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+          mixpanel.init(mixpanelConfig); 
+          mixpanel.register_once({"Profile data method": "LinkedIn"});
           mixpanel.track('Synced');
           setTimeout(
             setLoadingState('Sync successfully completed'), 2000
@@ -245,6 +249,10 @@ const Sync = () => {
         newUserContext.stage = '/setup/name';
         newUserContext.template = 'freelance';
         setUserContext(newUserContext)
+      })
+      .then(() => {
+        mixpanel.init(mixpanelConfig); 
+        mixpanel.register_once({"Profile data method": "Manual"});
       })
       .then(() => {
         router.push('/setup/name')

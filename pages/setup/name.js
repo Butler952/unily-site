@@ -6,6 +6,7 @@ import Header from '../../components/header/Header';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 
@@ -34,6 +35,8 @@ const Name = () => {
   };
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Name');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -112,6 +115,10 @@ const Name = () => {
           newUserContext.stage = '/setup/avatar';
           newUserContext.template = 'freelance';
           setUserContext(newUserContext)
+        })
+        .then(() => {
+          mixpanel.init(mixpanelConfig); 
+          mixpanel.track('Name added');
         })
         .then(() => {
           router.push('/setup/avatar')

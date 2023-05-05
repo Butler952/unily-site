@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Header from '../components/header/Header';
 import Image from 'next/image'
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -39,7 +40,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    mixpanel.init('61698f9f3799a059e6d59e26bbd0138e'); 
+    mixpanel.init(mixpanelConfig); 
     mixpanel.register_once({"home page": "original"});
     mixpanel.track('Landing page');
     setScreenWidth(window.innerWidth)

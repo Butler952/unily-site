@@ -226,3 +226,8 @@
 .gradientSection {
   background: radial-gradient(at bottom, $primary-700, transparent 50vw);
 }
+
+.sectionList {
+  position: sticky;
+  top: 48px;
+}

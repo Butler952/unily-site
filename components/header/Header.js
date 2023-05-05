@@ -12,6 +12,8 @@ import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
 import EditProfile from '../editProfile/EditProfile';
 import { toast } from 'react-toastify';
+import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 
 const Header = ({
   hideShadow,
@@ -225,6 +227,8 @@ const Header = ({
     setShowEditProfileModal(true)
     setEditProfileModalState('default')
     setEditProfileModalIndex('')
+    mixpanel.init(mixpanelConfig);
+    mixpanel.track('Launch edit profile modal');
   };
 
   const handleEditProfileChangeView = (page, subtitle, index) => {

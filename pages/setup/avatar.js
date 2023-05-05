@@ -43,6 +43,8 @@ const Avatar = () => {
   };
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Avatar');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -151,6 +153,9 @@ const Avatar = () => {
                 setUserContext(newUserContext)
               })
               .then(() => {
+                mixpanel.track('Avatar added');
+              })
+              .then(() => {
                 router.push('/setup/headline')
               })
               .catch((error) => {
@@ -176,6 +181,10 @@ const Avatar = () => {
         setUserContext({
           stage: '/setup/headline',
         })
+      })
+      .then(() => {
+        mixpanel.init(mixpanelConfig); 
+        mixpanel.track('Avatar skipped');
       })
       .then(() => {
         router.push('/setup/headline')

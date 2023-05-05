@@ -6,6 +6,7 @@ import Header from '../../components/header/Header';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
+import mixpanelConfig from 'config/mixpanel-config';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 
@@ -34,6 +35,8 @@ const Headline = () => {
   };
 
   useEffect(() => {
+    mixpanel.init(mixpanelConfig); 
+    mixpanel.track('Headline');
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
     const unsubscribe = fire.auth()
@@ -99,6 +102,10 @@ const Headline = () => {
           newUserContext.stage = 'complete',
           newUserContext.template = 'freelance'
           setUserContext(newUserContext)
+        })
+        .then(() => {
+          mixpanel.init(mixpanelConfig); 
+          mixpanel.track('Headline added');
         })
         .then(() => {
           router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
