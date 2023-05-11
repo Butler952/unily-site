@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '../../components/header/Header';
 import { toast } from 'react-toastify';
 // import testResponse from './testResponse';
+import mixpanelConfig from 'config/mixpanel-config';
 import { Container, ProgressBar } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
