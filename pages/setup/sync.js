@@ -242,6 +242,7 @@ const Sync = () => {
 
     fire.firestore().collection('users').doc(userData.uid).update({
       stage: '/setup/name',
+      template: 'freelance',
       lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
     })
       .then(() => {

@@ -242,15 +242,15 @@ const Avatar = () => {
             // {avatar !== '' ?
               <>
                 <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
-                  <button type="button" className="btn dark high w-100 w-sm-auto" disabled={submitting} onClick={handleAddAvatar}>Upload avatar</button>
+                  <button type="button" className="btn primary high w-100 w-sm-auto" disabled={submitting} onClick={handleAddAvatar}>Upload avatar</button>
                   <button type="button" className="btn dark low w-100 w-sm-auto" disabled={submitting} onClick={handleChangeImage}>Change image</button>
                   {/* <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary low w-100" disabled={submitting}>Skip for now</button> */}
                 </div>
               </>
               :
               <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
-                <button type="button" className="btn primary high w-100" disabled={submitting} onClick={handleChangeImage}>Choose a file</button>
-                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary low w-100" disabled={submitting}>Skip for now</button>
+                <button type="button" className="btn dark high w-100" disabled={submitting} onClick={handleChangeImage}>Choose a file</button>
+                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn dark low w-100" disabled={submitting}>Skip for now</button>
               </div>
             }
             <input
