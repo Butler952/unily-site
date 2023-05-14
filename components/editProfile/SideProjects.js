@@ -134,7 +134,7 @@ const SideProjects = ({
             </div>
             }
             <div className="w-100">
-              <p className="large text-dark-high font-weight-semibold mb-0">{side_project.name}</p>
+              <p className="large text-dark-high font-weight-medium mb-0">{side_project.name}</p>
               {/* <a target="_blank" href={project.company_linkedin_profile_url} className="text-decoration-none"> */}
               {/* <p className="large text-dark-med mb-0">{project.company}</p> */}
               {/* </a> */}

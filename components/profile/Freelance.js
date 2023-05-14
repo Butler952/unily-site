@@ -326,7 +326,30 @@ const Freelance = (props) => {
                       <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
                     } */}
                   </div>
-                  {props.email &&
+                  {(props.linksPrimary || props.email || props.links) &&
+                    <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
+                      {props.linksPrimary ?
+                        <a href={convertToLink(props.linksPrimary.url)} target="_blank" className="btn primary high large w-100 w-md-auto">{props.linksPrimary.label}</a>
+                      
+                      :
+                        <a href={'mailto:' + props.email} target="_blank" className="btn primary high large w-100 w-md-auto">Contact me</a>
+                      }
+                      {props.links &&
+                        props.links.map((link, index) => {
+                          return (
+                            <a 
+                            key={index} 
+                            href={convertToLink(link.url)}
+                            target="_blank" 
+                            className="btn dark medium large w-100 w-md-auto">
+                              {link.label}
+                            </a>
+                          )
+                        })}
+                    </div>
+                  }
+                  {/* originalLinksPrimary?.label ? originalLinksPrimary.label : 'Contact me' */}
+                  {/* {props.email &&
                     <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
                       {props.email &&
                         <a href={'mailto:' + props.email} target="_blank" className="btn primary high large w-100 w-md-auto">Contact me</a>
@@ -344,7 +367,7 @@ const Freelance = (props) => {
                           )
                         })}
                     </div>
-                  }
+                  } */}
                 </div>
                 {/* {props.summary &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
@@ -355,6 +378,14 @@ const Freelance = (props) => {
                     <br /><br />
                   </div>
                 } */}
+                {props.summary &&
+                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                    {/* <h1>About {props.first_name}</h1> */}
+                    <div>
+                      <p className="extra-large mb-0" style={{maxWidth: '720px'}}>{getSummaryText()}</p>
+                    </div>
+                  </div>
+                }
                 {(props.products && props.products.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     <h1 className="mb-5 pb-3">Products</h1>

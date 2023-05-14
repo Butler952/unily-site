@@ -208,6 +208,7 @@ const Profile = (props) => {
           pageId={props.pageId}
           template={props.template}
           email={props.email}
+          linksPrimary={props.linksPrimary}
           links={props.links}
           profile_pic_url={props.profile_pic_url}
           background_cover_image_url={props.background_cover_image_url}
@@ -215,6 +216,7 @@ const Profile = (props) => {
           first_name={props.first_name}
           last_name={props.last_name}
           headline={props.headline}
+          summary={props.summary}
           products={props.products}
           services={props.services}
           featured={props.featured}
@@ -246,6 +248,7 @@ export const getServerSideProps = async ({ query }) => {
         content['pageId'] = query.id ? query.id : null;
         content['template'] = doc.data().template ? doc.data().template : null;
         content['email'] = doc.data().email ? doc.data().email : null;
+        content['linksPrimary'] = doc.data().linksPrimary ? doc.data().linksPrimary : null;
         content['links'] = doc.data().links ? doc.data().links : null;
         content['profile_pic_url'] = doc.data().profile.profile_pic_url ? doc.data().profile.profile_pic_url : null;
         content['background_cover_image_url'] = doc.data().profile.background_cover_image_url ? doc.data().profile.background_cover_image_url : null;
@@ -278,6 +281,7 @@ export const getServerSideProps = async ({ query }) => {
     pageId: content.pageId,
     template: content.template,
     email: content.email,
+    linksPrimary: content.linksPrimary,
     links: content.links,
     profile_pic_url: content.profile_pic_url,
     background_cover_image_url: content.background_cover_image_url,

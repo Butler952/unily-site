@@ -660,6 +660,12 @@ const EditProfile = ({
     },
     {
       "id": uuidv4(),
+      "title": "About",
+      "subtitle": "Summary of who you are",
+      "icon": ICONS.ABOUT,
+    },
+    {
+      "id": uuidv4(),
       "title": "Products",
       "subtitle": "What you're selling",
       "icon": ICONS.PRODUCT
@@ -863,6 +869,7 @@ const EditProfile = ({
             setAbout={setAbout}
             setAboutChanged={setAboutChanged}
             setAboutError={setAboutError}
+            handleEditProfileChangeView={handleEditProfileChangeView}
           />
         )}
         { editProfileModalState == 'Products' && (

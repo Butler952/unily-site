@@ -41,8 +41,8 @@ const Links = ({
       <div onClick={() => handleSelect()} role="button" className={`${styles.job} d-flex flex-column flex-lg-row align-items-start`}>
         <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
           <div className="w-100">
-            <p className="large text-dark-high font-weight-semibold mb-0">Contact me</p>
-            <p className="large text-dark-med mb-0">{userContext && userContext.email && userContext.email}</p>
+            <p className="large text-dark-high font-weight-medium mb-0">{ userContext?.linksPrimary?.label ? userContext?.linksPrimary?.label : 'Contact me'}</p>
+            <p className="large text-dark-med mb-0">{ userContext?.linksPrimary?.url ? userContext?.linksPrimary?.url : userContext?.email}</p>
           </div>
           <div className="d-lg-none"><Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" /></div>
         </div>
@@ -63,18 +63,14 @@ const Links = ({
           <div className="d-none d-lg-block"><Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" /></div>
         </div>
       )}
-      { userContext && 
-        userContext.links &&
-        userContext.links.length < 1 &&
-          <div className="d-flex flex-row p-4">
-            <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">
-              <svg viewBox="0 0 24 24">
-                <path d={ICONS.PLUS}></path>
-              </svg>
-              Add link
-            </button>
-          </div>
-      }
+      <div className="d-flex flex-row p-4">
+        <button type="button" onClick={handleAdd} className="btn primary medium icon-left w-100 w-sm-auto">
+          <svg viewBox="0 0 24 24">
+            <path d={ICONS.PLUS}></path>
+          </svg>
+          Add link
+        </button>
+      </div>
     </>
   )
 }

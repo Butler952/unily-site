@@ -90,7 +90,7 @@ const BasicInformation = ({
       .catch((error) => {
         setSubmitting(false)
         toast("Unable to update basic information")
-        console.error("Error adding document: ", error);
+        // console.error("Error adding document: ", error);
       });
   }
 

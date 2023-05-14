@@ -32,6 +32,7 @@ const EditLink = ({
   const [submitting, setSubmitting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [originalLinks, setOriginalLinks] = useState(userContext.links);
+  const [originalLinksPrimary, setOriginalLinksPrimary] = useState(userContext.linksPrimary);
 
   const linksLabelChange = (value) => {
     setLinksLabel(value),
@@ -46,11 +47,31 @@ const EditLink = ({
   }
 
   const updateLinks = (index) => {
-    if (linksLabelChanged) {
-      originalLinks[index].label = linksLabel
-    }
-    if (linksUrlChanged) {
-      originalLinks[index].url = linksUrl
+    if (editProfileModalIndex !== undefined) {
+      let newLinks = originalLinks
+      if (linksLabelChanged) {
+        originalLinks[index].label = linksLabel
+      }
+      if (linksUrlChanged) {
+        originalLinks[index].url = linksUrl
+      }
+      return newLinks
+    } else {
+      let newLinksPrimary = originalLinksPrimary
+      newLinksPrimary = {
+        'label': linksLabelChanged ? linksLabel : originalLinksPrimary.label,
+        'url': linksUrlChanged ? linksUrl : (originalLinksPrimary?.url ? originalLinksPrimary.url : userContext?.email)
+      }
+      // if (linksLabelChanged) {
+      //   newLinksPrimary = {
+      //     'label': linksLabel
+      //   }
+      //   // newLinksPrimary.label = linksLabel
+      // }
+      // if (linksUrlChanged) {
+      //   newLinksPrimary.url = linksUrl
+      // }
+      return newLinksPrimary
     }
   }
   
@@ -68,14 +89,14 @@ const EditLink = ({
     setSubmitting(true)
 
     if (editProfileModalIndex !== undefined) {
-      updateLinks(editProfileModalIndex)
+
       fire.firestore().collection('users').doc(user).update({
-        'links': originalLinks,
+        'links': updateLinks(editProfileModalIndex),
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
       .then((result) => {
         let newUserContext = userContext;
-        newUserContext.links = originalLinks;
+        newUserContext.links = updateLinks(editProfileModalIndex);
         setUserContext(newUserContext)
         handleBack()
       })
@@ -90,12 +111,12 @@ const EditLink = ({
       });
     } else {
       fire.firestore().collection('users').doc(user).update({
-        'email': linksUrl,
+        'linksPrimary': updateLinks(editProfileModalIndex),
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
       .then((result) => {
         let newUserContext = userContext;
-        newUserContext.email = linksUrl;
+        newUserContext.linksPrimary = updateLinks(editProfileModalIndex);
         setUserContext(newUserContext)
         handleBack()
       })
@@ -157,22 +178,15 @@ const EditLink = ({
               className={linksLabelError !== '' ? `error w-100 small` : `w-100 small`}
               value={linksLabelChanged ? linksLabel : (
                 editProfileModalIndex == undefined ? 
-                  'Contact me'
+                  originalLinksPrimary?.label ? originalLinksPrimary.label : 'Contact me'
                 :
-                ( userContext && 
-                  userContext.links && 
-                  userContext.links[editProfileModalIndex] && 
-                  userContext.links[editProfileModalIndex].label && 
-                  userContext.links[editProfileModalIndex].label !== undefined ? 
-                  userContext && 
-                  userContext.links && 
-                  userContext.links[editProfileModalIndex] && 
-                  userContext.links[editProfileModalIndex].label && 
-                  userContext.links[editProfileModalIndex].label : '')
+                ( 
+                  userContext?.links[editProfileModalIndex]?.label !== undefined ? 
+                  userContext?.links[editProfileModalIndex]?.label : '')
                 )
               }
               onChange={({ target }) => linksLabelChange(target.value)}
-              disabled={editProfileModalIndex == undefined}
+              // disabled={editProfileModalIndex == undefined}
             />
             {linksLabelError !== '' ? <p className="small text-error-high mt-2">{linksLabelError}</p> : null}
           </div>
@@ -183,20 +197,13 @@ const EditLink = ({
               className={linksUrlError !== '' ? `error w-100 small` : `w-100 small`}
               value={linksUrlChanged ? linksUrl : (
                 editProfileModalIndex == undefined ? 
-                  userContext && 
-                  userContext.email && 
-                  userContext.email
+                (
+                  originalLinksPrimary?.url ? originalLinksPrimary.url : userContext?.email
+                )
                 :
-                ( userContext && 
-                  userContext.links && 
-                  userContext.links[editProfileModalIndex] && 
-                  userContext.links[editProfileModalIndex].url && 
-                  userContext.links[editProfileModalIndex].url !== undefined ? 
-                  userContext && 
-                  userContext.links && 
-                  userContext.links[editProfileModalIndex] && 
-                  userContext.links[editProfileModalIndex].url && 
-                  userContext.links[editProfileModalIndex].url : '')
+                ( 
+                  userContext?.links[editProfileModalIndex]?.url !== undefined ? 
+                  userContext?.links[editProfileModalIndex]?.url : '')
                 )
               }
               onChange={({ target }) => linksUrlChange(target.value)}

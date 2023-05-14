@@ -105,7 +105,7 @@ const Projects = ({
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column align-items-start`} style={{gap:'16px'}}>
           <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
             <div className="w-100">
-              <p className="large text-dark-high font-weight-semibold mb-0">{project.name}</p>
+              <p className="large text-dark-high font-weight-medium mb-0">{project.name}</p>
               {/* <a target="_blank" href={project.company_linkedin_profile_url} className="text-decoration-none"> */}
               {/* <p className="large text-dark-med mb-0">{project.company}</p> */}
               {/* </a> */}

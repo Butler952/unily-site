@@ -132,7 +132,7 @@ const Volunteering = ({
             </div>
             }
             <div className="w-100">
-              <p className="large text-dark-high font-weight-semibold mb-0">{job.title}</p>
+              <p className="large text-dark-high font-weight-medium mb-0">{job.title}</p>
               {/* <a target="_blank" href={job.company_linkedin_profile_url} className="text-decoration-none"> */}
               <p className="large text-dark-med mb-0">{job.company}</p>
               {/* </a> */}

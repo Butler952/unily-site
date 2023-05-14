@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const About = ({
   user,
+  handleEditProfileChangeView,
   about,
   aboutChanged,
   aboutError,
@@ -40,6 +41,7 @@ const About = ({
     })
 
       .then(() => {
+        handleEditProfileChangeView('default')
         setSubmitting(false)
         toast("About updated")
       })
