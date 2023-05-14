@@ -127,6 +127,26 @@ const Name = () => {
     }
   }
 
+  const handleGoBack = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/sync',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/sync';
+        setUserContext(newUserContext)
+      })
+      .then(() => {
+        router.push('/setup/sync')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
@@ -157,11 +177,8 @@ const Name = () => {
               </div>
               <div className="d-flex flex-column mb-4 mb-sm-5 gap-3">
                 <div className="d-flex flex-column gap-3">
-                  {screenWidth > 575 ?
-                    <button type="submit" className="btn primary high" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
-                    :
-                    <button type="submit" className="btn primary high w-100" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
-                  }
+                  <button type="submit" className="btn primary high w-100" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                  <button type="button" onClick={(e) => handleGoBack(e)} className="btn primary medium w-100" disabled={saving}>Import from LinkedIn</button>
                 </div>
               </div>
             </div>

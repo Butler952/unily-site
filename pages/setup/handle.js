@@ -197,7 +197,7 @@ const Handle = () => {
         }
         <p className="large" style={{maxWidth: '560px'}}>Choose how people will find your profile</p>
         <form onSubmit={handleSave} className="w-100">
-        <div className="d-flex flex-column py-4 w-100" style={{ gap: '16px' }}>
+        <div className="d-flex flex-column pb-4 w-100" style={{ gap: '16px' }}>
           <div className={`d-flex flex-column w-100`}>
             {/* <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p> */}
             <div className="mt-3">
