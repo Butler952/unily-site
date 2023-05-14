@@ -56,7 +56,9 @@ const Profile = (props) => {
 
   return (
     <div>
-      <Header positionFixed />
+      { loggedIn &&
+        <Header positionFixed />
+      }
       { (props.template == undefined ||
         props.template == 'original') ?
         <BasicProfile
