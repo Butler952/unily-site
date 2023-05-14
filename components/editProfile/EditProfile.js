@@ -804,6 +804,7 @@ const EditProfile = ({
             setProfilePictureUrl={setProfilePictureUrl}
             profilePictureUrlChanged={profilePictureUrlChanged}
             setProfilePictureUrlChanged={setProfilePictureUrlChanged}
+            handleEditProfileChangeView={handleEditProfileChangeView}
           />
         )}
         { editProfileModalState == 'Links' && (
