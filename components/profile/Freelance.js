@@ -317,10 +317,12 @@ const Freelance = (props) => {
                   <br />
                   <div className="mb-5 d-flex flex-column">
                     {props.full_name &&
+                    <>
                       <h1 className="display2 text-gradient-2 mb-1">
                         {`Hi, I'm ${props.full_name}.`}<br></br>
-                        { props.headline && <h1 className="display2 text-gradient-0">{props.headline}</h1> }
                       </h1>
+                      { props.headline && <h1 className="display2 text-gradient-0">{props.headline}</h1> }
+                      </>
                     }
                     {/* {props.headline &&
                       <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
@@ -610,8 +612,8 @@ const Freelance = (props) => {
                     <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path 
                         className="fill-dark-700"
-                        fill-rule="evenodd" 
-                        clip-rule="evenodd" 
+                        fillRule="evenodd" 
+                        clipRule="evenodd" 
                         d={ICONS.LOGO} 
                       />
                     </svg>
