@@ -51,35 +51,6 @@ const Register = () => {
       };
   }, []);
 
-  useEffect(() => {
-    mixpanel.init(mixpanelConfig); 
-    mixpanel.track('Get started');
-    const unsubscribe =  fire.auth()
-    .onAuthStateChanged((user) => {
-
-      if (user) {
-        setLoggedIn(true)
-        var docRef = fire.firestore().collection('users').doc(user.uid)
-      
-          docRef.get().then((doc) => {
-            if (doc.data().stage === "complete") {
-              router.push(doc.data().profileUrl);
-            } else {
-              router.push(doc.data().stage);
-            }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          })
-      } else {
-        setLoggedIn(false)
-      }
-    })
-      return () => {
-        // Unmouting
-        unsubscribe();
-      };
-  }, []);
-
   const addUserDocument = (user) => {
     fire.firestore().collection('users').doc(user.uid).set({
       //receiveEmails,
@@ -161,7 +132,7 @@ const Register = () => {
       })
       .then(() => {
         mixpanel.init(mixpanelConfig); 
-        mixpanel.track('Register');
+        mixpanel.track('Registered');
       })
       .then(() => {
         router.push("/setup/handle")
