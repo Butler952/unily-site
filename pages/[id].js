@@ -207,6 +207,7 @@ const Profile = (props) => {
           screenWidth={screenWidth}
           pageId={props.pageId}
           template={props.template}
+          theme={props.theme}
           email={props.email}
           linksPrimary={props.linksPrimary}
           links={props.links}
@@ -247,6 +248,7 @@ export const getServerSideProps = async ({ query }) => {
       querySnapshot.forEach((doc) => {
         content['pageId'] = query.id ? query.id : null;
         content['template'] = doc.data().template ? doc.data().template : null;
+        content['theme'] = doc.data().theme ? doc.data().theme : null;
         content['email'] = doc.data().email ? doc.data().email : null;
         content['linksPrimary'] = doc.data().linksPrimary ? doc.data().linksPrimary : null;
         content['links'] = doc.data().links ? doc.data().links : null;
@@ -280,6 +282,7 @@ export const getServerSideProps = async ({ query }) => {
   const props = {
     pageId: content.pageId,
     template: content.template,
+    theme: content.theme,
     email: content.email,
     linksPrimary: content.linksPrimary,
     links: content.links,
