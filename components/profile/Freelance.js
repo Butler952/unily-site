@@ -319,14 +319,14 @@ const Freelance = (props) => {
                     {props.full_name &&
                       props.screenWidth && props.screenWidth > 767 ? 
                         <>
-                          <h1 className="display2 text-gradient-2 mb-1">
+                          <h1 className="display2 text-gradient-3 mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
                           { props.headline && <h1 className="display2 text-gradient-0">{props.headline}</h1> }
                         </>
                         :
                         <>
-                          <h1 className="text-gradient-2 mb-1">
+                          <h1 className="text-gradient-3 mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
                           { props.headline && <h1 className="text-gradient-0">{props.headline}</h1> }
@@ -602,7 +602,7 @@ const Freelance = (props) => {
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     <div className="mb-5 d-flex flex-column">
                       {props.full_name &&
-                        <h1 className="display2 text-gradient-2 mb-1">
+                        <h1 className="display2 text-gradient-3 mb-1">
                           <span className="display2 text-gradient-0">{'Find out how we could work together'}</span>
                         </h1>
                       }
