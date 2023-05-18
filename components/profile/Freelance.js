@@ -317,13 +317,21 @@ const Freelance = (props) => {
                   <br />
                   <div className="mb-5 d-flex flex-column">
                     {props.full_name &&
-                    <>
-                      <h1 className="display2 text-gradient-2 mb-1">
-                        {`Hi, I'm ${props.full_name}.`}<br></br>
-                      </h1>
-                      { props.headline && <h1 className="display2 text-gradient-0">{props.headline}</h1> }
-                      </>
-                    }
+                      props.screenWidth && props.screenWidth > 767 ? 
+                        <>
+                          <h1 className="display2 text-gradient-2 mb-1">
+                            {`Hi, I'm ${props.full_name}.`}<br></br>
+                          </h1>
+                          { props.headline && <h1 className="display2 text-gradient-0">{props.headline}</h1> }
+                        </>
+                        :
+                        <>
+                          <h1 className="text-gradient-2 mb-1">
+                            {`Hi, I'm ${props.full_name}.`}<br></br>
+                          </h1>
+                          { props.headline && <h1 className="text-gradient-0">{props.headline}</h1> }
+                        </>
+                      }
                     {/* {props.headline &&
                       <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
                     } */}
