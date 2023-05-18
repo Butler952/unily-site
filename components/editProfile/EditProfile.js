@@ -623,7 +623,7 @@ const EditProfile = ({
   //       setEditProfileModalSubtitle("What you're offering")
   //       break;
   //     case 'Add feature' || 'Edit feature' || 'Featured':
-  //       setEditProfileModalSubtitle("Publications where you've been featured")
+  //       setEditProfileModalSubtitle("Places where you've been featured")
   //       break;
   //     case 'Add link' || 'Edit link' || 'Links':
   //       setEditProfileModalSubtitle("Highlight anything you like")
@@ -685,7 +685,7 @@ const EditProfile = ({
     {
       "id": uuidv4(),
       "title": "Featured",
-      "subtitle": "Publications where you've been featured",
+      "subtitle": "Places where you've been featured",
       "icon": ICONS.FEATURED
     },
     {
@@ -743,24 +743,25 @@ const EditProfile = ({
         onHide={handleEditProfileClose}
         backdrop="static"
         keyboard={false}
-        size="lg"
+        size="md"
       >
         <Modal.Header closeButton>
-          <div className="d-flex flex-row align-items-center" style={{gap: '8px'}}>
+          <div className="d-flex flex-row align-items-center gap-3">
             {editProfileModalState !== 'default' ?
-            <button onClick={handleBack} className="btn dark low small icon-only">
+            <button onClick={handleBack} className="btn dark medium icon-only">
               <svg viewBox="0 0 24 24">
                 <path d={ICONS.ARROW_LEFT}></path>
               </svg>
             </button>
-            : '' 
+            : <div style={{height: '56px', width: '56px'}}></div> 
             }
-            <div className="d-flex flex-column align-items-start gap-1">
-              <h5 className="text-dark-high font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
-              {editProfileModalSubtitle !== '' && <p className="mb-0 text-dark-low">{editProfileModalSubtitle}</p>}
-            </div>
+
           </div>
-          <button onClick={handleClose} className="btn dark low small icon-only">
+          <div className="d-flex flex-column align-items-center gap-1">
+            <h5 className="text-dark-high text-center font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
+            {editProfileModalSubtitle !== '' && <p className="mb-0 text-center text-dark-low">{editProfileModalSubtitle}</p>}
+          </div>
+          <button onClick={handleClose} className="btn dark medium icon-only">
             <svg viewBox="0 0 24 24">
               <path d={ICONS.CLOSE}></path>
             </svg>
@@ -773,10 +774,10 @@ const EditProfile = ({
             <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-4`}>
               <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
                 {/* <Icon icon={option.icon} size='24' className="fill-dark-900" /> */}
-                <div className="d-flex flex-column align-items-start w-100 gap-0">
-                <p className="font-weight-medium text-dark-high large mb-0">
+                <div className="d-flex flex-column align-items-start w-100 gap-1">
+                <h6 className="text-dark-high large mb-0">
                   {option.title}
-                </p>
+                </h6>
                 <p className="mb-0 text-dark-low">{option.subtitle && option.subtitle}</p>
                 </div>
               </div>

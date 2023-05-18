@@ -14,11 +14,11 @@ const Featured = ({
   const [submitting, setSubmitting] = useState(false);
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit feature', "Publications where you've been featured", index)
+    handleEditProfileChangeView('Edit feature', "Places where you've been featured", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add feature', "Publications where you've been featured", )
+    handleEditProfileChangeView('Add feature', "Places where you've been featured", )
   }
 
   return (
