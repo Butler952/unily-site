@@ -769,9 +769,9 @@ const EditProfile = ({
         </Modal.Header>
         <>
         { editProfileModalState == 'default' && (
-          <>
+          <div className="d-flex flex-column p-3">
           {editProfileOptions.map((option) =>
-            <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-4`}>
+            <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-3`}>
               <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
                 {/* <Icon icon={option.icon} size='24' className="fill-dark-900" /> */}
                 <div className="d-flex flex-column align-items-start w-100 gap-1">
@@ -784,7 +784,7 @@ const EditProfile = ({
               <Icon icon={ICONS.ARROW_RIGHT} size='20' className="iconDarkHigh" />
             </button>
           )}
-          </>
+          </div>
         )}
         { editProfileModalState == 'Basic information' && (
           <BasicInformation 

@@ -5,12 +5,18 @@
   overflow: hidden;
   border: none;
   background: none;
+  border-radius: $radius-medium;
   &:not(:last-child) {
-    border-bottom: 1px solid $dark-300;
+    // border-bottom: 1px solid $dark-300;
   }
   &:hover {
     background: $dark-100;
     text-decoration: none;
+  }
+  svg {
+    path {
+      fill: $dark-500;
+    }
   }
 }
 
