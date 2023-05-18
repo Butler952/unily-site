@@ -390,7 +390,7 @@ const Header = ({
                       <svg viewBox="0 0 24 24">
                         <path d={ICONS.EDIT}></path>
                       </svg>
-                      {screenWidth > 575 ? 'Edit content' : null}
+                      {screenWidth > 575 ? 'Edit profile' : null}
                     </button>
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
@@ -458,7 +458,7 @@ const Header = ({
                         <hr className="m-0" />
                         <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
-                          Edit content
+                          Edit profile
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                           <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />

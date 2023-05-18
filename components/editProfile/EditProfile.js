@@ -758,7 +758,7 @@ const EditProfile = ({
 
           </div>
           <div className="d-flex flex-column align-items-center gap-1">
-            <h5 className="text-dark-high text-center font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit content' : editProfileModalState}</h5>
+            <h5 className="text-dark-high text-center font-weight-bold mb-0">{editProfileModalState == 'default' ? 'Edit profile' : editProfileModalState}</h5>
             {editProfileModalSubtitle !== '' && <p className="mb-0 text-center text-dark-low">{editProfileModalSubtitle}</p>}
           </div>
           <button onClick={handleClose} className="btn dark medium icon-only">
