@@ -269,7 +269,7 @@ const Sync = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-center my-5 py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high text-center mb-2">Import from LinkedIn</h2>
           :

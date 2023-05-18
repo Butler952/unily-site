@@ -15,7 +15,7 @@ import { UserContext } from '../_app';
 const Avatar = () => {
   const { userContext, setUserContext } = useContext(UserContext);
 
-  const [submitting, setSubmitting] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [loadingState, setLoadingState] = useState('');
   const [userData, setUserData] = useState('');
@@ -88,7 +88,7 @@ const Avatar = () => {
   const handleAddAvatar = (e) => {
     e.preventDefault();
 
-    setSubmitting(true)
+    setSaving(true)
 
     let filename = `images/${userData.uid}/profile_picture.jpg`
 
@@ -160,7 +160,7 @@ const Avatar = () => {
                 router.push('/setup/headline')
               })
               .catch((error) => {
-                setSubmitting(false)
+                setSaving(false)
                 console.log(error)
                 toast("Unable to upload avatar")
               });
@@ -172,7 +172,7 @@ const Avatar = () => {
   const handleManualSubmit = (e) => {
     e.preventDefault();
 
-    setSubmitting(true);
+    setSaving(true);
 
     fire.firestore().collection('users').doc(userData.uid).update({
       stage: '/setup/headline',
@@ -208,6 +208,26 @@ const Avatar = () => {
     avatarChange('')
   }
 
+  const handleBack = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/name',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/name';
+        setUserContext(newUserContext)
+      })
+      .then(() => {
+        router.push('/setup/name')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
@@ -216,7 +236,7 @@ const Avatar = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-center my-5 py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high text-center mb-2">Upload an avatar</h2>
           :
@@ -225,12 +245,12 @@ const Avatar = () => {
         <p className="large text-center" style={{maxWidth: '480px'}}>{!avatarChanged ? 'Let the world see your face' : 'Looking good!'}</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
-        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
+        <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '320px'}}>
           <div className="d-flex flex-column align-items-center w-100 gap-4">
             {avatarChanged && avatar !== '' ?
             <div className={`position-relative overflow-hidden`} style={{ backgroundImage: `url(${avatarImage})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '100%', height: '160px', width: '160px' }}></div>
             :
-            <button type="button" onClick={handleChangeImage} disabled={submitting} style={{border: 'none', background: 'none', borderRadius: '100%', overflow: 'hidden'}}>
+            <button type="button" onClick={handleChangeImage} disabled={saving} style={{border: 'none', background: 'none', borderRadius: '100%', overflow: 'hidden'}}>
               <div className="d-flex flex-column align-items-center justify-content-center bg-primary-200 radius-5 p-4" style={{width: '160px', height: '160px'}}>
                 <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '48px'}} className="fill-primary-700">
                   <path d={ICONS.PLUS}></path>
@@ -239,19 +259,48 @@ const Avatar = () => {
             </button>
             }
             {avatarChanged ?
-            // {avatar !== '' ?
-              <>
-                <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
-                  <button type="button" className="btn primary high w-100 w-sm-auto" disabled={submitting} onClick={handleAddAvatar}>Upload avatar</button>
-                  <button type="button" className="btn dark low w-100 w-sm-auto" disabled={submitting} onClick={handleChangeImage}>Change image</button>
-                  {/* <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary low w-100" disabled={submitting}>Skip for now</button> */}
+
+              <div className="d-flex flex-column align-items-start justify-content-between my-4 my-sm-5 gap-4 w-100">
+                <button type="button" className="btn primary high w-100 order-0" disabled={saving} onClick={handleAddAvatar}>Upload avatar</button>
+                <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between gap-3 w-100">
+                  <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between order-0 order-sm-1 gap-3 w-100 w-sm-auto">
+                    <button type="button" onClick={handleChangeImage} className="btn dark medium w-100 order-1 order-sm-0" disabled={saving}>Change image</button>
+                    {/* <button type="button" className="btn dark low w-100 w-sm-auto" disabled={saving} onClick={handleChangeImage}>Change image</button> */}
+                  </div>
+                  {screenWidth > 575 ?
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium icon-only mr-3">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.ARROW_LEFT}></path>
+                      </svg>
+                    </button>
+                  :
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium w-100 w-sm-auto order-1 order-sm-0">Back</button>
+                  }
                 </div>
-              </>
-              :
-              <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
-                <button type="button" className="btn dark high w-100" disabled={submitting} onClick={handleChangeImage}>Choose a file</button>
-                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn dark low w-100" disabled={submitting}>Skip for now</button>
               </div>
+              :
+              <div className="d-flex flex-column align-items-start justify-content-between my-4 my-sm-5 gap-4 w-100">
+                <button type="button" className="btn primary high w-100 order-0" disabled={saving} onClick={handleChangeImage}>Choose a file</button>
+                <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between gap-3 w-100">
+                  <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between order-0 order-sm-1 gap-3 w-100 w-sm-auto">
+                    <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn dark medium w-100 order-1 order-sm-0" disabled={saving}>Skip for now</button>
+                  </div>
+                  {screenWidth > 575 ?
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium icon-only mr-3">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.ARROW_LEFT}></path>
+                      </svg>
+                    </button>
+                  :
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark low w-100 w-sm-auto order-1 order-sm-0">Back</button>
+                  }
+                </div>
+              </div>
+              
+              // <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
+              //   <button type="button" className="btn dark high w-100" disabled={saving} onClick={handleChangeImage}>Choose a file</button>
+              //   <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn dark low w-100" disabled={saving}>Skip for now</button>
+              // </div>
             }
             <input
               type="file"
@@ -275,7 +324,7 @@ const Avatar = () => {
                 <div className="d-flex flex-column gap-3">
                   <button type="button" className="btn primary high w-100">Choose a file</button>
                 </div>
-                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary low w-100" disabled={submitting}>Skip for now</button>
+                <button type="button" onClick={(e) => handleManualSubmit(e)} className="btn primary low w-100" disabled={saving}>Skip for now</button>
               </div>
               <br />
             </div>

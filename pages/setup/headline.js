@@ -119,6 +119,26 @@ const Headline = () => {
     }
   }
 
+  const handleBack = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/avatar',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/avatar';
+        setUserContext(newUserContext)
+      })
+      .then(() => {
+        router.push('/setup/avatar')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
@@ -127,7 +147,7 @@ const Headline = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-left py-5" style={{ maxWidth: "560px"}}>
+      <Container className="d-flex flex-column align-items-left my-5 py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high mb-3">Your headline</h2>
           :
@@ -143,9 +163,21 @@ const Headline = () => {
                 {headlineError !== '' ? <p className="small text-error-high mt-2 mb-0">{headlineError}</p> : <p className="small text-dark-low mt-2 mb-0">E.g. “Product Designer & Indiemaker” or “I can help you land more leads.”</p>}
               </div>
               <div className="d-flex flex-column mb-4 mb-sm-5 gap-3">
-                <div className="d-flex flex-column gap-3">
-                  <button type="submit" className="btn primary high" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between my-4 my-sm-5 gap-3">
+                  <button type="submit" className="btn primary high w-100 w-sm-auto order-0 order-sm-1" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                  {screenWidth > 575 ?
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium icon-only mr-3">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.ARROW_LEFT}></path>
+                      </svg>
+                    </button>
+                  :
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium w-100 w-sm-auto order-1 order-sm-0">Back</button>
+                  }
                 </div>
+                {/* <div className="d-flex flex-column gap-3">
+                  <button type="submit" className="btn primary high" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                </div> */}
               </div>
             </div>
             <br />

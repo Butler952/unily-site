@@ -127,7 +127,7 @@ const Name = () => {
     }
   }
 
-  const handleGoBack = (e) => {
+  const handleBack = (e) => {
     e.preventDefault();
 
     setSaving(true);
@@ -155,11 +155,11 @@ const Name = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "560px"}}>
+      <Container className="d-flex flex-column align-items-start my-5 py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high mb-2">What’s your name?</h2>
+          <h2 className="text-dark-high mb-2">Your name</h2>
           :
-          <h3 className="text-dark-high mb-2">What’s your name?</h3>
+          <h3 className="text-dark-high mb-2">Your name</h3>
         }
         <p className="large" style={{maxWidth: '560px'}}>This will be displayed on your page</p>
 
@@ -176,9 +176,17 @@ const Name = () => {
                 {lastNameError !== '' && <p className="small text-error-high mt-2 mb-0">{lastNameError}</p> }
               </div>
               <div className="d-flex flex-column mb-4 mb-sm-5 gap-3">
-                <div className="d-flex flex-column gap-3">
-                  <button type="submit" className="btn primary high w-100" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
-                  <button type="button" onClick={(e) => handleGoBack(e)} className="btn primary medium w-100" disabled={saving}>Import from LinkedIn</button>
+                <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between my-4 my-sm-5 gap-3">
+                  <button type="submit" className="btn primary high w-100 w-sm-auto order-0 order-sm-1" disabled={saving}>{!saving ? 'Continue' : 'Saving'}</button>
+                  {screenWidth > 575 ?
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium icon-only mr-3">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.ARROW_LEFT}></path>
+                      </svg>
+                    </button>
+                  :
+                    <button type="button" onClick={(e) => handleBack(e)} disabled={saving} className="btn dark medium w-100 w-sm-auto order-1 order-sm-0">Back</button>
+                  }
                 </div>
               </div>
             </div>

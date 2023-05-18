@@ -141,7 +141,7 @@ const Handle = () => {
               })
             })
             .then(() => {
-              if ((matchingUrls && matchingUrls).length > 0) {
+              if (((matchingUrls && matchingUrls).length > 0) && userContext.profileUrl !== `/${domain}`) {
                 setSaving(false)
                 setDomainError('This handle is not available 😔')
               } else {
@@ -189,7 +189,7 @@ const Handle = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-start py-5" style={{ maxWidth: "560px"}}>
+      <Container className="d-flex flex-column align-items-start my-5 py-5" style={{ maxWidth: "560px"}}>
         {screenWidth > 575 ?
           <h2 className="text-dark-high mb-2">Choose your handle</h2>
           :

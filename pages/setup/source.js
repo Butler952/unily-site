@@ -8,6 +8,7 @@ import mixpanelConfig from 'config/mixpanel-config';
 import Header from '../../components/header/Header';
 import { Container } from 'react-bootstrap';
 import { UserContext } from '../_app';
+import ICONS from 'components/icon/IconPaths';
 
 const Source = () => {
   const { userContext, setUserContext } = useContext(UserContext);
@@ -70,6 +71,26 @@ const Source = () => {
     })
   }
 
+  const handleBack = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    fire.firestore().collection('users').doc(userData.uid).update({
+      stage: '/setup/handle',
+      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    })
+      .then(() => {
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/handle';
+        setUserContext(newUserContext)
+      })
+      .then(() => {
+        router.push('/setup/handle')
+      })
+      .catch(error => console.log('error', error));
+  }
+
   const toggleSource = (index) => {
     if (selectedSource == sources[index].name) { 
       setSelectedSource('')
@@ -97,16 +118,16 @@ const Source = () => {
       </Head>
       <Header hideShadow />
 
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px" }}>
+      <Container className="d-flex flex-column align-items-start my-5 py-5" style={{ maxWidth: "640px" }}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">How did you hear about ExpertPage?</h2>
+          <h2 className="text-dark-high mb-2">How did you hear about ExpertPage?</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">How did you hear about ExpertPage?</h3>
+          <h3 className="text-dark-high mb-2">How did you hear about ExpertPage?</h3>
         }
-        <p className="large text-center" style={{ maxWidth: '480px' }}>Select one option</p>
+        <p className="large" style={{ maxWidth: '480px' }}>Select one option</p>
 
         <div className="d-flex flex-column w-100 mt-4">
-          <div className="d-flex flex-wrap justify-content-center" style={{gap: '8px'}}>
+          <div className="d-flex flex-wrap justify-content-start" style={{gap: '8px'}}>
           {sources.map((source, index) => {
             return (
               <button 
@@ -130,11 +151,16 @@ const Source = () => {
             </div>
           }
           <br />
-          <div className="d-flex flex-column align-items-center my-4 my-sm-5">
+          <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between my-4 my-sm-5 gap-3">
+            <button type="button" onClick={(e) => {handleSubmit(e)}} className="btn primary high w-100 w-sm-auto order-0 order-sm-1" disabled={saving || selectedSource == 'Other' ? (otherSourceReason == '' ? true : false) : selectedSource == ''}>Continue</button>
             {screenWidth > 575 ?
-              <button type="button" onClick={(e) => {handleSubmit(e)}} className="btn primary high w-100" style={{ maxWidth: '320px' }} disabled={selectedSource == 'Other' ? (otherSourceReason == '' ? true : false) : selectedSource == ''}>Continue</button>
-              :
-              <button type="button" onClick={(e) => {handleSubmit(e)}} className="btn primary high w-100" disabled={selectedSource == 'Other' ? (otherSourceReason == '' ? true : false) : selectedSource == ''}>Continue</button>
+              <button type="button" onClick={(e) => handleBack(e)} className="btn dark medium icon-only mr-3">
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.ARROW_LEFT}></path>
+                </svg>
+              </button>
+            :
+              <button type="button" onClick={(e) => handleBack(e)} className="btn dark medium w-100 w-sm-auto order-1 order-sm-0" disabled={saving}>Back</button>
             }
           </div>
         </div>
