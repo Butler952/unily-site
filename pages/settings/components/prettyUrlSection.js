@@ -252,7 +252,7 @@ const PrettyUrlSection = ({
         <hr className="m-0" />
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
           <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
-            <p className="large text-dark-high mb-0">Personalised</p>
+            <h6 className="mb-1">Personalised</h6>
             <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
             <div className="mt-3">
               <input
@@ -294,7 +294,7 @@ const PrettyUrlSection = ({
 
           </div>
           <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{ cursor: 'pointer' }}>
-            <p className="large text-dark-high mb-0">Use my own domain</p>
+            <h6 className="mb-1">Use my own domain</h6>
             <p className="text-dark-low mb-0">Display your ExpertPage profile on your own domain</p>
             {/* <button type="submit" className="btn primary high">Add domain</button> */}
             {/* <form onSubmit={handleSubmitCustomDomain}>

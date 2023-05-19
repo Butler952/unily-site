@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
   }, [])
 
   return (
-    <>
+    <body>
       <UserContext.Provider value={userValue}>
         <Head>
           <title>expertpage.io</title>
@@ -46,6 +46,6 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </Layout>
       </UserContext.Provider>
-    </>
+    </body>
   )
 }

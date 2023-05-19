@@ -6,6 +6,7 @@
   border: none;
   background: none;
   border-radius: $radius-medium;
+  padding: 16px;
   &:not(:last-child) {
     // border-bottom: 1px solid $dark-300;
   }

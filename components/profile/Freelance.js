@@ -57,7 +57,7 @@ const Freelance = (props) => {
   const getSummaryText = () => {
     // For Text that is shorter than desired length
     if (props.summary.length <= 258) return (
-      <p className={`large mb-0 ${styles.summary} ${props.theme.mode == 'dark' && 'text-light-med'}`}>
+      <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
         {props.summary}
       </p>
     );
@@ -65,8 +65,8 @@ const Freelance = (props) => {
     if (props.summary.length > 258 && showMore) {
       return (
         <>
-          <p className={`large mb-0 ${styles.summary} ${props.theme.mode == 'dark' && 'text-light-med'}`}>
-            {props.summary} <u style={{ cursor: 'pointer' }} className={`${props.theme.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(false)}>Show less</u>
+          <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
+            {props.summary} <u style={{ cursor: 'pointer' }} className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(false)}>Show less</u>
           </p>
         </>
       );
@@ -75,8 +75,8 @@ const Freelance = (props) => {
     if (props.summary.length > 258) {
       return (
         <>
-          <p className={`large mb-0 ${styles.summary} ${props.theme.mode == 'dark' && 'text-light-med'}`}>
-            {props.summary.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className={`${props.theme.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(true)}>Read more</u>
+          <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
+            {props.summary.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(true)}>Read more</u>
           </p>
         </>
       );
@@ -244,10 +244,11 @@ const Freelance = (props) => {
   }
 
   return (
-    // <body className={profileStyles.body}>
-      <div className={props.theme.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body} style={{paddingTop: '66px'}}>
+    // <body className={props.theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body}>
+      <>
         {props.email !== undefined ?
-          <>
+          <div className={props.theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body} style={{paddingTop: '66px'}}>
+
             <Head>
               <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
               {props.summary ? <meta name="description" content={props.summary} /> : null}
@@ -324,14 +325,14 @@ const Freelance = (props) => {
                           <h1 className="display2 text-gradient-3 mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
-                          { props.headline && <h1 className={`display2 text-gradient-0 ${props.theme.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
+                          { props.headline && <h1 className={`display2 text-gradient-0 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
                         </>
                         :
                         <>
                           <h1 className="text-gradient-3 mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
-                          { props.headline && <h1 className={`text-gradient-0 ${props.theme.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
+                          { props.headline && <h1 className={`text-gradient-0 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
                         </>
                       }
                     {/* {props.headline &&
@@ -353,7 +354,7 @@ const Freelance = (props) => {
                             key={index} 
                             href={convertToLink(link.url)}
                             target="_blank" 
-                            className={`btn ${props.theme.mode !== 'dark' ? 'dark' : 'light'} medium large w-100 w-md-auto`}>
+                            className={`btn ${props.theme?.mode !== 'dark' ? 'dark' : 'light'} medium large w-100 w-md-auto`}>
                               {link.label}
                             </a>
                           )
@@ -400,7 +401,7 @@ const Freelance = (props) => {
                 }
                 {(props.products && props.products.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>Products</h1>
+                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Products</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {props.products.map((product, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -418,8 +419,8 @@ const Freelance = (props) => {
                                 : null
                               }
                               <div className="w-100">
-                                <h3 className={`mb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
-                                {product.description ? <p className={`large mb-0 ${props.theme.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                <h3 className={`mb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
+                                {product.description ? <p className={`large mb-0 ${props.theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                               </div>
                               { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn primary high w-100 w-md-auto mt-4">Buy now</a>}
                             </div>
@@ -430,7 +431,7 @@ const Freelance = (props) => {
                 }
                 {(props.services && props.services.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>Services</h1>
+                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Services</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {props.services.map((service, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -459,8 +460,8 @@ const Freelance = (props) => {
                                 : null
                               }
                               <div className="w-100">
-                                <h3 className={`mb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
-                                {service.description ? <p className={`large mb-0 ${props.theme.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                <h3 className={`mb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
+                                {service.description ? <p className={`large mb-0 ${props.theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                               </div>
                               <a href={service.url ? convertToLink(service.url) : 'mailto:' + props.email} className="btn primary high w-100 w-md-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a>
                             </div>
@@ -501,7 +502,7 @@ const Freelance = (props) => {
                 } */}
                 {(props.testimonials && props.testimonials.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>Testimonials</h1>
+                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {props.testimonials.sort(sortPosts).map((testimonial, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -519,12 +520,12 @@ const Freelance = (props) => {
                               }
                               <div className="w-100">
                                 <div className="d-flex flex-column mb-3">
-                                  <h3 className={`mb-2 ${props.theme.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h3>
-                                  {testimonial.title ? <p className={`large ${props.theme.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} mb-0`}>{testimonial.title}</p> : null}
+                                  <h3 className={`mb-2 ${props.theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h3>
+                                  {testimonial.title ? <p className={`large ${props.theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} mb-0`}>{testimonial.title}</p> : null}
                                 </div>
-                                {testimonial.description ? <p className={`large mb-0 ${props.theme.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                {testimonial.description ? <p className={`large mb-0 ${props.theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                                 {testimonial.posted_at && 
-                                  <p className={`${props.theme.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} large mt-3`}>
+                                  <p className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} large mt-3`}>
                                     {testimonial.posted_at ? (testimonial.posted_at.month ? convertMonth(testimonial.posted_at.month) + " " : '') : null}
                                     {testimonial.posted_at ? (testimonial.posted_at.year ? testimonial.posted_at.year + " " : null) : null}
                                   </p>
@@ -538,7 +539,7 @@ const Freelance = (props) => {
                 }
                 {(props.posts && props.posts.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>Posts</h1>
+                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {props.posts.sort(sortPosts).map((post, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -556,10 +557,10 @@ const Freelance = (props) => {
                                 : null
                               }
                               <div className="w-100">
-                                <h3 className={`mb-3 ${props.theme.mode == 'dark' && 'text-light-high'}`}>{post.name}</h3>
-                                {post.description ? <p className={`large mb-0 ${props.theme.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                <h3 className={`mb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h3>
+                                {post.description ? <p className={`large mb-0 ${props.theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                                 {post.posted_at && 
-                                  <p className={`text-dark-low large mt-3 ${props.theme.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
+                                  <p className={`text-dark-low large mt-3 ${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
                                     {post.posted_at ? (post.posted_at.month ? convertMonth(post.posted_at.month) + " " : '') : null}
                                     {post.posted_at ? (post.posted_at.year ? post.posted_at.year + " " : null) : null}
                                   </p>
@@ -621,19 +622,19 @@ const Freelance = (props) => {
                   <a href="/" style={{textDecoration: 'none'}}>
                     <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path 
-                        className="fill-dark-700"
+                        className={`${props.theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
                         fillRule="evenodd" 
                         clipRule="evenodd" 
                         d={ICONS.LOGO} 
                       />
                     </svg>
-                    <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
+                    <p className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
                   </a>
                   {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
                 </Container>
               </div>
             </div>
-          </>
+          </div>
           :
           <div className="d-flex justify-content-center align-items-center bg-light-900 py-5" style={{ minHeight: '100vh' }}>
             <Container>
@@ -653,7 +654,7 @@ const Freelance = (props) => {
             </Container>
           </div>
         }
-      </div>
+      </>
     // </body>
   )
 }

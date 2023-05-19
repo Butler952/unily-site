@@ -195,6 +195,7 @@ hr {border-top: 1px solid $dark-300;}
 
 .bg-gradient-1 { background: $gradient-1; }
 .bg-gradient-2 { background: $gradient-2; }
+.bg-gradient-3 { background: $gradient-3; }
 
 // Icon Fills
 
@@ -1248,12 +1249,12 @@ textarea {
   border-radius: $radius-v-small;
 }
 .checkbox-container:hover input ~ .checkmark {
-  border: 2px solid $primary-900;
+  border: 2px solid $dark-900;
 }
 .checkbox-container input{
   &:checked ~ .checkmark {
-    background-color: $primary-900;
-    border: 2px solid $primary-900;
+    background-color: $dark-900;
+    border: 2px solid $dark-900;
   }
   &:disabled ~ .checkmark {
     background-color: $dark-300;

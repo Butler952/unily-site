@@ -113,7 +113,6 @@ const Name = () => {
           newUserContext.profile.last_name = lastName,
           newUserContext.profile.full_name = `${firstName} ${lastName}`,
           newUserContext.stage = '/setup/avatar';
-          newUserContext.template = 'freelance';
           setUserContext(newUserContext)
         })
         .then(() => {

@@ -1,7 +1,29 @@
 @import '../../public/styles/variables.scss';
 
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+  width: 100%;
+  border-radius: $radius-small;
+  border: 1px solid $dark-300;
+}
+.planCard {
+  border: 2px solid transparent;
+  transition: $transition-standard;
+  background: $dark-200;
+  &:hover{
+    border: 2px solid $dark-900;
+    box-shadow: $shadow-5;
+    transform: translateY(-1px);
+  }
+  &.active{
+    border: 2px solid $dark-900;
+    background: $dark-400;
+  }
+}
 .overlayBackground {
-  background: $primary-900;
+  background: $gradient-3;
   animation: createBackground 800ms;
   min-width: 200%; min-height: 200%;
   border-radius: 100%;

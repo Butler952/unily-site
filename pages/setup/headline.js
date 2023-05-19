@@ -80,6 +80,46 @@ const Headline = () => {
     setHeadlineError('')
   }
 
+  // Comment: Before Template changes
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   setSaving(true);
+
+  //   if (headline === '') {
+  //     setHeadlineError('Please enter a headline')
+  //     setSaving(false)
+  //   } else {
+
+  //     fire.firestore().collection('users').doc(userData.uid).update({
+  //       'profile.headline': headline,
+  //       stage: 'complete',
+  //       template: 'freelance',
+  //       lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+  //     })
+  //       .then(() => {
+  //         let newUserContext = userContext;
+  //         newUserContext.profile.headline = headline,
+  //         newUserContext.stage = 'complete',
+  //         newUserContext.template = 'freelance'
+  //         setUserContext(newUserContext)
+  //       })
+  //       .then(() => {
+  //         mixpanel.init(mixpanelConfig); 
+  //         mixpanel.track('Headline added');
+  //       })
+  //       .then(() => {
+  //         router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
+  //         // router.push(
+  //         //   userContext &&
+  //         //   userContext.profileUrl &&
+  //         //   userContext.profileUrl ||
+  //         //   userData.profileUrl)
+  //       })
+  //       .catch(error => console.log('error', error));
+  //   }
+  // }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -92,15 +132,13 @@ const Headline = () => {
 
       fire.firestore().collection('users').doc(userData.uid).update({
         'profile.headline': headline,
-        stage: 'complete',
-        template: 'freelance',
+        stage: '/setup/styling',
         lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
       })
         .then(() => {
           let newUserContext = userContext;
           newUserContext.profile.headline = headline,
-          newUserContext.stage = 'complete',
-          newUserContext.template = 'freelance'
+          newUserContext.stage = '/setup/styling',
           setUserContext(newUserContext)
         })
         .then(() => {
@@ -108,7 +146,9 @@ const Headline = () => {
           mixpanel.track('Headline added');
         })
         .then(() => {
-          router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
+          //Comment: before Styling
+          // router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
+          router.push('/setup/styling')
           // router.push(
           //   userContext &&
           //   userContext.profileUrl &&

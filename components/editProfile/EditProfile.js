@@ -771,14 +771,14 @@ const EditProfile = ({
         { editProfileModalState == 'default' && (
           <div className="d-flex flex-column p-3">
           {editProfileOptions.map((option) =>
-            <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center p-3`}>
+            <button key={option.id} onClick={() => handleClick(option.title, option.subtitle)} className={`${styles.menuOption} d-flex flex-row justify-content-between align-items-center`}>
               <div className="d-flex flex-row align-items-center" style={{gap: '16px'}}>
                 {/* <Icon icon={option.icon} size='24' className="fill-dark-900" /> */}
                 <div className="d-flex flex-column align-items-start w-100 gap-1">
-                <h6 className="text-dark-high large mb-0">
-                  {option.title}
-                </h6>
-                <p className="mb-0 text-dark-low">{option.subtitle && option.subtitle}</p>
+                  <h6 className="mb-0">
+                    {option.title}
+                  </h6>
+                  <p className="mb-0 text-dark-low">{option.subtitle && option.subtitle}</p>
                 </div>
               </div>
               <Icon icon={ICONS.ARROW_RIGHT} size='20' className="iconDarkHigh" />

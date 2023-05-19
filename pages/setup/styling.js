@@ -3,7 +3,7 @@ import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import { loadStripe } from '@stripe/stripe-js';
 import Lottie from 'react-lottie';
-import animationData from '../../components/animations/loader.json'
+import animationData from '../../components/animations/loaderLight.json'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
 // import testResponse from './testResponse';
@@ -14,11 +14,11 @@ import mixpanelConfig from 'config/mixpanel-config';
 import ICONS from '../../components/icon/IconPaths';
 import { UserContext } from '../_app';
 import styles from '../settings/settings.module.scss'
-import pageStyles from './template.module.scss'
+import pageStyles from './styling.module.scss'
 import Image from 'next/image';
 import UpgradeButton from '../settings/components/upgradeButton';
 
-const Template = () => {
+const Styling = () => {
   const { userContext, setUserContext } = useContext(UserContext);
 
   const [profileUrl, setProfileUrl] = useState('');
@@ -171,54 +171,20 @@ const Template = () => {
     }
   }
 
-  let templates = [
+  let themes = [
     {
       'id': 0,
-      'label': 'Original',
-      'string': 'original',
+      'label': 'Light mode',
+      'string': 'light',
       'img': '/images/profile-preview.png',
-      'active': templateSelection == 'original',
-      'premium': false
+      'active': templateSelection == 'light',
     },
     {
       'id': 1,
-      'label': 'Bento',
-      'string': 'bento',
+      'label': 'Dark mode',
+      'string': 'dark',
       'img': '/images/bento-template.jpg',
-      'active': templateSelection == 'bento',
-      'premium': true
-    },
-    {
-      'id': 2,
-      'label': 'Staccato',
-      'string': 'staccato',
-      'img': '/images/staccato-template.jpeg',
-      'active': templateSelection == 'staccato',
-      'premium': true
-    },
-    {
-      'id': 3,
-      'label': 'Metro',
-      'string': 'metro',
-      'img': '/images/metro-template.jpeg',
-      'active': templateSelection == 'metro',
-      'premium': false
-    },
-    {
-      'id': 4,
-      'label': 'Metro Night',
-      'string': 'metro_night',
-      'img': '/images/metro-night-template.jpeg',
-      'active': templateSelection == 'metro_night',
-      'premium': false
-    },
-    {
-      'id': 5,
-      'label': 'Document',
-      'string': 'document',
-      'img': '/images/document-template.jpeg',
-      'active': templateSelection == 'document',
-      'premium': false
+      'active': templateSelection == 'dark',
     },
   ]
 
@@ -249,7 +215,8 @@ const Template = () => {
       () => {
         let newUserContext = userContext;
         newUserContext.stage = 'complete'
-        newUserContext.template = templateSelection;
+        // newUserContext.template = templateSelection;
+        newUserContext.theme = {'mode': templateSelection}
         setUserContext(newUserContext)
       },
       13000
@@ -272,7 +239,10 @@ const Template = () => {
     }
     fire.firestore().collection('users').doc(userData.uid).update({
       'stage': 'complete',
-      'template': templateSelection,
+      'theme': {
+        // 'hue': '',
+        'mode': templateSelection
+      },
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
@@ -297,46 +267,63 @@ const Template = () => {
     <div className="bg-light-900" style={{minHeight:'100vh'}}>
      
       <Head>
-        <title>Choose a template</title>
+        <title>Styling</title>
       </Head>
       <Header hideShadow />
-      <Container className="d-flex flex-column align-items-center py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-center my-5 py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">Choose a template</h2>
+          <h2 className="text-dark-high text-center mb-2">Styling</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">Choose a template</h3>
+          <h3 className="text-dark-high text-center mb-2">Styling</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>You can always change this later</p>
+        <p className="large text-center" style={{maxWidth: '480px'}}>Choose the style of your profile.</p>
         <div className="w-100" style={{ maxWidth: "640px" }}>
-          <div className="d-flex flex-column p-4 p-md-5 align-items-center" style={{gap: '16px'}}>
-            {templates.map((template, index) => 
-              <div role="button" onClick={() => changeTemplate(template)} className={`d-flex flex-column radius-3 p-3 w-100 ${styles.planCard} ${template.active && styles.active}`} style={{gap: '16px'}}>
-                <div className="d-flex flex-row justify-content-between align-items-center">
-                  <p className="large font-weight-bold text-dark-high mb-0">{template.label}</p>
-                  {template.premium && <div className="tag primary medium">Premium</div>}
+          <div className="d-flex flex-column flex-sm-row py-4 py-md-5 align-items-center" style={{gap: '16px'}}>
+            {themes.map((theme, index) => 
+              <div role="button" onClick={() => changeTemplate(theme)} className={`d-flex flex-column radius-3 p-3 w-100 ${pageStyles.planCard} ${theme.active && pageStyles.active}`} style={{gap: '16px'}}>
+                <label className="checkbox-container mb-4">
+                  <input type="checkbox" checked={theme.active} />
+                  <span className="checkmark"></span>
+                </label>
+                <div className={`${theme.string !== 'dark' ? 'bg-light-900' : 'bg-dark-900' } radius-2 border-1 border-solid border-dark-300`} style={{position: 'relative', paddingTop: '56.25%'}}>
+                  <div style={{position: 'absolute', top: 0, left: 0, width: '100%', padding: '8%'}}>
+                    <div className={`radius-5 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '12%', paddingTop: '12%'}}></div>
+                    <div className="d-flex flex-column align-items-start" style={{marginTop: '4%'}}>
+                      <div className="radius-4 bg-primary-900" style={{width: '40%', paddingTop: '4%', marginTop: '2%'}}></div>
+                      <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '50%', paddingTop: '4%', marginTop: '2%'}}></div>
+                      <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '30%', paddingTop: '4%', marginTop: '2%'}}></div>
+                    </div>
+                    <div className="d-flex flex-row align-items-start" style={{marginTop: '8%'}}>
+                      <div className="radius-4 bg-primary-900" style={{width: '16%', paddingTop: '4%', marginRight: '2%'}}></div>
+                      <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '16%', paddingTop: '4%'}}></div>
+                    </div>
+                  </div>
                 </div>
-                <div className={styles.imageWrapper}>
+                {/* <div className={styles.imageWrapper}>
                   <Image
-                    src={template.img}
+                    src={theme.img}
                     layout='fill'
                     objectFit='cover'
                   />
+                </div> */}
+                <div className="d-flex flex-row justify-content-between align-items-center">
+                  <h6 className="mb-0">{theme.label}</h6>
                 </div>
               </div>
             )}
-            <div className="d-flex flex-column align-items-center my-4 my-sm-5 w-100">
-              {screenWidth > 575 ?
-                <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
-              :
-                <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
-              }
-            </div>
+          </div>
+          <div className="d-flex flex-column align-items-center my-4 my-sm-5 w-100">
+            {screenWidth > 575 ?
+              <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}}disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+            :
+              <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+            }
           </div>
         </div>
       </Container>
       {showBuildingOverlay &&
-      <div className="d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100" style={{top: 0, left:0}}>
-        <div className={`d-flex flex-column align-items-center justify-content-center bg-primary-900 position-fixed ${pageStyles.overlayBackground}`} style={{ zIndex:2}}></div>
+      <div className="d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100" style={{top: 0, left:0, zIndex:3}}>
+        <div className={`d-flex flex-column align-items-center justify-content-center position-fixed ${pageStyles.overlayBackground}`} style={{ zIndex:2}}></div>
         { showBuildingOverlayContentOne &&
           <div className={`d-flex flex-column align-items-center justify-content-center position-fixed w-100 h-100 ${pageStyles.overlayContentOne}`} style={{top: 0, left:0, zIndex:3}}>
             <Lottie options={defaultOptions} height={160} width={160} />
@@ -405,4 +392,4 @@ const Template = () => {
 
 }
 
-export default Template
+export default Styling

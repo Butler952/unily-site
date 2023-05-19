@@ -132,7 +132,9 @@ const Sync = () => {
               },
             },
             //syncsRemaining: 1,
-            stage: 'complete',
+            // Comment: Before styling
+            //stage: 'complete',
+            stage: '/setup/styling',
             template: 'freelance',
             // profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
@@ -149,7 +151,9 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               firstName: result.first_name,
               lastName: result.last_name,
-              stage: 'complete',
+              // Comment: Before styling
+              // stage: 'complete',
+              stage: '/setup/styling',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }
@@ -183,7 +187,9 @@ const Sync = () => {
                 'each': createVolunteerList(result.volunteer_work)
               },
             },
-            stage: 'complete',
+            // Comment: Before styling
+            // stage: 'complete',
+            stage: '/setup/styling',
             template: 'freelance'
             // profileUrl: '/profile/' + userData.uid,
           })
@@ -197,7 +203,9 @@ const Sync = () => {
           )
         })
         .then(() => {
-          router.push(userContext.profileUrl)
+          // Comment: Before styling
+          // router.push(userContext.profileUrl)
+          router.push('/setup/styling')
         })
         .catch(error => console.log('error', error));
     } else {
