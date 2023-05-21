@@ -179,10 +179,15 @@ const Avatar = () => {
       lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
     })
       .then(() => {
-        setUserContext({
-          stage: '/setup/headline',
-        })
+        let newUserContext = userContext;
+        newUserContext.stage = '/setup/headline';
+        setUserContext(newUserContext)
       })
+      // .then(() => {
+      //   setUserContext({
+      //     stage: '/setup/headline',
+      //   })
+      // })
       .then(() => {
         mixpanel.init(mixpanelConfig); 
         mixpanel.track('Avatar skipped');

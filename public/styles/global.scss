@@ -692,6 +692,10 @@ a.btn, input.btn, button.btn {
     }
   }
   &:disabled, &.disabled {
+    &:hover {
+      text-shadow: none!important;
+      box-shadow: none!important;
+    }
     &.high {
       background: $dark-400!important; 
       color: $dark-600!important; 

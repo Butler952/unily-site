@@ -280,7 +280,7 @@ const Styling = () => {
         <div className="w-100" style={{ maxWidth: "640px" }}>
           <div className="d-flex flex-column flex-sm-row py-4 py-md-5 align-items-center" style={{gap: '16px'}}>
             {themes.map((theme, index) => 
-              <div role="button" onClick={() => changeTemplate(theme)} className={`d-flex flex-column radius-3 p-3 w-100 ${pageStyles.planCard} ${theme.active && pageStyles.active}`} style={{gap: '16px'}}>
+              <div key={index} role="button" onClick={() => changeTemplate(theme)} className={`d-flex flex-column radius-3 p-3 w-100 ${pageStyles.planCard} ${theme.active && pageStyles.active}`} style={{gap: '16px'}}>
                 <label className="checkbox-container mb-4">
                   <input type="checkbox" checked={theme.active} />
                   <span className="checkmark"></span>
