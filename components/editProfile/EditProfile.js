@@ -40,6 +40,7 @@ import AddFeature from './AddFeature';
 import Testimonials from './Testimonials';
 import AddTestimonial from './AddTestimonial';
 import EditTestimonial from './EditTestimonial';
+import Styling from './Styling';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -52,6 +53,9 @@ const EditProfile = ({
   }) => {
 
   const [user, setUser] = useState('')
+
+  const [stylingTheme, setStylingTheme] = useState('');
+  const [stylingThemeChanged, setStylingThemeChanged] = useState(false);
 
   const [basicInfoFirstName, setBasicInfoFirstName] = useState('');
   const [basicInfoFirstNameChanged, setBasicInfoFirstNameChanged] = useState(false);
@@ -312,6 +316,9 @@ const EditProfile = ({
 
     setEditProfileModalIndex('')
 
+    setStylingTheme('')
+    setStylingThemeChanged(false)
+
     setBasicInfoFirstName('')
     setBasicInfoFirstNameChanged(false)
     setBasicInfoFirstNameError('')
@@ -570,7 +577,6 @@ const EditProfile = ({
       case 'Add feature': case 'Edit feature':
         handleEditProfileChangeView('Featured')
         break;
-
       case 'Add link': case 'Edit link':
         handleEditProfileChangeView('Links')
         break;
@@ -646,6 +652,12 @@ const EditProfile = ({
   };
 
   const editProfileOptions = [
+    {
+      "id": uuidv4(),
+      "title": "Styling",
+      "subtitle": "Customise the style of your profile",
+      "icon": ICONS.USER,
+    },
     {
       "id": uuidv4(),
       "title": "Basic information",
@@ -785,6 +797,16 @@ const EditProfile = ({
             </button>
           )}
           </div>
+        )}
+        { editProfileModalState == 'Styling' && (
+          <Styling
+            user={user}
+            stylingTheme={stylingTheme}
+            stylingThemeChanged={stylingThemeChanged}
+            setStylingTheme={setStylingTheme}
+            setStylingThemeChanged={setStylingThemeChanged}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
         )}
         { editProfileModalState == 'Basic information' && (
           <BasicInformation 
