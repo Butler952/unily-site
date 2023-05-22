@@ -56,13 +56,13 @@ const Freelance = (props) => {
 
   const getSummaryText = () => {
     // For Text that is shorter than desired length
-    if (props.summary.length <= 258) return (
+    if (props.summary.length <= 480) return (
       <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
         {props.summary}
       </p>
     );
     // If text is longer than desired length & showMore is true
-    if (props.summary.length > 258 && showMore) {
+    if (props.summary.length > 480 && showMore) {
       return (
         <>
           <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
@@ -72,11 +72,11 @@ const Freelance = (props) => {
       );
     }
     // If text is longer than desired length & showMore is false
-    if (props.summary.length > 258) {
+    if (props.summary.length > 480) {
       return (
         <>
           <p className={`large mb-0 ${styles.summary} ${props.theme?.mode == 'dark' && 'text-light-med'}`}>
-            {props.summary.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(true)}>Read more</u>
+            {props.summary.slice(0, 480)}... <u style={{ cursor: 'pointer' }} className={`${props.theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(true)}>Read more</u>
           </p>
         </>
       );
@@ -85,13 +85,13 @@ const Freelance = (props) => {
 
   const getDescriptionText = (description, descriptionShowMore, setDescriptionShowMore) => {
     // For Text that is shorter than desired length
-    if (description.length <= 258) return (
+    if (description.length <= 480) return (
       <span>
         {description}
       </span>
     );
     // If text is longer than desired length & showMore is true
-    if (description.length > 258 && descriptionShowMore) {
+    if (description.length > 480 && descriptionShowMore) {
       return (
         <>
           <span>
@@ -101,11 +101,11 @@ const Freelance = (props) => {
       );
     }
     // If text is longer than desired length & showMore is false
-    if (description.length > 258) {
+    if (description.length > 480) {
       return (
         <>
           <span>
-            {description.slice(0, 258)}... <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setDescriptionShowMore(true)}>Read more</u>
+            {description.slice(0, 480)}... <u style={{ cursor: 'pointer' }} className="text-dark-low" onClick={() => setDescriptionShowMore(true)}>Read more</u>
           </span>
         </>
       );
@@ -263,7 +263,7 @@ const Freelance = (props) => {
             <div>
               {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
               <Container>
-                <div className="mb-5 d-flex flex-column">
+                <div className="mb-5 d-flex flex-column align-items-center">
                   {/* {(props.background_cover_image_url && !headerImageError) &&
                     <>
                       <img
@@ -318,21 +318,21 @@ const Freelance = (props) => {
                     </>
                   }
                   <br />
-                  <div className="mb-5 d-flex flex-column">
+                  <div className="mb-5 pb-5 d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '720px'}}>
                     {props.full_name &&
                       props.screenWidth && props.screenWidth > 767 ? 
                         <>
-                          <h1 className="display2 text-gradient-3 mb-1">
+                          <h1 className="text-gradient-3 text-center mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
-                          { props.headline && <h1 className={`display2 text-gradient-0 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
+                          { props.headline && <h1 className={`text-gradient-0 text-center ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
                         </>
                         :
                         <>
-                          <h1 className="text-gradient-3 mb-1">
+                          <h1 className="text-gradient-3 text-center mb-1">
                             {`Hi, I'm ${props.full_name}.`}<br></br>
                           </h1>
-                          { props.headline && <h1 className={`text-gradient-0 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
+                          { props.headline && <h1 className={`text-gradient-0 text-center ${props.theme?.mode == 'dark' && 'text-light-high'}`}>{props.headline}</h1> }
                         </>
                       }
                     {/* {props.headline &&
@@ -395,13 +395,13 @@ const Freelance = (props) => {
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     {/* <h1>About {props.first_name}</h1> */}
                     <div>
-                      <p className="extra-large mb-0" style={{maxWidth: '720px'}}>{getSummaryText()}</p>
+                      <p className="extra-large mb-0">{getSummaryText()}</p>
                     </div>
                   </div>
                 }
                 {(props.products && props.products.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Products</h1>
+                    <h2 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Products</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {props.products.map((product, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -431,7 +431,7 @@ const Freelance = (props) => {
                 }
                 {(props.services && props.services.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Services</h1>
+                    <h2 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Services</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {props.services.map((service, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -502,7 +502,7 @@ const Freelance = (props) => {
                 } */}
                 {(props.testimonials && props.testimonials.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h1>
+                    <h2 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {props.testimonials.sort(sortPosts).map((testimonial, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -539,7 +539,7 @@ const Freelance = (props) => {
                 }
                 {(props.posts && props.posts.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h1 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h1>
+                    <h2 className={`mb-5 pb-3 ${props.theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {props.posts.sort(sortPosts).map((post, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);

@@ -286,14 +286,14 @@ const Styling = () => {
                   <span className="checkmark"></span>
                 </label>
                 <div className={`${theme.string !== 'dark' ? 'bg-light-900' : 'bg-dark-900' } radius-2 border-1 border-solid border-dark-300`} style={{position: 'relative', paddingTop: '56.25%'}}>
-                  <div style={{position: 'absolute', top: 0, left: 0, width: '100%', padding: '8%'}}>
+                  <div className="d-flex flex-column align-items-center" style={{position: 'absolute', top: 0, left: 0, width: '100%', padding: '8%'}}>
                     <div className={`radius-5 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '12%', paddingTop: '12%'}}></div>
-                    <div className="d-flex flex-column align-items-start" style={{marginTop: '4%'}}>
+                    <div className="d-flex flex-column align-items-center w-100" style={{marginTop: '4%'}}>
                       <div className="radius-4 bg-primary-900" style={{width: '40%', paddingTop: '4%', marginTop: '2%'}}></div>
                       <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '50%', paddingTop: '4%', marginTop: '2%'}}></div>
                       <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '30%', paddingTop: '4%', marginTop: '2%'}}></div>
                     </div>
-                    <div className="d-flex flex-row align-items-start" style={{marginTop: '8%'}}>
+                    <div className="d-flex flex-row justify-content-center w-100" style={{marginTop: '8%'}}>
                       <div className="radius-4 bg-primary-900" style={{width: '16%', paddingTop: '4%', marginRight: '2%'}}></div>
                       <div className={`radius-4 ${theme.string !== 'dark' ? 'bg-dark-400' : 'bg-light-500' }`} style={{width: '16%', paddingTop: '4%'}}></div>
                     </div>
