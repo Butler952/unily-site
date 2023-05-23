@@ -28,10 +28,10 @@ const About = ({
   const handleAboutSubmit = (e) => {
     e.preventDefault();
 
-    if (aboutChanged && about === '') {
-      setAboutError('Please write a little something about yourself')
-      return null;
-    }
+    // if (aboutChanged && about === '') {
+    //   setAboutError('Please write a little something about yourself')
+    //   return null;
+    // }
 
     setSubmitting(true)
 
