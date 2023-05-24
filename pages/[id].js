@@ -23,6 +23,11 @@ const Profile = (props) => {
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
 
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+  const [editProfileModalState, setEditProfileModalState] = useState('default')
+  const [editProfileModalSubtitle, setEditProfileModalSubtitle] = useState('')
+  const [editProfileModalIndex, setEditProfileModalIndex] = useState('')
+
   const [screenWidth, setScreenWidth] = useState('');
 
   const handleResize = () => {
@@ -54,10 +59,42 @@ const Profile = (props) => {
     });
   }
 
+  const handleEditProfileClose = () => {
+    setShowEditProfileModal(false);
+    // setEditProfileModalState('default')
+  };
+
+  const handleEditProfileShow = (page) => {
+    setShowEditProfileModal(true)
+    !page ? setEditProfileModalState('default') : setEditProfileModalState(page)
+    setEditProfileModalIndex('')
+    mixpanel.init(mixpanelConfig);
+    mixpanel.track('Launch edit profile modal');
+  };
+
+  const handleEditProfileChangeView = (page, subtitle, index) => {
+    setEditProfileModalState(page)
+    setEditProfileModalSubtitle(subtitle)
+    setEditProfileModalIndex(index)
+  }
+
   return (
     <div>
       { loggedIn &&
-        <Header positionFixed />
+        <Header 
+          positionFixed 
+          showEditProfileModal={showEditProfileModal}
+          setShowEditProfileModal={setShowEditProfileModal}
+          editProfileModalState={editProfileModalState} 
+          setEditProfileModalState={setEditProfileModalState}
+          editProfileModalSubtitle={editProfileModalSubtitle} 
+          setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+          editProfileModalIndex={editProfileModalIndex} 
+          setEditProfileModalIndex={setEditProfileModalIndex}
+          handleEditProfileClose={handleEditProfileClose}
+          handleEditProfileShow={handleEditProfileShow}
+          handleEditProfileChangeView={handleEditProfileChangeView}
+        />
       }
       { (props.template == undefined ||
         props.template == 'original') ?
@@ -231,6 +268,17 @@ const Profile = (props) => {
           volunteer_work={props.volunteer_work}
           surveyOnSignUpHide={props.surveyOnSignUpHide}
           displayInfo={props.displayInfo}
+          showEditProfileModal={showEditProfileModal}
+          setShowEditProfileModal={setShowEditProfileModal}
+          editProfileModalState={editProfileModalState} 
+          setEditProfileModalState={setEditProfileModalState}
+          editProfileModalSubtitle={editProfileModalSubtitle} 
+          setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+          editProfileModalIndex={editProfileModalIndex} 
+          setEditProfileModalIndex={setEditProfileModalIndex}
+          handleEditProfileClose={handleEditProfileClose}
+          handleEditProfileShow={handleEditProfileShow}
+          handleEditProfileChangeView={handleEditProfileChangeView}
         />
       }
     </div>

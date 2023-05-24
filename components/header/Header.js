@@ -17,7 +17,18 @@ import mixpanelConfig from 'config/mixpanel-config';
 
 const Header = ({
   hideShadow,
-  positionFixed
+  positionFixed,
+  showEditProfileModal, 
+  setShowEditProfileModal,
+  editProfileModalState, 
+  setEditProfileModalState,
+  editProfileModalSubtitle, 
+  setEditProfileModalSubtitle,
+  editProfileModalIndex, 
+  setEditProfileModalIndex,
+  handleEditProfileClose,
+  handleEditProfileShow,
+  handleEditProfileChangeView
 }) => {
 
   const { userContext, setUserContext } = useContext(UserContext);
@@ -35,10 +46,10 @@ const Header = ({
   const [status, setStatus] = useState('');
   const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
   const [cancelAt, setCancelAt] = useState('');
-  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
-  const [editProfileModalState, setEditProfileModalState] = useState('default')
-  const [editProfileModalSubtitle, setEditProfileModalSubtitle] = useState('')
-  const [editProfileModalIndex, setEditProfileModalIndex] = useState('')
+  // const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+  // const [editProfileModalState, setEditProfileModalState] = useState('default')
+  // const [editProfileModalSubtitle, setEditProfileModalSubtitle] = useState('')
+  // const [editProfileModalIndex, setEditProfileModalIndex] = useState('')
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [commentsAndSuggestions, setCommentsAndSuggestions] = useState('');
   const [commentsAndSuggestionsError, setCommentsAndSuggestionsError] = useState('');
@@ -219,23 +230,25 @@ const Header = ({
     setShowFeedbackModal(true)
   };
 
-  const handleEditProfileClose = () => {
-    setShowEditProfileModal(false);
-    // setEditProfileModalState('default')
-  };
-  const handleEditProfileShow = () => {
-    setShowEditProfileModal(true)
-    setEditProfileModalState('default')
-    setEditProfileModalIndex('')
-    mixpanel.init(mixpanelConfig);
-    mixpanel.track('Launch edit profile modal');
-  };
+  // const handleEditProfileClose = () => {
+  //   setShowEditProfileModal(false);
+  //   // setEditProfileModalState('default')
+  // };
 
-  const handleEditProfileChangeView = (page, subtitle, index) => {
-    setEditProfileModalState(page)
-    setEditProfileModalSubtitle(subtitle)
-    setEditProfileModalIndex(index)
-  }
+  // These two (above and below) need to be moved to the Profile page
+  // const handleEditProfileShow = () => {
+  //   setShowEditProfileModal(true)
+  //   setEditProfileModalState('default')
+  //   setEditProfileModalIndex('')
+  //   mixpanel.init(mixpanelConfig);
+  //   mixpanel.track('Launch edit profile modal');
+  // };
+
+  // const handleEditProfileChangeView = (page, subtitle, index) => {
+  //   setEditProfileModalState(page)
+  //   setEditProfileModalSubtitle(subtitle)
+  //   setEditProfileModalIndex(index)
+  // }
 
   const commentsAndSuggestionsChange = (value) => {
     setCommentsAndSuggestions(value)

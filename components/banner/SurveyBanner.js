@@ -123,25 +123,25 @@ const SurveyBanner = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !questionWhySignUpOne &&
-      !questionWhySignUpTwo &&
-      !questionWhySignUpThree &&
-      !questionWhySignUpFour &&
-      !questionWhySignUpFive
-    ) {
-      setQuestionWhySignUpError('Please select an option')
-      return null;
-    }
+    // if (
+    //   !questionWhySignUpOne &&
+    //   !questionWhySignUpTwo &&
+    //   !questionWhySignUpThree &&
+    //   !questionWhySignUpFour &&
+    //   !questionWhySignUpFive
+    // ) {
+    //   setQuestionWhySignUpError('Please select an option')
+    //   return null;
+    // }
 
-    if (questionWhySignUpFive && questionWhySignUpOther === ''
-    ) {
-      setQuestionWhySignUpOtherError('Please provide a response')
-      return null;
-    }
+    // if (questionWhySignUpFive && questionWhySignUpOther === ''
+    // ) {
+    //   setQuestionWhySignUpOtherError('Please provide a response')
+    //   return null;
+    // }
 
     if ( questionOtherServices === '' ) {
-      setQuestionOtherServicesError('Please select an option')
+      setQuestionOtherServicesError('Please provide a response')
       return null;
     }
 
@@ -166,14 +166,14 @@ const SurveyBanner = () => {
     }
 
     fire.firestore().collection("surveys").doc('surveyOnSignUp').collection("responses").add({
-      'whySignUp': {
-        'questionWhySignUpOne': (questionWhySignUpOne ? true : false ),
-        'questionWhySignUpTwo': (questionWhySignUpTwo ? true : false ),
-        'questionWhySignUpThree': (questionWhySignUpThree ? true : false ),
-        'questionWhySignUpFour': (questionWhySignUpFour ? true : false ),
-        'questionWhySignUpFive': (questionWhySignUpFive ? true : false ),
-        'questionWhySignUpOther': (questionWhySignUpOther !== '' ? questionWhySignUpOther : '' )
-      },
+      // 'whySignUp': {
+      //   'questionWhySignUpOne': (questionWhySignUpOne ? true : false ),
+      //   'questionWhySignUpTwo': (questionWhySignUpTwo ? true : false ),
+      //   'questionWhySignUpThree': (questionWhySignUpThree ? true : false ),
+      //   'questionWhySignUpFour': (questionWhySignUpFour ? true : false ),
+      //   'questionWhySignUpFive': (questionWhySignUpFive ? true : false ),
+      //   'questionWhySignUpOther': (questionWhySignUpOther !== '' ? questionWhySignUpOther : '' )
+      // },
       'otherServices': questionOtherServices,
       'whyNow': questionWhyNow,
       'commentsAndSuggestions': (commentsAndSuggestions !== '' ? commentsAndSuggestions : ''),
@@ -244,7 +244,7 @@ const SurveyBanner = () => {
           <Modal.Body>
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <p className="large text-dark-high mb-1">Why did you sign up to expertpage.io?</p>
                   <p className="small text-dark-low">Select as many as you like</p>
                   <label className="checkbox-container small mb-3">I want to stand out from other job candidates
@@ -276,7 +276,7 @@ const SurveyBanner = () => {
                     </div>
                     : ''
                   }
-                </div>
+                </div> */}
                 <div className="mb-4">
                   <p className="large text-dark-high">What other services have you tried in order to achieve the same thing?</p>
                   <textarea className={questionOtherServicesError !== '' ? `error w-100 small` : `w-100 small`} value={questionOtherServices} onChange={({target}) => questionOtherServicesChange(target.value)} />

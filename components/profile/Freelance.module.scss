@@ -91,6 +91,51 @@
   border-radius: $radius-large;
   box-shadow: $shadow-2;
 }
+.heroImagePlaceholderSection {
+  border: none;
+  background: none;
+  border-radius: $radius-large;
+  h3 {
+    text-align: left;
+    transition: $transition-standard;
+  }
+  &:hover {
+    h3 {
+      color: $dark-900;
+    }
+    .heroImagePlaceholder {
+      border: 2px solid $dark-900;
+      svg path {
+        fill: $dark-900
+      }
+    }
+  }
+}
+.heroImagePlaceholder {
+  transition: $transition-standard;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 66.66%; 
+  background: $dark-200;
+  border-radius: $radius-large;
+  // box-shadow: $shadow-2;
+  border: 2px solid transparent;
+  svg {
+    position: absolute;
+    top: calc(50% - 24px);
+    path {
+      transition: $transition-standard;
+      fill: $dark-600
+    }
+  }
+  // &:hover {
+  //   border: 2px solid $dark-900;
+  //   svg path {
+  //     fill: $dark-900
+  //   }
+  // }
+}
 
 .avatarImage {
   padding-top: 100%; 
