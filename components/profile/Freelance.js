@@ -445,10 +445,10 @@ const Freelance = ({
                 {/* {(products && products.length > 0) && */}
                 {pageId === userContext?.profileUrl?.substr(1) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h2 className={`mb-5 pb-3 ${products.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2>
+                    <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2>
                     
                     <div className={`${styles.layoutGrid}`}>
-                        {products &&  products.length > 0 ? products.map((product, index) => {
+                        {products && products?.length > 0 ? products.map((product, index) => {
                           // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
                           return (
                             <div key={index} className={`d-flex flex-column align-items-start`}>
@@ -497,7 +497,7 @@ const Freelance = ({
                             </div>
                           </div>
                           <div className="w-100">
-                            <h3 className={`mb-3 ${products.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
+                            <h3 className={`mb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
                           </div>
                         </button>
                       }
