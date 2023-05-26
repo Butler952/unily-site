@@ -443,13 +443,13 @@ const Freelance = ({
                   </div>
                 }
                 {/* {(products && products.length > 0) && */}
-                {products && pageId === userContext?.profileUrl?.substr(1) &&
+                {pageId === userContext?.profileUrl?.substr(1) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     <h2 className={`mb-5 pb-3 ${products.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2>
                     
                     <div className={`${styles.layoutGrid}`}>
-                        {products.length > 0 ? products.map((product, index) => {
-                          const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                        {products &&  products.length > 0 ? products.map((product, index) => {
+                          // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
                           return (
                             <div key={index} className={`d-flex flex-column align-items-start`}>
                               {product.logo_url ?
@@ -465,7 +465,8 @@ const Freelance = ({
                               }
                               <div className="w-100">
                                 <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
-                                {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
+                                {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
                               </div>
                               { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn primary high w-100 w-md-auto mt-4">Buy now</a>}
                             </div>
@@ -508,7 +509,7 @@ const Freelance = ({
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Services</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {services.map((service, index) => {
-                          const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                          // const [serviceDescriptionShowMore, setServiceDescriptionShowMore] = useState(false);
                           return (
                             <div key={index} className={`d-flex flex-column align-items-start`}>
                               {service.logo_url ? (
@@ -535,7 +536,8 @@ const Freelance = ({
                               }
                               <div className="w-100">
                                 <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
-                                {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
+                                {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
                               </div>
                               <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-md-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a>
                             </div>
@@ -579,7 +581,7 @@ const Freelance = ({
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {testimonials.sort(sortPosts).map((testimonial, index) => {
-                          const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                          // const [testimonialDescriptionShowMore, setTestimonialDescriptionShowMore] = useState(false);
                           return (
                             <div key={index} className={`d-flex flex-column align-items-start`}>
                               {testimonial.avatar_url ?
@@ -597,7 +599,8 @@ const Freelance = ({
                                   <h3 className={`mb-2 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h3>
                                   {testimonial.title ? <p className={`large ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} mb-0`}>{testimonial.title}</p> : null}
                                 </div>
-                                {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                {/* {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, testimonialDescriptionShowMore, setTestimonialDescriptionShowMore)}</p> : null} */}
+                                {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> : null}
                                 {testimonial.posted_at && 
                                   <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} large mt-3`}>
                                     {testimonial.posted_at ? (testimonial.posted_at.month ? convertMonth(testimonial.posted_at.month) + " " : '') : null}
