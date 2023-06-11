@@ -188,9 +188,12 @@ const AddEducation = ({
     newEducation.description = educationDescription
 
     if (originalEducation !== undefined) {
-      originalEducation.unshift(newEducation)
+      let originalEducationCopy = originalEducation
+      originalEducationCopy.unshift(newEducation)
+      setOriginalEducation(originalEducationCopy)
     } else {
-      originalEducation = [newEducation]
+      originalEducationCopy = [newEducation]
+      setOriginalEducation(originalEducationCopy)
     }
   }
 

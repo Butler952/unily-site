@@ -437,13 +437,12 @@ const Freelance = ({
                 {summary &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     {/* <h1>About {first_name}</h1> */}
-                    <div>
-                      <p className="extra-large mb-0">{getSummaryText()}</p>
-                    </div>
+                    <div>{getSummaryText()}</div>
                   </div>
                 }
                 {/* {(products && products.length > 0) && */}
-                {pageId === userContext?.profileUrl?.substr(1) &&
+                {pageId === currentUserId || products && products?.length > 0 ?
+                // {products && products?.length > 0 ?
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2>
                     
@@ -472,37 +471,41 @@ const Freelance = ({
                             </div>
                           )
                         })
-                      :
-                        <button 
-                          type="button" 
-                          onClick={() => handleEditProfileShow('Add product')}
-                          className={`d-flex flex-column align-items-start ${profileStyles.heroImagePlaceholderSection}`}
-                        >
-                          <div className="mb-4 w-100">
-                            <div className="d-block position-relative w-100">
-                              <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                <div 
-                                  className={`w-100 position-relative overflow-hidden ${profileStyles.heroImagePlaceholder}`}
-                                >
-                                  <svg height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path 
-                                      className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
-                                      fillRule="evenodd" 
-                                      clipRule="evenodd" 
-                                      d={ICONS.PLUS} 
-                                    />
-                                  </svg>
+                      : 
+                        pageId === currentUserId && (
+                          <button 
+                            type="button" 
+                            onClick={() => handleEditProfileShow('Add product')}
+                            className={`d-flex flex-column align-items-start ${profileStyles.heroImagePlaceholderSection}`}
+                          >
+                            <div className="mb-4 w-100">
+                              <div className="d-block position-relative w-100">
+                                <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                  <div 
+                                    className={`w-100 position-relative overflow-hidden ${profileStyles.heroImagePlaceholder}`}
+                                  >
+                                    <svg height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path 
+                                        className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
+                                        fillRule="evenodd" 
+                                        clipRule="evenodd" 
+                                        d={ICONS.PLUS} 
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="w-100">
-                            <h3 className={`mb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
-                          </div>
-                        </button>
+                            <div className="w-100">
+                              <h3 className={`mb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
+                            </div>
+                          </button>
+                        )
                       }
                     </div>
                   </div>
+                  :
+                  null
                 }
                 {(services && services.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
@@ -723,9 +726,7 @@ const Freelance = ({
                     <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Page not found</h2>
                   }
                   <p className="mx-auto mb-5 text-dark-med large">Turn your Linkedin profile into a landing page in two minutes</p>
-                  <Link href="/users/register">
-                    <a className="btn primary high large">Get started</a>
-                  </Link>
+                  <Link href="/users/register" className="btn primary high large">Get started</Link>
                 </div>
               </div>
             </Container>

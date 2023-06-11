@@ -175,9 +175,12 @@ const AddVolunteering = ({
     newVolunteering.description = volunteeringDescription
 
     if (originalVolunteering !== undefined) {
-      originalVolunteering.unshift(newVolunteering)
+      let originalVolunteeringCopy = originalVolunteering
+      originalVolunteeringCopy.unshift(newVolunteering)
+      setOriginalVolunteering(originalVolunteeringCopy)
     } else {
-      originalVolunteering = [newVolunteering]
+      originalVolunteeringCopy = [newVolunteering]
+      setOriginalVolunteering(originalVolunteeringCopy)
     }
   }
 

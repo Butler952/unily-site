@@ -345,13 +345,11 @@ const Header = ({
             <>
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
-                  <a>
                     {screenWidth > 767 ?
                       <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
                     :
                       <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
                     }
-                  </a>
                 </Link>
                 <div className="tag small primary medium">Beta</div>
 
@@ -394,17 +392,18 @@ const Header = ({
                         </Link>
                       </div> 
                     : null} */}
-                
-                    <button 
-                      type="button" 
-                      onClick={() => handleEditProfileShow()}
-                      className={`btn primary high small mr-2 ${screenWidth > 575 ? 'icon-left' : 'icon-only'}`}
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path d={ICONS.EDIT}></path>
-                      </svg>
-                      {screenWidth > 575 ? 'Edit profile' : null}
-                    </button>
+                    {windowUrl.match(`/profile`) &&
+                      <button 
+                        type="button" 
+                        onClick={() => handleEditProfileShow()}
+                        className={`btn primary high small mr-2 ${screenWidth > 575 ? 'icon-left' : 'icon-only'}`}
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <path d={ICONS.EDIT}></path>
+                        </svg>
+                        {screenWidth > 575 ? 'Edit profile' : null}
+                      </button>
+                    }
                     {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
                     <Link href="/blog">
                       <a className="btn dark low small">Blog</a>
@@ -469,10 +468,10 @@ const Header = ({
                           {userContext && userContext.profile && userContext.profile.full_name}
                         </Dropdown.Item>
                         <hr className="m-0" />
-                        <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
+                        {/* <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
                           Edit profile
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                         <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                           <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
                           Settings
@@ -559,14 +558,12 @@ const Header = ({
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
-                  <a>
                     {screenWidth > 767 ?
                       <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
                     :
                       <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
                     }
                     {/* <img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
-                  </a>
                 </Link>
                 <div className="tag small primary medium">Beta</div>
                 {/* {screenWidth > 767 && (
@@ -588,12 +585,8 @@ const Header = ({
                 {/* <Link href="/users/register">
                 <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
               </Link> */}
-                <Link href="/users/login">
-                  <a className="btn primary medium small">Login</a>
-                </Link>
-                <Link href="/users/register">
-                  <a className="btn primary high small">Create my page</a>
-                </Link>
+                <Link href="/users/login" className="btn primary medium small">Login</Link>
+                <Link href="/users/register" className="btn primary high small">Create my page</Link>
               </div>
             </div>
           }

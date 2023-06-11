@@ -76,9 +76,12 @@ const AddProduct = ({
     newProduct.description = productsDescription
 
     if (originalProducts !== undefined) {
-      originalProducts.unshift(newProduct)
+      let originalProductsCopy = originalProducts
+      originalProductsCopy.unshift(newProduct)
+      setOriginalProducts(originalProductsCopy)
     } else {
-      originalProducts = [newProduct]
+      originalProductsCopy = [newProduct]
+      setOriginalProducts(originalProductsCopy)
     }
   }
   

@@ -320,9 +320,7 @@ const Freelance = (props) => {
                     <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here</h2>
                   }
                   <p className="mx-auto mb-5 text-dark-med large">It's possible that this page was in the lighthouse at Alexandria.</p>
-                  <Link href="/">
-                    <a className="btn primary high large">Head home</a>
-                  </Link>
+                  <Link href="/" className="btn primary high large">Head home</Link>
                 </div>
               </div>
             </Container>

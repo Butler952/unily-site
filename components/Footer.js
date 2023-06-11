@@ -8,16 +8,16 @@ const Footer = () => {
     <div>
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
-          <Link href="/"><a className="w-lg-100">
+          <Link href="/" className="w-lg-100">
             <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path 
                 className="fill-dark-600"
-                fill-rule="evenodd" 
-                clip-rule="evenodd" 
+                fillRule="evenodd" 
+                clipRule="evenodd" 
                 d={ICONS.LOGO_FULL} 
               />
             </svg>
-          </a></Link>
+          </Link>
           <div className="d-flex flex-column flex-md-row text-center" style={{gap: '48px', whiteSpace: 'nowrap'}}>
             {/* <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
               <Link href="/linkedin-to-resume"><a className="text-dark-high mb-0">Linkedin to resume</a></Link>
@@ -29,9 +29,9 @@ const Footer = () => {
               <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
             </div> */}
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
-              <Link href="/legal/terms"><a className="text-dark-low mb-0">Terms & Conditions</a></Link>
-              <Link href="/legal/privacy"><a className="text-dark-low mb-0">Privacy Policy</a></Link>
-              <Link href="/legal/cookies"><a className="text-dark-low mb-0">Cookie Policy</a></Link>
+              <Link href="/legal/terms" className="text-dark-low mb-0">Terms & Conditions</Link>
+              <Link href="/legal/privacy" className="text-dark-low mb-0">Privacy Policy</Link>
+              <Link href="/legal/cookies" className="text-dark-low mb-0">Cookie Policy</Link>
               <a href="https://expertpage.io/sitemap.xml" target="_blank" className="text-dark-low mb-0">Sitemap</a>
             </div>
           </div>

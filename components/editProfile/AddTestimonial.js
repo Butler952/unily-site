@@ -117,9 +117,12 @@ const AddTestimonial = ({
     newTestimonial.description = testimonialsDescription
 
     if (originalTestimonials !== undefined) {
-      originalTestimonials.unshift(newTestimonial)
+      let originalTestimonialsCopy = originalTestimonials
+      originalTestimonialsCopy.unshift(newTestimonial)
+      setOriginalTestimonials(originalTestimonialsCopy)
     } else {
-      originalTestimonials = [newTestimonial]
+      originalTestimonialsCopy = [newTestimonial]
+      setOriginalTestimonials(originalTestimonialsCopy)
     }
   }
   

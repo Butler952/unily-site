@@ -63,9 +63,12 @@ const AddFeature = ({
     newFeature.url = featuredUrl
 
     if (originalFeatured !== undefined) {
-      originalFeatured.unshift(newFeature)
+      let originalFeaturedCopy = originalFeatured
+      originalFeaturedCopy.unshift(newFeature)
+      setOriginalFeatured(originalFeaturedCopy)
     } else {
-      originalFeatured = [newFeature]
+      originalFeaturedCopy = [newFeature]
+      setOriginalFeatured(originalFeaturedCopy)
     }
   }
   

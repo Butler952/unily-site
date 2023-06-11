@@ -150,9 +150,12 @@ const AddProject = ({
     newProject.description = projectsDescription
 
     if (originalProjects !== undefined) {
-      originalProjects.unshift(newProject)
+      let originalProjectsCopy = originalProjects
+      originalProjectsCopy.unshift(newProject)
+      setOriginalProjects(originalProjectsCopy)
     } else {
-      originalProjects = [newProject]
+      originalProjectsCopy = [newProject]
+      setOriginalProjects(originalProjectsCopy)
     }
   }
 
