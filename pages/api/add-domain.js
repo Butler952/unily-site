@@ -28,7 +28,7 @@ export default async function addDomain(req, res) {
 
   // Rest of the API logic
  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${process.env.AUTH_BEARER_TOKEN}`);
+  myHeaders.append("Authorization", `Bearer ${process.env.NEXT_PUBLIC_AUTH_BEARER_TOKEN}`);
   myHeaders.append("Access-Control-Allow-Origin", "https://www.expertpage.io, https://expertpage.vercel.app, http://localhost:3000/, https://localhost:3000/, https://api.vercel.com/, https://firebasestorage.googleapis.com");
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -42,7 +42,7 @@ export default async function addDomain(req, res) {
     redirect: 'follow'
   };
 
-  const response = await fetch(`https://api.vercel.com/v10/projects/${process.env.PROJECT_ID_VERCEL}/domains?teamId=${process.env.TEAM_ID_VERCEL}`, requestOptions)
+  const response = await fetch(`https://api.vercel.com/v10/projects/${process.env.NEXT_PUBLIC_PROJECT_ID_VERCEL}/domains?teamId=${process.env.NEXT_PUBLIC_TEAM_ID_VERCEL}`, requestOptions)
   
   const data = await response.json()
 

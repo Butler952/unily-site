@@ -459,7 +459,8 @@ const Header = ({
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                        <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}>
+                        {/* <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}> */}
+                        <Dropdown.Item onClick={() => router.push('/profile')} className={styles.dropdownItem}>
                           {!headerImageError ?
                             <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
                               <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
