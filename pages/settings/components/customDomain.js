@@ -10,7 +10,7 @@ import { UserContext } from '../../_app';
 import { toast } from 'react-toastify';
 import UpgradeButton from './upgradeButton';
 
-const PrettyUrlSection = ({
+const CustomDomain = ({
   userData,
   allUserData,
   product,
@@ -28,7 +28,7 @@ const PrettyUrlSection = ({
   const [selectedDomainType, setSelectedDomainType] = useState();
   const [selectedDomainTypeChanged, setSelectedDomainTypeChanged] = useState(false);
   const [customDomain, setCustomDomain] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showAddDomainModal, setShowAddDomainModal] = useState(false);
   const [sendingData, setSendingData] = useState(false);
   const [notificationRequested, setNotificationRequested] = useState(false);
   const [saving, setSaving] = useState('');
@@ -64,14 +64,14 @@ const PrettyUrlSection = ({
   // }
 
   useEffect(() => {
-    setDomain(
-      userContext &&
-      userContext.profileUrl &&
-      userContext.profileUrl
-      // userContext.profileUrl.includes("profile") ?
-      // (userContext.profileUrl.split('/profile/')[1]) :
-      // userContext.profileUrl
-    )
+    // setDomain(
+    //   userContext &&
+    //   userContext.profileUrl &&
+    //   userContext.profileUrl
+    //   // userContext.profileUrl.includes("profile") ?
+    //   // (userContext.profileUrl.split('/profile/')[1]) :
+    //   // userContext.profileUrl
+    // )
     // setSelectedDomainType(
     //   userContext &&
     //     userContext.profileUrl &&
@@ -205,10 +205,10 @@ const PrettyUrlSection = ({
     }
   }
 
-  const handleClose = () => {
-    setShowModal(false)
+  const handleCloseAddDomain = () => {
+    setShowAddDomainModal(false)
   };
-  const handleShow = () => setShowModal(true);
+  const handleShowAddDomain = () => setShowAddDomainModal(true);
 
   const handleSubmitCustomDomain = () => {
     // Send mixpanel event for PDF Download
@@ -217,7 +217,7 @@ const PrettyUrlSection = ({
       "experiment": "Custom domain",
       "stage": "submit",
     });
-    handleShow()
+    handleShowAddDomain()
   }
 
   const handleNotifyMe = () => {
@@ -242,92 +242,89 @@ const PrettyUrlSection = ({
       })
   }
 
+  // const AddDomain = () => {
+  //   fetch(`/api/add-domain?domain=www.bbc.com&userId=${userId}`)
+  //     .then(result => console.log(result))
+  //     .catch((error) => {
+  //       console.log('error', error)
+  //     });
+  // }
+
+  const handleAddDomain = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    // need more sound logic here
+    // maybe strip http:// too
+    if (domain === '') {
+      setDomainError('Please enter a valid domain')
+      setSaving(false)
+    } else {
+
+      fetch(`/api/add-domain?domain=${domain}&userId=${userData.uid}`)
+        .then(result => console.log(result))
+        .then(() => {
+        })
+        .then(() => {
+          setSaving(false)
+          handleCloseAddDomain()
+          // Toast confirmation
+          toast("Domain added")
+        })
+        .catch((error) => {
+          console.log('error', error)
+        });
+    }
+  }
+
   return (
     <div>
       <div className="card mx-auto">
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
-              <h5 className="mb-1">Handle</h5>
-              <p className="text-dark-low mb-0">Choose your expertpage.io handle</p>
-            </div>
-            <div className="">
-              <input
-                type="text"
-                className={`small w-100 ${domainError !== '' ? 'error' : null}`}
-                disabled={saving}
-                value={domainChanged ? domain : 
-                  (
-                    userContext &&
-                      userContext.profileUrl &&
-                      userContext.profileUrl.includes("profile") ?
-                      userContext &&
-                      userContext.profileUrl.split('/profile/')[1]
-                      :
-                      userContext &&
-                      userContext.profileUrl &&
-                      userContext.profileUrl.substring(1)
-                  )
-                }
-                onChange={({ target }) => domainChange(target.value)}
-              />
-              <p className="small text-dark-med mt-2 mb-0">expertpage.io/
-                {domainChanged ? domain :
-                  (
-                    userContext &&
-                      userContext.profileUrl &&
-                      userContext.profileUrl.includes("profile") ?
-                      userContext &&
-                      userContext.profileUrl.split('/profile/')[1]
-                      :
-                      userContext &&
-                      userContext.profileUrl &&
-                      userContext.profileUrl.substring(1)
-                  )
-                }
-              </p>
-              {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
+              <h5 className="mb-1">Connect my own domain</h5>
+              <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
             </div>
             <div>
-              <button type="button" onClick={handleSave} className="btn primary medium small w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
+              <button type="button" onClick={handleShowAddDomain} className="btn primary medium small w-100 w-md-auto">Add domain</button>
             </div>
           </div>
         </div>
       </div>
-      
       <Modal
-        show={showModal}
-        onHide={handleClose}
-        backdrop="static"
+        show={showAddDomainModal}
+        onHide={handleCloseAddDomain}
         keyboard={false}
       >
-        {!notificationRequested ?
-          <Modal.Body>
-            <div className="d-flex flex-column align-items-center">
-              <div className="bg-primary-200 p-4 radius-5 mb-4" style={{ width: 'fit-content' }}>
-                <svg viewBox="0 0 24 24" style={{ width: '64px' }}>
-                  <path d={ICONS.BOLT} className="fill-primary-900"></path>
-                </svg>
-              </div>
-              <div className="mx-auto" style={{ maxWidth: '320px' }}>
-                <h4 className="text-dark-high text-center mb-2">Wow, you're fast!</h4>
-                <p className="text-center mb-4">Unfortunately adding your own domain is not quite ready yet</p>
-              </div>
-              <button type="button" className="btn primary high small w-100 mt-3" disabled={sendingData} onClick={() => handleNotifyMe()}>{!sendingData ? 'Notify me when this is ready' : 'Saving...'}</button>
-              <button type="button" className="btn dark low small w-100 mt-3" onClick={handleClose}>No thanks</button>
+        <Modal.Header>
+          <h4 className="mb-0">Add custom domain</h4>
+          <button onClick={handleCloseAddDomain} className="btn dark medium icon-only">
+            <svg viewBox="0 0 24 24">
+              <path d={ICONS.CLOSE}></path>
+            </svg>
+          </button>
+        </Modal.Header>
+
+        <hr className="w-100 m-0" />
+        <Modal.Body>
+        <form onSubmit={handleAddDomain}>
+          <div className="d-flex flex-column w-100 gap-4">
+            <div>
+              <input type="text" className={domainError !== '' ? `error w-100` : `w-100`} value={domain} onChange={({ target }) => domainChange(target.value)} placeholder="mywebsite.com" />
+              <p className="small text-dark-med mt-2 mb-0">Your Expertpage profile will appear on this domain.</p>
+              {domainError !== '' && <p className="small text-error-high mt-2 mb-0">{domainError}</p> }
             </div>
-          </Modal.Body>
-          :
-          <Modal.Body>
-            <div className="d-flex flex-column align-items-center">
-              <div className="mx-auto">
-                <h4 className="text-dark-high text-center mb-2">You're first in line</h4>
-                <p className="text-center mb-4">Thanks for letting us know that you're interested. Once the feature is ready to go, you'll be the first to know!</p>
+            <div className="d-flex flex-column mt-3 gap-3">
+              <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between gap-3">
+                <button type="submit" className="btn primary high w-100 w-sm-auto order-0 order-sm-1" disabled={saving}>{!saving ? 'Connect domain' : 'Saving'}</button>
+                {/* <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleCloseAddDomain}>Cancel</button> */}
               </div>
-              <button type="button" onClick={handleSave} className="btn primary high small w-100 mt-3">Close</button>
             </div>
-          </Modal.Body>
-        }
+          </div>
+        </form>
+        </Modal.Body>
       </Modal>
       <Modal 
         show={showUpsellModal} 
@@ -364,7 +361,7 @@ const PrettyUrlSection = ({
             <button type="button" className="btn dark low small w-100 mt-3" onClick={handleUpsellClose}>Not right now</button>
             {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
               <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpdate}>Upgrade</button>
-              <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+              <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleCloseAddDomain}>Close</button>
             </div>*/}
           </div>
         </Modal.Body>
@@ -373,4 +370,4 @@ const PrettyUrlSection = ({
   )
 }
 
-export default PrettyUrlSection
+export default CustomDomain

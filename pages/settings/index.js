@@ -28,6 +28,7 @@ import TemplateSection from './components/templateSection';
 import CustomDomainSection from './components/customDomainSection';
 import PrettyUrlSection from './components/prettyUrlSection';
 import ChangeEmailSection from './components/changeEmailSection';
+import CustomDomain from './components/customDomain';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -492,7 +493,7 @@ const Settings = () => {
         {surveyHide ? '' : <SurveyBanner />}
         <Container className="py-4">
           <div className="m-auto" style={{ maxWidth: "640px" }}>
-            <h2 className="my-5">Settings</h2>
+            <h2 className="pb-4 my-5">Settings</h2>
             {/* {cancelAtPeriodEnd ? (
               <>
                 <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
@@ -722,23 +723,34 @@ const Settings = () => {
                 </div>
               </div>
             </div> */}
-            <PrettyUrlSection
-              userData={userData}
-              allUserData={allUserData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpgrade={handleUpgrade}
-            />
-            
-            <ChangeEmailSection
-              userData={userData}
-              allUserData={allUserData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpgrade={handleUpgrade}
-            />
+            <div className="d-flex flex-column gap-5">
+              <CustomDomain
+                userData={userData}
+                allUserData={allUserData}
+                product={product}
+                active={active}
+                status={status}
+                handleUpgrade={handleUpgrade}
+              />
+
+              <PrettyUrlSection
+                userData={userData}
+                allUserData={allUserData}
+                product={product}
+                active={active}
+                status={status}
+                handleUpgrade={handleUpgrade}
+              />
+              
+              <ChangeEmailSection
+                userData={userData}
+                allUserData={allUserData}
+                product={product}
+                active={active}
+                status={status}
+                handleUpgrade={handleUpgrade}
+              />
+            </div>
             {/* <CustomDomainSection userData={userData} /> */}
             {/* <ResyncSection
               linkedinId={linkedinId}
