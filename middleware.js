@@ -17,6 +17,11 @@ export default function middleware(req) {
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   const hostname = req.headers.get("host") || "expertpage.io";
 
+  // Only for demo purposes – remove this if you want to use your root domain as the landing page
+  if (hostname === "expertpage.io") {
+    return NextResponse.redirect("https://expertpage.io");
+  }
+
   const currentHost =
     process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
       ? hostname.replace(`.expertpage.io`, "")
