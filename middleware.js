@@ -31,8 +31,9 @@ export default function middleware(req) {
 
   
     if (
-      hostname === "localhost:3000" ||
-      hostname === "expertpage.io"
+      hostname === "localhost:3000"
+      // hostname === "localhost:3000" ||
+      // hostname === "expertpage.io"
     ) {
       url.pathname = `/${url.pathname}`;
       return NextResponse.rewrite(url);
