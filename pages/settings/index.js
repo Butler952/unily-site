@@ -520,7 +520,7 @@ const Settings = () => {
   };
 
   return (
-    <>
+    <div>
       {!surveyHide &&
         <div style={{marginTop: '67px'}}>
           <SurveyBanner />
@@ -851,7 +851,7 @@ const Settings = () => {
             : null}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
