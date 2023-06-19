@@ -154,7 +154,30 @@ const ChangeEmailSection = ({
 
   return (
     <div>
-      <div className="card mx-auto mb-5">
+      <div className="card mx-auto">
+        <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
+          <div className="d-flex flex-column w-100 gap-4">
+            <div className="d-flex flex-column gap-0">
+              <h5 className="mb-1">Email address</h5>
+              <p className="text-dark-low mb-0">Edit the email address of your account</p>
+            </div>
+            <div className="">
+            <input
+              type="text"
+              className={`small w-100 ${emailError !== '' ? 'error' : null}`}
+              disabled={saving}
+              value={email}
+              onChange={({ target }) => emailChange(target.value)}
+            />
+            {emailError !== '' ? <p className="small text-error-high mt-2 mb-0">{emailError}</p> : null}
+          </div>
+            <div>
+              <button type="button" onClick={handleUpdateEmail} className="btn primary medium small w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="card mx-auto mb-5">
         <div className="p-4">
           <h5 className="text-dark-high mb-2">Manage account</h5>
           <p className="text-dark-low mb-0">Edit the email address of your account</p>
@@ -163,25 +186,6 @@ const ChangeEmailSection = ({
         <div className="d-flex flex-column m-4">
         <p className="large text-dark-high mb-0">Email address</p>
           <div className="mt-3">
-            {/* <input
-              type="text"
-              className={`small w-100 ${domainError !== '' ? 'error' : null}`}
-              disabled={saving}
-              value={domainChanged ? domain :
-                (
-                  userContext &&
-                    userContext.profileUrl &&
-                    userContext.profileUrl.includes("profile") ?
-                    userContext &&
-                    userContext.profileUrl.split('/profile/')[1]
-                    :
-                    userContext &&
-                    userContext.profileUrl &&
-                    userContext.profileUrl.substring(1)
-                )
-              }
-              onChange={({ target }) => domainChange(target.value)}
-            /> */}
             <input
               type="text"
               className={`small w-100 ${emailError !== '' ? 'error' : null}`}
@@ -189,33 +193,15 @@ const ChangeEmailSection = ({
               value={email}
               onChange={({ target }) => emailChange(target.value)}
             />
-            {/* <p className="small text-dark-med mt-2 mb-0">expertpage.io/
-              {domainChanged ? domain :
-                (
-                  userContext &&
-                    userContext.profileUrl &&
-                    userContext.profileUrl.includes("profile") ?
-                    userContext &&
-                    userContext.profileUrl.split('/profile/')[1]
-                    :
-                    userContext &&
-                    userContext.profileUrl &&
-                    userContext.profileUrl.substring(1)
-                )
-              }
-            </p> */}
             {emailError !== '' ? <p className="small text-error-high mt-2 mb-0">{emailError}</p> : null}
           </div>
         </div>
-        {/* <div className="d-flex flex-column bg-dark-100 radius-3 p-4 m-4">
-          <p className="text-dark-low text-dark-high mb-0">You have not added a custom domain yet</p>
-        </div> */}
         <hr className="m-0" />
         <div className="m-4">
           <button type="button" onClick={handleUpdateEmail} className="btn primary medium w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
 
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -1,16 +1,16 @@
-import fire from '../../config/fire-config';
+import fire from '../../../config/fire-config';
 import { useEffect, useState, useContext } from 'react';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
-import { UserContext } from './../_app';
-import BasicProfile from '../../components/profile/BasicProfile';
-import DocumentProfile from '../../components/profile/DocumentProfile';
-import MetroProfile from '../../components/profile/MetroProfile';
-import MetroProfileDark from '../../components/profile/MetroProfileDark';
-import Header from '../../components/header/Header';
-import Bento from '../../components/profile/Bento';
-import StaccatoProfile from '../../components/profile/StaccatoProfile';
-import Freelance from '../../components/profile/Freelance';
+import { UserContext } from './../../_app';
+import BasicProfile from '../../../components/profile/BasicProfile';
+import DocumentProfile from '../../../components/profile/DocumentProfile';
+import MetroProfile from '../../../components/profile/MetroProfile';
+import MetroProfileDark from '../../../components/profile/MetroProfileDark';
+import Header from '../../../components/header/Header';
+import Bento from '../../../components/profile/Bento';
+import StaccatoProfile from '../../../components/profile/StaccatoProfile';
+import Freelance from '../../../components/profile/Freelance';
 
 const Profile = (props) => {
 
@@ -80,7 +80,7 @@ const Profile = (props) => {
 
   return (
     <div>
-      {/* { loggedIn &&
+      { loggedIn &&
         <Header 
           positionFixed 
           showEditProfileModal={showEditProfileModal}
@@ -95,7 +95,7 @@ const Profile = (props) => {
           handleEditProfileShow={handleEditProfileShow}
           handleEditProfileChangeView={handleEditProfileChangeView}
         />
-      } */}
+      }
       { (props.template == undefined ||
         props.template == 'original') ?
         <BasicProfile
@@ -285,16 +285,17 @@ const Profile = (props) => {
   )
 }
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps = async ({ params: { site } }) => {
   const content = {}
+  const domainType = site.includes('.') ? 'customDomain' : 'subdomain'
   await fire.firestore()
     .collection('users')
-    .where("profileUrl", "==", `/${query.id}`)
+    .where(domainType, "==", site)
     .limit(1)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        content['pageId'] = query.id ? query.id : null;
+        content['pageId'] = site ? site : null;
         content['template'] = doc.data().template ? doc.data().template : null;
         content['theme'] = doc.data().theme ? doc.data().theme : null;
         content['email'] = doc.data().email ? doc.data().email : null;

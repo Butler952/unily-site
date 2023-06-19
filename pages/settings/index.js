@@ -28,6 +28,7 @@ import TemplateSection from './components/templateSection';
 import CustomDomainSection from './components/customDomainSection';
 import PrettyUrlSection from './components/prettyUrlSection';
 import ChangeEmailSection from './components/changeEmailSection';
+import CustomDomain from './components/customDomain';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 const ExperienceCheckbox = ({ options, onChange }) => {
@@ -113,6 +114,11 @@ const Settings = () => {
   const [volunteeringEach, setVolunteeringEach] = useState('');
   const [linkedinId, setLinkedinId] = useState('');
   const [surveyHide, setSurveyHide] = useState(true);
+  const [customDomain, setCustomDomain] = useState(undefined);
+  const [domainInfo, setDomainInfo] = useState('');
+  const [domainStatus, setDomainStatus] = useState('');
+  const [gettingDomainInfo, setGettingDomainInfo] = useState('');
+
   //const [syncsRemaining, setSyncsRemaining] = useState(0);
   const [sectionsLoading, setSectionsLoading] = useState(true);
   const [syncLoading, setSyncLoading] = useState('');
@@ -200,26 +206,13 @@ const Settings = () => {
     var docRef = fire.firestore().collection('users').doc(user.uid)
     docRef.get().then((doc) => {
       if (doc.exists) {
-        setBasicInfo(doc.data().displayInfo.basicInfo)
-        setProfilePic(doc.data().displayInfo.basicInfo.each.profilePic)
-        setHeaderImage(doc.data().displayInfo.basicInfo.each.headerImage)
-        setFullname(doc.data().displayInfo.basicInfo.each.name)
-        setHeadline(doc.data().displayInfo.basicInfo.each.headline)
-        setEmail(doc.data().displayInfo.basicInfo.each.email)
-        setAbout(doc.data().displayInfo.about)
-        setExperience(doc.data().displayInfo.experience.section)
-        setExperienceEach(doc.data().displayInfo.experience.each)
-        setEducation(doc.data().displayInfo.education.section)
-        setEducationEach(doc.data().displayInfo.education.each)
-        setSideProjectsLogos(doc.data().logoVisibility ? doc.data().logoVisibility.sideProjects : false)
-        setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
-        setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
-        setVolunteeringLogos(doc.data().logoVisibility ? doc.data().logoVisibility.volunteering : false)
-        setVolunteering(doc.data().displayInfo.volunteering.section)
-        setVolunteeringEach(doc.data().displayInfo.volunteering.each)
         setLinkedinId(doc.data().profile.public_identifier)
         setSurveyHide(doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : false) : false) : false)
+        // setCustomDomain(doc.data().customDomain ? doc.data().customDomain : undefined)
+        // handleGetDomain(doc.data().customDomain)
+        // console.log(`doc.data().customDomain ${doc.data().customDomain}`)
         setAllUserData(doc.data())
+
       } else {
         console.log("No such document!");
       }
@@ -260,6 +253,51 @@ const Settings = () => {
         console.log("Error getting document:", error);
       })
   }
+
+  // const handleGetDomain = (domain) => {
+
+  //   if (domain !== undefined) {
+
+  //   setGettingDomainInfo(true);
+
+  //   fetch(`/api/get-domain?domain=${domain}`)
+  //     // .then(result => console.log(result))
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       if (result.error?.code == 'forbidden') {
+  //         setDomainStatus('forbidden')
+  //         console.log('forbidden')
+  //         setDomainInfo(result)
+  //         console.log(result)
+  //       } else {
+  //         setDomainStatus('allowed')
+  //         console.log('allowed')
+  //         setDomainInfo(result)
+  //         console.log(result)
+  //         console.log(result.verified)
+  //         // console.log(res.json().error)
+  //       }
+  //       // set states of domain verification stuff
+  //       // "verified": false,
+  //       // "verification": [
+  //       //     {
+  //       //         "type": "TXT",
+  //       //         "domain": "_vercel.example.com",
+  //       //         "value": "vc-domain-verify=www.example.com,793d72e506334d91594e",
+  //       //         "reason": "pending_domain_verification"
+  //       //     }
+  //       // ]
+  //     })
+  //     .then(() => {
+  //       setGettingDomainInfo(false)
+  //     })
+  //     .catch((error) => {
+  //       console.log('error', error)
+  //     });
+  //   } else {
+  //     console.log('domain is undefined')
+  //   }
+  // }
 
   const handleSectionsSubmit = (e) => {
     e.preventDefault();
@@ -492,7 +530,7 @@ const Settings = () => {
         {surveyHide ? '' : <SurveyBanner />}
         <Container className="py-4">
           <div className="m-auto" style={{ maxWidth: "640px" }}>
-            <h2 className="my-5">Settings</h2>
+            <h2 className="pb-4 my-5">Settings</h2>
             {/* {cancelAtPeriodEnd ? (
               <>
                 <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
@@ -722,23 +760,41 @@ const Settings = () => {
                 </div>
               </div>
             </div> */}
-            <PrettyUrlSection
-              userData={userData}
-              allUserData={allUserData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpgrade={handleUpgrade}
-            />
-            
-            <ChangeEmailSection
-              userData={userData}
-              allUserData={allUserData}
-              product={product}
-              active={active}
-              status={status}
-              handleUpgrade={handleUpgrade}
-            />
+            <div className="d-flex flex-column gap-5">
+              { allUserData?.flags?.customDomain &&
+                <CustomDomain
+                  userData={userData}
+                  allUserData={allUserData}
+                  loggedInRoute={loggedInRoute}
+                  gettingDomainInfo={gettingDomainInfo}
+                  setDomainInfo={setDomainInfo}
+                  setDomainStatus={setDomainStatus}
+                  setGettingDomainInfo={setGettingDomainInfo}
+                  sectionsLoading={sectionsLoading}
+                  product={product}
+                  active={active}
+                  status={status}
+                  handleUpgrade={handleUpgrade}
+                />
+              }
+              <PrettyUrlSection
+                userData={userData}
+                allUserData={allUserData}
+                product={product}
+                active={active}
+                status={status}
+                handleUpgrade={handleUpgrade}
+              />
+              
+              <ChangeEmailSection
+                userData={userData}
+                allUserData={allUserData}
+                product={product}
+                active={active}
+                status={status}
+                handleUpgrade={handleUpgrade}
+              />
+            </div>
             {/* <CustomDomainSection userData={userData} /> */}
             {/* <ResyncSection
               linkedinId={linkedinId}

@@ -60,6 +60,7 @@ p { font-size: 16px;  color: $dark-800; }
 p.small { font-size: 14px; }
 p.caption { font-size: 12px; }
 p.error { color: $error-900; }
+p.monospace { font-family: Courier, monospace}
 
 a { 
   color: $primary-900; 
@@ -1447,6 +1448,27 @@ textarea {
   border: none;
   border-radius: $radius-large;
   box-shadow: $shadow-2;
+}
+
+// Animations
+
+.loadingAnimation {
+  animation: loadingAnimationKeyframes 1s ease-in;
+  animation-iteration-count:infinite;
+}
+
+@keyframes loadingAnimationKeyframes {
+  0% {
+      opacity: 0.2;
+  }
+
+  50% {
+      opacity: 1;
+  }
+
+  100% {
+      opacity: 0.2;
+  }
 }
 
 // Bootstrap additions

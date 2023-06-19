@@ -169,9 +169,12 @@ const AddSideProject = ({
     newSideProject.description = sideProjectsDescription
 
     if (originalSideProjects !== undefined) {
-      originalSideProjects.unshift(newSideProject)
+      let originalSideProjectsCopy = originalSideProjects
+      originalSideProjectsCopy.unshift(newSideProject)
+      setOriginalSideProjects(originalSideProjectsCopy)
     } else {
-      originalSideProjects = [newSideProject]
+      originalSideProjectsCopy = [newSideProject]
+      setOriginalSideProjects(originalSideProjectsCopy)
     }
   }
 

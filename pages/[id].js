@@ -80,7 +80,7 @@ const Profile = (props) => {
 
   return (
     <div>
-      { loggedIn &&
+      {/* { loggedIn &&
         <Header 
           positionFixed 
           showEditProfileModal={showEditProfileModal}
@@ -95,7 +95,7 @@ const Profile = (props) => {
           handleEditProfileShow={handleEditProfileShow}
           handleEditProfileChangeView={handleEditProfileChangeView}
         />
-      }
+      } */}
       { (props.template == undefined ||
         props.template == 'original') ?
         <BasicProfile

@@ -175,9 +175,12 @@ const AddExperience = ({
     newExperience.description = experiencesDescription
 
     if (originalExperiences !== undefined) {
-      originalExperiences.unshift(newExperience)
+      let originalExperiencesCopy = originalExperiences
+      originalExperiencesCopy.unshift(newExperience)
+      setOriginalExperiences(originalExperiencesCopy)
     } else {
-      originalExperiences = [newExperience]
+      originalExperiencesCopy = [newExperience]
+      setOriginalExperiences(originalExperiencesCopy)
     }
   }
 

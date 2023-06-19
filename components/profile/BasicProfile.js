@@ -652,9 +652,7 @@ const BasicProfile = (props) => {
                   <h2 className="hero-title mx-auto mb-3 text-dark-high" style={{ maxWidth: '560px' }}>Nothing to see here!</h2>
                 }
                 <p className="mx-auto text-dark-med mb-4 large">Either the page you're looking for is very good at hiding or it doesn't exist.</p>
-                <Link href="/">
-                  <a className="btn primary high">Head home</a>
-                </Link>
+                <Link href="/" className="btn primary high">Head home</Link>
               </div>
             </div>
           </Container>

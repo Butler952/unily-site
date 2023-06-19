@@ -244,17 +244,14 @@ const PrettyUrlSection = ({
 
   return (
     <div>
-      <div className="card mx-auto mb-5">
-        <div className="p-4">
-          <h5 className="text-dark-high mb-2">Profile URL</h5>
-          <p className="text-dark-low mb-0">Manage the URL of your ExpertPage profile</p>
-        </div>
-        <hr className="m-0" />
+      <div className="card mx-auto">
         <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
-          <div role="button" onClick={() => { setSelectedDomainTypeChange('personalised') }} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard} ${domainType == 'personalised' ? styles.active : null}`}>
-            <h6 className="mb-1">Personalised</h6>
-            <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
-            <div className="mt-3">
+          <div className="d-flex flex-column w-100 gap-4">
+            <div className="d-flex flex-column gap-0">
+              <h5 className="mb-1">Handle</h5>
+              <p className="text-dark-low mb-0">Choose your expertpage.io handle</p>
+            </div>
+            <div className="">
               <input
                 type="text"
                 className={`small w-100 ${domainError !== '' ? 'error' : null}`}
@@ -291,29 +288,13 @@ const PrettyUrlSection = ({
               </p>
               {domainError !== '' ? <p className="small text-error-high mt-2 mb-0">{domainError}</p> : null}
             </div>
-
-          </div>
-          <div onClick={() => handleSubmitCustomDomain()} className={`d-flex flex-column radius-3 p-4 w-100 ${styles.planCard}`} style={{ cursor: 'pointer' }}>
-            <h6 className="mb-1">Use my own domain</h6>
-            <p className="text-dark-low mb-0">Display your ExpertPage profile on your own domain</p>
-            {/* <button type="submit" className="btn primary high">Add domain</button> */}
-            {/* <form onSubmit={handleSubmitCustomDomain}>
-            <div className="d-flex flex-column flex-md-row" style={{gap: '16px'}}>
-              <input type="text" className="w-100" value={customDomain} onChange={({ target }) => customDomainChange(target.value)} />
-              <button type="submit" className="btn primary high">Add domain</button>
+            <div>
+              <button type="button" onClick={handleSave} className="btn primary medium small w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
             </div>
-            </form> */}
           </div>
-        </div>
-        {/* <div className="d-flex flex-column bg-dark-100 radius-3 p-4 m-4">
-          <p className="text-dark-low text-dark-high mb-0">You have not added a custom domain yet</p>
-        </div> */}
-        <hr className="m-0" />
-        <div className="m-4">
-          <button type="button" onClick={handleSave} className="btn primary medium w-100 w-md-auto" disabled={saving}>{!saving ? 'Save' : 'Saving'}</button>
-
         </div>
       </div>
+      
       <Modal
         show={showModal}
         onHide={handleClose}

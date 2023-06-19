@@ -47,11 +47,16 @@ const AddLink = ({
     newLink.label = linksLabel
     newLink.url = linksUrl
     // add newLinks to originalLinks
+
     if (originalLinks !== undefined) {
-      originalLinks.unshift(newLink)
+      let originalLinksCopy = originalLinks
+      originalLinksCopy.unshift(newLink)
+      setOriginalLinks(originalLinksCopy)
     } else {
-      originalLinks = [newLink]
+      originalLinksCopy = [newLink]
+      setOriginalLinks(originalLinksCopy)
     }
+    
   }
   
   const handleAddLinksSubmit = (e) => {
