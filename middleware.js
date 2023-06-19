@@ -24,7 +24,7 @@ export default function middleware(req) {
 
   const currentHost =
     process.env.NEXT_PUBLIC_VERCEL_ENV !== "development"
-      ? hostname.replace(`www.expertpage.io`, "")
+      ? hostname.replace(`.expertpage.io`, "")
       : hostname.replace(`.localhost:3000`, "")
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
@@ -32,6 +32,7 @@ export default function middleware(req) {
     
     if (
       hostname === "localhost:3000" ||
+      hostname === "www.expertpage.io" ||
       hostname === "expertpage.io"
     ) {
       url.pathname = `/${url.pathname}`;
