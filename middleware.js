@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 
 export const config = {
   matcher: [
-    "/",
+    // "/",
     "/:path",
     "/site/:id",
     "/site/:id/:path",
-    "/post/:id",
-    "/post/:id/:path",
+    // "/post/:id",
+    // "/post/:id/:path",
   ],
 };
 
@@ -23,12 +23,13 @@ export default function middleware(req) {
   // }
 
   const currentHost =
-    process.env.VERCEL_ENV === "production"
+    process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
       ? hostname.replace(`.expertpage.io`, "")
       : hostname.replace(`.localhost:3000`, "");
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
 
+    
     if (
       hostname === "localhost:3000" ||
       hostname === "expertpage.io"
