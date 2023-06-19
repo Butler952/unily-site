@@ -49,12 +49,12 @@ export default function middleware(req) {
   const url = req.nextUrl;
 
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
-  const hostname = req.headers.get("host") || "demo.vercel.pub";
+  const hostname = req.headers.get("host") || "expertpage.io";
 
-  // Only for demo purposes – remove this if you want to use your root domain as the landing page
-  if (hostname === "vercel.pub" || hostname === "platforms.vercel.app") {
-    return NextResponse.redirect("https://demo.vercel.pub");
-  }
+  // // Only for demo purposes – remove this if you want to use your root domain as the landing page
+  // if (hostname === "vercel.pub" || hostname === "platforms.vercel.app") {
+  //   return NextResponse.redirect("https://demo.vercel.pub");
+  // }
 
   /*  You have to replace ".vercel.pub" with your own domain if you deploy this example under your domain.
       You can also use wildcard subdomains on .vercel.app links that are associated with your Vercel team slug
@@ -64,8 +64,7 @@ export default function middleware(req) {
   const currentHost =
     process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
       ? hostname
-          .replace(`.vercel.pub`, "")
-          .replace(`.platformize.vercel.app`, "")
+          .replace(`.expertpage.io`, "")
       : hostname.replace(`.localhost:3000`, "");
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
@@ -85,7 +84,7 @@ export default function middleware(req) {
 
     if (
       hostname === "localhost:3000" ||
-      hostname === "platformize.vercel.app"
+      hostname === "expertpage.io"
     ) {
       url.pathname = `/${url.pathname}`;
       return NextResponse.rewrite(url);
