@@ -12,19 +12,12 @@ const cors = initMiddleware(
   })
 )
 
-export default async function addDomain(req, res) {
+export default async function getDomain(req, res) {
   // Run cors
   await cors(req, res)
 
-  // const query = req.query
-  // const { domain, userId } = query
-
   const domain = req.query.domain
   const userId = req.query.userId
-
-  // const { domain, siteId } = req.query
-  // var domain = 'www.example.com'
-  // var userId = '8JTBYqYQ34Rgr3USMptqX9yTS1Z2'
 
   // Rest of the API logic
  var myHeaders = new Headers();
@@ -36,30 +29,19 @@ export default async function addDomain(req, res) {
 
   var requestOptions = {
     mode: 'cors',
-    body: `{\n  "name": "${domain}"\n}`,
-    method: 'POST',
+    method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
   };
 
-  const response = await fetch(`https://api.vercel.com/v10/projects/${process.env.NEXT_PUBLIC_PROJECT_ID_VERCEL}/domains?teamId=${process.env.NEXT_PUBLIC_TEAM_ID_VERCEL}`, requestOptions)
+  const response = await fetch(`https://api.vercel.com/v10/projects/${process.env.NEXT_PUBLIC_PROJECT_ID_VERCEL}/domains/${domain}?teamId=${process.env.NEXT_PUBLIC_TEAM_ID_VERCEL}`, requestOptions)
   
   const data = await response.json()
 
-  if (data.error?.code == 'forbidden') {
-    res.status(403).end() // domain is already owned by another team but you can request delegation to access it
-  } else if (data.error?.code == 'domain_taken') {
-    res.send(data)
-    res.status(409).end() // domain is already being used by a different project
-  } else if (data.error?.code == 'domain_already_in_use') {
-    res.send(data)
-    res.status(409).end() // domain is already being used by this project
-  } else {
-    await fire.firestore().collection('users').doc(userId).update({
-      domain: data,
-      lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-    })
-    res.send(data)
-    res.status(200).end()
-  }
+  await fire.firestore().collection('users').doc(userId).update({
+    domain: data,
+    lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+  })
+  res.send(data)
+  res.status(200).end()
 }

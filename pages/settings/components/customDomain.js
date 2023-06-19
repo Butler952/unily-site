@@ -13,6 +13,12 @@ import UpgradeButton from './upgradeButton';
 const CustomDomain = ({
   userData,
   allUserData,
+  loggedInRoute,
+  customDomain,
+  gettingDomainInfo,
+  setDomainStatus,
+  setGettingDomainInfo,
+  sectionsLoading,
   product,
   active,
   status,
@@ -21,14 +27,20 @@ const CustomDomain = ({
 
   const { userContext, setUserContext } = useContext(UserContext);
 
-  const [domain, setDomain] = useState('');
-  const [domainChanged, setDomainChanged] = useState('');
-  const [domainError, setDomainError] = useState('');
+  const [newDomain, setNewDomain] = useState('');
+  const [newDomainChanged, setNewDomainChanged] = useState('');
+  const [newDomainError, setNewDomainError] = useState('');
+
+  // const [domainInfo, setDomainInfo] = useState('');
+  // const [domainStatus, setDomainStatus] = useState('');
+  // const [gettingDomainInfo, setGettingDomainInfo] = useState('');
+
   const [defaultDomain, setDefaultDomain] = useState('');
   const [selectedDomainType, setSelectedDomainType] = useState();
   const [selectedDomainTypeChanged, setSelectedDomainTypeChanged] = useState(false);
-  const [customDomain, setCustomDomain] = useState('');
   const [showAddDomainModal, setShowAddDomainModal] = useState(false);
+  const [showRemoveDomainModal, setShowRemoveDomainModal] = useState(false);
+  const [removingDomain, setRemovingDomain] = useState(false);
   const [sendingData, setSendingData] = useState(false);
   const [notificationRequested, setNotificationRequested] = useState(false);
   const [saving, setSaving] = useState('');
@@ -64,7 +76,8 @@ const CustomDomain = ({
   // }
 
   useEffect(() => {
-    // setDomain(
+    // handleGetDomain(userContext.customDomain)
+    // setNewDomain(
     //   userContext &&
     //   userContext.profileUrl &&
     //   userContext.profileUrl
@@ -78,10 +91,16 @@ const CustomDomain = ({
     //     userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // setSelectedDomainType(userContext && userContext.profileUrl && userContext.profileUrl.includes("profile") ? 'standard' : 'personalised');
     // need to ge the domain from the profileUrl itself as it could be different from the uid
-    const unsubscribe = fire.auth()
-      .onAuthStateChanged((user) => {
+
+    const unsubscribe = fire.auth().onAuthStateChanged((user) => {
         if (user) {
           setDefaultDomain(user.uid)
+          // Get the domain from the user document
+          // Feed that domain to GetDomain
+          // GetDomain has to set the domain info 
+          // handleGetDomain(userContext.customDomain ? userContext?.customDomain : customDomain)
+          // console.log('handleGetDomain triggered')
+
         }
       })
     return () => {
@@ -91,124 +110,156 @@ const CustomDomain = ({
   }, []);
 
   const domainChange = (value) => {
-    setDomain(value)
-    setDomainChanged(true)
-    setDomainError('')
+    setNewDomain(value)
+    setNewDomainChanged(true)
+    setNewDomainError('')
   }
 
   const setSelectedDomainTypeChange = (value) => {
     setSelectedDomainType(value)
     setSelectedDomainTypeChanged(true)
     if (value == 'standard') {
-      setDomainError('')
+      setNewDomainError('')
     }
   }
 
-  const customDomainChange = (value) => {
-    setCustomDomain(value)
-  }
+  // const customDomainChange = (value) => {
+  //   setCustomDomain(value)
+  // }
 
   let matchingUrls = []
 
-  const handleSave = (e) => {
+  // const handleSave = (e) => {
+  //   e.preventDefault();
+
+  //   if (selectedDomainType == 'personalised') {
+  //     if (domainChanged && domain === '') {
+  //       setNewDomainError('Domain cannot be empty')
+  //       return null;
+  //     } else {
+
+  //       if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+  //         setSaving(true)
+
+  //         fire.firestore()
+  //           .collection('users')
+  //           .where("profileUrl", "==", `/${domain}`)
+  //           .get()
+  //           .then((querySnapshot) => {
+  //             querySnapshot.forEach((doc) => {
+  //               matchingUrls = [...matchingUrls, doc.id];
+  //             })
+  //           })
+  //           .then(() => {
+  //             if ((matchingUrls && matchingUrls).length > 0) {
+  //               setSaving(false)
+  //               setNewDomainError('This URL is not available 😔')
+  //             } else {
+  //               fire.firestore().collection('users').doc(userData.uid).update({
+  //                 'profileUrl': `/${domain}`,
+  //                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+  //               })
+  //               .then(() => {
+  //                 fire.firestore()
+  //                 .collection('redirects')
+  //                 .doc(userData.uid)
+  //                 .set({ 
+  //                   'source': `/profile/${defaultDomain}`, 
+  //                   'destination': `/${domain}`,
+  //                   'permanent': true
+  //                 })
+  //                 .catch((err) => {
+  //                   toast(err.message)
+  //                 })
+  //               })
+  //               .then(() => {
+  //                 let newUserContext = userContext;
+  //                 newUserContext.profileUrl = `/${domain}`;
+  //                 setUserContext(newUserContext)
+  //               })
+  //               .then(() => {
+  //                 setSaving(false)
+  //                 toast('Profile URL updated')
+  //               })
+  //               .catch((err) => {
+  //                 // console.log(err.code, err.message)
+  //                 toast(err.message)
+  //               })
+  //             }
+  //           })
+  //       } else {
+  //         handleUpsellShow()
+  //       }
+  //     }
+  //   }
+  //   if (selectedDomainType == 'standard') {
+  //     setSaving(true)
+
+  //     fire.firestore().collection('users').doc(userData.uid).update({
+  //       'profileUrl': `/profile/${defaultDomain}`,
+  //       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+  //     })
+  //       .then(() => {
+  //         fire.firestore()
+  //         .collection('redirects')
+  //         .doc(userData.uid)
+  //         .delete()
+  //         .catch((err) => {
+  //           toast(err.message)
+  //         })
+  //       })
+  //       .then(() => {
+  //         let newUserContext = userContext;
+  //         newUserContext.profileUrl = `/profile/${defaultDomain}`;
+  //         setUserContext(newUserContext)
+  //       })
+  //       .then(() => {
+  //         setSaving(false)
+  //         toast('Profile URL updated')
+  //       })
+  //       .catch((err) => {
+  //         // console.log(err.code, err.message)
+  //         toast(err.message)
+  //       })
+  //   }
+  // }
+
+  const handleCloseAddDomain = () => setShowAddDomainModal(false);
+  const handleShowAddDomain = () => setShowAddDomainModal(true);
+
+  const handleRemoveDomainShow = () => setShowRemoveDomainModal(true)
+  const handleRemoveDomainClose = () => setShowRemoveDomainModal(false)
+
+  const handleRemoveDomainSubmit = (e) => {
     e.preventDefault();
 
-    if (selectedDomainType == 'personalised') {
-      if (domainChanged && domain === '') {
-        setDomainError('Domain cannot be empty')
-        return null;
-      } else {
+    setRemovingDomain(true)
 
-        if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
-          setSaving(true)
+    // Remove domain API? Should they even be able to remove a domain
+    // When could someone remove a domain?
+    // Ideally, you can only add a domain to firebase if it hadn't already been added to another account?
+    // I think you should be able to do this as long as you can update the TXT?
+    // Maybe for now, all we do is remove it from firebase? > that way it will route to the right place?
 
-          fire.firestore()
-            .collection('users')
-            .where("profileUrl", "==", `/${domain}`)
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                matchingUrls = [...matchingUrls, doc.id];
-              })
-            })
-            .then(() => {
-              if ((matchingUrls && matchingUrls).length > 0) {
-                setSaving(false)
-                setDomainError('This URL is not available 😔')
-              } else {
-                fire.firestore().collection('users').doc(userData.uid).update({
-                  'profileUrl': `/${domain}`,
-                  lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-                })
-                .then(() => {
-                  fire.firestore()
-                  .collection('redirects')
-                  .doc(userData.uid)
-                  .set({ 
-                    'source': `/profile/${defaultDomain}`, 
-                    'destination': `/${domain}`,
-                    'permanent': true
-                  })
-                  .catch((err) => {
-                    toast(err.message)
-                  })
-                })
-                .then(() => {
-                  let newUserContext = userContext;
-                  newUserContext.profileUrl = `/${domain}`;
-                  setUserContext(newUserContext)
-                })
-                .then(() => {
-                  setSaving(false)
-                  toast('Profile URL updated')
-                })
-                .catch((err) => {
-                  // console.log(err.code, err.message)
-                  toast(err.message)
-                })
-              }
-            })
-        } else {
-          handleUpsellShow()
-        }
-      }
-    }
-    if (selectedDomainType == 'standard') {
-      setSaving(true)
+    // remove from this user's firebase
 
-      fire.firestore().collection('users').doc(userData.uid).update({
-        'profileUrl': `/profile/${defaultDomain}`,
-        lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+    fire.firestore().collection('users').doc(userData.uid).update({
+      domain: fire.firestore.FieldValue.delete()
+    })
+      .then(() => {
+        setShowRemoveDomainModal(false)
+        setRemovingDomain(false)
+        toast("Domain removed")
       })
-        .then(() => {
-          fire.firestore()
-          .collection('redirects')
-          .doc(userData.uid)
-          .delete()
-          .catch((err) => {
-            toast(err.message)
-          })
-        })
-        .then(() => {
-          let newUserContext = userContext;
-          newUserContext.profileUrl = `/profile/${defaultDomain}`;
-          setUserContext(newUserContext)
-        })
-        .then(() => {
-          setSaving(false)
-          toast('Profile URL updated')
-        })
-        .catch((err) => {
-          // console.log(err.code, err.message)
-          toast(err.message)
-        })
-    }
+      .then(() => {
+        loggedInRoute(userData)
+      })
+      .catch((error) => {
+        setRemovingDomain(false)
+        toast("Unable to remove domain")
+        //console.error("Error adding document: ", error);
+      });
   }
-
-  const handleCloseAddDomain = () => {
-    setShowAddDomainModal(false)
-  };
-  const handleShowAddDomain = () => setShowAddDomainModal(true);
 
   const handleSubmitCustomDomain = () => {
     // Send mixpanel event for PDF Download
@@ -257,39 +308,157 @@ const CustomDomain = ({
 
     // need more sound logic here
     // maybe strip http:// too
-    if (domain === '') {
-      setDomainError('Please enter a valid domain')
+    if (newDomain === '') {
+      setNewDomainError('Please enter a valid domain')
+      setSaving(false)
+    } else if (newDomain === 'expertpage.io' || newDomain === 'www.expertpage.io' ) {
+      setNewDomainError("Okay, very funny")
       setSaving(false)
     } else {
 
-      fetch(`/api/add-domain?domain=${domain}&userId=${userData.uid}`)
-        .then(result => console.log(result))
-        .then(() => {
+      let matchingUrls = []
+
+      fire.firestore()
+        .collection('users')
+        .where("domain.name", "==", `${newDomain}`)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            matchingUrls = [...matchingUrls, doc.id];
+          })
         })
         .then(() => {
-          setSaving(false)
-          handleCloseAddDomain()
-          // Toast confirmation
-          toast("Domain added")
+          if (((matchingUrls && matchingUrls).length > 0) && allUserData?.domain?.name !== {newDomain}) {
+            setSaving(false)
+            setNewDomainError('This domain is already used by another account')
+            // toast('Domain used by another account')
+          } else {
+            // implement a check to see if this domain is already on another account?
+
+            fetch(`/api/add-domain?domain=${newDomain}&userId=${userData.uid}`)
+              // .then(result => console.log(result))
+              .then((res) => res.json())
+              .then((result) => {
+                // console.log(result);
+                if (result.error?.code == 'domain_taken') {
+                  handleCloseAddDomain()
+                  toast("Domain already in use")
+                  setSaving(false)
+                } else if (result.error?.code == 'domain_already_in_use') {
+                  handleCloseAddDomain()
+                  toast("Domain used by another account")
+                  setSaving(false)
+                } else {
+                  handleCloseAddDomain()
+                  toast("Domain added")
+                  setSaving(false)
+                }
+              })
+              .then(() => {
+                loggedInRoute(userData)
+              })
+              .then(() => {
+                setNewDomain('')
+              })
+              .catch((error) => {
+                console.log('error', error)
+              });
+          }
         })
-        .catch((error) => {
-          console.log('error', error)
-        });
     }
+  }
+
+  const handleGetDomain = () => {
+
+    setGettingDomainInfo(true);
+
+    fetch(`/api/get-domain?domain=${allUserData?.domain?.name}&userId=${userData.uid}`)
+      // .then(result => console.log(result))
+      .then(() => {
+        setGettingDomainInfo(false);
+      })
+      .catch((error) => {
+        console.log('error', error)
+      });
   }
 
   return (
     <div>
       <div className="card mx-auto">
-        <div className="d-flex flex-column m-4" style={{ gap: '16px' }}>
+        <div className="d-flex flex-column m-4">
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
               <h5 className="mb-1">Connect my own domain</h5>
               <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
             </div>
-            <div>
-              <button type="button" onClick={handleShowAddDomain} className="btn primary medium small w-100 w-md-auto">Add domain</button>
-            </div>
+            {!sectionsLoading ? 
+              (!allUserData?.domain?.name ? 
+                <>
+                  <div>
+                    <button type="button" onClick={handleShowAddDomain} className="btn primary medium small w-100 w-md-auto">Add domain</button>
+                  </div>
+                </>
+              :
+              <div className="d-flex flex-column border-1 border-solid border-dark-300 radius-2 p-4 gap-3">
+                {!gettingDomainInfo ?
+                  ( !allUserData?.domain?.verification.verified ?
+                    <div className="tag small dark medium">Pending verification</div>
+                  :
+                    <div className="tag small primary high">Verified</div>
+                  )
+                :
+                  <div className="d-flex flex-column bg-dark-300 radius-4 loadingAnimation" style={{height: '24px', width: '96px'}}></div>
+                }
+                <div className="d-flex flex-column gap-0">
+                  <h6 className="mb-1">{allUserData.domain.name}</h6>
+                  
+                  { !allUserData?.domain?.verification.verified ?
+                    <p className="text-dark-low mb-0"> 
+                      Your profile is not live on this domain yet
+                    </p> :
+                    <p className="text-primary-high mb-0"> 
+                      Your profile is live on this domain
+                    </p>
+                  }
+                </div>
+                {!gettingDomainInfo ? 
+                  ( !allUserData?.domain?.verification.verified ? 
+                    <>
+                      <p className="mb-0">Please set the following TXT record on _vercel.mydomain.com to show your Expertpage on {allUserData.domain.name}. Once the verification is completed and the domain is successfully configured, the TXT record can be removed.</p>
+                      <div className="d-flex flex-column bg-dark-100 radius-2 p-3 gap-3">
+                        <div>
+                          <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
+                          <p className="mb-0 monospace">{allUserData.domain.verification[0].type}</p>
+                        </div>
+                        <div>
+                          <p className="text-dark-high small font-weight-semibold mb-1">Name</p>
+                          <p className="mb-0 monospace">{allUserData.domain.verification[0].domain.replace(`.${allUserData.domain.name}`,"") }</p>
+                        </div>
+                        <div>
+                          <p className="text-dark-high small font-weight-semibold mb-1">Value</p>
+                          <p className="mb-0 monospace">{allUserData.domain.verification[0].value}</p>
+                        </div>
+                      </div>
+                    </>
+                  :
+                    ''
+                  ) :
+                  <div className="d-flex flex-column bg-dark-100 radius-2 p-4 gap-3 loadingAnimation" style={{height: '64px'}}></div>
+                }
+                {!gettingDomainInfo ? 
+                  <div className="d-flex flex-column flex-md-row gap-2">
+                    <button type="button" onClick={handleRemoveDomainShow} className="btn error medium small w-100 w-md-auto">Remove domain</button>
+                    <button type="button" onClick={handleGetDomain} className="btn dark medium small w-100 w-md-auto">Refresh</button>
+                  </div>
+                : 
+                  null
+                }
+                </div>
+              )
+            : 
+              <div className="d-flex flex-column bg-dark-200 radius-2 p-4 gap-3 loadingAnimation" style={{height: '64px'}}></div>
+            }
+            
           </div>
         </div>
       </div>
@@ -312,9 +481,9 @@ const CustomDomain = ({
         <form onSubmit={handleAddDomain}>
           <div className="d-flex flex-column w-100 gap-4">
             <div>
-              <input type="text" className={domainError !== '' ? `error w-100` : `w-100`} value={domain} onChange={({ target }) => domainChange(target.value)} placeholder="mywebsite.com" />
+              <input type="text" className={newDomainError !== '' ? `error w-100` : `w-100`} value={newDomain} onChange={({ target }) => domainChange(target.value)} placeholder="mywebsite.com" />
               <p className="small text-dark-med mt-2 mb-0">Your Expertpage profile will appear on this domain.</p>
-              {domainError !== '' && <p className="small text-error-high mt-2 mb-0">{domainError}</p> }
+              {newDomainError !== '' && <p className="small text-error-high mt-2 mb-0">{newDomainError}</p> }
             </div>
             <div className="d-flex flex-column mt-3 gap-3">
               <div className="d-flex flex-column flex-sm-row align-items-start justify-content-between gap-3">
@@ -365,6 +534,45 @@ const CustomDomain = ({
             </div>*/}
           </div>
         </Modal.Body>
+      </Modal>
+      <Modal
+        show={showRemoveDomainModal} 
+        onHide={handleRemoveDomainClose}
+        // backdrop="static"
+        keyboard={false}
+        size="md"
+      >
+        <Modal.Header closeButton>
+          <div className="d-flex flex-row align-items-center" style={{gap: '8px'}}>
+            <h5 className="text-dark-high font-weight-bold mb-0">Remove custom domain</h5>
+          </div>
+          <button onClick={handleRemoveDomainClose} className="btn dark medium small icon-only">
+            <svg viewBox="0 0 24 24">
+              <path d={ICONS.CLOSE}></path>
+            </svg>
+          </button>
+        </Modal.Header>
+        <hr className="m-0 w-100"></hr>
+        <div className="p-4">
+          {/* <h6 className="mb-2">Are you sure you want to remove this custom domain?</h6> */}
+          <p>Your Expertpage profile will still be accessible at expertpage.io/{allUserData?.subdomain}</p>
+          { allUserData?.domain?.name &&
+            <div className="d-flex flex-row justify-content-between border-1 border-solid border-dark-300 radius-2 w-100 p-4 mb-4" style={{gap:'24px'}}>
+              <div className="d-flex flex-row justify-content-between w-100">
+                <h6 className="mb-0">{allUserData?.domain?.name}</h6>
+                { !allUserData?.domain?.verification.verified ?
+                  <div className="tag small dark medium">Pending verification</div>
+                :
+                  <div className="tag small primary high">Verified</div>
+                }
+              </div>
+            </div>
+          }
+          <div className="d-flex flex-column flex-sm-row justify-content-end" style={{gap: '12px'}}>
+            <button type="button" onClick={handleRemoveDomainClose} className="btn dark medium w-100 w-sm-auto" disabled={removingDomain}>Cancel</button>
+            <button type="button" onClick={handleRemoveDomainSubmit} className="btn error high w-100 w-sm-auto order-1 order-sm-0" disabled={removingDomain}>{!removingDomain ? 'Remove domain' : 'Removing...'}</button>
+          </div>
+        </div>
       </Modal>
     </div>
   )
