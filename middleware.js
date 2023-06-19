@@ -4,8 +4,8 @@ export const config = {
   matcher: [
     // "/",
     "/:path",
-    "/site/:id",
-    "/site/:id/:path",
+    // "/site/:id",
+    // "/site/:id/:path",
     // "/post/:id",
     // "/post/:id/:path",
   ],
@@ -23,13 +23,13 @@ export default function middleware(req) {
   // }
 
   const currentHost =
-    process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    process.env.NEXT_PUBLIC_VERCEL_ENV !== "development"
       ? hostname.replace(`.expertpage.io`, "")
-      : hostname.replace(`.localhost:3000`, "");
+      : hostname.replace(`.localhost:3000`, "")
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
 
-    
+  
     if (
       hostname === "localhost:3000" ||
       hostname === "expertpage.io"
