@@ -22,10 +22,14 @@ export default function middleware(req) {
   //   return NextResponse.redirect("https://expertpage.io");
   // }
 
-  const currentHost =
-    process.env.NEXT_PUBLIC_VERCEL_ENV !== "development"
-      ? hostname.replace(`.expertpage.io`, "")
-      : hostname.replace(`.localhost:3000`, "")
+  // const currentHost =
+  //   process.env.NEXT_PUBLIC_VERCEL_ENV !== "development"
+  //     ? hostname.replace(`.expertpage.io`, "")
+  //     : hostname.replace(`.localhost:3000`, "")
+
+  const currentHost = hostname
+    .replace(`.expertpage.io`, "")
+    .replace(`.localhost:3000`, "")
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
 
