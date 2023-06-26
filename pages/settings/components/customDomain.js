@@ -226,10 +226,14 @@ const CustomDomain = ({
 
   const handleCloseAddDomain = () => setShowAddDomainModal(false);
   const handleShowAddDomain = () => {
-    if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
-      setShowAddDomainModal(true)
+    if ( allUserData?.flags?.customDomain) {
+      if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+        setShowAddDomainModal(true)
+      } else {
+        setShowUpsellModal(true);
+      }
     } else {
-      setShowUpsellModal(true);
+      setShowAddDomainModal(true)
     }
   }
 
