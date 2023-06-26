@@ -226,7 +226,7 @@ const CustomDomain = ({
 
   const handleCloseAddDomain = () => setShowAddDomainModal(false);
   const handleShowAddDomain = () => {
-    if ( allUserData?.flags?.customDomain) {
+    if ( !allUserData?.flags?.customDomain) {
       if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
         setShowAddDomainModal(true)
       } else {
