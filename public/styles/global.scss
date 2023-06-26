@@ -964,24 +964,25 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   font-size: 20px;
   line-height: 32px;
   height: 56px;
-  border: 2px solid transparent;
+  border: 2px solid $dark-300;
   outline: 0;
-  background: $dark-200;
+  background: $light-900;
   transition: $transition-short;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   &.error {
-    // border-color: $error-900;
+    border-color: $error-900;
     background: $error-200;
+    &:hover {
+      background: $light-900;
+      border-color: $error-900;
+    }
   }
   &:hover {
-    background: $dark-300;
-    // border-color: $dark-900;
-    &.error {
-      background: $error-300;
-    }
+    background: $light-900;
+    border-color: $primary-900;
   }
   &:focus {
     border-color: $primary-900;
@@ -1179,20 +1180,21 @@ textarea {
   font-size: 20px;
   line-height: 32px;
 
-  border: 2px solid transparent;
+  border: 2px solid $dark-300;
   outline: 0;
-  background: $dark-200;
+  background: $light-900;
   transition: $transition-short;
   &.error {
-    // border-color: $error-900;
+    border-color: $error-900;
     background: $error-200;
+    &:hover {
+      background: $light-900;
+      border-color: $error-900;
+    }
   }
   &:hover {
-    background: $dark-300;
-    // border-color: $dark-900;
-    &.error {
-      background: $error-300;
-    }
+    background: $light-900;
+    border-color: $primary-900;
   }
   &:focus {
     border-color: $primary-900;

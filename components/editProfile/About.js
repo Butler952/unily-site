@@ -62,6 +62,7 @@ const About = ({
               className={aboutError !== '' ? `error w-100 small` : `w-100 small`}
               value={aboutChanged ? about : (userContext.profile.summary !== undefined ? userContext.profile.summary : '')}
               onChange={({ target }) => aboutChange(target.value)}
+              style={{minHeight: '360px'}}
             />
             {aboutError !== '' ? <p className="small text-error-high mt-2">{aboutError}</p> : null}
           </div>

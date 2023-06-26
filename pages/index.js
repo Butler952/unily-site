@@ -67,11 +67,6 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header hideShadow/>
-      <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
-        <Header hideShadow={scrollPosition < heroHeight + 66} />
-      </div>
-
       <Head>
         <title>ExpertPage | Build trust and sell more with your own professional site</title>
         <meta name="description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
@@ -81,6 +76,10 @@ const Home = (props) => {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io"/>
       </Head>
+      <Header hideShadow/>
+      <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
+        <Header hideShadow={scrollPosition < heroHeight + 66} />
+      </div>
       {/* <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
           <div>
@@ -223,7 +222,7 @@ const Home = (props) => {
                       </a>
                     </div>
                   </div>
-                  <div className="d-block position-relative col-12 col-lg-5 p-0">
+                  <div className="d-block position-relative col-12 col-lg-6 p-0">
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-J1r-0xdoEZY-unsplash.jpg)` }}>
                       <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
                         <div className="tag small light high icon-left">

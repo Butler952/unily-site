@@ -1,6 +1,6 @@
 const ManageButton = (props) => {
   return (
-    <button type="button" className="btn primary medium w-100 mt-5" onClick={() => props.handleUpdate(event)}>Manage</button>
+    <button type="button" className="btn primary small medium w-100 mt-4" onClick={() => props.handleUpdate(event)}>Manage</button>
   )
 }
 

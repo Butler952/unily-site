@@ -238,7 +238,7 @@ const Settings = () => {
           setActive(doc.data().items[0].plan.active)
           setStatus(doc.data().status)
           setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
-          // setCancelAt(doc.data().cancel_at.seconds)
+          setCancelAt(doc.data().cancel_at.seconds)
           // console.log(doc.id, " => ", doc.data());
           // console.log(doc.data().items[0].plan.product);
           // console.log(doc.data().items[0].plan.active)
@@ -441,6 +441,8 @@ const Settings = () => {
   async function handleUpgrade(e, user) {
     e.preventDefault();
     setRedirectToStripe(true);
+
+    //New stripe checkout start
     const docRef = await fire.firestore()
       .collection('users')
       .doc(userData.uid)
@@ -451,31 +453,63 @@ const Settings = () => {
         cancel_url: window.location.origin + '/settings?upgrade=cancelled',
       });
     // Wait for the CheckoutSession to get attached by the extension
-    docRef.onSnapshot(async (snap) => {
-      const { error, sessionId } = snap.data();
+    docRef.onSnapshot((snap) => {
+      const { error, url } = snap.data();
       if (error) {
-        // Show an error to your customer and 
+        // Show an error to your customer and
         // inspect your Cloud Function logs in the Firebase console.
         alert(`An error occured: ${error.message}`);
       }
-      if (sessionId) {
-        // We have a session, let's redirect to Checkout
-        // Init Stripe
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
-        stripe.redirectToCheckout({ sessionId });
+      if (url) {
+        // We have a Stripe Checkout URL, let's redirect.
+        window.location.assign(url);
       }
     });
+    //New stripe checkout end
+    
+    //Old stripe checkout start
+      // const docRef = await fire.firestore()
+      //   .collection('users')
+      //   .doc(userData.uid)
+      //   .collection('checkout_sessions')
+      //   .add({
+      //     price: process.env.NEXT_PUBLIC_STRIPE_PRICE_PREMIUM,
+      //     success_url: window.location.origin + '/settings?upgrade=success',
+      //     cancel_url: window.location.origin + '/settings?upgrade=cancelled',
+      //   });
+      // // Wait for the CheckoutSession to get attached by the extension
+      // docRef.onSnapshot(async (snap) => {
+      //   const { error, sessionId } = snap.data();
+      //   if (error) {
+      //     // Show an error to your customer and 
+      //     // inspect your Cloud Function logs in the Firebase console.
+      //     alert(`An error occured: ${error.message}`);
+      //   }
+      //   if (sessionId) {
+      //     // We have a session, let's redirect to Checkout
+      //     // Init Stripe
+      //     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+      //     stripe.redirectToCheckout({ sessionId });
+      //   }
+      // });
+    // Old Stripe checkout end
+
   }
   // Dev Premium Subscription End
 
-  // Dev Customer Portal Start
+  // Customer Portal Start
   async function handleUpdate(e) {
     e.preventDefault();
-    const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
-    const { data } = await functionRef({ returnUrl: window.location.origin + '/settings' });
+    setRedirectToStripe(true);
+    const functionRef = fire.app()
+      .functions('europe-west2')
+      .httpsCallable('ext-firestore-stripe-payments-createPortalLink');
+    const { data } = await functionRef({
+      returnUrl: window.location.origin + '/settings' 
+    });
     window.location.assign(data.url);
   }
-  // Dev Customer Portal End
+  // Customer Portal End
 
   const CustomToggle = ({ eventKey }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -528,15 +562,15 @@ const Settings = () => {
       }
       <div className="pt-5 mt-5">
         <Head>
-          <title>Settings</title>
+          <title>Settings | Expertpage.io</title>
         </Head>
         <Header positionFixed />
         <div>
         {/* <div style={{ marginTop: '66px' }}> */}
           <Container className="py-4">
-            <div className="m-auto" style={{ maxWidth: "640px" }}>
+            <div className="m-auto" style={{ maxWidth: "720px" }}>
               <h2 className="pb-4 my-5">Settings</h2>
-              {/* {cancelAtPeriodEnd ? (
+              {cancelAtPeriodEnd ? (
                 <>
                   <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
                     <h5 className="text-light-high">Premium expiring {moment.unix(cancelAt).startOf('hour').fromNow()}</h5>
@@ -547,7 +581,7 @@ const Settings = () => {
                   </div>
                 </>
               )
-                : null} */}
+                : null}
 
               {/* <div className="card mx-auto mb-5">
               <div className="p-4">
@@ -702,69 +736,74 @@ const Settings = () => {
                 </div>
               }
             </div> */}
-              {/* <div id="plan" className="card mx-auto mb-5">
-                <div className="p-4">
-                  <h5 className="text-dark-high mb-0">Plan</h5>
-                  <p className="text-dark-low mb-0">Manage your plan and payment information</p>
-                </div>
-                <hr className="m-0" />
-                
-
-                <div className="m-4">
-                
-                  <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
-                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
-                      <div className="d-flex justify-content-between align-items-center w-100">
-                        <h5 className="text-primary-high mb-1">Basic</h5>
-                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
-                      </div>
-                      <h4 className="text-dark-high mb-4">Free</h4>
-                      {[
-                        'expertpage.io domain',
-                        'Basic templates'
-                      ].map((feature, index) =>
-                        <div key={index} className="d-flex align-items-start mt-2">
-                          <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900">
-                            <path d={ICONS.CHECK}></path>
-                          </svg>
-                          <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
-                        </div>
-                      )}
+            { allUserData?.flags?.premiumPlan &&
+              <div id="plan" className="card mx-auto mb-5">
+                <div className="d-flex flex-column m-4">
+                  <div className="d-flex flex-column w-100 gap-4">
+                    <div className="d-flex flex-column gap-0">
+                      <h5 className="mb-1">Plan</h5>
+                      <p className="text-dark-low mb-0">Manage your plan and payment information</p>
                     </div>
-                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
-                      <div className="d-flex justify-content-between align-items-center w-100">
-                        <h5 className="text-primary-high mb-1">Premium</h5>
-                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
-                      </div>
-                      <div className="d-flex align-items-end mb-4">
-                        <h4 className="text-dark-high mr-1 mb-0">$3</h4>
-                        <p className="text-dark-high mb-0">/month</p>
-                      </div>
-                      {[
-                        'All Basic features',
-                        'Choose your page handle',
-                        'Premium templates',
-                        'Logos on some templates',
-                        'More coming soon'
-                      ].map((feature, index) =>
-                        <div key={index} className="d-flex align-items-start mt-2">
-                          <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{ minWidth: '24px' }}>
-                            <path d={ICONS.CHECK}></path>
-                          </svg>
-                          <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                
+                    <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
+                      <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                        <div className="d-flex justify-content-between align-items-center w-100">
+                          <h6 className="text-primary-high mb-1">Basic</h6>
+                          {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
                         </div>
-                      )}
-                      {cancelAtPeriodEnd ? (
-                        <>
-                          <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
-                        </>
-                      )
-                        : null}
-                      {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                        <h4 className="text-dark-high mb-4">Free</h4>
+                        {[
+                          {'string': "Expertpage.io domain", 'included': true},
+                          {'string': "Create your page", 'included': true},
+                          {'string': "Connect your own domain", 'included': false},
+                          {'string': "Remove Expertpage.io branding", 'included': false},
+                        ].map((feature, index) =>
+                          <div key={index} className="d-flex align-items-start mt-2">
+                            <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                              <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                            </svg>
+                            <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>
+                              {feature.string}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                        <div className="d-flex justify-content-between align-items-center w-100">
+                          <h6 className="text-primary-high mb-1">Premium</h6>
+                          {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                        </div>
+                        <div className="d-flex align-items-end mb-4">
+                          <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
+                          <p className="text-dark-high mb-0">/month</p>
+                        </div>
+                        {[
+                          {'string': "Expertpage.io domain", 'included': true},
+                          {'string': "Create your page", 'included': true},
+                          {'string': "Connect your own domain", 'included': true},
+                          {'string': "Remove Expertpage.io branding", 'included': true},
+                          {'string': "More coming soon", 'included': true}
+                        ].map((feature, index) =>
+                          <div key={index} className="d-flex align-items-start mt-2">
+                            <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                              <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                            </svg>
+                            <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>{feature.string}</p>
+                          </div>
+                        )}
+                        {cancelAtPeriodEnd ? (
+                          <>
+                            <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
+                          </>
+                        )
+                          : null}
+                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
+              }
               <div className="d-flex flex-column gap-5">
                 { allUserData?.flags?.customDomain &&
                   <CustomDomain

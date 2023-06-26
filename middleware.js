@@ -32,7 +32,6 @@ export default function middleware(req) {
     .replace(`.localhost:3000`, "")
 
   if (!url.pathname.includes(".") && !url.pathname.startsWith("/api")) {
-
     
     if (
       hostname === "localhost:3000" ||

@@ -225,7 +225,13 @@ const CustomDomain = ({
   // }
 
   const handleCloseAddDomain = () => setShowAddDomainModal(false);
-  const handleShowAddDomain = () => setShowAddDomainModal(true);
+  const handleShowAddDomain = () => {
+    if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
+      setShowAddDomainModal(true)
+    } else {
+      setShowUpsellModal(true);
+    }
+  }
 
   const handleRemoveDomainShow = () => setShowRemoveDomainModal(true)
   const handleRemoveDomainClose = () => setShowRemoveDomainModal(false)
@@ -401,7 +407,7 @@ const CustomDomain = ({
               :
               <div className="d-flex flex-column border-1 border-solid border-dark-300 radius-2 p-4 gap-3">
                 {!gettingDomainInfo ?
-                  ( !allUserData?.domain?.verification.verified ?
+                  ( !allUserData?.domain?.verification?.verified ?
                     <div className="tag small dark medium">Pending verification</div>
                   :
                     <div className="tag small primary high">Verified</div>
@@ -412,7 +418,7 @@ const CustomDomain = ({
                 <div className="d-flex flex-column gap-0">
                   <h6 className="mb-1">{allUserData.domain.name}</h6>
                   
-                  { !allUserData?.domain?.verification.verified ?
+                  { !allUserData?.domain?.verification?.verified ?
                     <p className="text-dark-low mb-0"> 
                       Your profile is not live on this domain yet
                     </p> :
@@ -422,21 +428,21 @@ const CustomDomain = ({
                   }
                 </div>
                 {!gettingDomainInfo ? 
-                  ( !allUserData?.domain?.verification.verified ? 
+                  ( !allUserData?.domain?.verified ? 
                     <>
                       <p className="mb-0">Please set the following TXT record on _vercel.mydomain.com to show your Expertpage on {allUserData.domain.name}. Once the verification is completed and the domain is successfully configured, the TXT record can be removed.</p>
                       <div className="d-flex flex-column bg-dark-100 radius-2 p-3 gap-3">
                         <div>
                           <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
-                          <p className="mb-0 monospace">{allUserData.domain.verification[0].type}</p>
+                          <p className="mb-0 monospace">{allUserData?.domain?.verification[0].type}</p>
                         </div>
                         <div>
                           <p className="text-dark-high small font-weight-semibold mb-1">Name</p>
-                          <p className="mb-0 monospace">{allUserData.domain.verification[0].domain.replace(`.${allUserData.domain.name}`,"") }</p>
+                          <p className="mb-0 monospace">{allUserData?.domain?.verification[0].domain.replace(`.${allUserData.domain.name}`,"") }</p>
                         </div>
                         <div>
                           <p className="text-dark-high small font-weight-semibold mb-1">Value</p>
-                          <p className="mb-0 monospace">{allUserData.domain.verification[0].value}</p>
+                          <p className="mb-0 monospace">{allUserData?.domain?.verification[0].value}</p>
                         </div>
                       </div>
                     </>
@@ -498,7 +504,7 @@ const CustomDomain = ({
       <Modal 
         show={showUpsellModal} 
         onHide={handleUpsellClose}
-        backdrop="static"
+        // backdrop="static"
         keyboard={false}
       >
         <Modal.Body>
@@ -508,21 +514,19 @@ const CustomDomain = ({
             <div className={`${styles.planCard} ${styles.active} radius-3 p-4 w-100 w-md-50 `}>
               <h5 className="text-primary-high mb-1">Premium</h5>
               <div className="d-flex align-items-end mb-4">
-                <h4 className="text-dark-high mr-1 mb-0">$3</h4>
+                <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
                 <p className="text-dark-high mb-0">/month</p>
               </div>
               {[
-                'All Basic features', 
-                'Custom URL on expertpage.io domain', 
-                'Logos for experience and education',
-                'Unlimited re-syncing', 
+                'Connect your own domain',
+                'Remove Expertpage.io branding', 
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">
-                  <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-900" style={{minWidth: '24px'}}>
+                  <svg viewBox="0 0 24 24" width={'24px'} className="mr-2 fill-dark-800" style={{minWidth: '24px'}}>
                     <path d={ICONS.CHECK}></path>
                   </svg>
-                  <p className="text-dark-high font-weight-medium mb-0">{feature}</p>
+                  <p className="mb-0">{feature}</p>
                 </div>
               )}
               <UpgradeButton handleUpgrade={handleUpgrade} />
@@ -560,7 +564,7 @@ const CustomDomain = ({
             <div className="d-flex flex-row justify-content-between border-1 border-solid border-dark-300 radius-2 w-100 p-4 mb-4" style={{gap:'24px'}}>
               <div className="d-flex flex-row justify-content-between w-100">
                 <h6 className="mb-0">{allUserData?.domain?.name}</h6>
-                { !allUserData?.domain?.verification.verified ?
+                { !allUserData?.domain?.verification?.verified ?
                   <div className="tag small dark medium">Pending verification</div>
                 :
                   <div className="tag small primary high">Verified</div>
