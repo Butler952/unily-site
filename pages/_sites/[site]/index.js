@@ -287,7 +287,7 @@ const Profile = (props) => {
 
 export const getServerSideProps = async ({ params: { site } }) => {
   const content = {}
-  const domainType = site.includes('.') ? 'customDomain' : 'subdomain'
+  const domainType = site.includes('.') ? 'domain.name' : 'subdomain'
   await fire.firestore()
     .collection('users')
     .where(domainType, "==", site)
