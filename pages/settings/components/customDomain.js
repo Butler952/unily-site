@@ -367,7 +367,7 @@ const CustomDomain = ({
                 }
               })
               .then(() => {
-                handleCheckDomain()
+                handleCheckDomain(newDomain)
               })
               .then(() => {
                 setNewDomain('')
@@ -394,11 +394,11 @@ const CustomDomain = ({
       });
   }
 
-  const handleCheckDomain = () => {
+  const handleCheckDomain = (domain) => {
 
     setGettingDomainInfo(true);
 
-    fetch(`/api/check-domain?domain=${allUserData?.domain?.name}&userId=${userData.uid}`)
+    fetch(`/api/check-domain?domain=${domain ? domain : allUserData?.domain?.name}&userId=${userData.uid}`)
       .then(() => {
         loggedInRoute(userData)
       })
