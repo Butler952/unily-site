@@ -370,9 +370,6 @@ const CustomDomain = ({
                 handleCheckDomain()
               })
               .then(() => {
-                loggedInRoute(userData)
-              })
-              .then(() => {
                 setNewDomain('')
               })
               .catch((error) => {
