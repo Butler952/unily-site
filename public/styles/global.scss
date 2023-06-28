@@ -1443,6 +1443,29 @@ textarea {
   border-radius: $radius-medium;
 }
 
+.dropdownItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  font-weight: 500;
+  text-decoration: none!important;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  svg path{
+    fill: $dark-900;
+  }
+  &:hover, &:focus {
+    background: $dark-200;
+    color: $dark-900;
+    svg path{
+      fill: $dark-900;
+    }
+  }
+}
+
 // Card
 
 .card {

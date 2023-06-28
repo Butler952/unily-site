@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, forwardRef } from 'react';
 import fire from '../../../config/fire-config';
 import ICONS from '../../../components/icon/IconPaths';
-import { Modal } from 'react-bootstrap';
+import { Dropdown, Modal } from 'react-bootstrap';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
 import styles from '../settings.module.scss'
@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { UserContext } from '../../_app';
 import { toast } from 'react-toastify';
 import UpgradeButton from './upgradeButton';
+import Icon from 'components/icon/Icon';
 
 const CustomDomain = ({
   userData,
@@ -251,11 +252,11 @@ const CustomDomain = ({
     // I think you should be able to do this as long as you can update the TXT?
     // Maybe for now, all we do is remove it from firebase? > that way it will route to the right place?
 
+    // Remove from the API because you can't add one that is already on someone else's account anyway
+
     // remove from this user's firebase
 
-    fire.firestore().collection('users').doc(userData.uid).update({
-      domain: fire.firestore.FieldValue.delete()
-    })
+    fetch(`/api/remove-domain?domain=${allUserData?.domain?.name}&userId=${userData.uid}`)
       .then(() => {
         setShowRemoveDomainModal(false)
         setRemovingDomain(false)
@@ -269,6 +270,7 @@ const CustomDomain = ({
         toast("Unable to remove domain")
         //console.error("Error adding document: ", error);
       });
+
   }
 
   const handleSubmitCustomDomain = () => {
@@ -365,6 +367,9 @@ const CustomDomain = ({
                 }
               })
               .then(() => {
+                handleCheckDomain()
+              })
+              .then(() => {
                 loggedInRoute(userData)
               })
               .then(() => {
@@ -392,6 +397,54 @@ const CustomDomain = ({
       });
   }
 
+  const handleCheckDomain = () => {
+
+    setGettingDomainInfo(true);
+
+    fetch(`/api/check-domain?domain=${allUserData?.domain?.name}&userId=${userData.uid}`)
+      .then(() => {
+        loggedInRoute(userData)
+      })
+      .then(() => {
+        setGettingDomainInfo(false);
+      })
+      .catch((error) => {
+        console.log('error', error)
+      });
+  }
+
+  const CustomToggle = forwardRef(({ children, onClick }, ref) => (
+    <a
+      className={styles.toggleLink}
+      href=""
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      {children}
+    </a>
+  ));
+
+  const CustomMenu = forwardRef(
+    ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
+
+      return (
+        <div
+          ref={ref}
+          style={style}
+          className={className}
+          aria-labelledby={labeledBy}
+        >
+          <ul className="list-unstyled m-0">
+            {children}
+          </ul>
+        </div>
+      );
+    },
+  );
+
   return (
     <div>
       <div className="card mx-auto">
@@ -410,25 +463,62 @@ const CustomDomain = ({
                 </>
               :
               <div className="d-flex flex-column border-1 border-solid border-dark-300 radius-2 p-4 gap-3">
-                {!gettingDomainInfo ?
-                  ( !allUserData?.domain?.verification?.verified ?
+                {/* {!gettingDomainInfo ?
+                  ( !allUserData?.domain?.verified ?
                     <div className="tag small dark medium">Pending verification</div>
                   :
-                    <div className="tag small primary high">Verified</div>
+                    (allUserData?.domainConfig?.misconfigured ? 
+                      <div className="tag small dark medium">Misconfigured</div>
+                    :
+                      <div className="tag small primary high">Verified</div>
+                    )
+                    
                   )
                 :
                   <div className="d-flex flex-column bg-dark-300 radius-4 loadingAnimation" style={{height: '24px', width: '96px'}}></div>
-                }
-                <div className="d-flex flex-column gap-0">
-                  <h6 className="mb-1">{allUserData.domain.name}</h6>
-                  
-                  { !allUserData?.domain?.verification?.verified ?
-                    <p className="text-dark-low mb-0"> 
-                      Your profile is not live on this domain yet
-                    </p> :
-                    <p className="text-primary-high mb-0"> 
-                      Your profile is live on this domain
-                    </p>
+                } */}
+                <div className="d-flex flex-row justify-content-between align-items-center">
+                  <div className="d-flex flex-column gap-0">
+                    <h6 className="mb-1">{allUserData.domain.name}</h6>
+                    { !gettingDomainInfo ?
+                      ( !allUserData?.domain?.verified || allUserData?.domainConfig?.misconfigured ?
+                        <p className="text-dark-low mb-0">Your profile is not live on this domain yet</p> 
+                          :
+                        <p className="text-primary-high mb-0">Your profile is live on this domain</p>
+                      )
+                    :
+                      <p className="text-dark-low mb-0">Refreshing domain information</p>
+                    }
+                  </div>
+                  {/* {  !allUserData?.domainConfig?.misconfigured && 
+                    <button type="button" onClick={handleRemoveDomainShow} className="btn dark low icon-only">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.MORE}></path>
+                      </svg>
+                    </button>
+                  } */}
+                  {  !allUserData?.domainConfig?.misconfigured && 
+                    <Dropdown align="end">
+                      <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
+                        <>
+                          <button className="btn dark low icon-only">
+                            <svg viewBox="0 0 24 24">
+                              <path d={ICONS.MORE}></path>
+                            </svg>
+                          </button>
+                        </>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+                        <Dropdown.Item onClick={() => handleRemoveDomainShow()} className="dropdownItem">
+                          <Icon icon={ICONS.DELETE} size='24' className="fill-dark-900" />
+                          Remove domain
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleCheckDomain()} className="dropdownItem">
+                          <Icon icon={ICONS.REFRESH} size='24' className="fill-dark-900" />
+                          Refresh
+                        </Dropdown.Item>                        
+                      </Dropdown.Menu>
+                    </Dropdown>
                   }
                 </div>
                 {!gettingDomainInfo ? 
@@ -451,17 +541,40 @@ const CustomDomain = ({
                       </div>
                     </>
                   :
-                    ''
+                    (
+                      allUserData?.domainConfig?.misconfigured ? 
+                      <>
+                        <p className="mb-0">Please set the following A record on the DNS records of {allUserData.domain.name} to show your Expertpage on this domain.</p>
+                        <div className="d-flex flex-column bg-dark-100 radius-2 p-3 gap-3">
+                          <div>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
+                            <p className="mb-0 monospace">A</p>
+                          </div>
+                          <div>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Name</p>
+                            <p className="mb-0 monospace">@</p>
+                          </div>
+                          <div>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Value</p>
+                            <p className="mb-0 monospace">76.76.21.21</p>
+                          </div>
+                        </div>
+                      </>
+                      : 
+                        ''
+                    )
                   ) :
                   <div className="d-flex flex-column bg-dark-100 radius-2 p-4 gap-3 loadingAnimation" style={{height: '64px'}}></div>
                 }
-                {!gettingDomainInfo ? 
-                  <div className="d-flex flex-column flex-md-row gap-2">
-                    <button type="button" onClick={handleRemoveDomainShow} className="btn error medium small w-100 w-md-auto">Remove domain</button>
-                    <button type="button" onClick={handleGetDomain} className="btn dark medium small w-100 w-md-auto">Refresh</button>
-                  </div>
-                : 
-                  null
+                {!gettingDomainInfo &&
+                  ( allUserData?.domainConfig?.misconfigured ? 
+                    <div className="d-flex flex-column flex-md-row gap-2">
+                      <button type="button" onClick={handleRemoveDomainShow} className="btn error medium small w-100 w-md-auto">Remove domain</button>
+                      <button type="button" onClick={!allUserData?.domain?.verified ? () => handleGetDomain() : () => handleCheckDomain()} className="btn dark medium small w-100 w-md-auto">Refresh</button>
+                    </div>
+                    :
+                    null
+                  )
                 }
                 </div>
               )
@@ -568,10 +681,14 @@ const CustomDomain = ({
             <div className="d-flex flex-row justify-content-between border-1 border-solid border-dark-300 radius-2 w-100 p-4 mb-4" style={{gap:'24px'}}>
               <div className="d-flex flex-row justify-content-between w-100">
                 <h6 className="mb-0">{allUserData?.domain?.name}</h6>
-                { !allUserData?.domain?.verification?.verified ?
+                { !allUserData?.domain?.verified ?
                   <div className="tag small dark medium">Pending verification</div>
                 :
-                  <div className="tag small primary high">Verified</div>
+                  ( allUserData?.domainConfig?.misconfigured ? 
+                    <div className="tag small dark medium">Misconfigured</div>
+                      :
+                    <div className="tag small primary high">Live</div>
+                  )
                 }
               </div>
             </div>

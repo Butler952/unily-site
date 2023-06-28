@@ -6,7 +6,7 @@ import fire from '../../config/fire-config';
 // Initialize the cors middleware
 const cors = initMiddleware(
   Cors({
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['DELETE'],
   })
 )
 
@@ -27,20 +27,21 @@ export default async function checkDomain(req, res) {
 
     var requestOptions = {
       mode: 'cors',
-      method: 'GET',
+      method: 'DELETE',
       headers: myHeaders,
       redirect: 'follow'
     };
 
-  const response = await fetch(`https://api.vercel.com/v10/domains/${domain}/config?teamId=${process.env.NEXT_PUBLIC_TEAM_ID_VERCEL}`, requestOptions)
+  const response = await fetch(`https://api.vercel.com/v10/domains/${domain}?teamId=${process.env.NEXT_PUBLIC_TEAM_ID_VERCEL}`, requestOptions)
 
   const data = await response.json()
 
   await fire.firestore().collection('users').doc(userId).update({
-    domainConfig: data,
-    lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+    domain: fire.firestore.FieldValue.delete(),
+    domainConfig: fire.firestore.FieldValue.delete(),
+    lastUpdated: fire.firestore.FieldValue.serverTimestamp()
   })
 
   res.send(data)
-    res.status(200).end()
+  res.status(200).end()
 }
