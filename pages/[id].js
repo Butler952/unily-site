@@ -285,6 +285,33 @@ const Profile = (props) => {
   )
 }
 
+const getSubscription = (user) => {
+  var docRef = fire.firestore().collection('users').doc(user.uid).collection('subscriptions')
+  //docRef.get()
+  docRef.where("status", "==", "active").get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        setProduct(doc.data().items[0].plan.product)
+        setActive(doc.data().items[0].plan.active)
+        setStatus(doc.data().status)
+        setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
+        setCancelAt(doc.data().cancel_at.seconds)
+        // console.log(doc.id, " => ", doc.data());
+        // console.log(doc.data().items[0].plan.product);
+        // console.log(doc.data().items[0].plan.active)
+        // prod_Jdg7o4VDoipc7d = Premium
+        // prod_Jdg7ZdcmfuNm0P = Free
+      });
+    })
+    .then(() => {
+      // console.log('Retreived subscription data from database')
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    })
+}
+
 export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
@@ -323,6 +350,21 @@ export const getServerSideProps = async ({ query }) => {
         content['displayInfo'] = doc.data().displayInfo ? doc.data().displayInfo : null;
       })
     })
+    .then(() =>{
+      fire.firestore()
+        .collection('users')
+        .doc(user.uid)
+        .collection('subscriptions')
+        .where("status", "==", "active")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            content['subscriptionProduct'] = doc.data().items[0]?.plan?.product ? doc.data().items[0]?.plan?.product : null;
+            content['subscriptionActive'] = doc.data().items[0]?.plan?.active ? doc.data().items[0]?.plan?.active : null;
+            content['subscriptionStatus'] = doc.data().status ? doc.data().status : null;
+          });
+        })
+    })
     .catch((err) => {
       console.log(err.code, err.message)
     })
@@ -331,6 +373,9 @@ export const getServerSideProps = async ({ query }) => {
     pageId: content.pageId,
     template: content.template,
     theme: content.theme,
+    subscriptionProduct: content.subscriptionProduct,
+    subscriptionActive: content.subscriptionActive,
+    subscriptionStatus: content.subscriptionStatus,
     email: content.email,
     linksPrimary: content.linksPrimary,
     links: content.links,

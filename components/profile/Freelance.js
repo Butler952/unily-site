@@ -23,6 +23,9 @@ const Freelance = ({
   pageId,
   template,
   theme,
+  subscriptionProduct,
+  subscriptionActive,
+  subscriptionStatus,
   email,
   linksPrimary,
   links,
@@ -697,22 +700,24 @@ const Freelance = ({
                   </div>
                 } */}
               </Container>
-              <div className='py-5 text-center'>
-                <Container>
-                  <a href="/" style={{textDecoration: 'none'}}>
-                    <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path 
-                        className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
-                        fillRule="evenodd" 
-                        clipRule="evenodd" 
-                        d={ICONS.LOGO} 
-                      />
-                    </svg>
-                    <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
-                  </a>
-                  {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
-                </Container>
-              </div>
+              {subscriptionProduct && (subscriptionProduct === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (subscriptionStatus === 'active' ?  
+                <div className='py-5 text-center'>
+                  <Container>
+                    <a href={process.env.NEXT_PUBLIC_BASE_URL} style={{textDecoration: 'none'}}>
+                      <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path 
+                          className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
+                          fillRule="evenodd" 
+                          clipRule="evenodd" 
+                          d={ICONS.LOGO} 
+                        />
+                      </svg>
+                      <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
+                    </a>
+                    {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
+                  </Container>
+                </div>
+              : null) : null)}
             </div>
           </div>
           :
