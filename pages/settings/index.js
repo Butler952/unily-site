@@ -736,7 +736,7 @@ const Settings = () => {
                 </div>
               }
             </div> */}
-            { allUserData?.flags?.premiumPlan &&
+            {/* { allUserData?.flags?.premiumPlan && */}
               <div id="plan" className="card mx-auto mb-5">
                 <div className="d-flex flex-column m-4">
                   <div className="d-flex flex-column w-100 gap-4">
@@ -803,9 +803,9 @@ const Settings = () => {
                   </div>
                 </div>
               </div>
-              }
+              {/* } */}
               <div className="d-flex flex-column gap-5">
-                { allUserData?.flags?.customDomain &&
+                {/* { allUserData?.flags?.customDomain && */}
                   <CustomDomain
                     userData={userData}
                     allUserData={allUserData}
@@ -820,7 +820,7 @@ const Settings = () => {
                     status={status}
                     handleUpgrade={handleUpgrade}
                   />
-                }
+                {/* } */}
                 <PrettyUrlSection
                   userData={userData}
                   allUserData={allUserData}
