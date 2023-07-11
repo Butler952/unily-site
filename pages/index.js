@@ -134,7 +134,7 @@ const Home = (props) => {
             <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
           </div>
         </Container> 
-        <div className="d-block position-relative w-100 p-0">
+        {/* <div className="d-block position-relative w-100 p-0">
           <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/thisisengineering-raeng-TXxiFuQLBKQ-unsplash.jpg)`, borderRadius: 0, boxShadow: 'none' }}>
             <a href="https://unsplash.com/@thisisengineering" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
               <div className="tag small light high icon-left">
@@ -145,7 +145,7 @@ const Home = (props) => {
               </div>
             </a>
           </div>
-        </div>
+        </div> */}
         <div className="bg-light-900">
           <div className="bg-primary-100">
             <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
@@ -158,7 +158,7 @@ const Home = (props) => {
                     <CustomToggle eventKey="0">Click me!</CustomToggle>
                   </div>
                   <Accordion.Collapse eventKey="0">
-                    <p className="mt-3 mb-0 large">It's free to create your ExpertPage site! In the future, we plan to offer a paid plan that will allow you to connect your own domain.</p>
+                    <p className="mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
                   </Accordion.Collapse>
                   <hr className="mb-0 w-100"></hr>
                 </div>
