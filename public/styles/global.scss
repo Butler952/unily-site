@@ -708,6 +708,8 @@ a.btn, input.btn, button.btn {
     &.high {
       background: $dark-400!important; 
       color: $dark-600!important; 
+      text-shadow: none!important;
+      box-shadow: none!important;
       svg path {
         fill: $dark-600!important;
       }
@@ -715,12 +717,16 @@ a.btn, input.btn, button.btn {
     &.medium {
       background: $dark-100!important; 
       color: $dark-600!important; 
+      text-shadow: none!important;
+      box-shadow: none!important;
       svg path {
         fill: $dark-600!important;
       }
     }
     &.low {
       color: $dark-600!important; 
+      text-shadow: none!important;
+      box-shadow: none!important;
       svg path {
         fill: $dark-600!important;
       }

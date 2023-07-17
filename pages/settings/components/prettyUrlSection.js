@@ -66,8 +66,8 @@ const PrettyUrlSection = ({
   useEffect(() => {
     setDomain(
       userContext &&
-      userContext.profileUrl &&
-      userContext.profileUrl
+      userContext.subdomain &&
+      userContext.subdomain
       // userContext.profileUrl.includes("profile") ?
       // (userContext.profileUrl.split('/profile/')[1]) :
       // userContext.profileUrl
@@ -113,7 +113,7 @@ const PrettyUrlSection = ({
   const handleSave = (e) => {
     e.preventDefault();
 
-    if (selectedDomainType == 'personalised') {
+    if (domainType == 'personalised') {
       if (domainChanged && domain === '') {
         setDomainError('Domain cannot be empty')
         return null;
@@ -138,6 +138,7 @@ const PrettyUrlSection = ({
               } else {
                 fire.firestore().collection('users').doc(userData.uid).update({
                   'profileUrl': `/${domain}`,
+                  'subdomain': `${domain}`,
                   lastUpdated: fire.firestore.FieldValue.serverTimestamp()
                 })
                 .then(() => {
@@ -173,7 +174,7 @@ const PrettyUrlSection = ({
         }
       }
     }
-    if (selectedDomainType == 'standard') {
+    if (domainType == 'standard') {
       setSaving(true)
 
       fire.firestore().collection('users').doc(userData.uid).update({
@@ -295,7 +296,7 @@ const PrettyUrlSection = ({
         </div>
       </div>
       
-      <Modal
+      {/* <Modal
         show={showModal}
         onHide={handleClose}
         backdrop="static"
@@ -362,13 +363,9 @@ const PrettyUrlSection = ({
               <UpgradeButton handleUpgrade={handleUpgrade} />
             </div>
             <button type="button" className="btn dark low small w-100 mt-3" onClick={handleUpsellClose}>Not right now</button>
-            {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
-              <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpdate}>Upgrade</button>
-              <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
-            </div>*/}
           </div>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </div>
   )
 }

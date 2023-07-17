@@ -93,7 +93,7 @@ const Platforms = (props) => {
           setUserData(user)
           getSites(user)
         } else {
-          router.push('users/login')
+          router.push('/users/login')
         }
       })
     return () => {

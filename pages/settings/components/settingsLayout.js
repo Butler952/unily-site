@@ -1,39 +1,49 @@
 import { useState, useEffect } from 'react';
-import fire from '../../config/fire-config';
+import fire from '../../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Header from '../../components/header/Header';
+import Header from '../../../components/header/Header';
 import { loadStripe } from '@stripe/stripe-js';
 import { Accordion, Container, ModalBody, useAccordionToggle } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import moment from 'moment'
-import ICONS from '../../components/icon/IconPaths';
+import ICONS from '../../../components/icon/IconPaths';
 import Lottie from 'react-lottie';
-import animationData from '../../components/animations/loader.json'
-import styles from './settings.module.scss'
+import animationData from '../../../components/animations/loader.json'
+import styles from '../settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { ProgressBar, Modal } from 'react-bootstrap';
-import ResyncSection from './components/resyncSection';
-import ManageButton from './components/manageButton';
-import UpgradeButton from './components/upgradeButton';
-import RenewButton from './components/renewButton';
-import SurveyBanner from '../../components/banner/SurveyBanner';
-import LogosSection from './components/logosSection';
-import DownloadSection from './components/downloadSection';
+import ResyncSection from '../components/resyncSection';
+import ManageButton from '../components/manageButton';
+import UpgradeButton from '../components/upgradeButton';
+import RenewButton from '../components/renewButton';
+import SurveyBanner from '../../../components/banner/SurveyBanner';
+import LogosSection from '../components/logosSection';
+import DownloadSection from '../components/downloadSection';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
-import TemplateSection from './components/templateSection';
-import CustomDomainSection from './components/customDomainSection';
-import PrettyUrlSection from './components/prettyUrlSection';
-import ChangeEmailSection from './components/changeEmailSection';
-import CustomDomain from './components/customDomain';
-import SettingsLayout from './components/settingsLayout';
+import TemplateSection from '../components/templateSection';
+import CustomDomainSection from '../components/customDomainSection';
+import PrettyUrlSection from '../components/prettyUrlSection';
+import ChangeEmailSection from '../components/changeEmailSection';
+import CustomDomain from '../components/customDomain';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
-const Settings = () => {
+
+const SettingsLayout = ({children}) => {
   const router = useRouter();
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth)
+  };
+
+  const [screenWidth, setScreenWidth] = useState('');
+
+  const [pathName, setPathName] = useState('');
+  const [tagline, setTagline] = useState('');
+
   const [userData, setUserData] = useState('');
   const [allUserData, setAllUserData] = useState('');
   const [basicInfo, setBasicInfo] = useState(true);
@@ -78,11 +88,11 @@ const Settings = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
-    if (router.pathname === "/settings") {
-      router.push("/settings/plan")
-    }
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Settings');
+    setScreenWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize);
+    handleRoute()
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")
     }
@@ -101,46 +111,6 @@ const Settings = () => {
       unsubscribe();
     };
   }, []);
-
-  /* Start loggedInRout pre-context */
-
-  // const loggedInRoute = (user) => {
-  //   var docRef = fire.firestore().collection('users').doc(user.uid)
-  //   docRef.get().then((doc) => {
-  //     if (doc.exists) {
-  //       setBasicInfo(doc.data().displayInfo.basicInfo)
-  //       setProfilePic(doc.data().displayInfo.basicInfo.each.profilePic)
-  //       setHeaderImage(doc.data().displayInfo.basicInfo.each.headerImage)
-  //       setFullname(doc.data().displayInfo.basicInfo.each.name)
-  //       setHeadline(doc.data().displayInfo.basicInfo.each.headline)
-  //       setEmail(doc.data().displayInfo.basicInfo.each.email)
-  //       setAbout(doc.data().displayInfo.about)
-  //       setExperience(doc.data().displayInfo.experience.section)
-  //       setExperienceEach(doc.data().displayInfo.experience.each)
-  //       setEducation(doc.data().displayInfo.education.section)
-  //       setEducationEach(doc.data().displayInfo.education.each)
-  //       setExperienceLogos(doc.data().logoVisibility ? doc.data().logoVisibility.experience : false)
-  //       setEducationLogos(doc.data().logoVisibility ? doc.data().logoVisibility.education : false)
-  //       setVolunteering(doc.data().displayInfo.volunteering.section)
-  //       setVolunteeringEach(doc.data().displayInfo.volunteering.each)
-  //       setLinkedinId(doc.data().profile.public_identifier)
-  //       setSurveyHide(doc.data().surveys ? (doc.data().surveys.surveyOnSignUp ? (doc.data().surveys.surveyOnSignUp.surveyHide ? doc.data().surveys.surveyOnSignUp.surveyHide : false) : false) : false)
-  //     } else {
-  //       console.log("No such document!");
-  //     }
-  //   })
-  //   .then(() => {
-  //     setSectionsLoading(false)
-  //     //console.log('Retreived display info from database')
-  //     //console.log('stripe product is' + process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM)
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error getting document:", error);
-  //   })
-  // }
-
-  /* End loggedInRout pre-context */
-
 
   const loggedInRoute = (user) => {
     var docRef = fire.firestore().collection('users').doc(user.uid)
@@ -194,50 +164,6 @@ const Settings = () => {
       })
   }
 
-  // const handleGetDomain = (domain) => {
-
-  //   if (domain !== undefined) {
-
-  //   setGettingDomainInfo(true);
-
-  //   fetch(`/api/get-domain?domain=${domain}`)
-  //     // .then(result => console.log(result))
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       if (result.error?.code == 'forbidden') {
-  //         setDomainStatus('forbidden')
-  //         console.log('forbidden')
-  //         setDomainInfo(result)
-  //         console.log(result)
-  //       } else {
-  //         setDomainStatus('allowed')
-  //         console.log('allowed')
-  //         setDomainInfo(result)
-  //         console.log(result)
-  //         console.log(result.verified)
-  //         // console.log(res.json().error)
-  //       }
-  //       // set states of domain verification stuff
-  //       // "verified": false,
-  //       // "verification": [
-  //       //     {
-  //       //         "type": "TXT",
-  //       //         "domain": "_vercel.example.com",
-  //       //         "value": "vc-domain-verify=www.example.com,793d72e506334d91594e",
-  //       //         "reason": "pending_domain_verification"
-  //       //     }
-  //       // ]
-  //     })
-  //     .then(() => {
-  //       setGettingDomainInfo(false)
-  //     })
-  //     .catch((error) => {
-  //       console.log('error', error)
-  //     });
-  //   } else {
-  //     console.log('domain is undefined')
-  //   }
-  // }
 
   const handleSectionsSubmit = (e) => {
     e.preventDefault();
@@ -371,6 +297,7 @@ const Settings = () => {
   // Re-syncing End
 
   // Dev Premium Subscription Start
+
   /*async function handleUpgrade(e){
     e.preventDefault();
     const functionRef = fire.app().functions('europe-west2').httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
@@ -493,6 +420,23 @@ const Settings = () => {
     }
   };
 
+  const handleRoute = () => {
+    switch (router.pathname) {
+      case '/settings/plan':
+        setPathName('Plan')
+        setTagline('Manage your plan and payment information')
+        break;
+      case '/settings/domain':
+        setPathName('Domain')
+        setTagline('Where can people find your profile?')
+        break;
+      case '/settings/account':
+        setPathName('Account')
+        setTagline('Manage your account')
+        break;
+    }
+  }
+
   return (
     <div>
       {!surveyHide &&
@@ -500,13 +444,69 @@ const Settings = () => {
           <SurveyBanner />
         </div>
       }
-      <div className="pt-5 mt-5">
-        <Head>
-          <title>Settings | Expertpage.io</title>
-        </Head>
-        <Header positionFixed />
+      <Head>
+        <title>Settings | Expertpage.io</title>
+      </Head>
+      <div className={`${screenWidth > 767 && 'position-fixed'}`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
+        <Header />
+        <div className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`}>
+          <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>
+            <Link href="/settings/plan" className={`btn primary small w-100 justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
+            <Link href="/settings/domain" className={`btn primary small w-100 justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
+            <Link href="/settings/account" className={`btn primary small w-100 justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
+          </div>
+        </div>
+      </div>
+      <div style={screenWidth > 767 ? {paddingTop: '160px', paddingBottom: '96px'} : {paddingTop: 0}}>
         <div>
-          <SettingsLayout></SettingsLayout>
+        {/* <div style={{ marginTop: '66px' }}> */}
+          <Container className="py-5 d-flex flex-row" style={{maxWidth: '720px'}}>
+            <div className="w-100">
+              <div className="pb-4">
+                <h2 className="mb-3">{pathName}</h2>
+                <p className="large text-dark-low">{tagline}</p>
+              </div>
+              
+
+              {children}
+
+              {/* <div className="d-flex flex-column gap-5">
+                // { allUserData?.flags?.customDomain &&
+                  <CustomDomain
+                    userData={userData}
+                    allUserData={allUserData}
+                    loggedInRoute={loggedInRoute}
+                    gettingDomainInfo={gettingDomainInfo}
+                    setDomainInfo={setDomainInfo}
+                    setDomainStatus={setDomainStatus}
+                    setGettingDomainInfo={setGettingDomainInfo}
+                    sectionsLoading={sectionsLoading}
+                    product={product}
+                    active={active}
+                    status={status}
+                    handleUpgrade={handleUpgrade}
+                  />
+                <PrettyUrlSection
+                  userData={userData}
+                  allUserData={allUserData}
+                  product={product}
+                  active={active}
+                  status={status}
+                  handleUpgrade={handleUpgrade}
+                />
+                
+                <ChangeEmailSection
+                  userData={userData}
+                  allUserData={allUserData}
+                  product={product}
+                  active={active}
+                  status={status}
+                  handleUpgrade={handleUpgrade}
+                />
+              </div> */}
+
+            </div>
+          </Container>
           <br /><br />
           <Modal
             show={showModal}
@@ -516,11 +516,6 @@ const Settings = () => {
           >
             <Modal.Header closeButton>
               <h5 className="text-dark-high mb-0">Re-sync data</h5>
-              {/*<button type="button" onClick={handleClose} className="btn dark low small icon-only">
-              <svg viewBox="0 0 24 24">
-                <path d={ICONS.CLOSE}></path>
-              </svg>
-            </button>*/}
             </Modal.Header>
             <Modal.Body>
               <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
@@ -542,9 +537,26 @@ const Settings = () => {
           )
             : null}
         </div>
+        <Container className="d-flex flex-column align-items-center pb-5 mb-5">
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-4">
+            <Link href="/" className="w-lg-100">
+              <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  className="fill-dark-600"
+                  fillRule="evenodd" 
+                  clipRule="evenodd" 
+                  d={ICONS.LOGO_FULL} 
+                />
+              </svg>
+            </Link>
+          </div>
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
+            <p className="text-dark-dis mb-0">© Copyright ExpertPage {new Date().getFullYear()}</p>
+          </div>
+        </Container>
       </div>
     </div>
   )
 }
 
-export default Settings
+export default SettingsLayout
