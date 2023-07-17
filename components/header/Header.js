@@ -128,11 +128,10 @@ const Header = ({
             setUserContext(doc.data())
             //setProfile(doc.data().profile)
             //setStage(doc.data().stage)
-            // if (doc.data().stage !== 'complete') {
-            //   router.push(doc.data().stage)
-            // }
-            if (doc.data().profileUrl) {
-              setProfileUrl(doc.data().profileUrl)
+            if (doc.data().stage !== 'complete') {
+              router.push(doc.data().stage)
+            } else {
+              setProfileUrl("/profile")
             }
           } else {
             console.log("No such document!");

@@ -63,7 +63,7 @@ const Sync = () => {
         if (doc.data().stage !== 'complete') {
           router.push(doc.data().stage)
         } else {
-          router.push(doc.data().profileUrl)
+          router.push("/profile")
         }
       } else {
         console.log("No such document!");

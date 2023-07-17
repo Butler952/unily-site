@@ -36,7 +36,7 @@ const Register = () => {
       
           docRef.get().then((doc) => {
             if (doc.data().stage === "complete") {
-              router.push(doc.data().profileUrl);
+              router.push("/profile");
             } else {
               router.push(doc.data().stage);
             }

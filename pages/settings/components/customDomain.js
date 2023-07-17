@@ -541,19 +541,36 @@ const CustomDomain = ({
                     (
                       allUserData?.domainConfig?.misconfigured ? 
                       <>
-                        <p className="mb-0">Please set the following A record on the DNS records of {allUserData.domain.name} to show your Expertpage on this domain.</p>
-                        <div className="d-flex flex-column bg-dark-100 radius-2 p-3 gap-3">
-                          <div>
+                        <p className="mb-0">Please set the following DNS records of {allUserData.domain.name} to show your Expertpage on this domain.</p>
+                        <div className="d-flex flex-column flex-md-row bg-dark-100 radius-2 p-3 gap-3">
+                          <div style={{minWidth: '64px'}}>
                             <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
                             <p className="mb-0 monospace">A</p>
                           </div>
-                          <div>
+                          <div style={{minWidth: '64px'}}>
                             <p className="text-dark-high small font-weight-semibold mb-1">Name</p>
                             <p className="mb-0 monospace">@</p>
                           </div>
                           <div>
                             <p className="text-dark-high small font-weight-semibold mb-1">Value</p>
-                            <p className="mb-0 monospace">76.76.21.21</p>
+                            <p className="mb-0 monospace" style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>76.76.21.21</p>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-column flex-md-row bg-dark-100 radius-2 p-3 gap-3">
+                          <div style={{minWidth: '64px'}}>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
+                            <p className="mb-0 monospace">CNAME</p>
+                          </div>
+                          <div style={{minWidth: '64px'}}>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Name</p>
+                            <p className="mb-0 monospace">www</p>
+                          </div>
+                          <div>
+                            <p className="text-dark-high small font-weight-semibold mb-1">Value</p>
+                            <p className="mb-0 monospace" style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
+                              {/* {allUserData.domain.apexName} */}
+                              cname.vercel-dns.com
+                            </p>
                           </div>
                         </div>
                       </>
