@@ -263,7 +263,7 @@ const Home = (props) => {
                       </a>
                     </div>
                   </div>
-                  <div className="d-block position-relative col-12 col-lg-6 p-0">
+                  <div className="d-block position-relative w-100 p-0">
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-J1r-0xdoEZY-unsplash.jpg)` }}>
                       <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 20, left: 20, zIndex: 1}}>
                         <div className="tag small light high icon-left">
