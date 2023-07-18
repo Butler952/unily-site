@@ -469,7 +469,7 @@ a.btn, input.btn, button.btn {
       &:hover {
         color: $white; 
         text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 40px;
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px;
       }
     }
     &.medium {
@@ -482,7 +482,7 @@ a.btn, input.btn, button.btn {
       }
       &:hover {
         color: $white; 
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 40px;
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px;
         background: $gradient-3;
         // background: $gradient-3;
         // background: -webkit-linear-gradient(#eee, #333);

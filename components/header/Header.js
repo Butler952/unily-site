@@ -35,6 +35,7 @@ const Header = ({
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [profileUrl, setProfileUrl] = useState(userContext && userContext.profileUrl && userContext.profileUrl)
+  const [customDomain, setCustomDomain] = useState(userContext?.domain?.name)
   const [windowUrl, setWindowUrl] = useState("")
   // const [profile, setProfile] = useState('')
   const [userData, setUserData] = useState('')
@@ -131,7 +132,8 @@ const Header = ({
             if (doc.data().stage !== 'complete') {
               router.push(doc.data().stage)
             } else {
-              setProfileUrl("/profile")
+              setProfileUrl(doc.data().profileUrl)
+              setCustomDomain(doc.data().domain?.name)
             }
           } else {
             console.log("No such document!");
@@ -259,7 +261,11 @@ const Header = ({
   }
 
   const copyProfileAddress = () => {
-    navigator.clipboard.writeText(`${window.location.origin}${profileUrl}`);
+    if (customDomain !== undefined) {
+      navigator.clipboard.writeText(`${customDomain}`);
+    } else {
+      navigator.clipboard.writeText(`${window.location.origin}${profileUrl}`);
+    }
     toast("Copied profile link to clipboard")
   }
 
@@ -472,10 +478,11 @@ const Header = ({
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
                           Edit profile
                         </Dropdown.Item> */}
-                        <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
+                        {/* <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
                           <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
                           Settings
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
+
                         {/* <Link href={"/settings"} >
                         <div className={styles.dropdownItem}>
                           <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
@@ -484,12 +491,55 @@ const Header = ({
                       </Link> */}
                         <Dropdown.Item onClick={() => copyProfileAddress()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.SHARE} size='24' className="fill-dark-900" />
-                          Share profile
+                          Copy profile link
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
                           <Icon icon={ICONS.FEEDBACK} size='24' />
                           Submit feedback
                         </Dropdown.Item>
+                        <hr className="m-0" />
+                        {/* {product !== '' ?
+                          (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
+                            (status === 'active' ?
+                              <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
+                                <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
+                                Plan
+                              </Dropdown.Item>
+                              :
+                              <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
+                                <Icon icon={ICONS.STAR} size='24' />
+                                Upgrade to premium
+                              </a>
+                            )
+                            :
+                            <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
+                              <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
+                              Plan
+                            </Dropdown.Item>
+                          )
+                          :
+                          <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
+                            <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
+                            Plan
+                          </Dropdown.Item>
+                        } */}
+                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`${styles.dropdownItem} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : styles.dropdownItemHighlight}`}>
+                          <Icon icon={ICONS.STAR} size='24' />
+                          {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
+                            'Manage plan'
+                              :
+                            'Upgrade to premium'
+                          }
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className={styles.dropdownItem}>
+                          <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" />
+                          Domain
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => router.push('/settings/account')} className={styles.dropdownItem}>
+                          <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
+                          Account
+                        </Dropdown.Item>
+
                         {/* {product !== '' ?
                       (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
                         (status === 'active' ?
