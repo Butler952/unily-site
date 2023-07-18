@@ -197,7 +197,7 @@ const Domain = () => {
   return (
     <div>
       <SettingsLayout>
-        <div className="d-flex flex-column gap-5">
+        <div className="d-flex flex-column gap-4">
           <CustomDomain
             userData={userData}
             allUserData={allUserData}

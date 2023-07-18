@@ -206,10 +206,10 @@ const Plan = () => {
         <div id="plan" className="card mx-auto mb-5">
           <div className="d-flex flex-column m-4">
             <div className="d-flex flex-column w-100 gap-4">
-              <div className="d-flex flex-column gap-0">
+              {/* <div className="d-flex flex-column gap-0">
                 <h5 className="mb-1">Plan</h5>
                 <p className="text-dark-low mb-0">Manage your plan and payment information</p>
-              </div>
+              </div> */}
           
               <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
                 <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>

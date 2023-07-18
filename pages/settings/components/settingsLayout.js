@@ -428,11 +428,11 @@ const SettingsLayout = ({children}) => {
         break;
       case '/settings/domain':
         setPathName('Domain')
-        setTagline('Where can people find your profile?')
+        setTagline('Manage where can people find your profile')
         break;
       case '/settings/account':
         setPathName('Account')
-        setTagline('Manage your account')
+        setTagline('Manage your account details')
         break;
     }
   }
@@ -447,22 +447,20 @@ const SettingsLayout = ({children}) => {
       <Head>
         <title>Settings | Expertpage.io</title>
       </Head>
-      <div className={`${screenWidth > 767 && 'position-fixed'}`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
-        <Header />
-        <div className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`}>
+      <Header />
+        <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
           <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>
-            <Link href="/settings/plan" className={`btn primary small w-100 justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
-            <Link href="/settings/domain" className={`btn primary small w-100 justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
-            <Link href="/settings/account" className={`btn primary small w-100 justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
+            <Link href="/settings/plan" className={`btn dark small w-100 justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
+            <Link href="/settings/domain" className={`btn dark small w-100 justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
+            <Link href="/settings/account" className={`btn dark small w-100 justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
           </div>
         </div>
-      </div>
-      <div style={screenWidth > 767 ? {paddingTop: '160px', paddingBottom: '96px'} : {paddingTop: 0}}>
+      <div style={screenWidth > 767 ? {paddingTop: '48px', paddingBottom: '48px'} : {paddingTop: 0}}>
         <div>
         {/* <div style={{ marginTop: '66px' }}> */}
           <Container className="py-5 d-flex flex-row" style={{maxWidth: '720px'}}>
             <div className="w-100">
-              <div className="pb-4">
+              <div className="text-center pb-5">
                 <h2 className="mb-3">{pathName}</h2>
                 <p className="large text-dark-low">{tagline}</p>
               </div>
