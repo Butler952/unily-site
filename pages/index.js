@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { UserContext } from './_app';
 import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../components/header/Header';
@@ -14,6 +15,7 @@ const Home = (props) => {
 
   const ref = useRef(null)
   const heroRef = useRef(null)
+  const { userContext, setUserContext } = useContext(UserContext);
 
   const [screenWidth, setScreenWidth] = useState('');
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -34,7 +36,41 @@ const Home = (props) => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
     
+    // const unsubscribe = fire.auth()
+    // .onAuthStateChanged((user) => {
+    //   if (user) {
+    //     isProfileComplete(user)
+    //   }
+    // })
+    // return () => {
+    //   // Unmouting
+    //   unsubscribe();
+    // };
   }, []);
+
+  const isProfileComplete = (user) => {
+
+    var docRef = fire.firestore().collection('users').doc(user.uid)
+
+    docRef.get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserContext(doc.data())
+
+          if (doc.data().stage !== 'complete') {
+            router.push(doc.data().stage)
+          } else {
+            setProfileUrl(doc.data().profileUrl)
+            setCustomDomain(doc.data().domain?.name)
+          }
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      })
+  }
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
@@ -103,7 +139,12 @@ const Home = (props) => {
               {screenWidth > 576 ? <h1  className="">Professional websites in two minutes</h1> : <h2 className="">Websites for freelancers and consultants</h2>}
               <p className="extra-large mb-4" style={{ maxWidth: '640px' }}>Build trust and sell more. Create your own website in two minutes. No tech skills required.</p>
               <div className="d-flex justify-content-center">
-                <Link href="/users/register" className="btn primary high">Create my page</Link>
+                {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
+                {userContext?.stage !== "complete" ? 
+                  <Link href="/users/register" className="btn primary high">Create my page</Link>
+                    :
+                  <Link href="/profile" className="btn primary high">Go to my profile</Link>
+                }
               </div>
             </div>
             {/* <div className={styles.iframeWrapper}>
@@ -134,7 +175,11 @@ const Home = (props) => {
               <p className="large mb-0">ExpertPage allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
               <p className="large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
             </div>
-            <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+            {userContext?.stage !== "complete" ? 
+              <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+                :
+              <Link href="/profile" className="btn primary high medium mt-5">Go to my profile</Link>
+            }
           </div>
         </Container> 
         {/* <div className="d-block position-relative w-100 p-0">
@@ -197,7 +242,12 @@ const Home = (props) => {
               <p className="large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
               <p className="large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
             </div>
-            <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+            {/* <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link> */}
+            {userContext?.stage !== "complete" ? 
+              <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+                :
+              <Link href="/profile" className="btn primary high medium mt-5">Go to my profile</Link>
+            }
             <div className="d-none d-lg-block mb-4 w-100 mt-5 pt-5">
               <div className="d-block position-relative w-100">
                 <div className="d-flex flex-column flex-lg-row w-100 gap-3">
@@ -245,7 +295,12 @@ const Home = (props) => {
             {screenWidth > 576 ? <h1 className="">Build your brand today with ExpertPage</h1> : <h2 className="">Build your brand today with ExpertPage</h2>}
             {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
             <div className="d-flex m-auto justify-content-center">
-              <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link>
+              {/* <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link> */}
+              {userContext?.stage !== "complete" ? 
+                <Link href="/users/register" className="btn primary high">Create my page</Link>
+                  :
+                <Link href="/profile" className="btn primary high">Go to my profile</Link>
+              }
             </div>
           </div>
         </Container>

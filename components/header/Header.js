@@ -489,15 +489,7 @@ const Header = ({
                           Settings
                         </div>
                       </Link> */}
-                        <Dropdown.Item onClick={() => copyProfileAddress()} className={styles.dropdownItem}>
-                          <Icon icon={ICONS.SHARE} size='24' className="fill-dark-900" />
-                          Copy profile link
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
-                          <Icon icon={ICONS.FEEDBACK} size='24' />
-                          Submit feedback
-                        </Dropdown.Item>
-                        <hr className="m-0" />
+
                         {/* {product !== '' ?
                           (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
                             (status === 'active' ?
@@ -586,8 +578,15 @@ const Header = ({
                             Upgrade to premium
                           </Dropdown.Item>
                         } */}
-
-
+                        <hr className="m-0" />
+                        <Dropdown.Item onClick={() => copyProfileAddress()} className={styles.dropdownItem}>
+                          <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
+                          Copy profile link
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
+                          <Icon icon={ICONS.FEEDBACK} size='24' />
+                          Submit feedback
+                        </Dropdown.Item>
 
                         <hr className="m-0" />
                         <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
