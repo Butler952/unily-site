@@ -253,7 +253,7 @@ const Home = (props) => {
                 <div className="d-flex flex-column flex-lg-row w-100 gap-3">
                   <div className="d-block position-relative col-12 col-lg-3 p-0">
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-BWMxkGvbd_Y-unsplash.jpg)` }}>
-                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 20, left: 20, zIndex: 1}}>
                         <div className="tag small light high icon-left">
                           <svg viewBox="0 0 24 24">
                             <path d={ICONS.PHOTO}></path>
@@ -265,7 +265,7 @@ const Home = (props) => {
                   </div>
                   <div className="d-block position-relative col-12 col-lg-6 p-0">
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-J1r-0xdoEZY-unsplash.jpg)` }}>
-                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 20, left: 20, zIndex: 1}}>
                         <div className="tag small light high icon-left">
                           <svg viewBox="0 0 24 24">
                             <path d={ICONS.PHOTO}></path>
@@ -277,7 +277,7 @@ const Home = (props) => {
                   </div>
                   <div className="d-flex flex-column col-12 col-lg-3 p-0 gap-4" style={{marginTop: '-64px'}} >
                     <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage} ${styles.sectionImageVerticle}`} style={{ backgroundImage: `url(../../images/landing-page/good-faces-knoww5xIlWc-unsplash.jpg)`}}>
-                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
+                      <a href="https://unsplash.com/@goodfacesagency" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 20, left: 20, zIndex: 1}}>
                         <div className="tag small light high icon-left">
                           <svg viewBox="0 0 24 24">
                             <path d={ICONS.PHOTO}></path>
