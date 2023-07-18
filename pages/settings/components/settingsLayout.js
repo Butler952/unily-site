@@ -444,9 +444,6 @@ const SettingsLayout = ({children}) => {
           <SurveyBanner />
         </div>
       }
-      <Head>
-        <title>Settings | Expertpage.io</title>
-      </Head>
       <Header />
         <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
           <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>

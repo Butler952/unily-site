@@ -12,6 +12,9 @@ import RenewButton from './components/renewButton';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
 import SettingsLayout from './components/settingsLayout';
+import Lottie from 'react-lottie';
+import animationData from '../../components/animations/loader.json'
+import Head from 'next/head';
 
 const Plan = () => {
   const router = useRouter();
@@ -187,8 +190,20 @@ const Plan = () => {
     )
   }
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <div>
+      <Head>
+        <title>Plan | Expertpage.io</title>
+      </Head>
       <SettingsLayout>
         {cancelAtPeriodEnd ? (
           <>
@@ -212,64 +227,82 @@ const Plan = () => {
               </div> */}
           
               <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <h6 className="text-primary-high mb-1">Basic</h6>
-                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
-                  </div>
-                  <h4 className="text-dark-high mb-4">Free</h4>
-                  {[
-                    {'string': "Expertpage.io domain", 'included': true},
-                    {'string': "Create your page", 'included': true},
-                    {'string': "Connect your own domain", 'included': false},
-                    {'string': "Remove Expertpage.io branding", 'included': false},
-                  ].map((feature, index) =>
-                    <div key={index} className="d-flex align-items-start mt-2">
-                      <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
-                        <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
-                      </svg>
-                      <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>
-                        {feature.string}
-                      </p>
+                {!sectionsLoading ? 
+                  <>
+                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                      <div className="d-flex justify-content-between align-items-center w-100">
+                        <h6 className="text-primary-high mb-1">Basic</h6>
+                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
+                      </div>
+                      <h4 className="text-dark-high mb-4">Free</h4>
+                      {[
+                        {'string': "Expertpage.io domain", 'included': true},
+                        {'string': "Create your page", 'included': true},
+                        {'string': "Connect your own domain", 'included': false},
+                        {'string': "Remove Expertpage.io branding", 'included': false},
+                      ].map((feature, index) =>
+                        <div key={index} className="d-flex align-items-start mt-2">
+                          <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                            <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                          </svg>
+                          <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>
+                            {feature.string}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <h6 className="text-primary-high mb-1">Premium</h6>
-                    {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
-                  </div>
-                  <div className="d-flex align-items-end mb-4">
-                    <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
-                    <p className="text-dark-high mb-0">/month</p>
-                  </div>
-                  {[
-                    {'string': "Expertpage.io domain", 'included': true},
-                    {'string': "Create your page", 'included': true},
-                    {'string': "Connect your own domain", 'included': true},
-                    {'string': "Remove Expertpage.io branding", 'included': true},
-                    {'string': "More coming soon", 'included': true}
-                  ].map((feature, index) =>
-                    <div key={index} className="d-flex align-items-start mt-2">
-                      <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
-                        <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
-                      </svg>
-                      <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>{feature.string}</p>
+                    <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                      <div className="d-flex justify-content-between align-items-center w-100">
+                        <h6 className="text-primary-high mb-1">Premium</h6>
+                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                      </div>
+                      <div className="d-flex align-items-end mb-4">
+                        <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
+                        <p className="text-dark-high mb-0">/month</p>
+                      </div>
+                      {[
+                        {'string': "Expertpage.io domain", 'included': true},
+                        {'string': "Create your page", 'included': true},
+                        {'string': "Connect your own domain", 'included': true},
+                        {'string': "Remove Expertpage.io branding", 'included': true},
+                        {'string': "More coming soon", 'included': true}
+                      ].map((feature, index) =>
+                        <div key={index} className="d-flex align-items-start mt-2">
+                          <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                            <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                          </svg>
+                          <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>{feature.string}</p>
+                        </div>
+                      )}
+                      {cancelAtPeriodEnd ? (
+                        <>
+                          <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
+                        </>
+                      )
+                        : null}
+                      {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
                     </div>
-                  )}
-                  {cancelAtPeriodEnd ? (
-                    <>
-                      <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
-                    </>
-                  )
-                    : null}
-                  {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
-                </div>
+                  </>
+                :
+                  <>
+                    <div className="bg-dark-200 radius-2 p-4 loadingAnimation w-100" style={{height: '390px'}}></div>
+                    {/* <div className="bg-dark-200 radius-2 p-4 loadingAnimation w-100" style={{height: '390px'}}></div> */}
+                  </>
+                }
               </div>
             </div>
           </div>
         </div>
       </SettingsLayout>
+      {redirectToStripe ? (
+        <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
+          <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+            <Lottie options={defaultOptions} height={160} width={160} />
+            <p>Redirecting to Stripe checkout</p>
+          </div>
+        </div>
+      )
+        : null}
     </div>
   )
 }

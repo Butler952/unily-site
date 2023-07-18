@@ -593,7 +593,7 @@ const CustomDomain = ({
                 </div>
               )
             : 
-              <div className="d-flex flex-column bg-dark-200 radius-2 p-4 gap-3 loadingAnimation" style={{height: '64px'}}></div>
+              <div className="d-flex flex-column bg-dark-200 radius-2 p-4 gap-3 loadingAnimation" style={{height: '48px'}}></div>
             }
             
           </div>

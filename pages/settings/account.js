@@ -16,6 +16,7 @@ import PrettyUrlSection from './components/prettyUrlSection';
 import CustomDomain from './components/customDomain';
 import SettingsLayout from './components/settingsLayout';
 import ChangeEmailSection from './components/changeEmailSection';
+import Head from 'next/head';
 
 const Account = () => {
   const router = useRouter();
@@ -197,6 +198,9 @@ const Account = () => {
 
   return (
     <div>
+      <Head>
+        <title>Account | Expertpage.io</title>
+      </Head>
       <SettingsLayout>
         <div className="d-flex flex-column gap-5">
           <ChangeEmailSection

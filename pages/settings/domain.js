@@ -15,6 +15,7 @@ import CustomDomainSection from './components/customDomainSection';
 import PrettyUrlSection from './components/prettyUrlSection';
 import CustomDomain from './components/customDomain';
 import SettingsLayout from './components/settingsLayout';
+import Head from 'next/head';
 
 const Domain = () => {
   const router = useRouter();
@@ -196,6 +197,9 @@ const Domain = () => {
 
   return (
     <div>
+      <Head>
+        <title>Domain | Expertpage.io</title>
+      </Head>
       <SettingsLayout>
         <div className="d-flex flex-column gap-4">
           <CustomDomain
