@@ -50,18 +50,21 @@ const Home = (props) => {
     }
   }
 
-  const CustomToggle = ({ eventKey }) => {
+  const CustomToggle = ({ question, eventKey }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const decoratedOnClick = useAccordionToggle(eventKey, () => {
       setDropdownOpen(!dropdownOpen)
     });
 
     return (
-      <button type="button" onClick={decoratedOnClick} className="btn dark low small icon-only">
-        <svg viewBox="0 0 24 24">
-          <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
-        </svg>
-      </button>
+      <div type="button" onClick={decoratedOnClick}  className="d-flex flex-row align-items-center justify-content-between w-100" style={{border: 'none', background: 'none'}}>
+        <p className="mb-0 extra-large text-dark-high font-weight-medium w-100">{question}</p>
+        <button className="btn dark low small icon-only">
+          <svg viewBox="0 0 24 24">
+            <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
+          </svg>
+        </button>
+      </div>
     );
   }
 
@@ -148,35 +151,26 @@ const Home = (props) => {
         </div> */}
         <div className="bg-light-900">
           <div className="bg-primary-100">
-            <div className={`container ${styles.sectionWrapper} d-flex flex-lg-row flex-column justify-content-between gap-3 gap-lg-5`}>
-              <h2 className="text-left mb-5 " style={{ maxWidth: '560px' }}>Got a question?</h2>
-              <Accordion style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
+            <div className={`container ${styles.sectionWrapper} d-flex flex-column align-items-center justify-content-between gap-3 gap-lg-5`}>
+              <h2 className="text-center mb-5 " style={{ maxWidth: '560px' }}>Got a question?</h2>
+              <Accordion style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <div className={`d-flex flex-column gap-4 w-100 ${styles.accordionWrapper}`}>
                 <div className="d-flex flex-column">
-                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                    <p className="mb-0 extra-large text-dark-high font-weight-medium">How much does it cost?</p>
-                    <CustomToggle eventKey="0">Click me!</CustomToggle>
-                  </div>
+                  <CustomToggle eventKey="0" question="How much does it cost?" />
                   <Accordion.Collapse eventKey="0">
                     <p className="mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
                   </Accordion.Collapse>
                   <hr className="mb-0 w-100"></hr>
                 </div>
                 <div className="d-flex flex-column">
-                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                    <p className="mb-0 extra-large text-dark-high font-weight-medium">Who is this for?</p>
-                    <CustomToggle eventKey="1">Click me!</CustomToggle>
-                  </div>
+                  <CustomToggle eventKey="1" question="Who is this for?" />
                   <Accordion.Collapse eventKey="1">
                     <p className="mt-3 mb-0 large">Freelancers, consultants, small business owners, or anyone who wants to build a website to show off their products, services and customer testimonials but doesn't have the time or technical skills to build it on their own.</p>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>          
                 </div>
                 <div className="d-flex flex-column">
-                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                    <p className="mb-0 extra-large text-dark-high font-weight-medium">What makes this different?</p>
-                    <CustomToggle eventKey="2">Click me!</CustomToggle>
-                  </div>
+                  <CustomToggle eventKey="2" question="What makes this different?" />
                   <Accordion.Collapse eventKey="2">
                     <>
                       <p className="mt-3 large">Your ExpertPage site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p> 
@@ -186,10 +180,7 @@ const Home = (props) => {
                   <hr className="mb-0 w-100"></hr>                 
                 </div>
                 <div className="d-flex flex-column">
-                  <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                    <p className="mb-0 extra-large text-dark-high font-weight-medium">Why not use Wix or Squarespace?</p>
-                    <CustomToggle eventKey="3">Click me!</CustomToggle>
-                  </div>
+                  <CustomToggle eventKey="3" question="Why not use Wix or Squarespace?" />
                   <Accordion.Collapse eventKey="3">
                     <p className="mt-3 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
                   </Accordion.Collapse>             
