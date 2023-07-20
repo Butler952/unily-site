@@ -651,21 +651,20 @@ const Header = ({
           <Modal
             show={showFeedbackModal}
             onHide={handleFeedbackClose}
-            backdrop="static"
             keyboard={false}
           // size="lg"
           >
-            {!submittedFeedback ? <Modal.Header closeButton>
-              <h5 className="text-dark-high mb-0">Feedback survey</h5>
-              <button onClick={handleFeedbackClose} className="btn dark low small icon-only">
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.CLOSE}></path>
-                </svg>
-              </button>
-            </Modal.Header> : ''}
             {!submittedFeedback ?
               <Modal.Body>
                 <div>
+                  <div className="d-flex flex-row align-items-center justify-content-between mb-4">
+                    <h5 className="text-dark-high mb-0">Feedback survey</h5>
+                    <button onClick={handleFeedbackClose} className="btn dark low icon-only">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.CLOSE}></path>
+                      </svg>
+                    </button>
+                  </div>
                   <form onSubmit={handleFeedbackSubmit}>
                     <div className="mb-4">
                       <p className="large text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
