@@ -120,11 +120,11 @@ $radius-round: 50%;
 
 //Shadows
 $shadow-0: none;
-$shadow-1: 0 0 1px 0 rgba($dark-900, 0.08), 0 1px 1px 0 rgba($dark-900, 0.08);
-$shadow-2: 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
-$shadow-3: 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
-$shadow-4: 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
-$shadow-5: 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.08);
+$shadow-1: 0 0px 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 1px 1px 0 rgba($dark-900, 0.08);
+$shadow-2: 0 0px 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
+$shadow-3: 0 0px 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
+$shadow-4: 0 0px 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
+$shadow-5: 0 0px 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.08);
 
 // TRANSITIONS
 

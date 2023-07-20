@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
     <div>
-      <Container className="py-5">
+      <Container className="my-5 py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
           <Link href="/" className="w-lg-100">
             <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -176,9 +176,9 @@ const Home = (props) => {
               <p className="large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
             </div>
             {userContext?.stage !== "complete" ? 
-              <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+              <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link>
                 :
-              <Link href="/profile" className="btn primary high medium mt-5">Go to my profile</Link>
+              <Link href="/profile" className="btn primary medium mt-5">Go to my profile</Link>
             }
           </div>
         </Container> 
@@ -242,11 +242,11 @@ const Home = (props) => {
               <p className="large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
               <p className="large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
             </div>
-            {/* <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link> */}
+            {/* <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link> */}
             {userContext?.stage !== "complete" ? 
-              <Link href="/users/register" className="btn primary high medium mt-5">Create my page</Link>
+              <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link>
                 :
-              <Link href="/profile" className="btn primary high medium mt-5">Go to my profile</Link>
+              <Link href="/profile" className="btn primary medium mt-5">Go to my profile</Link>
             }
             <div className="d-none d-lg-block mb-4 w-100 mt-5 pt-5">
               <div className="d-block position-relative w-100">
