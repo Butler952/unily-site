@@ -135,9 +135,9 @@ const Home = (props) => {
       <div className="bg-light-900" style={{marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <Container className="py-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
-            <div style={{ maxWidth: '800px' }} className="d-flex flex-column align-items-center text-center">
-              {screenWidth > 576 ? <h1  className="">Professional websites in two minutes</h1> : <h2 className="">Websites for freelancers and consultants</h2>}
-              <p className="extra-large mb-4" style={{ maxWidth: '640px' }}>Build trust and sell more. Create your own website in two minutes. No tech skills required.</p>
+            <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
+              {screenWidth > 767 ? <h1  className="">Build your own website in two minutes</h1> : <h2 className="">Build your brand online in two minutes</h2>}
+              <p className="large mb-5" style={{ maxWidth: '640px' }}>Create your own website for freelancers and consultants in two minutes. Build trust and sell more. No tech skills required.</p>
               <div className="d-flex justify-content-center">
                 {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
                 {userContext?.stage !== "complete" ? 
@@ -292,7 +292,7 @@ const Home = (props) => {
             </div>
           </div>
           <div className={`d-flex flex-column align-items-center text-center mx-auto gap-4 ${styles.sectionWrapper}`} style={{ maxWidth: '720px', paddingBottom: '160px' }}>
-            {screenWidth > 576 ? <h1 className="">Build your brand today with ExpertPage</h1> : <h2 className="">Build your brand today with ExpertPage</h2>}
+            {screenWidth > 767 ? <h1 className="">Build your brand today with ExpertPage</h1> : <h2 className="">Build your brand today with ExpertPage</h2>}
             {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
             <div className="d-flex m-auto justify-content-center">
               {/* <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link> */}
