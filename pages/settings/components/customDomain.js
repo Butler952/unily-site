@@ -506,14 +506,16 @@ const CustomDomain = ({
                         </>
                       </Dropdown.Toggle>
                       <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
-                        <Dropdown.Item onClick={() => handleRemoveDomainShow()} className="dropdownItem">
-                          <Icon icon={ICONS.DELETE} size='24' className="fill-dark-900" />
-                          Remove domain
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleCheckDomain()} className="dropdownItem">
-                          <Icon icon={ICONS.REFRESH} size='24' className="fill-dark-900" />
-                          Refresh
-                        </Dropdown.Item>                        
+                        <div className="p-2">
+                          <Dropdown.Item onClick={() => handleRemoveDomainShow()} className="dropdownItem">
+                            <Icon icon={ICONS.DELETE} size='24' className="fill-dark-900" />
+                            Remove domain
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => handleCheckDomain()} className="dropdownItem">
+                            <Icon icon={ICONS.REFRESH} size='24' className="fill-dark-900" />
+                            Refresh
+                          </Dropdown.Item>  
+                        </div>                      
                       </Dropdown.Menu>
                     </Dropdown>
                   }

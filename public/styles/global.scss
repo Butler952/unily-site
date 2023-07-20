@@ -1448,7 +1448,8 @@ textarea {
 
 .dropdown-menu {
   background: $light-900;
-  border: 1px solid $dark-300;
+  border: none;
+  padding: 0;
   box-shadow: $shadow-2;
   border-radius: $radius-medium;
   overflow: hidden;
@@ -1459,7 +1460,8 @@ textarea {
   flex-direction: row;
   align-items: center;
   gap: 16px;
-  padding: 12px 24px;
+  border-radius: $radius-small;
+  padding: 12px 16px;
   font-weight: 500;
   text-decoration: none!important;
   color: inherit;

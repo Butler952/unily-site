@@ -418,7 +418,7 @@ const Header = ({
                     <Dropdown align="end">
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
-                          <div className={`d-flex flex-row align-items-center radius-3 p-2 shadow-3 ${styles.menuButton}`} style={{ gap: '4px' }}>
+                          <div className={`d-flex flex-row align-items-center radius-3 p-2 ${styles.menuButton}`} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
                                 <path d={ICONS.MENU}></path>
@@ -465,15 +465,18 @@ const Header = ({
 
                       <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
                         {/* <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}> */}
-                        <Dropdown.Item onClick={() => router.push('/profile')} className={styles.dropdownItem}>
-                          {!headerImageError ?
-                            <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
-                              <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
-                            </div>
-                            : null}
-                          {userContext && userContext.profile && userContext.profile.full_name}
-                        </Dropdown.Item>
+                        <div className="p-2">
+                          <Dropdown.Item onClick={() => router.push('/profile')} className="dropdownItem">
+                            {!headerImageError ?
+                              <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
+                                <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
+                              </div>
+                              : null}
+                            {userContext && userContext.profile && userContext.profile.full_name}
+                          </Dropdown.Item>
+                        </div>
                         <hr className="m-0" />
+                        <div className="p-2">
                         {/* <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
                           Edit profile
@@ -515,7 +518,7 @@ const Header = ({
                             Plan
                           </Dropdown.Item>
                         } */}
-                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`${styles.dropdownItem} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : styles.dropdownItemHighlight}`}>
+                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : styles.dropdownItemHighlight}`}>
                           <Icon icon={ICONS.STAR} size='24' />
                           {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
                             'Manage plan'
@@ -523,11 +526,11 @@ const Header = ({
                             'Upgrade to premium'
                           }
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className={styles.dropdownItem}>
+                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className="dropdownItem">
                           <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" />
                           Domain
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/account')} className={styles.dropdownItem}>
+                        <Dropdown.Item onClick={() => router.push('/settings/account')} className="dropdownItem">
                           <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
                           Account
                         </Dropdown.Item>
@@ -578,21 +581,25 @@ const Header = ({
                             Upgrade to premium
                           </Dropdown.Item>
                         } */}
+                        </div>
                         <hr className="m-0" />
-                        <Dropdown.Item onClick={() => copyProfileAddress()} className={styles.dropdownItem}>
-                          <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
-                          Copy profile link
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleFeedbackShow()} className={`${styles.dropdownItem}`}>
-                          <Icon icon={ICONS.FEEDBACK} size='24' />
-                          Submit feedback
-                        </Dropdown.Item>
-
+                        <div className="p-2">
+                          <Dropdown.Item onClick={() => copyProfileAddress()} className="dropdownItem">
+                            <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
+                            Copy profile link
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => handleFeedbackShow()} className="dropdownItem">
+                            <Icon icon={ICONS.FEEDBACK} size='24' />
+                            Submit feedback
+                          </Dropdown.Item>
+                        </div>
                         <hr className="m-0" />
-                        <Dropdown.Item onClick={() => handleLogout()} className={`${styles.dropdownItem} ${styles.dropdownItemLow}`}>
-                          <Icon icon={ICONS.LOG_OUT} size='24' />
-                          Sign out
-                        </Dropdown.Item>
+                        <div className="p-2">
+                          <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem ${styles.dropdownItemLow}`}>
+                            <Icon icon={ICONS.LOG_OUT} size='24' />
+                            Sign out
+                          </Dropdown.Item>
+                        </div>
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
