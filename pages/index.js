@@ -168,7 +168,7 @@ const Home = (props) => {
             </div> */}
           </div>
         </Container>
-        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
+        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-light-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
           <Container>
             <div className="w-100">
               <div className="d-block position-relative w-100">
