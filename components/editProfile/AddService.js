@@ -74,9 +74,10 @@ const AddService = ({
     newService.name = servicesName
     newService.url = servicesUrl
     newService.description = servicesDescription
+    
+    let originalServicesCopy = originalServices
 
     if (originalServices !== undefined) {
-      let originalServicesCopy = originalServices
       originalServicesCopy.unshift(newService)
       setOriginalServices(originalServicesCopy)
     } else {

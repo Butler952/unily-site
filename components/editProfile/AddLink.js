@@ -47,9 +47,9 @@ const AddLink = ({
     newLink.label = linksLabel
     newLink.url = linksUrl
     // add newLinks to originalLinks
+    let originalLinksCopy = originalLinks
 
     if (originalLinks !== undefined) {
-      let originalLinksCopy = originalLinks
       originalLinksCopy.unshift(newLink)
       setOriginalLinks(originalLinksCopy)
     } else {

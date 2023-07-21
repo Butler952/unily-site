@@ -103,9 +103,9 @@ const AddPost = ({
     }
 
     newPost.description = postsDescription
+    let originalPostsCopy = originalPosts
 
     if (originalPosts !== undefined) {
-      let originalPostsCopy = originalPosts
       originalPostsCopy.unshift(newPost)
       setOriginalPosts(originalPostsCopy)
     } else {

@@ -61,9 +61,9 @@ const AddFeature = ({
     newFeature.logo_ref = uid ? uid : null
     newFeature.name = featuredName
     newFeature.url = featuredUrl
+    let originalFeaturedCopy = originalFeatured
 
     if (originalFeatured !== undefined) {
-      let originalFeaturedCopy = originalFeatured
       originalFeaturedCopy.unshift(newFeature)
       setOriginalFeatured(originalFeaturedCopy)
     } else {
