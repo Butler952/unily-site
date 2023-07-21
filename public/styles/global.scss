@@ -1466,7 +1466,7 @@ textarea {
           content: '';
           position: absolute;
           top: 0; right: 0; bottom: 0; left: 0;
-          background: $light-300;
+          background: $light-400;
           border-radius: calc($radius-medium - 0.5px); /* !importanté */
         }
       }
@@ -1493,7 +1493,7 @@ textarea {
       content: '';
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
-      background: $light-200;
+      background: $light-300;
       border-radius: calc($radius-medium - 0.5px); /* !importanté */
     }
     &:after {

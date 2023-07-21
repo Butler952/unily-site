@@ -161,7 +161,7 @@ const Profile = (props) => {
               education={userData.profile.education}
               logoVisibility={userData.profile.logoVisibility}
               volunteer_work={userData.profile.volunteer_work}
-              surveyOnSignUpHide={userData.profile.surveyOnSignUpHide}
+              surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
               showEditProfileModal={showEditProfileModal}
               setShowEditProfileModal={setShowEditProfileModal}
               editProfileModalState={editProfileModalState} 
