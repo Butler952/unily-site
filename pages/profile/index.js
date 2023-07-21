@@ -113,7 +113,7 @@ const Profile = (props) => {
   return (
     <div>
       {/* { loggedIn && */}
-      <div style={{marginBottom: '64px'}}>
+      <div >
         <Header 
           dark={!gettingUserProfile && userData !== undefined && userData?.theme?.mode == 'dark' ? true : false}
           positionFixed 

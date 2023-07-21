@@ -718,12 +718,12 @@ const Header = ({
                   </div>
                   <form onSubmit={handleFeedbackSubmit}>
                     <div className="mb-4">
-                      <p className="large text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
+                      <p className="text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
                       <textarea className="w-100 small" style={{ minHeight: '10rem' }} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({ target }) => commentsAndSuggestionsChange(target.value)} />
                       {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
                     </div>
                     <div className="mb-4">
-                      <p className="large text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
+                      <p className="text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
                       <label className="checkbox-container small mb-4">I agree to be contacted for further research
                         <input type="checkbox" disabled={submittingFeedback} onChange={() => furtherResearchChange()} checked={furtherResearch}></input>
                         <span className="checkmark"></span>

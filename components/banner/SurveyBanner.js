@@ -210,18 +210,18 @@ const SurveyBanner = () => {
     { showBanner ? 
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center bg-primary-900 p-3">
         <div>
-          <p className="text-light-high mb-1">Thank you for signing up for expertpage.io</p>
+          <p className="text-light-high font-weight-medium mb-0">Thank you for signing up for expertpage.io</p>
           <p className="text-light-med mb-0">We’d love to hear why you signed up and what you’re hoping to get out of the product.</p>
         </div>
         <div className="d-flex flex-column flex-sm-row ml-md-3 mt-3 mt-md-0 w-100 w-sm-auto">
           <button onClick={handleShow} className="btn light high small w-100 w-sm-auto">Take the two minute survey</button>
           { screenWidth > 768 ? 
-            <button onClick={handleDismiss} className="btn light low small icon-only ml-md-3">
+            <button onClick={handleDismiss} className="btn light medium small icon-only ml-md-3">
               <svg viewBox="0 0 24 24">
                 <path d={ICONS.CLOSE}></path>
               </svg>
             </button>
-          : <button onClick={handleDismiss} className="btn light low small ml-sm-3 mt-3 mt-sm-0 w-100 w-sm-auto">Dismiss</button> }   
+          : <button onClick={handleDismiss} className="btn light medium small ml-sm-3 mt-3 mt-sm-0 w-100 w-sm-auto">Dismiss</button> }   
         </div>
       </div>
     : '' }
@@ -278,21 +278,21 @@ const SurveyBanner = () => {
                   }
                 </div> */}
                 <div className="mb-4">
-                  <p className="large text-dark-high">What other services have you tried in order to achieve the same thing?</p>
+                  <p className="text-dark-high">What other services have you tried in order to achieve the same thing?</p>
                   <textarea className={questionOtherServicesError !== '' ? `error w-100 small` : `w-100 small`} value={questionOtherServices} onChange={({target}) => questionOtherServicesChange(target.value)} />
                   {questionOtherServicesError !== '' ? <p className="small text-error-high mt-2">{questionOtherServicesError}</p> : null}
                 </div>
                 <div className="mb-4">
-                  <p className="large text-dark-high">Why did you sign up now? Was there a specific event or problem that caused you to look for a better solution?</p>
+                  <p className="text-dark-high">Why did you sign up now? Was there a specific event or problem that caused you to look for a better solution?</p>
                   <textarea className={questionWhyNowError !== '' ? `error w-100 small` : `w-100 small`} value={questionWhyNow} onChange={({target}) => questionWhyNowChange(target.value)} />
                   {questionWhyNowError !== '' ? <p className="small text-error-high mt-2">{questionWhyNowError}</p> : null}
                 </div>
                 <div className="mb-4">
-                  <p className="large text-dark-high">Do you have any other comments or suggestions for us? (optional)</p>
+                  <p className="text-dark-high">Do you have any other comments or suggestions for us? (optional)</p>
                   <textarea className="w-100 small" value={commentsAndSuggestions} onChange={({target}) => commentsAndSuggestionsChange(target.value)} />
                 </div>
                 <div className="mb-4">
-                  <p className="large text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
+                  <p className="text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
                   <label className="checkbox-container small mb-4">I agree to be contacted for further research
                     <input type="checkbox" onChange={() => furtherResearchChange()} checked={furtherResearch}></input>
                     {furtherResearchError !== '' ? <p className="small text-error-high">{furtherResearchError}</p> : null}

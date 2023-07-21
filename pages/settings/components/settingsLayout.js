@@ -440,9 +440,7 @@ const SettingsLayout = ({children}) => {
   return (
     <div>
       {!surveyHide &&
-        <div style={{marginTop: '67px'}}>
-          <SurveyBanner />
-        </div>
+        <SurveyBanner />
       }
       <Header />
         <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>

@@ -75,6 +75,8 @@ const Freelance = ({
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
 
+  const router = useRouter();
+
   useEffect(() => {
     checkUser();
     document.body.style.background = theme?.mode == 'dark' ? '#1F2430' : '#ffffff';
@@ -82,6 +84,7 @@ const Freelance = ({
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
   }, [])
+
 
   const checkUser = () => {
     fire.auth().onAuthStateChanged((user) => {
@@ -309,7 +312,7 @@ const Freelance = ({
               {/* {userContext?.profileUrl && <p>{userContext?.profileUrl.substr(1)}</p>}
               {<p>{pageId}</p>} */}
               {/* Check if current user profileUrl matches pageId */}
-              {pageId === userContext?.profileUrl?.substr(1) && !surveyOnSignUpHide ? <SurveyBanner /> : ''}
+              {router.pathname == '/profile' && !surveyOnSignUpHide ? <SurveyBanner /> : ''}
               <Container>
                 <div className="mb-5 d-flex flex-column align-items-center">
                   {/* {(background_cover_image_url && !headerImageError) &&

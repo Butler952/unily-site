@@ -496,9 +496,7 @@ const Settings = () => {
   return (
     <div>
       {!surveyHide &&
-        <div style={{marginTop: '67px'}}>
-          <SurveyBanner />
-        </div>
+        <SurveyBanner />
       }
       <div className="pt-5 mt-5">
         <Head>
