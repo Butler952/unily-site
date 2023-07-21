@@ -77,6 +77,8 @@ const Freelance = ({
 
   useEffect(() => {
     checkUser();
+    document.body.style.background = theme?.mode == 'dark' ? '#1F2430' : '#ffffff';
+
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
   }, [])

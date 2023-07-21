@@ -16,6 +16,7 @@ import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
 
 const Header = ({
+  dark,
   hideShadow,
   positionFixed,
   showEditProfileModal, 
@@ -74,6 +75,7 @@ const Header = ({
     setWindowUrl(window.location.pathname);
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
+    document.body.style.background = '#f9f9fd';
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -340,23 +342,44 @@ const Header = ({
         // style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}
       >
         <div 
-          className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 
-            ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid border-dark-300'}
+          className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
+            ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid'}
             ${positionFixed && 'position-fixed'}
+            ${dark ? ' border-light-300' : 'border-dark-300'}
+            ${!hideShadow && dark ? 'bg-light-200' : null}
+            ${!dark && 'bg-light-900'}
+
           `} 
-          style={windowUrl == '' ? { minHeight: '64px', zIndex: '3', top: 0, position: 'relative' } : { minHeight: '64px', zIndex: '3', top: 0, position: 'relative' }}>
+          style={
+            windowUrl == '' ? { minHeight: '64px', zIndex: '3', top: 0, position: 'relative', backdropFilter: 'blur(10px)' } : { minHeight: '64px', zIndex: '3', top: 0, position: 'relative', backdropFilter: 'blur(10px)' }
+          }>
           {userContext !== '' ?
             // {loggedIn ?
             <>
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
                     {screenWidth > 767 ?
-                      <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                      <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path 
+                          className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                          fillRule="evenodd" 
+                          clipRule="evenodd" 
+                          d={ICONS.LOGO_FULL} 
+                        />
+                      </svg>
+                      // <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
                     :
-                      <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
+                    <svg height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path 
+                        className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                        fillRule="evenodd" 
+                        clipRule="evenodd" 
+                        d={ICONS.LOGO_ICON} 
+                      />
+                    </svg>
                     }
                 </Link>
-                <div className="tag small primary medium">Beta</div>
+                <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div>
 
                 {/* <div className="d-flex">
             <Link href={profileUrl}>
@@ -418,10 +441,17 @@ const Header = ({
                     <Dropdown align="end">
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
-                          <div className={`d-flex flex-row align-items-center radius-3 p-2 ${styles.menuButton}`} style={{ gap: '4px' }}>
+                          <div className={
+                            ` d-flex flex-row align-items-center radius-3 p-2 
+                              ${styles.menuButton}
+                              ${dark ? 'bg-light-200 border-1 border-solid border-light-300': 'bg-light-900'}                            `} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
-                                <path d={ICONS.MENU}></path>
+                                <path 
+                                  d={ICONS.MENU}
+                                  className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                                ></path>
+                                
                               </svg>
                             </div>
                             {!headerImageError || userContext.userContext.profile && userContext.profile.profile_pic_url !== '' ? 
@@ -462,11 +492,10 @@ const Header = ({
                         {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
 
                       </Dropdown.Toggle>
-
-                      <Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+                      <Dropdown.Menu as={CustomMenu} align="end" className={`${dark && 'menu-dark'} mt-2`}>
                         {/* <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}> */}
                         <div className="p-2">
-                          <Dropdown.Item onClick={() => router.push('/profile')} className="dropdownItem">
+                          <Dropdown.Item onClick={() => router.push('/profile')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                             {!headerImageError ?
                               <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
                                 <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
@@ -475,7 +504,7 @@ const Header = ({
                             {userContext && userContext.profile && userContext.profile.full_name}
                           </Dropdown.Item>
                         </div>
-                        <hr className="m-0" />
+                        <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
                         {/* <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
@@ -518,7 +547,7 @@ const Header = ({
                             Plan
                           </Dropdown.Item>
                         } */}
-                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : styles.dropdownItemHighlight}`}>
+                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${dark && 'dropdownItemDark'} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : 'dropdownItemHighlight'}`}>
                           <Icon icon={ICONS.STAR} size='24' />
                           {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
                             'Manage plan'
@@ -526,11 +555,11 @@ const Header = ({
                             'Upgrade to premium'
                           }
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className="dropdownItem">
+                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                           <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" />
                           Domain
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/account')} className="dropdownItem">
+                        <Dropdown.Item onClick={() => router.push('/settings/account')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                           <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
                           Account
                         </Dropdown.Item>
@@ -582,20 +611,20 @@ const Header = ({
                           </Dropdown.Item>
                         } */}
                         </div>
-                        <hr className="m-0" />
+                        <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
-                          <Dropdown.Item onClick={() => copyProfileAddress()} className="dropdownItem">
+                          <Dropdown.Item onClick={() => copyProfileAddress()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                             <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
                             Copy profile link
                           </Dropdown.Item>
-                          <Dropdown.Item onClick={() => handleFeedbackShow()} className="dropdownItem">
+                          <Dropdown.Item onClick={() => handleFeedbackShow()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                             <Icon icon={ICONS.FEEDBACK} size='24' />
                             Submit feedback
                           </Dropdown.Item>
                         </div>
-                        <hr className="m-0" />
+                        <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
-                          <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem ${styles.dropdownItemLow}`}>
+                          <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem dropdownItemLow ${dark && 'dropdownItemDark'}`}>
                             <Icon icon={ICONS.LOG_OUT} size='24' />
                             Sign out
                           </Dropdown.Item>
@@ -614,14 +643,29 @@ const Header = ({
             <div className="d-flex flex-row justify-content-between align-items-center w-100">
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
-                    {screenWidth > 767 ?
-                      <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
-                    :
-                      <img src="/images/expertpage-logo-icon.svg" style={{ height: '40px' }} />
-                    }
+                  {screenWidth > 767 ?
+                    <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path 
+                        className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                        fillRule="evenodd" 
+                        clipRule="evenodd" 
+                        d={ICONS.LOGO_FULL} 
+                      />
+                    </svg>
+                    // <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                  :
+                  <svg height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                      className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                      fillRule="evenodd" 
+                      clipRule="evenodd" 
+                      d={ICONS.LOGO_ICON} 
+                    />
+                  </svg>
+                  }
                     {/* <img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
                 </Link>
-                <div className="tag small primary medium">Beta</div>
+                <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div>
                 {/* {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>
                     <Link href="/templates">
@@ -641,7 +685,7 @@ const Header = ({
                 {/* <Link href="/users/register">
                 <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
               </Link> */}
-                <Link href="/users/login" className="btn primary medium small">Login</Link>
+                <Link href="/users/login" className={`${dark ? 'light' : 'primary'} btn low small`}>Login</Link>
                 <Link href="/users/register" className="btn primary high small">Create my page</Link>
               </div>
             </div>

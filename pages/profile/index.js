@@ -113,7 +113,9 @@ const Profile = (props) => {
   return (
     <div>
       {/* { loggedIn && */}
+      <div style={{marginBottom: '64px'}}>
         <Header 
+          dark={!gettingUserProfile && userData !== undefined && userData.theme.mode == 'dark' ? true : false}
           positionFixed 
           showEditProfileModal={showEditProfileModal}
           setShowEditProfileModal={setShowEditProfileModal}
@@ -127,6 +129,7 @@ const Profile = (props) => {
           handleEditProfileShow={handleEditProfileShow}
           handleEditProfileChangeView={handleEditProfileChangeView}
         />
+      </div>
       {/* } */}
       { !gettingUserProfile ? 
         (

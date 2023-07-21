@@ -35,6 +35,11 @@ const Home = (props) => {
     }
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
+    // window.addEventListener("load",function() { changeBackgroundToDark() });
+    // window.onload = function(){ changeBackgroundToDark() };
+    // window.onbeforeunload = function(){ changeBackgroundToLight() };
+
+    document.body.style.background = '#262b37';
     
     // const unsubscribe = fire.auth()
     // .onAuthStateChanged((user) => {
@@ -47,6 +52,14 @@ const Home = (props) => {
     //   unsubscribe();
     // };
   }, []);
+
+//   function changeBackgroundToDark() {
+//     document.body.style.background = '#1F2430';
+//  }
+
+//   function changeBackgroundToLight() {
+//     document.body.style.background = '#FFFFFF';
+//  }
 
   const isProfileComplete = (user) => {
 
@@ -94,8 +107,8 @@ const Home = (props) => {
 
     return (
       <div type="button" onClick={decoratedOnClick}  className="d-flex flex-row align-items-center justify-content-between w-100" style={{border: 'none', background: 'none'}}>
-        <p className="mb-0 extra-large text-dark-high font-weight-medium w-100">{question}</p>
-        <button className="btn dark low small icon-only">
+        <p className="text-light-high mb-0 extra-large text-dark-high font-weight-high w-100">{question}</p>
+        <button className="btn light low small icon-only">
           <svg viewBox="0 0 24 24">
             <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
           </svg>
@@ -115,9 +128,9 @@ const Home = (props) => {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io"/>
       </Head>
-      <Header hideShadow/>
+      <Header dark hideShadow />
       <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
-        <Header hideShadow={scrollPosition < heroHeight + 66} />
+        <Header dark hideShadow={scrollPosition < heroHeight + 66} />
       </div>
       {/* <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
@@ -132,12 +145,12 @@ const Home = (props) => {
           </div>
         </div>
       </div> */}
-      <div className="bg-light-900" style={{marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
+      <div className="bg-dark-900" style={{marginBottom: footerHeight, zIndex: '2', position: 'relative', marginTop: '-64px', paddingTop: '64px'}}>
         <Container className="py-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
             <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
-              {screenWidth > 767 ? <h1  className="">Build your own website in two minutes</h1> : <h2 className="">Build your brand online in two minutes</h2>}
-              <p className="large mb-5" style={{ maxWidth: '640px' }}>Create your own website for freelancers and consultants in two minutes. Build trust and sell more. No tech skills required.</p>
+              {screenWidth > 767 ? <h1  className="text-light-high">Build your own website in two minutes</h1> : <h2 className="text-light-high">Build your brand online in two minutes</h2>}
+              <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Create your own website for freelancers and consultants in two minutes. Build trust and sell more. No tech skills required.</p>
               <div className="d-flex justify-content-center">
                 {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
                 {userContext?.stage !== "complete" ? 
@@ -169,16 +182,16 @@ const Home = (props) => {
           </Container>
         </div>
         <Container>
-          <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
-            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Show the world what you have to offer</h2>
+          <div className="d-flex flex-column align-items-start" style={{paddingTop: '160px', paddingBottom: '160px'}}>
+            <h2 className="text-light-high mb-5 pb-3" style={{maxWidth: '560px'}}>Show the world what you have to offer</h2>
             <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">ExpertPage allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
-              <p className="large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
+              <p className="text-light-low large mb-0">ExpertPage allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
+              <p className="text-light-low large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
             </div>
             {userContext?.stage !== "complete" ? 
-              <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link>
+              <Link href="/users/register" className="btn primary high mt-5">Create my page</Link>
                 :
-              <Link href="/profile" className="btn primary medium mt-5">Go to my profile</Link>
+              <Link href="/profile" className="btn primary high mt-5">Go to my profile</Link>
             }
           </div>
         </Container> 
@@ -194,23 +207,23 @@ const Home = (props) => {
             </a>
           </div>
         </div> */}
-        <div className="bg-light-900">
-          <div className="bg-primary-100">
+        <div className="bg-dark-900">
+          <div className="bg-light-100">
             <div className={`container ${styles.sectionWrapper} d-flex flex-column align-items-center justify-content-between gap-3 gap-lg-5`}>
-              <h2 className="text-center mb-5 " style={{ maxWidth: '560px' }}>Got a question?</h2>
-              <Accordion style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <h2 className="text-center mb-5 text-light-high" style={{ maxWidth: '560px' }}>Got a question?</h2>
+              <Accordion defaultActiveKey="0" style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <div className={`d-flex flex-column gap-4 w-100 ${styles.accordionWrapper}`}>
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="0" question="How much does it cost?" />
                   <Accordion.Collapse eventKey="0">
-                    <p className="mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
+                    <p className="text-light-low mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
                   </Accordion.Collapse>
                   <hr className="mb-0 w-100"></hr>
                 </div>
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="1" question="Who is this for?" />
                   <Accordion.Collapse eventKey="1">
-                    <p className="mt-3 mb-0 large">Freelancers, consultants, small business owners, or anyone who wants to build a website to show off their products, services and customer testimonials but doesn't have the time or technical skills to build it on their own.</p>
+                    <p className="text-light-low mt-3 mb-0 large">Freelancers, consultants, small business owners, or anyone who wants to build a website to show off their products, services and customer testimonials but doesn't have the time or technical skills to build it on their own.</p>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>          
                 </div>
@@ -218,8 +231,8 @@ const Home = (props) => {
                   <CustomToggle eventKey="2" question="What makes this different?" />
                   <Accordion.Collapse eventKey="2">
                     <>
-                      <p className="mt-3 large">Your ExpertPage site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p> 
-                      <p className="mb-0 large">You can create your site in under two minutes, making this the fastest way to get your page up and running.</p>
+                      <p className="text-light-low mt-3 large">Your ExpertPage site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p> 
+                      <p className="text-light-low mb-0 large">You can create your site in under two minutes, making this the fastest way to get your page up and running.</p>
                     </>
                   </Accordion.Collapse>      
                   <hr className="mb-0 w-100"></hr>                 
@@ -227,7 +240,7 @@ const Home = (props) => {
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="3" question="Why not use Wix or Squarespace?" />
                   <Accordion.Collapse eventKey="3">
-                    <p className="mt-3 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
+                    <p className="text-light-low mt-3 mb-0 large">We are only focused on helping you build your Personal Branding website. Meaning that the experience and speed are optimized for that purpose. If you want to ecommerce this won't be the right tool for you, but if you want to build your own personal website, this will be the fastest website you have ever built.</p>
                   </Accordion.Collapse>             
                 </div>
               </div>
@@ -236,17 +249,17 @@ const Home = (props) => {
           </div>
         </div>
         <Container>
-          <div className="d-flex flex-column align-items-start" style={{paddingTop: '120px', paddingBottom: '120px'}}>
-            <h2 className="mb-5 pb-3" style={{maxWidth: '560px'}}>Build trust with potential clients</h2>
+          <div className="d-flex flex-column align-items-start" style={{paddingTop: '160px', paddingBottom: '160px'}}>
+            <h2 className="text-light-high mb-5 pb-3" style={{maxWidth: '560px'}}>Build trust with potential clients</h2>
             <div className={`${styles.layoutGrid}`}>
-              <p className="large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
-              <p className="large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
+              <p className="text-light-low large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
+              <p className="text-light-low large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
             </div>
-            {/* <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link> */}
+            {/* <Link href="/users/register" className="btn primary high mt-5">Create my page</Link> */}
             {userContext?.stage !== "complete" ? 
-              <Link href="/users/register" className="btn primary medium mt-5">Create my page</Link>
+              <Link href="/users/register" className="btn primary high mt-5">Create my page</Link>
                 :
-              <Link href="/profile" className="btn primary medium mt-5">Go to my profile</Link>
+              <Link href="/profile" className="btn primary high mt-5">Go to my profile</Link>
             }
             <div className="d-none d-lg-block mb-4 w-100 mt-5 pt-5">
               <div className="d-block position-relative w-100">
@@ -292,7 +305,7 @@ const Home = (props) => {
             </div>
           </div>
           <div className={`d-flex flex-column align-items-center text-center mx-auto gap-4 ${styles.sectionWrapper}`} style={{ maxWidth: '720px', paddingBottom: '160px' }}>
-            {screenWidth > 767 ? <h1 className="">Build your brand today with ExpertPage</h1> : <h2 className="">Build your brand today with ExpertPage</h2>}
+            {screenWidth > 767 ? <h1 className="text-light-high">Build your brand today with ExpertPage</h1> : <h2 className="text-light-high">Build your brand today with ExpertPage</h2>}
             {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
             <div className="d-flex m-auto justify-content-center">
               {/* <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link> */}
@@ -306,7 +319,7 @@ const Home = (props) => {
         </Container>
       </div>
       <div ref={ref} className="w-100" style={{zIndex: '1', position: 'fixed', bottom: 0}}>
-        <Footer />
+        <Footer dark/>
       </div>
     </div>
   )
