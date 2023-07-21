@@ -168,7 +168,7 @@ const Home = (props) => {
             </div> */}
           </div>
         </Container>
-        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-light-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
+        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
           <Container>
             <div className="w-100">
               <div className="d-block position-relative w-100">
@@ -218,7 +218,7 @@ const Home = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <p className="text-light-low mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
                   </Accordion.Collapse>
-                  <hr className="mb-0 w-100"></hr>
+                  <hr className="bg-light-300 mb-0 w-100"></hr>
                 </div>
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="1" question="Who is this for?" />
