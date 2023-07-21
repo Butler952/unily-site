@@ -168,7 +168,7 @@ const Home = (props) => {
             </div> */}
           </div>
         </Container>
-        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
+        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-light-300 ${styles.gradientSection}`} style={{ overflow: 'visible'}}>
           <Container>
             <div className="w-100">
               <div className="d-block position-relative w-100">
@@ -225,7 +225,7 @@ const Home = (props) => {
                   <Accordion.Collapse eventKey="1">
                     <p className="text-light-low mt-3 mb-0 large">Freelancers, consultants, small business owners, or anyone who wants to build a website to show off their products, services and customer testimonials but doesn't have the time or technical skills to build it on their own.</p>
                   </Accordion.Collapse>      
-                  <hr className="mb-0 w-100"></hr>          
+                  <hr className="bg-light-300 mb-0 w-100"></hr>          
                 </div>
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="2" question="What makes this different?" />
@@ -235,7 +235,7 @@ const Home = (props) => {
                       <p className="text-light-low mb-0 large">You can create your site in under two minutes, making this the fastest way to get your page up and running.</p>
                     </>
                   </Accordion.Collapse>      
-                  <hr className="mb-0 w-100"></hr>                 
+                  <hr className="bg-light-300 mb-0 w-100"></hr>                 
                 </div>
                 <div className="d-flex flex-column">
                   <CustomToggle eventKey="3" question="Why not use Wix or Squarespace?" />
