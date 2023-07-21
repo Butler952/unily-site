@@ -303,7 +303,7 @@ const Header = ({
   // Dropdown needs access to the DOM node in order to position the Menu
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
-      className={styles.toggleLink}
+      className="toggleLink"
       href=""
       ref={ref}
       onClick={(e) => {
@@ -346,7 +346,7 @@ const Header = ({
             ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid'}
             ${positionFixed && 'position-fixed'}
             ${dark ? ' border-light-300' : 'border-dark-300'}
-            ${!hideShadow && dark ? 'bg-light-200' : null}
+            ${!hideShadow && dark ? 'bg-light-100' : null}
             ${!dark && 'bg-light-900'}
 
           `} 
@@ -442,9 +442,7 @@ const Header = ({
                       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                         <>
                           <div className={
-                            ` d-flex flex-row align-items-center radius-3 p-2 
-                              ${styles.menuButton}
-                              ${dark ? 'bg-light-200 border-1 border-solid border-light-300': 'bg-light-900'}                            `} style={{ gap: '4px' }}>
+                            ` d-flex flex-row align-items-center p-2 menuButton ${dark && 'menuButtonDark'}`} style={{ gap: '4px' }}>
                             <div className="px-2">
                               <svg viewBox="0 0 24 24" width='24px'>
                                 <path 

@@ -1446,30 +1446,100 @@ textarea {
 
 // Dropdown
 
-.dropdown-menu {
+.toggleLink {
+  padding: 14px 0;
+  border-radius: 16px;
+  &:hover {
+    // opacity: 0.8;
+    .menuButton {
+      box-shadow: $shadow-3;
+      // background: $dark-900-hover!important;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: $dark-100;
+        border-radius: calc($radius-medium - 0.5px); /* !importanté */
+      }
+      &.menuButtonDark {
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0; right: 0; bottom: 0; left: 0;
+          background: $light-300;
+          border-radius: calc($radius-medium - 0.5px); /* !importanté */
+        }
+      }
+    }
+  }
+}
+.menuButton {
+  box-shadow: $shadow-1;
+  transition: $transition-standard;
   background: $light-900;
-  border: none;
-  padding: 0;
-  box-shadow: $shadow-2;
   border-radius: $radius-medium;
-  overflow: hidden;
-  position: relative;
-  &.menu-dark {
-    backdrop-filter: blur(10px);
-    background: $dark-800;
-    border: 1px solid $light-400;
-    z-index: 1;
-    :before {
-      z-index: -1;
+  &.hover {
+    box-shadow: $shadow-3; 
+  }
+  &.menuButtonDark {
+    position: relative;
+    box-sizing: border-box;
+    color: #FFF;
+    background: $dark-900;
+    background-clip: padding-box; /* !importanté */
+    border: 0.5px solid transparent; /* !importanté */
+    // overflow: hidden;
+    &:before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      // backdrop-filter: blur(10px);
-      background: #292e39;
-      // background: rgba(0,0,0,0.1);
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: $light-200;
+      border-radius: calc($radius-medium - 0.5px); /* !importanté */
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      z-index: -1;
+      margin: -0.5px; /* !importanté */
+      border-radius: calc($radius-medium - 0.5px); /* !importanté */
+      background: $border-gradient-bg;
+    }
+  }
+}
+
+.dropdown-menu {
+  box-shadow: $shadow-1;
+  // transition: $transition-standard;
+  background: $light-900;
+  border-radius: $radius-medium;
+  padding: 0;
+  z-index: 0;
+  border: none;
+  &.menu-dark {
+    position: relative;
+    box-sizing: border-box;
+    color: #FFF;
+    background: $dark-900;
+    background-clip: padding-box; /* !importanté */
+    border: 0.5px solid transparent; /* !importanté */
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      z-index: -1;
+      margin: -0.25px; /* !importanté */
+      border-radius: calc($radius-medium - 0.5px); /* !importanté */
+      background: $border-gradient-bg;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      z-index: -1;
+      margin: 0.25px; /* !importanté */
+      border-radius: calc($radius-medium - 0.5px); /* !importanté */
+      background: #2a2f3b;
     }
   }
 }

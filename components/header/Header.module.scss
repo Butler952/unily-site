@@ -4,9 +4,10 @@
   padding: 14px 0;
   border-radius: 16px;
   &:hover {
-    opacity: 0.8;
+    // opacity: 0.8;
     .menuButton {
       box-shadow: $shadow-3;
+      background: $light-100!important;
     }
   }
 }
