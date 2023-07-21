@@ -652,6 +652,8 @@ const CustomDomain = ({
               </div>
               {[
                 'Connect your own domain',
+                'Create your page', 
+                'Connect your own domain', 
                 'Remove Expertpage.io branding', 
                 'More coming soon'
               ].map((feature, index) =>
