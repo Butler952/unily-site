@@ -115,7 +115,7 @@ const Profile = (props) => {
       {/* { loggedIn && */}
       <div style={{marginBottom: '64px'}}>
         <Header 
-          dark={!gettingUserProfile && userData !== undefined && userData.theme.mode == 'dark' ? true : false}
+          dark={!gettingUserProfile && userData !== undefined && userData?.theme?.mode == 'dark' ? true : false}
           positionFixed 
           showEditProfileModal={showEditProfileModal}
           setShowEditProfileModal={setShowEditProfileModal}
