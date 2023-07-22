@@ -149,7 +149,7 @@ const Home = (props) => {
         <Container className="py-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
             <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
-              {screenWidth > 767 ? <h1  className="text-light-high">Build your own website in two minutes</h1> : <h2 className="text-light-high">Build your brand online in two minutes</h2>}
+              {screenWidth > 767 ? <h1  className="text-light-high">Build your own website in two minutes</h1> : <h2 className="text-light-high">Build your own website in two minutes</h2>}
               <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Create your own website for freelancers and consultants in two minutes. Build trust and sell more. No tech skills required.</p>
               <div className="d-flex justify-content-center">
                 {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
