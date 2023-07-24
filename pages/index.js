@@ -209,8 +209,8 @@ const Home = (props) => {
         </div> */}
         <div className="bg-dark-900">
           <div className="bg-light-100">
-            <div className={`container ${styles.sectionWrapper} d-flex flex-column align-items-center justify-content-between gap-3 gap-lg-5`}>
-              <h2 className="text-center mb-5 text-light-high" style={{ maxWidth: '560px' }}>Got a question?</h2>
+            <div className={`container ${styles.sectionWrapper} d-flex flex-column align-items-start align-items-md-center justify-content-between gap-3 gap-lg-5`}>
+              <h2 className="text-left text-md-center mb-5 text-light-high" style={{ maxWidth: '560px' }}>Got a question?</h2>
               <Accordion defaultActiveKey="0" style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <div className={`d-flex flex-column gap-4 w-100 ${styles.accordionWrapper}`}>
                 <div className="d-flex flex-column">

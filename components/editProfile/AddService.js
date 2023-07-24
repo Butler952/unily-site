@@ -151,43 +151,63 @@ const AddService = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updateServices(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': servicesName,
+                'url': servicesUrl,
+                'description': servicesDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.services = newUserContext.profile.services !== undefined ? [...newUserContext.profile.services, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.services': originalServices,
+                'profile.services': originalServices !== undefined ? 
+                  [...originalServices, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.services = originalServices;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Service added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add service")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
-          // Add this link to firestore
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Service added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add service")
+              //console.error("Error adding document: ", error);
+            });
         }
       );
     } else {
-      updateServices()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': servicesName,
+        'url': servicesUrl,
+        'description': servicesDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.services = newUserContext.profile.services !== undefined ? [...newUserContext.profile.services, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.services': originalServices,
+        'profile.services': originalServices !== undefined ? 
+          [...originalServices, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.services = originalServices;
-          setUserContext(newUserContext)
+        .then(() => {
           handleBack()
         })
         .then(() => {

@@ -152,43 +152,63 @@ const AddProduct = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updateProducts(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': productsName,
+                'url': productsUrl,
+                'description': productsDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.products = newUserContext.profile.products !== undefined ? [...newUserContext.profile.products, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.products': originalProducts,
+                'profile.products': originalProducts !== undefined ? 
+                  [...originalProducts, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.products = originalProducts;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Product added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add product")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
-          // Add this link to firestore
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Product added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add product")
+              //console.error("Error adding document: ", error);
+            });
         }
       );
     } else {
-      updateProducts()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': productsName,
+        'url': productsUrl,
+        'description': productsDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.products = newUserContext.profile.products !== undefined ? [...newUserContext.profile.products, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.products': originalProducts,
+        'profile.products': originalProducts !== undefined ? 
+          [...originalProducts, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.products = originalProducts;
-          setUserContext(newUserContext)
+        .then(() => {
           handleBack()
         })
         .then(() => {

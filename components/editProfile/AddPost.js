@@ -179,43 +179,79 @@ const AddPost = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updatePosts(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': postsName,
+                'url': postsUrl,
+                'posted_at': postsDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(postsDate.split('-')[1]),
+                    'year': Number(postsDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'description': postsDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.posts = newUserContext.profile.posts !== undefined ? [...newUserContext.profile.posts, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.posts': originalPosts,
+                'profile.posts': originalPosts !== undefined ? 
+                  [...originalPosts, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.posts = originalPosts;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Post added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add post")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
-          // Add this link to firestore
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Post added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add post")
+              //console.error("Error adding document: ", error);
+            });
         }
       );
     } else {
-      updatePosts()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': postsName,
+        'url': postsUrl,
+        'posted_at': postsDate ? 
+          { 
+            'day': 1,
+            'month': Number(postsDate.split('-')[1]),
+            'year': Number(postsDate.split('-')[0])
+          } 
+        : 
+          null,
+        'description': postsDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.posts = newUserContext.profile.posts !== undefined ? [...newUserContext.profile.posts, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.posts': originalPosts,
+        'profile.posts': originalPosts !== undefined ? 
+          [...originalPosts, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.posts = originalPosts;
-          setUserContext(newUserContext)
+        .then(() => {
           handleBack()
         })
         .then(() => {

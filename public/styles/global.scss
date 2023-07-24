@@ -90,6 +90,11 @@ a {
 .text-primary-low { color: $primary-700; }
 .text-primary-dis { color: $primary-600; }
 
+.text-primary-dark-high { color: $primary-dark-900; }
+.text-primary-dark-med { color: $primary-dark-800; }
+.text-primary-dark-low { color: $primary-dark-700; }
+.text-primary-dark-dis { color: $primary-dark-600; }
+
 .text-success-high { color: $success-900; }
 .text-success-med { color: $success-800; }
 .text-success-low { color: $success-700; }
@@ -153,6 +158,16 @@ hr {border-top: 1px solid $dark-300;}
 .bg-primary-300 { background: $primary-300!important; }
 .bg-primary-200 { background: $primary-200!important; }
 .bg-primary-100 { background: $primary-100!important; }
+
+.bg-primary-dark-900 { background: $primary-dark-900!important; }
+.bg-primary-dark-800 { background: $primary-dark-800!important; }
+.bg-primary-dark-700 { background: $primary-dark-700!important; }
+.bg-primary-dark-600 { background: $primary-dark-600!important; }
+.bg-primary-dark-500 { background: $primary-dark-500!important; }
+.bg-primary-dark-400 { background: $primary-dark-400!important; }
+.bg-primary-dark-300 { background: $primary-dark-300!important; }
+.bg-primary-dark-200 { background: $primary-dark-200!important; }
+.bg-primary-dark-100 { background: $primary-dark-100!important; }
 
 .bg-dark-900 { background: $dark-900!important; }
 .bg-dark-800 { background: $dark-800!important; }
@@ -223,6 +238,16 @@ hr {border-top: 1px solid $dark-300;}
 .fill-primary-300 { fill: $primary-300; }
 .fill-primary-200 { fill: $primary-200; }
 .fill-primary-100 { fill: $primary-100; }
+
+.fill-primary-dark-900 { fill: $primary-dark-900; }
+.fill-primary-dark-800 { fill: $primary-dark-800; }
+.fill-primary-dark-700 { fill: $primary-dark-700; }
+.fill-primary-dark-600 { fill: $primary-dark-600; }
+.fill-primary-dark-500 { fill: $primary-dark-500; }
+.fill-primary-dark-400 { fill: $primary-dark-400; }
+.fill-primary-dark-300 { fill: $primary-dark-300; }
+.fill-primary-dark-200 { fill: $primary-dark-200; }
+.fill-primary-dark-100 { fill: $primary-dark-100; }
 
 .fill-dark-900 { fill: $dark-900; }
 .fill-dark-800 { fill: $dark-800; }
@@ -323,6 +348,16 @@ hr {border-top: 1px solid $dark-300;}
 .border-primary-300 { border-color: $primary-300!important }
 .border-primary-200 { border-color: $primary-200!important }
 .border-primary-100 { border-color: $primary-100!important }
+
+.border-primary-dark-900 { border-color: $primary-dark-900!important }
+.border-primary-dark-800 { border-color: $primary-dark-800!important }
+.border-primary-dark-700 { border-color: $primary-dark-700!important }
+.border-primary-dark-600 { border-color: $primary-dark-600!important }
+.border-primary-dark-500 { border-color: $primary-dark-500!important }
+.border-primary-dark-400 { border-color: $primary-dark-400!important }
+.border-primary-dark-300 { border-color: $primary-dark-300!important }
+.border-primary-dark-200 { border-color: $primary-dark-200!important }
+.border-primary-dark-100 { border-color: $primary-dark-100!important }
 
 .border-dark-900 { border-color: $dark-900!important }
 .border-dark-800 { border-color: $dark-800!important }
@@ -503,6 +538,53 @@ a.btn, input.btn, button.btn {
       }
       &:hover {
         background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
+      }
+    }
+  }
+  &.primary-dark {
+    &.high {
+      // background: $primary-900; 
+      background: $gradient-3;
+      color: $white; 
+      box-shadow: rgba(80, 63, 205, 0.0) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
+      svg path {
+        fill: $white;
+      }
+      &:hover {
+        color: $white; 
+        text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
+        // box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px;
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
+      }
+    }
+    &.medium {
+      // background: $primary-light; 
+      // background: $gradient-3;
+      // background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
+      background: linear-gradient(80deg, rgba(138, 125, 222, 0.1) 10%, rgba(138, 125, 222, 0.1) 45%, rgba(138, 125, 222, 0.1) 65%);
+      color: $primary-dark-900;
+      svg path {
+        fill: $primary-dark-900;
+      }
+      &:hover {
+        color: $white; 
+        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
+        background: $gradient-3;
+        // background: $gradient-3;
+        // background: -webkit-linear-gradient(#eee, #333);
+
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    &.low {
+      color: $primary-dark-900;
+      svg path {
+        fill: $primary-dark-900;
+      }
+      &:hover {
+        background: linear-gradient(80deg, rgba(138, 125, 222, 0.1) 10%, rgba(138, 125, 222, 0.1) 45%, rgba(138, 125, 222, 0.1) 65%);
       }
     }
   }
@@ -1555,6 +1637,7 @@ textarea {
   text-decoration: none!important;
   color: inherit;
   white-space: nowrap;
+  transition: $transition-standard;
   cursor: pointer;
   svg path{
     fill: $dark-900;
@@ -1608,26 +1691,31 @@ textarea {
 
 .dropdownItemHighlight {
   color: $primary-900;
+  box-shadow: rgba(80, 63, 205, 0) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0), inset 0 -1px 0px rgba(0,0,0,0);
   svg path{
     fill: $primary-900;
   }
   &:hover, &:focus {
-    background: $primary-200;
-    color: $primary-900;
+    background: $gradient-3;
+    color: $light-900;
+    text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
+    box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
     svg path{
-      fill: $primary-900;
+      fill: $light-900;
     }
   }
   &.dropdownItemDark {
-    color: $primary-900;
+    color: $primary-dark-900;
     svg path{
-      fill: $primary-900;
+      fill: $primary-dark-900;
     }
     &:hover, &:focus {
-      background: $primary-400;
-      color: $primary-900;
+      background: $gradient-3;
+      color: $light-900;
+      text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
+      box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
       svg path{
-        fill: $primary-900;
+        fill: $light-900;
       }
     } 
   }

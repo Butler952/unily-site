@@ -34,6 +34,8 @@ const AddFeature = ({
   const [submitting, setSubmitting] = useState(false);
   const [originalFeatured, setOriginalFeatured] = useState( userContext && userContext.profile && userContext.profile.featured);
 
+  const [downloadURL, setDownloadURL] = useState('');
+
   const [displayFeaturedImage, setDisplayFeaturedImage] = useState('')
 
   const featuredImageChange = (value) => {
@@ -61,14 +63,15 @@ const AddFeature = ({
     newFeature.logo_ref = uid ? uid : null
     newFeature.name = featuredName
     newFeature.url = featuredUrl
-    let originalFeaturedCopy = originalFeatured
 
     if (originalFeatured !== undefined) {
+      let originalFeaturedCopy = originalFeatured
       originalFeaturedCopy.unshift(newFeature)
       setOriginalFeatured(originalFeaturedCopy)
     } else {
-      originalFeaturedCopy = [newFeature]
-      setOriginalFeatured(originalFeaturedCopy)
+      setOriginalFeatured([newFeature])
+      console.log('no this one')
+      console.log([newFeature])
     }
   }
   
@@ -137,43 +140,66 @@ const AddFeature = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updateFeatured(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': featuredName,
+                'url': featuredUrl
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.featured = newUserContext.profile.featured !== undefined ? [...newUserContext.profile.featured, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.featured': originalFeatured,
+                'profile.featured': originalFeatured !== undefined ? 
+                  [...originalFeatured, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.featured = originalFeatured;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Feature added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add feature")
-                  //console.error("Error adding document: ", error);
-                });
             })
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Feature added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add feature")
+              //console.error("Error adding document: ", error);
+            });
 
           // Add this link to firestore
         }
       );
     } else {
-      updateFeatured()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': featuredName,
+        'url': featuredUrl
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.featured = newUserContext.profile.featured !== undefined ? 
+        [...newUserContext.profile.featured, payload]
+      :
+        [payload],
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.featured': originalFeatured,
+        'profile.featured': originalFeatured !== undefined ? 
+          [...originalFeatured, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.featured = originalFeatured;
-          setUserContext(newUserContext)
+        .then(() => {
           handleBack()
         })
         .then(() => {

@@ -22,6 +22,19 @@ $primary-300:rgba($primary-900, 0.08);
 $primary-200:rgba($primary-900, 0.05);
 $primary-100: rgba($primary-900, 0.03);
 
+$primary-dark-900: #8a7dde; // High text
+// $primary-900: #6839EF; // High text
+$primary-dark-900-hover: lighten($primary-900, 10%);
+$primary-dark-light: rgba($primary-900, 0.1);
+$primary-dark-800: rgba($primary-900, 0.72); // Medium text
+$primary-dark-700: rgba($primary-900, 0.48); // Low text
+$primary-dark-600: rgba($primary-900, 0.32); // Disabled text
+$primary-dark-500: rgba($primary-900, 0.19);
+$primary-dark-400:rgba($primary-900, 0.13);
+$primary-dark-300:rgba($primary-900, 0.08);
+$primary-dark-200:rgba($primary-900, 0.05);
+$primary-dark-100: rgba($primary-900, 0.03);
+
 // Secondary colour
 $secondary-base: #fff;
 

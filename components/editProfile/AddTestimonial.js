@@ -125,6 +125,22 @@ const AddTestimonial = ({
       setOriginalTestimonials(originalTestimonialsCopy)
     }
   }
+
+  const getPostedAt = () => {
+    if (testimonialsDate) {
+      let dateMonth = Number(testimonialsDate.split('-')[1]);
+      let dateYear = Number(testimonialsDate.split('-')[0]);
+      let postedAt = 
+        { 
+          'day': 1,
+          'month': dateMonth,
+          'year': dateYear
+        }
+      return postedAt
+    } else {
+      return null
+    }
+  }
   
   const handleAddTestimonialsSubmit = (e) => {
     e.preventDefault();
@@ -191,43 +207,80 @@ const AddTestimonial = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updateTestimonials(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'avatar_ref': uid,
+                'avatar_url': downloadURL,
+                'name': testimonialsName,
+                'title': testimonialsTitle,
+                'url': testimonialsUrl,
+                'posted_at': testimonialsDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(testimonialsDate.split('-')[1]),
+                    'year': Number(testimonialsDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'description': testimonialsDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.testimonials = newUserContext.profile.testimonials !== undefined ? [...newUserContext.profile.testimonials, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.testimonials': originalTestimonials,
+                'profile.testimonials': originalTestimonials !== undefined ? 
+                  [...originalTestimonials, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.testimonials = originalTestimonials;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Testimonial added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add testimonial")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
-          // Add this link to firestore
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Testimonial added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add testimonial")
+              //console.error("Error adding document: ", error);
+            });
         }
       );
     } else {
-      updateTestimonials()
+      let payload = {
+        'avatar_ref': null,
+        'avatar_url': null,
+        'name': testimonialsName,
+        'title': testimonialsTitle,
+        'url': testimonialsUrl,
+        'posted_at': testimonialsDate ? 
+          { 
+            'day': 1,
+            'month': Number(testimonialsDate.split('-')[1]),
+            'year': Number(testimonialsDate.split('-')[0])
+          } 
+        : 
+          null,
+        'description': testimonialsDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.testimonials = newUserContext.profile.testimonials !== undefined ? [...newUserContext.profile.testimonials, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.testimonials': originalTestimonials,
+        'profile.testimonials': originalTestimonials !== undefined ? 
+          [...originalTestimonials, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.testimonials = originalTestimonials;
-          setUserContext(newUserContext)
+        .then(() => {
           handleBack()
         })
         .then(() => {

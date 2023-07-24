@@ -448,73 +448,75 @@ const Freelance = ({
                     <div>{getSummaryText()}</div>
                   </div>
                 }
-                {/* {(products && products.length > 0) && */}
-                {pageId === currentUserId || products && products?.length > 0 ?
-                // {products && products?.length > 0 ?
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2>
-                    
-                    <div className={`${styles.layoutGrid}`}>
-                        {products && products?.length > 0 ? products.map((product, index) => {
-                          // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
-                          return (
-                            <div key={index} className={`d-flex flex-column align-items-start`}>
-                              {product.logo_url ?
-                                <div className="mb-4 w-100">
-                                  <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
-                                    <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                      <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${product.logo_url ? product.logo_url : null})` }}>
+                {(products && products.length > 0) &&
+                  pageId === currentUserId || products && products?.length > 0 ?
+                  // {products && products?.length > 0 ?
+                    <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                      {/* <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2> */}
+                      <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high'}`}>Products</h2>
+                      
+                      <div className={`${styles.layoutGrid}`}>
+                          {products && products?.length > 0 ? products.map((product, index) => {
+                            // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
+                            return (
+                              <div key={index} className={`d-flex flex-column align-items-start`}>
+                                {product.logo_url ?
+                                  <div className="mb-4 w-100">
+                                    <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
+                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                        <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${product.logo_url ? product.logo_url : null})` }}>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </a>
-                                </div>
-                                : null
-                              }
-                              <div className="w-100">
-                                <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
-                                {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
-                                {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
-                              </div>
-                              { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn primary high w-100 w-md-auto mt-4">Buy now</a>}
-                            </div>
-                          )
-                        })
-                      : 
-                        pageId === currentUserId && (
-                          <button 
-                            type="button" 
-                            onClick={() => handleEditProfileShow('Add product')}
-                            className={`d-flex flex-column align-items-start ${profileStyles.heroImagePlaceholderSection}`}
-                          >
-                            <div className="mb-4 w-100">
-                              <div className="d-block position-relative w-100">
-                                <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                  <div 
-                                    className={`w-100 position-relative overflow-hidden ${profileStyles.heroImagePlaceholder}`}
-                                  >
-                                    <svg height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path 
-                                        className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
-                                        fillRule="evenodd" 
-                                        clipRule="evenodd" 
-                                        d={ICONS.PLUS} 
-                                      />
-                                    </svg>
+                                    </a>
                                   </div>
+                                  : null
+                                }
+                                <div className="w-100">
+                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
+                                  {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
+                                  {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
                                 </div>
+                                { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn primary high w-100 w-md-auto mt-4">Buy now</a>}
                               </div>
-                            </div>
-                            <div className="w-100">
-                              <h3 className={`mb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
-                            </div>
-                          </button>
-                        )
-                      }
+                            )
+                          })
+                        : 
+                        null
+                          // pageId === currentUserId && (
+                          //   <button 
+                          //     type="button" 
+                          //     onClick={() => handleEditProfileShow('Add product')}
+                          //     className={`d-flex flex-column align-items-start ${profileStyles.heroImagePlaceholderSection}`}
+                          //   >
+                          //     <div className="mb-4 w-100">
+                          //       <div className="d-block position-relative w-100">
+                          //         <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                          //           <div 
+                          //             className={`w-100 position-relative overflow-hidden ${profileStyles.heroImagePlaceholder}`}
+                          //           >
+                          //             <svg height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          //               <path 
+                          //                 className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
+                          //                 fillRule="evenodd" 
+                          //                 clipRule="evenodd" 
+                          //                 d={ICONS.PLUS} 
+                          //               />
+                          //             </svg>
+                          //           </div>
+                          //         </div>
+                          //       </div>
+                          //     </div>
+                          //     <div className="w-100">
+                          //       <h3 className={`mb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Add product</h3>
+                          //     </div>
+                          //   </button>
+                          // )
+                        }
+                      </div>
                     </div>
-                  </div>
-                  :
-                  null
-                }
+                    :
+                    null
+                  }
                 {(services && services.length > 0) &&
                   <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Services</h2>
