@@ -43,6 +43,7 @@ const AddLink = ({
   }
 
   const addLink = () => {
+
     let newLink = {};
     newLink.label = linksLabel
     newLink.url = linksUrl
@@ -72,27 +73,36 @@ const AddLink = ({
     }
 
     setSubmitting(true)
-    addLink()
+    // addLink()
+
+    let payload = {
+      'url': linksUrl,
+      'label': linksLabel
+    }
+
+    let newUserContext = userContext;
+    newUserContext.links = newUserContext.links !== undefined ? [...newUserContext.links, payload] : [payload];
+    setUserContext(newUserContext)
 
     fire.firestore().collection('users').doc(user).update({
-      'links': originalLinks,
+      'links': originalLinks !== undefined ? 
+        [...originalLinks, payload]
+      :
+        [payload],
       lastUpdated: fire.firestore.FieldValue.serverTimestamp()
     })
-    .then((result) => {
-      let newUserContext = userContext;
-      newUserContext.links = originalLinks;
-      setUserContext(newUserContext)
-      handleBack()
-    })
-    .then(() => {
-      setSubmitting(false)
-      toast("Link added")
-    })
-    .catch((error) => {
-      setSubmitting(false)
-      toast("Unable to add link")
-      //console.error("Error adding document: ", error);
-    });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Link added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add link")
+        //console.error("Error adding document: ", error);
+      });
   }
 
   return (
