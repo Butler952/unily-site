@@ -471,6 +471,18 @@ a.btn, input.btn, button.btn {
   &.icon-only {
     padding: 16px;
   }
+  &.x-small {
+    padding: 8px 12px; 
+    font-size: 14px; 
+    line-height: 24px;
+    svg {
+      height: 18px;
+      width: 18px;
+    }
+    &.icon-only {
+      padding: 11px;
+    }
+  }
   &.small {
     padding: 10px 16px; 
     font-size: 16px; 
@@ -1601,7 +1613,7 @@ textarea {
   &.menu-dark {
     position: relative;
     box-sizing: border-box;
-    color: #FFF;
+    color: $light-900;
     background: $dark-900;
     background-clip: padding-box; /* !importanté */
     border: 0.5px solid transparent; /* !importanté */

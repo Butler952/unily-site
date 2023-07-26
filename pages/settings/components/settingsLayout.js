@@ -445,9 +445,9 @@ const SettingsLayout = ({children}) => {
       <Header />
         <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
           <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>
-            <Link href="/settings/plan" className={`btn dark small w-100 justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
-            <Link href="/settings/domain" className={`btn dark small w-100 justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
-            <Link href="/settings/account" className={`btn dark small w-100 justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
+            <Link href="/settings/plan" className={`btn dark small justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
+            <Link href="/settings/domain" className={`btn dark small justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
+            <Link href="/settings/account" className={`btn dark small justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
           </div>
         </div>
       <div style={screenWidth > 767 ? {paddingTop: '48px', paddingBottom: '48px'} : {paddingTop: 0}}>
