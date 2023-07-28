@@ -369,21 +369,21 @@ const Freelance = ({
                     </>
                   }
                   <br />
-                  <div className="mb-5 pb-5 d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '720px'}}>
+                  <div className="mb-5 d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '720px'}}>
                     {full_name &&
                       screenWidth && screenWidth > 767 ? 
                         <>
-                          <h1 className="text-gradient-3 text-center mb-1">
-                            {`Hi, I'm ${full_name}.`}<br></br>
+                          <h1 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
+                            {`${full_name}`}<br></br>
                           </h1>
-                          { headline && <h1 className={`text-gradient-0 text-center ${theme?.mode == 'dark' && 'text-light-high'}`}>{headline}</h1> }
+                          { headline && <p className={`extra-large text-center ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                         :
                         <>
-                          <h1 className="text-gradient-3 text-center mb-1">
-                            {`Hi, I'm ${full_name}.`}<br></br>
+                          <h1 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
+                            {`${full_name}`}<br></br>
                           </h1>
-                          { headline && <h1 className={`text-gradient-0 text-center ${theme?.mode == 'dark' && 'text-light-high'}`}>{headline}</h1> }
+                          { headline && <p className={`extra-large text-center ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                       }
                     {/* {headline &&
