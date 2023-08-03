@@ -376,14 +376,14 @@ const Freelance = ({
                           <h1 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
                             {`${full_name}`}<br></br>
                           </h1>
-                          { headline && <p className={`extra-large text-center ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
+                          { headline && <p className={`extra-large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                         :
                         <>
-                          <h1 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
+                          <h2 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
                             {`${full_name}`}<br></br>
-                          </h1>
-                          { headline && <p className={`extra-large text-center ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
+                          </h2>
+                          { headline && <p className={`extra-large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                       }
                     {/* {headline &&

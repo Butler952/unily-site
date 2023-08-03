@@ -32,7 +32,8 @@ export default async function handler(req, res) {
     redirect: 'follow'
   };
 
-  var strippedUrl = req.query.profileUrl.split("https://www.linkedin.com/in/").pop()
+  // var strippedUrl = req.query.profileUrl.split("https://www.linkedin.com/in/").pop()
+  var strippedUrl = req.query.profileUrl.split("/in/").pop()
 
   fetch("https://nubela.co/proxycurl/api/v2/linkedin?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2F" + strippedUrl, requestOptions)
     .then(response => response.json())

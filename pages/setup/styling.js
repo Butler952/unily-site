@@ -224,7 +224,7 @@ const Styling = () => {
     setTimeout(
       () => {
         document.body.style.overflowY = "auto";
-        router.push(currentProfile.profileUrl)
+        router.push("/profile")
       },
       13001
     );
