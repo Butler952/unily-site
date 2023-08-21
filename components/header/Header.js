@@ -271,6 +271,14 @@ const Header = ({
     toast("Copied profile link to clipboard")
   }
 
+  const goToProfile = () => {
+    if (customDomain !== undefined) {
+      return customDomain
+    } else {
+      return `${window.location.origin}${profileUrl}`
+    }
+  }
+
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
 
@@ -545,22 +553,19 @@ const Header = ({
                             Plan
                           </Dropdown.Item>
                         } */}
-                        <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${dark && 'dropdownItemDark'} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : 'dropdownItemHighlight'}`}>
-                          <Icon icon={ICONS.STAR} size='24' />
-                          {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
-                            'Manage plan'
-                              :
-                            'Upgrade to premium'
-                          }
+                        <a 
+                          target="_blank"
+                          href={customDomain !== undefined ? customDomain : `${window.location.origin}${profileUrl}`} 
+                          className={`dropdownItem ${dark && 'dropdownItemDark'}`}
+                        >
+                          <Icon icon={ICONS.EXTERNAL_LINK} size='24' />
+                          Go to my website
+                        </a>
+                        <Dropdown.Item onClick={() => copyProfileAddress()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                          <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
+                          Copy website link
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/domain')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                          <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" />
-                          Domain
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => router.push('/settings/account')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                          <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
-                          Account
-                        </Dropdown.Item>
+                      
 
                         {/* {product !== '' ?
                       (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
@@ -611,9 +616,21 @@ const Header = ({
                         </div>
                         <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
-                          <Dropdown.Item onClick={() => copyProfileAddress()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
-                            Copy profile link
+                          <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${dark && 'dropdownItemDark'} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : 'dropdownItemHighlight'}`}>
+                            <Icon icon={ICONS.STAR} size='24' />
+                            {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
+                              'Manage plan'
+                                :
+                              'Upgrade to premium'
+                            }
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => router.push('/settings/domain')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" />
+                            Domain
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => router.push('/settings/account')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
+                            Account
                           </Dropdown.Item>
                           <Dropdown.Item onClick={() => handleFeedbackShow()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                             <Icon icon={ICONS.FEEDBACK} size='24' />
