@@ -555,7 +555,7 @@ const Header = ({
                         } */}
                         <a 
                           target="_blank"
-                          href={customDomain !== undefined ? customDomain : `${window.location.origin}${profileUrl}`} 
+                          href={customDomain !== undefined ? `https://${customDomain}` : `${window.location.origin}${profileUrl}`} 
                           className={`dropdownItem ${dark && 'dropdownItemDark'}`}
                         >
                           <Icon icon={ICONS.EXTERNAL_LINK} size='24' />
