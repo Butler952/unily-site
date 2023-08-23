@@ -313,7 +313,7 @@ const Freelance = ({
               {<p>{pageId}</p>} */}
               {/* Check if current user profileUrl matches pageId */}
               {router.pathname == '/profile' && !surveyOnSignUpHide ? <SurveyBanner /> : ''}
-              <Container>
+              <div className="container" style={{maxWidth: '720px'}}>
                 <div className="mb-5 d-flex flex-column align-items-center">
                   {/* {(background_cover_image_url && !headerImageError) &&
                     <>
@@ -393,10 +393,10 @@ const Freelance = ({
                   {(linksPrimary || email || links) &&
                     <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
                       {linksPrimary ?
-                        <a href={convertToLink(linksPrimary.url)} target="_blank" className="btn primary high large w-100 w-md-auto">{linksPrimary.label}</a>
+                        <a href={convertToLink(linksPrimary.url)} target="_blank" className="btn dark high large w-100 w-sm-auto">{linksPrimary.label}</a>
                       
                       :
-                        <a href={'mailto:' + email} target="_blank" className="btn primary high large w-100 w-md-auto">Contact me</a>
+                        <a href={'mailto:' + email} target="_blank" className="btn dark high large w-100 w-sm-auto">Contact me</a>
                       }
                       {links &&
                         links.map((link, index) => {
@@ -405,7 +405,7 @@ const Freelance = ({
                             key={index} 
                             href={convertToLink(link.url)}
                             target="_blank" 
-                            className={`btn ${theme?.mode !== 'dark' ? 'dark' : 'light'} medium large w-100 w-md-auto`}>
+                            className={`btn ${theme?.mode !== 'dark' ? 'dark' : 'light'} medium large w-100 w-sm-auto`}>
                               {link.label}
                             </a>
                           )
@@ -434,7 +434,7 @@ const Freelance = ({
                   } */}
                 </div>
                 {/* {summary &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <h4>About</h4>
                     <div className={styles.profileCard + ' card p-4'}>
                       {getSummaryText()}
@@ -443,7 +443,7 @@ const Freelance = ({
                   </div>
                 } */}
                 {summary &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     {/* <h1>About {first_name}</h1> */}
                     <div>{getSummaryText()}</div>
                   </div>
@@ -451,7 +451,7 @@ const Freelance = ({
                 {(products && products.length > 0) &&
                   pageId === currentUserId || products && products?.length > 0 ?
                   // {products && products?.length > 0 ?
-                    <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                    <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                       {/* <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2> */}
                       <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high'}`}>Products</h2>
                       
@@ -459,25 +459,27 @@ const Freelance = ({
                           {products && products?.length > 0 ? products.map((product, index) => {
                             // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
                             return (
-                              <div key={index} className={`d-flex flex-column align-items-start`}>
-                                {product.logo_url ?
-                                  <div className="mb-4 w-100">
-                                    <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
-                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                        <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${product.logo_url ? product.logo_url : null})` }}>
+                              <a target="_blank"  key={index} href={convertToLink(product.url)} className="d-block position-relative w-100">
+                                <div className={`${styles.contentCard} p-4`}>
+                                  {product.logo_url ?
+                                    <div className="mb-4 w-100">
+                                      <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${product.logo_url ? product.logo_url : null})` }}>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </a>
+                                      </a>
+                                    </div>
+                                    : null
+                                  }
+                                  <div className="w-100 my-2">
+                                    <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
+                                    {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
+                                    {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
                                   </div>
-                                  : null
-                                }
-                                <div className="w-100">
-                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
-                                  {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
-                                  {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
+                                  {/* { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn dark high w-100 w-sm-auto mt-4">Buy now</a>} */}
                                 </div>
-                                { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn primary high w-100 w-md-auto mt-4">Buy now</a>}
-                              </div>
+                              </a>
                             )
                           })
                         : 
@@ -518,49 +520,51 @@ const Freelance = ({
                     null
                   }
                 {(services && services.length > 0) &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Services</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {services.map((service, index) => {
                           // const [serviceDescriptionShowMore, setServiceDescriptionShowMore] = useState(false);
                           return (
-                            <div key={index} className={`d-flex flex-column align-items-start`}>
-                              {service.logo_url ? (
-                                service.url ? 
-                                  <div className="mb-4 w-100">
-                                    <a target="_blank" href={convertToLink(service.url)} className="d-block position-relative w-100">
-                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                        <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${service.logo_url ? service.logo_url : null})` }}>
+                            <a key={index} target="_blank" href={convertToLink(service.url)} className="d-block position-relative w-100">
+                              <div className={`${styles.contentCard} p-4`}>
+                                {service.logo_url ? (
+                                  service.url ? 
+                                    <div className="mb-4 w-100">
+                                      <a target="_blank" href={convertToLink(service.url)} className="d-block position-relative w-100">
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${service.logo_url ? service.logo_url : null})` }}>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </a>
-                                  </div>
-                                :
-                                  <div className="mb-4 w-100">
-                                    <div className="d-block position-relative w-100">
-                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                        <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${service.logo_url ? service.logo_url : null})` }}>
+                                      </a>
+                                    </div>
+                                  :
+                                    <div className="mb-4 w-100">
+                                      <div className="d-block position-relative w-100">
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${service.logo_url ? service.logo_url : null})` }}>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                )
-                                : null
-                              }
-                              <div className="w-100">
-                                <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
-                                {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
-                                {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
+                                  )
+                                  : null
+                                }
+                                <div className="w-100 my-2">
+                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
+                                  {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
+                                  {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
+                                </div>
+                                {/* <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-sm-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a> */}
                               </div>
-                              <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-md-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a>
-                            </div>
+                            </a>
                           )
                         })}
                     </div>
                   </div>
                 }
                 {/* {(projects && projects.length > 0) &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <h1 className="mb-5 pb-3">Projects</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {projects.sort(sortByDate).map((project, index) => {
@@ -590,81 +594,88 @@ const Freelance = ({
                   </div>
                 } */}
                 {(testimonials && testimonials.length > 0) &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {testimonials.sort(sortPosts).map((testimonial, index) => {
                           // const [testimonialDescriptionShowMore, setTestimonialDescriptionShowMore] = useState(false);
                           return (
-                            <div key={index} className={`d-flex flex-column align-items-start`}>
-                              {testimonial.avatar_url ?
-                                <div className="mb-4">
-                                  <a target="_blank" href={convertToLink(testimonial.url)}>
-                                    <div>
-                                      <div className={`position-relative overflow-hidden ${profileStyles.avatarImage}`} style={{ backgroundImage: `url(${testimonial.avatar_url ? testimonial.avatar_url : null})`, width: '80px', height: '80px' }}></div>
-                                    </div>
-                                  </a>
-                                </div>
-                                : null
-                              }
-                              <div className="w-100">
-                                <div className="d-flex flex-column mb-3">
-                                  <h3 className={`mb-2 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h3>
-                                  {testimonial.title ? <p className={`large ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} mb-0`}>{testimonial.title}</p> : null}
-                                </div>
-                                {/* {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, testimonialDescriptionShowMore, setTestimonialDescriptionShowMore)}</p> : null} */}
-                                {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> : null}
-                                {testimonial.posted_at && 
-                                  <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} large mt-3`}>
-                                    {testimonial.posted_at ? (testimonial.posted_at.month ? convertMonth(testimonial.posted_at.month) + " " : '') : null}
-                                    {testimonial.posted_at ? (testimonial.posted_at.year ? testimonial.posted_at.year + " " : null) : null}
-                                  </p>
+                            <a key={index} target="_blank" href={convertToLink(testimonial.url)}>
+                              <div  className={`${styles.contentCard} p-4`}>
+                                {testimonial.description &&
+                                  <div className="radius-3 p-4 shadow-2 bg-light-900 mb-4">
+                                    <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> 
+                                  </div>
                                 }
+                                <div className="d-flex flex-row align-items-center gap-4">
+                                  {testimonial.avatar_url ?
+                                    <a target="_blank" href={convertToLink(testimonial.url)}>
+                                      <div>
+                                        <div className={`position-relative overflow-hidden ${profileStyles.avatarImage}`} style={{ backgroundImage: `url(${testimonial.avatar_url ? testimonial.avatar_url : null})`, width: '56px', height: '56px' }}></div>
+                                      </div>
+                                    </a>
+                                    : null
+                                  }
+                                  <div className="w-100">
+                                    <div className="d-flex flex-column">
+                                      <h5 className={`mb-1 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h5>
+                                      {testimonial.title ? <p className={`large ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'} mb-0`}>{testimonial.title}</p> : null}
+                                    </div>
+                                    {/* {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, testimonialDescriptionShowMore, setTestimonialDescriptionShowMore)}</p> : null} */}
+                                    {/* {testimonial.posted_at && 
+                                      <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-3`}>
+                                        {testimonial.posted_at ? (testimonial.posted_at.month ? convertMonth(testimonial.posted_at.month) + " " : '') : null}
+                                        {testimonial.posted_at ? (testimonial.posted_at.year ? testimonial.posted_at.year + " " : null) : null}
+                                      </p>
+                                    } */}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </a>
                           )
                         })}
                     </div>
                   </div>
                 }
                 {(posts && posts.length > 0) &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h2>
                     <div className={`${styles.layoutGrid}`}>
                         {posts.sort(sortPosts).map((post, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                           return (
-                            <div key={index} className={`d-flex flex-column align-items-start`}>
-                              {post.logo_url ?
-                                <div className="mb-4 w-100">
-                                  <a target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">
-                                    <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
-                                      <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${post.logo_url ? post.logo_url : null})` }}>
+                            <a key={index} target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">
+                              <div  className={`${styles.contentCard} p-4`}>
+                                {post.logo_url ?
+                                  <div className="mb-4 w-100">
+                                    <a target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">
+                                      <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                        <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${post.logo_url ? post.logo_url : null})` }}>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </a>
-                                </div>
-                                : null
-                              }
-                              <div className="w-100">
-                                <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h3>
-                                {post.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
-                                {post.posted_at && 
-                                  <p className={`text-dark-low large mt-3 ${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
-                                    {post.posted_at ? (post.posted_at.month ? convertMonth(post.posted_at.month) + " " : '') : null}
-                                    {post.posted_at ? (post.posted_at.year ? post.posted_at.year + " " : null) : null}
-                                  </p>
+                                    </a>
+                                  </div>
+                                  : null
                                 }
+                                <div className="w-100">
+                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h3>
+                                  {post.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                  {post.posted_at && 
+                                    <p className={`text-dark-low large mt-3 ${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
+                                      {post.posted_at ? (post.posted_at.month ? convertMonth(post.posted_at.month) + " " : '') : null}
+                                      {post.posted_at ? (post.posted_at.year ? post.posted_at.year + " " : null) : null}
+                                    </p>
+                                  }
+                                </div>
                               </div>
-                            </div>
+                            </a>
                           )
                         })}
                     </div>
                   </div>
                 }
-                {(featured && featured.length > 0) &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
-                    {/* <h1 className="mb-5 pb-3">Featured in</h1> */}
+                {/* {(featured && featured.length > 0) &&
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <div className={`${styles.featuredGrid}`}>
                         {featured.map((feature, index) => {
                           return (
@@ -690,9 +701,9 @@ const Freelance = ({
                         })}
                     </div>
                   </div>
-                }
+                } */}
                 {/* {email &&
-                  <div style={{paddingTop: '120px', paddingBottom: '120px'}}>
+                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
                     <div className="mb-5 d-flex flex-column">
                       {full_name &&
                         <h1 className="display2 text-gradient-3 mb-1">
@@ -706,7 +717,7 @@ const Freelance = ({
                     <br /><br />
                   </div>
                 } */}
-              </Container>
+              </div>
               {subscriptionProduct && (subscriptionProduct === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (subscriptionStatus === 'active' ?  
                 <div className='py-5 text-center'>
                   <Container>

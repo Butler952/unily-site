@@ -694,12 +694,12 @@ const EditProfile = ({
       "subtitle": "Highlight quotes from clients",
       "icon": ICONS.SERVICE
     },
-    {
-      "id": uuidv4(),
-      "title": "Featured",
-      "subtitle": "Places where you've been featured",
-      "icon": ICONS.FEATURED
-    },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Featured",
+    //   "subtitle": "Places where you've been featured",
+    //   "icon": ICONS.FEATURED
+    // },
     {
       "id": uuidv4(),
       "title": "Posts",

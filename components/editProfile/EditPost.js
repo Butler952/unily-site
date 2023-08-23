@@ -378,7 +378,7 @@ const EditPost = ({
             />
           </div>
           <div className="mb-3">
-            <p className="text-dark-high mb-2">Name</p>
+            <p className="text-dark-high mb-2">Title</p>
             <input
               type="text"
               className={postsNameError !== '' ? `error w-100 small` : `w-100 small`}

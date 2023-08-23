@@ -57,14 +57,26 @@
 
 .layoutGrid {
   display: grid;
-  gap: 48px;
-  @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  gap: 32px;
+  // @media (min-width: $breakpoint-lg) {
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
   &:hover {
     * {
       text-decoration: none;
     }
+  }
+}
+
+.contentCard {
+  border-radius: $radius-large;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background: $dark-200;
+  &:hover {
+    cursor: pointer;
+    background: $dark-300;
   }
 }
 
@@ -88,7 +100,7 @@
   padding-top: 66.66%; 
   background-position: center;  
   background-size: cover;
-  border-radius: $radius-large;
+  border-radius: $radius-medium;
   box-shadow: $shadow-2;
 }
 .heroImagePlaceholderSection {

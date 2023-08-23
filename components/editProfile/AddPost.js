@@ -317,7 +317,7 @@ const AddPost = ({
             {/* <button className="btn dark medium small" onClick={uploadProfilePicture(profilePictureFile)}>Upload</button> */}
           </div>
           <div className="mb-3">
-            <p className="text-dark-high mb-2">Name</p>
+            <p className="text-dark-high mb-2">Title</p>
             <input
               type="text"
               className={postsNameError !== '' ? `error w-100 small` : `w-100 small`}
@@ -357,8 +357,8 @@ const AddPost = ({
             {postsDescriptionError !== '' ? <p className="small text-error-high mt-2">{postsDescriptionError}</p> : null}
           </div>
           <div className="d-flex flex-column flex-sm-row justify-content-end" style={{gap: '12px'}}>
-            <button type="button" onClick={handleBack} className="btn dark medium w-100 w-sm-auto" disabled={submitting}>Cancel</button>
-            <button type="submit" className="btn primary high w-100 w-sm-auto" disabled={submitting}>{!submitting ? 'Add' : 'Adding...'}</button>
+            <button type="button" onClick={handleBack} className="order-1 order-sm-0 btn dark medium w-100 w-sm-auto" disabled={submitting}>Cancel</button>
+            <button type="submit" className="order-0 order-sm-1 btn primary high w-100 w-sm-auto" disabled={submitting}>{!submitting ? 'Add' : 'Adding...'}</button>
           </div>
         </form>
       </div>
