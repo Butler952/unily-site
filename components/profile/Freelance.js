@@ -393,10 +393,10 @@ const Freelance = ({
                   {(linksPrimary || email || links) &&
                     <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
                       {linksPrimary ?
-                        <a href={convertToLink(linksPrimary.url)} target="_blank" className="btn dark high large w-100 w-sm-auto">{linksPrimary.label}</a>
+                        <a href={convertToLink(linksPrimary.url)} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high large w-100 w-sm-auto`}>{linksPrimary.label}</a>
                       
                       :
-                        <a href={'mailto:' + email} target="_blank" className="btn dark high large w-100 w-sm-auto">Contact me</a>
+                        <a href={'mailto:' + email} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high large w-100 w-sm-auto`}>Contact me</a>
                       }
                       {links &&
                         links.map((link, index) => {
@@ -460,7 +460,7 @@ const Freelance = ({
                             // const [productDescriptionShowMore, setProductDescriptionShowMore] = useState(false);
                             return (
                               <a target="_blank"  key={index} href={convertToLink(product.url)} className="d-block position-relative w-100">
-                                <div className={`${styles.contentCard} p-4`}>
+                                <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                   {product.logo_url ?
                                     <div className="mb-4 w-100">
                                       <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
@@ -527,7 +527,7 @@ const Freelance = ({
                           // const [serviceDescriptionShowMore, setServiceDescriptionShowMore] = useState(false);
                           return (
                             <a key={index} target="_blank" href={convertToLink(service.url)} className="d-block position-relative w-100">
-                              <div className={`${styles.contentCard} p-4`}>
+                              <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {service.logo_url ? (
                                   service.url ? 
                                     <div className="mb-4 w-100">
@@ -601,9 +601,9 @@ const Freelance = ({
                           // const [testimonialDescriptionShowMore, setTestimonialDescriptionShowMore] = useState(false);
                           return (
                             <a key={index} target="_blank" href={convertToLink(testimonial.url)}>
-                              <div  className={`${styles.contentCard} p-4`}>
+                              <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {testimonial.description &&
-                                  <div className="radius-3 p-4 shadow-2 bg-light-900 mb-4">
+                                  <div className={`radius-3 p-4 shadow-2 ${theme?.mode == 'dark' ? 'bg-dark-900' : 'bg-light-900'}  mb-4`}>
                                     <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> 
                                   </div>
                                 }
@@ -645,7 +645,7 @@ const Freelance = ({
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
                           return (
                             <a key={index} target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">
-                              <div  className={`${styles.contentCard} p-4`}>
+                              <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {post.logo_url ?
                                   <div className="mb-4 w-100">
                                     <a target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">

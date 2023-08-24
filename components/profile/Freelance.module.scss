@@ -78,6 +78,12 @@
     cursor: pointer;
     background: $dark-300;
   }
+  &.contentCardDark {
+    background: $light-200;
+    &:hover {
+      background: $light-300;
+    }
+  }
 }
 
 .featuredGrid {
