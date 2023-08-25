@@ -1076,6 +1076,14 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  &.disabled, &:disabled {
+    color: $dark-700;
+    background: $dark-100;
+    &:hover {
+      border: 2px solid $dark-300;
+      background: $dark-100;
+    }
+  }
   &.error {
     border-color: $error-900;
     background: $error-200;

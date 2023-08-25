@@ -263,6 +263,7 @@ const Profile = (props) => {
           side_projects={props.side_projects}
           testimonials={props.testimonials}
           posts={props.posts}
+          book_call_url={props.book_call_url}
           education={props.education}
           logoVisibility={props.logoVisibility}
           volunteer_work={props.volunteer_work}
@@ -315,6 +316,7 @@ export const getServerSideProps = async ({ query }) => {
         content['side_projects'] = doc.data().profile.side_projects ? doc.data().profile.side_projects : null;
         content['testimonials'] = doc.data().profile.testimonials ? doc.data().profile.testimonials : null;
         content['posts'] = doc.data().profile.posts ? doc.data().profile.posts : null;
+        content['book_call_url'] = doc.data().profile.book_call_url ? doc.data().profile.book_call_url : null;
         content['education'] = doc.data().profile.education ? doc.data().profile.education : null;
         content['volunteer_work'] = doc.data().profile.volunteer_work ? doc.data().profile.volunteer_work : null;
         content['featured'] = doc.data().profile.featured ? doc.data().profile.featured : null;
@@ -349,6 +351,7 @@ export const getServerSideProps = async ({ query }) => {
     side_projects: content.side_projects,
     testimonials: content.testimonials,
     posts: content.posts,
+    book_call_url: content.book_call_url,
     education: content.education,
     volunteer_work: content.volunteer_work,
     featured: content.featured,

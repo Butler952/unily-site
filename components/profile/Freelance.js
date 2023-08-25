@@ -16,6 +16,7 @@ import mixpanelConfig from 'config/mixpanel-config';
 import { UserContext } from '../../pages/_app';
 import Icon from '../icon/Icon';
 import convertToLink from '../../utils/convertToLink';
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 const Freelance = ({
   level,
@@ -44,6 +45,7 @@ const Freelance = ({
   side_projects,
   testimonials,
   posts,
+  book_call_url,
   education,
   logoVisibility,
   volunteer_work,
@@ -105,7 +107,7 @@ const Freelance = ({
   const getSummaryText = () => {
     // For Text that is shorter than desired length
     if (summary.length <= 480) return (
-      <p className={`large mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
+      <p className={` mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
         {summary}
       </p>
     );
@@ -113,7 +115,7 @@ const Freelance = ({
     if (summary.length > 480 && showMore) {
       return (
         <>
-          <p className={`large mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
+          <p className={` mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
             {summary} <u style={{ cursor: 'pointer' }} className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(false)}>Show less</u>
           </p>
         </>
@@ -123,7 +125,7 @@ const Freelance = ({
     if (summary.length > 480) {
       return (
         <>
-          <p className={`large mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
+          <p className={` mb-0 ${styles.summary} ${theme?.mode == 'dark' && 'text-light-med'}`}>
             {summary.slice(0, 480)}... <u style={{ cursor: 'pointer' }} className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-med'}`} onClick={() => setShowMore(true)}>Read more</u>
           </p>
         </>
@@ -291,6 +293,22 @@ const Freelance = ({
     );
   }
 
+  const CalEmbed = ({bookCallUrl}) => {
+    let calLink = bookCallUrl.split("cal.com/").pop()
+
+    useEffect(()=>{
+      (async function () {
+      const cal = await getCalApi();
+      cal("ui", {"theme":theme?.mode == 'dark' ? "dark" : "light","styles":{"branding":{"brandColor":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});
+      })();
+    }, [])
+    return <Cal
+      calLink={calLink}
+      style={{width:"100%",height:"100%",overflow:"scroll"}}
+      config={{layout: 'month_view'}}
+    />;
+    };
+
   return (
     // <body className={theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body}>
       <>
@@ -313,7 +331,7 @@ const Freelance = ({
               {<p>{pageId}</p>} */}
               {/* Check if current user profileUrl matches pageId */}
               {router.pathname == '/profile' && !surveyOnSignUpHide ? <SurveyBanner /> : ''}
-              <div className="container" style={{maxWidth: '720px'}}>
+              <div className="container" style={{maxWidth: '640px'}}>
                 <div className="mb-5 d-flex flex-column align-items-center">
                   {/* {(background_cover_image_url && !headerImageError) &&
                     <>
@@ -373,17 +391,17 @@ const Freelance = ({
                     {full_name &&
                       screenWidth && screenWidth > 767 ? 
                         <>
-                          <h1 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
+                          <h2 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
                             {`${full_name}`}<br></br>
-                          </h1>
-                          { headline && <p className={`extra-large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
+                          </h2>
+                          { headline && <p className={`large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                         :
                         <>
                           <h2 className={`${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'} text-center mb-3`}>
                             {`${full_name}`}<br></br>
                           </h2>
-                          { headline && <p className={`extra-large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
+                          { headline && <p className={`large text-center mb-0 ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'}`} style={{maxWidth: '640px'}}>{headline}</p> }
                         </>
                       }
                     {/* {headline &&
@@ -393,10 +411,10 @@ const Freelance = ({
                   {(linksPrimary || email || links) &&
                     <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
                       {linksPrimary ?
-                        <a href={convertToLink(linksPrimary.url)} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high large w-100 w-sm-auto`}>{linksPrimary.label}</a>
+                        <a href={convertToLink(linksPrimary.url)} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high w-100 w-sm-auto`}>{linksPrimary.label}</a>
                       
                       :
-                        <a href={'mailto:' + email} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high large w-100 w-sm-auto`}>Contact me</a>
+                        <a href={'mailto:' + email} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high w-100 w-sm-auto`}>Contact me</a>
                       }
                       {links &&
                         links.map((link, index) => {
@@ -405,7 +423,7 @@ const Freelance = ({
                             key={index} 
                             href={convertToLink(link.url)}
                             target="_blank" 
-                            className={`btn ${theme?.mode !== 'dark' ? 'dark' : 'light'} medium large w-100 w-sm-auto`}>
+                            className={`btn ${theme?.mode !== 'dark' ? 'dark' : 'light'} medium w-100 w-sm-auto`}>
                               {link.label}
                             </a>
                           )
@@ -434,7 +452,7 @@ const Freelance = ({
                   } */}
                 </div>
                 {/* {summary &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
                     <h4>About</h4>
                     <div className={styles.profileCard + ' card p-4'}>
                       {getSummaryText()}
@@ -443,17 +461,24 @@ const Freelance = ({
                   </div>
                 } */}
                 {summary &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
                     {/* <h1>About {first_name}</h1> */}
-                    <div>{getSummaryText()}</div>
+                    <div className="d-block position-relative w-100">
+                      <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
+                        <div className="w-100 my-2">
+                          <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>About</h4>
+                          <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getSummaryText()}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 }
                 {(products && products.length > 0) &&
                   pageId === currentUserId || products && products?.length > 0 ?
                   // {products && products?.length > 0 ?
-                    <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
-                      {/* <h2 className={`mb-5 pb-3 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2> */}
-                      <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high'}`}>Products</h2>
+                    <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                      {/* <h2 className={`mb-5 ${products?.length > 0 ? (theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high') : (theme?.mode == 'dark' ? 'text-light-low' : 'text-dark-low')}`}>Products</h2> */}
+                      <h3 className={`mb-5 ${theme?.mode == 'dark' ? 'text-light-high' : 'text-dark-high'}`}>Products</h3>
                       
                       <div className={`${styles.layoutGrid}`}>
                           {products && products?.length > 0 ? products.map((product, index) => {
@@ -473,9 +498,9 @@ const Freelance = ({
                                     : null
                                   }
                                   <div className="w-100 my-2">
-                                    <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h3>
+                                    <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h4>
                                     {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
-                                    {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
+                                    {product.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
                                   </div>
                                   {/* { product.url && <a target="_blank" href={convertToLink(product.url)} className="btn dark high w-100 w-sm-auto mt-4">Buy now</a>} */}
                                 </div>
@@ -520,8 +545,8 @@ const Freelance = ({
                     null
                   }
                 {(services && services.length > 0) &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
-                    <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Services</h2>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Services</h3>
                     <div className={`${styles.layoutGrid}`}>
                         {services.map((service, index) => {
                           // const [serviceDescriptionShowMore, setServiceDescriptionShowMore] = useState(false);
@@ -551,9 +576,9 @@ const Freelance = ({
                                   : null
                                 }
                                 <div className="w-100 my-2">
-                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h3>
+                                  <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h4>
                                   {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
-                                  {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
+                                  {service.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
                                 </div>
                                 {/* <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-sm-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a> */}
                               </div>
@@ -564,8 +589,8 @@ const Freelance = ({
                   </div>
                 }
                 {/* {(projects && projects.length > 0) &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
-                    <h1 className="mb-5 pb-3">Projects</h1>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h1 className="mb-5">Projects</h1>
                     <div className={`${styles.layoutGrid}`}>
                         {projects.sort(sortByDate).map((project, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -594,8 +619,8 @@ const Freelance = ({
                   </div>
                 } */}
                 {(testimonials && testimonials.length > 0) &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
-                    <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h2>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Testimonials</h3>
                     <div className={`${styles.layoutGrid}`}>
                         {testimonials.sort(sortPosts).map((testimonial, index) => {
                           // const [testimonialDescriptionShowMore, setTestimonialDescriptionShowMore] = useState(false);
@@ -604,7 +629,7 @@ const Freelance = ({
                               <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {testimonial.description &&
                                   <div className={`radius-3 p-4 shadow-2 ${theme?.mode == 'dark' ? 'bg-dark-900' : 'bg-light-900'}  mb-4`}>
-                                    <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> 
+                                    <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> 
                                   </div>
                                 }
                                 <div className="d-flex flex-row align-items-center gap-4">
@@ -619,7 +644,7 @@ const Freelance = ({
                                   <div className="w-100">
                                     <div className="d-flex flex-column">
                                       <h5 className={`mb-1 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h5>
-                                      {testimonial.title ? <p className={`large ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'} mb-0`}>{testimonial.title}</p> : null}
+                                      {testimonial.title ? <p className={` ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'} mb-0`}>{testimonial.title}</p> : null}
                                     </div>
                                     {/* {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, testimonialDescriptionShowMore, setTestimonialDescriptionShowMore)}</p> : null} */}
                                     {/* {testimonial.posted_at && 
@@ -638,8 +663,8 @@ const Freelance = ({
                   </div>
                 }
                 {(posts && posts.length > 0) &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
-                    <h2 className={`mb-5 pb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h2>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Posts</h3>
                     <div className={`${styles.layoutGrid}`}>
                         {posts.sort(sortPosts).map((post, index) => {
                           const [descriptionShowMore, setDescriptionShowMore] = useState(false);
@@ -658,10 +683,10 @@ const Freelance = ({
                                   : null
                                 }
                                 <div className="w-100">
-                                  <h3 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h3>
-                                  {post.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                  <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h4>
+                                  {post.description ? <p className={`mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                                   {post.posted_at && 
-                                    <p className={`text-dark-low large mt-3 ${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
+                                    <p className={`text-dark-low mt-3 ${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>
                                       {post.posted_at ? (post.posted_at.month ? convertMonth(post.posted_at.month) + " " : '') : null}
                                       {post.posted_at ? (post.posted_at.year ? post.posted_at.year + " " : null) : null}
                                     </p>
@@ -674,8 +699,22 @@ const Freelance = ({
                     </div>
                   </div>
                 }
+                {book_call_url &&
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Book a call</h3>
+                    <div className={`${styles.layoutGrid}`}>
+                      <div className="d-block position-relative w-100">
+                        <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
+                          <div className="overflow-hidden radius-3 w-100" >
+                            <CalEmbed bookCallUrl={book_call_url} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
                 {/* {(featured && featured.length > 0) &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
                     <div className={`${styles.featuredGrid}`}>
                         {featured.map((feature, index) => {
                           return (
@@ -703,7 +742,7 @@ const Freelance = ({
                   </div>
                 } */}
                 {/* {email &&
-                  <div style={{paddingTop: '96px', paddingBottom: '96px'}}>
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
                     <div className="mb-5 d-flex flex-column">
                       {full_name &&
                         <h1 className="display2 text-gradient-3 mb-1">

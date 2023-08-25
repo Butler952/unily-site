@@ -41,6 +41,7 @@ import Testimonials from './Testimonials';
 import AddTestimonial from './AddTestimonial';
 import EditTestimonial from './EditTestimonial';
 import Styling from './Styling';
+import BookACall from './BookACall';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -270,6 +271,10 @@ const EditProfile = ({
   const [postsDescriptionChanged, setPostsDescriptionChanged] = useState(false);
   const [postsDescriptionError, setPostsDescriptionError] = useState('');
   const [postsShowDeletePostModal, setPostsShowDeletePostModal] = useState(false);
+
+  const [bookCallUrl, setBookCallUrl] = useState('');
+  const [bookCallUrlChanged, setBookCallUrlChanged] = useState(false);
+  const [bookCallUrlError, setBookCallUrlError] = useState('');
   
   const [sideProjectsLogo, setSideProjectsLogo] = useState('');
   const [sideProjectsLogoChanged, setSideProjectsLogoChanged] = useState(false);
@@ -532,6 +537,10 @@ const EditProfile = ({
     setPostsDescriptionError('')
     setPostsShowDeletePostModal(false)
 
+    setBookCallUrl('')
+    setBookCallUrlChanged(false)
+    setBookCallUrlError('')
+
     setSideProjectsLogo('')
     setSideProjectsLogoChanged(false)
     setSideProjectsImage('')
@@ -704,6 +713,12 @@ const EditProfile = ({
       "id": uuidv4(),
       "title": "Posts",
       "subtitle": "Your best written content",
+      "icon": ICONS.MAIL
+    },
+    {
+      "id": uuidv4(),
+      "title": "Book a call",
+      "subtitle": "Embed Cal.com on your page",
       "icon": ICONS.MAIL
     },
     // {
@@ -1638,6 +1653,18 @@ const EditProfile = ({
             handleBack={handleBack}
           />
           </>
+        )}
+        { editProfileModalState == 'Book a call' && (
+          <BookACall
+            user={user}
+            bookCallUrl={bookCallUrl}
+            setBookCallUrl={setBookCallUrl}
+            bookCallUrlChanged={bookCallUrlChanged}
+            setBookCallUrlChanged={setBookCallUrlChanged}
+            bookCallUrlError={bookCallUrlError}
+            setBookCallUrlError={setBookCallUrlError}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
         )}
         { editProfileModalState == 'Education' && (
           <Education

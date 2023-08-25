@@ -158,6 +158,7 @@ const Profile = (props) => {
               side_projects={userData.profile.side_projects}
               testimonials={userData.profile.testimonials}
               posts={userData.profile.posts}
+              book_call_url={userData.profile.book_call_url}
               education={userData.profile.education}
               logoVisibility={userData.profile.logoVisibility}
               volunteer_work={userData.profile.volunteer_work}
