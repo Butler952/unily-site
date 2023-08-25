@@ -705,7 +705,7 @@ const Freelance = ({
                     <div className={`${styles.layoutGrid}`}>
                       <div className="d-block position-relative w-100">
                         <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
-                          <div className="overflow-hidden radius-3 w-100" >
+                          <div className="overflow-hidden w-100" >
                             <CalEmbed bookCallUrl={book_call_url} />
                           </div>
                         </div>
