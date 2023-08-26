@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 import styles from './index.module.scss'
 import Icon from '../components/icon/Icon';
 import ICONS from '../components/icon/IconPaths';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 import PostCard from '../components/blog/PostCard';
 import Header from '../components/header/Header';
 

@@ -231,3 +231,42 @@
   position: sticky;
   top: 48px;
 }
+
+.featureItemWrapper {
+  transition: $transition-standard;
+  background: #27293A;
+  border-radius: $radius-large;
+  box-shadow: $shadow-2, 0 0 0 0.5px $light-500;
+  // border: 0.5px solid $light-300;
+  overflow: hidden;
+  width: 100%;
+  @media (min-width: $breakpoint-md) {
+    &:hover {
+      transform: scale(1.02)
+    }
+  }
+}
+
+.featureItemWrapperWide {
+  @media (min-width: $breakpoint-lg) {
+    min-width: 520px;
+  }
+}
+
+.featureItemImage {
+  height: 240px;
+  background-position: top left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.featureItemImageAdjust {
+  max-height: 240px;
+  background-size: cover;
+  @media (min-width: 438px) {
+    background-size: contain;
+  }
+  @media (min-width: $breakpoint-md) {
+    background-size: cover;
+  }
+}

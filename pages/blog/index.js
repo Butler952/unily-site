@@ -6,7 +6,7 @@ import styles from './blog.module.scss';
 import Header from '../../components/header/Header';
 import PostCard from '../../components/blog/PostCard';
 import Head from 'next/head';
-import Footer from '../../components/Footer';
+import Footer from '../../components/footer/Footer';
 
 const Blog = () => {
 

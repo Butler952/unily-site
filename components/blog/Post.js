@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router'
 import ProgressBar from 'react-scroll-progress-bar';
 import Icon from '../icon/Icon';
-import Footer from '../Footer';
+import Footer from '../footer/Footer';
 import styles from '../../pages/blog/blog.module.scss'
 import Header from '../header/Header';
 

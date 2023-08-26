@@ -452,6 +452,9 @@ a.btn, input.btn, button.btn {
   &:focus {
     box-shadow: 0 0 0 0.2rem $primary-600;
   }
+  &:hover {
+    transform: scale(1.02)
+  }
   svg {
     height: 24px;
     width: 24px;
@@ -1587,7 +1590,7 @@ textarea {
     position: relative;
     box-sizing: border-box;
     color: #FFF;
-    background: $dark-900;
+    background: #242837;
     background-clip: padding-box; /* !importanté */
     border: 0.5px solid transparent; /* !importanté */
     // overflow: hidden;
@@ -1641,7 +1644,7 @@ textarea {
       z-index: -1;
       margin: 0.25px; /* !importanté */
       border-radius: calc($radius-medium - 0.5px); /* !importanté */
-      background: #2a2f3b;
+      background: #2e3447;
     }
   }
 }

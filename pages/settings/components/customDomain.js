@@ -448,7 +448,7 @@ const CustomDomain = ({
         <div className="d-flex flex-column m-4">
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
-              <h5 className="mb-1">Connect my own domain</h5>
+              <h5 className="mb-1">Connect your own domain</h5>
               <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
             </div>
             {!sectionsLoading ? 

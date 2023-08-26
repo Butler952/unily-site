@@ -81,7 +81,7 @@ const Freelance = ({
 
   useEffect(() => {
     checkUser();
-    document.body.style.background = theme?.mode == 'dark' ? '#1F2430' : '#ffffff';
+    document.body.style.background = theme?.mode == 'dark' ? '#1F2430 ' : '#ffffff';
 
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
@@ -636,14 +636,14 @@ const Freelance = ({
                                   {testimonial.avatar_url ?
                                     <a target="_blank" href={convertToLink(testimonial.url)}>
                                       <div>
-                                        <div className={`position-relative overflow-hidden ${profileStyles.avatarImage}`} style={{ backgroundImage: `url(${testimonial.avatar_url ? testimonial.avatar_url : null})`, width: '56px', height: '56px' }}></div>
+                                        <div className={`position-relative overflow-hidden ${profileStyles.avatarImage}`} style={{ backgroundImage: `url(${testimonial.avatar_url ? testimonial.avatar_url : null})`, width: '48px', height: '48px' }}></div>
                                       </div>
                                     </a>
                                     : null
                                   }
                                   <div className="w-100">
                                     <div className="d-flex flex-column">
-                                      <h5 className={`mb-1 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h5>
+                                      <h6 className={`mb-1 ${theme?.mode !== 'dark' ? 'text-dark-high' : 'text-light-high'}`}>{testimonial.name}</h6>
                                       {testimonial.title ? <p className={` ${theme?.mode !== 'dark' ? 'text-dark-med' : 'text-light-med'} mb-0`}>{testimonial.title}</p> : null}
                                     </div>
                                     {/* {testimonial.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(testimonial.description, testimonialDescriptionShowMore, setTestimonialDescriptionShowMore)}</p> : null} */}

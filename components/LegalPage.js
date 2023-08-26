@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Header from './header/Header';
 import { Container } from 'react-bootstrap';
-import Footer from "./Footer";
+import Footer from "./footer/Footer";
 
 const LegalPage = (props) => {
   const {
