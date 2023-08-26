@@ -283,7 +283,7 @@ const Home = (props) => {
                 </div>
               </div>
             </div> */}
-            <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
+            <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
               {/* <div style={{ maxWidth: '560px' }} className="mb-5 pb-2">
                 <h2 className="text-light-high mb-4">Make your own website in just a few minutes</h2>
                 <p className="text-light-low large mb-0" style={{ maxWidth: '440px' }}>One place to feature your most important content for your business.</p>
