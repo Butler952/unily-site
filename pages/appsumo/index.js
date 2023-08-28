@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'; 
-import fire from '../../config/fire-config';
+import fire from '/config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Header from '../../components/header/Header';
+import Header from '/components/header/Header';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
+import ICONS from 'components/icon/IconPaths';
 
-const Register = () => {
+const AppSumo = () => {
 
   const router = useRouter();
 
@@ -22,6 +23,10 @@ const Register = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passConfError, setPassConfError] = useState('');
+
+  const [appsumoCode, setAppsumoCode] = useState('');
+  const [appsumoCodeError, setAppsumoError] = useState('');
+
   const [creating, setCreating] = useState(false);
 
   const [notify, setNotification] = useState('');
@@ -77,6 +82,11 @@ const Register = () => {
     setPassword(value)
     setPasswordError('')
     setPassConfError('')
+  }
+
+  const appsumoChange = (value) => {
+    setAppsumoCode(value),
+    setAppsumoError('')
   }
 
   // const passConfChange = (value) => {
@@ -154,23 +164,49 @@ const Register = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Head>
         <title>Create an account</title>
       </Head>
       <Container className="py-5">
+        <div className="d-flex flex-column flex-md-row align-items-center justify-content-center mb-5">
+          <img className="mb-2 mb-md-0 mr-md-3" style={{height: '40px'}} src={'/images/expertpage-logo-full.svg'}></img>
+          {/* <div className="d-none d-md-block bg-dark-300" style={{height: '48px', width:'1px'}}></div> */}
+          <svg height='24' viewBox="0 0 24 24">
+            <path className="fill-dark-600" d={ICONS.PLUS}></path>
+          </svg>
+
+          <img style={{height: '48px'}} src={'/images/partners/appsumo-logo.svg'}></img>
+        </div>
         <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
-          <h3 className="text-dark-high">Create my page</h3>
-          <div className="">
-            <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
+          {/* <h3 className="text-dark-high">Hey Sumo-lings!</h3> */}
+          <h4 className="text-dark-high">Create your account</h4>
+          <div>
+            <div className="mx-auto p-3 p-md-4 bg-primary-100 radius-3 mb-4" style={{maxWidth: "640px"}}>
+              <p className="">To activate your <span className="font-weight-medium text-gradient-3">lifetime access</span> to ExpertPage, just create your account and enter your AppSumo code below. We're so excited for you to get started!</p>
+              <div className="d-flex flex-column flex-md-row justify-content-start align-items-md-center gap-3 mt-4">
+                <div className="d-flex flex-row">
+                  <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px', marginRight: '-8px', zIndex:1}} src={'/images/avatars/aaron-butler-founder-expertpage.jpeg'}></img>
+                  <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px'}} src={'/images/avatars/felipe-aranguiz-founder-expertpage.jpeg'}></img>
+                </div>
+                <div className="d-flex flex-column">
+                  <p className="mb-0 font-weight-medium"><span className="">Aaron</span> & <span className="">Felipe</span></p>
+                  <p className="mb-0 text-dark-low">Co-Founders of <span className="">ExpertPage</span></p>
+                </div>
+              </div>
+            </div>
             <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <input type="text" placeholder="Email" className={emailError !== '' ? `error w-100` : `w-100`} value={username} onChange={({target}) => usernameChange(target.value)} />
+                <input type="text" placeholder="Email" className={`${emailError !== '' ? 'error w-100' : 'w-100'}`} value={username} onChange={({target}) => usernameChange(target.value)} />
                 {emailError !== '' ? <p className="small text-error-high mt-2">{emailError}</p> : null}
               </div>
               <div className="mb-4">
                 <input type="password" placeholder="Password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
+              </div>
+              <div className="mb-4">
+                <input type="text" placeholder="Appsumo Code" className={appsumoCodeError !== '' ? `error w-100` : `w-100`} value={appsumoCode} onChange={({target}) => appsumoChange(target.value)} />
+                {appsumoCodeError !== '' ? <p className="small text-error-high mt-2">{appsumoCodeError}</p> : null}
               </div>
               {/* <div className="mb-4">
                 <p className="large text-dark-high">Confirm password</p>
@@ -202,4 +238,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default AppSumo

@@ -145,7 +145,7 @@ const ChangeEmailSection = ({
           setEmailError('Please enter a valid email address')
         }
         if (err.code === 'auth/weak-password') {
-          setPasswordError('The password must be at least 6 characters long')
+          setPasswordError('Your password must be at least 6 characters long')
         }
         setSaving(false)
         console.log(err.code, err.message)
