@@ -191,12 +191,12 @@ const AppSumo = (props) => {
               <p className="">To activate your <span className="font-weight-medium text-gradient-3">lifetime access</span> to ExpertPage, just choose an email and password below. Your AppSumo code will be applied automatically. We're so excited for you to get started!</p>
               <div className="d-flex flex-column flex-md-row justify-content-start align-items-md-center gap-3 mt-4">
                 <div className="d-flex flex-row">
-                  <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px', marginRight: '-8px', zIndex:1}} src={'/images/avatars/aaron-butler-founder-expertpage.jpeg'}></img>
-                  <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px'}} src={'/images/avatars/felipe-aranguiz-founder-expertpage.jpeg'}></img>
+                  <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px' }} src={'/images/avatars/aaron-butler-founder-expertpage.jpeg'}></img>
+                  {/* <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px'}} src={'/images/avatars/felipe-aranguiz-founder-expertpage.jpeg'}></img> */}
                 </div>
                 <div className="d-flex flex-column">
-                  <p className="mb-0 font-weight-medium"><span className="">Aaron</span> & <span className="">Felipe</span></p>
-                  <p className="mb-0 text-dark-low">Co-Founders of <span className="">ExpertPage</span></p>
+                  <p className="mb-0 font-weight-medium"><span className="">Aaron</span></p>
+                  <p className="mb-0 text-dark-low">Co-Founder of <span className="">ExpertPage</span></p>
                 </div>
               </div>
             </div>

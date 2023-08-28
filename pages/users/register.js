@@ -160,7 +160,7 @@ const Register = () => {
       </Head>
       <Container className="py-5">
         <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
-          <h3 className="text-dark-high">Create my page</h3>
+          <h3 className="text-dark-high">Create your account</h3>
           <div className="">
             <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
             <form onSubmit={handleLogin}>
