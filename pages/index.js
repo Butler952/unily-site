@@ -156,9 +156,9 @@ const Home = (props) => {
                   <h2 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Build an online brand. Land more clients.</h2>
                 }
                 {screenWidth > 767 ? 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own website in just a few minutes. <br/> For freelancers and consultants. No tech skills required.</p>
+                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own landing page in just a few minutes. <br/> For freelancers and consultants. No tech skills required.</p>
                 : 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own website in just a few minutes. For freelancers and consultants. No tech skills required.</p>
+                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own landing page in just a few minutes. For freelancers and consultants. No tech skills required.</p>
                 }
                 <div className="d-flex justify-content-center">
                   {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
