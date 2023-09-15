@@ -466,7 +466,7 @@ const Freelance = ({
                     <div className="d-block position-relative w-100">
                       <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                         <div className="w-100 my-2">
-                          <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>About</h4>
+                          <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>About</h4>
                           <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getSummaryText()}</p>
                         </div>
                       </div>
@@ -498,7 +498,7 @@ const Freelance = ({
                                     : null
                                   }
                                   <div className="w-100 my-2">
-                                    <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h4>
+                                    <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>{product.name}</h4>
                                     {/* {product.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(product.description, productDescriptionShowMore, setProductDescriptionShowMore)}</p> : null} */}
                                     {product.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{product.description}</p> : null}
                                   </div>
@@ -576,7 +576,7 @@ const Freelance = ({
                                   : null
                                 }
                                 <div className="w-100 my-2">
-                                  <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h4>
+                                  <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h4>
                                   {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
                                   {service.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
                                 </div>
@@ -683,7 +683,7 @@ const Freelance = ({
                                   : null
                                 }
                                 <div className="w-100">
-                                  <h4 className={`mb-3 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h4>
+                                  <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>{post.name}</h4>
                                   {post.description ? <p className={`mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(post.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
                                   {post.posted_at && 
                                     <p className={`text-dark-low mt-3 ${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'}`}>

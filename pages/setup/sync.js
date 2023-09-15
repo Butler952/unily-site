@@ -279,11 +279,11 @@ const Sync = () => {
 
       <Container className="d-flex flex-column align-items-center my-5 py-5" style={{ maxWidth: "640px"}}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high text-center mb-2">Import from LinkedIn</h2>
+          <h2 className="text-dark-high text-center mb-2">Basic information</h2>
           :
-          <h3 className="text-dark-high text-center mb-2">Import from LinkedIn</h3>
+          <h3 className="text-dark-high text-center mb-2">Basic information</h3>
         }
-        <p className="large text-center" style={{maxWidth: '640px'}}>Your Linkedin profile is used to create your ExpertPage page.</p>
+        <p className="large text-center" style={{maxWidth: '480px'}}>Import your information from your LinkedIn profile to quickly create your ExpertPage page.</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
         <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
@@ -309,9 +309,9 @@ const Sync = () => {
                 
               </div>
               <div className="d-flex flex-column align-items-center mb-4 mb-sm-5 gap-3">
-                <div className="d-flex flex-column gap-3">
+                <div className="d-flex flex-column gap-3 w-100">
                   <button type="submit" className="btn primary high w-100" disabled={profileUrl == ''}>Import from Linkedin</button>
-                  <div className="d-flex flex-column bg-primary-100 radius-3 p-4">
+                  {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4">
                     <p className="text-dark-high">If you're already logged in on Linkedin you can click on the link below to get to your Linkedin profile.</p>
                     <a href="https://www.linkedin.com/in/" target="_blank">
                       <div className="d-flex align-items-start">
@@ -321,7 +321,7 @@ const Sync = () => {
                         <p className="text-primary-high font-weight-medium mb-0">Go to your Linkedin profile</p>
                       </div>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="d-flex flex-row align-items-center w-100 gap-3">
                   <hr className="w-100 m-0"></hr>
