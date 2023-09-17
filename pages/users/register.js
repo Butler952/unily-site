@@ -90,7 +90,7 @@ const Register = () => {
     })
     .then(() => {
       mixpanel.init(mixpanelConfig); 
-      mixpanel.track('Registered');
+      // mixpanel.track('Registered');
     })
     .then(() => {
       router.push("/setup/emails")
@@ -128,8 +128,7 @@ const Register = () => {
     fire.auth().signInWithPopup(new fire.auth.GoogleAuthProvider())
     .then(() => {
       mixpanel.init(mixpanelConfig); 
-      mixpanel.track('Registered');
-    })
+      mixpanel.track("Registered", {"method": "Google"});})
     .catch((err) => {
       console.log(err.code, err.message)
     });
@@ -173,7 +172,7 @@ const Register = () => {
       })
       .then(() => {
         mixpanel.init(mixpanelConfig); 
-        mixpanel.track('Registered');
+        mixpanel.track("Registered", {"method": "Password"})
       })
       .then(() => {
         router.push("/setup/handle")
