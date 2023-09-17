@@ -41,7 +41,7 @@ const Domain = () => {
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
-    mixpanel.track('Settings');
+    mixpanel.track("Settings", {"page": "Domain"});
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")
     }

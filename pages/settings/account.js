@@ -42,7 +42,7 @@ const Account = () => {
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
-    mixpanel.track('Settings');
+    mixpanel.track("Settings", {"page": "Account"});
     if (router.query.upgrade == 'success') {
       toast("Upgraded to Premium")
     }
