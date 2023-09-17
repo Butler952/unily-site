@@ -227,6 +227,10 @@ const CustomDomain = ({
 
   const handleCloseAddDomain = () => setShowAddDomainModal(false);
   const handleShowAddDomain = () => {
+    mixpanel.init(mixpanelConfig);
+    mixpanel.track("Add domain", {
+      "stage": "launch modal ",
+    });
     if ( !allUserData?.flags?.customDomain) {
       if (product == process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active') {
         setShowAddDomainModal(true)
