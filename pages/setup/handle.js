@@ -125,15 +125,19 @@ const Handle = () => {
     e.preventDefault();
 
       if (domainChanged && domain === '') {
-        setDomainError('Domain cannot be empty')
+        setDomainError('Handle cannot be empty')
         return null;
       } else {
+        if (domainChanged && domain.indexOf(' ') !== -1) {
+          setDomainError('Handle cannot include spaces')
+          return null;
+        } else {
 
           setSaving(true)
 
           fire.firestore()
             .collection('users')
-            .where("profileUrl", "==", `/${domain}`)
+            .where("profileUrl", "==", `/${domain.toLowerCase()}`)
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -141,31 +145,18 @@ const Handle = () => {
               })
             })
             .then(() => {
-              if (((matchingUrls && matchingUrls).length > 0) && userContext.profileUrl !== `/${domain}`) {
+              if (((matchingUrls && matchingUrls).length > 0) && userContext.profileUrl !== `/${domain.toLowerCase()}`) {
                 setSaving(false)
                 setDomainError('This handle is not available 😔')
               } else {
                 fire.firestore().collection('users').doc(userData.uid).update({
                   'stage': '/setup/source',
-                  'profileUrl': `/${domain}`,
+                  'profileUrl': `/${domain.toLowerCase()}`,
                   lastUpdated: fire.firestore.FieldValue.serverTimestamp()
                 })
                 .then(() => {
-                  fire.firestore()
-                  .collection('redirects')
-                  .doc(userData.uid)
-                  .set({ 
-                    'source': `/profile/${defaultDomain}`, 
-                    'destination': `/${domain}`,
-                    'permanent': true
-                  })
-                  .catch((err) => {
-                    toast(err.message)
-                  })
-                })
-                .then(() => {
                   let newUserContext = userContext;
-                  newUserContext.profileUrl = `/${domain}`;
+                  newUserContext.profileUrl = `/${domain.toLowerCase()}`;
                   setUserContext(newUserContext)
                 })
                .then(() => {
@@ -177,6 +168,7 @@ const Handle = () => {
                 })
               }
             })
+        }
       }
   }
 
@@ -221,7 +213,7 @@ const Handle = () => {
                 onChange={({ target }) => domainChange(target.value)}
               />
               <p className="small text-dark-med mt-2 mb-0" style={{lineBreak: 'anywhere'}}>expertpage.io/
-                {domainChanged ? domain :
+                {domainChanged ? domain.toLowerCase() :
                   (
                     userContext &&
                       userContext.profileUrl &&
