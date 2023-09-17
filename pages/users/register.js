@@ -29,7 +29,7 @@ const Register = () => {
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig); 
-    // mixpanel.track('Register');
+    mixpanel.track('Register');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
@@ -37,7 +37,7 @@ const Register = () => {
         docRef.get()
         .then((doc) => {
           if (doc.exists) {
-            mixpanel.track("Register", {"method": "Password"});
+            mixpanel.track("Registered", {"method": "Password"});
             if (doc.data().stage === "complete") {
               router.push("/profile");
             } else {
@@ -61,7 +61,7 @@ const Register = () => {
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
-              mixpanel.track("Register", {"method": "Google"});
+              mixpanel.track("Registered", {"method": "Google"});
               router.push("/setup/handle");
             })
             .catch((error) => {
@@ -128,7 +128,8 @@ const Register = () => {
     fire.auth().signInWithPopup(new fire.auth.GoogleAuthProvider())
     .then(() => {
       mixpanel.init(mixpanelConfig); 
-      mixpanel.track("Registered", {"method": "Google"});})
+      // mixpanel.track("Registered", {"method": "Google"});
+    })
     .catch((err) => {
       console.log(err.code, err.message)
     });
@@ -172,7 +173,7 @@ const Register = () => {
       })
       .then(() => {
         mixpanel.init(mixpanelConfig); 
-        mixpanel.track("Registered", {"method": "Password"})
+        // mixpanel.track("Registered", {"method": "Password"})
       })
       .then(() => {
         router.push("/setup/handle")
