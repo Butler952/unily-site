@@ -409,7 +409,7 @@ const Freelance = ({
                     } */}
                   </div>
                   {(linksPrimary || email || links) &&
-                    <div className="d-flex justify-content-start flex-column flex-md-row" style={{ gap: '12px' }}>
+                    <div className="d-flex justify-content-center flex-column flex-md-row flex-wrap" style={{ gap: '12px' }}>
                       {linksPrimary ?
                         <a href={convertToLink(linksPrimary.url)} target="_blank" className={`btn ${theme?.mode == 'dark' ? 'light' : 'dark'} high w-100 w-sm-auto`}>{linksPrimary.label}</a>
                       
