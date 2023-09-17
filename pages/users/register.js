@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'; 
 import fire from '../../config/fire-config';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
@@ -28,22 +29,50 @@ const Register = () => {
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig); 
-    mixpanel.track('Register');
+    // mixpanel.track('Register');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
         var docRef = fire.firestore().collection('users').doc(user.uid)
-      
-          docRef.get().then((doc) => {
+        docRef.get()
+        .then((doc) => {
+          if (doc.exists) {
+            mixpanel.track("Register", {"method": "Password"});
             if (doc.data().stage === "complete") {
               router.push("/profile");
             } else {
               router.push(doc.data().stage);
             }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          })
-        }
+          } else {
+            if (receiveEmails) {
+              fire.firestore().collection('mailingList').doc(user.uid).set({
+                subscriberEmail: user.email,
+                stage: '/setup/handle',
+                signUpSurveyComplete: false,
+                subscribed: fire.firestore.FieldValue.serverTimestamp(),
+                lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+              })
+            }
+            fire.firestore().collection('users').doc(user.uid).set({
+              receiveEmails: receiveEmails,
+              email: user.email,
+              stage: '/setup/handle',
+              created: fire.firestore.FieldValue.serverTimestamp(),
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+              mixpanel.track("Register", {"method": "Google"});
+              router.push("/setup/handle");
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            })
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        })
+      }
     })
       return () => {
         // Unmouting
@@ -92,6 +121,18 @@ const Register = () => {
 
   const receiveEmailsChange = () => {
     setReceiveEmails(receiveEmails => !receiveEmails)
+  }
+
+  const handleLoginWithGoogle = (e) => {
+    e.preventDefault();
+    fire.auth().signInWithPopup(new fire.auth.GoogleAuthProvider())
+    .then(() => {
+      mixpanel.init(mixpanelConfig); 
+      mixpanel.track('Registered');
+    })
+    .catch((err) => {
+      console.log(err.code, err.message)
+    });
   }
 
   const handleLogin = (e) => {
@@ -159,7 +200,7 @@ const Register = () => {
         <title>Create an account</title>
       </Head>
       <Container className="py-5">
-        <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
+        <div className="card m-auto p-4 p-md-5" style={{maxWidth: "560px"}}>
           <h3 className="text-dark-high">Create your account</h3>
           <div className="">
             <p className="mb-4">Already got an account? <Link href="/users/login">Sign in</Link></p>
@@ -192,9 +233,17 @@ const Register = () => {
                 <span className="checkmark"></span>
               </label>
               */}
-              <br/>
-              <button type="submit" className="btn primary high" disabled={creating}>{creating ? 'Creating account...' : 'Create account'}</button>
+              <button type="submit" className="btn primary high w-100" disabled={creating}>{creating ? 'Creating account...' : 'Create account'}</button>
             </form>
+            <div className="d-flex flex-row align-items-center w-100 gap-3 my-3">
+              <hr className="w-100 m-0"></hr>
+              <p className="small mb-0">or</p>
+              <hr className="w-100 m-0"></hr>
+            </div>
+            <button type="button" onClick={(e) => handleLoginWithGoogle(e)} className="btn dark medium w-100" disabled={creating}>
+              <img className="mr-2" width="24" src="/images/third-party/google.svg"></img>
+              Sign in with Google
+            </button>
           </div>
         </div>
       </Container>

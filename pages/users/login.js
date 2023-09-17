@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import fire from '../../config/fire-config';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Header from '../../components/header/Header';
@@ -19,6 +20,9 @@ const Login = () => {
 
   const router = useRouter();
 
+  // const provider = new firebase.auth.GoogleAuthProvider();
+  // const provider = new fire.auth.GoogleAuthProvider();
+
   const usernameChange = (value) => {
     setUsername(value),
     setEmailError('')
@@ -27,6 +31,21 @@ const Login = () => {
   const passwordChange = (value) => {
     setPassword(value)
     setPasswordError('')
+  }
+
+//   const signIn = () => auth.signInWithPopup(provider);
+// const signOut = () => auth.signOut();
+
+  const handleLoginWithGoogle = (e) => {
+    e.preventDefault();
+    fire.auth().signInWithPopup(new fire.auth.GoogleAuthProvider())
+    .then(() => {
+      mixpanel.init(mixpanelConfig); 
+      mixpanel.track('Signed in');
+    })
+    .catch((err) => {
+      console.log(err.code, err.message)
+    });
   }
 
   const handleLogin = (e) => {
@@ -59,28 +78,45 @@ const Login = () => {
           setPasswordError('The email address and password do not match')
         }
         setSigningIn(false)
-        console.log(err.code, err.message)
+        // console.log(err.code, err.message)
       })
   }
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig); 
-    mixpanel.track('Login');
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
         var docRef = fire.firestore().collection('users').doc(user.uid)
-      
-          docRef.get().then((doc) => {
+        docRef.get()
+        .then((doc) => {
+          if (doc.exists) {
+            mixpanel.track("Login", {"method": "Password"});
             if (doc.data().stage === "complete") {
               router.push("/profile");
             } else {
               router.push(doc.data().stage);
             }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          })
-        }
+          } else {
+            fire.firestore().collection('users').doc(user.uid).set({
+              email: user.email,
+              stage: '/setup/handle',
+              created: fire.firestore.FieldValue.serverTimestamp(),
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+              mixpanel.track("Login", {"method": "Google"});
+              router.push("/setup/handle");
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            })
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        })
+      }
     })
       return () => {
         // Unmouting
@@ -95,7 +131,7 @@ const Login = () => {
         <title>Sign in to your account</title>
       </Head>
       <Container className="py-5">
-      <div className="card m-auto p-4 p-md-5" style={{maxWidth: "640px"}}>
+        <div className="card m-auto p-4 p-md-5" style={{maxWidth: "560px"}}>
           <div className="">
           <h3 className="text-dark-high">Sign in</h3>
 
@@ -110,9 +146,17 @@ const Login = () => {
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
               <p className="mb-4">Forgot your password? <Link href="/users/reset">Reset your password</Link></p>
-              <br />
-              <button type="submit" className="btn primary high"disabled={signingIn}>{signingIn ? 'Logging in...' : 'Login'}</button>
+              <button type="submit" className="btn primary high w-100" disabled={signingIn}>{signingIn ? 'Signing in...' : 'Sign in'}</button>
             </form>
+            <div className="d-flex flex-row align-items-center w-100 gap-3 my-3">
+              <hr className="w-100 m-0"></hr>
+              <p className="small mb-0">or</p>
+              <hr className="w-100 m-0"></hr>
+            </div>
+            <button type="button" onClick={(e) => handleLoginWithGoogle(e)} className="btn dark medium w-100" disabled={signingIn}>
+              <img className="mr-2" width="24" src="/images/third-party/google.svg"></img>
+              Sign in with Google
+            </button>
           </div>
         </div>
       </Container>
