@@ -73,6 +73,12 @@ const Freelance = ({
   const [profilePictureError, setProfilePictureError] = useState(false);
   const [headerImageError, setHeaderImageError] = useState(false);
 
+  const [product, setProduct] = useState('');
+  const [active, setActive] = useState(false);
+  const [status, setStatus] = useState('');
+  const [cancelAtPeriodEnd, setCancelAtPeriodEnd] = useState(false);
+  const [cancelAt, setCancelAt] = useState('');
+
   const convertMonth = (mon) => {
     return [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mon];
   }
@@ -80,29 +86,66 @@ const Freelance = ({
   const router = useRouter();
 
   useEffect(() => {
-    checkUser();
+    // checkUser();
     document.body.style.background = theme?.mode == 'dark' ? '#1F2430 ' : '#ffffff';
 
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
+
+    const unsubscribe = fire.auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          setCurrentUserId(user.uid)
+          getSubscription(user)
+          setLoggedIn(true)
+        } else {
+          setLoggedIn(false)
+        }
+      })
+    return () => {
+      // Unmouting
+      unsubscribe();
+    };
   }, [])
 
-
-  const checkUser = () => {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        setCurrentUserId(user.uid)
-        setLoggedIn(true)
-        // ...
-      } else {
-        setLoggedIn(false)
-        // User is signed out
-        // ...
-      }
-    });
+  const getSubscription = (user) => {
+    var docRef = fire.firestore().collection('users').doc(user.uid).collection('subscriptions')
+    //docRef.get()
+    docRef.where("status", "==", "active").get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setProduct(doc.data().items[0].plan.product)
+          setActive(doc.data().items[0].plan.active)
+          setStatus(doc.data().status)
+          setCancelAtPeriodEnd(doc.data().cancel_at_period_end)
+          doc.data().cancel_at && doc.data().cancel_at.seconds && setCancelAt(doc.data().cancel_at.seconds)
+        });
+      })
+      .then(() => {
+        // console.log('Retreived subscription data from database')
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      })
   }
+
+
+  // const checkUser = () => {
+  //   fire.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       setCurrentUserId(user.uid)
+  //       getSubscription(user)
+  //       setLoggedIn(true)
+  //       // ...
+  //     } else {
+  //       setLoggedIn(false)
+  //       // User is signed out
+  //       // ...
+  //     }
+  //   });
+  // }
 
   const getSummaryText = () => {
     // For Text that is shorter than desired length
@@ -757,24 +800,50 @@ const Freelance = ({
                   </div>
                 } */}
               </div>
-              {subscriptionProduct && (subscriptionProduct === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (subscriptionStatus === 'active' ?  
-                <div className='py-5 text-center'>
-                  <Container>
-                    <a href={process.env.NEXT_PUBLIC_BASE_URL} style={{textDecoration: 'none'}}>
-                      <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                          className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
-                          fillRule="evenodd" 
-                          clipRule="evenodd" 
-                          d={ICONS.LOGO} 
-                        />
-                      </svg>
-                      <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
-                    </a>
-                    {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
-                  </Container>
-                </div>
-              : null) : null)}
+              {/* <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
+                  fillRule="evenodd" 
+                  clipRule="evenodd" 
+                  d={ICONS.LOGO_FULL} 
+                />
+              </svg> */}
+              {product ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ?  
+                // <div className='py-5 text-center'>
+                //   <Container>
+                //     <a href={process.env.NEXT_PUBLIC_BASE_URL} style={{textDecoration: 'none'}}>
+                //       <svg height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                //         <path 
+                //           className={`${theme?.mode !== 'dark' ? 'fill-dark-700' : 'fill-light-700'}`}
+                //           fillRule="evenodd" 
+                //           clipRule="evenodd" 
+                //           d={ICONS.LOGO} 
+                //         />
+                //       </svg>
+                //       <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
+                //     </a>
+                //     {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
+                //   </Container>
+                // </div>
+                null
+              : null) : null ) : 
+              <div className="d-flex flex-center flex-column text-center mx-auto" style={{marginTop: '240px'}}>
+                <a href="/">
+                  <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                      className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
+                      fillRule="evenodd" 
+                      clipRule="evenodd" 
+                      d={ICONS.LOGO_FULL} 
+                    />
+                  </svg>
+                </a>
+                <a href="/users/register">
+                  <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Create your ExpertPage today</p>
+                </a>
+
+              </div>
+              }
             </div>
           </div>
           :
