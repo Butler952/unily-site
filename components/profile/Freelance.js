@@ -827,8 +827,8 @@ const Freelance = ({
                 // </div>
                 null
               : null) : null ) : 
-              <div className="d-flex flex-center flex-column text-center mx-auto" style={{marginTop: '240px'}}>
-                <a href="/">
+              <div className="d-flex flex-center flex-column text-center mx-auto" style={{marginTop: '240px', marginBottom: '120px'}}>
+                {/* <a href="/">
                   <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path 
                       className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
@@ -837,9 +837,17 @@ const Freelance = ({
                       d={ICONS.LOGO_FULL} 
                     />
                   </svg>
-                </a>
-                <a href="/users/register">
-                  <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Create your ExpertPage today</p>
+                </a> */}
+                <a className="btn medium primary medium mx-auto align-items-center flex-wrap" href="/users/register">
+                  <span className="">{`Create your `}</span><svg viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width: '110px', height: 'auto', marginLeft: '6px', marginRight: '6px' }}>
+                    <path 
+                      className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
+                      fillRule="evenodd" 
+                      clipRule="evenodd" 
+                      d={ICONS.LOGO_FULL} 
+                    />
+                  </svg>
+                  <span className="">{` today`}</span>
                 </a>
 
               </div>
