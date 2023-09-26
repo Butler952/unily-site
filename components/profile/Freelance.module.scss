@@ -162,3 +162,22 @@
   border-radius: $radius-round;
   box-shadow: $shadow-2;
 }
+
+.footerLink {
+  transition: $transition-standard;
+  path {
+    transition: $transition-standard;
+    fill: $dark-700;
+  }
+  a { 
+    transition: $transition-standard;
+    color: $dark-700;
+    &:hover {
+      text-decoration: none;
+      color: $dark-900;
+      path {
+        fill: $dark-900;
+      }
+    }
+  }
+}
