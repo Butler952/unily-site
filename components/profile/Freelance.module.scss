@@ -181,3 +181,22 @@
     }
   }
 }
+
+.footerLinkDark {
+  transition: $transition-standard;
+  path {
+    transition: $transition-standard;
+    fill: $light-700;
+  }
+  a { 
+    transition: $transition-standard;
+    color: $light-700;
+    &:hover {
+      text-decoration: none;
+      color: $light-900;
+      path {
+        fill: $light-900;
+      }
+    }
+  }
+}

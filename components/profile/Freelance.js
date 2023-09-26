@@ -827,7 +827,7 @@ const Freelance = ({
                 // </div>
                 null
               : null) : null ) : 
-              <div className={`${styles.footerLink} d-flex flex-center flex-column text-center mx-auto`} style={{marginTop: '96px', marginBottom: '120px'}}>
+              <div className={`${theme?.mode == 'dark' ? styles.footerLinkDark : styles.footerLink} d-flex flex-center flex-column text-center mx-auto`} style={{marginTop: '96px', marginBottom: '120px'}}>
                 {/* <a href="/">
                   <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path 
@@ -841,7 +841,6 @@ const Freelance = ({
                 <a className="mx-auto align-items-center flex-wrap" href="/users/register">
                   <span className="">{`Create your `}</span><svg viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width: '110px', height: 'auto', marginLeft: '0px', marginRight: '2px', marginBottom: '3px' }}>
                     <path 
-                      className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
                       fillRule="evenodd" 
                       clipRule="evenodd" 
                       d={ICONS.LOGO_FULL} 
