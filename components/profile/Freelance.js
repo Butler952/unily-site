@@ -671,7 +671,7 @@ const Freelance = ({
                             <a key={index} target="_blank" href={convertToLink(testimonial.url)}>
                               <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {testimonial.description &&
-                                  <div className={`radius-3 p-4 shadow-2 ${theme?.mode == 'dark' ? 'bg-dark-900' : 'bg-light-900'}  mb-4`}>
+                                  <div className={`radius-3 p-4 shadow-2 w-100 ${theme?.mode == 'dark' ? 'bg-dark-900' : 'bg-light-900'}  mb-4`}>
                                     <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{testimonial.description}</p> 
                                   </div>
                                 }
