@@ -516,6 +516,20 @@ const Freelance = ({
                     </div>
                   </div>
                 }
+                {book_call_url &&
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Book a call</h3>
+                    <div className={`${styles.layoutGrid}`}>
+                      <div className="d-block position-relative w-100">
+                        <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
+                          <div className="overflow-hidden w-100" >
+                            <CalEmbed bookCallUrl={book_call_url} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
                 {(products && products.length > 0) &&
                   pageId === currentUserId || products && products?.length > 0 ?
                   // {products && products?.length > 0 ?
@@ -739,20 +753,6 @@ const Freelance = ({
                             </a>
                           )
                         })}
-                    </div>
-                  </div>
-                }
-                {book_call_url &&
-                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
-                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Book a call</h3>
-                    <div className={`${styles.layoutGrid}`}>
-                      <div className="d-block position-relative w-100">
-                        <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
-                          <div className="overflow-hidden w-100" >
-                            <CalEmbed bookCallUrl={book_call_url} />
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 }
