@@ -263,6 +263,7 @@ const Profile = (props) => {
           side_projects={props.side_projects}
           testimonials={props.testimonials}
           posts={props.posts}
+          book_call_url={userData.profile.book_call_url}
           education={props.education}
           logoVisibility={props.logoVisibility}
           volunteer_work={props.volunteer_work}
