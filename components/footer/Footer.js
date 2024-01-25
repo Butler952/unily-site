@@ -21,15 +21,15 @@ const Footer = ({dark}) => {
             </svg>
           </Link>
           <div className="d-flex flex-column flex-md-row text-center" style={{gap: '48px', whiteSpace: 'nowrap'}}>
-            {/* <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
-              <Link href="/linkedin-to-resume"><a className="text-dark-high mb-0">Linkedin to resume</a></Link>
-              <Link href="/pdf-resume-builder"><a className="text-dark-high mb-0">Linkedin to PDF</a></Link>
-              <Link href="/online-cv-builder"><a className="text-dark-high mb-0">Online CV builder</a></Link>
-              <Link href="/online-resume-builder"><a className="text-dark-high mb-0">Online resume builder</a></Link>
-              <Link href="/templates"><a className="text-dark-high mb-0">Templates</a></Link>
-              <Link href="/pricing"><a className="text-dark-high mb-0">Pricing</a></Link>
-              <Link href="/blog"><a className="text-dark-high mb-0">Blog</a></Link>
-            </div> */}
+            <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
+              <Link href="/linkedin-to-resume" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Linkedin to resume</Link>
+              <Link href="/pdf-resume-builder" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Linkedin to PDF</Link>
+              <Link href="/online-cv-builder" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Online CV builder</Link>
+              <Link href="/online-resume-builder" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Online resume builder</Link>
+              <Link href="/templates" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Templates</Link>
+              <Link href="/pricing" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Pricing</Link>
+              <Link href="/blog" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Blog</Link>
+            </div>
             <div className="d-flex flex-column text-center text-md-right" style={{gap: '16px', whiteSpace: 'nowrap'}}>
               <Link href="/legal/terms" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Terms & Conditions</Link>
               <Link href="/legal/privacy" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Privacy Policy</Link>

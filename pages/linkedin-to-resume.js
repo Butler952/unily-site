@@ -133,9 +133,7 @@ const LinkedinToResume = () => {
         <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h2 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>Turn your Linkedin profile into a resume in just two minutes</h2> : <h2 className="mx-auto mb-5">Turn your Linkedin profile into a resume in just two minutes</h2> }    
           <div className="d-flex m-auto justify-content-center">
-            <Link href="/users/register">
-              <a className="btn primary high large m-auto">Get started</a>
-            </Link>
+            <Link href="/users/register" className="btn primary high large m-auto">Get started</Link>
           </div>
         </div>
         </Container> 
@@ -211,9 +209,7 @@ const LinkedinToResume = () => {
           { screenWidth > 576 ? <h2 className="mx-auto" style={{ maxWidth: "720px" }}>Start turning your Linkedin profile into a resume</h2> : <h2 className="mx-auto">Start turning your Linkedin profile into a resume</h2> }    
           <p className="large mx-auto mb-5">Create your resume in just 2 minutes</p>
           <div className="d-flex m-auto justify-content-center">
-            <Link href="/users/register">
-              <a className="btn primary high large m-auto">Get started</a>
-            </Link>
+            <Link href="/users/register" className="btn primary high large m-auto">Get started</Link>
           </div>
         </div>
       </Container>

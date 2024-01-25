@@ -42,7 +42,7 @@ const LandingPage = (props) => {
           { screenWidth > 576 ? <h1>{props.title}</h1> : <h2>{props.title}</h2> }
             <p className="large mb-4">{props.subtitle}</p>
             <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
-<Link href="/users/register" className="btn primary high large">Get started</Link>
+              <Link href="/users/register" className="btn primary high large">Get started</Link>
             </div>
           </div>
           { !props.heroImage ? 
@@ -170,17 +170,17 @@ const LandingPage = (props) => {
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">Stand out</h3>
-                <h5 className="text-light-med">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</h5>
+                <p className="text-light-med large">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</p>
               </div>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">No data entry</h3>
-                <h5 className="text-light-med">Syncing your information from your LinkedIn account.</h5>
+                <p className="text-light-med large">Syncing your information from your LinkedIn account.</p>
               </div>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.FOCUS} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">No distractions</h3>
-                <h5 className="text-light-med">It’s your profile. It’s no place for other people’s profiles.</h5>
+                <p className="text-light-med large">It’s your profile. It’s no place for other people’s profiles.</p>
               </div>
             </div>
           </div>
@@ -190,9 +190,7 @@ const LandingPage = (props) => {
         <div className={`text-center ${styles.sectionWrapper}`}>
           { screenWidth > 576 ? <h1 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>{props.title}</h1> : <h2 className="mx-auto mb-5">{props.title}</h2> }    
           <div className="d-flex m-auto justify-content-center">
-            <Link href="/users/register">
-              <a className="btn primary high large m-auto">Get started</a>
-            </Link>
+            <Link href="/users/register" className="btn primary high large m-auto">Get started</Link>
           </div>
         </div>
       </Container>

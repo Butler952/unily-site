@@ -10,6 +10,7 @@ import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
 import styles from './index.module.scss'
 import ICONS from '../components/icon/IconPaths';
 import Footer from '../components/footer/Footer';
+import Icon from 'components/icon/Icon';
 
 const Home = (props) => {
 
@@ -39,7 +40,7 @@ const Home = (props) => {
     // window.onload = function(){ changeBackgroundToDark() };
     // window.onbeforeunload = function(){ changeBackgroundToLight() };
 
-    document.body.style.background = '#242837';
+    // document.body.style.background = '#FFFFFF';
 
     // const unsubscribe = fire.auth()
     // .onAuthStateChanged((user) => {
@@ -128,9 +129,9 @@ const Home = (props) => {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" />
       </Head>
-      <Header dark hideShadow />
+      <Header hideShadow />
       <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
-        <Header dark hideShadow={scrollPosition < heroHeight + 66} />
+        <Header hideShadow={scrollPosition < heroHeight + 66} />
       </div>
       {/* <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
@@ -145,59 +146,76 @@ const Home = (props) => {
           </div>
         </div>
       </div> */}
-      <div className="bg-dark-900" style={{ marginBottom: footerHeight, zIndex: '2', position: 'relative', marginTop: '-64px', paddingTop: '64px' }}>
-        <div className="container py-5">
-          <div className="mx-auto" style={{maxWidth: '960px'}}>
-            <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
-              <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
-                {screenWidth > 767 ? 
-                  <h1 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h1> 
-                : 
-                  <h2 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h2>
-                }
-                {screenWidth > 767 ? 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-                : 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-                }
-                <div className="d-flex justify-content-center">
-                  {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
-                  {userContext?.stage !== "complete" ?
-                    <Link href="/users/register" className="btn primary high">Create my page</Link>
-                    :
-                    <Link href="/profile" className="btn primary high">Go to my profile</Link>
-                  }
+      <div className="bg-light-900" style={{ marginBottom: footerHeight, zIndex: '2', position: 'relative', marginTop: '-64px', paddingTop: '64px' }}>
+        <div className="container d-flex flex-column align-items-center justify-content-center pt-5 my-5">
+          <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '960px'}}>
+            <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
+              <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
+                <div>
+                  <img src="/images/landing-page/users/ahmed-najeeb.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px'}} />
+                  <img src="/images/landing-page/users/manas-srivastava.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} />
+                  <img src="/images/landing-page/users/bettina-codjie.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} />
                 </div>
+                <p className="text-dark-med mb-0">Over 917+ websites created</p>
               </div>
-              {/* <div className={styles.iframeWrapper}>
-                <iframe className={styles.iframeContent}
-                  title="Example vitaely.me online CV profile"
-                  src="https://www.vitaely.me/aaronbutler">
-                </iframe>
-              </div> */}
+              {screenWidth > 767 ? 
+                <h1 className="text-gradient-4" style={{textShadow: 'rgba(0, 0, 0, 0.06) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h1> 
+              : 
+                <h2 className="text-gradient-4" style={{textShadow: 'rgba(0, 0, 0, 0.06) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h2>
+              }
+              {screenWidth > 767 ? 
+                <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
+              : 
+                <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
+              }
+              <div className="d-flex justify-content-center">
+                {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
+                {userContext?.stage !== "complete" ?
+                  <Link href="/users/register" className="btn primary high">Create my page</Link>
+                  :
+                  <Link href="/profile" className="btn primary high">Go to my profile</Link>
+                }
+              </div>
+              <div className="d-flex flex-column gap-2 mt-5">
+                <div className="flex-row">
+                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
+                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
+                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
+                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
+                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
+                </div>
+                <p><a href="https://www.producthunt.com/products/vitaely-me/" className="text-dark-low">Rated 5 stars on ProductHunt</a></p>
+              </div>
             </div>
+            {/* <div className={styles.iframeWrapper}>
+              <iframe className={styles.iframeContent}
+                title="Example vitaely.me online CV profile"
+                src="https://www.vitaely.me/aaronbutler">
+              </iframe>
+            </div> */}
           </div>
         </div>
-        <div 
+        {/* <div 
           className={` ${styles.gradientSection}`} 
           style={{ overflow: 'visible', position: 'absolute', width: '100%', height: '600px', top: '-120px', left: 0, rotate: '180deg', opacity: 0.4, zIndex: -1}}
         >
-        </div>
-        {/* <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-light-300 ${styles.gradientSection}`} style={{ overflow: 'visible' }}>
+        </div> */}
+        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible' }}>
           <div className="container">
             <div className="mx-auto" style={{maxWidth: '960px'}}>
-              <div className="w-100">
-                <div className="d-block position-relative w-100">
-                  <div className="d-flex flex-column w-100 gap-3">
-                    <div className="d-block position-relative px-lg-5">
-                      <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div>
+              <div className="mx-5 mx-sm-0">
+                <div className="d-block position-relative">
+                  <div className="d-flex flex-column gap-3">
+                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-light-600" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(16px)'}}>
+                      <div className={`d-block position-relative overflow-hidden ${screenWidth > 576 ? styles.sectionImage : styles.sectionImageMobile}`} style={{ backgroundImage: screenWidth > 576 ? `url(/images/profile-preview.jpeg)` : `url(/images/profile-preview-mobile.jpeg)`, boxShadow: 'none', borderRadius: '16px 16px 0 0'}}></div>
+                      {/* <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div> */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         {/* <div className="container">
           <div className="mx-auto" style={{maxWidth: '960px'}}>
             <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
@@ -283,11 +301,11 @@ const Home = (props) => {
                 </div>
               </div>
             </div> */}
-            <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
-              {/* <div style={{ maxWidth: '560px' }} className="mb-5 pb-2">
+            {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
+              <div style={{ maxWidth: '560px' }} className="mb-5 pb-2">
                 <h2 className="text-light-high mb-4">Make your own website in just a few minutes</h2>
                 <p className="text-light-low large mb-0" style={{ maxWidth: '440px' }}>One place to feature your most important content for your business.</p>
-              </div> */}
+              </div>
               <div className="d-flex flex-column gap-4">
                 <div className="d-flex flex-column flex-md-row gap-4 w-100">
                   <div className={`${styles.featureItemWrapper}`}>
@@ -356,19 +374,17 @@ const Home = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={`d-flex flex-column mx-auto gap-4 pt-5 ${styles.sectionWrapper}`} style={{ maxWidth: '560px', paddingBottom: '160px' }}>
+            </div> */}
+            {/* <div className={`d-flex flex-column mx-auto gap-4 pt-5 ${styles.sectionWrapper}`} style={{ maxWidth: '560px', paddingBottom: '160px' }}>
               {screenWidth > 767 ? <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2> : <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2>}
-              {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
               <div className="d-flex mx-auto">
-                {/* <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link> */}
                 {userContext?.stage !== "complete" ?
                   <Link href="/users/register" className="btn primary high">Create my page</Link>
                   :
                   <Link href="/profile" className="btn primary high">Go to my profile</Link>
                 }
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <div className="bg-dark-900">
@@ -414,7 +430,7 @@ const Home = (props) => {
         </div> */}
       </div>
       <div ref={ref} className="w-100" style={{ zIndex: '1', position: 'fixed', bottom: 0 }}>
-        <Footer dark />
+        <Footer />
       </div>
     </div>
   )

@@ -194,6 +194,23 @@
   }
 }
 
+.sectionImageMobile {
+  padding-top: 213%; 
+  background-position: center;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: $radius-large;
+  box-shadow: $shadow-2;
+  &.sectionImageVerticle {
+    padding-top: calc(66.66% * 2); 
+  }
+  &:hover {
+    .sectionImageTag {
+      opacity: 1;
+    }
+  }
+}
+
 .accordionWrapper {
   @media (min-width: $breakpoint-lg) {
     max-width: 640px;

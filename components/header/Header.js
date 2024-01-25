@@ -396,7 +396,7 @@ const Header = ({
             <Link href="/settings">
               <a className="btn primary low small">Settings</a>
             </Link>
-          </div>      */}
+            </div>      */}
               </div>
               <div className="d-flex">
                 {/* {profile.profile_pic_url &&
@@ -413,21 +413,23 @@ const Header = ({
                   <button className="btn primary low small" onClick={handleLogout}>Logout</button>
                   :
                   <div className="d-flex flex-row justify-content-center align-items-center">
-                    {/* { windowUrl.includes("blog") || 
+                    { windowUrl.includes("blog") || 
                       windowUrl.includes("legal") || 
                       windowUrl.includes("setup") ||
                       windowUrl.includes("users") ||
+                      windowUrl.includes("pricing") ||
+                      windowUrl.includes("templates") ||
                       windowUrl.includes("linkedin-to-resume") ||
                       windowUrl.includes("online-cv-builder") ||
                       windowUrl.includes("online-resume-builder") ||
                       windowUrl.includes("pdf-resume-builder") ||
                       windowUrl == '/' ?                 
-                      <div className="mr-2">
-                        <Link href="/blog">
-                          <a className="btn dark low small">Blog</a>
-                        </Link>
+                      <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
+                        <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
+                        <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
+                        <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link>
                       </div> 
-                    : null} */}
+                    : null}
                     {windowUrl.match(`/profile`) &&
                       <button 
                         type="button" 
@@ -681,19 +683,13 @@ const Header = ({
                     {/* <img src="/images/vitaely-logo-icon-square.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
                 </Link>
                 {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
-                {/* {screenWidth > 767 && (
-                  <div className="d-flex align-items-center" style={{ gap: '8px' }}>
-                    <Link href="/templates">
-                      <a className="btn dark low small">Templates</a>
-                    </Link>
-                    <Link href="/pricing">
-                      <a className="btn dark low small">Pricing</a>
-                    </Link>
-                    <Link href="/blog">
-                      <a className="btn dark low small">Blog</a>
-                    </Link>
+                {screenWidth > 767 && (
+                  <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
+                    <Link href="/templates" className="btn dark low small">Templates</Link>
+                    <Link href="/pricing" className="btn dark low small">Pricing</Link>
+                    <Link href="/blog" className="btn dark low small">Blog</Link>
                   </div>
-                )} */}
+                )}
               </div>
               <div className="d-flex" style={{ gap: '8px' }}>
 

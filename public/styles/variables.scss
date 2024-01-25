@@ -118,6 +118,7 @@ $background: $primary-100;
 $gradient-1: linear-gradient(245.08deg, #EF6F39 0%, #EA2B2B 56.25%, #B539EF 98.7%);
 $gradient-2: linear-gradient(245.08deg, #39EFE4 0%, #7F2BEA 56.25%, #B539EF 98.7%);
 $gradient-3: linear-gradient(80deg, rgb(69, 94, 181) 10%, rgb(86, 67, 204) 45%, rgb(103, 63, 215) 65%);
+$gradient-4: linear-gradient(80deg, $dark-800 0%, $dark-900 45%, $dark-800 100%);
 $border-gradient-bg: linear-gradient(160deg, $light-600 10%, $light-200 30%, $light-200 70%, $light-600 90%);
 
 // RADII

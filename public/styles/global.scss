@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   letter-spacing: -0.02em;}
-h1 { font-size: 72px; }
+h1 { font-size: 64px; }
 h2 { font-size: 48px; }
 h3 { font-size: 34px; }
 h4 { font-size: 28px; }
@@ -138,6 +138,14 @@ a {
   -webkit-text-fill-color: transparent;
   margin-bottom: -0.3rem!important;
   padding-bottom: 0.3rem;
+}
+.text-gradient-4 { 
+  background: $gradient-4;
+  // background: radial-gradient(40% 70% at 50% 100%, rgba(255, 255, 255, 0.4), rgb(255, 255, 255)) text;;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  // margin-bottom: -0.3rem!important;
+  // padding-bottom: 0.3rem;
 }
 .text-gradient-0 {
   background: none;
