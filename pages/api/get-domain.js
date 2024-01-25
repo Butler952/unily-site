@@ -22,7 +22,7 @@ export default async function getDomain(req, res) {
   // Rest of the API logic
  var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${process.env.NEXT_PUBLIC_AUTH_BEARER_TOKEN}`);
-  myHeaders.append("Access-Control-Allow-Origin", "https://www.expertpage.io, https://expertpage.vercel.app, http://localhost:3000/, https://localhost:3000/, https://api.vercel.com/, https://firebasestorage.googleapis.com");
+  myHeaders.append("Access-Control-Allow-Origin", "https://www.vitaely.me, https://expertpage.vercel.app, http://localhost:3000/, https://localhost:3000/, https://api.vercel.com/, https://firebasestorage.googleapis.com");
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   myHeaders.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");

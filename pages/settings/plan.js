@@ -202,7 +202,7 @@ const Plan = () => {
   return (
     <div>
       <Head>
-        <title>Plan | Expertpage.io</title>
+        <title>Plan | Vitaely.me</title>
       </Head>
       <SettingsLayout>
         {cancelAtPeriodEnd ? (
@@ -236,10 +236,10 @@ const Plan = () => {
                       </div>
                       <h4 className="text-dark-high mb-4">Free</h4>
                       {[
-                        {'string': "Expertpage.io domain", 'included': true},
+                        {'string': "Vitaely.me domain", 'included': true},
                         {'string': "Create your page", 'included': true},
                         {'string': "Connect your own domain", 'included': false},
-                        {'string': "Remove Expertpage.io branding", 'included': false},
+                        {'string': "Remove Vitaely.me branding", 'included': false},
                       ].map((feature, index) =>
                         <div key={index} className="d-flex align-items-start mt-2">
                           <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
@@ -261,10 +261,10 @@ const Plan = () => {
                         <p className="text-dark-high mb-0">/month</p>
                       </div>
                       {[
-                        {'string': "Expertpage.io domain", 'included': true},
+                        {'string': "Vitaely.me domain", 'included': true},
                         {'string': "Create your page", 'included': true},
                         {'string': "Connect your own domain", 'included': true},
-                        {'string': "Remove Expertpage.io branding", 'included': true},
+                        {'string': "Remove Vitaely.me branding", 'included': true},
                         {'string': "More coming soon", 'included': true}
                       ].map((feature, index) =>
                         <div key={index} className="d-flex align-items-start mt-2">

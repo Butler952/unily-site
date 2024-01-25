@@ -500,7 +500,7 @@ const Settings = () => {
       }
       <div className="pt-5 mt-5">
         <Head>
-          <title>Settings | Expertpage.io</title>
+          <title>Settings | Vitaely.me</title>
         </Head>
         <Header positionFixed />
         <div>

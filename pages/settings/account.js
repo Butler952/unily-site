@@ -199,7 +199,7 @@ const Account = () => {
   return (
     <div>
       <Head>
-        <title>Account | Expertpage.io</title>
+        <title>Account | Vitaely.me</title>
       </Head>
       <SettingsLayout>
         <div className="d-flex flex-column gap-5">

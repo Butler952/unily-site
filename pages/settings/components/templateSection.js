@@ -393,7 +393,7 @@ const TemplateSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Custom URL on expertpage.io domain', 
+                'Custom URL on vitaely.me domain', 
                 'Premium templates',
                 'Unlimited re-syncing', 
                 'More coming soon'

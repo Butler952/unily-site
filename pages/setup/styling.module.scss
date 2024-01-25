@@ -13,13 +13,14 @@
   transition: $transition-standard;
   background: $dark-200;
   &:hover{
-    border: 2px solid $dark-900;
+    border: 2px solid $primary-900;
+    background: $primary-200;
     box-shadow: $shadow-5;
     transform: translateY(-1px);
   }
   &.active{
-    border: 2px solid $dark-900;
-    background: $dark-400;
+    border: 2px solid $primary-900;
+    background: $primary-400;
   }
 }
 .overlayBackground {

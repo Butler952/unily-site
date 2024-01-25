@@ -327,7 +327,7 @@ const CustomDomain = ({
     if (newDomain === '') {
       setNewDomainError('Please enter a valid domain')
       setSaving(false)
-    } else if (newDomain === 'expertpage.io' || newDomain === 'www.expertpage.io' ) {
+    } else if (newDomain === 'vitaely.me' || newDomain === 'www.vitaely.me' ) {
       setNewDomainError("Okay, very funny")
       setSaving(false)
     } else {
@@ -453,7 +453,7 @@ const CustomDomain = ({
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
               <h5 className="mb-1">Connect your own domain</h5>
-              <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p>
+              <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p>
             </div>
             {!sectionsLoading ? 
               (!allUserData?.domain?.name ? 
@@ -658,7 +658,7 @@ const CustomDomain = ({
                 'Connect your own domain',
                 'Create your page', 
                 'Connect your own domain', 
-                'Remove Expertpage.io branding', 
+                'Remove Vitaely.me branding', 
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">
@@ -698,7 +698,7 @@ const CustomDomain = ({
         <hr className="m-0 w-100"></hr>
         <div className="p-4">
           {/* <h6 className="mb-2">Are you sure you want to remove this custom domain?</h6> */}
-          <p>Your Expertpage profile will still be accessible at expertpage.io/{allUserData?.subdomain}</p>
+          <p>Your Expertpage profile will still be accessible at vitaely.me/{allUserData?.subdomain}</p>
           { allUserData?.domain?.name &&
             <div className="d-flex flex-row justify-content-between border-1 border-solid border-dark-300 radius-2 w-100 p-4 mb-4" style={{gap:'24px'}}>
               <div className="d-flex flex-row justify-content-between w-100">

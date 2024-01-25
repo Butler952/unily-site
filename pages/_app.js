@@ -39,8 +39,8 @@ export default function App({ Component, pageProps }) {
     // <body>
       <UserContext.Provider value={userValue}>
         <Head>
-          <title>expertpage.io</title>
-          <link rel="shortcut icon" href="/images/expertpage-logo-icon.svg" />
+          <title>vitaely.me</title>
+          <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
         </Head>
         <Layout>
           <Component {...pageProps} />

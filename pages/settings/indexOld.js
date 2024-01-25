@@ -563,7 +563,7 @@ const Settings = () => {
       }
       <div className="pt-5 mt-5">
         <Head>
-          <title>Settings | Expertpage.io</title>
+          <title>Settings | Vitaely.me</title>
         </Head>
         <Header positionFixed />
         <div>
@@ -755,10 +755,10 @@ const Settings = () => {
                         </div>
                         <h4 className="text-dark-high mb-4">Free</h4>
                         {[
-                          {'string': "Expertpage.io domain", 'included': true},
+                          {'string': "Vitaely.me domain", 'included': true},
                           {'string': "Create your page", 'included': true},
                           {'string': "Connect your own domain", 'included': false},
-                          {'string': "Remove Expertpage.io branding", 'included': false},
+                          {'string': "Remove Vitaely.me branding", 'included': false},
                         ].map((feature, index) =>
                           <div key={index} className="d-flex align-items-start mt-2">
                             <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
@@ -780,10 +780,10 @@ const Settings = () => {
                           <p className="text-dark-high mb-0">/month</p>
                         </div>
                         {[
-                          {'string': "Expertpage.io domain", 'included': true},
+                          {'string': "Vitaely.me domain", 'included': true},
                           {'string': "Create your page", 'included': true},
                           {'string': "Connect your own domain", 'included': true},
-                          {'string': "Remove Expertpage.io branding", 'included': true},
+                          {'string': "Remove Vitaely.me branding", 'included': true},
                           {'string': "More coming soon", 'included': true}
                         ].map((feature, index) =>
                           <div key={index} className="d-flex align-items-start mt-2">
@@ -894,18 +894,18 @@ const Settings = () => {
         <Container className="d-flex flex-column align-items-center pb-5 mb-5">
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-4">
             <Link href="/" className="w-lg-100">
-              <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path 
                   className="fill-dark-600"
                   fillRule="evenodd" 
                   clipRule="evenodd" 
-                  d={ICONS.LOGO_FULL} 
+                  d={ICONS.LOGO_ICON} 
                 />
               </svg>
             </Link>
           </div>
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-            <p className="text-dark-dis mb-0">© Copyright ExpertPage {new Date().getFullYear()}</p>
+            <p className="text-dark-dis mb-0">© Copyright Vitaely {new Date().getFullYear()}</p>
           </div>
         </Container>
       </div>

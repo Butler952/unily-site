@@ -42,6 +42,7 @@ import AddTestimonial from './AddTestimonial';
 import EditTestimonial from './EditTestimonial';
 import Styling from './Styling';
 import BookACall from './BookACall';
+import Template from './Template';
 
 const EditProfile = ({
     showEditProfileModal, 
@@ -55,8 +56,11 @@ const EditProfile = ({
 
   const [user, setUser] = useState('')
 
-  const [stylingTheme, setStylingTheme] = useState('');
-  const [stylingThemeChanged, setStylingThemeChanged] = useState(false);
+  const [stylingTemplate, setStylingTemplate] = useState('');
+  const [stylingTemplateChanged, setStylingTemplateChanged] = useState(false);
+
+  const [template, setTemplate] = useState('');
+  const [templateChanged, setTemplateChanged] = useState(false);
 
   const [basicInfoFirstName, setBasicInfoFirstName] = useState('');
   const [basicInfoFirstNameChanged, setBasicInfoFirstNameChanged] = useState(false);
@@ -321,8 +325,11 @@ const EditProfile = ({
 
     setEditProfileModalIndex('')
 
-    setStylingTheme('')
-    setStylingThemeChanged(false)
+    setStylingTemplate('')
+    setStylingTemplateChanged(false)
+
+    setTemplate('')
+    setTemplateChanged(false)
 
     setBasicInfoFirstName('')
     setBasicInfoFirstNameChanged(false)
@@ -578,38 +585,38 @@ const EditProfile = ({
     resetFields();
     switch (editProfileModalState) {
       case 'Add product': case 'Edit product':
-        handleEditProfileChangeView('Products')
+        handleEditProfileChangeView('Products', "What you're selling")
         break;
       case 'Add service': case 'Edit service':
-        handleEditProfileChangeView('Services')
+        handleEditProfileChangeView('Services', "What you're offering")
         break;
       case 'Add feature': case 'Edit feature':
         handleEditProfileChangeView('Featured')
         break;
       case 'Add link': case 'Edit link':
-        handleEditProfileChangeView('Links')
+        handleEditProfileChangeView('Links', "Highlight anything you like")
         break;
       case 'Add testimonial': case 'Edit testimonial':
-        handleEditProfileChangeView('Testimonials')
+        handleEditProfileChangeView('Testimonials', "Highlight quotes from clients")
         break;
       case 'Add post': case 'Edit post':
-        handleEditProfileChangeView('Posts')
+        handleEditProfileChangeView('Posts', "Your best written content")
         break;
-      // case 'Add project' || 'Edit project':
-      //   handleEditProfileChangeView('Projects')
-      //   break;
-      // case 'Add experience' || 'Edit experience':
-      //   handleEditProfileChangeView('Experience')
-      //   break;
-      // case 'Add education' || 'Edit education':
-      //   handleEditProfileChangeView('Education')
-      //   break;
-      // case 'Add volunteering' || 'Edit volunteering':
-      //   handleEditProfileChangeView('Volunteering')
-      //   break;
-      // case 'Add side project' || 'Edit side project':
-      //   handleEditProfileChangeView('Side projects')
-      //   break;
+      case 'Add project': case 'Edit project':
+        handleEditProfileChangeView('Projects', "Completed as part of your job")
+        break;
+      case 'Add experience': case 'Edit experience':
+        handleEditProfileChangeView('Experience', "Your work experience")
+        break;
+      case 'Add education': case 'Edit education':
+        handleEditProfileChangeView('Education', "Where have you studied")
+        break;
+      case 'Add volunteering': case 'Edit volunteering':
+        handleEditProfileChangeView('Volunteering', "Things you've done for free")
+        break;
+      case 'Add side project': case 'Edit side project':
+        handleEditProfileChangeView('Side projects', "Projects from outside of work")
+        break;
       default:  
         handleEditProfileChangeView('default')
         break;
@@ -661,9 +668,15 @@ const EditProfile = ({
   };
 
   const editProfileOptions = [
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Styling",
+    //   "subtitle": "Customise the style of your profile",
+    //   "icon": ICONS.USER,
+    // },
     {
       "id": uuidv4(),
-      "title": "Styling",
+      "title": "Template",
       "subtitle": "Customise the style of your profile",
       "icon": ICONS.USER,
     },
@@ -687,44 +700,69 @@ const EditProfile = ({
     },
     {
       "id": uuidv4(),
-      "title": "Products",
-      "subtitle": "What you're selling",
-      "icon": ICONS.PRODUCT
+      "title": "Side projects",
+      "subtitle": "Projects from outside of work",
+      "icon": ICONS.SIDE_PROJECTS
     },
     {
       "id": uuidv4(),
-      "title": "Services",
-      "subtitle": "What you're offering",
-      "icon": ICONS.SERVICE
+      "title": "Experience",
+      "subtitle": "Your work experience",
+      "icon": ICONS.WORK
     },
     {
       "id": uuidv4(),
-      "title": "Testimonials",
-      "subtitle": "Highlight quotes from clients",
-      "icon": ICONS.SERVICE
+      "title": "Projects",
+      "subtitle": "Completed as part of your job",
+      "icon": ICONS.PROJECTS
     },
+    {
+      "id": uuidv4(),
+      "title": "Education",
+      "subtitle": "Where have you studied",
+      "icon": ICONS.SCHOOL
+    },
+    {
+      "id": uuidv4(),
+      "title": "Volunteering",
+      "subtitle": "Unpaid experience",
+      "icon": ICONS.VOLUNTEERING
+    },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Products",
+    //   "subtitle": "What you're selling",
+    //   "icon": ICONS.PRODUCT
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Services",
+    //   "subtitle": "What you're offering",
+    //   "icon": ICONS.SERVICE
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Testimonials",
+    //   "subtitle": "Highlight quotes from clients",
+    //   "icon": ICONS.SERVICE
+    // },
     // {
     //   "id": uuidv4(),
     //   "title": "Featured",
     //   "subtitle": "Places where you've been featured",
     //   "icon": ICONS.FEATURED
     // },
-    {
-      "id": uuidv4(),
-      "title": "Posts",
-      "subtitle": "Your best written content",
-      "icon": ICONS.MAIL
-    },
-    {
-      "id": uuidv4(),
-      "title": "Book a call",
-      "subtitle": "Embed Cal.com on your page",
-      "icon": ICONS.MAIL
-    },
     // {
     //   "id": uuidv4(),
-    //   "title": "Side projects",
-    //   "icon": ICONS.SIDE_PROJECTS
+    //   "title": "Posts",
+    //   "subtitle": "Your best written content",
+    //   "icon": ICONS.MAIL
+    // },
+    // {
+    //   "id": uuidv4(),
+    //   "title": "Book a call",
+    //   "subtitle": "Embed Cal.com on your page",
+    //   "icon": ICONS.MAIL
     // },
     // {
     //   "id": uuidv4(),
@@ -732,29 +770,10 @@ const EditProfile = ({
     //   "icon": ICONS.ABOUT
     // },
     // {
-    //   "id": uuidv4(),
-    //   "title": "Experience",
-    //   "icon": ICONS.WORK
-    // },
-    // {
-    //   "id": uuidv4(),
-    //   "title": "Education",
-    //   "icon": ICONS.SCHOOL
-    // },
-    // {
-    //   "id": uuidv4(),
-    //   "title": "Projects",
-    //   "icon": ICONS.PROJECTS
-    // },
     // {
     //   "id": uuidv4(),
     //   "title": "Testimonials",
     //   "icon": ICONS.SIDE_PROJECTS
-    // },
-    // {
-    //   "id": uuidv4(),
-    //   "title": "Volunteering",
-    //   "icon": ICONS.VOLUNTEERING
     // },
     // {
     //   "id": 5,
@@ -816,10 +835,20 @@ const EditProfile = ({
         { editProfileModalState == 'Styling' && (
           <Styling
             user={user}
-            stylingTheme={stylingTheme}
-            stylingThemeChanged={stylingThemeChanged}
-            setStylingTheme={setStylingTheme}
-            setStylingThemeChanged={setStylingThemeChanged}
+            stylingTemplate={stylingTemplate}
+            stylingTemplateChanged={stylingTemplateChanged}
+            setStylingTemplate={setStylingTemplate}
+            setStylingTemplateChanged={setStylingTemplateChanged}
+            handleEditProfileChangeView={handleEditProfileChangeView}
+          />
+        )}
+        { editProfileModalState == 'Template' && (
+          <Template
+            user={user}
+            template={template}
+            templateChanged={templateChanged}
+            setTemplate={setTemplate}
+            setTemplateChanged={setTemplateChanged}
             handleEditProfileChangeView={handleEditProfileChangeView}
           />
         )}
@@ -1244,11 +1273,11 @@ const EditProfile = ({
           <>
           <EditExperience 
             user={user}
+            editProfileModalIndex={editProfileModalIndex}
             experiencesLogo={experiencesLogo}
             setExperiencesLogo={setExperiencesLogo}
             experiencesLogoChanged={experiencesLogoChanged}
             setExperiencesLogoChanged={setExperiencesLogoChanged}
-            editProfileModalIndex={editProfileModalIndex}
             experiencesCompany={experiencesCompany}
             setExperiencesCompany={setExperiencesCompany}
             experiencesCompanyChanged={experiencesCompanyChanged}

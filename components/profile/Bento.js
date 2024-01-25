@@ -32,6 +32,8 @@ const Bento = (props) => {
   }
 
   useEffect(() => {
+    document.body.style.background = '#000000';
+
     checkUser();
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
@@ -172,15 +174,15 @@ const Bento = (props) => {
   return (
     <div style={{ backgroundColor: '#000000' }}>
       {props.email !== undefined ?
-        <>
+        <div>
           <Head>
             <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
             {props.summary ? <meta name="description" content={props.summary} /> : null}
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
+            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -197,12 +199,12 @@ const Bento = (props) => {
                       className={`${profileStyles.bentoCard} ${profileStyles.bentoCardLarge} ${profileStyles.bentoCardImage} p-4`} 
                       style={props.background_cover_image_url ? { backgroundImage: `url(${props.background_cover_image_url})` } : null}
                     >
-                      <div className="d-flex flex-column justify-content-end h-100">
+                      <div className="d-flex flex-column justify-content-end h-100 gap-2">
                         {props.full_name &&
                           <h2 className="mb-0 text-light-high font-weight-medium">{props.full_name}</h2>
                         }
                         {props.headline &&
-                          <h5 className="mb-0 text-light-med">{props.headline}</h5>
+                          <h5 className="mb-0 text-light-med font-weight-medium">{props.headline}</h5>
                         }
                       </div>
                     </div>
@@ -219,7 +221,7 @@ const Bento = (props) => {
                       </div>
                     </div> */}
 
-                    { props &&
+                    {/* { props &&
                       props.displayInfo &&
                       props.displayInfo.basicInfo &&
                       props.displayInfo.basicInfo.each &&
@@ -241,7 +243,43 @@ const Bento = (props) => {
                           </div>
                         </a>
                       </>
-                    } 
+                    }  */}
+                    {(props.linksPrimary || props.email || links) &&
+                      (props.linksPrimary ?
+                        <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`${profileStyles.bentoCard} p-4`}>
+                          <div className="d-flex flex-row justify-content-between">
+                            <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
+                              <Icon icon={ICONS.LINK} size='32' className="fill-light-700" />
+                            </div>
+                            <div className="tag light small medium">Link</div>
+                          </div>
+                          <div className="w-100">
+                            <div className={`${profileStyles.jobContent}`}>
+                              <div className="">
+                                <p className="text-light-high font-weight-medium mb-0">{props.linksPrimary.label}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      :
+                        // <a href={'mailto:' + props.email} target="_blank" className={`btn primary high w-100 w-sm-auto`}>Contact me</a>
+                        <a href={'mailto:' + props.email} target="_blank" className={`${profileStyles.bentoCard} p-4`}>
+                          <div className="d-flex flex-row justify-content-between">
+                            <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}>
+                              <Icon icon={ICONS.LINK} size='32' className="fill-light-700" />
+                            </div>
+                            <div className="tag light small medium">Link</div>
+                          </div>
+                          <div className="w-100">
+                            <div className={`${profileStyles.jobContent}`}>
+                              <div className="">
+                                <p className="text-light-high font-weight-medium mb-0">Contact me</p>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      )
+                    }
 
                     {(props.links && props.links.length > 0) &&
                       <>
@@ -529,20 +567,20 @@ const Bento = (props) => {
             <div className='py-5 text-center'>
               <Container>
                 <a href="/" style={{ textDecoration: 'none' }}>
-                  <svg height="32" viewBox="0 0 85 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       className="fill-light-700"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d={ICONS.LOGO}
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d={ICONS.LOGO_ICON}
                     />
                   </svg>
-                  <p className="text-light-low mt-2 mb-0">Powered by ExpertPage</p>
+                  <p className="text-light-low mt-2 mb-0">Powered by Vitaely</p>
                 </a>
               </Container>
             </div>
           </div>
-        </>
+        </div>
         :
         <div className="d-flex justify-content-center align-items-center bg-dark-900 py-5" style={{ minHeight: '100vh' }}>
           <Container>

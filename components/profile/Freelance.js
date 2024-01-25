@@ -356,7 +356,7 @@ const Freelance = ({
     // <body className={theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body}>
       <>
         {email !== undefined ?
-          <div className={theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body} style={{paddingTop: '66px'}}>
+          <div className={theme?.mode !== 'dark' ? lightThemeStyles.body : darkThemeStyles.body} style={{paddingTop: '65px'}}>
 
             <Head>
               <title>{full_name} {headline && `| ${headline}`}</title>
@@ -364,8 +364,8 @@ const Freelance = ({
               {full_name && <meta name="author" content={full_name} />}
               <meta property="og:title" content={`${full_name} | ${headline}`} />
               {summary ? <meta property="og:description" content={summary} /> : null}
-              {level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${pageId}`} />}
-              {level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${pageId}`} />}
+              {level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${pageId}`} />}
+              {level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${pageId}`} />}
               {background_cover_image_url ? <meta property="og:image" content={background_cover_image_url} /> : null}
               <meta property="og:type" content="website" />
             </Head>
@@ -383,7 +383,7 @@ const Freelance = ({
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           setHeaderImageError(true)
-                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                         }}
                         style={{ display: 'none' }}
                       />
@@ -399,7 +399,7 @@ const Freelance = ({
                     //   onError={({ currentTarget }) => {
                     //     currentTarget.onerror = null; // prevents looping
                     //     setProfilePictureError(true)
-                    //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                    //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                     //   }}
                     //   style={background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                     //   className={styles.profilePicture}
@@ -410,7 +410,7 @@ const Freelance = ({
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.className = 'd-none'
-                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                         }}
                         // style={background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                         style={{marginTop: '48px' }}
@@ -510,7 +510,7 @@ const Freelance = ({
                       <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                         <div className="w-100 my-2">
                           <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>About</h4>
-                          <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getSummaryText()}</p>
+                          {getSummaryText()}
                         </div>
                       </div>
                     </div>
@@ -545,12 +545,12 @@ const Freelance = ({
                                 <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                   {product.logo_url ?
                                     <div className="mb-4 w-100">
-                                      <a target="_blank" href={convertToLink(product.url)} className="d-block position-relative w-100">
+                                      <div className="d-block position-relative w-100">
                                         <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
                                           <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${product.logo_url ? product.logo_url : null})` }}>
                                           </div>
                                         </div>
-                                      </a>
+                                      </div>
                                     </div>
                                     : null
                                   }
@@ -613,12 +613,12 @@ const Freelance = ({
                                 {service.logo_url ? (
                                   service.url ? 
                                     <div className="mb-4 w-100">
-                                      <a target="_blank" href={convertToLink(service.url)} className="d-block position-relative w-100">
+                                      <div className="d-block position-relative w-100">
                                         <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
                                           <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${service.logo_url ? service.logo_url : null})` }}>
                                           </div>
                                         </div>
-                                      </a>
+                                      </div>
                                     </div>
                                   :
                                     <div className="mb-4 w-100">
@@ -636,6 +636,50 @@ const Freelance = ({
                                   <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>{service.name}</h4>
                                   {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
                                   {service.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{service.description}</p> : null}
+                                </div>
+                                {/* <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-sm-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a> */}
+                              </div>
+                            </a>
+                          )
+                        })}
+                    </div>
+                  </div>
+                }
+                {(experiences && experiences.length > 0) &&
+                  <div style={{paddingTop: '64px', paddingBottom: '64px'}}>
+                    <h3 className={`mb-5 ${theme?.mode == 'dark' && 'text-light-high'}`}>Experience</h3>
+                    <div className={`${styles.layoutGrid}`}>
+                        {experiences.map((experience, index) => {
+                          // const [serviceDescriptionShowMore, setServiceDescriptionShowMore] = useState(false);
+                          return (
+                            <a key={index} target="_blank" href={convertToLink(experience.url)} className="d-block position-relative w-100">
+                              <div className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
+                                {experience.logo_url ? (
+                                  experience.url ? 
+                                    <div className="mb-4 w-100">
+                                      <div className="d-block position-relative w-100">
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${experience.logo_url ? experience.logo_url : null})` }}>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  :
+                                    <div className="mb-4 w-100">
+                                      <div className="d-block position-relative w-100">
+                                        <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
+                                          <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${experience.logo_url ? experience.logo_url : null})` }}>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                  : null
+                                }
+                                <div className="w-100 my-2">
+                                  <h4 className={`mb-2 ${theme?.mode == 'dark' && 'text-light-high'}`}>{experience.name}</h4>
+                                  {/* {service.description ? <p className={`large mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{getDescriptionText(service.description, serviceDescriptionShowMore, setServiceDescriptionShowMore)}</p> : null} */}
+                                  {experience.description ? <p className={` mb-0 ${theme?.mode == 'dark' && 'text-light-med'}`}>{experience.description}</p> : null}
                                 </div>
                                 {/* <a href={service.url ? convertToLink(service.url) : 'mailto:' + email} className="btn primary high w-100 w-sm-auto mt-4">{service.url ? 'Learn more' : 'Contact me'}</a> */}
                               </div>
@@ -691,11 +735,11 @@ const Freelance = ({
                                 }
                                 <div className="d-flex flex-row align-items-center gap-4">
                                   {testimonial.avatar_url ?
-                                    <a target="_blank" href={convertToLink(testimonial.url)}>
+                                    <div>
                                       <div>
                                         <div className={`position-relative overflow-hidden ${profileStyles.avatarImage}`} style={{ backgroundImage: `url(${testimonial.avatar_url ? testimonial.avatar_url : null})`, width: '48px', height: '48px' }}></div>
                                       </div>
-                                    </a>
+                                    </div>
                                     : null
                                   }
                                   <div className="w-100">
@@ -730,12 +774,12 @@ const Freelance = ({
                               <div  className={`${styles.contentCard} ${theme?.mode == 'dark' && styles.contentCardDark} p-4`}>
                                 {post.logo_url ?
                                   <div className="mb-4 w-100">
-                                    <a target="_blank" href={convertToLink(post.url)} className="d-block position-relative w-100">
+                                    <div className="d-block position-relative w-100">
                                       <div className="d-flex flex-column w-100" style={{ gap: '16px' }}>
                                         <div className={`w-100 position-relative overflow-hidden ${profileStyles.heroImage}`} style={{ backgroundImage: `url(${post.logo_url ? post.logo_url : null})` }}>
                                         </div>
                                       </div>
-                                    </a>
+                                    </div>
                                   </div>
                                   : null
                                 }
@@ -800,12 +844,12 @@ const Freelance = ({
                   </div>
                 } */}
               </div>
-              {/* <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path 
                   className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
                   fillRule="evenodd" 
                   clipRule="evenodd" 
-                  d={ICONS.LOGO_FULL} 
+                  d={ICONS.LOGO_ICON} 
                 />
               </svg> */}
               {product ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ?  
@@ -820,35 +864,33 @@ const Freelance = ({
                 //           d={ICONS.LOGO} 
                 //         />
                 //       </svg>
-                //       <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by ExpertPage</p>
+                //       <p className={`${theme?.mode !== 'dark' ? 'text-dark-low' : 'text-light-low'} mt-2 mb-0`}>Powered by Vitaely</p>
                 //     </a>
-                //     {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
+                //     {/* <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p> */}
                 //   </Container>
                 // </div>
                 null
               : null) : null ) : 
-              <div className={`${theme?.mode == 'dark' ? styles.footerLinkDark : styles.footerLink} d-flex flex-center flex-column text-center mx-auto`} style={{marginTop: '96px', marginBottom: '120px'}}>
+              <div className={`${theme?.mode == 'dark' ? styles.footerLinkDark : styles.footerLink}  text-center mx-auto`} style={{marginTop: '96px', marginBottom: '120px'}}>
                 {/* <a href="/">
-                  <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path 
                       className={`${theme?.mode == 'dark' ? 'fill-light-600' : 'fill-dark-600'}`}
                       fillRule="evenodd" 
                       clipRule="evenodd" 
-                      d={ICONS.LOGO_FULL} 
+                      d={ICONS.LOGO_ICON} 
                     />
                   </svg>
                 </a> */}
-                <a className="mx-auto align-items-center flex-wrap" href="/users/register">
-                  <span className="">{`Create your `}</span><svg viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width: '110px', height: 'auto', marginLeft: '0px', marginRight: '2px', marginBottom: '3px' }}>
-                    <path 
-                      fillRule="evenodd" 
-                      clipRule="evenodd" 
-                      d={ICONS.LOGO_FULL} 
-                    />
-                  </svg>
-                  <span className="">{` today`}</span>
-                </a>
-
+                <a className="d-flex align-items-center justify-content-center flex-row font-weight-medium mb-0 gap-2" href="/users/register">
+                    <svg height="32" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path 
+                        fillRule="evenodd" 
+                        clipRule="evenodd" 
+                        d={ICONS.LOGO_ICON} 
+                      />
+                    </svg>
+                  Built with Vitaely.me</a>  
               </div>
               }
             </div>

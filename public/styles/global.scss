@@ -81,12 +81,12 @@ a {
 .text-dark-dis { color: $dark-600; }
 
 .text-light-high { color: $light-900; }
-// .text-light-med { color: $light-800; }
-.text-light-med { color: #989cae; }
-// .text-light-low { color: $light-700; }
-.text-light-low { color: #7c8198; }
-// .text-light-dis { color: $light-600; }
-.text-light-dis { color: #5a5e72; }
+.text-light-med { color: $light-800; }
+// .text-light-med { color: #989cae; }
+.text-light-low { color: $light-700; }
+// .text-light-low { color: #7c8198; }
+.text-light-dis { color: $light-600; }
+// .text-light-dis { color: #5a5e72; }
 
 .text-primary-high { color: $primary-900; }
 .text-primary-med { color: $primary-800; }
@@ -263,12 +263,12 @@ hr {border-top: 1px solid $dark-300;}
 .fill-dark-100 { fill: $dark-100; }
 
 .fill-light-900 { fill: $light-900; }
-// .fill-light-800 { fill: $light-800; }
-.fill-light-800 { fill: #989cae; }
-// .fill-light-700 { fill: $light-700; }
-.fill-light-700 { fill: #7c8198; }
-// .fill-light-600 { fill: $light-600; }
-.fill-light-600 { fill: #5a5e72; }
+.fill-light-800 { fill: $light-800; }
+// .fill-light-800 { fill: #989cae; }
+.fill-light-700 { fill: $light-700; }
+// .fill-light-700 { fill: #7c8198; }
+.fill-light-600 { fill: $light-600; }
+// .fill-light-600 { fill: #5a5e72; }
 .fill-light-500 { fill: $light-500; }
 .fill-light-400 { fill: $light-400; }
 .fill-light-300 { fill: $light-300; }
@@ -1385,12 +1385,12 @@ textarea {
   border-radius: $radius-v-small;
 }
 .checkbox-container:hover input ~ .checkmark {
-  border: 2px solid $dark-900;
+  border: 2px solid $primary-900;
 }
 .checkbox-container input{
   &:checked ~ .checkmark {
-    background-color: $dark-900;
-    border: 2px solid $dark-900;
+    background-color: $primary-900;
+    border: 2px solid $primary-900;
   }
   &:disabled ~ .checkmark {
     background-color: $dark-300;

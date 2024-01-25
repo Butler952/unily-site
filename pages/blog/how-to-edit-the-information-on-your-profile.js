@@ -22,10 +22,10 @@ const HowToEditYourProfile = () => {
       <Post 
         title="How to edit the information on your profile"
         image='/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg'
-        imageAlt="A short guide on how to edit your professional information on your expertpage.io profile."
+        imageAlt="A short guide on how to edit your professional information on your vitaely.me profile."
         readingDuration="2"
         hideFooter
-        description="A short guide on how to edit your professional information on your expertpage.io profile."
+        description="A short guide on how to edit your professional information on your vitaely.me profile."
         url="how-to-edit-the-information-on-your-profile"
       >
         <div id="why-add-links" className="py-4 background-light">
@@ -52,10 +52,10 @@ const HowToEditYourProfile = () => {
           <div className={`${styles.featureCard} my-5`}>
             <img alt="Edit profile option in the menu dropdown" src='../../images/blog/how-to-edit-the-information-on-your-profile/edit-experience-logo.jpeg'></img>
           </div>
-          <p className="large">To upgrade your plan, head to the <a href="/settings">settings</a> page of your expertpage.io account.</p>
+          <p className="large">To upgrade your plan, head to the <a href="/settings">settings</a> page of your vitaely.me account.</p>
           <p className="large">Head to the “Plan” section and click “Upgrade” on the Premium plan. Complete the payment in the secure Stripe Checkout portal and you're ready to resync your profile.</p>
           <div className={`${styles.featureCard} my-5`}>
-            <img alt="Manage your expertpage.io plan" src='../../images/blog/how-to-keep-your-profile-up-to-date/plan-section.jpeg'></img>
+            <img alt="Manage your vitaely.me plan" src='../../images/blog/how-to-keep-your-profile-up-to-date/plan-section.jpeg'></img>
           </div>
         </div>
         <div className="py-5 background-light">
@@ -66,9 +66,7 @@ const HowToEditYourProfile = () => {
               <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{maxWidth: '560px'}}>Create your online resume in 2 minutes</h2>
             }
             <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-            <Link href="/users/register">
-              <a className="btn primary high large">Get started</a>
-            </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
           </div>
         </div>
       </Post>

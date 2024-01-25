@@ -31,6 +31,8 @@ const StaccatoProfile = (props) => {
   }
 
   useEffect(() => {
+    document.body.style.background = '#fbfbf8';
+    
     checkUser();
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
@@ -193,8 +195,8 @@ const StaccatoProfile = (props) => {
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
+            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -227,35 +229,71 @@ const StaccatoProfile = (props) => {
                     </div>
                     {/* {props.background_cover_image_url && <div className="w-100 position-relative radius-4 overflow-hidden" style={{ paddingTop: '56.25%', backgroundPosition: 'center',  backgroundSize: 'cover', backgroundImage: `url(${props.background_cover_image_url})` }}></div>} */}
                   </div>
-                  {props &&
-                  props.displayInfo &&
-                  props.displayInfo.basicInfo &&
-                  props.displayInfo.basicInfo.each &&
-                  props.displayInfo.basicInfo.each.email &&
-                  props.displayInfo.basicInfo.each.email
-                  || props.links ?
-                  <div className="d-flex flex-column" style={{ gap: '16px' }}>
-                    {props.email && props.displayInfo.basicInfo.each.email &&
-                      <a href={'mailto:' + props.email} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
-                        Email
-                        <svg width="32" viewBox="0 0 24 24">
-                          <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
-                        </svg>
-                      </a>
-                    }
-                    {props.links &&
-                      props.links.map((link, index) => {
-                        return (
-                          <a key={index} href={convertToLink(link.url)} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
-                            {link.label}
+                  {/* {props &&
+                    props.displayInfo &&
+                    props.displayInfo.basicInfo &&
+                    props.displayInfo.basicInfo.each &&
+                    props.displayInfo.basicInfo.each.email &&
+                    props.displayInfo.basicInfo.each.email
+                    || props.links ?
+                    <div className="d-flex flex-column" style={{ gap: '16px' }}>
+                      {props.email && props.displayInfo.basicInfo.each.email &&
+                        <a href={'mailto:' + props.email} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
+                          Email
+                          <svg width="32" viewBox="0 0 24 24">
+                            <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
+                          </svg>
+                        </a>
+                      }
+                      {props.links &&
+                        props.links.map((link, index) => {
+                          return (
+                            <a key={index} href={convertToLink(link.url)} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
+                              {link.label}
+                              <svg width="32" viewBox="0 0 24 24">
+                                <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
+                              </svg>
+                            </a>
+                          )
+                        })}
+                    </div>
+                    : ''} */}
+                    {(props.linksPrimary || props.email || links) &&
+                      <div className="d-flex flex-column" style={{ gap: '16px' }}>
+                        {props.linksPrimary ?
+                          <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
+                            {props.linksPrimary.label}
                             <svg width="32" viewBox="0 0 24 24">
                               <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
                             </svg>
                           </a>
-                        )
-                      })}
-                  </div>
-                  : ''}
+                        
+                        :
+                          // <a href={'mailto:' + props.email} target="_blank" className={`btn primary high w-100 w-sm-auto`}>Contact me</a>
+                          <a href={'mailto:' + props.email} target="_blank" className={`${profileStyles.link} ${profileStyles.subheading}`}>
+                            Contact me
+                            <svg width="32" viewBox="0 0 24 24">
+                              <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
+                            </svg>
+                          </a>
+                        }
+                        {props.links &&
+                          props.links.map((link, index) => {
+                            return (
+                              <a 
+                                key={index} 
+                                href={convertToLink(link.url)}
+                                target="_blank" 
+                                className={`${profileStyles.link} ${profileStyles.subheading}`}>
+                                {link.label}
+                                <svg width="32" viewBox="0 0 24 24">
+                              <path d={ICONS.ARROW_RIGHT_STACCATO}></path>
+                            </svg>
+                              </a>
+                            )
+                        })}
+                      </div>
+                    }
                   {props.summary &&
                   <div className="">
                     <h4 className={`mb-5 pb-4 ${profileStyles.heading} ${profileStyles.heading2}`}>About</h4>
@@ -382,15 +420,15 @@ const StaccatoProfile = (props) => {
             <div className='py-5 text-center'>
               <Container>
                 <a href="/" style={{ textDecoration: 'none' }}>
-                  <svg height="32" viewBox="0 0 85 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       className="fill-dark-700"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d={ICONS.LOGO}
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d={ICONS.LOGO_ICON}
                     />
                   </svg>
-                  <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
+                  <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
                 </a>
               </Container>
             </div>

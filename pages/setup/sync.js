@@ -283,7 +283,7 @@ const Sync = () => {
           :
           <h3 className="text-dark-high text-center mb-2">Basic information</h3>
         }
-        <p className="large text-center" style={{maxWidth: '480px'}}>Import your information from your LinkedIn profile to quickly create your ExpertPage page.</p>
+        <p className="large text-center" style={{maxWidth: '480px'}}>Import your information from your LinkedIn profile to quickly create your Vitaely page.</p>
 
         {/* <div className="card m-auto" style={{ maxWidth: "640px" }}> */}
         <div className="d-flex flex-column w-100 my-4" style={{maxWidth: '480px'}}>
@@ -296,7 +296,7 @@ const Sync = () => {
                   {urlError !== '' ? <p className="small text-error-high mt-2">{urlError}</p> : <p className="small text-dark-med mt-2">E.g. https://www.linkedin.com/in/butler952</p> }
                 </div>
                 {/* <div className="d-flex flex-column bg-primary-100 radius-3 p-4 mt-4">
-                  <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into ExpertPage.</p>
+                  <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
                   <a href="https://www.linkedin.com/public-profile/settings" target="_blank">
                     <div className="d-flex align-items-start">
                       <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">

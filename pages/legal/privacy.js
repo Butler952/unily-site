@@ -11,9 +11,9 @@ const Terms = () => {
     >
        <div className="my-4 my-sm-5">
             <div className="Group">
-                <p>Thank you for choosing to be part of our community at expertpage.io (“<strong>Company</strong>”, “<strong>we</strong>”, “<strong>us</strong>”, or “<strong>our</strong>”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at aaron@expertpage.io.</p>
+                <p>Thank you for choosing to be part of our community at vitaely.me (“<strong>Company</strong>”, “<strong>we</strong>”, “<strong>us</strong>”, or “<strong>our</strong>”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at aaron@vitaely.me.</p>
                 <p>When you visit our <Link href="/">website</Link>, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy policy, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites and our services.</p>
-                <p>This privacy policy applies to all information collected through our website (such as <Link href="/">https://www.expertpage.io</Link>), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Services").</p>
+                <p>This privacy policy applies to all information collected through our website (such as <Link href="/">https://www.vitaely.me</Link>), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Services").</p>
                 <p><strong>Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us.</strong></p>         
             </div>
         </div>
@@ -105,7 +105,7 @@ const Terms = () => {
                 <h3>7. Do we collect information from minors?</h3>
                 <br></br>
                 <p>In Short:  We do not knowingly collect data from or market to children under 18 years of age.</p>
-                <p>We do not knowingly solicit data from or market to children under 18 years of age. By using the Services, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the Services. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we have collected from children under age 18, please contact us at aaron@expertpage.io.</p>
+                <p>We do not knowingly solicit data from or market to children under 18 years of age. By using the Services, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the Services. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we have collected from children under age 18, please contact us at aaron@vitaely.me.</p>
             </div>
         </div>
         <hr></hr>
@@ -125,7 +125,7 @@ const Terms = () => {
             <div className="Group">
                 <h3>9. Data breach</h3>
                 <br></br>
-                <p>A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when expertpage.io believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that expertpage.io becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information expertpage.io will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</p>
+                <p>A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when vitaely.me believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that vitaely.me becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information vitaely.me will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</p>
             </div>
         </div>
         <hr></hr>
@@ -151,7 +151,7 @@ const Terms = () => {
                 <h3>12. How can you contact us about this policy?</h3>
                 <br></br>
                 <p>In Short:  Yes, we will update this policy as necessary to stay compliant with relevant laws.</p>
-                <p>If you have questions or comments about this policy, you may contact our Data Protection Officer (DPO), Aaron Butler, by email at aaron@expertpage.io.</p>
+                <p>If you have questions or comments about this policy, you may contact our Data Protection Officer (DPO), Aaron Butler, by email at aaron@vitaely.me.</p>
             </div>
         </div>
         <hr></hr>
@@ -159,7 +159,7 @@ const Terms = () => {
             <div className="Group">
                 <h3>How can you review, update, or delete the data we collect from you?</h3>
                 <br></br>
-                <p>Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request via email at aaron@expertpage.io. We will respond to your request within 30 days.</p>
+                <p>Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request via email at aaron@vitaely.me. We will respond to your request within 30 days.</p>
             </div>
         </div>
     </LegalPage>

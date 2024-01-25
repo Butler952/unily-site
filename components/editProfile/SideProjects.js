@@ -18,7 +18,7 @@ const SideProjects = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit side project', index)
+    handleEditProfileChangeView('Edit side project', "Projects from outside of work", index)
   }
 
   const handleAdd = () => {
@@ -103,7 +103,7 @@ const SideProjects = ({
 
         return (
         <div onClick={() => handleSelect(index)} role="button" key={index} className={`${styles.job} d-flex flex-column align-items-start`} style={{gap:'16px'}}>
-          <div className="d-flex flex-row justify-content-between w-100" style={{gap:'24px'}}>
+          <div className="d-flex flex-row justify-content-between align-items-center w-100" style={{gap:'24px'}}>
           { side_project.logo_url ?
             <div>
               <div className="d-block position-relative" style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden'}}>
@@ -133,7 +133,7 @@ const SideProjects = ({
               <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
             </div>
             }
-            <div className="w-100">
+            <div className="d-flex flex-column align-items-start justify-content-center w-100">
               <p className="large text-dark-high font-weight-medium mb-0">{side_project.name}</p>
               {/* <a target="_blank" href={project.company_linkedin_profile_url} className="text-decoration-none"> */}
               {/* <p className="large text-dark-med mb-0">{project.company}</p> */}

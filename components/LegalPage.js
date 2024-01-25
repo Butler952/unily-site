@@ -40,7 +40,7 @@ const LegalPage = (props) => {
 
       <Head>
         <title>{heroTitle}</title>
-        <link rel="shortcut icon" href="/images/expertpage-logo-icon.svg" />
+        <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
       </Head>
       <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
@@ -67,9 +67,7 @@ const LegalPage = (props) => {
             <h1>Turn your CV into a landing page</h1>
             <p className="large mb-4">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
             <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
-              <Link href="/users/register">
-                <a className="btn primary high large">Get started</a>
-              </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
             </div>
           </div>
           <div className="position-relative d-none d-lg-block" style={{ background: 'rgba(35, 31, 32, 0.03)', height: '440px', width: '440px', minHeight: '440px', minWidth: '440px', borderRadius: '320px' }}>
@@ -123,7 +121,7 @@ const LegalPage = (props) => {
       <div className={`overflow-hidden ${styles.primaryBackground}`}>
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
-            <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1>
+            <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1>
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="iconLightHigh" />
@@ -158,7 +156,7 @@ const LegalPage = (props) => {
       <div>
         <Container className="py-5">
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5">
-            <img className="mb-5 mb-md-0" src="/images/expertpage-logo-full.svg" />
+            <img className="mb-5 mb-md-0" src="/images/vitaely-logo-icon-square.svg" />
             <div className="d-flex flex-column text-center text-md-right">
               <Link href="/"><a className="text-dark-high mb-3">Terms & Conditions</a></Link>
               <Link href="/"><a className="text-dark-high mb-3">Privacy Policy</a></Link>
@@ -166,7 +164,7 @@ const LegalPage = (props) => {
             </div>
           </div>
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-            <p>© Copyright ExpertPage {new Date().getFullYear()}</p>
+            <p>© Copyright Vitaely {new Date().getFullYear()}</p>
             <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p>
           </div>
         </div>

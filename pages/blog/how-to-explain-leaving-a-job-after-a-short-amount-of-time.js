@@ -22,7 +22,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
       <Post 
         title="How to explain leaving a job after a short amount of time"
         image='/images/blog/how-to-explain-leaving-a-job-after-a-short-amount-of-time/how-to-explain-leaving-a-job-after-a-short-amount-of-time.jpg'
-        imageAlt="An online cv created with expertpage.io"
+        imageAlt="An online cv created with vitaely.me"
         readingDuration="2"
         hideFooter
         description="Thinking of leaving your job? You’re not the only one. According to the U.S. Bureau of Labor Statistics; 4.4 million workers quit their jobs in September 2021 alone."
@@ -71,9 +71,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
               <h2 className="hero-title mx-auto mb-4 text-dark-high">Create your online resume in 2 minutes</h2>
             }
             <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-            <Link href="/users/register">
-              <a className="btn primary high large">Get started</a>
-            </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
           </div>
         </div>
       </Post>

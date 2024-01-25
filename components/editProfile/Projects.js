@@ -18,7 +18,7 @@ const Projects = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit project', index)
+    handleEditProfileChangeView('Edit project', "Completed as part of your job" ,index)
   }
 
   const handleAdd = () => {

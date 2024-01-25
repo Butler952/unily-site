@@ -170,7 +170,7 @@ const AppSumo = () => {
       </Head>
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-center justify-content-center mb-5">
-          <img className="mb-2 mb-md-0 mr-md-3" style={{height: '40px'}} src={'/images/expertpage-logo-full.svg'}></img>
+          <img className="mb-2 mb-md-0 mr-md-3" style={{height: '40px'}} src={'/images/vitaely-logo-icon-square.svg'}></img>
           {/* <div className="d-none d-md-block bg-dark-300" style={{height: '48px', width:'1px'}}></div> */}
           <svg height='24' viewBox="0 0 24 24">
             <path className="fill-dark-600" d={ICONS.PLUS}></path>
@@ -183,7 +183,7 @@ const AppSumo = () => {
           <h4 className="text-dark-high">Create your account</h4>
           <div>
             <div className="mx-auto p-3 p-md-4 bg-primary-100 radius-3 mb-4" style={{maxWidth: "640px"}}>
-              <p className="">To activate your <span className="font-weight-medium text-gradient-3">lifetime access</span> to ExpertPage, just create your account and enter your AppSumo code below. We're so excited for you to get started!</p>
+              <p className="">To activate your <span className="font-weight-medium text-gradient-3">lifetime access</span> to Vitaely, just create your account and enter your AppSumo code below. We're so excited for you to get started!</p>
               <div className="d-flex flex-column flex-md-row justify-content-start align-items-md-center gap-3 mt-4">
                 <div className="d-flex flex-row">
                   <img className="radius-5 border-2 border-solid border-light-900" style={{height: '40px'}} src={'/images/avatars/aaron-butler-founder-expertpage.jpeg'}></img>
@@ -191,7 +191,7 @@ const AppSumo = () => {
                 </div>
                 <div className="d-flex flex-column">
                   <p className="mb-0 font-weight-medium"><span className="">Aaron</span></p>
-                  <p className="mb-0 text-dark-low">Co-Founder of <span className="">ExpertPage</span></p>
+                  <p className="mb-0 text-dark-low">Co-Founder of <span className="">Vitaely</span></p>
                 </div>
               </div>
             </div>

@@ -80,9 +80,7 @@ const HowToAceRecordedInterviews = () => {
               <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{maxWidth: '560px'}}>Create your online resume in 2 minutes</h2>
             }
             <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-            <Link href="/users/register">
-              <a className="btn primary high large">Get started</a>
-            </Link>
+            <Link href="/users/register" className="btn primary high large">Get started</Link>
           </div>
         </div>
       </Post>

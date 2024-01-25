@@ -1,7 +1,7 @@
 @import '../../public/styles/variables.scss';
 
 .heading {
-  font-family: 'Gallery Modern', Georgia, 'Times New Roman', Times, serif; 
+  // font-family: 'Gallery Modern', Georgia, 'Times New Roman', Times, serif; 
   // font-family: 'Gallery Modern', 'Cormorant Garamond', Georgia, 'Times New Roman', Times, serif; 
   line-height: 80%;
   font-weight: 500;
@@ -11,14 +11,14 @@
   font-size: 80px;
   letter-spacing: 0;
   @media (min-width: $breakpoint-md) {
-    font-size: 120px;
+    font-size: 100px;
   }
 }
 .heading2 {
   font-size: 56px;
   letter-spacing: 0;
   @media (min-width: $breakpoint-md) {
-    font-size: 88px;
+    font-size: 80px;
   }
 }
 

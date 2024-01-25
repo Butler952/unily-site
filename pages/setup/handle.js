@@ -191,7 +191,7 @@ const Handle = () => {
         <form onSubmit={handleSave} className="w-100">
         <div className="d-flex flex-column pb-4 w-100" style={{ gap: '16px' }}>
           <div className={`d-flex flex-column w-100`}>
-            {/* <p className="text-dark-low mb-0">Choose a custom URL on the expertpage.io domain</p> */}
+            {/* <p className="text-dark-low mb-0">Choose a custom URL on the vitaely.me domain</p> */}
             <div className="mt-3">
               <input
                 type="text"
@@ -212,7 +212,7 @@ const Handle = () => {
                 }
                 onChange={({ target }) => domainChange(target.value)}
               />
-              <p className="small text-dark-med mt-2 mb-0" style={{lineBreak: 'anywhere'}}>expertpage.io/
+              <p className="small text-dark-med mt-2 mb-0" style={{lineBreak: 'anywhere'}}>vitaely.me/
                 {domainChanged ? domain.toLowerCase() :
                   (
                     userContext &&

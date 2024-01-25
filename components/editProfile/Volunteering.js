@@ -18,7 +18,7 @@ const Volunteering = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit volunteering', index)
+    handleEditProfileChangeView('Edit volunteering', "Unpaid experience" ,index)
   }
 
   const handleAdd = () => {

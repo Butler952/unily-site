@@ -25,11 +25,11 @@ const Blog = () => {
     <div>
       <Header />
       <Head>
-      <title>Blog | expertpage.io</title>
+      <title>Blog | vitaely.me</title>
         <meta name="description" content="The latest news and tips on building a professional online presence" />
-        <meta property="og:title" content="Blog | expertpage.io" />
+        <meta property="og:title" content="Blog | vitaely.me" />
         <meta property="og:description" content="The latest news and tips on building a professional online presence" />
-        <meta property="og:url" content="https://www.expertpage.io/blog/" />
+        <meta property="og:url" content="https://www.vitaely.me/blog/" />
         <meta property="og:type" content="website" />
       </Head>
       <div className="container py-5 mb-5">
@@ -71,7 +71,7 @@ const Blog = () => {
             image='/images/blog/how-to-change-your-profile-url/how-to-change-your-profile-url.jpg'
             title="How to change the URL of your profile"
             duration="2"
-            bodyPreview="When you create your ExpertPage profile, we will automatically create a URL for your profile. As an example, this will be..."
+            bodyPreview="When you create your Vitaely profile, we will automatically create a URL for your profile. As an example, this will be..."
             postUrl="/blog/how-to-change-your-profile-url"
             screenWidth={screenWidth}
           />
@@ -87,7 +87,7 @@ const Blog = () => {
             image='/images/blog/how-to-download-your-resume-as-a-pdf/How to download your resume as a PDF.jpg'
             title="How to download your resume as a PDF"
             duration="2"
-            bodyPreview="You’ve created your profile with expertpage.io and you’ve now got a beautiful personal landing page with all your information..."
+            bodyPreview="You’ve created your profile with vitaely.me and you’ve now got a beautiful personal landing page with all your information..."
             postUrl="/blog/how-to-download-your-resume-as-a-pdf"
             screenWidth={screenWidth}
           />

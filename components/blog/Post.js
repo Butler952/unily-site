@@ -37,14 +37,14 @@ const Post = (props) => {
     <div>
       <Header hideShadow/>
       <Head>
-        <title>{props.title} | expertpage.io</title>
+        <title>{props.title} | vitaely.me</title>
         { props.description ? <meta name="description" content={props.description} /> : null }
-        <meta property="og:title" content={`${props.title} | expertpage.io`} />
+        <meta property="og:title" content={`${props.title} | vitaely.me`} />
         <meta property="og:description" content={props.description} />
-        <meta property="og:url" content={`https://www.expertpage.io/blog/${props.url}`} />
+        <meta property="og:url" content={`https://www.vitaely.me/blog/${props.url}`} />
         <meta property="og:type" content="article" />
-        { props.image ? <meta property="og:image" content={`https://www.expertpage.io${props.image}`} /> : null }
-        { props.image ? <meta name="twitter:image" content={`https://www.expertpage.io${props.image}`} /> : null }
+        { props.image ? <meta property="og:image" content={`https://www.vitaely.me${props.image}`} /> : null }
+        { props.image ? <meta name="twitter:image" content={`https://www.vitaely.me${props.image}`} /> : null }
       </Head>
       <ProgressBar
         bgcolor="#5643cc"

@@ -22,10 +22,10 @@ const HowToAddLinksToYourProfile = () => {
       <Post 
         title="How to add links to your profile"
         image='/images/blog/how-to-add-links-to-your-profile/how-to-add-links-to-your-profile.jpg'
-        imageAlt="A short guide on how to add link to your expertpage.io profile."
+        imageAlt="A short guide on how to add link to your vitaely.me profile."
         readingDuration="2"
         hideFooter
-        description="A short guide on how to add link to your expertpage.io profile."
+        description="A short guide on how to add link to your vitaely.me profile."
         url="how-to-add-links-to-your-profile"
       >
         <div className="py-4 background-light">
@@ -86,9 +86,7 @@ const HowToAddLinksToYourProfile = () => {
               <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{maxWidth: '560px'}}>Create your online resume in 2 minutes</h2>
             }
             <p className="mx-auto mb-5 text-dark-med large">Stand out from the crowd. Use your LinkedIn profile to create your very own professional landing page.</p>
-            <Link href="/users/register">
-              <a className="btn primary high large">Get started</a>
-            </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
           </div>
         </div>
       </Post>

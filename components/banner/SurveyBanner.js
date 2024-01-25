@@ -210,7 +210,7 @@ const SurveyBanner = () => {
     { showBanner ? 
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center bg-primary-900 p-3">
         <div>
-          <p className="text-light-high font-weight-medium mb-0">Thank you for signing up for expertpage.io</p>
+          <p className="text-light-high font-weight-medium mb-0">Thank you for signing up for vitaely.me</p>
           <p className="text-light-med mb-0">We’d love to hear why you signed up and what you’re hoping to get out of the product.</p>
         </div>
         <div className="d-flex flex-column flex-sm-row ml-md-3 mt-3 mt-md-0 w-100 w-sm-auto">
@@ -245,7 +245,7 @@ const SurveyBanner = () => {
             <div>
               <form onSubmit={handleSubmit}>
                 {/* <div className="mb-4">
-                  <p className="large text-dark-high mb-1">Why did you sign up to expertpage.io?</p>
+                  <p className="large text-dark-high mb-1">Why did you sign up to vitaely.me?</p>
                   <p className="small text-dark-low">Select as many as you like</p>
                   <label className="checkbox-container small mb-3">I want to stand out from other job candidates
                     <input type="checkbox" value={1} onChange={({target}) => questionWhySignUpChange(target.value)} checked={questionWhySignUpOne}></input>

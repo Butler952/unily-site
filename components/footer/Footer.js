@@ -11,12 +11,12 @@ const Footer = ({dark}) => {
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
           <Link href="/" className="w-lg-100">
-            <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path 
                 className={`${dark ? 'fill-light-600' : 'fill-dark-600'}`}
                 fillRule="evenodd" 
                 clipRule="evenodd" 
-                d={ICONS.LOGO_FULL} 
+                d={ICONS.LOGO_ICON} 
               />
             </svg>
           </Link>
@@ -34,12 +34,12 @@ const Footer = ({dark}) => {
               <Link href="/legal/terms" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Terms & Conditions</Link>
               <Link href="/legal/privacy" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Privacy Policy</Link>
               <Link href="/legal/cookies" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Cookie Policy</Link>
-              <a href="https://expertpage.io/sitemap.xml" target="_blank" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Sitemap</a>
+              <a href="https://vitaely.me/sitemap.xml" target="_blank" className={`${dark ? 'text-light-low' : 'text-dark-low'} mb-0`}>Sitemap</a>
             </div>
           </div>
         </div>
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-          <p className={`${dark ? 'text-light-dis' : 'text-dark-dis'} mb-0`}>© Copyright ExpertPage {new Date().getFullYear()}</p>
+          <p className={`${dark ? 'text-light-dis' : 'text-dark-dis'} mb-0`}>© Copyright Vitaely {new Date().getFullYear()}</p>
           {/* <p>Made by <a href="https://www.aaron-butler.co.uk">Aaron Butler</a> in London</p> */}
         </div>
       </Container>

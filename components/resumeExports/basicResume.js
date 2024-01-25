@@ -166,14 +166,14 @@ const BasicResume = ({ allUserData }) => {
 
   Font.register({
     family: 'InterRegular',
-    src: 'https://www.expertpage.io/fonts/plusJakartaSans/desktop/PlusJakartaSans-Medium.ttf'
-    // src: 'https://www.expertpage.io/fonts/inter/desktop/Inter-Regular.otf'
+    src: 'https://www.vitaely.me/fonts/plusJakartaSans/desktop/PlusJakartaSans-Medium.ttf'
+    // src: 'https://www.vitaely.me/fonts/inter/desktop/Inter-Regular.otf'
   });
 
   Font.register({
     family: 'InterBold',
-    src: 'https://www.expertpage.io/fonts/plusJakartaSans/desktop/PlusJakartaSans-Bold.ttf'
-    // src: 'https://www.expertpage.io/fonts/inter/desktop/Inter-Bold.otf'
+    src: 'https://www.vitaely.me/fonts/plusJakartaSans/desktop/PlusJakartaSans-Bold.ttf'
+    // src: 'https://www.vitaely.me/fonts/inter/desktop/Inter-Bold.otf'
   });
 
   /* Start prevent hyphenation */

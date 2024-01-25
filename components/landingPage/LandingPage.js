@@ -26,15 +26,15 @@ const LandingPage = (props) => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>{`${props.title} | expertpage.io`}</title>
+        <title>{`${props.title} | vitaely.me`}</title>
         { props.subtitle ? <meta name="description" content={props.subtitle} /> : null }
-        <meta property="og:title" content={`${props.title} | expertpage.io`} />
+        <meta property="og:title" content={`${props.title} | vitaely.me`} />
         <meta property="og:description" content={props.subtitle} />
-        <meta property="og:url" content={`https://www.expertpage.io/${props.url}`} />
+        <meta property="og:url" content={`https://www.vitaely.me/${props.url}`} />
         <meta property="og:type" content="website" />
       </Head>
-      <a className={styles.productHunt} href="https://www.producthunt.com/posts/ExpertPage-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ExpertPage-me" target="_blank">
-        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="expertpage.io - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
+      <a className={styles.productHunt} href="https://www.producthunt.com/posts/Vitaely-me?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-Vitaely-me" target="_blank">
+        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291936&theme=light" alt="vitaely.me - Turn your LinkedIn Profile into a landing page | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" />
       </a>
       <Container className="mt-5 py-5">
         <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
@@ -42,9 +42,7 @@ const LandingPage = (props) => {
           { screenWidth > 576 ? <h1>{props.title}</h1> : <h2>{props.title}</h2> }
             <p className="large mb-4">{props.subtitle}</p>
             <div className="d-flex justify-content-center justify-content-lg-start m-auto m-lg-0">
-              <Link href="/users/register">
-                <a className="btn primary high large">Get started</a>
-              </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
             </div>
           </div>
           { !props.heroImage ? 
@@ -88,9 +86,7 @@ const LandingPage = (props) => {
           { screenWidth > 576 ? <h1>{props.title}</h1> : <h2>{props.title}</h2> }
             <p className="large mb-4">{props.subtitle}</p>
             <div className="d-flex justify-content-center m-auto m-lg-0">
-              <Link href="/users/register">
-                <a className="btn primary high large">Get started</a>
-              </Link>
+<Link href="/users/register" className="btn primary high large">Get started</Link>
             </div>
           </div>
           <div className={styles.heroImageWrapper}>
@@ -169,12 +165,12 @@ const LandingPage = (props) => {
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use ExpertPage?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use ExpertPage?</h2> }    
+            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
             <div className={styles.stepsContainer}>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
                 <h3 className="text-light-high my-3">Stand out</h3>
-                <h5 className="text-light-med">{ props.whyExpertPageOne ? props.whyExpertPageOne : `Get yourself noticed with a unique personal landing page.`}</h5>
+                <h5 className="text-light-med">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</h5>
               </div>
               <div className="d-flex flex-column align-items-center">
                 <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />

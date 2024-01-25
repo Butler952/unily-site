@@ -198,7 +198,7 @@ const Domain = () => {
   return (
     <div>
       <Head>
-        <title>Domain | Expertpage.io</title>
+        <title>Domain | Vitaely.me</title>
       </Head>
       <SettingsLayout>
         <div className="d-flex flex-column gap-4">

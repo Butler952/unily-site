@@ -120,13 +120,13 @@ const Home = (props) => {
   return (
     <div>
       <Head>
-        <title>ExpertPage | Build trust and sell more with your own professional site</title>
+        <title>Vitaely | Build trust and sell more with your own professional site</title>
         <meta name="description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
-        <meta property="og:title" content="ExpertPage | Build trust and sell more with your own professional site" />
+        <meta property="og:title" content="Vitaely | Build trust and sell more with your own professional site" />
         <meta property="og:description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
-        <meta property="og:url" content="https://www.expertpage.io/" />
+        <meta property="og:url" content="https://www.vitaely.me/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io" />
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" />
       </Head>
       <Header dark hideShadow />
       <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
@@ -151,14 +151,14 @@ const Home = (props) => {
             <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-between pt-5">
               <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
                 {screenWidth > 767 ? 
-                  <h1 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Build an online brand. Land more clients.</h1> 
+                  <h1 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h1> 
                 : 
-                  <h2 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Build an online brand. Land more clients.</h2>
+                  <h2 className="text-light-high" style={{textShadow: 'rgba(0, 0, 0, 0.26) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h2>
                 }
                 {screenWidth > 767 ? 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own landing page in just a few minutes. <br/> For freelancers and consultants. No tech skills required.</p>
+                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
                 : 
-                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Make your own landing page in just a few minutes. For freelancers and consultants. No tech skills required.</p>
+                  <p className="text-light-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
                 }
                 <div className="d-flex justify-content-center">
                   {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
@@ -171,8 +171,8 @@ const Home = (props) => {
               </div>
               {/* <div className={styles.iframeWrapper}>
                 <iframe className={styles.iframeContent}
-                  title="Example expertpage.io online CV profile"
-                  src="https://www.expertpage.io/aaronbutler">
+                  title="Example vitaely.me online CV profile"
+                  src="https://www.vitaely.me/aaronbutler">
                 </iframe>
               </div> */}
             </div>
@@ -203,7 +203,7 @@ const Home = (props) => {
             <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
               <h2 className="text-light-high mb-5 pb-3" style={{ maxWidth: '560px' }}>Show the world what you have to offer</h2>
               <div className={`${styles.layoutGrid}`}>
-                <p className="text-light-low large mb-0">ExpertPage allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
+                <p className="text-light-low large mb-0">Vitaely allows you to build a website to learn more about you and your products and services, without the need to know how to code or any technical skills.</p>
                 <p className="text-light-low large mb-0">Setting up your personal site is easy and only takes two minutes, you can even use information from your LinkedIn profile to get you started.</p>
               </div>
               {userContext?.stage !== "complete" ?
@@ -232,8 +232,8 @@ const Home = (props) => {
             {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
               <h2 className="text-light-high mb-5 pb-3" style={{ maxWidth: '560px' }}>Build trust with potential clients</h2>
               <div className={`${styles.layoutGrid}`}>
-                <p className="text-light-low large mb-0">Your customers are your best proof of the quality of service that you deliver. With ExpertPage you can add customer testimonials to help build trust with potential clients and land more sales. </p>
-                <p className="text-light-low large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your ExpertPage site and and add links for readers to explore the full thing. </p>
+                <p className="text-light-low large mb-0">Your customers are your best proof of the quality of service that you deliver. With Vitaely you can add customer testimonials to help build trust with potential clients and land more sales. </p>
+                <p className="text-light-low large mb-0">Written excellent content that you think potential clients would love to read? You can feature your best content on your Vitaely site and and add links for readers to explore the full thing. </p>
               </div>
               {userContext?.stage !== "complete" ?
                 <Link href="/users/register" className="btn primary high mt-5">Create my page</Link>
@@ -297,7 +297,7 @@ const Home = (props) => {
                     />
                     <div className="p-4">
                       <h6 className="text-light-high mb-2">Connect your own domain</h6>
-                      <p className="text-light-low mb-0">Show off your ExpertPage profile on your own domain.</p>
+                      <p className="text-light-low mb-0">Show off your Vitaely profile on your own domain.</p>
                     </div>
                   </div>
                   <div className={`${styles.featureItemWrapper} ${styles.featureItemWrapperWide}`}>
@@ -358,7 +358,7 @@ const Home = (props) => {
               </div>
             </div>
             <div className={`d-flex flex-column mx-auto gap-4 pt-5 ${styles.sectionWrapper}`} style={{ maxWidth: '560px', paddingBottom: '160px' }}>
-              {screenWidth > 767 ? <h2 className="text-light-high text-center">Build your brand today with ExpertPage</h2> : <h2 className="text-light-high text-center">Build your brand today with ExpertPage</h2>}
+              {screenWidth > 767 ? <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2> : <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2>}
               {/* <p className="large mb-4" style={{ maxWidth: '640px' }}>It takes two minutes!</p> */}
               <div className="d-flex mx-auto">
                 {/* <Link href="/users/register" className="btn primary high large m-auto">Create my page</Link> */}
@@ -380,7 +380,7 @@ const Home = (props) => {
                   <div className="d-flex flex-column">
                     <CustomToggle eventKey="0" question="How much does it cost?" />
                     <Accordion.Collapse eventKey="0">
-                      <p className="text-light-low mt-3 mb-0 large">It's free to create your ExpertPage site! Upgrade to our premium plan to connect your page to your own domain.</p>
+                      <p className="text-light-low mt-3 mb-0 large">It's free to create your Vitaely site! Upgrade to our premium plan to connect your page to your own domain.</p>
                     </Accordion.Collapse>
                     <hr className="bg-light-300 mb-0 w-100"></hr>
                   </div>
@@ -395,7 +395,7 @@ const Home = (props) => {
                     <CustomToggle eventKey="2" question="What makes this different?" />
                     <Accordion.Collapse eventKey="2">
                       <>
-                        <p className="text-light-low mt-3 large">Your ExpertPage site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p>
+                        <p className="text-light-low mt-3 large">Your Vitaely site is optimised to promote you and your services, and make it easy for potential clients and customers to take the next step. Save time on wondering how you should style your page and make use of our template designed just for freelancers, consultants and small business owners.</p>
                         <p className="text-light-low mb-0 large">You can create your site in under two minutes, making this the fastest way to get your page up and running.</p>
                       </>
                     </Accordion.Collapse>

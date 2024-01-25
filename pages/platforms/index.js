@@ -350,7 +350,7 @@ const Platforms = (props) => {
                   {props.resolvedUrl}
                   <h6 className="mb-2">{site.name}</h6>
                   {site.description && <p>{site.description}</p>}
-                  <p className="mb-0 text-dark-low">{site.customDomain ? site.customDomain : `${site.subdomain}.expertpage.io`}</p>
+                  <p className="mb-0 text-dark-low">{site.customDomain ? site.customDomain : `${site.subdomain}.vitaely.me`}</p>
                 </div>
               </a>
             )

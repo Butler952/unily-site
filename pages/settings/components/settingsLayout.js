@@ -530,21 +530,21 @@ const SettingsLayout = ({children}) => {
           )
             : null}
         </div>
-        <Container className="d-flex flex-column align-items-center pb-5 mb-5">
-          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-4">
+        <Container className="d-flex flex-column align-items-center">
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-3">
             <Link href="/" className="w-lg-100">
-              <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path 
                   className="fill-dark-600"
                   fillRule="evenodd" 
                   clipRule="evenodd" 
-                  d={ICONS.LOGO_FULL} 
+                  d={ICONS.LOGO_ICON} 
                 />
               </svg>
             </Link>
           </div>
           <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-            <p className="text-dark-dis mb-0">© Copyright ExpertPage {new Date().getFullYear()}</p>
+            <p className="text-dark-dis mb-0">© Copyright Vitaely {new Date().getFullYear()}</p>
           </div>
         </Container>
       </div>

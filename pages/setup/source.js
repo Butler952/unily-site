@@ -120,9 +120,9 @@ const Source = () => {
 
       <Container className="d-flex flex-column align-items-start my-5 py-5" style={{ maxWidth: "640px" }}>
         {screenWidth > 575 ?
-          <h2 className="text-dark-high mb-2">How did you hear about ExpertPage?</h2>
+          <h2 className="text-dark-high mb-2">How did you hear about Vitaely?</h2>
           :
-          <h3 className="text-dark-high mb-2">How did you hear about ExpertPage?</h3>
+          <h3 className="text-dark-high mb-2">How did you hear about Vitaely?</h3>
         }
         <p className="large" style={{ maxWidth: '480px' }}>Select one option</p>
 

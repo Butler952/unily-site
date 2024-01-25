@@ -185,15 +185,15 @@ const BasicProfile = (props) => {
   return (
     <div>
       {props.email !== undefined ?
-        <>
+        <div>
           <Head>
             <title>{props.full_name} {props.headline && `| ${props.headline}`}</title>
             {props.summary ? <meta name="description" content={props.summary} /> : null}
             {props.full_name && <meta name="author" content={props.full_name} />}
             <meta property="og:title" content={`${props.full_name} | ${props.headline}`} />
             {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-            {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
-            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
+            {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
+            {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
             {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
             <meta property="og:type" content="website" />
           </Head>
@@ -208,7 +208,7 @@ const BasicProfile = (props) => {
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         setHeaderImageError(true)
-                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                       }}
                       style={{ display: 'none' }}
                     />
@@ -224,7 +224,7 @@ const BasicProfile = (props) => {
                   //   onError={({ currentTarget }) => {
                   //     currentTarget.onerror = null; // prevents looping
                   //     setProfilePictureError(true)
-                  //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                  //     // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                   //   }}
                   //   style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                   //   className={styles.profilePicture}
@@ -235,7 +235,7 @@ const BasicProfile = (props) => {
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.className = 'd-none'
-                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                        // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                       }}
                       // style={props.background_cover_image_url ? { marginTop: '-72px' } : { marginTop: '48px' }}
                       style={{marginTop: '48px' }}
@@ -257,13 +257,13 @@ const BasicProfile = (props) => {
                 <br />
                 <div className="mb-5 d-flex flex-column align-items-center">
                   {props.full_name &&
-                    <h2 className="mb-1">{props.full_name}</h2>
+                    <h2 className="mb-3">{props.full_name}</h2>
                   }
                   {props.headline &&
-                    <h5 className="mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
+                    <h5 className="text-dark-med font-weight-medium mb-0" style={{ maxWidth: '640px' }}>{props.headline}</h5>
                   }
                 </div>
-                {props &&
+                {/* {props &&
                   props.displayInfo &&
                   props.displayInfo.basicInfo &&
                   props.displayInfo.basicInfo.each &&
@@ -287,7 +287,29 @@ const BasicProfile = (props) => {
                         )
                       })}
                   </div>
-                  : ''}
+                  : ''} */}
+                  {(props.linksPrimary || props.email || links) &&
+                    <div className="d-flex justify-content-start flex-column flex-sm-row flex-wrap" style={{ gap: '12px' }}>
+                      {props.linksPrimary ?
+                        <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`btn primary high w-100 w-sm-auto`}>{props.linksPrimary.label}</a>
+                      
+                      :
+                        <a href={'mailto:' + props.email} target="_blank" className={`btn primary high w-100 w-sm-auto`}>Contact me</a>
+                      }
+                      {props.links &&
+                        props.links.map((link, index) => {
+                          return (
+                            <a 
+                            key={index} 
+                            href={convertToLink(link.url)}
+                            target="_blank" 
+                            className={`btn dark medium w-100 w-sm-auto`}>
+                              {link.label}
+                            </a>
+                          )
+                      })}
+                    </div>
+                  }
                 <br /><br />
               </div>
               {props.summary &&
@@ -626,21 +648,21 @@ const BasicProfile = (props) => {
             <div className='py-5 text-center'>
               <Container>
                 <a href="/" style={{textDecoration: 'none'}}>
-                  <svg height="32" viewBox="0 0 85 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path 
                       className="fill-dark-700"
-                      fill-rule="evenodd" 
-                      clip-rule="evenodd" 
-                      d={ICONS.LOGO} 
+                      fillRule="evenodd" 
+                      clipRule="evenodd" 
+                      d={ICONS.LOGO_ICON} 
                     />
                   </svg>
-                  <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
+                  <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
                 </a>
-                {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
+                {/* <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p> */}
               </Container>
             </div>
           </div>
-        </>
+        </div>
         :
         <div className="d-flex justify-content-center align-items-center bg-light-900 py-5" style={{ minHeight: '100vh' }}>
           <Container>

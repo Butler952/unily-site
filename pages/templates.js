@@ -73,16 +73,16 @@ const Templates = () => {
     <div className="overflow-hidden" style={{ background: 'white' }}>
       <Header hideShadow />
       <Head>
-        <title>Landing page templates | expertpage.io</title>
+        <title>Landing page templates | vitaely.me</title>
         <meta name="description" content="Turn your Linkedin Profile into a landing page in seconds with our carefully crafted templates." />
-        <meta property="og:title" content="Landing page templates | expertpage.io" />
+        <meta property="og:title" content="Landing page templates | vitaely.me" />
         <meta property="og:description" content="Turn your Linkedin Profile into a landing page in seconds with our carefully crafted templates." />
-        <meta property="og:url" content="https://www.expertpage.io/templates" />
+        <meta property="og:url" content="https://www.vitaely.me/templates" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.expertpage.io%2Ftemplates"/>
+        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Ftemplates"/>
       </Head>
       <Container className="mt-5 py-5">
-        <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        <div className="d-flex flex-column flex-lg-row align-items-start justify-content-between">
           <div style={{ maxWidth: '560px' }}>
           { screenWidth > 576 ? <h1>Page templates</h1> : <h2>Page templates</h2> }
             <p className="large mb-0">Turn your Linkedin Profile into a landing page in seconds with our carefully crafted templates.</p>
@@ -91,7 +91,7 @@ const Templates = () => {
         <div className={`${styles.sectionWrapper} d-flex flex-column align-items-center`}>
           <div className={`${styles.templatesGrid}`} style={{gap: '16px'}}>
             {templates.map((template, index) => 
-              <Link href="/users/register">
+              <Link href="/users/register" style={{textDecoration: 'none'}}>
                 <div role="button" className={`d-flex flex-column radius-3 p-3 w-100 ${settingsStyles.planCard} ${template.active && settingsStyles.active}`} style={{gap: '16px'}}>
                   <div className="d-flex flex-row justify-content-between align-items-center">
                     <p className="large font-weight-bold text-dark-high mb-0">{template.label}</p>
@@ -115,18 +115,14 @@ const Templates = () => {
         </div>
         <div className={`${styles.sectionWrapper}`}>
           <div className="d-flex flex-column" style={{gap: '24px'}}>
-            <div className={`align-items-start ${styles.featureCard}`} style={{background: '#FBFBF8'}}>
+            <div className={`align-items-start bg-primary-200 ${styles.featureCard}`}>
               <div className="w-100 order-1 order-lg-1">
                 {screenWidth > 576 ? <h2>Create your page</h2> : <h3>Create your page</h3>}
                 <p className="large mb-4">Create your very own professional website in just two minutes.</p>
                 {screenWidth > 768 ? 
-                  <Link href="/users/register">
-                    <a className="btn primary high">Get started</a>
-                  </Link>
+                  <Link href="/users/register" className="btn primary high">Get started</Link>
                   : 
-                  <Link href="/users/register">
-                    <a className="btn primary high w-100">Get started</a>
-                  </Link>
+                  <Link href="/users/register" className="btn primary high w-100">Get started</Link>
                 }
               </div>
               <div className="w-100 order-0 order-lg-1">

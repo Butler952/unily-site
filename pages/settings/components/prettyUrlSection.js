@@ -250,7 +250,7 @@ const PrettyUrlSection = ({
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
               <h5 className="mb-1">Handle</h5>
-              <p className="text-dark-low mb-0">Choose your expertpage.io handle</p>
+              <p className="text-dark-low mb-0">Choose your vitaely.me handle</p>
             </div>
             <div className="">
               <input
@@ -272,7 +272,7 @@ const PrettyUrlSection = ({
                 }
                 onChange={({ target }) => domainChange(target.value)}
               />
-              <p className="small text-dark-med mt-2 mb-0">expertpage.io/
+              <p className="small text-dark-med mt-2 mb-0">vitaely.me/
                 {domainChanged ? domain :
                   (
                     userContext &&
@@ -348,7 +348,7 @@ const PrettyUrlSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Custom URL on expertpage.io domain', 
+                'Custom URL on vitaely.me domain', 
                 'Logos for experience and education',
                 'Unlimited re-syncing', 
                 'More coming soon'

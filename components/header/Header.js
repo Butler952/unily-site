@@ -354,7 +354,7 @@ const Header = ({
             ${hideShadow ? 'shadow-0' : 'border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid'}
             ${positionFixed && 'position-fixed'}
             ${dark ? ' border-light-300' : 'border-dark-300'}
-            ${!hideShadow && dark ? 'bg-light-100' : null}
+            ${!hideShadow && dark ? 'bg-dark-800' : null}
             ${!dark && 'bg-light-900'}
 
           `} 
@@ -367,17 +367,17 @@ const Header = ({
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
                     {screenWidth > 767 ?
-                      <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path 
                           className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
                           fillRule="evenodd" 
                           clipRule="evenodd" 
-                          d={ICONS.LOGO_FULL} 
+                          d={ICONS.LOGO_ICON} 
                         />
                       </svg>
-                      // <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                      // <img src="/images/vitaely-logo-icon-square.svg" style={{ height: '32px' }} />
                     :
-                    <svg height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg height="40" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path 
                         className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
                         fillRule="evenodd" 
@@ -387,7 +387,7 @@ const Header = ({
                     </svg>
                     }
                 </Link>
-                <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div>
+                {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
 
                 {/* <div className="d-flex">
             <Link href={profileUrl}>
@@ -659,17 +659,17 @@ const Header = ({
               <div className="d-flex flex-row align-items-center gap-2">
                 <Link href="/">
                   {screenWidth > 767 ?
-                    <svg height="32" viewBox="0 0 580 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path 
                         className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
                         fillRule="evenodd" 
                         clipRule="evenodd" 
-                        d={ICONS.LOGO_FULL} 
+                        d={ICONS.LOGO_ICON} 
                       />
                     </svg>
-                    // <img src="/images/expertpage-logo-full.svg" style={{ height: '32px' }} />
+                    // <img src="/images/vitaely-logo-icon-square.svg" style={{ height: '32px' }} />
                   :
-                  <svg height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg height="40" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path 
                       className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
                       fillRule="evenodd" 
@@ -678,9 +678,9 @@ const Header = ({
                     />
                   </svg>
                   }
-                    {/* <img src="/images/expertpage-logo-full.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
+                    {/* <img src="/images/vitaely-logo-icon-square.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
                 </Link>
-                <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div>
+                {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
                 {/* {screenWidth > 767 && (
                   <div className="d-flex align-items-center" style={{ gap: '8px' }}>
                     <Link href="/templates">

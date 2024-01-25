@@ -167,11 +167,11 @@
   transition: $transition-standard;
   path {
     transition: $transition-standard;
-    fill: $dark-700;
+    fill: $dark-600;
   }
   a { 
     transition: $transition-standard;
-    color: $dark-700;
+    color: $dark-600;
     &:hover {
       text-decoration: none;
       color: $dark-900;
@@ -186,11 +186,11 @@
   transition: $transition-standard;
   path {
     transition: $transition-standard;
-    fill: $light-700;
+    fill: $light-600;
   }
   a { 
     transition: $transition-standard;
-    color: $light-700;
+    color: $light-600;
     &:hover {
       text-decoration: none;
       color: $light-900;

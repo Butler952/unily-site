@@ -193,8 +193,8 @@ const Freelance = (props) => {
               {props.full_name && <meta name="author" content={props.full_name} />}
               <meta property="og:title" content={`${props.full_name} | Resume`} />
               {props.summary ? <meta property="og:description" content={props.summary} /> : null}
-              {props.level == "profile" && <meta property="og:url" content={`https://www.expertpage.io/profile/${props.pageId}`} />}
-              {props.level == "baseLevel" && <meta property="og:url" content={`https://www.expertpage.io/${props.pageId}`} />}
+              {props.level == "profile" && <meta property="og:url" content={`https://www.vitaely.me/profile/${props.pageId}`} />}
+              {props.level == "baseLevel" && <meta property="og:url" content={`https://www.vitaely.me/${props.pageId}`} />}
               {props.background_cover_image_url ? <meta property="og:image" content={props.background_cover_image_url} /> : null}
               <meta property="og:type" content="website" />
             </Head>
@@ -209,7 +209,7 @@ const Freelance = (props) => {
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           setHeaderImageError(true)
-                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/ExpertPage-me/128x128_ExpertPage-me.webp?1653343176406";
+                          // currentTarget.src="https://storage.googleapis.com/indie-hackers.appspot.com/product-avatars/Vitaely-me/128x128_Vitaely-me.webp?1653343176406";
                         }}
                         style={{ display: 'none' }}
                       />
@@ -294,17 +294,17 @@ const Freelance = (props) => {
               <div className='py-5 text-center'>
                 <Container>
                   <a href="/" style={{textDecoration: 'none'}}>
-                    <svg height="32" viewBox="0 0 85 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path 
                         className="fill-dark-700"
                         fill-rule="evenodd" 
                         clip-rule="evenodd" 
-                        d={ICONS.LOGO} 
+                        d={ICONS.LOGO_ICON} 
                       />
                     </svg>
-                    <p className="text-dark-low mt-2 mb-0">Powered by ExpertPage</p>
+                    <p className="text-dark-low mt-2 mb-0">Powered by Vitaely</p>
                   </a>
-                  {/* <p className="text-dark-low mb-0">Powered by <Link href="/">ExpertPage</Link></p> */}
+                  {/* <p className="text-dark-low mb-0">Powered by <Link href="/">Vitaely</Link></p> */}
                 </Container>
               </div>
             </div>

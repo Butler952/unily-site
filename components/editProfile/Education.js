@@ -18,7 +18,7 @@ const Education = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit education', index)
+    handleEditProfileChangeView('Edit education', "Where have you studied", index)
   }
 
   const handleAdd = () => {

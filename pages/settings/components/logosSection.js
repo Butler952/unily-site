@@ -177,7 +177,7 @@ const LogosSection = ({
         <hr className="m-0"/>
         <div className="m-4">
           <div className="d-flex flex-column bg-primary-100 radius-3 p-4">
-            <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into ExpertPage.</p>
+            <p className="text-dark-high">Make sure that your LinkedIn profile's public visibility settings include all the data that you want to sync into Vitaely.</p>
             <a href="https://www.linkedin.com/public-profile/settings">
               <div className="d-flex align-items-start">
                 <svg viewBox="0 0 24 24" width={'24px'} style={{minWidth: '24px'}} className="mr-2 fill-primary-900">

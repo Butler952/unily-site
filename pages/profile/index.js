@@ -7,6 +7,12 @@ import Lottie from 'react-lottie';
 import animationData from '../../components/animations/loader.json'
 import Header from '../../components/header/Header';
 import Freelance from '../../components/profile/Freelance';
+import BasicProfile from '../../components/profile/BasicProfile';
+import DocumentProfile from '../../components/profile/DocumentProfile';
+import MetroProfile from '../../components/profile/MetroProfile';
+import MetroProfileDark from '../../components/profile/MetroProfileDark';
+import Bento from '../../components/profile/Bento';
+import StaccatoProfile from '../../components/profile/StaccatoProfile';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
 
@@ -115,7 +121,7 @@ const Profile = (props) => {
       {/* { loggedIn && */}
       <div >
         <Header 
-          dark={!gettingUserProfile && userData !== undefined && userData?.theme?.mode == 'dark' ? true : false}
+          dark={!gettingUserProfile && userData !== undefined && userData?.template == 'metro_night' || userData?.template == 'bento' ? true : false}
           positionFixed 
           showEditProfileModal={showEditProfileModal}
           setShowEditProfileModal={setShowEditProfileModal}
@@ -131,74 +137,397 @@ const Profile = (props) => {
         />
       </div>
       {/* } */}
-      { !gettingUserProfile ? 
-        (
-          userData !== undefined ?
-            <Freelance
-              level="baseLevel"
-              screenWidth={screenWidth}
-              pageId={currentUserId}
-              // template={userData.profile.template}
-              theme={userData.theme}
-              email={userData.email}
-              linksPrimary={userData.linksPrimary}
-              links={userData.links}
-              profile_pic_url={userData.profile.profile_pic_url}
-              background_cover_image_url={userData.profile.background_cover_image_url}
-              full_name={userData.profile.full_name}
-              first_name={userData.profile.first_name}
-              last_name={userData.profile.last_name}
-              headline={userData.profile.headline}
-              summary={userData.profile.summary}
-              products={userData.profile.products}
-              services={userData.profile.services}
-              featured={userData.profile.featured}
-              experiences={userData.profile.experiences}
-              projects={userData.profile.projects}
-              side_projects={userData.profile.side_projects}
-              testimonials={userData.profile.testimonials}
-              posts={userData.profile.posts}
-              book_call_url={userData.profile.book_call_url}
-              education={userData.profile.education}
-              logoVisibility={userData.profile.logoVisibility}
-              volunteer_work={userData.profile.volunteer_work}
-              surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
-              showEditProfileModal={showEditProfileModal}
-              setShowEditProfileModal={setShowEditProfileModal}
-              editProfileModalState={editProfileModalState} 
-              setEditProfileModalState={setEditProfileModalState}
-              editProfileModalSubtitle={editProfileModalSubtitle} 
-              setEditProfileModalSubtitle={setEditProfileModalSubtitle}
-              editProfileModalIndex={editProfileModalIndex} 
-              setEditProfileModalIndex={setEditProfileModalIndex}
-              handleEditProfileClose={handleEditProfileClose}
-              handleEditProfileShow={handleEditProfileShow}
-              handleEditProfileChangeView={handleEditProfileChangeView}
-            />
-          :
-              <div className="d-flex justify-content-center align-items-center bg-light-900 py-5" style={{ minHeight: '100vh' }}>
-                <Container>
-                  <div className="py-5 background-light">
-                    <div className="d-flex flex-column align-items-center container text-center">
-                      {screenWidth && screenWidth > 767 ?
-                        <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
-                        :
-                        <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
-                      }
-                      <p className="mx-auto mb-5 text-dark-med large" style={{ maxWidth: '720px' }}>Build trust and sell more. Simple web pages for freelancers and consultants. No tech skills required.</p>
-                      <Link href="/users/register" className="btn primary high large">Create my page</Link>
+      <div style={{paddingTop: '65px'}}>
+        { !gettingUserProfile ? 
+          (
+            userData !== undefined ?
+            ((userData.template == undefined || userData.template == 'original') ?
+                <BasicProfile
+                  level="baseLevel"
+                  screenWidth={screenWidth}
+                  pageId={currentUserId}
+                  // template={userData.profile.template}
+                  theme={userData.theme}
+                  email={userData.email}
+                  linksPrimary={userData.linksPrimary}
+                  links={userData.links}
+                  profile_pic_url={userData.profile.profile_pic_url}
+                  background_cover_image_url={userData.profile.background_cover_image_url}
+                  full_name={userData.profile.full_name}
+                  first_name={userData.profile.first_name}
+                  last_name={userData.profile.last_name}
+                  headline={userData.profile.headline}
+                  summary={userData.profile.summary}
+                  products={userData.profile.products}
+                  services={userData.profile.services}
+                  featured={userData.profile.featured}
+                  experiences={userData.profile.experiences}
+                  projects={userData.profile.projects}
+                  side_projects={userData.profile.side_projects}
+                  testimonials={userData.profile.testimonials}
+                  posts={userData.profile.posts}
+                  book_call_url={userData.profile.book_call_url}
+                  education={userData.profile.education}
+                  logoVisibility={userData.profile.logoVisibility}
+                  volunteer_work={userData.profile.volunteer_work}
+                  surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                  showEditProfileModal={showEditProfileModal}
+                  setShowEditProfileModal={setShowEditProfileModal}
+                  editProfileModalState={editProfileModalState} 
+                  setEditProfileModalState={setEditProfileModalState}
+                  editProfileModalSubtitle={editProfileModalSubtitle} 
+                  setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                  editProfileModalIndex={editProfileModalIndex} 
+                  setEditProfileModalIndex={setEditProfileModalIndex}
+                  handleEditProfileClose={handleEditProfileClose}
+                  handleEditProfileShow={handleEditProfileShow}
+                  handleEditProfileChangeView={handleEditProfileChangeView}
+                  displayInfo={userData.displayInfo}
+                />
+              : (userData.template == 'document' ?
+                  <DocumentProfile
+                  level="baseLevel"
+                  screenWidth={screenWidth}
+                  pageId={currentUserId}
+                  // template={userData.profile.template}
+                  theme={userData.theme}
+                  email={userData.email}
+                  linksPrimary={userData.linksPrimary}
+                  links={userData.links}
+                  profile_pic_url={userData.profile.profile_pic_url}
+                  background_cover_image_url={userData.profile.background_cover_image_url}
+                  full_name={userData.profile.full_name}
+                  first_name={userData.profile.first_name}
+                  last_name={userData.profile.last_name}
+                  headline={userData.profile.headline}
+                  summary={userData.profile.summary}
+                  products={userData.profile.products}
+                  services={userData.profile.services}
+                  featured={userData.profile.featured}
+                  experiences={userData.profile.experiences}
+                  projects={userData.profile.projects}
+                  side_projects={userData.profile.side_projects}
+                  testimonials={userData.profile.testimonials}
+                  posts={userData.profile.posts}
+                  book_call_url={userData.profile.book_call_url}
+                  education={userData.profile.education}
+                  logoVisibility={userData.profile.logoVisibility}
+                  volunteer_work={userData.profile.volunteer_work}
+                  surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                  showEditProfileModal={showEditProfileModal}
+                  setShowEditProfileModal={setShowEditProfileModal}
+                  editProfileModalState={editProfileModalState} 
+                  setEditProfileModalState={setEditProfileModalState}
+                  editProfileModalSubtitle={editProfileModalSubtitle} 
+                  setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                  editProfileModalIndex={editProfileModalIndex} 
+                  setEditProfileModalIndex={setEditProfileModalIndex}
+                  handleEditProfileClose={handleEditProfileClose}
+                  handleEditProfileShow={handleEditProfileShow}
+                  handleEditProfileChangeView={handleEditProfileChangeView}
+                  displayInfo={userData.displayInfo}
+                  />
+                : (userData.template == 'metro' ?
+                    <MetroProfile
+                      level="baseLevel"
+                      screenWidth={screenWidth}
+                      pageId={currentUserId}
+                      // template={userData.profile.template}
+                      theme={userData.theme}
+                      email={userData.email}
+                      linksPrimary={userData.linksPrimary}
+                      links={userData.links}
+                      profile_pic_url={userData.profile.profile_pic_url}
+                      background_cover_image_url={userData.profile.background_cover_image_url}
+                      full_name={userData.profile.full_name}
+                      first_name={userData.profile.first_name}
+                      last_name={userData.profile.last_name}
+                      headline={userData.profile.headline}
+                      summary={userData.profile.summary}
+                      products={userData.profile.products}
+                      services={userData.profile.services}
+                      featured={userData.profile.featured}
+                      experiences={userData.profile.experiences}
+                      projects={userData.profile.projects}
+                      side_projects={userData.profile.side_projects}
+                      testimonials={userData.profile.testimonials}
+                      posts={userData.profile.posts}
+                      book_call_url={userData.profile.book_call_url}
+                      education={userData.profile.education}
+                      logoVisibility={userData.profile.logoVisibility}
+                      volunteer_work={userData.profile.volunteer_work}
+                      surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                      showEditProfileModal={showEditProfileModal}
+                      setShowEditProfileModal={setShowEditProfileModal}
+                      editProfileModalState={editProfileModalState} 
+                      setEditProfileModalState={setEditProfileModalState}
+                      editProfileModalSubtitle={editProfileModalSubtitle} 
+                      setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                      editProfileModalIndex={editProfileModalIndex} 
+                      setEditProfileModalIndex={setEditProfileModalIndex}
+                      handleEditProfileClose={handleEditProfileClose}
+                      handleEditProfileShow={handleEditProfileShow}
+                      handleEditProfileChangeView={handleEditProfileChangeView}
+                      displayInfo={userData.displayInfo}
+                    /> 
+                  : (userData.template == 'metro_night' ?
+                      <MetroProfileDark
+                        level="baseLevel"
+                        screenWidth={screenWidth}
+                        pageId={currentUserId}
+                        // template={userData.profile.template}
+                        theme={userData.theme}
+                        email={userData.email}
+                        linksPrimary={userData.linksPrimary}
+                        links={userData.links}
+                        profile_pic_url={userData.profile.profile_pic_url}
+                        background_cover_image_url={userData.profile.background_cover_image_url}
+                        full_name={userData.profile.full_name}
+                        first_name={userData.profile.first_name}
+                        last_name={userData.profile.last_name}
+                        headline={userData.profile.headline}
+                        summary={userData.profile.summary}
+                        products={userData.profile.products}
+                        services={userData.profile.services}
+                        featured={userData.profile.featured}
+                        experiences={userData.profile.experiences}
+                        projects={userData.profile.projects}
+                        side_projects={userData.profile.side_projects}
+                        testimonials={userData.profile.testimonials}
+                        posts={userData.profile.posts}
+                        book_call_url={userData.profile.book_call_url}
+                        education={userData.profile.education}
+                        logoVisibility={userData.profile.logoVisibility}
+                        volunteer_work={userData.profile.volunteer_work}
+                        surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                        showEditProfileModal={showEditProfileModal}
+                        setShowEditProfileModal={setShowEditProfileModal}
+                        editProfileModalState={editProfileModalState} 
+                        setEditProfileModalState={setEditProfileModalState}
+                        editProfileModalSubtitle={editProfileModalSubtitle} 
+                        setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                        editProfileModalIndex={editProfileModalIndex} 
+                        setEditProfileModalIndex={setEditProfileModalIndex}
+                        handleEditProfileClose={handleEditProfileClose}
+                        handleEditProfileShow={handleEditProfileShow}
+                        handleEditProfileChangeView={handleEditProfileChangeView}
+                        displayInfo={userData.displayInfo}
+                      /> 
+                    : (userData.template == 'bento' ?
+                        <Bento
+                          level="baseLevel"
+                          screenWidth={screenWidth}
+                          pageId={currentUserId}
+                          // template={userData.profile.template}
+                          theme={userData.theme}
+                          email={userData.email}
+                          linksPrimary={userData.linksPrimary}
+                          links={userData.links}
+                          profile_pic_url={userData.profile.profile_pic_url}
+                          background_cover_image_url={userData.profile.background_cover_image_url}
+                          full_name={userData.profile.full_name}
+                          first_name={userData.profile.first_name}
+                          last_name={userData.profile.last_name}
+                          headline={userData.profile.headline}
+                          summary={userData.profile.summary}
+                          products={userData.profile.products}
+                          services={userData.profile.services}
+                          featured={userData.profile.featured}
+                          experiences={userData.profile.experiences}
+                          projects={userData.profile.projects}
+                          side_projects={userData.profile.side_projects}
+                          testimonials={userData.profile.testimonials}
+                          posts={userData.profile.posts}
+                          book_call_url={userData.profile.book_call_url}
+                          education={userData.profile.education}
+                          logoVisibility={userData.profile.logoVisibility}
+                          volunteer_work={userData.profile.volunteer_work}
+                          surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                          showEditProfileModal={showEditProfileModal}
+                          setShowEditProfileModal={setShowEditProfileModal}
+                          editProfileModalState={editProfileModalState} 
+                          setEditProfileModalState={setEditProfileModalState}
+                          editProfileModalSubtitle={editProfileModalSubtitle} 
+                          setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                          editProfileModalIndex={editProfileModalIndex} 
+                          setEditProfileModalIndex={setEditProfileModalIndex}
+                          handleEditProfileClose={handleEditProfileClose}
+                          handleEditProfileShow={handleEditProfileShow}
+                          handleEditProfileChangeView={handleEditProfileChangeView}
+                          displayInfo={userData.displayInfo}
+                        />
+                      : (userData.template == 'staccato' ?
+                          <StaccatoProfile
+                            level="baseLevel"
+                            screenWidth={screenWidth}
+                            pageId={currentUserId}
+                            // template={userData.profile.template}
+                            theme={userData.theme}
+                            email={userData.email}
+                            linksPrimary={userData.linksPrimary}
+                            links={userData.links}
+                            profile_pic_url={userData.profile.profile_pic_url}
+                            background_cover_image_url={userData.profile.background_cover_image_url}
+                            full_name={userData.profile.full_name}
+                            first_name={userData.profile.first_name}
+                            last_name={userData.profile.last_name}
+                            headline={userData.profile.headline}
+                            summary={userData.profile.summary}
+                            products={userData.profile.products}
+                            services={userData.profile.services}
+                            featured={userData.profile.featured}
+                            experiences={userData.profile.experiences}
+                            projects={userData.profile.projects}
+                            side_projects={userData.profile.side_projects}
+                            testimonials={userData.profile.testimonials}
+                            posts={userData.profile.posts}
+                            book_call_url={userData.profile.book_call_url}
+                            education={userData.profile.education}
+                            logoVisibility={userData.profile.logoVisibility}
+                            volunteer_work={userData.profile.volunteer_work}
+                            surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+                            showEditProfileModal={showEditProfileModal}
+                            setShowEditProfileModal={setShowEditProfileModal}
+                            editProfileModalState={editProfileModalState} 
+                            setEditProfileModalState={setEditProfileModalState}
+                            editProfileModalSubtitle={editProfileModalSubtitle} 
+                            setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+                            editProfileModalIndex={editProfileModalIndex} 
+                            setEditProfileModalIndex={setEditProfileModalIndex}
+                            handleEditProfileClose={handleEditProfileClose}
+                            handleEditProfileShow={handleEditProfileShow}
+                            handleEditProfileChangeView={handleEditProfileChangeView}
+                            displayInfo={userData.displayInfo}
+                          />
+                        : null
+                      )
+                    )
+                  )
+                )
+              )
+            )
+              
+            
+
+        
+
+          //   (userData.template == 'metro' &&
+          //     <MetroProfile
+          //       level="baseLevel"
+          //       screenWidth={screenWidth}
+          //       pageId={userData.pageId}
+          //       template={userData.template}
+          //       email={userData.email}
+          //       links={userData.links}
+          //       profile_pic_url={userData.profile_pic_url}
+          //       background_cover_image_url={userData.background_cover_image_url}
+          //       full_name={userData.full_name}
+          //       headline={userData.headline}
+          //       summary={userData.summary}
+          //       experiences={userData.experiences}
+          //       projects={userData.projects}
+          //       side_projects={userData.side_projects}
+          //       education={userData.education}
+          //       logoVisibility={userData.logoVisibility}
+          //       volunteer_work={userData.volunteer_work}
+          //       surveyOnSignUpHide={userData.surveyOnSignUpHide}
+          //       displayInfo={userData.displayInfo}
+          //     />
+          //   ),
+
+
+          //   ( userData.template == 'staccato' &&
+          //     <StaccatoProfile
+          //       level="baseLevel"
+          //       screenWidth={screenWidth}
+          //       pageId={userData.pageId}
+          //       template={userData.template}
+          //       email={userData.email}
+          //       links={userData.links}
+          //       profile_pic_url={userData.profile_pic_url}
+          //       background_cover_image_url={userData.background_cover_image_url}
+          //       full_name={userData.full_name}
+          //       first_name={userData.first_name}
+          //       last_name={userData.last_name}
+          //       headline={userData.headline}
+          //       summary={userData.summary}
+          //       experiences={userData.experiences}
+          //       projects={userData.projects}
+          //       side_projects={userData.side_projects}
+          //       education={userData.education}
+          //       logoVisibility={userData.logoVisibility}
+          //       volunteer_work={userData.volunteer_work}
+          //       surveyOnSignUpHide={userData.surveyOnSignUpHide}
+          //       displayInfo={userData.displayInfo}
+          //     />
+          //   ))
+
+              // <Freelance
+              //   level="baseLevel"
+              //   screenWidth={screenWidth}
+              //   pageId={currentUserId}
+              //   // template={userData.profile.template}
+              //   theme={userData.theme}
+              //   email={userData.email}
+              //   linksPrimary={userData.linksPrimary}
+              //   links={userData.links}
+              //   profile_pic_url={userData.profile.profile_pic_url}
+              //   background_cover_image_url={userData.profile.background_cover_image_url}
+              //   full_name={userData.profile.full_name}
+              //   first_name={userData.profile.first_name}
+              //   last_name={userData.profile.last_name}
+              //   headline={userData.profile.headline}
+              //   summary={userData.profile.summary}
+              //   products={userData.profile.products}
+              //   services={userData.profile.services}
+              //   featured={userData.profile.featured}
+              //   experiences={userData.profile.experiences}
+              //   projects={userData.profile.projects}
+              //   side_projects={userData.profile.side_projects}
+              //   testimonials={userData.profile.testimonials}
+              //   posts={userData.profile.posts}
+              //   book_call_url={userData.profile.book_call_url}
+              //   education={userData.profile.education}
+              //   logoVisibility={userData.profile.logoVisibility}
+              //   volunteer_work={userData.profile.volunteer_work}
+              //   surveyOnSignUpHide={userData.surveys?.surveyOnSignUp?.surveyHide}
+              //   showEditProfileModal={showEditProfileModal}
+              //   setShowEditProfileModal={setShowEditProfileModal}
+              //   editProfileModalState={editProfileModalState} 
+              //   setEditProfileModalState={setEditProfileModalState}
+              //   editProfileModalSubtitle={editProfileModalSubtitle} 
+              //   setEditProfileModalSubtitle={setEditProfileModalSubtitle}
+              //   editProfileModalIndex={editProfileModalIndex} 
+              //   setEditProfileModalIndex={setEditProfileModalIndex}
+              //   handleEditProfileClose={handleEditProfileClose}
+              //   handleEditProfileShow={handleEditProfileShow}
+              //   handleEditProfileChangeView={handleEditProfileChangeView}
+              // />
+            :
+                <div className="d-flex justify-content-center align-items-center bg-light-900 py-5" style={{ minHeight: '100vh' }}>
+                  <Container>
+                    <div className="py-5 background-light">
+                      <div className="d-flex flex-column align-items-center container text-center">
+                        {screenWidth && screenWidth > 767 ?
+                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
+                          :
+                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
+                        }
+                        <p className="mx-auto mb-5 text-dark-med large" style={{ maxWidth: '720px' }}>Build trust and sell more. Simple web pages for freelancers and consultants. No tech skills required.</p>
+                        <Link href="/users/register" className="btn primary high large">Create my page</Link>
+                      </div>
                     </div>
-                  </div>
-                </Container>
+                  </Container>
+                </div>
+            )    
+          : 
+            <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
+              <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                <Lottie options={defaultOptions} height={160} width={160} />
               </div>
-          )    
-        : 
-          <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
-            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-              <Lottie options={defaultOptions} height={160} width={160} />
             </div>
-          </div>
-      }
+        }
+      </div>
     </div>
   )
 }

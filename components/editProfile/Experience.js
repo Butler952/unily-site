@@ -18,11 +18,11 @@ const Experience = ({
   }
 
   const handleSelect = (index) => {
-    handleEditProfileChangeView('Edit experience', index)
+    handleEditProfileChangeView('Edit experience', "Your work experience", index)
   }
 
   const handleAdd = () => {
-    handleEditProfileChangeView('Add experience')
+    handleEditProfileChangeView('Add experience', "Your work experience")
   }
 
   const sortExperiences = (a,b) => {

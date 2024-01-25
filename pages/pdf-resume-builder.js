@@ -14,7 +14,7 @@ const PdfResumeBuilder = () => {
         heroImage="/images/landing-page/pdf-resume-builder/pdf-resume-builder.png"
         stepsTitle="Create your PDF resume in 2 minutes"
         stepThree="Download as a PDF"
-        whyExpertPageOne="Get yourself noticed with a unique online resume."
+        whyVitaelyOne="Get yourself noticed with a unique online resume."
       />
     </div>
   )
