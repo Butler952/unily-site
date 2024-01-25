@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   // Rest of the API logic
  var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer 535f6290-580a-42db-b7cb-93677b8c82e6");
-  myHeaders.append("Access-Control-Allow-Origin", "https://www.vitaely.me, https://expertpage.vercel.app, http://localhost:3000/, https://localhost:3000/, https://nubela.co/proxycurl/api/v2/");
+  myHeaders.append("Access-Control-Allow-Origin", "https://www.vitaely.me, https://vitaely.vercel.app, http://localhost:3000/, https://localhost:3000/, https://nubela.co/proxycurl/api/v2/");
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
   myHeaders.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");

@@ -36,6 +36,7 @@ export default function middleware(req) {
     if (
       hostname === "localhost:3000" ||
       hostname === "www.vitaely.me" ||
+      hostname === "https://vitaely.vercel.app/" ||
       hostname === "vitaely.me"
     ) {
       url.pathname = `/${url.pathname}`;
