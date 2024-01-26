@@ -206,7 +206,7 @@ const Home = (props) => {
               <div className="mx-5 mx-sm-0">
                 <div className="d-block position-relative">
                   <div className="d-flex flex-column gap-3">
-                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-primary-200" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(16px)'}}>
+                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-primary-200" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(20px)'}}>
                       <div className={`d-block position-relative overflow-hidden border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 ${screenWidth > 576 ? styles.sectionImage : styles.sectionImageMobile}`} style={{ backgroundImage: screenWidth > 576 ? `url(/images/profile-preview.jpeg)` : `url(/images/profile-preview-mobile.jpeg)`, boxShadow: 'none', borderRadius: '16px 16px 0 0'}}></div>
                       {/* <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div> */}
                     </div>
