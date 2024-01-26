@@ -637,7 +637,7 @@ const BasicProfile = (props) => {
                   <br /><br />
                 </div>
               }
-              {props.email &&
+              {/* {props.email &&
                 <div className="text-center my-5">
                   <h2>Get in touch</h2>
                   <div className="d-flex m-auto justify-content-center">
@@ -645,7 +645,7 @@ const BasicProfile = (props) => {
                   </div>
                   <br /><br />
                 </div>
-              }
+              } */}
             </Container>
             <div className='py-5 text-center'>
               <Container>

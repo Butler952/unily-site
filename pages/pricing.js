@@ -98,7 +98,6 @@ const Pricing = () => {
                     'All Basic features',
                     'Choose your page handle',
                     'Premium templates',
-                    'Logos on some templates',
                     'More coming soon'
                   ].map((feature, index) =>
                     <div key={index} className="d-flex align-items-start mt-2">

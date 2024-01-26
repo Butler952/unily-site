@@ -18,6 +18,7 @@ import mixpanelConfig from 'config/mixpanel-config';
 const Header = ({
   dark,
   hideShadow,
+  topOfLanding,
   positionFixed,
   showEditProfileModal, 
   setShowEditProfileModal,
@@ -697,7 +698,7 @@ const Header = ({
                 <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
               </Link> */}
                 <Link href="/users/login" className={`${dark ? 'light' : 'primary'} btn low small`}>Login</Link>
-                <Link href="/users/register" className="btn primary high small">Create my page</Link>
+                <Link href="/users/register" className={`btn primary ${topOfLanding ? 'medium' : 'high'} small`}>Create my page</Link>
               </div>
             </div>
           }

@@ -235,7 +235,7 @@ const Template = ({
                 />
               </div>
               <div className="d-flex flex-row justify-content-between align-items-center">
-              <h6 className="mb-0">{template.label}</h6>
+                <h6 className="mb-0">{template.label}</h6>
                 {template.premium && <div className="tag primary medium">Premium</div>}
               </div>
             </div>

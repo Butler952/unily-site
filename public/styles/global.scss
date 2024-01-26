@@ -432,6 +432,11 @@ hr {border-top: 1px solid $dark-300;}
 .shadow-4 { box-shadow: $shadow-4; }
 .shadow-5 { box-shadow: $shadow-5; }
 
+// Transitions
+.transition-short {transition : $transition-short}
+.transition-standard {transition : $transition-standard}
+.transition-long {transition : $transition-long}
+
 // Buttons
 
 // Inline/Text only

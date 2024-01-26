@@ -12,7 +12,7 @@ const PdfResumeBuilder = () => {
         subtitle="Use your LinkedIn profile to create a beautiful resume and export it as a PDF in two minutes."
         url="pdf-resume-builder"
         heroImage="/images/landing-page/pdf-resume-builder/pdf-resume-builder.png"
-        stepsTitle="Create your PDF resume in 2 minutes"
+        stepsTitle="Create your PDF resume"
         stepThree="Download as a PDF"
         whyVitaelyOne="Get yourself noticed with a unique online resume."
       />

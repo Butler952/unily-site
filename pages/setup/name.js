@@ -35,6 +35,7 @@ const Name = () => {
   };
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Name');
     setScreenWidth(window.innerWidth)

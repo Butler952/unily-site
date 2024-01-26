@@ -12,19 +12,31 @@ import ICONS from '../icon/IconPaths';
 const LandingPage = (props) => {
 
   const [screenWidth, setScreenWidth] = useState('');
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [heroHeight, setHeroHeight] = useState(0);
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
   }, []);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth)
   };
 
+  const handleScroll = () => {
+    if (typeof window !== 'undefined') {
+      setScrollPosition(window.scrollY)
+    }
+  }
+
   return (
     <div className="overflow-hidden" style={{ background: 'white' }}>
-      <Header hideShadow />
+      <Header hideShadow topOfLanding />
+      <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
+        <Header hideShadow={scrollPosition < heroHeight + 66} />
+      </div>
       <Head>
         <title>{`${props.title} | vitaely.me`}</title>
         { props.subtitle ? <meta name="description" content={props.subtitle} /> : null }

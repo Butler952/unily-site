@@ -35,6 +35,7 @@ const Headline = () => {
   };
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Headline');
     setScreenWidth(window.innerWidth)
@@ -132,13 +133,13 @@ const Headline = () => {
 
       fire.firestore().collection('users').doc(userData.uid).update({
         'profile.headline': headline,
-        stage: '/setup/styling',
+        stage: '/setup/template',
         lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
       })
         .then(() => {
           let newUserContext = userContext;
           newUserContext.profile.headline = headline,
-          newUserContext.stage = '/setup/styling',
+          newUserContext.stage = '/setup/template',
           setUserContext(newUserContext)
         })
         .then(() => {
@@ -148,7 +149,7 @@ const Headline = () => {
         .then(() => {
           //Comment: before Styling
           // router.push(userContext.profileUrl !== '' ? userContext.profileUrl : userData.profileUrl)
-          router.push('/setup/styling')
+          router.push('/setup/template')
           // router.push(
           //   userContext &&
           //   userContext.profileUrl &&

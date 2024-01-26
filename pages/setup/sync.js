@@ -33,6 +33,7 @@ const Sync = () => {
   };
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Sync');
     setScreenWidth(window.innerWidth)
@@ -134,8 +135,8 @@ const Sync = () => {
             //syncsRemaining: 1,
             // Comment: Before styling
             //stage: 'complete',
-            stage: '/setup/styling',
-            template: 'freelance',
+            stage: '/setup/template',
+            // template: 'freelance',
             // profileUrl: '/profile/' + userData.uid,
             lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             lastSync: fire.firestore.FieldValue.serverTimestamp(),
@@ -153,7 +154,7 @@ const Sync = () => {
               lastName: result.last_name,
               // Comment: Before styling
               // stage: 'complete',
-              stage: '/setup/styling',
+              stage: '/setup/template',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }
@@ -189,8 +190,8 @@ const Sync = () => {
             },
             // Comment: Before styling
             // stage: 'complete',
-            stage: '/setup/styling',
-            template: 'freelance'
+            stage: '/setup/template',
+            // template: 'freelance'
             // profileUrl: '/profile/' + userData.uid,
           })
         })
@@ -205,7 +206,7 @@ const Sync = () => {
         .then(() => {
           // Comment: Before styling
           // router.push(userContext.profileUrl)
-          router.push('/setup/styling')
+          router.push('/setup/template')
         })
         .catch(error => console.log('error', error));
     } else {

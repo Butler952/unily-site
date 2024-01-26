@@ -29,6 +29,7 @@ const Source = () => {
   };
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Source');
     setScreenWidth(window.innerWidth)

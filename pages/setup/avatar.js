@@ -44,6 +44,7 @@ const Avatar = () => {
   };
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Avatar');
     setScreenWidth(window.innerWidth)

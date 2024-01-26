@@ -55,6 +55,7 @@ const Handle = () => {
   let domainType = selectedDomainType;
 
   useEffect(() => {
+    document.body.style.background = '#FFFFFF';
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Handle');
     setScreenWidth(window.innerWidth)
