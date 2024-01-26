@@ -96,7 +96,7 @@ const Pricing = () => {
                   </div>
                   {[
                     'All Basic features',
-                    'Choose your page handle',
+                    'Connect your own domain',
                     'Premium templates',
                     'More coming soon'
                   ].map((feature, index) =>

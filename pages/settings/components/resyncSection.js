@@ -268,8 +268,8 @@ const ResyncSection = ({
               </div>
               {[
                 'All Basic features', 
-                'Unlimited re-syncing',
-                'Logos for experience and education', 
+                'Connect your own domain', 
+                'Premium templates',
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">

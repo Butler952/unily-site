@@ -398,9 +398,8 @@ const Template = () => {
               </div>
               {[
                 'All Basic features', 
-                'Custom URL on vitaely.me domain', 
+                'Connect your own domain', 
                 'Premium templates',
-                'Unlimited re-syncing', 
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">
