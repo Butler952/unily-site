@@ -14,6 +14,7 @@ import EditProfile from '../editProfile/EditProfile';
 import { toast } from 'react-toastify';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
+import { Img } from 'react-image';
 
 const Header = ({
   dark,
@@ -464,8 +465,12 @@ const Header = ({
                               </svg>
                             </div>
                             {!headerImageError || userContext.userContext.profile && userContext.profile.profile_pic_url !== '' ? 
-                              <>
-                                <div
+                                <>
+                                <Img 
+                                  src={userContext?.profile?.profile_pic_url}
+                                  style={{width: "32px", height: "32px", borderRadius: "100%" }}
+                                />
+                                {/* <div
                                   style={{
                                     backgroundImage: `url(${userContext && userContext.profile && userContext.profile.profile_pic_url})`,
                                     backgroundPosition: 'center',
@@ -476,7 +481,7 @@ const Header = ({
                                     borderRadius: '100%'
                                   }}
                                   // className={styles.profilePicture}
-                                ></div>
+                                ></div> */}
                                 {/* <img
                                   className="bg-dark-200 radius-5"
                                   src={userContext && userContext.profileUrl && userContext.profile.profile_pic_url}
@@ -505,11 +510,15 @@ const Header = ({
                         {/* <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}> */}
                         <div className="p-2">
                           <Dropdown.Item onClick={() => router.push('/profile')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            {!headerImageError ?
+                            <Img 
+                              src={userContext?.profile?.profile_pic_url}
+                              style={{width: "48px", height: "48px", borderRadius: "100%" }}
+                            />
+                            {/* {!headerImageError ?
                               <div className="bg-dark-200" style={{ width: '48px', height: '48px', borderRadius: '100%' }}>
                                 <img src={userContext && userContext.profile && userContext.profile.profile_pic_url} style={{ width: '48px', height: '48px', borderRadius: '100%' }} />
                               </div>
-                              : null}
+                              : null} */}
                             {userContext && userContext.profile && userContext.profile.full_name}
                           </Dropdown.Item>
                         </div>
