@@ -201,7 +201,7 @@ const DocumentProfile = (props) => {
           {/* <div style={{ marginTop: '66px' }}> */}
           <div>
             {props.pageId === currentUserId && !props.surveyOnSignUpHide ? <SurveyBanner /> : ''}
-            <Container className="py-5 px-3 px-md-3">
+            <Container className="py-5 px-3 px-md-3" style={{maxWidth: '960px'}}>
               <div className={`${profileStyles.profileCard} p-4 p-md-5 shadow-2 radius-4 bg-light-900`}>
                 <div className="px-0 px-md-5">
                   <div className="mt-0 mt-md-5 mb-5 py-3">
@@ -264,7 +264,7 @@ const DocumentProfile = (props) => {
                           })}
                       </div>
                       : ''} */}
-                    {(props.linksPrimary || props.email || links) &&
+                    {/* {(props.linksPrimary || props.email || links) &&
                       <div className="d-flex flex-column" style={{ gap: '12px' }}>
                         {props.linksPrimary ?
                           <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`${profileStyles.link}`}>
@@ -295,6 +295,28 @@ const DocumentProfile = (props) => {
                                 <svg width="24" viewBox="0 0 24 24">
                                   <path d={ICONS.ARROW_LINK}></path>
                                 </svg>
+                              </a>
+                            )
+                        })}
+                      </div>
+                    } */}
+                    {(props.linksPrimary || props.email || links) &&
+                      <div className="d-flex justify-content-start flex-column flex-sm-row flex-wrap mt-4" style={{ gap: '12px' }}>
+                        {props.linksPrimary ?
+                          <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`btn dark high w-100 w-sm-auto`}>{props.linksPrimary.label}</a>
+                        
+                        :
+                          <a href={'mailto:' + props.email} target="_blank" className={`btn dark high w-100 w-sm-auto`}>Contact me</a>
+                        }
+                        {props.links &&
+                          props.links.map((link, index) => {
+                            return (
+                              <a 
+                              key={index} 
+                              href={convertToLink(link.url)}
+                              target="_blank" 
+                              className={`btn dark medium w-100 w-sm-auto`}>
+                                {link.label}
                               </a>
                             )
                         })}
@@ -370,8 +392,7 @@ const DocumentProfile = (props) => {
                                     {sideProject.starts_at && sideProject.ends_at == null ? ' – Present' : null}
                                     {sideProject.starts_at && sideProject.ends_at && sideProject.ends_at.month && sideProject.ends_at.year ? ( sideProject.starts_at.month == sideProject.ends_at.month & sideProject.starts_at.year == sideProject.ends_at.year ? null : ` – ${convertMonth(sideProject.ends_at.month)} ${sideProject.ends_at.year}`) : null }
                                   </p>
-                                  {/* {sideProject.description ? <p className="text-dark-med mb-0 mt-3">{sideProject.description}</p> : null} */}
-                                  {sideProject.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(sideProject.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                  {sideProject.description && getDescriptionText(sideProject.description, descriptionShowMore, setDescriptionShowMore)}
                                 </div>
                               </Accordion>
                             </div>
@@ -440,8 +461,7 @@ const DocumentProfile = (props) => {
                                     {job.starts_at && job.ends_at == null ? ' – Present' : null}
                                     {job.starts_at && job.ends_at && job.ends_at.month && job.ends_at.year ? ( job.starts_at.month == job.ends_at.month & job.starts_at.year == job.ends_at.year ? null : ` – ${convertMonth(job.ends_at.month)} ${job.ends_at.year}`) : null }
                                   </p>
-                                  {/* {job.description ? <p className="text-dark-med mb-0 mt-3">{job.description}</p> : null} */}
-                                  {job.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                  {job.description && getDescriptionText(job.description, descriptionShowMore, setDescriptionShowMore)}
                                 </div>
                               </Accordion>
                             </div>
@@ -472,7 +492,7 @@ const DocumentProfile = (props) => {
                                                   currentTarget.className = 'd-none'
                                                 }}
                                                 className="position-absolute radius-2 shadow-2 bg-light-900 w-100 h-100" 
-                                                style={{ top: 0, left: 0, zIndex: 1 }}
+                                                style={{ top: 0, left: 0, zIndex: 1, objectFit:'cover' }}
                                               />
                                               <div id="placeholder" className="bg-dark-200 radius-2 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
                                                 <Icon icon={ICONS.PROJECTS} size='32' className="fill-dark-700" />
@@ -500,7 +520,8 @@ const DocumentProfile = (props) => {
                                         {project.starts_at && project.ends_at == null ? ' – Present' : null}
                                         {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
                                       </p>
-                                      {project.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}</p> : null}
+                                      {/* {project.description ? <p className="text-dark-med mb-0 mt-3">{getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}</p> : null} */}
+                                      {project.description && getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}
                                     </div>
                                   </Accordion>
                                 </div>
@@ -574,55 +595,58 @@ const DocumentProfile = (props) => {
                       <h4>Volunteering</h4>
                       <hr className="mb-4"></hr>
                       <div className="">
-                        {props.volunteer_work.map((volunteer, index) =>
-                          <div key={index} className="py-4">
-                            <div className="d-flex flex-column flex-lg-row">
-                              {props.logoVisibility && props.logoVisibility.volunteering ?
-                                (volunteer.logo_url ?
-                                  <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                    <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
-                                      {/* <img 
-                                        className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
-                                        style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
-                                      /> */}
-                                      <img
-                                        className="radius-3 bg-light-900"
-                                        src={volunteer.logo_url ? volunteer.logo_url : null}
-                                        onError={({ currentTarget }) => {
-                                          // currentTarget.onerror = null; // prevents looping
-                                          currentTarget.className = 'd-none'
-                                          // currentTarget.style = "display: 'none'" 
-                                          // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                          // currentTarget.src="https://via.placeholder.com/150";
-                                        }}
-                                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
-                                      />
-                                      <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
-                                        <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
-                                      </div>
-                                    </a>
-                                  </div>
-                                  :
-                                  <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
-                                    <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
-                                  </div>
-                                ) : null}
-                              <div>
-                                <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
-                                <a target="_blank" href={volunteer.company_linkedin_profile_url && convertToLink(volunteer.company_linkedin_profile_url)}>
-                                  <p className="large text-dark-med mb-0">{volunteer.company}</p>
-                                </a>
-                                <p className="text-dark-low mb-0">
-                                  {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
-                                  {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
-                                  {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
-                                  {volunteer.starts_at && volunteer.ends_at && volunteer.ends_at.month && volunteer.ends_at.year ? ( volunteer.starts_at.month == volunteer.ends_at.month & volunteer.starts_at.year == volunteer.ends_at.year ? null : ` – ${convertMonth(volunteer.ends_at.month)} ${volunteer.ends_at.year}`) : null }
-                                </p>
-                                {volunteer.description ? <p className="text-dark-med mb-0 mt-3">{volunteer.description}</p> : null}
+                        {props.volunteer_work.map((volunteer, index) => {
+                          const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                          return (
+                            <div key={index} className="py-4">
+                              <div className="d-flex flex-column flex-lg-row">
+                                {props.logoVisibility && props.logoVisibility.volunteering ?
+                                  (volunteer.logo_url ?
+                                    <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                      <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                        {/* <img 
+                                          className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
+                                          style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
+                                        /> */}
+                                        <img
+                                          className="radius-3 bg-light-900"
+                                          src={volunteer.logo_url ? volunteer.logo_url : null}
+                                          onError={({ currentTarget }) => {
+                                            // currentTarget.onerror = null; // prevents looping
+                                            currentTarget.className = 'd-none'
+                                            // currentTarget.style = "display: 'none'" 
+                                            // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                            // currentTarget.src="https://via.placeholder.com/150";
+                                          }}
+                                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
+                                        />
+                                        <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
+                                          <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
+                                        </div>
+                                      </a>
+                                    </div>
+                                    :
+                                    <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
+                                      <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
+                                    </div>
+                                  ) : null}
+                                <div>
+                                  <p className="large text-dark-high font-weight-semibold mb-0">{volunteer.title}</p>
+                                  <a target="_blank" href={volunteer.company_linkedin_profile_url && convertToLink(volunteer.company_linkedin_profile_url)}>
+                                    <p className="large text-dark-med mb-0">{volunteer.company}</p>
+                                  </a>
+                                  <p className="text-dark-low mb-0">
+                                    {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
+                                    {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
+                                    {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
+                                    {volunteer.starts_at && volunteer.ends_at && volunteer.ends_at.month && volunteer.ends_at.year ? ( volunteer.starts_at.month == volunteer.ends_at.month & volunteer.starts_at.year == volunteer.ends_at.year ? null : ` – ${convertMonth(volunteer.ends_at.month)} ${volunteer.ends_at.year}`) : null }
+                                  </p>
+                                  {volunteer.description && getDescriptionText(volunteer.description, descriptionShowMore, setDescriptionShowMore)}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          )
+                        })}
                       </div>
                     </div>
                   }

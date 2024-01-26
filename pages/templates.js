@@ -29,14 +29,14 @@ const Templates = () => {
       'id': 0,
       'label': 'Original',
       'string': 'original',
-      'img': '/images/profile-preview.png',
+      'img': '/images/profile-preview.jpeg',
       'premium': false
     },
     {
       'id': 1,
       'label': 'Bento',
       'string': 'bento',
-      'img': '/images/bento-template.jpg',
+      'img': '/images/bento-template.jpeg',
       'premium': true
     },
     {

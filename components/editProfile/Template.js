@@ -90,7 +90,7 @@ const Template = ({
       "id": uuidv4(),
       'label': 'Original',
       'string': 'original',
-      'img': '/images/profile-preview.png',
+      'img': '/images/profile-preview.jpeg',
       'active': !templateChanged ? userContext?.template == 'original' || !userContext?.template : template == 'original',
       // 'active': 
       //   templateChanged ? 
@@ -106,7 +106,7 @@ const Template = ({
       "id": uuidv4(),
       'label': 'Bento',
       'string': 'bento',
-      'img': '/images/bento-template.jpg',
+      'img': '/images/bento-template.jpeg',
       'active': !templateChanged ? userContext?.template == 'bento' : template == 'bento',
       'premium': true
     },
