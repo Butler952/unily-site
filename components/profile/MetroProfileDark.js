@@ -304,8 +304,7 @@ const MetroProfileDark = (props) => {
                                     </a>
                                   </div>
                                   : null} */}
-                                {props.logoVisibility && props.logoVisibility.sideProjects ?
-                                  (sideProject.logo_url ?
+                                {sideProject.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={sideProject.url && convertToLink(sideProject.url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         {/* <img 
@@ -333,7 +332,7 @@ const MetroProfileDark = (props) => {
                                     <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
                                       <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-light-700" />
                                     </div>
-                                  ) : null}
+                                  }
                                 <div className="w-100" style={props.logoVisibility && props.logoVisibility.sideProjects ? {marginTop: '10px'} : null}>
                                   <div className={`${profileStyles.jobContent}`}>
                                     <div className="">
@@ -379,8 +378,7 @@ const MetroProfileDark = (props) => {
                                     </a>
                                   </div>
                                   : null} */}
-                                {props.logoVisibility && props.logoVisibility.experience ?
-                                  (job.logo_url ?
+                                {job.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={job.company_linkedin_profile_url && convertToLink(job.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         {/* <img 
@@ -408,7 +406,7 @@ const MetroProfileDark = (props) => {
                                     <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
                                       <Icon icon={ICONS.WORK} size='32' className="fill-light-700" />
                                     </div>
-                                  ) : null}
+                                  }
                                 <div className="w-100" style={props.logoVisibility && props.logoVisibility.experience ? {marginTop: '10px'} : null}>
                                   <div className={`${profileStyles.jobContent}`}>
                                     <div className="">
@@ -502,8 +500,7 @@ const MetroProfileDark = (props) => {
                                   <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
                                 </div>
                                 : null} */}
-                                {props.logoVisibility && props.logoVisibility.education ?
-                                  (school.logo_url ?
+                                {school.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         <img
@@ -524,10 +521,10 @@ const MetroProfileDark = (props) => {
                                       </a>
                                     </div>
                                     :
-                                    <div className="bg-light-20{0 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
+                                    <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
                                       <Icon icon={ICONS.SCHOOL} size='32' className="fill-light-700" />
                                     </div>
-                                  ) : null}
+                                  }
                                 <div className="w-100" style={props.logoVisibility && props.logoVisibility.education ? {marginTop: '10px'} : null}>
                                   <div className={`${profileStyles.jobContent}`}>
                                     <div className="">
@@ -571,8 +568,7 @@ const MetroProfileDark = (props) => {
                           return (
                             <div key={index} className={`${profileStyles.job} py-4`}>
                               <div className="d-flex flex-column flex-lg-row">
-                                {props.logoVisibility && props.logoVisibility.volunteering ?
-                                  (volunteer.logo_url ?
+                                {volunteer.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
                                         {/* <img 
@@ -600,7 +596,7 @@ const MetroProfileDark = (props) => {
                                     <div className="bg-light-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
                                       <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-light-700" />
                                     </div>
-                                  ) : null}
+                                  }
                                 <div className="w-100" style={props.logoVisibility && props.logoVisibility.volunteering ? {marginTop: '10px'} : null}>
                                   <div className={`${profileStyles.jobContent}`}>
                                     <div className="">
