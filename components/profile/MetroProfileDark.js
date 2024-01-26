@@ -346,10 +346,10 @@ const MetroProfileDark = (props) => {
                                       <p className="text-light-low mb-0">{sideProject.tagline}</p>
                                     </div>
                                     <p className="text-light-low mb-0 text-md-right" style={{ whiteSpace: 'nowrap' }}>
-                                      {sideProject.starts_at ? (sideProject.starts_at.month ? convertMonth(sideProject.starts_at.month) + " " : '') : null}
+                                      {sideProject.starts_at ? (sideProject.starts_at.month ? convertMonth(sideProject.starts_at.month).substring(0,3) + " " : '') : null}
                                       {sideProject.starts_at ? (sideProject.starts_at.year ? sideProject.starts_at.year + " " : null) : null}
                                       {sideProject.starts_at && sideProject.ends_at == null ? ' – Present' : null}
-                                      {sideProject.starts_at && sideProject.ends_at && sideProject.ends_at.month && sideProject.ends_at.year ? (sideProject.starts_at.month == sideProject.ends_at.month & sideProject.starts_at.year == sideProject.ends_at.year ? null : ` – ${convertMonth(sideProject.ends_at.month)} ${sideProject.ends_at.year}`) : null}
+                                      {sideProject.starts_at && sideProject.ends_at && sideProject.ends_at.month && sideProject.ends_at.year ? (sideProject.starts_at.month == sideProject.ends_at.month & sideProject.starts_at.year == sideProject.ends_at.year ? null : ` – ${convertMonth(sideProject.ends_at.month).substring(0,3)} ${sideProject.ends_at.year}`) : null}
                                     </p>
                                     {sideProject.description && getDescriptionText(sideProject.description, descriptionShowMore, setDescriptionShowMore)}
                                   </div>
@@ -421,10 +421,10 @@ const MetroProfileDark = (props) => {
                                     </div>
                                     <div className="text-md-right">
                                       <p className="text-light-low mb-0">
-                                        {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month) + " " : '') : null}
+                                        {job.starts_at ? (job.starts_at.month ? convertMonth(job.starts_at.month).substring(0,3) + " " : '') : null}
                                         {job.starts_at ? (job.starts_at.year ? job.starts_at.year + " " : null) : null}
                                         {job.starts_at && job.ends_at == null ? ' – Present' : null}
-                                        {job.starts_at && job.ends_at && job.ends_at.month && job.ends_at.year ? (job.starts_at.month == job.ends_at.month & job.starts_at.year == job.ends_at.year ? null : ` – ${convertMonth(job.ends_at.month)} ${job.ends_at.year}`) : null}
+                                        {job.starts_at && job.ends_at && job.ends_at.month && job.ends_at.year ? (job.starts_at.month == job.ends_at.month & job.starts_at.year == job.ends_at.year ? null : ` – ${convertMonth(job.ends_at.month).substring(0,3)} ${job.ends_at.year}`) : null}
                                       </p>
                                       <p className="text-light-low mb-0">{job.location}</p>
                                     </div>
@@ -471,10 +471,10 @@ const MetroProfileDark = (props) => {
                                       <p className="text-light-high font-weight-medium mb-0">{project.name}</p>
                                     </a>
                                     <p className="text-light-low mb-0">
-                                      {project.starts_at ? (project.starts_at.month ? convertMonth(project.starts_at.month) + " " : '') : null}
+                                      {project.starts_at ? (project.starts_at.month ? convertMonth(project.starts_at.month).substring(0,3) + " " : '') : null}
                                       {project.starts_at ? (project.starts_at.year ? project.starts_at.year + " " : null) : null}
                                       {project.starts_at && project.ends_at == null ? ' – Present' : null}
-                                      {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? (project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null}
+                                      {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? (project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month).substring(0,3)} ${project.ends_at.year}`) : null}
                                     </p>
                                     {project.description && getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}
                                   </div>
@@ -541,10 +541,10 @@ const MetroProfileDark = (props) => {
                                     </div>
                                     <div className="text-md-right">
                                       <p className="text-light-low mb-0">
-                                        {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
+                                        {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month).substring(0,3) + " " : '') : null}
                                         {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
                                         {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                                        {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? (school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month)} ${school.ends_at.year}`) : null}
+                                        {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? (school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month).substring(0,3)} ${school.ends_at.year}`) : null}
                                       </p>
                                       <p className="text-light-low mb-0">{school.location}</p>
                                     </div>
@@ -611,10 +611,10 @@ const MetroProfileDark = (props) => {
                                     </div>
                                     <div className="text-md-right">
                                       <p className="text-light-low mb-0">
-                                        {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month) + " " : '') : null}
+                                        {volunteer.starts_at ? (volunteer.starts_at.month ? convertMonth(volunteer.starts_at.month).substring(0,3) + " " : '') : null}
                                         {volunteer.starts_at ? (volunteer.starts_at.year ? volunteer.starts_at.year + " " : null) : null}
                                         {volunteer.starts_at && volunteer.ends_at == null ? ' – Present' : null}
-                                        {volunteer.starts_at && volunteer.ends_at && volunteer.ends_at.month && volunteer.ends_at.year ? (volunteer.starts_at.month == volunteer.ends_at.month & volunteer.starts_at.year == volunteer.ends_at.year ? null : ` – ${convertMonth(volunteer.ends_at.month)} ${volunteer.ends_at.year}`) : null}
+                                        {volunteer.starts_at && volunteer.ends_at && volunteer.ends_at.month && volunteer.ends_at.year ? (volunteer.starts_at.month == volunteer.ends_at.month & volunteer.starts_at.year == volunteer.ends_at.year ? null : ` – ${convertMonth(volunteer.ends_at.month).substring(0,3)} ${volunteer.ends_at.year}`) : null}
                                       </p>
                                       <p className="text-light-low mb-0">{volunteer.location}</p>
                                     </div>
