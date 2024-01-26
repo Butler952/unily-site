@@ -101,25 +101,25 @@ const LandingPage = (props) => {
       <hr/>
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-        { screenWidth > 576 ? <h1 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>{props.stepsTitle}</h1> : <h2 className="mx-auto pb-5">{props.stepsTitle}</h2> }    
+        { screenWidth > 576 ? <h2 className="mx-auto pb-5" style={{ maxWidth: '640px' }}>{props.stepsTitle}</h2> : <h2 className="mx-auto pb-5">{props.stepsTitle}</h2> }    
           <div className={styles.stepsContainer}>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">1</h3>
               </div>
-              <h3 className="text-primary-high">Sync with LinkedIn</h3>
+              <h4 className="text-primary-high">Sync with LinkedIn</h4>
             </div>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">2</h3>
               </div>
-              <h3 className="text-primary-high">Choose information to display</h3>
+              <h4 className="text-primary-high">Choose information to display</h4>
             </div>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">3</h3>
               </div>
-              <h3 className="text-primary-high">{!props.stepThree ? 'Share your profile' : props.stepThree}</h3>
+              <h4 className="text-primary-high">{!props.stepThree ? 'Share your profile' : props.stepThree}</h4>
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ const LandingPage = (props) => {
             />
           </div>
           <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-1">
-            { screenWidth > 576 ? <h1>{props.sectionTwoTitle}</h1> : <h2>{props.sectionTwoTitle}</h2> }
+            { screenWidth > 576 ? <h2>{props.sectionTwoTitle}</h2> : <h2>{props.sectionTwoTitle}</h2> }
             <p className="large">{props.sectionTwoSubtitle}</p>
           </div>
         </div>
@@ -140,7 +140,7 @@ const LandingPage = (props) => {
         {props.sectionOneTitle ?
         <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.sectionWrapper}`} style={{gap: '64px'}}>
           <div style={{ maxWidth: '560px' }} className="w-100 mr-lg-4 text-center text-lg-left order-0 order-lg-0">
-            { screenWidth > 576 ? <h1>{props.sectionOneTitle}</h1> : <h2>{props.sectionOneTitle}</h2> }
+            { screenWidth > 576 ? <h2>{props.sectionOneTitle}</h2> : <h2>{props.sectionOneTitle}</h2> }
             <p className="large">{props.sectionOneSubtitle}</p>
           </div>
           <div className="w-100 order-1 order-lg-1">
@@ -165,21 +165,21 @@ const LandingPage = (props) => {
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
+            { screenWidth > 576 ? <h2 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h2> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
             <div className={styles.stepsContainer}>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">Stand out</h3>
+                <h4 className="text-light-high my-3">Stand out</h4>
                 <p className="text-light-med large">{ props.whyVitaelyOne ? props.whyVitaelyOne : `Get yourself noticed with a unique personal landing page.`}</p>
               </div>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No data entry</h3>
+                <h4 className="text-light-high my-3">No data entry</h4>
                 <p className="text-light-med large">Syncing your information from your LinkedIn account.</p>
               </div>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.FOCUS} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No distractions</h3>
+                <h4 className="text-light-high my-3">No distractions</h4>
                 <p className="text-light-med large">It’s your profile. It’s no place for other people’s profiles.</p>
               </div>
             </div>
@@ -188,7 +188,7 @@ const LandingPage = (props) => {
       </div>
       <Container>
         <div className={`text-center ${styles.sectionWrapper}`}>
-          { screenWidth > 576 ? <h1 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>{props.title}</h1> : <h2 className="mx-auto mb-5">{props.title}</h2> }    
+          { screenWidth > 576 ? <h2 className="mx-auto mb-5" style={{ maxWidth: "720px" }}>{props.title}</h2> : <h2 className="mx-auto mb-5">{props.title}</h2> }    
           <div className="d-flex m-auto justify-content-center">
             <Link href="/users/register" className="btn primary high large m-auto">Get started</Link>
           </div>

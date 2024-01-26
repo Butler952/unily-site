@@ -152,9 +152,9 @@ const Home = (props) => {
             <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
               <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
                 <div>
-                  <img src="/images/landing-page/users/ahmed-najeeb.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px'}} />
-                  <img src="/images/landing-page/users/manas-srivastava.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} />
-                  <img src="/images/landing-page/users/bettina-codjie.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} />
+                <a href="https://www.vitaely.me/profile/dlyhn7SmEOQHFhtFSJd88GpfkMo1" target="_blank"><img src="/images/landing-page/users/ahmed-najeeb.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px'}} /></a>
+                  <a href="https://www.vitaely.me/profile/ltyDXHbf1mhkBk81ylBgPfigRP03" target="_blank"><img src="/images/landing-page/users/manas-srivastava.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} /></a>
+                  <a href="https://www.vitaely.me/profile/5xFmCA898fTzUZWnaAqlcULwSQA3" target="_blank"><img src="/images/landing-page/users/bettina-codjie.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} /></a>
                 </div>
                 <p className="text-dark-med mb-0">Over 917+ websites created</p>
               </div>
@@ -173,7 +173,7 @@ const Home = (props) => {
                 {userContext?.stage !== "complete" ?
                   <Link href="/users/register" className="btn primary high">Create my page</Link>
                   :
-                  <Link href="/profile" className="btn primary high">Go to my profile</Link>
+                  <Link href="/profile" className="btn primary medium">Go to my profile</Link>
                 }
               </div>
               <div className="d-flex flex-column gap-2 mt-5">
@@ -206,8 +206,8 @@ const Home = (props) => {
               <div className="mx-5 mx-sm-0">
                 <div className="d-block position-relative">
                   <div className="d-flex flex-column gap-3">
-                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-light-600" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(16px)'}}>
-                      <div className={`d-block position-relative overflow-hidden ${screenWidth > 576 ? styles.sectionImage : styles.sectionImageMobile}`} style={{ backgroundImage: screenWidth > 576 ? `url(/images/profile-preview.jpeg)` : `url(/images/profile-preview-mobile.jpeg)`, boxShadow: 'none', borderRadius: '16px 16px 0 0'}}></div>
+                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-primary-200" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(16px)'}}>
+                      <div className={`d-block position-relative overflow-hidden border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 ${screenWidth > 576 ? styles.sectionImage : styles.sectionImageMobile}`} style={{ backgroundImage: screenWidth > 576 ? `url(/images/profile-preview.jpeg)` : `url(/images/profile-preview-mobile.jpeg)`, boxShadow: 'none', borderRadius: '16px 16px 0 0'}}></div>
                       {/* <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div> */}
                     </div>
                   </div>

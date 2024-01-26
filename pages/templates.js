@@ -94,7 +94,7 @@ const Templates = () => {
               <Link href="/users/register" style={{textDecoration: 'none'}}>
                 <div role="button" className={`d-flex flex-column radius-3 p-3 w-100 ${settingsStyles.planCard} ${template.active && settingsStyles.active}`} style={{gap: '16px'}}>
                   <div className="d-flex flex-row justify-content-between align-items-center">
-                    <p className="large font-weight-bold text-dark-high mb-0">{template.label}</p>
+                    <p className="large font-weight-semibold text-dark-high mb-0">{template.label}</p>
                     {template.premium && <div className="tag primary medium">Premium</div>}
                   </div>
                   <div className={settingsStyles.imageWrapper}>
@@ -111,7 +111,7 @@ const Templates = () => {
               </Link>
             )}
           </div>
-          <h5 className="mt-5">More coming soon...</h5>
+          <h5 className="mt-5 pt-5">More coming soon...</h5>
         </div>
         <div className={`${styles.sectionWrapper}`}>
           <div className="d-flex flex-column" style={{gap: '24px'}}>

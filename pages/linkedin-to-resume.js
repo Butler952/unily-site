@@ -68,19 +68,19 @@ const LinkedinToResume = () => {
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">1</h3>
               </div>
-              <h3 className="text-primary-high">Sync with LinkedIn</h3>
+              <h4 className="text-primary-high">Sync with LinkedIn</h4>
             </div>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">2</h3>
               </div>
-              <h3 className="text-primary-high">Choose information to display</h3>
+              <h4 className="text-primary-high">Choose information to display</h4>
             </div>
             <div className="d-flex flex-column align-items-center">
               <div className={styles.stepNumber}>
                 <h3 className="text-light-high m-0">3</h3>
               </div>
-              <h3 className="text-primary-high">Share or download your profile</h3>
+              <h4 className="text-primary-high">Share or download your profile</h4>
             </div>
           </div>
         </div>
@@ -141,22 +141,22 @@ const LinkedinToResume = () => {
         <Container className={styles.sectionWrapper}>
           <div className="text-center">
           {/*{ idList ?? <p>{idList}</p> }*/}
-            { screenWidth > 576 ? <h1 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h1> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
+            { screenWidth > 576 ? <h2 className="text-light-high mx-auto mb-5 pb-5" style={{ maxWidth: '560px' }}>Why use Vitaely?</h2> : <h2 className="text-light-high mx-auto mb-5 pb-5">Why use Vitaely?</h2> }    
             <div className={styles.stepsContainer}>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.STAR} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">Stand out</h3>
-                <h5 className="text-light-med">Get yourself noticed with a unique resume.</h5>
+                <h4 className="text-light-high my-3">Stand out</h4>
+                <p className="large text-light-med">Get yourself noticed with a unique resume.</p>
               </div>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.FEEDBACK} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No data entry</h3>
-                <h5 className="text-light-med">Syncing your information from your LinkedIn account.</h5>
+                <h4 className="text-light-high my-3">No data entry</h4>
+                <p className="large text-light-med">Syncing your information from your LinkedIn account.</p>
               </div>
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center mx-auto" style={{maxWidth: '320px'}}>
                 <Icon icon={ICONS.FOCUS} size='64' className="fill-light-900" />
-                <h3 className="text-light-high my-3">No distractions</h3>
-                <h5 className="text-light-med">Unlike Linkedin, it’s no place for other people’s profiles.</h5>
+                <h4 className="text-light-high my-3">No distractions</h4>
+                <p className="large text-light-med">Unlike Linkedin, it’s no place for other people’s profiles.</p>
               </div>
             </div>
           </div>

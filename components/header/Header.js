@@ -387,6 +387,23 @@ const Header = ({
                     </svg>
                     }
                 </Link>
+                { windowUrl.includes("blog") || 
+                  windowUrl.includes("legal") || 
+                  windowUrl.includes("setup") ||
+                  windowUrl.includes("users") ||
+                  windowUrl.includes("pricing") ||
+                  windowUrl.includes("templates") ||
+                  windowUrl.includes("linkedin-to-resume") ||
+                  windowUrl.includes("online-cv-builder") ||
+                  windowUrl.includes("online-resume-builder") ||
+                  windowUrl.includes("pdf-resume-builder") ||
+                  windowUrl == '/' ?                 
+                  <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
+                    <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
+                    <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
+                    <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link>
+                  </div> 
+                : null}
                 {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
 
                 {/* <div className="d-flex">
@@ -413,23 +430,6 @@ const Header = ({
                   <button className="btn primary low small" onClick={handleLogout}>Logout</button>
                   :
                   <div className="d-flex flex-row justify-content-center align-items-center">
-                    { windowUrl.includes("blog") || 
-                      windowUrl.includes("legal") || 
-                      windowUrl.includes("setup") ||
-                      windowUrl.includes("users") ||
-                      windowUrl.includes("pricing") ||
-                      windowUrl.includes("templates") ||
-                      windowUrl.includes("linkedin-to-resume") ||
-                      windowUrl.includes("online-cv-builder") ||
-                      windowUrl.includes("online-resume-builder") ||
-                      windowUrl.includes("pdf-resume-builder") ||
-                      windowUrl == '/' ?                 
-                      <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
-                        <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
-                        <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
-                        <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link>
-                      </div> 
-                    : null}
                     {windowUrl.match(`/profile`) &&
                       <button 
                         type="button" 
