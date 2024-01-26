@@ -388,7 +388,7 @@ const Header = ({
                     </svg>
                     }
                 </Link>
-                { windowUrl.includes("blog") || 
+                { screenWidth > 575 && (windowUrl.includes("blog") || 
                   windowUrl.includes("legal") || 
                   windowUrl.includes("setup") ||
                   windowUrl.includes("users") ||
@@ -404,7 +404,7 @@ const Header = ({
                     <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
                     <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link>
                   </div> 
-                : null}
+                : null)}
                 {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
 
                 {/* <div className="d-flex">
@@ -585,7 +585,7 @@ const Header = ({
                       )
                       :
                       null
-                    } */}
+                      } */}
 
                         {/* {product !== '' ?
                           (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
@@ -640,6 +640,39 @@ const Header = ({
                             Submit feedback
                           </Dropdown.Item>
                         </div>
+                        {screenWidth < 576 && (windowUrl.includes("blog") || 
+                            windowUrl.includes("legal") || 
+                            windowUrl.includes("setup") ||
+                            windowUrl.includes("users") ||
+                            windowUrl.includes("pricing") ||
+                            windowUrl.includes("templates") ||
+                            windowUrl.includes("linkedin-to-resume") ||
+                            windowUrl.includes("online-cv-builder") ||
+                            windowUrl.includes("online-resume-builder") ||
+                            windowUrl.includes("pdf-resume-builder") ||
+                            windowUrl == '/' ?                 
+                            <>
+                              <hr className={`${dark && 'border-light-300'} m-0`} />
+                              <div className="p-2">
+                              {/* <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
+                              <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
+                              <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link> */}
+                                <Dropdown.Item onClick={() => router.push('/templates')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                                  {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                                  Templates
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => router.push('/pricing')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                                  {/* <Icon icon={ICONS.USER} size='24' className="fill-dark-900" /> */}
+                                  Pricing
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => router.push('/blog')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                                  {/* <Icon icon={ICONS.FEEDBACK} size='24' /> */}
+                                  Blog
+                                </Dropdown.Item>
+                              </div>
+                            </>
+                          : null)
+                        }
                         <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
                           <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem dropdownItemLow ${dark && 'dropdownItemDark'}`}>
@@ -692,14 +725,74 @@ const Header = ({
                   </div>
                 )}
               </div>
-              <div className="d-flex" style={{ gap: '8px' }}>
+              {screenWidth < 768 ?
+                // Hamburger
+                <Dropdown align="end">
+                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
+                    <>
+                      <div className={
+                        ` d-flex flex-row align-items-center p-2 menuButton ${dark && 'menuButtonDark'}`} style={{ gap: '4px' }}>
+                        <div className="px-2">
+                          <svg viewBox="0 0 24 24" width='24px'>
+                            <path 
+                              d={ICONS.MENU}
+                              className={`${dark ? 'fill-light-900' : 'fill-dark-900'}`}
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                    {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
 
-                {/* <Link href="/users/register">
-                <a className={`btn primary small ${windowUrl === '/' ? 'medium' : 'high'}`}>Register</a>
-              </Link> */}
-                <Link href="/users/login" className={`${dark ? 'light' : 'primary'} btn low small`}>Login</Link>
-                <Link href="/users/register" className={`btn primary ${topOfLanding ? 'medium' : 'high'} small`}>Create my page</Link>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu as={CustomMenu} align="end" className={`${dark && 'menu-dark'} mt-2`}>
+                    {windowUrl.includes("blog") || 
+                        windowUrl.includes("legal") || 
+                        windowUrl.includes("setup") ||
+                        windowUrl.includes("users") ||
+                        windowUrl.includes("pricing") ||
+                        windowUrl.includes("templates") ||
+                        windowUrl.includes("linkedin-to-resume") ||
+                        windowUrl.includes("online-cv-builder") ||
+                        windowUrl.includes("online-resume-builder") ||
+                        windowUrl.includes("pdf-resume-builder") ||
+                        windowUrl == '/' ?                 
+                        <div className="p-2">
+                        {/* <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
+                        <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
+                        <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link> */}
+                          <Dropdown.Item onClick={() => router.push('/templates')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                            Templates
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => router.push('/pricing')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            {/* <Icon icon={ICONS.USER} size='24' className="fill-dark-900" /> */}
+                            Pricing
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => router.push('/blog')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            {/* <Icon icon={ICONS.FEEDBACK} size='24' /> */}
+                            Blog
+                          </Dropdown.Item>
+                        </div>
+                      : null
+                    }
+                    <hr className={`${dark && 'border-light-300'} m-0`} />
+                    <div className="p-2">
+                      <Dropdown.Item onClick={() => router.push('/users/login')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                        Login
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => router.push('/users/login')} className={`dropdownItem dropdownItemHighlight ${dark && 'dropdownItemDark'}`}>
+                        Create my website
+                      </Dropdown.Item>
+                    </div>
+                  </Dropdown.Menu>
+                </Dropdown>
+              :
+              <div className="d-flex" style={{ gap: '8px' }}>
+                <Link href="/users/login" className={`${dark ? 'light' : 'dark'} btn low small`}>Login</Link>
+                <Link href="/users/register" className={`btn primary ${topOfLanding ? 'low' : 'high'} small`}>Create my website</Link>
               </div>
+              }
             </div>
           }
           <EditProfile
