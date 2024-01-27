@@ -527,7 +527,7 @@ const CustomDomain = ({
                 {!gettingDomainInfo ? 
                   ( !allUserData?.domain?.verified ? 
                     <>
-                      <p className="mb-0">Please set the following TXT record on _vercel.mydomain.com to show your Expertpage on {allUserData.domain.name}. Once the verification is completed and the domain is successfully configured, the TXT record can be removed.</p>
+                      <p className="mb-0">Please set the following TXT record on _vercel.mydomain.com to show your Vitaely site on {allUserData.domain.name}. Once the verification is completed and the domain is successfully configured, the TXT record can be removed.</p>
                       <div className="d-flex flex-column bg-dark-100 radius-2 p-3 gap-3">
                         <div>
                           <p className="text-dark-high small font-weight-semibold mb-1">Type</p>
@@ -625,7 +625,7 @@ const CustomDomain = ({
           <div className="d-flex flex-column w-100 gap-4">
             <div>
               <input type="text" className={newDomainError !== '' ? `error w-100` : `w-100`} value={newDomain} onChange={({ target }) => domainChange(target.value)} placeholder="mywebsite.com" />
-              <p className="small text-dark-med mt-2 mb-0">Your Expertpage profile will appear on this domain.</p>
+              <p className="small text-dark-med mt-2 mb-0">Your Vitaely site will appear on this domain.</p>
               {newDomainError !== '' && <p className="small text-error-high mt-2 mb-0">{newDomainError}</p> }
             </div>
             <div className="d-flex flex-column mt-3 gap-3">
@@ -698,7 +698,7 @@ const CustomDomain = ({
         <hr className="m-0 w-100"></hr>
         <div className="p-4">
           {/* <h6 className="mb-2">Are you sure you want to remove this custom domain?</h6> */}
-          <p>Your Expertpage profile will still be accessible at vitaely.me/{allUserData?.subdomain}</p>
+          <p>Your Vitaely site will still be accessible at vitaely.me{allUserData?.profileUrl}</p>
           { allUserData?.domain?.name &&
             <div className="d-flex flex-row justify-content-between border-1 border-solid border-dark-300 radius-2 w-100 p-4 mb-4" style={{gap:'24px'}}>
               <div className="d-flex flex-row justify-content-between w-100">
