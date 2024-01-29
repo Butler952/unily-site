@@ -11,6 +11,7 @@ import Header from '../../components/header/Header';
 import Bento from '../../components/profile/Bento';
 import StaccatoProfile from '../../components/profile/StaccatoProfile';
 import Freelance from '../../components/profile/Freelance';
+import { Crisp } from "crisp-sdk-web";
 
 const Profile = (props) => {
 
@@ -40,6 +41,8 @@ const Profile = (props) => {
     checkUser();
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
+    Crisp.configure("02962a25-3eb1-43dd-a8bc-815253fa7582");
+    Crisp.chat.hide();
     // if (empty) router.push
   }, [])
 

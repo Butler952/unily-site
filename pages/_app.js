@@ -4,6 +4,7 @@ import Head from 'next/head'
 import '../public/styles/global.scss';
 import LogRocket from 'logrocket';
 import Layout from '../components/Layout';
+import { Crisp } from "crisp-sdk-web";
 
 export const UserContext = createContext("")
 
@@ -20,18 +21,7 @@ export default function App({ Component, pageProps }) {
           inputSanitizer: true,
         },
       });
-      // Include the Crisp code here, without the <script></script> tags
-      window.$crisp = [];
-      window.CRISP_WEBSITE_ID = "02962a25-3eb1-43dd-a8bc-815253fa7582";
-
-      (function() {
-        var d = document;
-        var s = d.createElement("script");
-
-        s.src = "https://client.crisp.chat/l.js";
-        s.async = 1;
-        d.getElementsByTagName("head")[0].appendChild(s);
-      })();
+      Crisp.configure("02962a25-3eb1-43dd-a8bc-815253fa7582");
     }
   }, [])
 
