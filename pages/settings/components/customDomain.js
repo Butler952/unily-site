@@ -651,7 +651,7 @@ const CustomDomain = ({
             <div className={`${styles.planCard} ${styles.active} radius-3 p-4 w-100 w-md-50 `}>
               <h5 className="text-primary-high mb-1">Premium</h5>
               <div className="d-flex align-items-end mb-4">
-                <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
+                <h4 className="text-dark-high mr-1 mb-0">$3</h4>
                 <p className="text-dark-high mb-0">/month</p>
               </div>
               {[

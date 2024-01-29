@@ -257,7 +257,7 @@ const Plan = () => {
                         {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
                       </div>
                       <div className="d-flex align-items-end mb-4">
-                        <h4 className="text-dark-high mr-1 mb-0">$5.99</h4>
+                        <h4 className="text-dark-high mr-1 mb-0">$3</h4>
                         <p className="text-dark-high mb-0">/month</p>
                       </div>
                       {[
