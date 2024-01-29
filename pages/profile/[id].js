@@ -293,7 +293,7 @@ export const getServerSideProps = async ({ query }) => {
   const content = {}
   await fire.firestore()
     .collection('users')
-    .where("profileUrl", "==", `/${query.id}`)
+    .where("profileUrl", "==", `/profile/${query.id}`)
     .limit(1)
     .get()
     .then((querySnapshot) => {

@@ -261,7 +261,7 @@ const BasicProfile = (props) => {
                       })}
                   </div>
                   : ''} */}
-                  {(props.linksPrimary || props.email || links) &&
+                  {(props.linksPrimary || props.email || props.links) &&
                     <div className="d-flex justify-content-start flex-column flex-sm-row flex-wrap" style={{ gap: '12px' }}>
                       {props.linksPrimary ?
                         <a href={convertToLink(props.linksPrimary.url)} target="_blank" className={`btn primary high w-100 w-sm-auto`}>{props.linksPrimary.label}</a>
