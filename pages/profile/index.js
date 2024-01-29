@@ -509,11 +509,11 @@ const Profile = (props) => {
                     <div className="py-5 background-light">
                       <div className="d-flex flex-column align-items-center container text-center">
                         {screenWidth && screenWidth > 767 ?
-                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
+                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Turn your Linkedin profile into a website in two minutes</h2>
                           :
-                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Create your page in two minutes</h2>
+                          <h2 className="hero-title mx-auto mb-4 text-dark-high" style={{ maxWidth: '560px' }}>Turn your Linkedin profile into a website in two minutes</h2>
                         }
-                        <p className="mx-auto mb-5 text-dark-med large" style={{ maxWidth: '720px' }}>Build trust and sell more. Simple web pages for freelancers and consultants. No tech skills required.</p>
+                        <p className="mx-auto mb-5 text-dark-med large" style={{ maxWidth: '720px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
                         <Link href="/users/register" className="btn primary high large">Create my page</Link>
                       </div>
                     </div>

@@ -121,9 +121,9 @@ const Home = (props) => {
   return (
     <div>
       <Head>
-        <title>Vitaely | Build trust and sell more with your own professional site</title>
+        <title>Vitaely | Turn your Linkedin profile into a website</title>
         <meta name="description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
-        <meta property="og:title" content="Vitaely | Build trust and sell more with your own professional site" />
+        <meta property="og:title" content="Vitaely | Turn your Linkedin profile into a website" />
         <meta property="og:description" content="Create your very own professional website for freelancers, consultants and small business owners in just two minutes." />
         <meta property="og:url" content="https://www.vitaely.me/" />
         <meta property="og:type" content="website" />
