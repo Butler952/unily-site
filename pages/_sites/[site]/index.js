@@ -40,6 +40,9 @@ const Profile = (props) => {
     checkUser();
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Profile');
+    if (process.env.NODE_ENV === 'production') {
+      window.$crisp.push(['do', 'chat:hide']);
+    }
     // if (empty) router.push
   }, [])
 
