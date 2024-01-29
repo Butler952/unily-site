@@ -658,7 +658,7 @@ const CustomDomain = ({
                 'Connect your own domain',
                 'Create your page', 
                 'Connect your own domain', 
-                'Remove Vitaely.me branding', 
+                // 'Remove Vitaely.me branding', 
                 'More coming soon'
               ].map((feature, index) =>
                 <div key={index} className="d-flex mt-2">

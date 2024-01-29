@@ -758,7 +758,7 @@ const Settings = () => {
                           {'string': "Vitaely.me domain", 'included': true},
                           {'string': "Create your page", 'included': true},
                           {'string': "Connect your own domain", 'included': false},
-                          {'string': "Remove Vitaely.me branding", 'included': false},
+                          // {'string': "Remove Vitaely.me branding", 'included': false},
                         ].map((feature, index) =>
                           <div key={index} className="d-flex align-items-start mt-2">
                             <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
@@ -783,7 +783,7 @@ const Settings = () => {
                           {'string': "Vitaely.me domain", 'included': true},
                           {'string': "Create your page", 'included': true},
                           {'string': "Connect your own domain", 'included': true},
-                          {'string': "Remove Vitaely.me branding", 'included': true},
+                          // {'string': "Remove Vitaely.me branding", 'included': true},
                           {'string': "More coming soon", 'included': true}
                         ].map((feature, index) =>
                           <div key={index} className="d-flex align-items-start mt-2">
