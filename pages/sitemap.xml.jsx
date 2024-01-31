@@ -77,7 +77,8 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "/how-to-add-links-to-your-profile",
     "/four-things-to-research-about-a-company-before-an-interview",
     "/how-to-ace-recorded-interviews",
-    "/how-to-edit-the-information-on-your-profile"
+    "/how-to-edit-the-information-on-your-profile",
+    "/how-to-show-your-vitaely-website-on-a-custom-domain"
   ]; 
   const profiles = [
     "dlyhn7SmEOQHFhtFSJd88GpfkMo1",
