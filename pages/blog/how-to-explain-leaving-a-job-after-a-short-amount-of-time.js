@@ -45,7 +45,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
           <h3>How short is short?</h3>
           <p className="large">Across almost all industries and age groups in the U.S., average tenure has been shrinking over time.</p>
           <p className="large">But the exact amount of time that would be considered a 'short time in the role' varies wildly depending on age and industry. What would be considered a long tenure for a 25 year old may well be considered a short tenure for a 50 year old.</p>
-          <p className="large">If you have established that you’ve only been in the role a relatively short time for your circumstances, you now have the challenge of explaining why you’re leaving, or have left, that role that to a future employer.</p>
+          <p className="large">If you have established that you’ve only been in the role a relatively short time for your circumstances, you now have the challenge of explaining to a future employer why you’re leaving, or have already left, that role.</p>
         </div>
         <div id="how-to-approach-the-conversation" className="py-4 background-light">
           <h3>How to approach the conversation</h3>
@@ -56,7 +56,7 @@ const HowToExplainLeavingJobAfterShortAmountOfTime = () => {
           <h3>You’re still in the job</h3>
           <p className="large">So let’s say you’re still in the job and you’re interviewing for a new position and they ask you “Why do you want to leave your role after such a short period of time?”</p>
           <p className="large">Focus on the pull of the role that you are interviewing for.</p>
-          <p className="large">So rather than talking about “Oh, my last employer wasn’t very good” or “I didn’t get along with them”, focus on what’s pulling you to this company. The key thing is to focus on the positives of your potential new role, rather than the negatives.</p>
+          <p className="large">So rather than talking about “Oh, my last employer wasn’t very good” or “I didn’t get along with them”, focus on what’s pulling you to this company. The key thing is to focus on the positives of your potential new role, rather than the negatives of your old one.</p>
           <p className="large">That's not to say you should avoid talking about negative experiences entirely, but depending on the interviewer it can sometimes leave a bad impression.</p>
         </div>
         <div id="already-left-the-job" className="py-4 background-light">
