@@ -95,8 +95,8 @@ const Sync = () => {
           setLoadingState('Storing your data');
           if (currentProfile.receiveEmails) {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
-              firstName: result.first_name,
-              lastName: result.last_name,
+              first_name: result.first_name,
+              last_name: result.last_name,
               stage: 'complete',
               lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             })
@@ -150,8 +150,8 @@ const Sync = () => {
         .then((result) => {
           if (currentProfile.receiveEmails) {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
-              firstName: result.first_name,
-              lastName: result.last_name,
+              first_name: result.first_name,
+              last_name: result.last_name,
               // Comment: Before styling
               // stage: 'complete',
               stage: '/setup/template',

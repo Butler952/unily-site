@@ -241,9 +241,9 @@ const ProfilePreviewBanner = () => {
       setLoadingState('Creating your profile');
       if (receiveEmails) {
         fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
-          firstName: localProfile.first_name,
-          lastName: localProfile.last_name,
-          subscriberEmail: userCredential.user.email,
+          first_name: localProfile.first_name,
+          last_name: localProfile.last_name,
+          email: userCredential.user.email,
           stage: 'complete',
           signUpSurveyComplete: false,
           subscribed: fire.firestore.FieldValue.serverTimestamp(),

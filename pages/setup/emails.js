@@ -57,7 +57,7 @@ const Emails = () => {
             // firstName: doc.data().profile.first_name,
             // lastName: doc.data().profile.last_name,
             stage: 'sync',
-            subscriberEmail: doc.data().email,
+            email: doc.data().email,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
           })

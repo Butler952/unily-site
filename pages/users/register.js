@@ -46,7 +46,7 @@ const Register = () => {
           } else {
             if (receiveEmails) {
               fire.firestore().collection('mailingList').doc(user.uid).set({
-                subscriberEmail: user.email,
+                email: user.email,
                 stage: '/setup/handle',
                 signUpSurveyComplete: false,
                 subscribed: fire.firestore.FieldValue.serverTimestamp(),
@@ -156,7 +156,7 @@ const Register = () => {
       .then((userCredential) => {
         if (receiveEmails) {
           fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
-            subscriberEmail: userCredential.user.email,
+            email: userCredential.user.email,
             stage: '/setup/handle',
             signUpSurveyComplete: false,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
