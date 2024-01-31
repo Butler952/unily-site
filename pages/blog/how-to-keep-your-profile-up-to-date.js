@@ -77,9 +77,7 @@ const HowToKeepYourProfileUpToDate = () => {
                 <h2 className="hero-title mx-auto mb-4 text-dark-high">Keep your profile up to date</h2>
               }
               <p className="mx-auto mb-5 text-dark-med large">Upgrade to Premium to enjoy unlimited resyncs and more coming soon.</p>
-              <Link href="/settings#plan">
-                <a className="btn primary high large">Upgrade your plan</a>
-              </Link>
+              <Link href="/settings#plan" className="btn primary high large">Upgrade your plan</Link>
             </div>
           </div>
       </Post>

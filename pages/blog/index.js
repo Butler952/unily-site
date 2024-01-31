@@ -36,6 +36,14 @@ const Blog = () => {
         <h2 className="my-5">Blog</h2>
         <div className="d-flex flex-column" style={{gap: '24px'}}>
           <PostCard 
+            image='/images/blog/how-to-show-your-vitaely-website-on-a-custom-domain/how-to-show-your-vitaely-website-on-a-custom-domain-cover.jpg'
+            title="How to show your Vitaely website on your own custom domain"
+            duration="2"
+            bodyPreview='You can now connect your own domain to give your Vitaely website a more personal home, e.g. "mydomain.com".'
+            postUrl="/blog/how-to-show-your-vitaely-website-on-a-custom-domain"
+            screenWidth={screenWidth}
+          />
+          <PostCard 
             image='/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg'
             title="How to edit the information on your profile"
             duration="1"
