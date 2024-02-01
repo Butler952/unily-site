@@ -61,6 +61,7 @@ const HowToShowYourVitaelyWebsiteOnACustomDomain = () => {
             <img alt="Enter your custom domain" src='/images/blog/how-to-show-your-vitaely-website-on-a-custom-domain/connect-your-own-domain-add-domain.jpeg'></img>
           </div>
           <p className="large">When you add enter a custom domain, instructions will appear as to the DNS changes you need to make to get your Vitaely website to appear on your custom domain.</p>
+          <p className="large">Note that the instructions will be specific to your site, so you can't just copy the DNS record in the image below.</p>
           <div className={`${styles.featureCard} my-5`}>
             <img alt="Add DNS records" src='/images/blog/how-to-show-your-vitaely-website-on-a-custom-domain/connect-your-own-domain-dns-settings.jpeg'></img>
           </div>
