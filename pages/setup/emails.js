@@ -56,7 +56,7 @@ const Emails = () => {
           fire.firestore().collection('mailingList').doc(user.uid).set({
             // firstName: doc.data().profile.first_name,
             // lastName: doc.data().profile.last_name,
-            stage: 'sync',
+            'custom_fields.stage': '/setup/sync',
             email: doc.data().email,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()

@@ -97,7 +97,7 @@ const Sync = () => {
             fire.firestore().collection('mailingList').doc(userData.uid).update({
               first_name: result.first_name,
               last_name: result.last_name,
-              stage: 'complete',
+              'custom_fields.stage': 'complete', 
               lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
             })
           }
@@ -154,7 +154,7 @@ const Sync = () => {
               last_name: result.last_name,
               // Comment: Before styling
               // stage: 'complete',
-              stage: '/setup/template',
+              'custom_fields.stage': '/setup/template', 
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
           }

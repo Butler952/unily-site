@@ -97,14 +97,6 @@ const Name = () => {
       setLastNameError('Please enter a last name')
       setSaving(false)
     } else {
-      // if (currentProfile.receiveEmails) {
-      //   fire.firestore().collection('mailingList').doc(userData.uid).update({
-      //     first_name: result.first_name,
-      //     last_name: result.last_name,
-      //     stage: '/setup/avatar',
-      //     lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-      //   })
-      // }
       fire.firestore().collection('users').doc(userData.uid).update({
         profile: {
           first_name: firstName,
@@ -122,6 +114,16 @@ const Name = () => {
           newUserContext.profile.full_name = `${firstName} ${lastName}`,
           newUserContext.stage = '/setup/avatar';
           setUserContext(newUserContext)
+        })
+        .then(() => {
+          if (currentProfile.receiveEmails) {
+            fire.firestore().collection('mailingList').doc(userData.uid).update({
+              first_name: firstName,
+              last_name: lastName,
+              'custom_fields.stage': '/setup/avatar',
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+            })
+          }
         })
         .then(() => {
           mixpanel.init(mixpanelConfig); 

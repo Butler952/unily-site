@@ -190,6 +190,14 @@ const Avatar = () => {
       //   })
       // })
       .then(() => {
+        if (currentProfile.receiveEmails) {
+          fire.firestore().collection('mailingList').doc(userData.uid).update({
+            'custom_fields.stage': '/setup/headline',
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+          })
+        }
+      })
+      .then(() => {
         mixpanel.init(mixpanelConfig); 
         mixpanel.track('Avatar skipped');
       })
@@ -227,6 +235,14 @@ const Avatar = () => {
         let newUserContext = userContext;
         newUserContext.stage = '/setup/name';
         setUserContext(newUserContext)
+      })
+      .then(() => {
+        if (currentProfile.receiveEmails) {
+          fire.firestore().collection('mailingList').doc(userData.uid).update({
+            'custom_fields.stage': '/setup/name',
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+          })
+        }
       })
       .then(() => {
         router.push('/setup/name')

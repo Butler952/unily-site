@@ -143,6 +143,14 @@ const Headline = () => {
           setUserContext(newUserContext)
         })
         .then(() => {
+          if (currentProfile.receiveEmails) {
+            fire.firestore().collection('mailingList').doc(userData.uid).update({
+              'custom_fields.stage': '/setup/template',
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+            })
+          }
+        })
+        .then(() => {
           mixpanel.init(mixpanelConfig); 
           mixpanel.track('Headline added');
         })
@@ -173,6 +181,14 @@ const Headline = () => {
         let newUserContext = userContext;
         newUserContext.stage = '/setup/avatar';
         setUserContext(newUserContext)
+      })
+      .then(() => {
+        if (currentProfile.receiveEmails) {
+          fire.firestore().collection('mailingList').doc(userData.uid).update({
+            'custom_fields.stage': '/setup/avatar',
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+          })
+        }
       })
       .then(() => {
         router.push('/setup/avatar')
