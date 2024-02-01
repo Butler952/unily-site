@@ -160,7 +160,7 @@ const SurveyBanner = () => {
 
     if (userContext.receiveEmails) {
       fire.firestore().collection('mailingList').doc(user).update({
-        signUpSurveyComplete: true,
+        'custom_fields.signUpSurveyComplete': true,
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
     }

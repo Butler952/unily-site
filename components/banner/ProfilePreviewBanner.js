@@ -244,8 +244,10 @@ const ProfilePreviewBanner = () => {
           first_name: localProfile.first_name,
           last_name: localProfile.last_name,
           email: userCredential.user.email,
-          stage: 'complete',
-          signUpSurveyComplete: false,
+          custom_fields: {
+            stage: 'complete',
+            signUpSurveyComplete: false,
+          },
           subscribed: fire.firestore.FieldValue.serverTimestamp(),
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })

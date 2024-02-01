@@ -47,8 +47,10 @@ const Register = () => {
             if (receiveEmails) {
               fire.firestore().collection('mailingList').doc(user.uid).set({
                 email: user.email,
-                stage: '/setup/handle',
-                signUpSurveyComplete: false,
+                custom_fields: {
+                  stage: '/setup/handle',
+                  signUpSurveyComplete: false,
+                },
                 subscribed: fire.firestore.FieldValue.serverTimestamp(),
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
@@ -157,8 +159,10 @@ const Register = () => {
         if (receiveEmails) {
           fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
             email: userCredential.user.email,
-            stage: '/setup/handle',
-            signUpSurveyComplete: false,
+            custom_fields: {
+              stage: '/setup/handle',
+              signUpSurveyComplete: false,
+            },
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
           })
