@@ -175,13 +175,16 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "ZGXv4GgEtcOOzGoPJJXw90JkGSK2",
     "acSH0z2nnje8tzaKiPVdJvjSZqi2",
     "9F0PJWo1BUaaSE5bJirxCUmZWGZ2",
-    "XYBgNFFhSKUqRa0XGTebzdMIsuK2"
+    "XYBgNFFhSKUqRa0XGTebzdMIsuK2",
+    "EwuNHWzXTHNG1TFrtliuWgAyt3w1",
   ]; 
   const premiumProfiles = [
     "aaronbutler",
     "rmenezes",
     "i.kunalsingh",
-    "vahnovan"
+    "vahnovan",
+    "rishav",
+    "vama-trivedi"
   ]; 
   /*const profiles = fetch("/api/getProfilelist")*/
    //You can fetch the products from an API*/
