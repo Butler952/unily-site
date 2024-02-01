@@ -97,14 +97,14 @@ const Name = () => {
       setLastNameError('Please enter a last name')
       setSaving(false)
     } else {
-      if (currentProfile.receiveEmails) {
-        fire.firestore().collection('mailingList').doc(userData.uid).update({
-          first_name: result.first_name,
-          last_name: result.last_name,
-          stage: '/setup/avatar',
-          lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-        })
-      }
+      // if (currentProfile.receiveEmails) {
+      //   fire.firestore().collection('mailingList').doc(userData.uid).update({
+      //     first_name: result.first_name,
+      //     last_name: result.last_name,
+      //     stage: '/setup/avatar',
+      //     lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+      //   })
+      // }
       fire.firestore().collection('users').doc(userData.uid).update({
         profile: {
           first_name: firstName,
