@@ -184,7 +184,9 @@ Sitemap.getInitialProps = ({ res, req }) => {
     "i.kunalsingh",
     "vahnovan",
     "rishav",
-    "vama-trivedi"
+    "vama-trivedi",
+    "mayank100sharma",
+    "siddhant-singal"
   ]; 
   /*const profiles = fetch("/api/getProfilelist")*/
    //You can fetch the products from an API*/
