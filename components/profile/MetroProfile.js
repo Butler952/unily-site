@@ -323,26 +323,17 @@ const MetroProfile = (props) => {
                                 
                                   {sideProject.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                      <a target="_blank" href={sideProject.url && convertToLink(sideProject.url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
-                                        {/* <img 
-                                      className={styles.experienceImage} src={sideProject.logo_url ? sideProject.logo_url : null} 
-                                      style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
-                                    /> */}
-                                        <img
+                                      <a target="_blank" href={sideProject.url && convertToLink(sideProject.url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>  
+                                        <Img
                                           className="radius-3 bg-light-900"
-                                          src={sideProject.logo_url ? sideProject.logo_url : null}
-                                          onError={({ currentTarget }) => {
-                                            // currentTarget.onerror = null; // prevents looping
-                                            currentTarget.className = 'd-none'
-                                            // currentTarget.style = "display: 'none'" 
-                                            // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                            // currentTarget.src="https://via.placeholder.com/150";
-                                          }}
                                           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
+                                          src={sideProject.logo_url}
+                                          unloader={
+                                            <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
+                                              <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
+                                            </div>
+                                          }
                                         />
-                                        <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
-                                          <Icon icon={ICONS.SIDE_PROJECTS} size='32' className="fill-dark-700" />
-                                        </div>
                                       </a>
                                     </div>
                                     :
@@ -512,21 +503,16 @@ const MetroProfile = (props) => {
                                   {school.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
-                                        <img
+                                        <Img
                                           className="radius-3 bg-light-900"
-                                          src={school.logo_url ? school.logo_url : null}
-                                          onError={({ currentTarget }) => {
-                                            // currentTarget.onerror = null; // prevents looping
-                                            currentTarget.className = 'd-none'
-                                            // currentTarget.style = "display: 'none'" 
-                                            // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                            // currentTarget.src="https://via.placeholder.com/150";
-                                          }}
                                           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
+                                          src={school.logo_url}
+                                          unloader={
+                                            <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
+                                              <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                                            </div>
+                                          }
                                         />
-                                        <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
-                                          <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
-                                        </div>
                                       </a>
                                     </div>
                                     :
@@ -580,25 +566,16 @@ const MetroProfile = (props) => {
                                   {volunteer.logo_url ?
                                     <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
                                       <a target="_blank" href={convertToLink(volunteer.company_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
-                                        {/* <img 
-                                        className={styles.experienceImage} src={job.logo_url ? job.logo_url : null} 
-                                        style={{width: '72px', height: '72px', minWidth: '72px', minHeight: '72px'}}
-                                      /> */}
-                                        <img
+                                        <Img
                                           className="radius-3 bg-light-900"
-                                          src={volunteer.logo_url ? volunteer.logo_url : null}
-                                          onError={({ currentTarget }) => {
-                                            // currentTarget.onerror = null; // prevents looping
-                                            currentTarget.className = 'd-none'
-                                            // currentTarget.style = "display: 'none'" 
-                                            // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                            // currentTarget.src="https://via.placeholder.com/150";
-                                          }}
                                           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
+                                          src={volunteer.logo_url}
+                                          unloader={
+                                            <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
+                                              <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
+                                            </div>
+                                          }
                                         />
-                                        <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
-                                          <Icon icon={ICONS.VOLUNTEERING} size='32' className="fill-dark-700" />
-                                        </div>
                                       </a>
                                     </div>
                                     :

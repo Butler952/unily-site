@@ -26,34 +26,52 @@ const Education = ({
   }
 
   const sortEducation = (a,b) => {
-    if (a.ends_at && 
-        a.ends_at.year && 
-        a.ends_at.month && 
-        b.ends_at && 
-        b.ends_at.year && 
-        b.ends_at.month &&
-        a.starts_at &&
-        a.starts_at.year && 
-        a.starts_at.month && 
-        b.starts_at && 
-        b.starts_at.year && 
-        b.starts_at.month
-      ) {
-      if (b.ends_at.year < a.ends_at.year)
-        return -1;
-      if (b.ends_at.year > a.ends_at.year)
-        return 1;
-      if (b.ends_at.year = a.ends_at.year) {
-        if (b.ends_at.month < a.ends_at.month)
+    if (a.starts_at &&
+      b.starts_at) {
+      // console.log(`sorted ${a.company}`)
+      if (a.ends_at == undefined & b.ends_at == undefined) {
+        if (b.starts_at.year < a.starts_at.year)
           return -1;
-        if (b.ends_at.month > a.ends_at.month)
+        if (b.starts_at.year > a.starts_at.year)
           return 1;
-        if (b.ends_at.month = a.ends_at.month) {
+        if (b.starts_at.year == a.starts_at.year) {
+          if (b.starts_at.month < a.starts_at.month)
+            return -1;
+          if (b.starts_at.month > a.starts_at.month)
+            return 1;
+        }
+      }
+      if (a.ends_at == undefined) {
+        return -1;
+      }
+      if (b.ends_at == undefined) {
+        return 1;
+      }
+      if (b.ends_at.year < a.ends_at.year){
+        // console.log(`${b.company} end year is earlier than ${a.company}`)
+        return -1;
+      }
+      if (b.ends_at.year > a.ends_at.year) {
+        // console.log(`${b.company} end year is later than ${a.company}`)
+        return 1;
+      }
+      if (b.ends_at.year == a.ends_at.year) {
+        // console.log(`${b.company} end year is the same as ${a.company}`)
+        if (b.ends_at.month < a.ends_at.month) {
+          // console.log(`${b.company} end month is the earlier as ${a.company}`)
+          return -1;
+        }
+        if (b.ends_at.month > a.ends_at.month) {
+          // console.log(`${b.company} end month is later than ${a.company}`)
+          return 1;
+        }
+        if (b.ends_at.month == a.ends_at.month) {
+          // console.log(`${b.company} end month is the same as ${a.company}`)
           if (b.starts_at.year < a.starts_at.year)
             return -1;
           if (b.starts_at.year > a.starts_at.year)
             return 1;
-          if (b.starts_at.year = a.starts_at.year) {
+          if (b.starts_at.year == a.starts_at.year) {
             if (b.starts_at.month < a.starts_at.month)
               return -1;
             if (b.starts_at.month > a.starts_at.month)
@@ -62,19 +80,7 @@ const Education = ({
         }
       }
     }
-    if (a.ends_at == undefined & b.ends_at == undefined) {
-      if (b.starts_at.year < a.starts_at.year)
-        return -1;
-      if (b.starts_at.year > a.starts_at.year)
-        return 1;
-      if (b.starts_at.year = a.starts_at.year) {
-        if (b.starts_at.month < a.starts_at.month)
-          return -1;
-        if (b.starts_at.month > a.starts_at.month)
-          return 1;
-      }
-    }
-    return 0;
+    return 1;
   }
 
   return (
