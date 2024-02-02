@@ -286,55 +286,119 @@ const AddVolunteering = ({
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
-            .then((downloadURL) => {
-              updateVolunteering(downloadURL, uid)
+          .then((downloadURL) => {
+
+            let payload = {
+              'logo_ref': uid,
+              'logo_url': downloadURL,
+              'title': volunteeringTitle,
+              'company': volunteeringCompany,
+              'location': volunteeringLocation,
+              'company_linkedin_profile_url': volunteeringUrl,
+              'starts_at': volunteeringStartDate ? 
+                { 
+                  'day': 1,
+                  'month': Number(volunteeringStartDate.split('-')[1]),
+                  'year': Number(volunteeringStartDate.split('-')[0])
+                } 
+              : 
+                null,
+              'ends_at': !volunteeringEndDatePresent ? 
+                (volunteeringEndDate ? 
+                  { 
+                    'day': 31,
+                    'month': Number(volunteeringEndDate.split('-')[1]),
+                    'year': Number(volunteeringEndDate.split('-')[0])
+                  } 
+                : 
+                  null) 
+              :
+                null,
+              'description': volunteeringDescription
+            }
+
+            let newUserContext = userContext;
+            newUserContext.profile.volunteer_work = newUserContext.profile.volunteer_work !== undefined ? [...newUserContext.profile.volunteer_work, payload] : [payload];
+            setUserContext(newUserContext)
+
+            fire.firestore().collection('users').doc(user).update({
+              'profile.volunteer_work': originalVolunteering !== undefined ? 
+                [...originalVolunteering, payload]
+              :
+                [payload],
+              lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
-            .then(() => {
-              fire.firestore().collection('users').doc(user).update({
-                'profile.volunteer_work': originalVolunteering,
-                lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-              })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.volunteer_work = originalVolunteering;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Volunteering added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add volunteering")
-                  //console.error("Error adding document: ", error);
-                });
-            })
+          })
+          .then(() => {
+            handleBack()
+          })
+          .then(() => {
+            setSubmitting(false)
+            toast("Volunteering added")
+          })
+          .catch((error) => {
+            setSubmitting(false)
+            toast("Unable to add volunteering")
+            //console.error("Error adding document: ", error);
+          });
 
           // Add this link to firestore
         }
       );
     } else {
-      updateVolunteering()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'title': volunteeringTitle,
+        'company': volunteeringCompany,
+        'location': volunteeringLocation,
+        'company_linkedin_profile_url': volunteeringUrl,
+        'starts_at': volunteeringStartDate ? 
+          { 
+            'day': 1,
+            'month': Number(volunteeringStartDate.split('-')[1]),
+            'year': Number(volunteeringStartDate.split('-')[0])
+          } 
+        : 
+          null,
+        'ends_at': !volunteeringEndDatePresent ? 
+          (volunteeringEndDate ? 
+            { 
+              'day': 31,
+              'month': Number(volunteeringEndDate.split('-')[1]),
+              'year': Number(volunteeringEndDate.split('-')[0])
+            } 
+          : 
+            null) 
+        :
+          null,
+        'description': volunteeringDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.volunteer_work = newUserContext.profile.volunteer_work !== undefined ? [...newUserContext.profile.volunteer_work, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.volunteer_work': originalVolunteering,
+        'profile.volunteer_work': originalVolunteering !== undefined ? 
+          [...originalVolunteering, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.volunteer_work = originalVolunteering;
-          setUserContext(newUserContext)
-          handleBack()
-        })
-        .then(() => {
-          setSubmitting(false)
-          toast("Volunteering added")
-        })
-        .catch((error) => {
-          setSubmitting(false)
-          toast("Unable to add volunteering")
-          //console.error("Error adding document: ", error);
-        });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Volunteering added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add volunteering")
+        //console.error("Error adding document: ", error);
+      });
     }
   }
 

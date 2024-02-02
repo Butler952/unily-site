@@ -256,55 +256,117 @@ const AddProject = ({
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
+            // .then((downloadURL) => {
+            //   updateProjects(downloadURL, uid)
+            // })
             .then((downloadURL) => {
-              updateProjects(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': projectsName,
+                'url': projectsUrl,
+                'starts_at': projectsStartDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(projectsStartDate.split('-')[1]),
+                    'year': Number(projectsStartDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'ends_at': !projectsEndDatePresent ? 
+                  (projectsEndDate ? 
+                    { 
+                      'day': 31,
+                      'month': Number(projectsEndDate.split('-')[1]),
+                      'year': Number(projectsEndDate.split('-')[0])
+                    } 
+                  : 
+                    null) 
+                :
+                  null,
+                'description': projectsDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.projects = newUserContext.profile.projects !== undefined ? [...newUserContext.profile.projects, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.projects': originalProjects,
+                'profile.projects': originalProjects !== undefined ? 
+                  [...originalProjects, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.projects = originalProjects;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Project added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add project")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Project added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add project")
+              //console.error("Error adding document: ", error);
+            });
           // Add this link to firestore
         }
       );
     } else {
-      updateProjects()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': projectsName,
+        'url': projectsUrl,
+        'starts_at': projectsStartDate ? 
+          { 
+            'day': 1,
+            'month': Number(projectsStartDate.split('-')[1]),
+            'year': Number(projectsStartDate.split('-')[0])
+          } 
+        : 
+          null,
+        'ends_at': !projectsEndDatePresent ? 
+          (projectsEndDate ? 
+            { 
+              'day': 31,
+              'month': Number(projectsEndDate.split('-')[1]),
+              'year': Number(projectsEndDate.split('-')[0])
+            } 
+          : 
+            null) 
+        :
+          null,
+        'description': projectsDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.projects = newUserContext.profile.projects !== undefined ? [...newUserContext.profile.projects, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.projects': originalProjects,
+        'profile.projects': originalProjects !== undefined ? 
+          [...originalProjects, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.projects = originalProjects;
-          setUserContext(newUserContext)
-          handleBack()
-        })
-        .then(() => {
-          setSubmitting(false)
-          toast("Project added")
-        })
-        .catch((error) => {
-          setSubmitting(false)
-          toast("Unable to add project")
-          //console.error("Error adding document: ", error);
-        });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Project added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add project")
+        //console.error("Error adding document: ", error);
+      });
     }
   }
 

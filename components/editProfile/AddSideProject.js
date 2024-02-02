@@ -277,54 +277,117 @@ const AddSideProject = ({
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              updateSideProjects(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'name': sideProjectsName,
+                'tagline': sideProjectsTagline,
+                'url': sideProjectsUrl,
+                'starts_at': sideProjectsStartDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(sideProjectsStartDate.split('-')[1]),
+                    'year': Number(sideProjectsStartDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'ends_at': !sideProjectsEndDatePresent ? 
+                  (sideProjectsEndDate ? 
+                    { 
+                      'day': 31,
+                      'month': Number(sideProjectsEndDate.split('-')[1]),
+                      'year': Number(sideProjectsEndDate.split('-')[0])
+                    } 
+                  : 
+                    null) 
+                :
+                  null,
+                'description': sideProjectsDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.side_projects = newUserContext.profile.side_projects !== undefined ? [...newUserContext.profile.side_projects, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.side_projects': originalSideProjects,
+                'profile.side_projects': originalSideProjects !== undefined ? 
+                  [...originalSideProjects, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.side_projects = originalSideProjects;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Side project added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add side project")
-                  //console.error("Error adding document: ", error);
-                });
+
             })
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Side project added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add side project")
+              //console.error("Error adding document: ", error);
+            });
 
           // Add this link to firestore
         }
       );
     } else {
-      updateSideProjects()
+
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'name': sideProjectsName,
+        'tagline': sideProjectsTagline,
+        'url': sideProjectsUrl,
+        'starts_at': sideProjectsStartDate ? 
+          { 
+            'day': 1,
+            'month': Number(sideProjectsStartDate.split('-')[1]),
+            'year': Number(sideProjectsStartDate.split('-')[0])
+          } 
+        : 
+          null,
+        'ends_at': !sideProjectsEndDatePresent ? 
+          (sideProjectsEndDate ? 
+            { 
+              'day': 31,
+              'month': Number(sideProjectsEndDate.split('-')[1]),
+              'year': Number(sideProjectsEndDate.split('-')[0])
+            } 
+          : 
+            null) 
+        :
+          null,
+        'description': sideProjectsDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.side_projects = newUserContext.profile.side_projects !== undefined ? [...newUserContext.profile.side_projects, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.side_projects': originalSideProjects,
+        'profile.side_projects': originalSideProjects !== undefined ? 
+          [...originalSideProjects, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.side_projects = originalSideProjects;
-          setUserContext(newUserContext)
-          handleBack()
-        })
-        .then(() => {
-          setSubmitting(false)
-          toast("Side project added")
-        })
-        .catch((error) => {
-          setSubmitting(false)
-          toast("Unable to add side project")
-          //console.error("Error adding document: ", error);
-        });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Side project added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add side project")
+        //console.error("Error adding document: ", error);
+      });
     }
   }
 

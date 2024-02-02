@@ -185,6 +185,9 @@ const EditProject = ({
       setUserContext(newUserContext)
     })
     .then(() => {
+      handleBack()
+    })
+    .then(() => {
       setSubmitting(false)
       toast("Project updated")
     })

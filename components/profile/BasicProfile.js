@@ -480,7 +480,7 @@ const BasicProfile = (props) => {
                                     {project.starts_at && project.ends_at == null ? ' – Present' : null}
                                     {project.starts_at && project.ends_at && project.ends_at.month && project.ends_at.year ? ( project.starts_at.month == project.ends_at.month & project.starts_at.year == project.ends_at.year ? null : ` – ${convertMonth(project.ends_at.month)} ${project.ends_at.year}`) : null }
                                   </p>
-                                  {project.description && getDescriptionText(projects.description, descriptionShowMore, setDescriptionShowMore)}
+                                  {project.description && getDescriptionText(project.description, descriptionShowMore, setDescriptionShowMore)}
                                 </div>
                               </Accordion>
                             </div>
@@ -495,57 +495,61 @@ const BasicProfile = (props) => {
                 <div className="mb-5">
                   <h4>Education</h4>
                   <div className={styles.profileCard + ' card'}>
-                    {props.education.map((school, index) =>
-                      <div key={index} className={`${styles.job}`}>
-                        <div className="d-flex flex-column flex-lg-row">
-                          {/* {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
-                            <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                              <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
-                            </div>
-                            : null} */}
-                          {props.logoVisibility && props.logoVisibility.education ?
-                            (school.logo_url ?
+                    {props.education.map((school, index) => {
+                      const [descriptionShowMore, setDescriptionShowMore] = useState(false);
+                      return (
+                        <div key={index} className={`${styles.job}`}>
+                          <div className="d-flex flex-column flex-lg-row">
+                            {/* {(props.logoVisibility ? props.logoVisibility.education : null) && school.logo_url ?
                               <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
-                                <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
-                                  <img
-                                    className="radius-3 bg-light-900"
-                                    src={school.logo_url ? school.logo_url : null}
-                                    onError={({ currentTarget }) => {
-                                      // currentTarget.onerror = null; // prevents looping
-                                      currentTarget.className = 'd-none'
-                                      // currentTarget.style = "display: 'none'" 
-                                      // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
-                                      // currentTarget.src="https://via.placeholder.com/150";
-                                    }}
-                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
-                                  />
-                                  <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
-                                    <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
-                                  </div>
-                                </a>
+                                <img className={styles.experienceImage} src={school.logo_url ? school.logo_url : null} />
                               </div>
-                              :
-                              <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
-                                <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
-                              </div>
-                            ) : null}
-                          <div>
-                            <p className="large text-dark-high font-weight-semibold mb-0">
-                              {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
-                            </p>
-                            <a target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)}>
-                              <p className="large text-dark-med mb-0">{school.school}</p>
-                            </a>
-                            <p className="text-dark-low mb-0">
-                              {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
-                              {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
-                              {school.starts_at && school.ends_at == null ? ' – Present' : null}
-                              {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? ( school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month)} ${school.ends_at.year}`) : null }
-                            </p>
+                              : null} */}
+                            {props.logoVisibility && props.logoVisibility.education ?
+                              (school.logo_url ?
+                                <div className="mb-3 mb-lg-0 mr-0 mr-lg-4">
+                                  <a target="_blank" href={convertToLink(school.school_linkedin_profile_url)} className="d-block position-relative" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px', maxWidth: '72px', maxHeight: '72px', overflow: 'hidden' }}>
+                                    <img
+                                      className="radius-3 bg-light-900"
+                                      src={school.logo_url ? school.logo_url : null}
+                                      onError={({ currentTarget }) => {
+                                        // currentTarget.onerror = null; // prevents looping
+                                        currentTarget.className = 'd-none'
+                                        // currentTarget.style = "display: 'none'" 
+                                        // placeholder.setAttribute("class", "bg-dark-200 radius-3 d-flex align-items-center justify-content-center d-none");
+                                        // currentTarget.src="https://via.placeholder.com/150";
+                                      }}
+                                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px', zIndex: '1' }}
+                                    />
+                                    <div id="placeholder" className="bg-dark-200 radius-3 align-items-center justify-content-center d-flex" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', minWidth: '72px', minHeight: '72px' }}>
+                                      <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                                    </div>
+                                  </a>
+                                </div>
+                                :
+                                <div className="bg-dark-200 radius-3 d-flex align-items-center justify-content-center mb-3 mb-lg-0 mr-0 mr-lg-4" style={{ width: '72px', height: '72px', minWidth: '72px', minHeight: '72px' }}>
+                                  <Icon icon={ICONS.SCHOOL} size='32' className="fill-dark-700" />
+                                </div>
+                              ) : null}
+                            <div>
+                              <p className="large text-dark-high font-weight-semibold mb-0">
+                                {`${school.field_of_study ? school.field_of_study : ''} ${school.field_of_study && school.degree_name ? `(${school.degree_name})` : (school.degree_name ? school.degree_name : '')}`}
+                              </p>
+                              <a target="_blank" href={school.school_linkedin_profile_url && convertToLink(school.school_linkedin_profile_url)}>
+                                <p className="large text-dark-med mb-0">{school.school}</p>
+                              </a>
+                              <p className="text-dark-low mb-0">
+                                {school.starts_at ? (school.starts_at.month ? convertMonth(school.starts_at.month) + " " : '') : null}
+                                {school.starts_at ? (school.starts_at.year ? school.starts_at.year + " " : null) : null}
+                                {school.starts_at && school.ends_at == null ? ' – Present' : null}
+                                {school.starts_at && school.ends_at && school.ends_at.month && school.ends_at.year ? ( school.starts_at.month == school.ends_at.month & school.starts_at.year == school.ends_at.year ? null : ` – ${convertMonth(school.ends_at.month)} ${school.ends_at.year}`) : null }
+                              </p>
+                              {school.description && getDescriptionText(school.description, descriptionShowMore, setDescriptionShowMore)}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )
+                    })}
                   </div>
                   <br /><br />
                 </div>

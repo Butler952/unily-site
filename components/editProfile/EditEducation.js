@@ -232,6 +232,9 @@ const EditEducation = ({
       setUserContext(newUserContext)
     })
     .then(() => {
+      handleBack()
+    })
+    .then(() => {
       setSubmitting(false)
       toast("Education updated")
     })

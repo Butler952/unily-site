@@ -288,55 +288,142 @@ const AddExperience = ({
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
+            // .then((downloadURL) => {
+            //   updateExperiences(downloadURL, uid)
+            // })
             .then((downloadURL) => {
-              updateExperiences(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'title': experiencesTitle,
+                'company': experiencesCompany,
+                'location': experiencesLocation,
+                'company_linkedin_profile_url': experiencesUrl,
+                'starts_at': experiencesStartDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(experiencesStartDate.split('-')[1]),
+                    'year': Number(experiencesStartDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'ends_at': !experiencesEndDatePresent ? 
+                  (experiencesEndDate ? 
+                    { 
+                      'day': 31,
+                      'month': Number(experiencesEndDate.split('-')[1]),
+                      'year': Number(experiencesEndDate.split('-')[0])
+                    } 
+                  : 
+                    null) 
+                :
+                  null,
+                'description': experiencesDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.experiences = newUserContext.profile.experiences !== undefined ? [...newUserContext.profile.experiences, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.experiences': originalExperiences,
+                'profile.experiences': originalExperiences !== undefined ? 
+                  [...originalExperiences, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.experiences = originalExperiences;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Experience added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add experience")
-                  //console.error("Error adding document: ", error);
-                });
             })
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Experience added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add experience")
+              //console.error("Error adding document: ", error);
+            });
+            // .then(() => {
+            //   fire.firestore().collection('users').doc(user).update({
+            //     'profile.experiences': originalExperiences,
+            //     lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+            //   })
+            //     .then((result) => {
+            //       let newUserContext = userContext;
+            //       newUserContext.profile.experiences = originalExperiences;
+            //       setUserContext(newUserContext)
+            //       handleBack()
+            //     })
+            //     .then(() => {
+            //       setSubmitting(false)
+            //       toast("Experience added")
+            //     })
+            //     .catch((error) => {
+            //       setSubmitting(false)
+            //       toast("Unable to add experience")
+            //       //console.error("Error adding document: ", error);
+            //     });
+            // })
 
           // Add this link to firestore
         }
       );
     } else {
-      updateExperiences()
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'title': experiencesTitle,
+        'company': experiencesCompany,
+        'location': experiencesLocation,
+        'company_linkedin_profile_url': experiencesUrl,
+        'starts_at': experiencesStartDate ? 
+          { 
+            'day': 1,
+            'month': Number(experiencesStartDate.split('-')[1]),
+            'year': Number(experiencesStartDate.split('-')[0])
+          } 
+        : 
+          null,
+        'ends_at': !experiencesEndDatePresent ? 
+          (experiencesEndDate ? 
+            { 
+              'day': 31,
+              'month': Number(experiencesEndDate.split('-')[1]),
+              'year': Number(experiencesEndDate.split('-')[0])
+            } 
+          : 
+            null) 
+        :
+          null,
+        'description': experiencesDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.experiences = newUserContext.profile.experiences !== undefined ? [...newUserContext.profile.experiences, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.experiences': originalExperiences,
+        'profile.experiences': originalExperiences !== undefined ? 
+          [...originalExperiences, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.experiences = originalExperiences;
-          setUserContext(newUserContext)
-          handleBack()
-        })
-        .then(() => {
-          setSubmitting(false)
-          toast("Experience added")
-        })
-        .catch((error) => {
-          setSubmitting(false)
-          toast("Unable to add experience")
-          //console.error("Error adding document: ", error);
-        });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Experience added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add experience")
+        //console.error("Error adding document: ", error);
+      });
     }
   }
 

@@ -301,55 +301,122 @@ const AddEducation = ({
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL()
+            // .then((downloadURL) => {
+            //   updateEducation(downloadURL, uid)
+            // })
             .then((downloadURL) => {
-              updateEducation(downloadURL, uid)
-            })
-            .then(() => {
+
+              let payload = {
+                'logo_ref': uid,
+                'logo_url': downloadURL,
+                'school': educationSchool,
+                'field_of_study': educationFieldOfStudy,
+                'degree_name': educationDegreeName,
+                'location': educationLocation,
+                'school_linkedin_profile_url': educationUrl,
+                'starts_at': educationStartDate ? 
+                  { 
+                    'day': 1,
+                    'month': Number(educationStartDate.split('-')[1]),
+                    'year': Number(educationStartDate.split('-')[0])
+                  } 
+                : 
+                  null,
+                'ends_at': !educationEndDatePresent ? 
+                  (educationEndDate ? 
+                    { 
+                      'day': 31,
+                      'month': Number(educationEndDate.split('-')[1]),
+                      'year': Number(educationEndDate.split('-')[0])
+                    } 
+                  : 
+                    null) 
+                :
+                  null,
+                'description': educationDescription
+              }
+
+              let newUserContext = userContext;
+              newUserContext.profile.education = newUserContext.profile.education !== undefined ? [...newUserContext.profile.education, payload] : [payload];
+              setUserContext(newUserContext)
+
               fire.firestore().collection('users').doc(user).update({
-                'profile.education': originalEducation,
+                'profile.education': originalEducation !== undefined ? 
+                  [...originalEducation, payload]
+                :
+                  [payload],
                 lastUpdated: fire.firestore.FieldValue.serverTimestamp()
               })
-                .then((result) => {
-                  let newUserContext = userContext;
-                  newUserContext.profile.education = originalEducation;
-                  setUserContext(newUserContext)
-                  handleBack()
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  toast("Education added")
-                })
-                .catch((error) => {
-                  setSubmitting(false)
-                  toast("Unable to add education")
-                  //console.error("Error adding document: ", error);
-                });
             })
-
+            .then(() => {
+              handleBack()
+            })
+            .then(() => {
+              setSubmitting(false)
+              toast("Education added")
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              toast("Unable to add education")
+              //console.error("Error adding document: ", error);
+            });
           // Add this link to firestore
         }
       );
     } else {
-      updateEducation()
+      let payload = {
+        'logo_ref': null,
+        'logo_url': null,
+        'school': educationSchool,
+        'field_of_study': educationFieldOfStudy,
+        'degree_name': educationDegreeName,
+        'location': educationLocation,
+        'school_linkedin_profile_url': educationUrl,
+        'starts_at': educationStartDate ? 
+          { 
+            'day': 1,
+            'month': Number(educationStartDate.split('-')[1]),
+            'year': Number(educationStartDate.split('-')[0])
+          } 
+        : 
+          null,
+        'ends_at': !educationEndDatePresent ? 
+          (educationEndDate ? 
+            { 
+              'day': 31,
+              'month': Number(educationEndDate.split('-')[1]),
+              'year': Number(educationEndDate.split('-')[0])
+            } 
+          : 
+            null) 
+        :
+          null,
+        'description': educationDescription
+      }
+
+      let newUserContext = userContext;
+      newUserContext.profile.education = newUserContext.profile.education !== undefined ? [...newUserContext.profile.education, payload] : [payload];
+      setUserContext(newUserContext)
+
       fire.firestore().collection('users').doc(user).update({
-        'profile.education': originalEducation,
+        'profile.education': originalEducation !== undefined ? 
+          [...originalEducation, payload]
+        :
+          [payload],
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
-        .then((result) => {
-          let newUserContext = userContext;
-          newUserContext.profile.education = originalEducation;
-          setUserContext(newUserContext)
-          handleBack()
-        })
-        .then(() => {
-          setSubmitting(false)
-          toast("Education added")
-        })
-        .catch((error) => {
-          setSubmitting(false)
-          toast("Unable to add education")
-          //console.error("Error adding document: ", error);
-        });
+      .then(() => {
+        handleBack()
+      })
+      .then(() => {
+        setSubmitting(false)
+        toast("Education added")
+      })
+      .catch((error) => {
+        setSubmitting(false)
+        toast("Unable to add education")
+        //console.error("Error adding document: ", error);
+      });
     }
   }
 
@@ -425,7 +492,7 @@ const AddEducation = ({
             <input
               type="text"
               className={educationDegreeNameError !== '' ? `error w-100 small` : `w-100 small`}
-              value={educationDegreeNameChanged ? educationDegreeName : (userContext && userContext.profile && userContext.profile.education[editProfileModalIndex] && userContext.profile.education[editProfileModalIndex].degree_name && userContext.profile.education[editProfileModalIndex].degree_name !== undefined ? userContext && userContext.profile && userContext.profile.education[editProfileModalIndex] && userContext.profile.education[editProfileModalIndex].degree_name && userContext.profile.education[editProfileModalIndex].degree_name : '')}
+              value={educationDegreeName}
               onChange={({ target }) => educationDegreeNameChange(target.value)}
             />
             {educationDegreeNameError !== '' ? <p className="small text-error-high mt-2">{educationDegreeNameError}</p> : null}

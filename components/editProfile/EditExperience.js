@@ -217,6 +217,9 @@ const EditExperience = ({
       setUserContext(newUserContext)
     })
     .then(() => {
+      handleBack()
+    })
+    .then(() => {
       setSubmitting(false)
       toast("Experience updated")
     })

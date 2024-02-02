@@ -201,6 +201,9 @@ const EditSideProject = ({
       setUserContext(newUserContext)
     })
     .then(() => {
+      handleBack()
+    })
+    .then(() => {
       setSubmitting(false)
       toast("Side project updated")
     })

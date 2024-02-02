@@ -217,6 +217,9 @@ const EditVolunteering = ({
       setUserContext(newUserContext)
     })
     .then(() => {
+      handleBack()
+    })
+    .then(() => {
       setSubmitting(false)
       toast("Volunteering updated")
     })
