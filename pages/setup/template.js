@@ -311,15 +311,15 @@ const Template = () => {
         <title>Template</title>
       </Head>
       <Header hideShadow />
-      <Container className="d-flex flex-column align-items-center my-5 py-5" style={{ maxWidth: "640px"}}>
+      <Container className="d-flex flex-column align-items-center my-5 py-5">
         {screenWidth > 575 ?
           <h2 className="text-dark-high text-center mb-2">Template</h2>
           :
           <h3 className="text-dark-high text-center mb-2">Template</h3>
         }
         <p className="large text-center" style={{maxWidth: '480px'}}>Choose the style of your profile.</p>
-        <div className="w-100" style={{ maxWidth: "480px" }}>
-          <div className="d-flex flex-column py-4 py-md-5 align-items-center" style={{gap: '16px'}}>
+        <div className="w-100">
+          <div className="py-4 py-md-5" style={{gap: '16px', display: 'grid', gridTemplateColumns: (screenWidth > 767 ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)')}}>
             {templates.map((template, index) => 
               <div key={index} role="button" onClick={() => changeTemplate(template)} className={`d-flex flex-column radius-3 p-3 w-100 ${pageStyles.planCard} ${template.active && pageStyles.active}`} style={{gap: '16px'}}>
                 <label className="checkbox-container mb-4">
