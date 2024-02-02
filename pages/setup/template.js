@@ -179,7 +179,7 @@ const Template = () => {
       'label': 'Original',
       'string': 'original',
       'img': '/images/profile-preview.jpeg',
-      'active': !templateChanged ? userContext?.template == 'original' || !userContext?.template : templateSelection == 'original',
+      'active': !templateChanged ? userContext?.template == 'original' : templateSelection == 'original',
       // 'active': 
       //   templateChanged ? 
       //   !userContext.template ||
@@ -354,9 +354,9 @@ const Template = () => {
               </div>
             )}
           </div>
-          <div className="position-fixed d-flex flex-column align-items-center px-4 py-4 py-sm-5 w-100 transition-standard" style={{left: 0, bottom: (!templateChanged ? '-160px' : 0), background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)' }}>
+          <div className="position-fixed d-flex flex-column align-items-center px-4 py-3 py-sm-3 w-100 transition-standard bg-light-800 border-0 border-top-1 border-solid border-dark-300" style={{left: 0, bottom: (!templateChanged ? '-160px' : 0), backdropFilter: 'blur(20px)'}}>
             {screenWidth > 575 ?
-              <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '320px'}} disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
+              <button type="button" onClick={handleSave} className="btn primary high w-100" style={{maxWidth: '240px'}} disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
             :
               <button type="button" onClick={handleSave} className="btn primary high w-100" disabled={!templateChanged || saving}>{!saving ? 'Create my profile' : 'Saving'}</button>
             }
