@@ -40,7 +40,6 @@ export default function App({ Component, pageProps }) {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
           <meta property="og:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
-
         </Head>
         <Layout>
           <Component {...pageProps} />
