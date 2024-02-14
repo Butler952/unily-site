@@ -38,8 +38,8 @@ export default function App({ Component, pageProps }) {
           <meta property="og:url" content="https://www.vitaely.me/" />
           <meta property="og:type" content="website" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content="/images/vitaely-twitter-summary-large-image.jpeg" />
-          <meta property="og:image" content="/images/vitaely-twitter-summary-large-image.jpeg" />
+          <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
+          <meta property="og:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
 
         </Head>
         <Layout>
