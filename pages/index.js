@@ -129,9 +129,8 @@ const Home = (props) => {
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" /> */}
         <meta name="twitter:card" content="summary_large_image" />
-        {/* <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" /> */}
-        <meta name="twitter:image" content="https://www.vitaely.me/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg" />
-        <meta property="og:image" content="https://www.vitaely.me/images/blog/how-to-edit-the-information-on-your-profile/how-to-edit-the-information-on-your-profile.jpg" />
+        <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
+        <meta property="og:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
       </Head>
       <Header hideShadow topOfLanding />
       <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
