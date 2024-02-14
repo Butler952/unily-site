@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
           <meta property="og:type" content="website" />
           <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" />
+          <meta name="twitter:image" content="/images/profile-preview.jpeg" />
         </Head>
         <Layout>
           <Component {...pageProps} />
