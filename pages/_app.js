@@ -32,14 +32,6 @@ export default function App({ Component, pageProps }) {
           <title>vitaely.me</title>
           <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
           <title>Vitaely | Turn your Linkedin profile into a website</title>
-          <meta name="description" content="Turn your Linkedin profile into your own personal website in two minutes" />
-          <meta property="og:title" content="Vitaely | Turn your Linkedin profile into a website" />
-          <meta property="og:description" content="Turn your Linkedin profile into your own personal website in two minutes" />
-          <meta property="og:url" content="https://www.vitaely.me/" />
-          <meta property="og:type" content="website" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
-          <meta property="og:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
         </Head>
         <Layout>
           <Component {...pageProps} />
