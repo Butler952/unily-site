@@ -56,7 +56,7 @@ const Emails = () => {
           fire.firestore().collection('mailingList').doc(user.uid).set({
             // firstName: doc.data().profile.first_name,
             // lastName: doc.data().profile.last_name,
-            'custom_fields.stage': '/setup/sync',
+            'custom_fields.stage': '/setup/handle',
             email: doc.data().email,
             subscribed: fire.firestore.FieldValue.serverTimestamp(),
             lastUpdated: fire.firestore.FieldValue.serverTimestamp()
@@ -65,7 +65,7 @@ const Emails = () => {
         .then(() => {
           fire.firestore().collection('users').doc(user.uid).update({
           receiveEmails,
-          stage: '/setup/sync',
+          stage: '/setup/handle',
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })
       })
@@ -73,7 +73,7 @@ const Emails = () => {
         setSubmitting(false)
       })
       .then(() => {
-        router.push('/setup/sync')
+        router.push('/setup/handle')
       })
       .catch((err) => {
         setSubmitting(false)
@@ -82,14 +82,14 @@ const Emails = () => {
     } else {
       fire.firestore().collection('users').doc(user.uid).update({
         receiveEmails,
-        stage: '/setup/sync',
+        stage: '/setup/handle',
         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
         setSubmitting(false)
       })
       .then(() => {
-        router.push('/setup/sync')
+        router.push('/setup/handle')
       })
       .catch((err) => {
         setSubmitting(false)
@@ -106,6 +106,8 @@ const Emails = () => {
       <Head>
         <title>Create an account</title>
       </Head>
+      <Header hideShadow />
+      
       <Container className="py-5">
         <div className="card m-auto" style={{maxWidth: "640px"}}>
           <div className="py-4 px-4 px-md-5">
