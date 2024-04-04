@@ -4,6 +4,7 @@
 @import '../fonts/plusJakartaSans/web/PlusJakartaSans.css';
 @import '../fonts/cormorantGaramond/stylesheet.css';
 @import '../fonts/galleryModern/stylesheet.css';
+@import '../fonts/marcellus/stylesheet.css';
 
 html {
   transition: $transition-standard;
@@ -29,18 +30,51 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5rem; 
   line-height: 1.1;
   color: $dark-900; 
-  font-weight: 600;
+  font-weight: 500;
   font-variant-ligatures: none;
-  font-family: 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  font-family: 'Marcellus', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  letter-spacing: -0.02em;}
-h1 { font-size: 64px; }
-h2 { font-size: 48px; }
-h3 { font-size: 34px; }
-h4 { font-size: 28px; line-height: 1.3; }
-h5 { font-size: 24px; line-height: 1.2; }
-h6 { font-size: 20px; line-height: 1.2; }
+  letter-spacing: 0}
+h1 { 
+  font-size: $heading-2;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-1; 
+    }
+}
+h2 { 
+  font-size: $heading-3;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-2; 
+    }
+}
+h3 { 
+  font-size: $heading-4;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-3; 
+    }
+}
+h4 { 
+  line-height: 1.2;
+  font-size: $heading-5;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-4; 
+    }
+}
+h5 { 
+  line-height: 1.2;
+  font-size: $heading-6;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-5; 
+    }
+}
+h6 { 
+  line-height: 1.2;
+  font-size: $heading-7;
+  @media (min-width: $breakpoint-sm) {
+      font-size: $heading-6; 
+    }
+}
 
 h1.display1 {
   font-size: 104px;
@@ -455,8 +489,8 @@ button.link {
 // Standard buttons
 
 a.btn, input.btn, button.btn { 
-  border-radius: $radius-medium;
-  padding: 12px 20px;  
+  border-radius: $radius-large;
+  padding: 12px 28px;  
   font-size: 20px;
   line-height: 32px;
   border:none;
@@ -494,7 +528,7 @@ a.btn, input.btn, button.btn {
     padding: 16px;
   }
   &.x-small {
-    padding: 8px 12px; 
+    padding: 8px 16px; 
     font-size: 14px; 
     line-height: 24px;
     svg {
@@ -506,7 +540,7 @@ a.btn, input.btn, button.btn {
     }
   }
   &.small {
-    padding: 10px 16px; 
+    padding: 10px 20px; 
     font-size: 16px; 
     line-height: 28px;
     svg {
@@ -518,7 +552,7 @@ a.btn, input.btn, button.btn {
     }
   }
   &.large {
-    padding: 14px 24px; 
+    padding: 14px 32px; 
     font-size: 24px;
     line-height: 36px;
     svg {
@@ -531,94 +565,38 @@ a.btn, input.btn, button.btn {
   }
   &.primary {
     &.high {
-      // background: $primary-900; 
-      background: $gradient-3;
+      background: $dark-900; 
       color: $white; 
-      box-shadow: rgba(80, 63, 205, 0.0) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
       svg path {
         fill: $white;
       }
       &:hover {
+        background: $dark-900-hover;
         color: $white; 
-        text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
-        // box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px;
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
       }
     }
     &.medium {
-      // background: $primary-light; 
-      // background: $gradient-3;
-      background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
-      color: $primary-900;
+      background: $dark-light; 
+      color: $dark-900; 
       svg path {
-        fill: $primary-900;
+        fill: $dark-900;
       }
       &:hover {
+        background: $dark-900;
         color: $white; 
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
-        background: $gradient-3;
-        // background: $gradient-3;
-        // background: -webkit-linear-gradient(#eee, #333);
-
         svg path {
           fill: $white;
         }
       }
     }
     &.low {
-      color: $primary-900;
+      color: $dark-900; 
       svg path {
-        fill: $primary-900;
+        fill: $dark-900;
       }
       &:hover {
-        background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
-      }
-    }
-  }
-  &.primary-dark {
-    &.high {
-      // background: $primary-900; 
-      background: $gradient-3;
-      color: $white; 
-      box-shadow: rgba(80, 63, 205, 0.0) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
-      svg path {
-        fill: $white;
-      }
-      &:hover {
-        color: $white; 
-        text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
-        // box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px;
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
-      }
-    }
-    &.medium {
-      // background: $primary-light; 
-      // background: $gradient-3;
-      // background: linear-gradient(92.88deg, rgba(69, 94, 181, 0.08) 9.16%, rgba(86, 67, 204, 0.08) 43.89%, rgba(103, 63, 215, 0.08) 64.72%);
-      background: linear-gradient(80deg, rgba(138, 125, 222, 0.1) 10%, rgba(138, 125, 222, 0.1) 45%, rgba(138, 125, 222, 0.1) 65%);
-      color: $primary-dark-900;
-      svg path {
-        fill: $primary-dark-900;
-      }
-      &:hover {
-        color: $white; 
-        box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
-        background: $gradient-3;
-        // background: $gradient-3;
-        // background: -webkit-linear-gradient(#eee, #333);
-
-        svg path {
-          fill: $white;
-        }
-      }
-    }
-    &.low {
-      color: $primary-dark-900;
-      svg path {
-        fill: $primary-dark-900;
-      }
-      &:hover {
-        background: linear-gradient(80deg, rgba(138, 125, 222, 0.1) 10%, rgba(138, 125, 222, 0.1) 45%, rgba(138, 125, 222, 0.1) 65%);
+        background: $dark-light;
+        color: $dark-900; 
       }
     }
   }

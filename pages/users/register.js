@@ -25,11 +25,20 @@ const Register = () => {
   const [passConfError, setPassConfError] = useState('');
   const [creating, setCreating] = useState(false);
 
+  const [shortlist, setShortlist] = useState([])
+  const [rejected, setRejected] = useState([])
+
   const [notify, setNotification] = useState('');
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig); 
     mixpanel.track('Register');
+    if (typeof localStorage.shortlist != "undefined") {
+      setShortlist(JSON.parse(localStorage.shortlist))
+    }
+    if (typeof localStorage.rejected != "undefined") {
+      setRejected(JSON.parse(localStorage.rejected))
+    }
     const unsubscribe =  fire.auth()
     .onAuthStateChanged((user) => {
       if (user) {
@@ -38,33 +47,22 @@ const Register = () => {
         .then((doc) => {
           if (doc.exists) {
             mixpanel.track("Registered", {"method": "Password"});
-            if (doc.data().stage === "complete") {
-              router.push("/profile");
-            } else {
-              router.push(doc.data().stage);
-            }
+            localStorage.removeItem("shortlist");
+            localStorage.removeItem("rejected");
+            router.push("/names");
           } else {
-            // if (receiveEmails) {
-            //   fire.firestore().collection('mailingList').doc(user.uid).set({
-            //     email: user.email,
-            //     custom_fields: {
-            //       stage: '/setup/handle',
-            //       signUpSurveyComplete: false,
-            //     },
-            //     subscribed: fire.firestore.FieldValue.serverTimestamp(),
-            //     lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-            //   })
-            // }
             fire.firestore().collection('users').doc(user.uid).set({
-              receiveEmails: receiveEmails,
-              email: user.email,
-              stage: '/setup/emails',
+              email: userCredential.user.email,
+              shortlist: shortlist,
+              rejected: rejected,
               created: fire.firestore.FieldValue.serverTimestamp(),
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
               mixpanel.track("Registered", {"method": "Google"});
-              router.push("/setup/emails");
+              localStorage.removeItem("shortlist");
+              localStorage.removeItem("rejected");
+              router.push("/names");
             })
             .catch((error) => {
               console.log("Error getting document:", error);
@@ -82,23 +80,6 @@ const Register = () => {
       };
   }, []);
 
-  const addUserDocument = (user) => {
-    fire.firestore().collection('users').doc(user.uid).set({
-      //receiveEmails,
-      email: user.email,
-      stage: '/setup/emails',
-      created: fire.firestore.FieldValue.serverTimestamp(),
-      lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      mixpanel.init(mixpanelConfig); 
-      // mixpanel.track('Registered');
-    })
-    .then(() => {
-      router.push("/setup/emails")
-    })
-  }
-
   const usernameChange = (value) => {
     setUsername(value),
     setEmailError('')
@@ -110,19 +91,9 @@ const Register = () => {
     setPassConfError('')
   }
 
-  // const passConfChange = (value) => {
-  //   setPassConf(value)
-  //   setPasswordError('')
-  //   setPassConfError('')
-  // }
-
   const termsAndPrivacyChange = () => {
     setTermsAndPrivacy(termsAndPrivacy => !termsAndPrivacy)
     setNotification('')
-  }
-
-  const receiveEmailsChange = () => {
-    setReceiveEmails(receiveEmails => !receiveEmails)
   }
 
   const handleLoginWithGoogle = (e) => {
@@ -140,12 +111,6 @@ const Register = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // if (password !== passConf) {
-    //   setPasswordError('Password and confirm password do not match')
-    //   setPassConfError('Password and confirm password do not match')
-    //   return null;
-    // }
-
     if (!termsAndPrivacy) {
       setNotification('Please accept the terms and conditions')
       return null;
@@ -156,31 +121,21 @@ const Register = () => {
     fire.auth()
       .createUserWithEmailAndPassword(username, password)
       .then((userCredential) => {
-        // if (receiveEmails) {
-        //   fire.firestore().collection('mailingList').doc(userCredential.user.uid).set({
-        //     email: userCredential.user.email,
-        //     custom_fields: {
-        //       stage: '/setup/emails',
-        //       signUpSurveyComplete: false,
-        //     },
-        //     subscribed: fire.firestore.FieldValue.serverTimestamp(),
-        //     lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-        //   })
-        // }
         fire.firestore().collection('users').doc(userCredential.user.uid).set({
-          receiveEmails: receiveEmails,
           email: userCredential.user.email,
-          stage: '/setup/emails',
+          shortlist: shortlist,
+          rejected: rejected,
           created: fire.firestore.FieldValue.serverTimestamp(),
           lastUpdated: fire.firestore.FieldValue.serverTimestamp()
         })
       })
       .then(() => {
         mixpanel.init(mixpanelConfig); 
-        // mixpanel.track("Registered", {"method": "Password"})
+        localStorage.removeItem("shortlist");
+        localStorage.removeItem("rejected");
       })
       .then(() => {
-        router.push("/setup/handle")
+        router.push("/names")
       })
       .catch((err) => {
         if (err.code === 'auth/email-already-in-use') {
@@ -217,26 +172,11 @@ const Register = () => {
                 <input type="password" placeholder="Password" className={passwordError !== '' ? `error w-100` : `w-100`} value={password} onChange={({target}) => passwordChange(target.value)} />
                 {passwordError !== '' ? <p className="small text-error-high mt-2">{passwordError}</p> : null}
               </div>
-              {/* <div className="mb-4">
-                <p className="large text-dark-high">Confirm password</p>
-                <input type="password" className={passConfError !== '' ? `error w-100` : `w-100`} value={passConf} onChange={({target}) => passConfChange(target.value)} />
-                {passConfError !== '' ? <p className="small text-error-high mt-2">{passConfError}</p> : null}
-              </div> */}
-              {/*<label className="checkbox-container small mb-4">I would like to receive emails about news and updates
-                <input type="checkbox" onChange={() => receiveEmailsChange()} checked={receiveEmails}></input>
-                <span className="checkmark"></span>
-            </label>*/}
               <label className="checkbox-container small mb-4">I agree to the <a href="/legal/terms" target="_blank">Terms</a> and <a href="/legal/privacy" target="_blank">Privacy Policy</a>
                 <input type="checkbox" onChange={() => termsAndPrivacyChange()} checked={termsAndPrivacy}></input>
                 {notify !== '' ? <p className="small text-error-high">{notify}</p> : null}
                 <span className="checkmark"></span>
               </label>
-              {/*}
-              <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
-                <input type="checkbox" onChange={() => setReceiveEmails(receiveEmails => !receiveEmails)} checked={receiveEmails}></input>
-                <span className="checkmark"></span>
-              </label>
-              */}
               <button type="submit" className="btn primary high w-100" disabled={creating}>{creating ? 'Creating account...' : 'Create account'}</button>
             </form>
             <div className="d-flex flex-row align-items-center w-100 gap-3 my-3">

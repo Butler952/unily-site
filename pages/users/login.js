@@ -92,21 +92,22 @@ const Login = () => {
         .then((doc) => {
           if (doc.exists) {
             mixpanel.track("Login", {"method": "Password"});
-            if (doc.data().stage === "complete") {
-              router.push("/profile");
-            } else {
-              router.push(doc.data().stage);
-            }
+            localStorage.removeItem("shortlist");
+            localStorage.removeItem("rejected");
+            router.push("/names");
           } else {
             fire.firestore().collection('users').doc(user.uid).set({
-              email: user.email,
-              stage: '/setup/handle',
+              email: user.user.email,
+              shortlist: shortlist,
+              rejected: rejected,
               created: fire.firestore.FieldValue.serverTimestamp(),
               lastUpdated: fire.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
               mixpanel.track("Login", {"method": "Google"});
-              router.push("/setup/handle");
+              localStorage.removeItem("shortlist");
+              localStorage.removeItem("rejected");
+              router.push("/names");
             })
             .catch((error) => {
               console.log("Error getting document:", error);

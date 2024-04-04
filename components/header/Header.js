@@ -7,10 +7,7 @@ import styles from './Header.module.scss'
 import Icon from '../icon/Icon';
 import ICONS from '../icon/IconPaths';
 import { loadStripe } from '@stripe/stripe-js';
-import Lottie from 'react-lottie';
-import animationData from '../../components/animations/loader.json'
 import { UserContext } from '../../pages/_app';
-import EditProfile from '../editProfile/EditProfile';
 import { toast } from 'react-toastify';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
@@ -77,12 +74,12 @@ const Header = ({
     setWindowUrl(window.location.pathname);
     setScreenWidth(window.innerWidth)
     window.addEventListener('resize', handleResize);
-    document.body.style.background = '#f9f9fd';
+    document.body.style.background = '#F6F6F4';
     const unsubscribe = fire.auth()
       .onAuthStateChanged((user) => {
         if (user) {
           loggedInRoute(user)
-          getSubscription(user)
+          // getSubscription(user)
         }
       })
     return () => {
@@ -133,12 +130,12 @@ const Header = ({
             setUserContext(doc.data())
             //setProfile(doc.data().profile)
             //setStage(doc.data().stage)
-            if (doc.data().stage !== 'complete') {
-              router.push(doc.data().stage)
-            } else {
-              setProfileUrl(doc.data().profileUrl)
-              setCustomDomain(doc.data().domain?.name)
-            }
+            // if (doc.data().stage !== 'complete') {
+            //   router.push(doc.data().stage)
+            // } else {
+            //   setProfileUrl(doc.data().profileUrl)
+            //   setCustomDomain(doc.data().domain?.name)
+            // }
           } else {
             console.log("No such document!");
           }
@@ -218,14 +215,14 @@ const Header = ({
   }
   // Dev Customer Portal End
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  //   rendererSettings: {
+  //     preserveAspectRatio: 'xMidYMid slice'
+  //   }
+  // };
 
   const handleFeedbackClose = () => {
     setShowFeedbackModal(false);
@@ -389,23 +386,6 @@ const Header = ({
                     </svg>
                     }
                 </Link>
-                { screenWidth > 575 && (windowUrl.includes("blog") || 
-                  windowUrl.includes("legal") || 
-                  windowUrl.includes("setup") ||
-                  windowUrl.includes("users") ||
-                  windowUrl.includes("pricing") ||
-                  windowUrl.includes("templates") ||
-                  windowUrl.includes("linkedin-to-resume") ||
-                  windowUrl.includes("online-cv-builder") ||
-                  windowUrl.includes("online-resume-builder") ||
-                  windowUrl.includes("pdf-resume-builder") ||
-                  windowUrl == '/' ?                 
-                  <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
-                    <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
-                    <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
-                    <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link>
-                  </div> 
-                : null)}
                 {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
 
                 {/* <div className="d-flex">
@@ -522,8 +502,8 @@ const Header = ({
                             {userContext && userContext.profile && userContext.profile.full_name}
                           </Dropdown.Item>
                         </div>
-                        <hr className={`${dark && 'border-light-300'} m-0`} />
-                        <div className="p-2">
+                        {/* <hr className={`${dark && 'border-light-300'} m-0`} />
+                        <div className="p-2"> */}
                         {/* <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
                           <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
                           Edit profile
@@ -565,7 +545,7 @@ const Header = ({
                             Plan
                           </Dropdown.Item>
                         } */}
-                        <a 
+                        {/* <a 
                           target="_blank"
                           href={customDomain !== undefined ? `https://${customDomain}` : `${window.location.origin}${profileUrl}`} 
                           className={`dropdownItem ${dark && 'dropdownItemDark'}`}
@@ -576,7 +556,7 @@ const Header = ({
                         <Dropdown.Item onClick={() => copyProfileAddress()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                           <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
                           Copy website link
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                       
 
                         {/* {product !== '' ?
@@ -625,8 +605,8 @@ const Header = ({
                             Upgrade to premium
                           </Dropdown.Item>
                         } */}
-                        </div>
-                        <hr className={`${dark && 'border-light-300'} m-0`} />
+                        {/* </div> */}
+                        {/* <hr className={`${dark && 'border-light-300'} m-0`} /> */}
                         <div className="p-2">
                           <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${dark && 'dropdownItemDark'} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : 'dropdownItemHighlight'}`}>
                             <Icon icon={ICONS.STAR} size='24' />
@@ -649,39 +629,6 @@ const Header = ({
                             Submit feedback
                           </Dropdown.Item>
                         </div>
-                        {screenWidth < 576 && (windowUrl.includes("blog") || 
-                            windowUrl.includes("legal") || 
-                            windowUrl.includes("setup") ||
-                            windowUrl.includes("users") ||
-                            windowUrl.includes("pricing") ||
-                            windowUrl.includes("templates") ||
-                            windowUrl.includes("linkedin-to-resume") ||
-                            windowUrl.includes("online-cv-builder") ||
-                            windowUrl.includes("online-resume-builder") ||
-                            windowUrl.includes("pdf-resume-builder") ||
-                            windowUrl == '/' ?                 
-                            <>
-                              <hr className={`${dark && 'border-light-300'} m-0`} />
-                              <div className="p-2">
-                              {/* <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
-                              <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
-                              <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link> */}
-                                <Dropdown.Item onClick={() => router.push('/templates')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                                  {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                                  Templates
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={() => router.push('/pricing')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                                  {/* <Icon icon={ICONS.USER} size='24' className="fill-dark-900" /> */}
-                                  Pricing
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={() => router.push('/blog')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                                  {/* <Icon icon={ICONS.FEEDBACK} size='24' /> */}
-                                  Blog
-                                </Dropdown.Item>
-                              </div>
-                            </>
-                          : null)
-                        }
                         <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
                           <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem dropdownItemLow ${dark && 'dropdownItemDark'}`}>
@@ -725,14 +672,6 @@ const Header = ({
                   }
                     {/* <img src="/images/vitaely-logo-icon-square.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
                 </Link>
-                {/* <div className={`${dark ? 'high' : 'medium'} tag small primary`}>Beta</div> */}
-                {screenWidth > 767 && (
-                  <div className="d-flex align-items-center mx-4" style={{ gap: '8px' }}>
-                    <Link href="/templates" className="btn dark low small">Templates</Link>
-                    <Link href="/pricing" className="btn dark low small">Pricing</Link>
-                    <Link href="/blog" className="btn dark low small">Blog</Link>
-                  </div>
-                )}
               </div>
               {screenWidth < 768 ?
                 // Hamburger
@@ -751,47 +690,14 @@ const Header = ({
                         </div>
                       </div>
                     </>
-                    {/* <img src="foo.jpg" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';"> */}
-
                   </Dropdown.Toggle>
-                  <Dropdown.Menu as={CustomMenu} align="end" className={`${dark && 'menu-dark'} mt-2`}>
-                    {windowUrl.includes("blog") || 
-                        windowUrl.includes("legal") || 
-                        windowUrl.includes("setup") ||
-                        windowUrl.includes("users") ||
-                        windowUrl.includes("pricing") ||
-                        windowUrl.includes("templates") ||
-                        windowUrl.includes("linkedin-to-resume") ||
-                        windowUrl.includes("online-cv-builder") ||
-                        windowUrl.includes("online-resume-builder") ||
-                        windowUrl.includes("pdf-resume-builder") ||
-                        windowUrl == '/' ?                 
-                        <div className="p-2">
-                        {/* <Link href="/templates" className={`btn low small ${dark ? 'light' : 'dark'}`}>Templates</Link>
-                        <Link href="/pricing" className={`btn low small ${dark ? 'light' : 'dark'}`}>Pricing</Link>
-                        <Link href="/blog" className={`btn low small ${dark ? 'light' : 'dark'}`}>Blog</Link> */}
-                          <Dropdown.Item onClick={() => router.push('/templates')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                            Templates
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => router.push('/pricing')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            {/* <Icon icon={ICONS.USER} size='24' className="fill-dark-900" /> */}
-                            Pricing
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => router.push('/blog')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            {/* <Icon icon={ICONS.FEEDBACK} size='24' /> */}
-                            Blog
-                          </Dropdown.Item>
-                        </div>
-                      : null
-                    }
-                    <hr className={`${dark && 'border-light-300'} m-0`} />
+                  <Dropdown.Menu as={CustomMenu} align="end" className={`${dark && 'menu-dark'} mt-2`}>      
                     <div className="p-2">
                       <Dropdown.Item onClick={() => router.push('/users/login')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                         Login
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => router.push('/users/login')} className={`dropdownItem dropdownItemHighlight ${dark && 'dropdownItemDark'}`}>
-                        Create my website
+                      <Dropdown.Item onClick={() => router.push('/users/register')} className={`dropdownItem dropdownItemHighlight ${dark && 'dropdownItemDark'}`}>
+                        Create account
                       </Dropdown.Item>
                     </div>
                   </Dropdown.Menu>
@@ -799,20 +705,11 @@ const Header = ({
               :
               <div className="d-flex" style={{ gap: '8px' }}>
                 <Link href="/users/login" className={`${dark ? 'light' : 'dark'} btn low small`}>Login</Link>
-                <Link href="/users/register" className={`btn primary ${topOfLanding ? 'low' : 'high'} small`}>Create my website</Link>
+                <Link href="/users/register" className={`btn primary ${topOfLanding ? 'low' : 'high'} small`}>Create account</Link>
               </div>
               }
             </div>
           }
-          <EditProfile
-            showEditProfileModal={showEditProfileModal}
-            editProfileModalState={editProfileModalState}
-            editProfileModalSubtitle={editProfileModalSubtitle}
-            setEditProfileModalIndex={setEditProfileModalIndex}
-            handleEditProfileChangeView={(page, subtitle, index) => handleEditProfileChangeView(page, subtitle, index)}
-            handleEditProfileClose={() => handleEditProfileClose()}
-            editProfileModalIndex={editProfileModalIndex}
-          />
           <Modal
             show={showFeedbackModal}
             onHide={handleFeedbackClose}
@@ -871,7 +768,7 @@ const Header = ({
           {redirectToStripe ? (
             <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
               <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                <Lottie options={defaultOptions} height={160} width={160} />
+                {/* <Lottie options={defaultOptions} height={160} width={160} /> */}
                 <p>Redirecting to Stripe checkout</p>
               </div>
             </div>

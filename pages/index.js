@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Header from '../components/header/Header';
 import mixpanel from 'mixpanel-browser';
 import mixpanelConfig from 'config/mixpanel-config';
-import { Accordion, Container, useAccordionToggle } from 'react-bootstrap';
+import { Accordion, Container } from 'react-bootstrap';
 
 import styles from './index.module.scss'
 import ICONS from '../components/icon/IconPaths';
@@ -152,7 +152,7 @@ const Home = (props) => {
       <div className="bg-light-900" style={{ marginBottom: footerHeight, zIndex: '2', position: 'relative', marginTop: '-64px', paddingTop: '64px' }}>
         <div className="container d-flex flex-column align-items-center justify-content-center pt-5 my-5">
           <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '960px'}}>
-            <div style={{ maxWidth: '840px' }} className="d-flex flex-column align-items-center text-center">
+            <div style={{ maxWidth: '640px' }} className="d-flex flex-column align-items-center text-center">
               <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
                 <div>
                 <a href="https://www.vitaely.me/profile/dlyhn7SmEOQHFhtFSJd88GpfkMo1" target="_blank"><img src="/images/landing-page/users/ahmed-najeeb.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px'}} /></a>
@@ -161,20 +161,12 @@ const Home = (props) => {
                 </div>
                 <p className="text-dark-med mb-0">Over 917+ websites created</p>
               </div>
-              {screenWidth > 767 ? 
-                <h1 className="text-gradient-4" style={{textShadow: 'rgba(0, 0, 0, 0.06) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h1> 
-              : 
-                <h2 className="text-gradient-4" style={{textShadow: 'rgba(0, 0, 0, 0.06) 12px 12px 24px'}}>Turn your Linkedin profile into a website</h2>
-              }
-              {screenWidth > 767 ? 
-                <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-              : 
-                <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>Use your LinkedIn profile to create your very own professional website in just two minutes.</p>
-              }
+              <h1>Certified️ epic names for your kid</h1>
+              <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>With hundreds of names from Homer’s epic poems, you’ll never have to call your kid Michael or Samantha ever again.</p>
               <div className="d-flex justify-content-center">
                 {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
                 {userContext?.stage !== "complete" ?
-                  <Link href="/users/register" className="btn primary high">Create my page</Link>
+                  <Link href="/names" className="btn primary high">Find a name for my kid</Link>
                   :
                   <Link href="/profile" className="btn primary medium">Go to my profile</Link>
                 }
