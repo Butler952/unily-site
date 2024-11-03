@@ -10,10 +10,13 @@ import Icon from "/components/icon/Icon";
 import ICONS from "/components/icon/IconPaths";
 import Footer from "/components/footer/Footer";
 import PostCard from "/components/blog/PostCard";
-import NAMES from "./namesWithIds";
+// import NAMES from "./namesWithIds";
+import names from './namesWithIds.json';
 import { UserContext } from "pages/_app";
-import malePreviewIds from "./malePreviewIds";
-import femalePreviewIds from "./femalePreviewIds";
+// import malePreviewIds from "./malePreviewIds";
+// import femalePreviewIds from "./femalePreviewIds";
+import malePreviewIds from './malePreviewIds.json';
+import femalePreviewIds from './femalePreviewIds.json';
 import Menu from "components/header/Menu";
 import confetti from 'canvas-confetti';
 import IllustrationIliad from "components/index/IllustrationIliad";
@@ -513,32 +516,32 @@ const Names = () => {
 				: [];
 		let usedNames = tempShortlist.concat(tempRejected);
 		if (usedNames.length == 0) {
-			let nameId = gender == "male" ? malePreviewIds[0] : femalePreviewIds[0];
-			let results = NAMES.find((name) => name.id === nameId);
+			let nameId = gender == "male" ? malePreviewIds.names[0] : femalePreviewIds.names[0];
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 1) {
-			let nameId = gender == "male" ? malePreviewIds[1] : femalePreviewIds[1];
-			let results = NAMES.find((name) => name.id === nameId);
+			let nameId = gender == "male" ? malePreviewIds.names[1] : femalePreviewIds.names[1];
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 2) {
-			let nameId = gender == "male" ? malePreviewIds[2] : femalePreviewIds[2];
-			let results = NAMES.find((name) => name.id === nameId);
+			let nameId = gender == "male" ? malePreviewIds.names[2] : femalePreviewIds.names[2];
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 3) {
-			let nameId = gender == "male" ? malePreviewIds[3] : femalePreviewIds[3];
-			let results = NAMES.find((name) => name.id === nameId);
+			let nameId = gender == "male" ? malePreviewIds.names[3] : femalePreviewIds.names[3];
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 4) {
-			let nameId = gender == "male" ? malePreviewIds[4] : femalePreviewIds[4];
-			let results = NAMES.find((name) => name.id === nameId);
+			let nameId = gender == "male" ? malePreviewIds.names[4] : femalePreviewIds.names[4];
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
@@ -564,7 +567,7 @@ const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
 
 			// fire.firestore().collection('names').doc(lastRandomDocumentId).get()
 
-			let results = NAMES.find(
+			let results = names.names.find(
 				(name) => name.id === passedLastRandomDocumentId
 			);
 			setRetreivedName(results);
@@ -580,9 +583,9 @@ const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
 			}
       let results
       if ( gender == "male") {
-        results = NAMES.filter((name) => name.gender !== "female");
+        results = names.names.filter((name) => name.gender !== "female");
       } else {
-        results = NAMES.filter((name) => name.gender !== "male");
+        results = names.names.filter((name) => name.gender !== "male");
       }
 			let filteredResults = results.filter(
 				(name) => !avoidNames.includes(name.id)
@@ -642,7 +645,7 @@ const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
 					// setSending(false)
           setActionTaken(false);
 					setTimeout(() => {
-            let results = NAMES.find(
+            let results = names.names.find(
               (name) => name.id === previousDocumentId
             );
             setRetreivedName(results);
@@ -670,31 +673,31 @@ let tempShortlist =
 		let usedNames = tempShortlist.concat(tempRejected);
 		if (usedNames.length == 0) {
 			let nameId = gender == "male" ? malePreviewIds[0] : femalePreviewIds[0];
-			let results = NAMES.find((name) => name.id === nameId);
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 1) {
 			let nameId = gender == "male" ? malePreviewIds[1] : femalePreviewIds[1];
-			let results = NAMES.find((name) => name.id === nameId);
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 2) {
 			let nameId = gender == "male" ? malePreviewIds[2] : femalePreviewIds[2];
-			let results = NAMES.find((name) => name.id === nameId);
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 3) {
 			let nameId = gender == "male" ? malePreviewIds[3] : femalePreviewIds[3];
-			let results = NAMES.find((name) => name.id === nameId);
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
 		} else if (usedNames.length == 4) {
 			let nameId = gender == "male" ? malePreviewIds[4] : femalePreviewIds[4];
-			let results = NAMES.find((name) => name.id === nameId);
+			let results = names.names.find((name) => name.id === nameId);
 			setRetreivedName(results);
 			setLastRandomDocumentId(nameId);
 			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
