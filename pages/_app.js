@@ -13,17 +13,17 @@ export default function App({ Component, pageProps }) {
   const [userContext, setUserContext] = useState("");
   const userValue = { userContext, setUserContext };
 
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      fire.analytics();
-      LogRocket.init('qbfdxd/vitaelyme', {
-        dom: {
-          inputSanitizer: true,
-        },
-      });
-      Crisp.configure("02962a25-3eb1-43dd-a8bc-815253fa7582");
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     fire.analytics();
+  //     LogRocket.init('qbfdxd/vitaelyme', {
+  //       dom: {
+  //         inputSanitizer: true,
+  //       },
+  //     });
+  //     Crisp.configure("02962a25-3eb1-43dd-a8bc-815253fa7582");
+  //   }
+  // }, [])
 
   return (
     // <body>
