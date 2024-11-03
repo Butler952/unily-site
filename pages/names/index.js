@@ -1,584 +1,1072 @@
-import { useEffect, useState, useContext } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import { Container } from 'react-bootstrap';
-import fire from '/config/fire-config';
+import { useEffect, useState, useContext } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import { Container } from "react-bootstrap";
+import fire from "/config/fire-config";
+import { useRouter } from 'next/router';
 
-import styles from './index.module.scss'
-import Icon from '/components/icon/Icon';
-import ICONS from '/components/icon/IconPaths';
-import Footer from '/components/footer/Footer';
-import PostCard from '/components/blog/PostCard';
-import Header from '/components/header/Header';
-import NAMES from './namesWithIds';
-import { UserContext } from 'pages/_app';
-import malePreviewIds from './malePreviewIds';
-import femalePreviewIds from './femalePreviewIds';
+import styles from "./index.module.scss";
+import Icon from "/components/icon/Icon";
+import ICONS from "/components/icon/IconPaths";
+import Footer from "/components/footer/Footer";
+import PostCard from "/components/blog/PostCard";
+import NAMES from "./namesWithIds";
+import { UserContext } from "pages/_app";
+import malePreviewIds from "./malePreviewIds";
+import femalePreviewIds from "./femalePreviewIds";
+import Menu from "components/header/Menu";
+import confetti from 'canvas-confetti';
+import IllustrationIliad from "components/index/IllustrationIliad";
 
 const Names = () => {
+	const router = useRouter();
+	const { userContext, setUserContext } = useContext(UserContext);
 
-  const { userContext, setUserContext } = useContext(UserContext);
+	const [screenWidth, setScreenWidth] = useState("");
+	const [sending, setSending] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [userData, setUserData] = useState("");
+	const [actionTaken, setActionTaken] = useState(false);
 
-  const [screenWidth, setScreenWidth] = useState('');
-  const [sending, setSending] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState('')
+	const [slideDirection, setSlideDirection] = useState("center");
+	const [retreivingName, setRetreivingName] = useState(false);
+	const [retreivedName, setRetreivedName] = useState(null);
+	const [firstFetch, setFirstFetch] = useState(true);
+	const [lastRandomDocumentId, setLastRandomDocumentId] = useState(null);
+	const [previousDocumentId, setPreviousDocumentId] = useState(null);
+  const [likedName, setLikedName] = useState(false);
+	const [gender, setGender] = useState("male");
+	const [shortlist, setShortlist] = useState(
+		userContext && userContext.shortlist ? userContext.shortlist : []
+	);
+	const [rejected, setRejected] = useState(
+		userContext && userContext.rejected ? userContext.rejected : []
+	);
+	// const [shortlist, setShortlist] = useState([])
+	// const [rejected, setRejected] = useState([])
+	// const [retreivedName, setRetreivedName] = useState({
+	//   "name":"Chryseis",
+	//   "description":[
+	//     {
+	//       "book":"iliad",
+	//       "content":"Daughter of Chryses, captive mistress of Agamemnon, released by him to her father (later Criseyde, Cressida), 1.111, etc."
+	//     }
+	//   ],
+	//   "gender":"female",
+	//   "properties":[null],
+	//   "allegience":[null]
+	// });
 
-  const [retreivingName, setRetreivingName] = useState(true);
-  const [retreivedName, setRetreivedName] = useState(null)
-  const [firstFetch, setFirstFetch] = useState(true)
-  const [lastRandomDocumentId, setLastRandomDocumentId] = useState(null)
-  const [gender, setGender] = useState("male")
-  const [shortlist, setShortlist] = useState(userContext && userContext.shortlist ? userContext.shortlist : [])
-  const [rejected, setRejected] = useState(userContext && userContext.rejected ? userContext.rejected : [])
-  // const [shortlist, setShortlist] = useState([])
-  // const [rejected, setRejected] = useState([])
-  // const [retreivedName, setRetreivedName] = useState({
-  //   "name":"Chryseis",
-  //   "description":[
-  //     { 
-  //       "book":"iliad",
-  //       "content":"Daughter of Chryses, captive mistress of Agamemnon, released by him to her father (later Criseyde, Cressida), 1.111, etc."
-  //     }
-  //   ],
-  //   "gender":"female",
-  //   "properties":[null],
-  //   "allegience":[null]
-  // });
+	const handleResize = () => {
+		setScreenWidth(window.innerWidth);
+	};
 
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth)
-  };
+	useEffect(() => {
+		setScreenWidth(window.innerWidth);
+		window.addEventListener("resize", handleResize);
 
-  useEffect(() => {
-    setScreenWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize);
+		// Check for gender query string
+		const { gender: genderQuery } = router.query;
+		if (genderQuery === 'male' || genderQuery === 'female') {
+			setGender(genderQuery);
+		}
 
-    const unsubscribe = fire.auth()
-      .onAuthStateChanged((user) => {
-        if (user) {
-          loggedInRoute(user)
-          // getSubscription(user)
-        } else {
-          if (typeof localStorage.shortlist != "undefined") {
-            setShortlist(JSON.parse(localStorage.shortlist))
-          }
-          if (typeof localStorage.rejected != "undefined") {
-            setRejected(JSON.parse(localStorage.rejected))
-          }
-          if (typeof localStorage.lastRandomDocumentId != "undefined") {
-            setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId))
-            getRandomDocument(JSON.parse(localStorage.lastRandomDocumentId))
-          } else {
-            getRandomDocument()
-          }
-        }
-      })
-    return () => {
-      // Unmouting
-      unsubscribe();
-    };
+		const unsubscribe = fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				loggedInRoute(user);
+				// getSubscription(user)
+			} else {
+				if (typeof localStorage.shortlist != "undefined") {
+					setShortlist(JSON.parse(localStorage.shortlist));
+				}
+				if (typeof localStorage.rejected != "undefined") {
+					setRejected(JSON.parse(localStorage.rejected));
+				}
+				if (typeof localStorage.lastRandomDocumentId != "undefined") {
+					setLastRandomDocumentId(
+						JSON.parse(localStorage.lastRandomDocumentId)
+					);
+					getRandomDocumentLoggedOut(
+						JSON.parse(localStorage.lastRandomDocumentId)
+					);
+				} else {
+					getRandomDocumentLoggedOut();
+				}
+			}
+		});
+		return () => {
+			// Unmouting
+			unsubscribe();
+		};
 
-    // if (userContext !== '') {
-    //   getRandomDocument()
-    // } else {
-    //   if (typeof localStorage.shortlist != "undefined") {
-    //     setShortlist(JSON.parse(localStorage.shortlist))
-    //   }
-    //   if (typeof localStorage.rejected != "undefined") {
-    //     setRejected(JSON.parse(localStorage.rejected))
-    //   }
-    //   if (typeof localStorage.lastRandomDocumentId != "undefined") {
-    //     setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId))
-    //     getRandomDocument(JSON.parse(localStorage.lastRandomDocumentId))
-    //   } else {
-    //     getRandomDocument()
-    //   }
-    // }
+		// if (userContext !== '') {
+		//   getRandomDocument()
+		// } else {
+		//   if (typeof localStorage.shortlist != "undefined") {
+		//     setShortlist(JSON.parse(localStorage.shortlist))
+		//   }
+		//   if (typeof localStorage.rejected != "undefined") {
+		//     setRejected(JSON.parse(localStorage.rejected))
+		//   }
+		//   if (typeof localStorage.lastRandomDocumentId != "undefined") {
+		//     setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId))
+		//     getRandomDocument(JSON.parse(localStorage.lastRandomDocumentId))
+		//   } else {
+		//     getRandomDocument()
+		//   }
+		// }
 
-    // We only needed last random document to try to limit non-account to 5 names, but if we're just using the same 5 names now, then there's no need for it
-    // I'll keep it for now but I will remove it soon
+		// We only needed last random document to try to limit non-account to 5 names, but if we're just using the same 5 names now, then there's no need for it
+		// I'll keep it for now but I will remove it soon
 
-    // If there is no user
-    // Run through the 5 default IDs (we can just hard code them, with env variables for Prod and Dev)
-    // Save and rejections/shortlisting to localstorage
-    // Prompt them to create an account once they hit 5 names
+		// If there is no user
+		// Run through the 5 default IDs (we can just hard code them, with env variables for Prod and Dev)
+		// Save and rejections/shortlisting to localstorage
+		// Prompt them to create an account once they hit 5 names
 
-    // If there is a user
-    // Set shortlist/rejected from user storage
-    // Update shortlist rejected by making a call to firestore when each action is take
-    // Do not refer to shortlist/rejected any more
+		// If there is a user
+		// Set shortlist/rejected from user storage
+		// Update shortlist rejected by making a call to firestore when each action is take
+		// Do not refer to shortlist/rejected any more
 
+		// const unsubscribe = fire.auth()
+		//   .onAuthStateChanged((user) => {
+		//     if (user) {
+		//       loggedInRoute(user)
+		//       getSubscription(user)
+		//     }
+		//   })
+		// return () => {
+		//   // Unmouting
+		//   unsubscribe();
+		// };
+	}, [router.query]);
 
-    // const unsubscribe = fire.auth()
-    //   .onAuthStateChanged((user) => {
-    //     if (user) {
-    //       loggedInRoute(user)
-    //       getSubscription(user)
-    //     }
-    //   })
-    // return () => {
-    //   // Unmouting
-    //   unsubscribe();
-    // };
+	const loggedInRoute = (user) => {
+		setLoggedIn(true);
+		setUserData(user);
+		// console.log(user)
+		fire
+			.firestore()
+			.collection("users")
+			.doc(user.uid)
+			.get()
+			.then((doc) => {
+				if (doc.exists) {
+					setUserContext(doc.data());
+					setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
+					setRejected(doc.data().rejected ? doc.data().rejected : []);
+				} else {
+					console.log("No such document!");
+				}
+			})
+			.catch((error) => {
+				console.log("Error getting document:", error);
+			});
+		if (typeof localStorage.lastRandomDocumentId != "undefined") {
+			setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
+			getRandomDocumentLoggedIn(JSON.parse(localStorage.lastRandomDocumentId));
+			console.log(JSON.parse(localStorage.lastRandomDocumentId));
+			console.log("fire2");
+		} else {
+			getRandomDocumentLoggedIn();
+			console.log("fire1");
+		}
+	};
 
-  }, []);
+  const confettiFunction = () => {
+    var heart = confetti.shapeFromPath({ path: ICONS.HEART_FILLED });
 
-  const loggedInRoute = (user) => {
-    setLoggedIn(true)
-    setUserData(user)
-    // console.log(user)
-    fire.firestore().collection('users').doc(user.uid).get()
-      .then((doc) => {
-        if (doc.exists) {
-          setUserContext(doc.data())
-          setShortlist(doc.data().shortlist ? doc.data().shortlist : [])
-          setRejected(doc.data().rejected ? doc.data().rejected : [])
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      })
-      if (typeof localStorage.lastRandomDocumentId != "undefined") {
-        setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId))
-        getRandomDocument(JSON.parse(localStorage.lastRandomDocumentId))
+    var colors = ['#DD2727', '#DD2727', '#DD2727', ];
+
+    (function frame() {
+
+      confetti({
+        particleCount: 15,
+        startVelocity: 40,
+        spread: 60,
+        colors: colors,
+        shapes: [heart],
+        scalar: 2,
+        flat: true,
+        gravity: 1,
+        ticks: 50,
+        origin: {y: 1}
+      });
+      confetti({
+        particleCount: 10,
+        startVelocity: 30,
+        spread: 90,
+        colors: colors,
+        shapes: [heart],
+        scalar: 3,
+        flat: true,
+        gravity: 1.2,
+        ticks: 100,
+        origin: { y: 1 }
+      });
+    }());
+  }
+
+	const addToShortlist = () => {
+		setLikedName(true)
+    confettiFunction()
+		setSlideDirection("slide-out-right");
+		if (loggedIn) {
+			let newShortlist = shortlist;
+			newShortlist.push(lastRandomDocumentId);
+			fire
+				.firestore()
+				.collection("users")
+				.doc(userData.uid)
+				.update({
+					shortlist: newShortlist,
+					lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+				})
+				.then(() => {
+					localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+					setShortlist(newShortlist);
+          setPreviousDocumentId(lastRandomDocumentId)
+					// setSending(false)
+					setTimeout(() => {
+            setActionTaken(true);
+						getRandomDocumentLoggedIn();
+            setLikedName(false)
+					}, 1700);
+				})
+				.catch((error) => {
+					console.log("error", error);
+				});
+		} else {
+			let newShortlist = shortlist;
+			newShortlist.push(lastRandomDocumentId);
+			console.log("ran this");
+			localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+			setShortlist(newShortlist);
+      setPreviousDocumentId(lastRandomDocumentId)
+			// setSending(false)
+			setTimeout(() => {
+        setActionTaken(true);
+				getRandomDocumentLoggedOut();
+        setLikedName(false)
+			}, 1700);
+		}
+	};
+
+	const addToRejected = () => {
+		// setSending(true)
+		setSlideDirection("slide-out-left");
+		let newRejected = rejected;
+		newRejected.push(lastRandomDocumentId);
+		setRejected(newRejected);
+    setPreviousDocumentId(lastRandomDocumentId)
+		if (loggedIn) {
+			fire
+				.firestore()
+				.collection("users")
+				.doc(userData.uid)
+				.update({
+					rejected: newRejected,
+					lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+				})
+				.then(() => {
+					// setSending(false)
+          setActionTaken(true);
+					setTimeout(() => {
+						getRandomDocumentLoggedIn();
+					}, 400);
+				})
+				.catch((error) => {
+					console.log("error", error);
+				});
+		} else {
+			localStorage.setItem("rejected", JSON.stringify(rejected));
+			// setSending(false)
+      setActionTaken(true);
+			setTimeout(() => {
+				getRandomDocumentLoggedOut();
+			}, 400);
+		}
+	};
+
+	// // Version 1 (doesn't work because we can only filter out 10 or fewer names)
+	// const getRandomDocument = async () => {
+	//   setRetreivingName(true)
+	//   try {
+	//       // Step 1: Query a random document based on some criteria
+	//       // const randomQuery = fire.firestore().collection('names').orderBy(fire.firestore.FieldPath.documentId()).limit(1);
+	//       // let avoidNames = ['1']
+	//       let avoidNames
+	//       if (lastRandomDocumentId == null) {
+	//         avoidNames = shortlist.concat(rejected)
+	//       } else {
+	//         avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
+	//       }
+	//       // avoidNames.concat(shortlist)
+	//       // avoidNames.concat(rejected)
+	//       // if (lastRandomDocumentId) {
+	//       //   avoidNames.push(lastRandomDocumentId)
+	//       // }
+	//       let randomQuery
+	//       console.log(avoidNames)
+
+	//       if (avoidNames.length > 0) {
+	//         randomQuery = fire.firestore().collection('names')
+	//         .where("gender", "==", gender)
+	//         .where('__name__', 'not-in', avoidNames);
+	//         console.log('ran 1')
+	//       } else {
+	//         randomQuery = fire.firestore().collection('names')
+	//         .where("gender", "==", gender)
+	//         console.log('ran 2')
+	//       }
+
+	//       const querySnapshot = await randomQuery.get();
+
+	//       // Step 2: Retrieve the document
+	//       if (!querySnapshot.empty) {
+	//           const randomIndex = Math.floor(Math.random() * querySnapshot.size);
+	//           setLastRandomDocumentId(querySnapshot.docs[randomIndex].id);
+	//           // console.log(querySnapshot.docs[randomIndex].data());
+	//           setRetreivedName(querySnapshot.docs[randomIndex].data());
+	//           setRetreivingName(false);
+	//       } else {
+	//           console.log("No documents found in the collection.");
+	//           setRetreivingName(false);
+	//       }
+	//   } catch (error) {
+	//       console.error("Error getting random document: ", error);
+	//       setRetreivingName(false);
+	//   }
+	// };
+
+	// Version 2 (get collection, remove objects in array that are in the avoid list, select one at random from the remaining list)
+	// This one is too heavy on the database (have to get all records for every name!)
+	// const getRandomDocument = (passedLastRandomDocumentId) => {
+	//   setRetreivingName(true)
+
+	//    if (firstFetch && passedLastRandomDocumentId) {
+
+	//     // fire.firestore().collection('names').doc(lastRandomDocumentId).get()
+	//     fire.firestore().collection('names').doc(passedLastRandomDocumentId).get()
+	//     .then((doc) => {
+	//       doc.data()
+	//       setRetreivedName(doc.data());
+	//       setRetreivingName(false);
+	//       setFirstFetch(false);
+	//     })
+	//     .catch(error => {
+	//       console.error('Error getting documents: ', error);
+	//       setRetreivingName(false);
+	//     });
+
+	//    } else {
+
+	//     let avoidNames
+	//     if (lastRandomDocumentId == null) {
+	//       avoidNames = shortlist.concat(rejected)
+	//     } else {
+	//       avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
+	//     }
+
+	//     const documents = [];
+
+	//     fire.firestore().collection('names').where("gender", "==", gender).get()
+	//     .then((querySnapshot) => {
+	//       querySnapshot.forEach((doc) => {
+	//         const jsonData = {
+	//             id: doc.id,
+	//             ...doc.data()
+	//         };
+	//         documents.push(jsonData);
+	//       });
+	//     })
+	//     .then(() => {
+	//       const filteredNames = documents.filter(name => !avoidNames.includes(name.id));
+	//       const randomIndex = Math.floor(Math.random() * filteredNames.length);
+
+	//       setLastRandomDocumentId(filteredNames[randomIndex].id);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(filteredNames[randomIndex].id));
+	//       // console.log(querySnapshot.docs[randomIndex].data());
+	//       setRetreivedName(filteredNames[randomIndex]);
+	//       setRetreivingName(false);
+	//       setFirstFetch(false);
+
+	//       // console.log(filteredNames)
+	//       // console.log(filteredNames[randomIndex])
+	//       // console.log(randomIndex)
+	//     })
+	//     .catch(error => {
+	//       console.error('Error getting documents: ', error);
+	//       setRetreivingName(false);
+	//     });
+	//   }
+	// };
+
+	// // Get names from the front end
+	// const getRandomDocument = () => {
+	//   console.log(NAMES)
+	// };
+
+	// Get names from the front end
+	// const getRandomDocument = (passedLastRandomDocumentId) => {
+	//   console.log('getRandomDocument')
+	//   console.log('loggedIn',loggedIn)
+	//   // setRetreivingName(true)
+	//   if (!loggedIn) {
+	//     console.log(loggedIn)
+	//     console.log('getRandomDocument2')
+	//     let tempShortlist = typeof localStorage.shortlist != "undefined" ? JSON.parse(localStorage.shortlist) : []
+	//     let tempRejected = typeof localStorage.rejected != "undefined" ? JSON.parse(localStorage.rejected) : []
+	//     let usedNames = tempShortlist.concat(tempRejected)
+	//     if (usedNames.length == 0) {
+	//       let nameId = (gender == "male" ? malePreviewIds[0] : femalePreviewIds[0])
+	//       let results = NAMES.find(name => name.id === nameId);
+	//       setRetreivedName(results);
+	//       setLastRandomDocumentId(nameId);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+	//     } else if (usedNames.length == 1) {
+	//       let nameId = (gender == "male" ? malePreviewIds[1] : femalePreviewIds[1])
+	//       let results = NAMES.find(name => name.id === nameId);
+	//       setRetreivedName(results);
+	//       setLastRandomDocumentId(nameId);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+	//     } else if (usedNames.length == 2) {
+	//       let nameId = (gender == "male" ? malePreviewIds[2] : femalePreviewIds[2])
+	//       let results = NAMES.find(name => name.id === nameId);
+	//       setRetreivedName(results);
+	//       setLastRandomDocumentId(nameId);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+	//     } else if (usedNames.length == 3) {
+	//       let nameId = (gender == "male" ? malePreviewIds[3] : femalePreviewIds[3])
+	//       let results = NAMES.find(name => name.id === nameId);
+	//       setRetreivedName(results);
+	//       setLastRandomDocumentId(nameId);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+	//     } else if (usedNames.length == 4) {
+	//       let nameId = (gender == "male" ? malePreviewIds[4] : femalePreviewIds[4])
+	//       let results = NAMES.find(name => name.id === nameId);
+	//       setRetreivedName(results);
+	//       setLastRandomDocumentId(nameId);
+	//       localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+	//     } else if (usedNames.length > 4) {
+	//       return
+	//     }
+	//     // setRetreivingName(false);
+	//     setFirstFetch(false);
+	//     // setCurrentIndex((currentIndex + 1) % options.length);
+	//     setSlideDirection('center');
+
+	//   } else {
+	//     console.log('getRandomDocument3')
+	//     if (firstFetch && passedLastRandomDocumentId) {
+	//       console.log('getRandomDocument4')
+	//     // We need to give each object an id (matching the one in firebase)
+	//     // get object from array where id = passedLastRandomDocumentId
+
+	//     // fire.firestore().collection('names').doc(lastRandomDocumentId).get()
+
+	//     let results = NAMES.find(name => name.id === passedLastRandomDocumentId);
+	//     setRetreivedName(results);
+	//     // setRetreivingName(false);
+	//     setFirstFetch(false);
+
+	//     } else {
+	//       console.log('getRandomDocument5')
+	//     let avoidNames
+	//     if (lastRandomDocumentId == null) {
+	//       avoidNames = shortlist.concat(rejected)
+	//     } else {
+	//       avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
+	//     }
+
+	//     let results = NAMES.filter(name => name.gender !== "male");
+	//     let filteredResults = results.filter(name => !avoidNames.includes(name.id));
+	//     const randomIndex = Math.floor(Math.random() * filteredResults.length);
+
+	//     setLastRandomDocumentId(filteredResults[randomIndex].id);
+	//     localStorage.setItem("lastRandomDocumentId", JSON.stringify(filteredResults[randomIndex].id));
+
+	//     setRetreivedName(filteredResults[randomIndex]);
+	//     // setRetreivingName(false);
+	//     setFirstFetch(false);
+
+	//     }
+	//     setSlideDirection('center');
+	//   }
+	// };
+
+	const getRandomDocumentLoggedOut = (passedLastRandomDocumentId) => {
+		console.log("getRandomDocument");
+		console.log("loggedIn", loggedIn);
+		// setRetreivingName(true)
+
+		console.log(loggedIn);
+		console.log("getRandomDocument2");
+		let tempShortlist =
+			typeof localStorage.shortlist != "undefined"
+				? JSON.parse(localStorage.shortlist)
+				: [];
+		let tempRejected =
+			typeof localStorage.rejected != "undefined"
+				? JSON.parse(localStorage.rejected)
+				: [];
+		let usedNames = tempShortlist.concat(tempRejected);
+		if (usedNames.length == 0) {
+			let nameId = gender == "male" ? malePreviewIds[0] : femalePreviewIds[0];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 1) {
+			let nameId = gender == "male" ? malePreviewIds[1] : femalePreviewIds[1];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 2) {
+			let nameId = gender == "male" ? malePreviewIds[2] : femalePreviewIds[2];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 3) {
+			let nameId = gender == "male" ? malePreviewIds[3] : femalePreviewIds[3];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 4) {
+			let nameId = gender == "male" ? malePreviewIds[4] : femalePreviewIds[4];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length > 4) {
+			return;
+		}
+		// setRetreivingName(false);
+		setFirstFetch(false);
+		// setCurrentIndex((currentIndex + 1) % options.length);
+		setSlideDirection("center");
+	};
+
+const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
+		console.log("getRandomDocument");
+		console.log("loggedIn", loggedIn);
+		// setRetreivingName(true)
+		console.log("getRandomDocument3");
+    console.log("firstFetch", firstFetch)
+		if (firstFetch && passedLastRandomDocumentId) {
+			console.log("getRandomDocument4");
+			// We need to give each object an id (matching the one in firebase)
+			// get object from array where id = passedLastRandomDocumentId
+
+			// fire.firestore().collection('names').doc(lastRandomDocumentId).get()
+
+			let results = NAMES.find(
+				(name) => name.id === passedLastRandomDocumentId
+			);
+			setRetreivedName(results);
+			// setRetreivingName(false);
+			setFirstFetch(false);
+		} else {
+			console.log("getRandomDocument5");
+			let avoidNames;
+			if (lastRandomDocumentId == null) {
+				avoidNames = shortlist.concat(rejected);
+			} else {
+				avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId]);
+			}
+      let results
+      if ( gender == "male") {
+        results = NAMES.filter((name) => name.gender !== "female");
       } else {
-        getRandomDocument()
+        results = NAMES.filter((name) => name.gender !== "male");
       }
-  }
+			let filteredResults = results.filter(
+				(name) => !avoidNames.includes(name.id)
+			);
+			const randomIndex = Math.floor(Math.random() * filteredResults.length);
 
-  const addToShortlist = () => {
-    setSending(true)
+			setLastRandomDocumentId(filteredResults[randomIndex].id);
+			localStorage.setItem(
+				"lastRandomDocumentId",
+				JSON.stringify(filteredResults[randomIndex].id)
+			);
+
+			setRetreivedName(filteredResults[randomIndex]);
+			// setRetreivingName(false);
+			setFirstFetch(false);
+		}
+		setSlideDirection("center");
+	};
+
+	const changeGender = (currentGender) => {
+		const newGender = currentGender === "male" ? "female" : "male";
+		setGender(newGender);
+		
+		// Update the query string
+		router.push({
+			pathname: router.pathname,
+			query: { ...router.query, gender: newGender },
+		}, undefined, { shallow: true });
+	};
+
+	const undoLastAction = () => {
+
+		let newShortlist = shortlist;
+		newShortlist = newShortlist.filter(id => id !== previousDocumentId);
+		setShortlist(newShortlist);
+		let newRejected = rejected;
+		newRejected = newRejected.filter(id => id !== previousDocumentId);
+		// newRejected.filter(previousDocumentId);
+		setRejected(newRejected);
 
     if (loggedIn) {
-      let newShortlist = shortlist
-      newShortlist.push(lastRandomDocumentId)
-      fire.firestore().collection('users').doc(userData.uid).update({
-        shortlist: newShortlist,
-        lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        localStorage.setItem("shortlist", JSON.stringify(newShortlist));
-        setShortlist(newShortlist)
-        setSending(false)
-        getRandomDocument();
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-    } else{
-      let newShortlist = shortlist
-      newShortlist.push(lastRandomDocumentId)
-      console.log('ran this')
-      localStorage.setItem("shortlist", JSON.stringify(newShortlist));
-      setShortlist(newShortlist)
-      setSending(false)
-      getRandomDocument();
-    }
-  }
 
-  const addToRejected = () => {
-    setSending(true)
-    let newRejected = rejected
-    newRejected.push(lastRandomDocumentId)
-    setRejected(newRejected)
-    if (loggedIn) {
-      fire.firestore().collection('users').doc(userData.uid).update({
-        rejected: newRejected,
-        lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        setSending(false)
-        getRandomDocument();
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-    } else{
-      localStorage.setItem("rejected", JSON.stringify(rejected));
-      setSending(false)
-      getRandomDocument();
-    }
-  }
+        // push new shortlist and rejected to firestore
+        // get the data for previousDocumentId again
+        // setActionTaken to false (to hide the undo button)
 
-
-  // // Version 1 (doesn't work because we can only filter out 10 or fewer names)
-  // const getRandomDocument = async () => {
-  //   setRetreivingName(true)
-  //   try {
-  //       // Step 1: Query a random document based on some criteria
-  //       // const randomQuery = fire.firestore().collection('names').orderBy(fire.firestore.FieldPath.documentId()).limit(1);
-  //       // let avoidNames = ['1']
-  //       let avoidNames
-  //       if (lastRandomDocumentId == null) {
-  //         avoidNames = shortlist.concat(rejected)
-  //       } else {
-  //         avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
-  //       }
-  //       // avoidNames.concat(shortlist)
-  //       // avoidNames.concat(rejected)
-  //       // if (lastRandomDocumentId) {
-  //       //   avoidNames.push(lastRandomDocumentId)
-  //       // }
-  //       let randomQuery
-  //       console.log(avoidNames)
-
-  //       if (avoidNames.length > 0) {
-  //         randomQuery = fire.firestore().collection('names')
-  //         .where("gender", "==", gender)
-  //         .where('__name__', 'not-in', avoidNames);
-  //         console.log('ran 1')
-  //       } else {
-  //         randomQuery = fire.firestore().collection('names')
-  //         .where("gender", "==", gender)
-  //         console.log('ran 2')
-  //       }
-        
-  //       const querySnapshot = await randomQuery.get();
-
-  //       // Step 2: Retrieve the document
-  //       if (!querySnapshot.empty) {
-  //           const randomIndex = Math.floor(Math.random() * querySnapshot.size);
-  //           setLastRandomDocumentId(querySnapshot.docs[randomIndex].id);
-  //           // console.log(querySnapshot.docs[randomIndex].data());
-  //           setRetreivedName(querySnapshot.docs[randomIndex].data());
-  //           setRetreivingName(false);
-  //       } else {
-  //           console.log("No documents found in the collection.");
-  //           setRetreivingName(false);
-  //       }
-  //   } catch (error) {
-  //       console.error("Error getting random document: ", error);
-  //       setRetreivingName(false);
-  //   }
-  // };
-
-
-  // Version 2 (get collection, remove objects in array that are in the avoid list, select one at random from the remaining list)
-  // This one is too heavy on the database (have to get all records for every name!)
-  // const getRandomDocument = (passedLastRandomDocumentId) => {
-  //   setRetreivingName(true)
-
-  //    if (firstFetch && passedLastRandomDocumentId) {
-
-  //     // fire.firestore().collection('names').doc(lastRandomDocumentId).get()
-  //     fire.firestore().collection('names').doc(passedLastRandomDocumentId).get()
-  //     .then((doc) => { 
-  //       doc.data()
-  //       setRetreivedName(doc.data());
-  //       setRetreivingName(false);
-  //       setFirstFetch(false);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error getting documents: ', error);
-  //       setRetreivingName(false);
-  //     });
-
-  //    } else {
-
-  //     let avoidNames
-  //     if (lastRandomDocumentId == null) {
-  //       avoidNames = shortlist.concat(rejected)
-  //     } else {
-  //       avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
-  //     }
-
-  //     const documents = [];
-
-  //     fire.firestore().collection('names').where("gender", "==", gender).get()
-  //     .then((querySnapshot) => { 
-  //       querySnapshot.forEach((doc) => { 
-  //         const jsonData = {
-  //             id: doc.id,
-  //             ...doc.data()
-  //         };
-  //         documents.push(jsonData);
-  //       }); 
-  //     })
-  //     .then(() => {
-  //       const filteredNames = documents.filter(name => !avoidNames.includes(name.id));
-  //       const randomIndex = Math.floor(Math.random() * filteredNames.length);
-
-  //       setLastRandomDocumentId(filteredNames[randomIndex].id);
-  //       localStorage.setItem("lastRandomDocumentId", JSON.stringify(filteredNames[randomIndex].id));
-  //       // console.log(querySnapshot.docs[randomIndex].data());
-  //       setRetreivedName(filteredNames[randomIndex]);
-  //       setRetreivingName(false);
-  //       setFirstFetch(false);
-
-  //       // console.log(filteredNames)
-  //       // console.log(filteredNames[randomIndex])
-  //       // console.log(randomIndex)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error getting documents: ', error);
-  //       setRetreivingName(false);
-  //     });
-  //   }
-  // };
-
-
-  // // Get names from the front end
-  // const getRandomDocument = () => {
-  //   console.log(NAMES)
-  // };
-
-  // Get names from the front end
-  const getRandomDocument = (passedLastRandomDocumentId) => {
-    setRetreivingName(true)
-    console.log('also ran this')
-    if (!loggedIn) {
-      let tempShortlist = typeof localStorage.shortlist != "undefined" ? JSON.parse(localStorage.shortlist) : []
-      let tempRejected = typeof localStorage.rejected != "undefined" ? JSON.parse(localStorage.rejected) : []
-    
-      let usedNames = tempShortlist.concat(tempRejected)
-      if (usedNames.length == 0) {
-        let nameId = (gender == "male" ? malePreviewIds[0] : femalePreviewIds[0])
-        let results = NAMES.find(name => name.id === nameId);
-        setRetreivedName(results);
-        setLastRandomDocumentId(nameId);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-      } else if (usedNames.length == 1) {
-        let nameId = (gender == "male" ? malePreviewIds[1] : femalePreviewIds[1])
-        let results = NAMES.find(name => name.id === nameId);
-        setRetreivedName(results);
-        setLastRandomDocumentId(nameId);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-      } else if (usedNames.length == 2) {
-        let nameId = (gender == "male" ? malePreviewIds[2] : femalePreviewIds[2])
-        let results = NAMES.find(name => name.id === nameId);
-        setRetreivedName(results);
-        setLastRandomDocumentId(nameId);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-      } else if (usedNames.length == 3) {
-        let nameId = (gender == "male" ? malePreviewIds[3] : femalePreviewIds[3])
-        let results = NAMES.find(name => name.id === nameId);
-        setRetreivedName(results);
-        setLastRandomDocumentId(nameId);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-      } else if (usedNames.length == 4) {
-        let nameId = (gender == "male" ? malePreviewIds[4] : femalePreviewIds[4])
-        let results = NAMES.find(name => name.id === nameId);
-        setRetreivedName(results);
-        setLastRandomDocumentId(nameId);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-      } else if (usedNames.length > 4) {
-        return
-      }
-      setRetreivingName(false);
-      setFirstFetch(false);
-
+      fire
+				.firestore()
+				.collection("users")
+				.doc(userData.uid)
+				.update({
+					shortlist: newShortlist,
+					rejected: newRejected,
+					lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+				})
+				.then(() => {
+					// setSending(false)
+          setActionTaken(false);
+					setTimeout(() => {
+            let results = NAMES.find(
+              (name) => name.id === previousDocumentId
+            );
+            setRetreivedName(results);
+						// getRandomDocumentLoggedIn(previousDocumentId);
+            setPreviousDocumentId(null)
+					}, 400);
+				})
+				.catch((error) => {
+					console.log("error", error);
+				});
     } else {
-
-      if (firstFetch && passedLastRandomDocumentId) {
-
-      // We need to give each object an id (matching the one in firebase)
-      // get object from array where id = passedLastRandomDocumentId
-
-      // fire.firestore().collection('names').doc(lastRandomDocumentId).get()
-
-      let results = NAMES.find(name => name.id === passedLastRandomDocumentId);
-      setRetreivedName(results);
-      setRetreivingName(false);
-      setFirstFetch(false);
-
-      } else {
-
-      let avoidNames
-      if (lastRandomDocumentId == null) {
-        avoidNames = shortlist.concat(rejected)
-      } else {
-        avoidNames = shortlist.concat(rejected).concat([lastRandomDocumentId])
-      }
-
-      let results = NAMES.filter(name => name.gender !== "male");
-      let filteredResults = results.filter(name => !avoidNames.includes(name.id));
-      const randomIndex = Math.floor(Math.random() * filteredResults.length);
-
-      setLastRandomDocumentId(filteredResults[randomIndex].id);
-      localStorage.setItem("lastRandomDocumentId", JSON.stringify(filteredResults[randomIndex].id));
-
-      setRetreivedName(filteredResults[randomIndex]);
-      setRetreivingName(false);
-      setFirstFetch(false);
-
-      }
+      localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+      localStorage.setItem("rejected", JSON.stringify(newRejected));
+			// setSending(false)
+      setActionTaken(false);
+			setTimeout(() => {
+let tempShortlist =
+			typeof localStorage.shortlist != "undefined"
+				? JSON.parse(localStorage.shortlist)
+				: [];
+		let tempRejected =
+			typeof localStorage.rejected != "undefined"
+				? JSON.parse(localStorage.rejected)
+				: [];
+		let usedNames = tempShortlist.concat(tempRejected);
+		if (usedNames.length == 0) {
+			let nameId = gender == "male" ? malePreviewIds[0] : femalePreviewIds[0];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 1) {
+			let nameId = gender == "male" ? malePreviewIds[1] : femalePreviewIds[1];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 2) {
+			let nameId = gender == "male" ? malePreviewIds[2] : femalePreviewIds[2];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 3) {
+			let nameId = gender == "male" ? malePreviewIds[3] : femalePreviewIds[3];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length == 4) {
+			let nameId = gender == "male" ? malePreviewIds[4] : femalePreviewIds[4];
+			let results = NAMES.find((name) => name.id === nameId);
+			setRetreivedName(results);
+			setLastRandomDocumentId(nameId);
+			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+		} else if (usedNames.length > 4) {
+			return;
+		}
+				// getRandomDocumentLoggedOut(previousDocumentId);
+        setPreviousDocumentId(null)
+			}, 400);
     }
-  };
+	};
+
+	// Console log all items in database so we can get ids
+	// const getRandomDocument = (passedLastRandomDocumentId) => {
+	//   setRetreivingName(true)
+
+	//   const documents = [];
+
+	//     fire.firestore().collection('names').get()
+	//     .then((querySnapshot) => {
+	//       querySnapshot.forEach((doc) => {
+	//         let jsonData = {
+	//             id: doc.id,
+	//             ...doc.data()
+	//         };
+	//         delete jsonData.lastUpdated
+	//         delete jsonData.createdAt
+	//         documents.push(jsonData);
+	//       });
+	//     })
+	//     .then(() => {
+	//       console.log(documents);
+	//       setRetreivingName(false);
+	//       setFirstFetch(false);
+	//       // console.log(filteredNames)
+	//       // console.log(filteredNames[randomIndex])
+	//       // console.log(randomIndex)
+	//     })
+	//     .catch(error => {
+	//       console.error('Error getting documents: ', error);
+	//       setRetreivingName(false);
+	//     });
+	// };
+
+	// const getRandomDocument = () => {
+
+	//   var names = fire.firestore().collection('names');
+	//   var key = names.doc().id;
+
+	//   names.where(fire.firestore().FieldPath.documentId(), '>=', key).limit(1).get()
+	//   .then(snapshot => {
+	//       if(snapshot.size > 0) {
+	//           snapshot.forEach(doc => {
+	//               console.log(doc.id, '=>', doc.data());
+	//           });
+	//       }
+	//       else {
+	//           var name = names.where(fire.firestore().FieldPath.documentId(), '<', key).limit(1).get()
+	//           .then(snapshot => {
+	//               snapshot.forEach(doc => {
+	//                   console.log(doc.id, '=>', doc.data());
+	//               });
+	//           })
+	//           .catch(err => {
+	//               console.log('Error getting documents', err);
+	//           });
+	//       }
+	//   })
+	//   .catch(err => {
+	//       console.log('Error getting documents', err);
+	//   });
+	// }
+
+	// const addNames = () => {
+	//     setSending(true)
+	//     NAMES.forEach((name) => {
+	//       fire.firestore().collection('names').add({
+	//         name: name.name,
+	//         description: name.description,
+	//         properties: name.properties,
+	//         gender: name.gender,
+	//         allegiance: name.allegiance,
+	//         createdAt: fire.firestore.FieldValue.serverTimestamp(),
+	//         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
+	//       })
+	//       .then(() => {
+	//         setSending(false)
+	//       })
+	//       .catch((err) => {
+	//         console.log(err.code, err.message)
+	//         setSending(false)
+	//       })
+	//     })
+	// }
+
+	return (
+		<div className={`overflow-hidden ${likedName && 'bg-dark-900'}`}>
+			{/* <Header positionFixed hideShadow /> */}
+			<Head>
+				<title>Turn your Linkedin profile into a resume | vitaely.me</title>
+				<meta
+					name="description"
+					content="Turn your Linkedin profile into a resume in just two minutes."
+				/>
+				<meta
+					property="og:title"
+					content="Turn your Linkedin profile into a resume | vitaely.me"
+				/>
+				<meta
+					property="og:description"
+					content="Turn your Linkedin profile into a resume in just two minutes."
+				/>
+				<meta
+					property="og:url"
+					content="https://www.vitaely.me/linkedin-to-resume"
+				/>
+				<meta property="og:type" content="website" />
+				{/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}
+			</Head>
+      <div className={`${!loggedIn && shortlist.length + rejected.length >= 5 ? null : "position-fixed"} w-100`} style={{zIndex: 1}}>
+        <div className="d-flex flex-row align-items-center justify-content-center p-2 px-md-3 w-100" style={{height: '64px'}}>
+          {/* <div
+            className="position-absolute d-flex flex-row"
+            style={{ left: "24px" }}
+          >
+            Used names{" "}
+            <div className="tag dark medium small ml-2">
+              {shortlist.length + rejected.length}
+            </div>
+          </div> */}
 
 
-  // Console log all items in database so we can get ids
-  // const getRandomDocument = (passedLastRandomDocumentId) => {
-  //   setRetreivingName(true)
 
-  //   const documents = [];
+          <div
+            className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
+            style={{ left: "0px" }}
+          >
+            { actionTaken && (
+              screenWidth > 767 ?
+              <button
+                onClick={() => undoLastAction()}
+                className="btn dark ultraLow small icon-left text-only"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.UNDO}></path>
+                </svg>
+                Undo
+              </button>
+              :
+              <button
+                onClick={() => undoLastAction()}
+                className="btn dark ultraLow small icon-only text-only"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.UNDO}></path>
+                </svg>
+              </button>
+            )}
 
-  //     fire.firestore().collection('names').get()
-  //     .then((querySnapshot) => { 
-  //       querySnapshot.forEach((doc) => { 
-  //         let jsonData = {
-  //             id: doc.id,
-  //             ...doc.data()
-  //         };
-  //         delete jsonData.lastUpdated
-  //         delete jsonData.createdAt
-  //         documents.push(jsonData);
-  //       }); 
-  //     })
-  //     .then(() => {
-  //       console.log(documents);
-  //       setRetreivingName(false);
-  //       setFirstFetch(false);
-  //       // console.log(filteredNames)
-  //       // console.log(filteredNames[randomIndex])
-  //       // console.log(randomIndex)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error getting documents: ', error);
-  //       setRetreivingName(false);
-  //     });
-  // };
+          </div>
 
-// const getRandomDocument = () => {
+          {!likedName &&
+            (!loggedIn && shortlist.length + rejected.length >= 5 ? 
+              null
+            :
+              <button
+                onClick={() => changeGender(gender)}
+                className={`${styles.genderSwitchWrapper}`}
+                style={{
+                  padding: "12px",
+                  gap: "24px",
+                  width: "92px",
+                  height: "48px",
+                }}
+              >
+                <div
+                  className={`${styles.genderSwitchStyles} ${
+                    gender == "male"
+                      ? styles.genderSwitchStylesMale
+                      : styles.genderSwitchStylesFemale
+                  } position-absolute bg-light-900 radius-5`}
+                  style={{ top: "2px", height: "44px", width: "44px" }}
+                ></div>
+                <svg
+                  className={`${styles.genderSwitchMaleIcon} ${
+                    gender == "male" && styles.active
+                  }`}
+                  style={{ zIndex: "1" }}
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fillRule="evenodd" clipRule="evenodd" d={ICONS.MALE} />
+                </svg>
+                <svg
+                  className={`${styles.genderSwitchFemaleIcon} ${
+                    gender == "female" && styles.active
+                  }`}
+                  style={{ zIndex: "1" }}
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fillRule="evenodd" clipRule="evenodd" d={ICONS.FEMALE} />
+                </svg>
+              </button>
+            )
+          }
+          <div
+            className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
+            style={{ right: "0px" }}
+          >
+            { screenWidth > 767 && (
+              <Link href="/shortlist" className="btn primary low small text-only">
+                Shortlist{" "}
+                <div className="tag dark medium small ml-2">{shortlist.length}</div>
+              </Link>
+            )}
+            <Menu />
 
-//   var names = fire.firestore().collection('names');
-//   var key = names.doc().id;
-
-//   names.where(fire.firestore().FieldPath.documentId(), '>=', key).limit(1).get()
-//   .then(snapshot => {
-//       if(snapshot.size > 0) {
-//           snapshot.forEach(doc => {
-//               console.log(doc.id, '=>', doc.data());
-//           });
-//       }
-//       else {
-//           var name = names.where(fire.firestore().FieldPath.documentId(), '<', key).limit(1).get()
-//           .then(snapshot => {
-//               snapshot.forEach(doc => {
-//                   console.log(doc.id, '=>', doc.data());
-//               });
-//           })
-//           .catch(err => {
-//               console.log('Error getting documents', err);
-//           });
-//       }
-//   })
-//   .catch(err => {
-//       console.log('Error getting documents', err);
-//   });
-// }
-
-  // const addNames = () => {
-  //     setSending(true)
-  //     NAMES.forEach((name) => {
-  //       fire.firestore().collection('names').add({
-  //         name: name.name,
-  //         description: name.description,
-  //         properties: name.properties,
-  //         gender: name.gender,
-  //         allegiance: name.allegiance,
-  //         createdAt: fire.firestore.FieldValue.serverTimestamp(),
-  //         lastUpdated: fire.firestore.FieldValue.serverTimestamp()
-  //       })
-  //       .then(() => {
-  //         setSending(false)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.code, err.message)
-  //         setSending(false)
-  //       })
-  //     })
-  // }
-
-  return (
-    <div className="overflow-hidden">
-      {/* <Header positionFixed hideShadow /> */}
-      <Head>
-        <title>Turn your Linkedin profile into a resume | vitaely.me</title>
-        <meta name="description" content="Turn your Linkedin profile into a resume in just two minutes." />
-        <meta property="og:title" content="Turn your Linkedin profile into a resume | vitaely.me" />
-        <meta property="og:description" content="Turn your Linkedin profile into a resume in just two minutes." />
-        <meta property="og:url" content="https://www.vitaely.me/linkedin-to-resume" />
-        <meta property="og:type" content="website" />
-        {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}
-      </Head>
-      <div className="d-flex flex-row align-items-center justify-content-between position-fixed px-4 w-100">
-        This is a header
-        <Link href="/shortlist" className="btn primary low small text-only mt-4">
-          View shortlist <div className="tag dark medium small ml-2">{shortlist.length}</div>
-        </Link>
-        <div>
-          Used names <div className="tag dark medium small ml-2">{shortlist.length + rejected.length}</div>
+          </div>
         </div>
       </div>
-      <div>
-        { !loggedIn && shortlist.length + rejected.length >= 5 ?
-          <div className="d-flex flex-column align-items-center justify-content-center" style={{minHeight: '100vh'}}>
-            <div className="tag dark medium mr-3 mb-3">You’re out of free names</div>
-            <h2 className="text-center mx-auto" style={{ maxWidth: "720px" }}>Upgrade to continue exploring  over 750 epic names</h2> 
-            <p className="large mx-auto mb-5">No names remaining</p>
-          </div>
-        :
-          <div className="d-flex flex-column align-items-center justify-content-center" style={{minHeight: '100vh'}}>
-            {!retreivingName && retreivedName !== null ? 
-              <div className="d-flex flex-column align-items-center justify-content-center text-center">
-                {retreivedName?.allegiance[0] != null &&
-                  <div className="d-flex b-4 gap-3 mb-3">
-                    {retreivedName?.allegiance?.map((allegiance, index) => {
-                      return (
-                        <div key={index} className="tag primary medium icon-left" style={{textTransform: 'capitalize'}}>
-                          <svg viewBox="0 0 24 24">
-                            <path d={ICONS.WEBSITE}></path>
-                          </svg>
-                          {allegiance}
-                        </div>
-                      )
-                    })}
+			<div>
+				{!loggedIn && shortlist.length + rejected.length >= 5 ? (
+					<div
+						className="d-flex flex-column align-items-center justify-content-center px-4 py-5"
+						style={{ minHeight: "100vh" }}
+					>
+						<div className="tag dark medium mr-3 mb-3">
+							You’re out of free names
+						</div>
+						<h2 className="text-center mx-auto mb-5" style={{ maxWidth: "720px" }}>
+							Upgrade to continue exploring over 750 epic names
+						</h2>
+            <div className="d-flex flex-column flex-md-row gap-3" style={{ maxWidth: "800px" }}>
+              <div
+								className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
+								// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
+							>
+                <div 
+                  className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
+                >
+                  <img 
+                    style={{width: '120px'}}
+                    src="/images/book-patterns/iliad-square.svg" 
+                  />
+                </div>
+                <div className="d-flex flex-column align-items-center gap-4">
+                  <div className="d-flex flex-column align-items-center text-center">
+                    <h3 className="mb-3">Iliad</h3>
+                    <p>Over 500 names from Homer’s epic poem The Iliad, featuring all factions of the mortal belligerents of the Trojan war, and the Gods that quarrelled over them.</p>
                   </div>
-                }
-                <h1 className="mx-auto" style={{ maxWidth: "720px" }}>{retreivedName?.name}</h1> 
-                <div className="mb-4">   
-                  {retreivedName?.description?.map((description, index) => {
-                    return (
-                      <p key={index} className="large">{description.content}</p>
-                    )
-                  })}
+                  <button
+                    onClick={() => addToRejected()}
+                    className="btn dark high"
+                  >
+                    Unlock—$19
+                  </button>
                 </div>
-                <div className="d-flex mx-auto justify-content-center">
-                { !loggedIn &&
-                  <p className="large mx-auto mb-5">{`${5 - (shortlist.length + rejected.length)} ${5 - (shortlist.length + rejected.length) == 1 ? `name` : `names`} remaining`}</p>
-                }
-                  {/* <Link href="/users/register" className="btn primary high large mx-auto">Get started</Link> */}
-                  {/* <button onClick={() => addNames()} disabled={sending} className="btn primary high large mx-auto">Add some names</button> */}            
+							</div>
+              <div
+								className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
+								// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
+							>
+                <div 
+                  className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationOdyssey} shine p-2 radius-5`}
+                >
+                  <img 
+                    style={{width: '120px'}}
+                    src="/images/book-patterns/odyssey-round.svg" 
+                  />
                 </div>
-              </div>
-            :
-              <p className="large mx-auto mb-5">Loading</p>
-            }
-            {/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
-            <div className="d-flex flex-row gap-3">
-              <button onClick={() => addToRejected()} className="btn light high icon-only">
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.CLOSE}></path>
-                </svg>
-              </button>
-              <button onClick={() => addToShortlist()} className="btn primary high icon-left">
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.HEART}></path>
-                </svg>
-                Shortlist
-              </button>
+                <div className="d-flex flex-column align-items-center justify-content-between h-100 gap-4">
+                  <div className="d-flex flex-column align-items-center text-center">
+                    <h3 className="mb-3">Odyssey</h3>
+                    <p>Hero of the Greek coalition during the Trojan war. One of the great warriors outside of Achilleus.</p>
+                  </div>
+                  <button
+                    className="btn dark high"
+                    disabled
+                  >
+                    Coming soon
+                  </button>
+                </div>
+							</div>
             </div>
-            <Link href="/shortlist" className="btn primary medium small text-only mt-4">
-              View shortlist
-            </Link>
-          </div>  
-        }
-      </div>
-    </div>
-  )
-}
+            
+						{/* <p className="large mx-auto mb-5">No names remaining</p> */}
+					</div>
+				) : (
+					<div
+						className="overflow-hidden d-flex flex-column align-items-center justify-content-center px-4"
+						style={{ minHeight: "100vh" }}
+					>
+						{!retreivingName && retreivedName !== null ? (
+							<div
+								className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
+                style={{maxWidth: '560px'}}
+							>
+								{/* {retreivedName?.allegiance[0] != null && (
+									<div className="d-flex b-4 gap-3 mb-3">
+										{retreivedName?.allegiance?.map((allegiance, index) => {
+											return (
+												<div
+													key={index}
+													className="tag dark medium icon-left"
+													style={{ textTransform: "capitalize" }}
+												>
+													<svg viewBox="0 0 24 24">
+														<path d={ICONS.WEBSITE}></path>
+													</svg>
+													{allegiance}
+												</div>
+											);
+										})}
+									</div>
+								)} */}
+								<h1 className={`mx-auto ${!likedName ? 'text-dark-high' : 'text-light-high'}`} style={{ maxWidth: "720px" }}>
+									{retreivedName?.name}
+								</h1>
+								<div className="mb-4">
+									{retreivedName?.description?.map((description, index) => {
+										return (
+											<p key={index} className={`large ${!likedName ? 'text-dark-low' : 'text-light-low'}`}>
+												{description.content}
+											</p>
+										);
+									})}
+								</div>
+								<div className="d-flex mx-auto justify-content-center">
+									{/* { !loggedIn &&
+                  <p className="large mx-auto mb-5">{`${5 - (shortlist.length + rejected.length)} ${5 - (shortlist.length + rejected.length) == 1 ? `name` : `names`} remaining`}</p>
+                } */}
+									{/* <Link href="/users/register" className="btn primary high large mx-auto">Get started</Link> */}
+									{/* <button onClick={() => addNames()} disabled={sending} className="btn primary high large mx-auto">Add some names</button> */}
+								</div>
+							</div>
+						) : (
+							<p className="large mx-auto mb-5">Loading</p>
+						)}
+						{/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
+						<div
+							className="position-fixed d-flex flex-row gap-3"
+							style={{ bottom: "0px", padding: "48px" }}
+						>
+							<button
+								onClick={() => addToRejected()}
+								className="btn light large high icon-only"
+                disabled={retreivingName || likedName}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.CLOSE}></path>
+								</svg>
+							</button>
+							<button
+								onClick={() => addToShortlist()}
+								className={`btn large high icon-only ${styles.shortlistButton} ${!likedName ? 'dark' : `${styles.shortlistButtonHighlight}`} `}
+                disabled={retreivingName || likedName}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={!likedName ? ICONS.HEART_FILLED : ICONS.HEART_FILLED}></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+};
 
 export default Names;

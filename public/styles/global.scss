@@ -488,9 +488,9 @@ button.link {
 
 // Standard buttons
 
-a.btn, input.btn, button.btn { 
+a.btn, input.btn, button.btn, div.btn { 
   border-radius: $radius-large;
-  padding: 12px 28px;  
+  padding: 12px 20px;  
   font-size: 20px;
   line-height: 32px;
   border:none;
@@ -501,13 +501,15 @@ a.btn, input.btn, button.btn {
   justify-content: center;
   width: fit-content;
   white-space: nowrap;
-  transition: $transition-short, box-shadow $transition-standard;
+  transition: $transition-short;
+  border-top: .5px solid transparent;
+  border-bottom: .5px solid transparent;
   &:focus {
     box-shadow: 0 0 0 0.2rem $primary-600;
   }
-  &:hover {
-    transform: scale(1.02)
-  }
+  // &:hover {
+  //   transform: scale(1.02)
+  // }
   svg {
     height: 24px;
     width: 24px;
@@ -528,7 +530,7 @@ a.btn, input.btn, button.btn {
     padding: 16px;
   }
   &.x-small {
-    padding: 8px 16px; 
+    padding: 8px 12px; 
     font-size: 14px; 
     line-height: 24px;
     svg {
@@ -540,7 +542,7 @@ a.btn, input.btn, button.btn {
     }
   }
   &.small {
-    padding: 10px 20px; 
+    padding: 10px 16px; 
     font-size: 16px; 
     line-height: 28px;
     svg {
@@ -552,7 +554,7 @@ a.btn, input.btn, button.btn {
     }
   }
   &.large {
-    padding: 14px 32px; 
+    padding: 14px 24px; 
     font-size: 24px;
     line-height: 36px;
     svg {
@@ -565,75 +567,115 @@ a.btn, input.btn, button.btn {
   }
   &.primary {
     &.high {
-      background: $dark-900; 
+      background-color: $dark-900; 
       color: $white; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $dark-900-hover;
+        background-color: $dark-900-hover;
         color: $white; 
       }
     }
     &.medium {
-      background: $dark-light; 
+      background-color: $light-900; 
       color: $dark-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
         fill: $dark-900;
       }
       &:hover {
-        background: $dark-900;
-        color: $white; 
+        background-color: $light-900;
+        color: $dark-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
-          fill: $white;
+          fill: $dark-900;
         }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.low {
       color: $dark-900; 
+
       svg path {
         fill: $dark-900;
       }
       &:hover {
-        background: $dark-light;
         color: $dark-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
   &.dark {
     &.high {
-      background: $dark-900; 
+      background-color: $dark-900; 
       color: $white; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $dark-900-hover;
+        background-color: $dark-900-hover;
         color: $white; 
       }
     }
     &.medium {
-      background: $dark-light; 
+      background-color: $light-900; 
       color: $dark-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
         fill: $dark-900;
       }
       &:hover {
-        background: $dark-900;
-        color: $white; 
+        background-color: $light-900;
+        color: $dark-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
-          fill: $white;
+          fill: $dark-900;
         }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.low {
       color: $dark-900; 
+
       svg path {
         fill: $dark-900;
       }
       &:hover {
-        background: $dark-light;
         color: $dark-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.ultraLow {
@@ -642,159 +684,253 @@ a.btn, input.btn, button.btn {
         fill: $dark-700;
       }
       &:hover {
-        background: $dark-light;
-        color: $dark-900;
+        color: $dark-900; 
+        box-shadow: $shadow-0;
         svg path {
           fill: $dark-900;
-        } 
+        }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
   &.light {
     &.high {
-      background: $light-900; 
+      background-color: $light-900; 
       color: $dark-900; 
+      // border-top: .5px solid rgba(255, 255, 255, .3);
+      // background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $dark-900;
       }
       &:hover {
-        background: $light-900-hover;
         color: $dark-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.medium {
-      background: $light-light; 
-      color: $light-900; 
+      background-color: $light-900; 
+      color: $dark-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
-        fill: $light-900;
+        fill: $dark-900;
       }
       &:hover {
-        background: $light-900;
+        background-color: $light-900;
         color: $dark-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
           fill: $dark-900;
         }
       }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
+      }
     }
     &.low {
-      color: $light-900; 
+      color: $dark-900; 
+
       svg path {
-        fill: $light-900;
+        fill: $dark-900;
       }
       &:hover {
-        background: $light-light;
-        color: $light-900; 
+        color: $dark-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
   &.error {
     &.high {
-      background: $error-900; 
+      background-color: $error-900; 
       color: $white; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $error-900-hover;
-        color: $white; 
+        // background-color: $error-900-press;
+        box-shadow: $shadow-0; 
+      }
+      &:active {
+        box-shadow: $shadow-inset-1;
       }
     }
     &.medium {
-      background: $error-light; 
+      background-color: $light-900; 
       color: $error-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
         fill: $error-900;
       }
       &:hover {
-        background: $error-900;
-        color: $white; 
+        background-color: $light-900;
+        color: $error-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
-          fill: $white;
+          fill: $error-900;
         }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.low {
       color: $error-900; 
+
       svg path {
         fill: $error-900;
       }
       &:hover {
-        background: $error-light;
-        color: $error-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
   &.warning {
     &.high {
-      background: $warning-900; 
+      background-color: $warning-900; 
       color: $white; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $warning-900-hover;
-        color: $white; 
+        // background-color: $warning-900-press;
+        box-shadow: $shadow-0; 
+      }
+      &:active {
+        box-shadow: $shadow-inset-1;
       }
     }
     &.medium {
-      background: $warning-light; 
+      background-color: $light-900; 
       color: $warning-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
         fill: $warning-900;
       }
       &:hover {
-        background: $warning-900;
-        color: $white; 
+        background-color: $light-900;
+        color: $warning-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
-          fill: $white;
+          fill: $warning-900;
         }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.low {
       color: $warning-900; 
+
       svg path {
         fill: $warning-900;
       }
       &:hover {
-        background: $warning-light;
-        color: $warning-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
   &.success {
     &.high {
-      background: $success-900; 
+      background-color: $success-900; 
       color: $white; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      box-shadow: $shadow-1;
       svg path {
         fill: $white;
       }
       &:hover {
-        background: $success-900-hover;
-        color: $white; 
+        // background-color: $success-900-press;
+        box-shadow: $shadow-0; 
+      }
+      &:active {
+        box-shadow: $shadow-inset-1;
       }
     }
     &.medium {
-      background: $success-light; 
+      background-color: $light-900; 
       color: $success-900; 
+      border-top: .5px solid rgba(255, 255, 255, .3);
+      background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+      // box-shadow: $shadow-0, inset 0px -5px 10px $dark-100;
+      box-shadow: $shadow-0;
       svg path {
         fill: $success-900;
       }
       &:hover {
-        background: $success-900;
-        color: $white; 
+        background-color: $light-900;
+        color: $success-900; 
+        border-top: .5px solid rgba(255, 255, 255, .3);
+        background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+        box-shadow: $shadow-1;
+        // box-shadow: $shadow-1, inset 0px -5px 10px $dark-100;
         svg path {
-          fill: $white;
+          fill: $success-900;
         }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
     &.low {
       color: $success-900; 
+
       svg path {
         fill: $success-900;
       }
       &:hover {
-        background: $success-light;
-        color: $success-900; 
+        box-shadow: $shadow-0;
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
       }
     }
   }
@@ -804,7 +940,7 @@ a.btn, input.btn, button.btn {
       box-shadow: none!important;
     }
     &.high {
-      background: $dark-400!important; 
+      background-color: $dark-400!important; 
       color: $dark-600!important; 
       text-shadow: none!important;
       box-shadow: none!important;
@@ -813,10 +949,10 @@ a.btn, input.btn, button.btn {
       }
     }
     &.medium {
-      background: $dark-100!important; 
-      color: $dark-600!important; 
+      // background: $dark-100!important;
+      color: $dark-600!important;
       text-shadow: none!important;
-      box-shadow: none!important;
+      box-shadow: $shadow-0!important;
       svg path {
         fill: $dark-600!important;
       }
@@ -1548,33 +1684,7 @@ textarea {
 
 // Dropdown
 
-.toggleLink {
-  padding: 14px 0;
-  border-radius: 16px;
-  &:hover {
-    // opacity: 0.8;
-    .menuButton {
-      box-shadow: $shadow-3;
-      // background: $dark-900-hover!important;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
-        background: $dark-100;
-        border-radius: calc($radius-medium - 0.5px); /* !importanté */
-      }
-      &.menuButtonDark {
-        &:before {
-          content: '';
-          position: absolute;
-          top: 0; right: 0; bottom: 0; left: 0;
-          background: $light-100;
-          border-radius: calc($radius-medium - 0.5px); /* !importanté */
-        }
-      }
-    }
-  }
-}
+
 .menuButton {
   box-shadow: $shadow-1;
   transition: $transition-standard;
@@ -1709,17 +1819,24 @@ textarea {
   }
 }
 
-.dropdownItemHighlight {
-  color: $primary-900;
-  box-shadow: rgba(80, 63, 205, 0) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0), inset 0 -1px 0px rgba(0,0,0,0);
-  svg path{
-    fill: $primary-900;
-  }
+.dropdownItemHigh {
+  background-color: $dark-900; 
+  color: $white; 
+  border-top: .5px solid rgba(255, 255, 255, .3);
+  background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+  box-shadow: $shadow-1;
   &:hover, &:focus {
-    background: $gradient-3;
-    color: $light-900;
-    text-shadow: rgba(0, 0, 0, 0.26) 0px 3px 12px;
-    box-shadow: rgba(80, 63, 205, 0.5) 0px 1px 16px, inset 0 1px 0px rgba(255,255,255,0.2), inset 0 -1px 0px rgba(0,0,0,0.2);
+    background-color: $dark-900-hover;
+    color: $white; 
+  }
+}
+.dropdownItemMedium {
+  &:hover, &:focus {
+    background-color: $dark-900; 
+    color: $white; 
+    border-top: .5px solid rgba(255, 255, 255, .3);
+    background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+    box-shadow: $shadow-1;
     svg path{
       fill: $light-900;
     }
@@ -1753,21 +1870,20 @@ textarea {
 // Animations
 
 .loadingAnimation {
-  animation: loadingAnimationKeyframes 1s ease-in;
-  animation-iteration-count:infinite;
+  animation: loadingAnimationKeyframes 0.8s ease-in-out infinite;
 }
 
 @keyframes loadingAnimationKeyframes {
   0% {
-      opacity: 0.2;
-  }
-
-  50% {
       opacity: 1;
   }
 
-  100% {
+  50% {
       opacity: 0.2;
+  }
+
+  100% {
+      opacity: 1;
   }
 }
 
@@ -1953,5 +2069,61 @@ textarea {
 .gap-xl-5 {
   @media (min-width: $breakpoint-xl) {
     gap: 48px;
+  }
+}
+
+// misc
+
+.shine {
+  border-top: .5px solid rgba(255, 255, 255, .3);
+  background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
+}
+
+.transitionItem {
+  &.slide-out-left {
+    animation-name: motionblurleft;
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(.71,0,.33,1.56);
+    transform: translateX(-100vw);
+    // transition: cubic-bezier(.71,0,.33,1.56);
+
+  }
+  &.slide-out-right {
+    animation-name: motionblurright;
+    animation-duration: 1.8s;
+    animation-timing-function: cubic-bezier(.71,0,.33,1.56);
+    transform: translateX(100vw);
+    // transition: cubic-bezier(.71,0,.33,1.56);
+  }
+  &.center {
+    transform: translateX(0);
+  }
+}
+
+@keyframes motionblurleft {
+  0% {
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+
+  100% {
+    filter: blur(2px);
+    transform: translateX(-100vw);
+  }
+}
+@keyframes motionblurright {
+  0% {
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+
+  70% {
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+
+  100% {
+    filter: blur(2px);
+    transform: translateX(100vw);
   }
 }

@@ -1,142 +1,171 @@
-import { useEffect, useState, useRef, useContext } from 'react';
-import { UserContext } from './_app';
-import Head from 'next/head';
-import Link from 'next/link';
-import Header from '../components/header/Header';
-import mixpanel from 'mixpanel-browser';
-import mixpanelConfig from 'config/mixpanel-config';
-import { Accordion, Container } from 'react-bootstrap';
+import { useEffect, useState, useRef, useContext } from "react";
+import { UserContext } from "./_app";
+import Head from "next/head";
+import Link from "next/link";
+import Header from "../components/header/Header";
+import mixpanel from "mixpanel-browser";
+import mixpanelConfig from "config/mixpanel-config";
+import { Accordion, Container } from "react-bootstrap";
 
-import styles from './index.module.scss'
-import ICONS from '../components/icon/IconPaths';
-import Footer from '../components/footer/Footer';
-import Icon from 'components/icon/Icon';
+import styles from "./index.module.scss";
+import ICONS from "../components/icon/IconPaths";
+import Footer from "../components/footer/Footer";
+import Icon from "components/icon/Icon";
+import IllustrationIliad from "components/index/IllustrationIliad";
+import IllustrationOdyssey from "components/index/IllustrationOdyssey";
 
 const Home = (props) => {
+	const ref = useRef(null);
+	const heroRef = useRef(null);
+	const { userContext, setUserContext } = useContext(UserContext);
 
-  const ref = useRef(null)
-  const heroRef = useRef(null)
-  const { userContext, setUserContext } = useContext(UserContext);
+	const [screenWidth, setScreenWidth] = useState("");
+	const [scrollPosition, setScrollPosition] = useState(0);
 
-  const [screenWidth, setScreenWidth] = useState('');
-  const [scrollPosition, setScrollPosition] = useState(0)
+	const [heroHeight, setHeroHeight] = useState(0);
+	const [footerHeight, setFooterHeight] = useState(0);
 
-  const [heroHeight, setHeroHeight] = useState(0)
-  const [footerHeight, setFooterHeight] = useState(0)
+	const [loggedIn, setLoggedIn] = useState(false);
 
-  const [loggedIn, setLoggedIn] = useState(false);
+	useEffect(() => {
+		mixpanel.init(mixpanelConfig);
+		mixpanel.track("Landing page");
+		setScreenWidth(window.innerWidth);
+		if (ref?.current?.clientHeight) {
+			setFooterHeight(ref.current.clientHeight);
+			setHeroHeight(heroRef.current.clientHeight);
+		}
+		window.addEventListener("resize", handleResize);
+		window.addEventListener("scroll", handleScroll);
+		// window.addEventListener("load",function() { changeBackgroundToDark() });
+		// window.onload = function(){ changeBackgroundToDark() };
+		// window.onbeforeunload = function(){ changeBackgroundToLight() };
 
-  useEffect(() => {
-    mixpanel.init(mixpanelConfig);
-    mixpanel.track('Landing page');
-    setScreenWidth(window.innerWidth)
-    if (ref?.current?.clientHeight) {
-      setFooterHeight(ref.current.clientHeight)
-      setHeroHeight(heroRef.current.clientHeight)
-    }
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
-    // window.addEventListener("load",function() { changeBackgroundToDark() });
-    // window.onload = function(){ changeBackgroundToDark() };
-    // window.onbeforeunload = function(){ changeBackgroundToLight() };
+		// document.body.style.background = '#FFFFFF';
 
-    // document.body.style.background = '#FFFFFF';
+		// const unsubscribe = fire.auth()
+		// .onAuthStateChanged((user) => {
+		//   if (user) {
+		//     isProfileComplete(user)
+		//   }
+		// })
+		// return () => {
+		//   // Unmouting
+		//   unsubscribe();
+		// };
+	}, []);
 
-    // const unsubscribe = fire.auth()
-    // .onAuthStateChanged((user) => {
-    //   if (user) {
-    //     isProfileComplete(user)
-    //   }
-    // })
-    // return () => {
-    //   // Unmouting
-    //   unsubscribe();
-    // };
-  }, []);
+	//   function changeBackgroundToDark() {
+	//     document.body.style.background = '#1F2430 ';
+	//  }
 
-  //   function changeBackgroundToDark() {
-  //     document.body.style.background = '#1F2430 ';
-  //  }
+	//   function changeBackgroundToLight() {
+	//     document.body.style.background = '#FFFFFF';
+	//  }
 
-  //   function changeBackgroundToLight() {
-  //     document.body.style.background = '#FFFFFF';
-  //  }
+	const isProfileComplete = (user) => {
+		var docRef = fire.firestore().collection("users").doc(user.uid);
 
-  const isProfileComplete = (user) => {
+		docRef
+			.get()
+			.then((doc) => {
+				if (doc.exists) {
+					setUserContext(doc.data());
 
-    var docRef = fire.firestore().collection('users').doc(user.uid)
+					if (doc.data().stage !== "complete") {
+						router.push(doc.data().stage);
+					} else {
+						setProfileUrl(doc.data().profileUrl);
+						setCustomDomain(doc.data().domain?.name);
+					}
+				} else {
+					console.log("No such document!");
+				}
+			})
+			.catch((error) => {
+				console.log("Error getting document:", error);
+			});
+	};
 
-    docRef.get()
-      .then((doc) => {
-        if (doc.exists) {
-          setUserContext(doc.data())
+	const handleResize = () => {
+		setScreenWidth(window.innerWidth);
+		if (ref?.current?.clientHeight) {
+			setFooterHeight(ref.current.clientHeight);
+			setHeroHeight(heroRef.current.clientHeight);
+		}
+	};
 
-          if (doc.data().stage !== 'complete') {
-            router.push(doc.data().stage)
-          } else {
-            setProfileUrl(doc.data().profileUrl)
-            setCustomDomain(doc.data().domain?.name)
-          }
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      })
-  }
+	const handleScroll = () => {
+		if (typeof window !== "undefined") {
+			setScrollPosition(window.scrollY);
+		}
+	};
 
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth)
-    if (ref?.current?.clientHeight) {
-      setFooterHeight(ref.current.clientHeight)
-      setHeroHeight(heroRef.current.clientHeight)
-    }
-  };
+	const CustomToggle = ({ question, eventKey }) => {
+		const [dropdownOpen, setDropdownOpen] = useState(false);
+		const decoratedOnClick = useAccordionToggle(eventKey, () => {
+			setDropdownOpen(!dropdownOpen);
+		});
 
-  const handleScroll = () => {
-    if (typeof window !== 'undefined') {
-      setScrollPosition(window.scrollY)
-    }
-  }
+		return (
+			<div
+				type="button"
+				onClick={decoratedOnClick}
+				className="d-flex flex-row align-items-center justify-content-between w-100"
+				style={{ border: "none", background: "none" }}
+			>
+				<p className="text-light-high mb-0 extra-large text-dark-high font-weight-high w-100">
+					{question}
+				</p>
+				<button className="btn light low small icon-only">
+					<svg viewBox="0 0 24 24">
+						<path
+							d={dropdownOpen ? ICONS.CHEVRON_UP : ICONS.CHEVRON_DOWN}
+						></path>
+					</svg>
+				</button>
+			</div>
+		);
+	};
 
-  const CustomToggle = ({ question, eventKey }) => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const decoratedOnClick = useAccordionToggle(eventKey, () => {
-      setDropdownOpen(!dropdownOpen)
-    });
-
-    return (
-      <div type="button" onClick={decoratedOnClick} className="d-flex flex-row align-items-center justify-content-between w-100" style={{ border: 'none', background: 'none' }}>
-        <p className="text-light-high mb-0 extra-large text-dark-high font-weight-high w-100">{question}</p>
-        <button className="btn light low small icon-only">
-          <svg viewBox="0 0 24 24">
-            <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
-          </svg>
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <Head>
-        <title>Vitaely | Turn your Linkedin profile into a website</title>
-        <meta name="description" content="Turn your Linkedin profile into your own personal website in two minutes" />
-        <meta property="og:title" content="Vitaely | Turn your Linkedin profile into a website" />
-        <meta property="og:description" content="Turn your Linkedin profile into your own personal website in two minutes" />
-        <meta property="og:url" content="https://www.vitaely.me/" />
-        <meta property="og:type" content="website" />
-        {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" /> */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
-        <meta property="og:image" content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg" />
-      </Head>
-      <Header hideShadow topOfLanding />
-      <div className={`${styles.fixedHeader} ${scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled}`}>
-        <Header hideShadow={scrollPosition < heroHeight + 66} />
-      </div>
-      {/* <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
+	return (
+		<div>
+			<Head>
+				<title>Vitaely | Turn your Linkedin profile into a website</title>
+				<meta
+					name="description"
+					content="Turn your Linkedin profile into your own personal website in two minutes"
+				/>
+				<meta
+					property="og:title"
+					content="Vitaely | Turn your Linkedin profile into a website"
+				/>
+				<meta
+					property="og:description"
+					content="Turn your Linkedin profile into your own personal website in two minutes"
+				/>
+				<meta property="og:url" content="https://www.vitaely.me/" />
+				<meta property="og:type" content="website" />
+				{/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" /> */}
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta
+					name="twitter:image"
+					content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg"
+				/>
+				<meta
+					property="og:image"
+					content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg"
+				/>
+			</Head>
+			<Header hideShadow topOfLanding />
+			<div
+				className={`${styles.fixedHeader} ${
+					scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled
+				}`}
+			>
+				<Header hideShadow={scrollPosition < heroHeight + 66} />
+			</div>
+			{/* <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
           <div>
             <div className="my-4 my-sm-5">
@@ -149,69 +178,238 @@ const Home = (props) => {
           </div>
         </div>
       </div> */}
-      <div className="bg-light-900" style={{ marginBottom: footerHeight, zIndex: '2', position: 'relative', marginTop: '-64px', paddingTop: '64px' }}>
-        <div className="container d-flex flex-column align-items-center justify-content-center pt-5 my-5">
-          <div ref={heroRef} className="d-flex flex-column align-items-center justify-content-center" style={{maxWidth: '960px'}}>
-            <div style={{ maxWidth: '640px' }} className="d-flex flex-column align-items-center text-center">
-              <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
-                <div>
-                <a href="https://www.vitaely.me/profile/dlyhn7SmEOQHFhtFSJd88GpfkMo1" target="_blank"><img src="/images/landing-page/users/ahmed-najeeb.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px'}} /></a>
-                  <a href="https://www.vitaely.me/profile/ltyDXHbf1mhkBk81ylBgPfigRP03" target="_blank"><img src="/images/landing-page/users/manas-srivastava.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} /></a>
-                  <a href="https://www.vitaely.me/profile/5xFmCA898fTzUZWnaAqlcULwSQA3" target="_blank"><img src="/images/landing-page/users/bettina-codjie.jpg" className="radius-5 border-2 border-solid border-light-900" style={{width: '28px', marginLeft: '-12px'}} /></a>
-                </div>
-                <p className="text-dark-med mb-0">Over 917+ websites created</p>
-              </div>
-              <h1>Certified️ epic names for your kid</h1>
-              <p className="text-dark-low large mb-5" style={{ maxWidth: '640px' }}>With hundreds of names from Homer’s epic poems, you’ll never have to call your kid Michael or Samantha ever again.</p>
-              <div className="d-flex justify-content-center">
-                {/* <Link href="/users/register" className="btn primary high">Create my page</Link> */}
-                {userContext?.stage !== "complete" ?
-                  <Link href="/names" className="btn primary high">Find a name for my kid</Link>
-                  :
-                  <Link href="/profile" className="btn primary medium">Go to my profile</Link>
-                }
-              </div>
-              <div className="d-flex flex-column gap-2 mt-5">
-                <div className="flex-row">
-                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
-                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
-                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
-                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
-                  <Icon icon={ICONS.STAR} size='24' className="fill-warning-900" />
-                </div>
-                <p><a href="https://www.producthunt.com/products/vitaely-me/" className="text-dark-low">Rated 5 stars on ProductHunt</a></p>
-              </div>
-            </div>
-            {/* <div className={styles.iframeWrapper}>
+			<div
+				className="bg-light-900"
+				style={{
+					marginBottom: footerHeight,
+					zIndex: "2",
+					position: "relative",
+					marginTop: "-64px",
+					paddingTop: "64px",
+				}}
+			>
+				<div className="container d-flex flex-column align-items-start justify-content-start pt-5 my-5">
+					<div
+						ref={heroRef}
+						className="d-flex flex-column align-items-start justify-content-start"
+						style={{ maxWidth: "960px" }}
+					>
+						<div
+							style={{ maxWidth: "560px" }}
+							className="d-flex flex-column align-items-start "
+						>
+							<div className="d-flex flex-row align-items-start justify-content-start mb-4 gap-2">
+								{/* <p className="text-dark-med mb-0">Over 1000+ epic names</p> */}
+							</div>
+							<h1>Certified️ epic names for your kid</h1>
+							<p
+								className="text-dark-low large mb-5"
+								style={{ maxWidth: "640px" }}
+							>
+								With hundreds of names from Homer’s epic poems, you’ll never
+								have to call your kid Michael or Samantha ever again.
+							</p>
+							<div className="d-flex justify-content-center">
+								<div className="d-flex justify-content-center gap-3">
+									<Link
+										href="/names"
+										className="btn dark high"
+									>
+										Browse epic names
+									</Link>
+								</div>
+							</div>
+							{/* <div className="d-flex justify-content-center">
+								<div className="d-flex justify-content-center gap-3">
+									<Link
+										href="/names?gender=male"
+										className="btn primary high icon-left"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.MALE}></path>
+										</svg>
+										Boys names
+									</Link>
+									<Link
+										href="/names?gender=female"
+										className="btn primary high icon-left"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.FEMALE}></path>
+										</svg>
+										Girls names
+									</Link>
+								</div>
+							</div> */}
+
+							<div className="d-flex flex-column gap-2 mt-5">
+								<div className="flex-row">
+									<Icon
+										icon={ICONS.STAR}
+										size="24"
+										className="fill-warning-900"
+									/>
+									<Icon
+										icon={ICONS.STAR}
+										size="24"
+										className="fill-warning-900"
+									/>
+									<Icon
+										icon={ICONS.STAR}
+										size="24"
+										className="fill-warning-900"
+									/>
+									<Icon
+										icon={ICONS.STAR}
+										size="24"
+										className="fill-warning-900"
+									/>
+									<Icon
+										icon={ICONS.STAR}
+										size="24"
+										className="fill-warning-900"
+									/>
+								</div>
+								<p>
+									<a
+										href="https://www.producthunt.com/products/vitaely-me/"
+										className="text-dark-low"
+									>
+										Rated 5 stars on ProductHunt
+									</a>
+								</p>
+							</div>
+						</div>
+						{/* <div className={styles.iframeWrapper}>
               <iframe className={styles.iframeContent}
                 title="Example vitaely.me online CV profile"
                 src="https://www.vitaely.me/aaronbutler">
               </iframe>
             </div> */}
-          </div>
-        </div>
-        {/* <div 
+					</div>
+				</div>
+				{/* <div 
           className={` ${styles.gradientSection}`} 
           style={{ overflow: 'visible', position: 'absolute', width: '100%', height: '600px', top: '-120px', left: 0, rotate: '180deg', opacity: 0.4, zIndex: -1}}
         >
         </div> */}
-        <div className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`} style={{ overflow: 'visible' }}>
-          <div className="container">
-            <div className="mx-auto" style={{maxWidth: '960px'}}>
-              <div className="mx-5 mx-sm-0">
-                <div className="d-block position-relative">
-                  <div className="d-flex flex-column gap-3">
-                    <div className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-primary-200" style={{borderRadius: '32px 32px 0 0', backdropFilter: 'blur(20px)'}}>
-                      <div className={`d-block position-relative overflow-hidden border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 ${screenWidth > 576 ? styles.sectionImage : styles.sectionImageMobile}`} style={{ backgroundImage: screenWidth > 576 ? `url(/images/profile-preview.jpeg)` : `url(/images/profile-preview-mobile.jpeg)`, boxShadow: 'none', borderRadius: '16px 16px 0 0'}}></div>
-                      {/* <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/profile-preview-landing.png)`, boxShadow: 'none', borderRadius: 0 }}></div> */}
-                    </div>
-                  </div>
+				{/* <div
+					className={`d-flex flex-column text-center align-items-center border-solid border-0 border-bottom-1 border-dark-300 ${styles.gradientSection}`}
+					style={{ overflow: "visible" }}
+				>
+					<div className="container">
+						<div className="mx-auto" style={{ maxWidth: "960px" }}>
+							<div className="mx-5 mx-sm-0">
+								<div className="d-block position-relative">
+									<div className="d-flex flex-column gap-3">
+										<div
+											className="d-block position-relative px-3 pt-3 border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 bg-primary-200"
+											style={{
+												borderRadius: "32px 32px 0 0",
+												backdropFilter: "blur(20px)",
+											}}
+										>
+											<div
+												className={`d-block position-relative overflow-hidden border-0 border-left-1 border-top-1 border-right-1 border-solid border-dark-200 ${
+													screenWidth > 576
+														? styles.sectionImage
+														: styles.sectionImageMobile
+												}`}
+												style={{
+													backgroundImage:
+														screenWidth > 576
+															? `url(/images/profile-preview.jpeg)`
+															: `url(/images/profile-preview-mobile.jpeg)`,
+													boxShadow: "none",
+													borderRadius: "16px 16px 0 0",
+												}}
+											></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> */}
+				<div
+					className="container d-flex flex-column align-items-center justify-content-center"
+					style={{ paddingTop: "120px", paddingBottom: "120px" }}
+				>
+					<div
+						className="d-flex flex-column align-items-start justify-content-center w-100 gap-5"
+						style={{ maxWidth: "960px" }}
+					>
+						<h2 style={{ maxWidth: "480px" }}>
+							Over 1,000 names from two epic poems
+						</h2>
+
+						<div className="w-100 d-flex flex-column flex-md-row gap-4">
+							<div
+								className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
+								style={
+									{
+										// paddingBottom: screenWidth > 767 ? "66.66%" : "133.33%",
+									}
+								}
+							>
+								<div
+									className="position-absolute p-5"
+									style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+								>
+									<h2 className="mb-0">Iliad</h2>
+								</div>
+								<div
+									style={{
+										position: "absolute",
+										left: 0,
+										bottom: "-60px",
+										width: "800px",
+									}}
+								>
+									<IllustrationIliad />
+								</div>
+							</div>
+							<div
+								className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardOdyssey}`}
+								style={{
+									paddingBottom: screenWidth > 767 ? "66.66%" : "133.33%",
+								}}
+							>
+								<div
+									className="position-absolute p-5"
+									style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+								>
+									<h2 className="mb-0">Odyssey</h2>
+								</div>
+								<div
+									style={{
+										position: "absolute",
+										left: 0,
+										bottom: "-200px",
+										width: "800px",
+									}}
+								>
+									<IllustrationOdyssey />
+								</div>
+							</div>
+						</div>
+
+						{/* <div className="d-flex flex-column flex-md-row gap-3 w-100">
+              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
+                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+                  <h2 className="mb-0">Iliad</h2>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        {/* <div className="container">
+              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
+                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+                  <h2 className="mb-0">Iliad</h2>
+                </div>
+              </div>
+            </div> */}
+					</div>
+				</div>
+
+				{/* <div className="container">
           <div className="mx-auto" style={{maxWidth: '960px'}}>
             <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
               <h2 className="text-light-high mb-5 pb-3" style={{ maxWidth: '560px' }}>Show the world what you have to offer</h2>
@@ -227,7 +425,7 @@ const Home = (props) => {
             </div>
           </div>
         </div> */}
-        {/* <div className="d-block position-relative w-100 p-0">
+				{/* <div className="d-block position-relative w-100 p-0">
           <div className={`d-block w-100 position-relative overflow-hidden ${styles.sectionImage}`} style={{ backgroundImage: `url(../../images/landing-page/thisisengineering-raeng-TXxiFuQLBKQ-unsplash.jpg)`, borderRadius: 0, boxShadow: 'none' }}>
             <a href="https://unsplash.com/@thisisengineering" target="_blank" className={`${styles.sectionImageTag}`} style={{bottom: 16, left: 16, zIndex: 1}}>
               <div className="tag small light high icon-left">
@@ -239,10 +437,9 @@ const Home = (props) => {
             </a>
           </div>
         </div> */}
-        <div className="container">
-          <div className="mx-auto" style={{maxWidth: '960px'}}>
-
-            {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
+				<div className="container">
+					<div className="mx-auto" style={{ maxWidth: "960px" }}>
+						{/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
               <h2 className="text-light-high mb-5 pb-3" style={{ maxWidth: '560px' }}>Build trust with potential clients</h2>
               <div className={`${styles.layoutGrid}`}>
                 <p className="text-light-low large mb-0">Your customers are your best proof of the quality of service that you deliver. With Vitaely you can add customer testimonials to help build trust with potential clients and land more sales. </p>
@@ -296,7 +493,7 @@ const Home = (props) => {
                 </div>
               </div>
             </div> */}
-            {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
+						{/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
               <div style={{ maxWidth: '560px' }} className="mb-5 pb-2">
                 <h2 className="text-light-high mb-4">Make your own website in just a few minutes</h2>
                 <p className="text-light-low large mb-0" style={{ maxWidth: '440px' }}>One place to feature your most important content for your business.</p>
@@ -370,19 +567,34 @@ const Home = (props) => {
                 </div>
               </div>
             </div> */}
-            {/* <div className={`d-flex flex-column mx-auto gap-4 pt-5 ${styles.sectionWrapper}`} style={{ maxWidth: '560px', paddingBottom: '160px' }}>
-              {screenWidth > 767 ? <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2> : <h2 className="text-light-high text-center">Build your brand today with Vitaely</h2>}
-              <div className="d-flex mx-auto">
-                {userContext?.stage !== "complete" ?
-                  <Link href="/users/register" className="btn primary high">Create my page</Link>
-                  :
-                  <Link href="/profile" className="btn primary high">Go to my profile</Link>
-                }
-              </div>
-            </div> */}
-          </div>
-        </div>
-        {/* <div className="bg-dark-900">
+						<div className={`d-flex flex-column mx-auto gap-4 ${styles.sectionWrapper}`} style={{ maxWidth: '560px', paddingBottom: '160px' }}>
+              <h2 className="text-center">Are you looking for a name for a boy or a girl?</h2>
+              <div className="d-flex justify-content-center">
+								<div className="d-flex justify-content-center gap-3">
+									<Link
+										href="/names?gender=male"
+										className="btn primary medium icon-left"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.MALE}></path>
+										</svg>
+										Boys names
+									</Link>
+									<Link
+										href="/names?gender=female"
+										className="btn primary medium icon-left"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.FEMALE}></path>
+										</svg>
+										Girls names
+									</Link>
+								</div>
+							</div>
+            </div>
+					</div>
+				</div>
+				{/* <div className="bg-dark-900">
           <div className="bg-light-100">
             <div className={`container ${styles.sectionWrapper} d-flex flex-column align-items-start align-items-md-center justify-content-between gap-3 gap-lg-5`}>
               <h2 className="text-left text-md-center mb-5 text-light-high" style={{ maxWidth: '560px' }}>Got a question?</h2>
@@ -423,12 +635,16 @@ const Home = (props) => {
             </div>
           </div>
         </div> */}
-      </div>
-      <div ref={ref} className="w-100" style={{ zIndex: '1', position: 'fixed', bottom: 0 }}>
-        <Footer />
-      </div>
-    </div>
-  )
-}
+			</div>
+			<div
+				ref={ref}
+				className="w-100"
+				style={{ zIndex: "1", position: "fixed", bottom: 0 }}
+			>
+				<Footer />
+			</div>
+		</div>
+	);
+};
 
 export default Home;

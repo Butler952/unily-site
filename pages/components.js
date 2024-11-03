@@ -616,72 +616,72 @@ const Components = () => {
           <Col>
             <h3>Disabled</h3>
             <div className="d-flex flex-wrap">
-              <a className="btn warning high small mr-3 disabled">Label</a>
-              <a className="btn warning high small icon-left mr-3 disabled">
+              <a className="btn high small mr-3 disabled">Label</a>
+              <a className="btn high small icon-left mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high small icon-right mr-3 disabled">
+              <a className="btn high small icon-right mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high small icon-only mr-3 disabled">
+              <a className="btn high small icon-only mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
               </a>
-              <a className="btn warning medium small mr-3 disabled">Label</a>
-              <a className="btn warning low small mr-3 disabled">Label</a>
+              <a className="btn medium small mr-3 disabled">Label</a>
+              <a className="btn low small mr-3 disabled">Label</a>
             </div>
             <br />
             <div className="d-flex flex-wrap">
-              <a className="btn warning high mr-3 disabled">Label</a>
-              <a className="btn warning high icon-left mr-3 disabled">
+              <a className="btn high mr-3 disabled">Label</a>
+              <a className="btn high icon-left mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high icon-right mr-3 disabled">
+              <a className="btn high icon-right mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high icon-only mr-3 disabled">
+              <a className="btn high icon-only mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
               </a>
-              <a className="btn warning medium mr-3 disabled">Label</a>
-              <a className="btn warning low mr-3 disabled">Label</a>
+              <a className="btn medium mr-3 disabled">Label</a>
+              <a className="btn low mr-3 disabled">Label</a>
             </div>
             <br />
             <div className="d-flex flex-wrap">
-              <a className="btn warning high large mr-3 disabled">Label</a>
-              <a className="btn warning high large icon-left mr-3 disabled">
+              <a className="btn high large mr-3 disabled">Label</a>
+              <a className="btn high large icon-left mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high large icon-right mr-3 disabled">
+              <a className="btn high large icon-right mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
                 Label
               </a>
-              <a className="btn warning high large icon-only mr-3 disabled">
+              <a className="btn high large icon-only mr-3 disabled">
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.PLUS}></path>
                 </svg>
               </a>
-              <a className="btn warning medium large mr-3 disabled">Label</a>
-              <a className="btn warning low large mr-3 disabled">Label</a>
+              <a className="btn medium large mr-3 disabled">Label</a>
+              <a className="btn low large mr-3 disabled">Label</a>
             </div>
             <br />
           </Col>

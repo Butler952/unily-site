@@ -22,7 +22,8 @@ $heading-7: 18px;
 $primary-900: #15121C; // High text
 // $primary-900: #6839EF; // High text
 $primary-900-hover: lighten($primary-900, 10%);
-$primary-light: rgba($primary-900, 0.1);
+$primary-900-press: darken($primary-900, 10%);
+$primary-light: rgba($primary-900, 0.08);
 $primary-800: rgba($primary-900, 0.72); // Medium text
 $primary-700: rgba($primary-900, 0.48); // Low text
 $primary-600: rgba($primary-900, 0.32); // Disabled text
@@ -35,7 +36,7 @@ $primary-100: rgba($primary-900, 0.03);
 $primary-dark-900: #8a7dde; // High text
 // $primary-900: #6839EF; // High text
 $primary-dark-900-hover: lighten($primary-900, 10%);
-$primary-dark-light: rgba($primary-900, 0.1);
+$primary-dark-light: rgba($primary-900, 0.08);
 $primary-dark-800: rgba($primary-900, 0.72); // Medium text
 $primary-dark-700: rgba($primary-900, 0.48); // Low text
 $primary-dark-600: rgba($primary-900, 0.32); // Disabled text
@@ -51,7 +52,8 @@ $secondary-base: #fff;
 // Error colour
 $error-900: #DD2727; // High text
 $error-900-hover: lighten($error-900, 10%);
-$error-light: rgba($error-900, 0.1);
+$error-900-press: darken($error-900, 10%);
+$error-light: rgba($error-900, 0.08);
 $error-800: rgba($error-900, 0.72); // Medium text
 $error-700: rgba($error-900, 0.48); // Low text
 $error-600: rgba($error-900, 0.32); // Disabled text
@@ -64,7 +66,8 @@ $error-100: rgba($error-900, 0.03);
 // Success colour 
 $success-900: #0BB07B; // High text
 $success-900-hover: lighten($success-900, 5%);
-$success-light: rgba($success-900, 0.1);
+$success-900-press: darken($success-900, 10%);
+$success-light: rgba($success-900, 0.08);
 $success-800: rgba($success-900, 0.72); // Medium text
 $success-700: rgba($success-900, 0.48); // Low text
 $success-600: rgba($success-900, 0.32); // Disabled text
@@ -75,9 +78,10 @@ $success-200:rgba($success-900, 0.05);
 $success-100: rgba($success-900, 0.03);
 
 // Warning colour
-$warning-900: #FFAD0D; // High text
+$warning-900: hsl(33, 100%, 53%); // High text
 $warning-900-hover: lighten($warning-900, 10%);
-$warning-light: rgba($warning-900, 0.1);
+$warning-900-press: darken($warning-900, 10%);
+$warning-light: rgba($warning-900, 0.08);
 $warning-800: rgba($warning-900, 0.72); // Medium text
 $warning-700: rgba($warning-900, 0.48); // Low text
 $warning-600: rgba($warning-900, 0.32); // Disabled text
@@ -90,7 +94,8 @@ $warning-100: rgba($warning-900, 0.03);
 // Dark colours
 $dark-900: #15121C; // High text
 $dark-900-hover: lighten($dark-900, 10%);
-$dark-light: rgba($dark-900, 0.1);
+$dark-900-press: darken($dark-900, 10%);
+$dark-light: rgba($dark-900, 0.08);
 $dark-800: rgba($dark-900, 0.72); // Medium text
 $dark-700: rgba($dark-900, 0.48); // Low text
 $dark-600: rgba($dark-900, 0.32); // Disabled text
@@ -103,7 +108,8 @@ $dark-100: rgba($dark-900, 0.03);
 // Light colours
 $light-900: #fff; // High text
 $light-900-hover: darken($light-900, 10%);
-$light-light: rgba($light-900, 0.1);
+$light-900-press: darken($light-900, 20%);
+$light-light: rgba($light-900, 0.08);
 $light-800: rgba($light-900, 0.72); // Medium text
 $light-700: rgba($light-900, 0.48); // Low text
 $light-600: rgba($light-900, 0.32); // Disabled text
@@ -119,9 +125,19 @@ $white-hover: darken($white, 10%);
 $black: #000;
 $black-hover: lighten($black, 10%);
 
+// Gender
+
+$male: #598FF3;
+$female: #DE80E0;
+
+// Allegience
+
+$achaian: #E07443;
+
 // Background
 
 $background: #F6F6F4;
+// $background: #fff;
 
 // Gradients
 
@@ -144,13 +160,36 @@ $radius-round: 50%;
 // SHADOWS
 
 //Shadows
-$shadow-0: none;
-$shadow-1: 0 0 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 1px 1px 0 rgba($dark-900, 0.08);
-$shadow-2: 0 0 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
-$shadow-3: 0 0 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
-$shadow-4: 0 0 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
-$shadow-5: 0 0 1px 0.5px rgba($dark-900, 0.08), 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.08);
+$shadow-0: 0 0 0 1px rgba($dark-900, 0.06),;
+$shadow-1: 
+  0 0 0 1px rgba($dark-900, 0.04),
+  0 1px 1px 0.5px rgba($dark-900, 0.04),
+  0 3px 3px 1.5px rgba($dark-900, 0.04),
+  0 6px 6px 3px rgba($dark-900, 0.04),
+  0 12px 12px 6px rgba($dark-900, 0.04),
+  0 24px 24px 12px rgba($dark-900, 0.04),
+  inset 0 1px 1px 0.5px rgba($dark-900, 0),
+  inset 0 3px 3px 1.5px rgba($dark-900, 0),
+  inset 0 6px 6px 3px rgba($dark-900, 0),
+  inset 0 12px 12px 6px rgba($dark-900, 0),
+  inset 0 24px 24px 12px rgba($dark-900, 0);
+$shadow-2: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
+$shadow-3: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
+$shadow-4: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
+$shadow-5: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 32px 40px -2px rgba($dark-900, 0.08);
 
+$shadow-inset-1:
+  0 0 0 1px rgba($dark-900, 0.04),
+  0 1px 1px 0.5px rgba($dark-900, 0),
+  0 3px 3px 1.5px rgba($dark-900, 0),
+  0 6px 6px 3px rgba($dark-900, 0),
+  0 12px 12px 6px rgba($dark-900, 0),
+  0 24px 24px 12px rgba($dark-900, 0),
+  inset 0 1px 1px 0.5px rgba($dark-900, 0),
+  inset 0 3px 3px 1.5px rgba($dark-900, 0.04),
+  inset 0 6px 6px 3px rgba($dark-900, 0.04),
+  inset 0 12px 12px 6px rgba($dark-900, 0.04),
+  inset 0 24px 24px 12px rgba($dark-900, 0.04);
 // TRANSITIONS
 
 // Transitions

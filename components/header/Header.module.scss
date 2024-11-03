@@ -1,19 +1,11 @@
 @import '/public/styles/variables.scss';
 
-.toggleLink {
-  padding: 14px 0;
-  border-radius: 16px;
-  &:hover {
-    // opacity: 0.8;
-    .menuButton {
-      box-shadow: $shadow-3;
-      background: $light-100!important;
-    }
-  }
-}
 .menuButton {
   box-shadow: $shadow-1;
   transition: $transition-standard;
+  svg path {
+    fill: $light-900;
+  }
   &.hover {
     box-shadow: $shadow-3; 
   }
@@ -64,6 +56,55 @@
     color: $primary-900;
     svg path{
       fill: $primary-900;
+    }
+  }
+}
+
+.genderSwitchWrapper {
+  transition: $transition-standard;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background: $dark-200;
+  border-radius: $radius-large;
+  border: none;
+  &:hover {
+    background: $dark-light;
+  }
+}
+
+.genderSwitchStyles {
+  transition: $transition-standard;
+}
+
+.genderSwitchStylesMale {
+  left: 2px;
+}
+
+.genderSwitchStylesFemale {
+  left: 50px;
+}
+
+.genderSwitchMaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #598FF3;
+    }
+  }
+}
+
+.genderSwitchFemaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #DE80E0;
     }
   }
 }

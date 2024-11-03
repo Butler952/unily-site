@@ -416,7 +416,6 @@ const CustomDomain = ({
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
-      className={styles.toggleLink}
       href=""
       ref={ref}
       onClick={(e) => {

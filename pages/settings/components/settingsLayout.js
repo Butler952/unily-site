@@ -387,7 +387,7 @@ const SettingsLayout = ({children}) => {
     return (
       <button type="button" onClick={decoratedOnClick} className="btn dark low small icon-only">
         <svg viewBox="0 0 24 24">
-          <path d={dropdownOpen ? ICONS.ARROW_UP : ICONS.ARROW_DOWN}></path>
+          <path d={dropdownOpen ? ICONS.CHEVRON_UP : ICONS.CHEVRON_DOWN}></path>
         </svg>
       </button>
     );

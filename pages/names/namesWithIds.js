@@ -370,7 +370,7 @@ const developmentNames = [
               "book": "iliad"
           }
       ],
-      "gender": null,
+      "gender": "male",
       "properties": [
           null
       ],
@@ -4580,7 +4580,7 @@ const developmentNames = [
               "content": "(2) Father of Ilioneus, 14.490"
           }
       ],
-      "gender": null,
+      "gender": "male",
       "allegiance": [
           null
       ],
@@ -7270,7 +7270,7 @@ const developmentNames = [
       "description": [
           {
               "book": "iliad",
-              "content": "The same lake, 20.391"
+              "content": "Of a lake in Mysia, 20.391"
           }
       ],
       "name": "Gyge",
@@ -7654,7 +7654,7 @@ const developmentNames = [
           }
       ],
       "name": "Klytaimestra",
-      "gender": "null"
+      "gender": "female"
   },
   {
       "id": "TFQ88AInpsEipzaV0qS7",
@@ -10285,7 +10285,7 @@ const developmentNames = [
   },
   {
       "id": "dDi5UzwjkYeSI4m8Dj2D",
-      "gender": null,
+      "gender": "male",
       "name": "Aigaios",
       "properties": [
           "god"
@@ -11602,7 +11602,7 @@ const developmentNames = [
       "properties": [
           null
       ],
-      "gender": null
+      "gender": "male"
   },
   {
       "id": "hudKqV3ZgczW5yiNJ4Vr",
@@ -14400,7 +14400,7 @@ const developmentNames = [
               "content": "Father of Admetos, grandfather of Eumelos, 2.763"
           }
       ],
-      "gender": null,
+      "gender": "male",
       "name": "Pheres",
       "allegiance": [
           "achaians"
@@ -14421,7 +14421,7 @@ const developmentNames = [
           }
       ],
       "name": "Admetos",
-      "gender": null
+      "gender": "male"
   },
   {
       "id": "rxO1Ky6ctce9efHfeVoC",
@@ -15222,7 +15222,7 @@ const developmentNames = [
           null
       ],
       "name": "Perseus",
-      "gender": null
+      "gender": "male"
   },
   {
       "id": "ubucp6TGhkfkx0c7b7d5",
@@ -15575,7 +15575,7 @@ const developmentNames = [
               "content": "Hero of Ephyre (2), grandfather of Bellerophontes, 6.153"
           }
       ],
-      "gender": null,
+      "gender": "male",
       "allegiance": [
           "trojans"
       ],

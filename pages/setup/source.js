@@ -157,7 +157,7 @@ const Source = () => {
             {screenWidth > 575 ?
               <button type="button" onClick={(e) => handleBack(e)} className="btn dark medium icon-only mr-3">
                 <svg viewBox="0 0 24 24">
-                  <path d={ICONS.ARROW_LEFT}></path>
+                  <path d={ICONS.CHEVRON_LEFT}></path>
                 </svg>
               </button>
             :

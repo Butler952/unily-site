@@ -186,7 +186,7 @@ const Register = () => {
             </div>
             <button type="button" onClick={(e) => handleLoginWithGoogle(e)} className="btn dark medium w-100" disabled={creating}>
               <img className="mr-2" width="24" src="/images/third-party/google.svg"></img>
-              Sign in with Google
+              Continue with Google
             </button>
           </div>
         </div>

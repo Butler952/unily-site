@@ -306,7 +306,7 @@ const SurveyBanner = () => {
                 </label>
                 */}
                 <br/>
-                <button type="submit" className="btn primary high w-100" disabled={submitting}>{submitting ? 'Submitting...' : 'Submit survey'}</button>
+                <button type="submit" className="btn dark high w-100" disabled={submitting}>{submitting ? 'Submitting...' : 'Submit survey'}</button>
               </form>
               {/*<div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
                 <button type="button" className="btn primary high w-100 w-md-auto" onClick={handleUpdate}>Upgrade</button>

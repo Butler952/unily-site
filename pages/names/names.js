@@ -190,7 +190,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       "achaians"
     ]
@@ -547,7 +547,7 @@ const NAMES = [
     "properties": [
       "god"
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       null
     ]
@@ -563,7 +563,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       null
     ]
@@ -5883,7 +5883,7 @@ const NAMES = [
     "description": [
       {
         "book":"iliad",
-        "content":"The same lake, 20.391"
+        "content":"Of a lake in Mysia, 20.391"
       }
     ],
     "properties": [
@@ -8246,7 +8246,7 @@ const NAMES = [
       }
     ],
     "properties": [
-      null
+      "female"
     ],
     "gender": "null",
     "allegiance": [
@@ -12327,7 +12327,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       "achaians"
     ]
@@ -12463,7 +12463,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       null
     ]
@@ -12579,7 +12579,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       "achaians"
     ]
@@ -12731,7 +12731,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       null
     ]
@@ -14356,7 +14356,7 @@ const NAMES = [
     "properties": [
       null
     ],
-    "gender": null,
+    "gender": "male",
     "allegiance": [
       "trojans"
     ]

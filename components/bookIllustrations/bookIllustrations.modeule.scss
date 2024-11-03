@@ -1,0 +1,41 @@
+@import '/public/styles/variables.scss';
+
+.epicPoemCard {
+  transition: all $transition-long;
+  background-color: $dark-300;
+  h2 {
+    color: $dark-900;
+  }
+  &:hover {
+    box-shadow: $shadow-1;
+    transform: scale(1.01);
+  }
+}
+.epicPoemCardIliad {
+  svg path {
+    stroke: hsl(60, 9%, 89%);
+  }
+  &:hover {
+    background-color: #4B2123;
+    h2 {
+      color: $light-900;
+    }
+    svg path {
+      stroke: #E07443;
+    }
+  }
+}
+.epicPoemCardOdyssey {
+  svg path {
+    stroke: hsl(60, 9%, 89%);
+  }
+  &:hover {
+    background-color: #0D4F59;
+    h2 {
+      color: $light-900;
+    }
+    svg path {
+      stroke: #7AD7FF;
+    }
+  }
+}

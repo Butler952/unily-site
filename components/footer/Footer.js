@@ -6,7 +6,7 @@ import styles from './Footer.module.scss';
 const Footer = ({dark}) => {
 
   return (
-    <div className={`py-5 ${dark && styles.darkBackground}`}>
+    <div className={`py-5`}>
       {/* <div className={`${dark && 'bg-light-100'} py-5`} style={`${dark && {background: '#242837'}}`}> */}
       <Container className="py-5">
         <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-5" style={{gap: '48px'}}>
