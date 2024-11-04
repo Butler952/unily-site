@@ -28,6 +28,7 @@ const Shortlist = () => {
 	);
 	const [retreivingNames, setRetreivingNames] = useState(true);
 	const [retreivedNames, setRetreivedNames] = useState([]);
+	const [initialized, setInitialized] = useState(false);
 
 	// [x] Get shortlist from local
 	// [x] Save to a state
@@ -55,10 +56,9 @@ const Shortlist = () => {
 				if (userContext == "" && typeof localStorage.shortlist != "undefined") {
 					setShortlist(JSON.parse(localStorage.shortlist));
 					getNames(JSON.parse(localStorage.shortlist));
-					setRetreivingNames(false);
-				} else {
-					setRetreivingNames(false);
 				}
+				setRetreivingNames(false);
+				setInitialized(true);
 			}
 		});
 		return () => {
@@ -82,13 +82,16 @@ const Shortlist = () => {
 					setShortlist(doc.data().shortlist);
 					getNames(doc.data().shortlist);
           setRetreivingNames(false)
+					setInitialized(true);
 				} else {
 					console.log("No such document!");
+					setInitialized(true);
 				}
 			})
 			.catch((error) => {
         setRetreivingNames(false)
 				console.log("Error getting document:", error);
+				setInitialized(true);
 			});
 	};
 
@@ -271,9 +274,9 @@ const Shortlist = () => {
             }
 						
 					</div>
-					{!retreivingNames ? (
+					{!retreivingNames && initialized ? (
 						<>
-							{retreivedNames.length > 0 ? (
+							{shortlist?.length > 0 ? (
 								<div className={`${styles.shortlistLayout}`}>
 									{retreivedNames.map((name, index) => {
 										return (

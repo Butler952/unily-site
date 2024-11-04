@@ -570,8 +570,8 @@ const Menu = ({
             {!submittedFeedback ?
               <Modal.Body>
                 <div>
-                  <div className="d-flex flex-row align-items-center justify-content-between mb-4">
-                    <h5 className="text-dark-high mb-0">Feedback survey</h5>
+                  <div className="d-flex flex-row align-items-center justify-content-between mb-2">
+                    <h3 className="mb-0">Feedback survey</h3>
                     <button onClick={handleFeedbackClose} className="btn dark low icon-only">
                       <svg viewBox="0 0 24 24">
                         <path d={ICONS.CLOSE}></path>
@@ -580,17 +580,25 @@ const Menu = ({
                   </div>
                   <form onSubmit={handleFeedbackSubmit}>
                     <div className="mb-4">
-                      <p className="text-dark-high">Do you have any other comments, feedback or suggestions for us?</p>
+                      {/* <p>Tell us what you love, tell us what you hate, tell us what you want to see more of, tell us about your child who has begun forming an empire by raising an army of local shepherds.</p> */}
+                      <p>Tell us all about:
+                        <ul>
+                          <li>...what you love</li>
+                          <li>...what you hate</li>
+                          <li>...what you want to see more of</li>
+                          <li>...your child who has begun forming an empire by raising an army of local shepherds</li>
+                        </ul>
+                      </p>
                       <textarea className="w-100 small" style={{ minHeight: '10rem' }} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({ target }) => commentsAndSuggestionsChange(target.value)} />
                       {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <p className="text-dark-high">Are you willing to be contacted by a member of our team for further research?</p>
                       <label className="checkbox-container small mb-4">I agree to be contacted for further research
                         <input type="checkbox" disabled={submittingFeedback} onChange={() => furtherResearchChange()} checked={furtherResearch}></input>
                         <span className="checkmark"></span>
                       </label>
-                    </div>
+                    </div> */}
                     {/*}
                   <label className="checkbox-container small mb-4">I would like to receive emails about news and updates
                     <input type="checkbox" onChange={() => setReceiveEmails(receiveEmails => !receiveEmails)} checked={receiveEmails}></input>
