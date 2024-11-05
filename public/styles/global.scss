@@ -194,6 +194,8 @@ hr {border-top: 1px solid $dark-300;}
 
 // Colours
 
+.bg-background { background: $background }
+
 .bg-primary-900 { background: $primary-900!important; }
 .bg-primary-800 { background: $primary-800!important; }
 .bg-primary-700 { background: $primary-700!important; }
@@ -1201,7 +1203,7 @@ a.btn, input.btn, button.btn, div.btn {
 input[type="text"], input[type="password"], input[type="email"], input[type="month"] { 
   border-radius: $radius-small; 
   padding: 10px 18px;  
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   height: 56px;
   border: 2px solid $dark-300;
@@ -1254,7 +1256,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   }
   &.small {
     padding: 8px 14px; 
-    font-size: 16px; 
+    font-size: 14px; 
     line-height: 28px;
     height: 48px;
     &.icon-left {
@@ -1266,7 +1268,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="mon
   }
   &.large {
     padding: 12px 22px; 
-    font-size: 24px;
+    font-size: 20px;
     line-height: 36px;
     height: 64px;
     &.icon-left {
@@ -1884,6 +1886,62 @@ textarea {
 
   100% {
       opacity: 1;
+  }
+}
+
+.ldsRipple {
+  /* change color here */
+  color: $dark-700
+}
+.ldsRipple,
+.ldsRipple div {
+  box-sizing: border-box;
+}
+.ldsRipple {
+  display: inline-block;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-top: -8px;
+}
+.ldsRipple div {
+  position: absolute;
+  border: 2px solid currentColor;
+  opacity: 1;
+  border-radius: 50%;
+  animation: ldsRipple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.ldsRipple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes ldsRipple {
+  0% {
+    top: 18px;
+    left: 18px;
+    width: 4px;
+    height: 4px;
+    opacity: 0;
+  }
+  4.9% {
+    top: 18px;
+    left: 18px;
+    width: 4px;
+    height: 4px;
+    opacity: 0;
+  }
+  5% {
+    top: 18px;
+    left: 18px;
+    width: 4px;
+    height: 4px;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
   }
 }
 
