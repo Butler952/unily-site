@@ -21,6 +21,8 @@ import Menu from "components/header/Menu";
 import confetti from "canvas-confetti";
 import IllustrationIliad from "components/index/IllustrationIliad";
 import { handlePurchase } from "../../lib/handle-purchase";
+import { motion, AnimatePresence } from "framer-motion";
+// import IllustrationIliadSquare from "./IllustrationIliadSquare";
 
 const Names = () => {
 	const router = useRouter();
@@ -34,7 +36,8 @@ const Names = () => {
 	const [actionTaken, setActionTaken] = useState(false);
 
 	const [slideDirection, setSlideDirection] = useState("center");
-	const [retreivingName, setRetreivingName] = useState(false);
+	const [retreivingName, setRetreivingName] = useState(true);
+	const [needUpgrade, setNeedUpgrade] = useState(false);
 	const [retreivedName, setRetreivedName] = useState(null);
 	const [firstFetch, setFirstFetch] = useState(true);
 	const [lastRandomDocumentId, setLastRandomDocumentId] = useState(null);
@@ -58,6 +61,8 @@ const Names = () => {
 	const [passwordError, setPasswordError] = useState("");
 	const [registering, setRegistering] = useState(false);
 	const [signingIn, setSigningIn] = useState(false);
+	const [showUpgradeSuccessModal, setShowUpgradeSuccessModal] = useState(false);
+
 	// const [shortlist, setShortlist] = useState([])
 	// const [rejected, setRejected] = useState([])
 	// const [retreivedName, setRetreivedName] = useState({
@@ -121,6 +126,13 @@ const Names = () => {
 		};
 	}, [router.query]);
 
+	useEffect(() => {
+		const { upgrade } = router.query;
+		if (upgrade === "success") {
+			setShowUpgradeSuccessModal(true);
+		}
+	}, [router.query]);
+
 	const getSubscription = (user) => {
 		var docRef = fire
 			.firestore()
@@ -150,6 +162,7 @@ const Names = () => {
 		// If not, stick to the limit
 		setLoggedIn(true);
 		setUserData(user);
+		setRetreivingName(true);
 		let purchasedProducts = product;
 		// getSubscription(user)
 		// console.log(user)
@@ -575,75 +588,193 @@ const Names = () => {
 		console.log("getRandomDocumentLoggedOut");
 		const currentGender = genderOverride || gender;
 
-		let tempShortlist =
-			typeof localStorage.shortlist != "undefined"
-				? JSON.parse(localStorage.shortlist)
-				: [];
-		let tempRejected =
-			typeof localStorage.rejected != "undefined"
-				? JSON.parse(localStorage.rejected)
-				: [];
-		let usedNames = tempShortlist.concat(tempRejected);
-		if (usedNames.length == 0) {
-			let nameId =
-				currentGender === "male"
-					? malePreviewIds.names[0]
-					: femalePreviewIds.names[0];
-			let results = names.names.find(
-				(name) => name.id === nameId && name.gender === currentGender
-			);
-			setRetreivedName(results);
-			setLastRandomDocumentId(nameId);
-			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-		} else if (usedNames.length == 1) {
-			let nameId =
-				currentGender === "male"
-					? malePreviewIds.names[1]
-					: femalePreviewIds.names[1];
-			let results = names.names.find(
-				(name) => name.id === nameId && name.gender === currentGender
-			);
-			setRetreivedName(results);
-			setLastRandomDocumentId(nameId);
-			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-		} else if (usedNames.length == 2) {
-			let nameId =
-				currentGender === "male"
-					? malePreviewIds.names[2]
-					: femalePreviewIds.names[2];
-			let results = names.names.find(
-				(name) => name.id === nameId && name.gender === currentGender
-			);
-			setRetreivedName(results);
-			setLastRandomDocumentId(nameId);
-			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-		} else if (usedNames.length == 3) {
-			let nameId =
-				currentGender === "male"
-					? malePreviewIds.names[3]
-					: femalePreviewIds.names[3];
-			let results = names.names.find(
-				(name) => name.id === nameId && name.gender === currentGender
-			);
-			setRetreivedName(results);
-			setLastRandomDocumentId(nameId);
-			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-		} else if (usedNames.length == 4) {
-			let nameId =
-				currentGender === "male"
-					? malePreviewIds.names[4]
-					: femalePreviewIds.names[4];
-			let results = names.names.find(
-				(name) => name.id === nameId && name.gender === currentGender
-			);
-			setRetreivedName(results);
-			setLastRandomDocumentId(nameId);
-			localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-		} else if (usedNames.length > 4) {
-			return;
+		if (loggedIn) {
+			fire
+				.firestore()
+				.collection("users")
+				.doc(userData.uid)
+				.get()
+				.then((doc) => {
+					if (doc.exists) {
+						setUserContext(doc.data());
+						setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
+						setRejected(doc.data().rejected ? doc.data().rejected : []);
+					} else {
+						console.log("No such document!");
+					}
+				})
+				.then(() => {
+					console.log("1");
+
+					console.log("3");
+
+					console.log("getRandomDocument5");
+					let usedNames;
+          usedNames = shortlist.concat(rejected);
+          console.log('usedNames', usedNames)
+					if (usedNames.length == 0) {
+						let nameId =
+							currentGender === "male"
+								? malePreviewIds.names[0]
+								: femalePreviewIds.names[0];
+						let results = names.names.find(
+							(name) => name.id === nameId && name.gender === currentGender
+						);
+						setRetreivedName(results);
+						setLastRandomDocumentId(nameId);
+						localStorage.setItem(
+							"lastRandomDocumentId",
+							JSON.stringify(nameId)
+						);
+						setRetreivingName(false);
+					} else if (usedNames.length == 1) {
+						let nameId =
+							currentGender === "male"
+								? malePreviewIds.names[1]
+								: femalePreviewIds.names[1];
+						let results = names.names.find(
+							(name) => name.id === nameId && name.gender === currentGender
+						);
+						setRetreivedName(results);
+						setLastRandomDocumentId(nameId);
+						localStorage.setItem(
+							"lastRandomDocumentId",
+							JSON.stringify(nameId)
+						);
+						setRetreivingName(false);
+					} else if (usedNames.length == 2) {
+						let nameId =
+							currentGender === "male"
+								? malePreviewIds.names[2]
+								: femalePreviewIds.names[2];
+						let results = names.names.find(
+							(name) => name.id === nameId && name.gender === currentGender
+						);
+						setRetreivedName(results);
+						setLastRandomDocumentId(nameId);
+						localStorage.setItem(
+							"lastRandomDocumentId",
+							JSON.stringify(nameId)
+						);
+						setRetreivingName(false);
+					} else if (usedNames.length == 3) {
+						let nameId =
+							currentGender === "male"
+								? malePreviewIds.names[3]
+								: femalePreviewIds.names[3];
+						let results = names.names.find(
+							(name) => name.id === nameId && name.gender === currentGender
+						);
+						setRetreivedName(results);
+						setLastRandomDocumentId(nameId);
+						localStorage.setItem(
+							"lastRandomDocumentId",
+							JSON.stringify(nameId)
+						);
+						setRetreivingName(false);
+					} else if (usedNames.length == 4) {
+						let nameId =
+							currentGender === "male"
+								? malePreviewIds.names[4]
+								: femalePreviewIds.names[4];
+						let results = names.names.find(
+							(name) => name.id === nameId && name.gender === currentGender
+						);
+						setRetreivedName(results);
+						setLastRandomDocumentId(nameId);
+						localStorage.setItem(
+							"lastRandomDocumentId",
+							JSON.stringify(nameId)
+						);
+						setRetreivingName(false);
+						// setNeedUpgrade(true);
+					} else if (usedNames.length > 4) {
+						setRetreivingName(false);
+						setNeedUpgrade(true);
+						return;
+					}
+					setFirstFetch(false);
+					setSlideDirection("center");
+				});
+		} else {
+			let tempShortlist =
+				typeof localStorage.shortlist != "undefined"
+					? JSON.parse(localStorage.shortlist)
+					: [];
+			let tempRejected =
+				typeof localStorage.rejected != "undefined"
+					? JSON.parse(localStorage.rejected)
+					: [];
+			let usedNames = tempShortlist.concat(tempRejected);
+			if (usedNames.length == 0) {
+				let nameId =
+					currentGender === "male"
+						? malePreviewIds.names[0]
+						: femalePreviewIds.names[0];
+				let results = names.names.find(
+					(name) => name.id === nameId && name.gender === currentGender
+				);
+				setRetreivedName(results);
+				setLastRandomDocumentId(nameId);
+				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+				setRetreivingName(false);
+			} else if (usedNames.length == 1) {
+				let nameId =
+					currentGender === "male"
+						? malePreviewIds.names[1]
+						: femalePreviewIds.names[1];
+				let results = names.names.find(
+					(name) => name.id === nameId && name.gender === currentGender
+				);
+				setRetreivedName(results);
+				setLastRandomDocumentId(nameId);
+				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+				setRetreivingName(false);
+			} else if (usedNames.length == 2) {
+				let nameId =
+					currentGender === "male"
+						? malePreviewIds.names[2]
+						: femalePreviewIds.names[2];
+				let results = names.names.find(
+					(name) => name.id === nameId && name.gender === currentGender
+				);
+				setRetreivedName(results);
+				setLastRandomDocumentId(nameId);
+				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+				setRetreivingName(false);
+			} else if (usedNames.length == 3) {
+				let nameId =
+					currentGender === "male"
+						? malePreviewIds.names[3]
+						: femalePreviewIds.names[3];
+				let results = names.names.find(
+					(name) => name.id === nameId && name.gender === currentGender
+				);
+				setRetreivedName(results);
+				setLastRandomDocumentId(nameId);
+				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+				setRetreivingName(false);
+			} else if (usedNames.length == 4) {
+				let nameId =
+					currentGender === "male"
+						? malePreviewIds.names[4]
+						: femalePreviewIds.names[4];
+				let results = names.names.find(
+					(name) => name.id === nameId && name.gender === currentGender
+				);
+				setRetreivedName(results);
+				setLastRandomDocumentId(nameId);
+				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+				setRetreivingName(false);
+				setNeedUpgrade(true);
+			} else if (usedNames.length > 4) {
+				setRetreivingName(false);
+				setNeedUpgrade(true);
+				return;
+			}
+			setFirstFetch(false);
+			setSlideDirection("center");
 		}
-		setFirstFetch(false);
-		setSlideDirection("center");
 	};
 
 	const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
@@ -663,7 +794,7 @@ const Names = () => {
 				(name) => name.id === passedLastRandomDocumentId
 			);
 			setRetreivedName(results);
-			// setRetreivingName(false);
+			setRetreivingName(false);
 			setFirstFetch(false);
 		} else {
 			console.log("getRandomDocument5");
@@ -691,7 +822,7 @@ const Names = () => {
 			);
 
 			setRetreivedName(filteredResults[randomIndex]);
-			// setRetreivingName(false);
+			setRetreivingName(false);
 			setFirstFetch(false);
 		}
 		setSlideDirection("center");
@@ -901,6 +1032,10 @@ const Names = () => {
 		setShowUpgradeModal(true);
 	};
 
+	const handleUpgradeSuccessClose = () => {
+		setShowUpgradeSuccessModal(false);
+	};
+
 	const usernameChange = (value) => {
 		setUsername(value), setEmailError("");
 	};
@@ -963,39 +1098,39 @@ const Names = () => {
 			});
 	};
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+	const handleLogin = (e) => {
+		e.preventDefault();
 
-    setSigningIn(true)
+		setSigningIn(true);
 
-    fire.auth()
-      .signInWithEmailAndPassword(username, password)
-      // .then(() => {
-      //   mixpanel.init(mixpanelConfig); 
-      //   mixpanel.track('Signed in');
-      // })
-      .then(() => {
-        setSigningIn(false)
-      })
-      .catch((err) => {
-
-        if (err.code === 'auth/invalid-email') {
-          setEmailError('Please enter a valid email address')
-        }
-        if (err.code === 'auth/user-disabled') {
-          setEmailError('This account has been disabled')
-        }
-        if (err.code === 'auth/user-not-found') {
-          //setEmailError('Please check you have entered your email correctly or sign up to create an account')
-          setPasswordError('The email address and password do not match')
-        }
-        if (err.code === 'auth/wrong-password') {
-          setPasswordError('The email address and password do not match')
-        }
-        setSigningIn(false)
-        // console.log(err.code, err.message)
-      })
-  }
+		fire
+			.auth()
+			.signInWithEmailAndPassword(username, password)
+			// .then(() => {
+			//   mixpanel.init(mixpanelConfig);
+			//   mixpanel.track('Signed in');
+			// })
+			.then(() => {
+				setSigningIn(false);
+			})
+			.catch((err) => {
+				if (err.code === "auth/invalid-email") {
+					setEmailError("Please enter a valid email address");
+				}
+				if (err.code === "auth/user-disabled") {
+					setEmailError("This account has been disabled");
+				}
+				if (err.code === "auth/user-not-found") {
+					//setEmailError('Please check you have entered your email correctly or sign up to create an account')
+					setPasswordError("The email address and password do not match");
+				}
+				if (err.code === "auth/wrong-password") {
+					setPasswordError("The email address and password do not match");
+				}
+				setSigningIn(false);
+				// console.log(err.code, err.message)
+			});
+	};
 
 	const handlePurchaseClick = () => {
 		if (!userData?.uid) {
@@ -1159,7 +1294,8 @@ const Names = () => {
 				</div>
 			</div>
 			<div>
-				{product !== "prod_R9UsZtF60a9OSG" &&
+				{needUpgrade &&
+				product !== "prod_R9UsZtF60a9OSG" &&
 				shortlist.length + rejected.length >= 5 ? (
 					<div
 						className="d-flex flex-column align-items-center px-4 py-5 my-5"
@@ -1295,7 +1431,11 @@ const Names = () => {
 								</div>
 							</div>
 						) : (
-							<p className="large mx-auto mb-5">Loading</p>
+							<div className="ldsRippleLarge">
+								<div></div>
+								<div></div>
+							</div>
+							// <p className="large mx-auto mb-5">Loading</p>
 						)}
 						{/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
 						<div
@@ -1337,34 +1477,12 @@ const Names = () => {
 				size={!loggedIn ? "lg" : "md"}
 				centered
 			>
-				{/* {!submittedFeedback ? */}
 				<div className="position-relative bg-background">
-					{/* <div
-						className="d-flex flex-row align-items-center justify-content-start p-4 w-100"
-						style={{ position: "absolute", top: 0, left: 0 }}
-					>
-						<h3 className="mb-0">Add name pack</h3>
-						<button
-							onClick={handleUpgradeClose}
-							className="btn dark low icon-only"
-						>
-							<svg viewBox="0 0 24 24">
-								<path d={ICONS.CLOSE}></path>
-							</svg>
-						</button>
-						<button
-							onClick={handleUpgradeClose}
-							className="btn small dark ultraLow"
-						>
-							Close
-						</button>
-					</div> */}
 					<div className="d-flex flex-column flex-lg-row">
 						{!loggedIn &&
 							(!showSignIn ? (
 								<div
 									className={`w-100 d-flex flex-column align-items-start gap-3 p-4 pt-5 p-sm-5`}
-									// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
 								>
 									<h2 className="text-dark-high w-100 mb-0">
 										Create an account
@@ -1470,7 +1588,6 @@ const Names = () => {
 							) : (
 								<div
 									className={`w-100 d-flex flex-column align-items-start gap-3 p-4 pt-5 p-sm-5`}
-									// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
 								>
 									<h2 className="text-dark-high w-100 mb-3">
 										Sign in to your account
@@ -1489,19 +1606,6 @@ const Names = () => {
 											></img>
 											Sign in with Google
 										</button>
-										{/* <button
-											type="button"
-											onClick={(e) => handleLoginWithGoogle(e)}
-											className="btn dark high w-100"
-											disabled={registering}
-										>
-											<img
-												className="mr-2"
-												width="24"
-												src="/images/third-party/google.svg"
-											></img>
-											Continue with Google
-										</button> */}
 										<div className="d-flex flex-row align-items-center w-100 gap-3 my-3">
 											<hr className="w-100 m-0"></hr>
 											<p className="small mb-0">or</p>
@@ -1566,53 +1670,6 @@ const Names = () => {
 													{signingIn ? "Signing in..." : "Sign in"}
 												</button>
 											</form>
-											// <form onSubmit={handleRegister}>
-											// 	<div className="mb-2">
-											// 		<input
-											// 			type="text"
-											// 			placeholder="Email"
-											// 			className={
-											// 				emailError !== "" ? `error w-100` : `w-100`
-											// 			}
-											// 			value={username}
-											// 			onChange={({ target }) =>
-											// 				usernameChange(target.value)
-											// 			}
-											// 		/>
-											// 		{emailError !== "" ? (
-											// 			<p className="small text-error-high mt-2">
-											// 				{emailError}
-											// 			</p>
-											// 		) : null}
-											// 	</div>
-											// 	<div className="mb-3">
-											// 		<input
-											// 			type="password"
-											// 			placeholder="Password"
-											// 			className={
-											// 				passwordError !== "" ? `error w-100` : `w-100`
-											// 			}
-											// 			value={password}
-											// 			onChange={({ target }) =>
-											// 				passwordChange(target.value)
-											// 			}
-											// 		/>
-											// 		{passwordError !== "" ? (
-											// 			<p className="small text-error-high mt-2">
-											// 				{passwordError}
-											// 			</p>
-											// 		) : null}
-											// 	</div>
-											// 	<button
-											// 		type="submit"
-											// 		className="btn primary high w-100"
-											// 		disabled={registering}
-											// 	>
-											// 		{registering
-											// 			? "Creating account..."
-											// 			: "Create account"}
-											// 	</button>
-											// </form>
 										)}
 										<p className="small mt-3 mb-0">
 											Not got an account?{" "}
@@ -1630,74 +1687,132 @@ const Names = () => {
 							className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-5 p-4 p-sm-5 bg-light-900`}
 							// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
 						>
-							<div className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-3 pt-lg-5`}> 
-                <div
-                  className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
-                >
-                  <img
-                    style={{ width: "120px" }}
-                    src="/images/book-patterns/iliad-square.svg"
-                  />
-                </div>
-                <div className="d-flex flex-column align-items-center text-center">
-                  <div>
-                    <h3 className="mb-3">Iliad</h3>
-                    <p>
-                      Over 500 names from Homer’s epic poem The Iliad, featuring
-                      all factions of the mortal belligerents of the Trojan war,
-                      and the Gods that quarrelled over them.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={handlePurchaseClick}
-                disabled={!loggedIn || openingCheckout}
-                className={`btn dark high w-100 gap-3`}
-              >
-                {openingCheckout && (
-                  <div class="ldsRipple">
-                    <div></div>
-                    <div></div>
-                  </div>
-                )}
-                {!openingCheckout
-                  ? "Go to checkout—$9"
-                  : "Opening Stripe Checkout"}
-              </button>
-            </div>
-						{/* <Modal.Body>
-            <div>
-              <div className="d-flex flex-row align-items-center justify-content-between mb-2">
-                <h3 className="mb-0">Add name pack</h3>
-                <button onClick={handleUpgradeClose} className="btn dark low icon-only">
-                  <svg viewBox="0 0 24 24">
-                    <path d={ICONS.CLOSE}></path>
-                  </svg>
-                </button>
-              </div>
-              <form onSubmit={handleUpgradeSubmit}>
-                <div className="mb-4">
-                  <p>Tell us what you love, tell us what you hate, tell us what you want to see more of, tell us about your child who has begun forming an empire by raising an army of local shepherds.</p>
-                  <textarea className="w-100 small" style={{ minHeight: '10rem' }} disabled={submittingFeedback} value={commentsAndSuggestions} onChange={({ target }) => commentsAndSuggestionsChange(target.value)} />
-                  {commentsAndSuggestionsError !== '' ? <p className="small text-error-high">{commentsAndSuggestionsError}</p> : null}
-                </div>
-
-                <br />
-                <button type="submit" className="btn primary high w-100" disabled={submittingFeedback}>{submittingFeedback ? 'Submitting...' : 'Submit feedback'}</button>
-              </form>
-            </div>
-          </Modal.Body> */}
+							<div
+								className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-3 pt-lg-5`}
+							>
+								<div
+									className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
+								>
+									<img
+										style={{ width: "120px" }}
+										src="/images/book-patterns/iliad-square.svg"
+									/>
+								</div>
+								<div className="d-flex flex-column align-items-center text-center">
+									<div>
+										<h3 className="mb-3">Iliad</h3>
+										<p>
+											Over 500 names from Homer’s epic poem The Iliad, featuring
+											all factions of the mortal belligerents of the Trojan war,
+											and the Gods that quarrelled over them.
+										</p>
+									</div>
+								</div>
+							</div>
+							<button
+								onClick={handlePurchaseClick}
+								disabled={!loggedIn || openingCheckout}
+								className={`btn dark high w-100 gap-3`}
+							>
+								{openingCheckout && (
+									<div className="ldsRipple">
+										<div></div>
+										<div></div>
+									</div>
+								)}
+								{!openingCheckout
+									? "Go to checkout—$9"
+									: "Opening Stripe Checkout"}
+							</button>
+						</div>
 					</div>
-					{/* :
-          <Modal.Body>
-            <div>
-              <h4 className="text-center">Feedback successfully submitted</h4>
-              <p className="text-center large mb-5">Thank you for taking the time to send over your comments and feedback. Your response will help us to make the product even better for you.</p>
-              <button type="button" onClick={handleUpgradeClose} className="btn primary high w-100">Close</button>
-            </div>
-          </Modal.Body>
-        } */}
+				</div>
+			</Modal>
+			<Modal
+				show={showUpgradeSuccessModal}
+				onHide={handleUpgradeSuccessClose}
+				keyboard={false}
+				size={"md"}
+				centered
+				backdrop="static"
+			>
+				<div className="position-relative bg-background">
+					{/* <motion.div
+            key="loaded-upgrade-close"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1}}
+            transition={{ duration: 0.8, delay: 5 }}
+						className="d-flex flex-row align-items-center justify-content-start p-4 w-100"
+						style={{ position: "absolute", top: 0, left: 0 }}
+					>
+						<button
+							onClick={() => setShowUpgradeSuccessModal(false)}
+							className="btn dark ultraLow icon-only"
+						>
+							<svg viewBox="0 0 24 24">
+								<path d={ICONS.CLOSE}></path>
+							</svg>
+						</button>
+					</motion.div> */}
+					<div className="d-flex flex-column flex-lg-row">
+						<div
+							className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-5 p-4 p-sm-5 bg-light-900`}
+						>
+							<div
+								className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-3 pt-lg-5`}
+							>
+								<div
+									className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliadAnimate} position-relative shine p-2 radius-2`}
+								>
+									<img
+										style={{ width: "120px" }}
+										className={`${styles.epicPoemIllustrationIliadColourPathAnimate}`}
+										src="/images/book-patterns/iliad-square.svg"
+									/>
+									{/* <img
+                    style={{ width: "120px", position: 'absolute', top: 8, left: 8}}
+                    className={`${styles.epicPoemIllustrationIliadGreyPathAnimate}`}
+                    src="/images/book-patterns/iliad-square-grey.svg"
+                  /> */}
+								</div>
+								<div className="d-flex flex-column align-items-center text-center">
+									{/* <div className="tag dark medium mt-4 mb-4">
+                    Name pack unlocked
+                  </div> */}
+									<motion.h3
+										className="mb-3"
+										style={{ maxWidth: "320px" }}
+										key="loaded-upgrade-title"
+										initial={{ y: 16, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ duration: 0.6, delay: 2.5 }}
+									>
+										Iliad Name Pack Unlocked
+									</motion.h3>
+									<motion.p
+										key="loaded-upgrade-description"
+										initial={{ y: 16, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ duration: 0.4, delay: 4 }}
+										style={{ maxWidth: "320px" }}
+									>
+										All names from this pack will now appear in the name finder.
+									</motion.p>
+								</div>
+							</div>
+							<motion.button
+								key="loaded-upgrade-button"
+								initial={{ y: 16, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
+								transition={{ duration: 0.4, delay: 4 }}
+								onClick={handleUpgradeSuccessClose}
+								disabled={!loggedIn || openingCheckout}
+								className={`btn dark high w-100 gap-3`}
+							>
+								Continue
+							</motion.button>
+						</div>
+					</div>
 				</div>
 			</Modal>
 		</div>

@@ -20,6 +20,7 @@
     "eslint-config-next": "^13.4.4",
     "file-saver": "^2.0.5",
     "firebase": "^10.8.1",
+    "framer-motion": "^11.11.11",
     "js-cookie": "^3.0.1",
     "logrocket": "^2.1.2",
     "mixpanel-browser": "^2.43.0",
