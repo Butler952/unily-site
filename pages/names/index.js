@@ -22,7 +22,6 @@ import confetti from "canvas-confetti";
 import IllustrationIliad from "components/index/IllustrationIliad";
 import { handlePurchase } from "../../lib/handle-purchase";
 import { motion, AnimatePresence } from "framer-motion";
-// import IllustrationIliadSquare from "./IllustrationIliadSquare";
 
 const Names = () => {
 	const router = useRouter();
