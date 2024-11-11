@@ -1,7 +1,7 @@
 import { useState, useEffect, forwardRef, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Dropdown } from "react-bootstrap";
+import { Container, Dropdown, Modal } from "react-bootstrap";
 import fire from "/config/fire-config";
 
 import styles from "./shortlist.module.scss";
@@ -13,13 +13,14 @@ import NAMES from "../names";
 import { UserContext } from "pages/_app";
 import Menu from "components/header/Menu";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+
 const Shortlist = () => {
-  const router = useRouter();
+	const router = useRouter();
 
 	const { userContext, setUserContext } = useContext(UserContext);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [userData, setUserData] = useState("");
-
 
 	const [screenWidth, setScreenWidth] = useState("");
 	const [removing, setRemoving] = useState(false);
@@ -29,6 +30,9 @@ const Shortlist = () => {
 	const [retreivingNames, setRetreivingNames] = useState(true);
 	const [retreivedNames, setRetreivedNames] = useState([]);
 	const [initialized, setInitialized] = useState(false);
+
+  const [showNameDetailsView, setShowNameDetailsView] = useState(false);
+
 
 	// [x] Get shortlist from local
 	// [x] Save to a state
@@ -81,7 +85,7 @@ const Shortlist = () => {
 					setUserContext(doc.data());
 					setShortlist(doc.data().shortlist);
 					getNames(doc.data().shortlist);
-          setRetreivingNames(false)
+					setRetreivingNames(false);
 					setInitialized(true);
 				} else {
 					console.log("No such document!");
@@ -89,7 +93,7 @@ const Shortlist = () => {
 				}
 			})
 			.catch((error) => {
-        setRetreivingNames(false)
+				setRetreivingNames(false);
 				console.log("Error getting document:", error);
 				setInitialized(true);
 			});
@@ -216,8 +220,19 @@ const Shortlist = () => {
 		}
 	);
 
+	const copyProfileAddress = (name) => {
+		navigator.clipboard.writeText(
+			`I might have found the perfect name for our baby: ${name}. Don’t like it? Find more on ${window.location.origin}`
+		);
+		toast("Copied name to clipboard");
+	};
+
+  const handleNameDetailsViewClose = () => {
+    setShowNameDetailsView(false)
+  }
+
 	return (
-		<div className="overflow-hidden" style={{backgroundColor: '#F6F6F4'}}>
+		<div className="overflow-hidden" style={{ backgroundColor: "#F6F6F4" }}>
 			<Head>
 				<title>Shortlist</title>
 				<meta
@@ -260,19 +275,16 @@ const Shortlist = () => {
 				<div className="w-100" style={{ maxWidth: "1200px" }}>
 					<div className="d-flex flex-row align-items-center gap-3 mb-4">
 						<h2 className="mb-0">Shortlist</h2>
-            {!retreivingNames && shortlist?.length > 0 ? 
-              <div
-                className={`${
-                  retreivingNames ? "loadingAnimation" : ""
-                } tag dark medium small`}
-                style={{ minWidth: "24px", minHeight: "24px" }}
-              >
-                {!retreivingNames ? shortlist?.length : null}
-              </div> 
-            : 
-              null
-            }
-						
+						{!retreivingNames && shortlist?.length > 0 ? (
+							<div
+								className={`${
+									retreivingNames ? "loadingAnimation" : ""
+								} tag dark medium small`}
+								style={{ minWidth: "24px", minHeight: "24px" }}
+							>
+								{!retreivingNames ? shortlist?.length : null}
+							</div>
+						) : null}
 					</div>
 					{!retreivingNames && initialized ? (
 						<>
@@ -280,13 +292,13 @@ const Shortlist = () => {
 								<div className={`${styles.shortlistLayout}`}>
 									{retreivedNames.map((name, index) => {
 										return (
-											<div
-												key={index}
-												className={`${styles.shortlistItem} d-flex flex-column radius-4 p-4`}
-											>
-												<div className="d-flex flex-row align-items-start justify-content-between">
-													<div>
-														{/* {name?.allegiance[0] != null && (
+											<div key={index}>
+												<div
+													className={`${styles.shortlistItem} d-flex flex-column radius-4 p-4`}
+												>
+													<div className="d-flex flex-row align-items-start justify-content-between">
+														<div>
+															{/* {name?.allegiance[0] != null && (
 															<div className="d-flex b-4 gap-3 mb-3">
 																{name?.allegiance?.map((allegiance, index) => {
 																	return (
@@ -304,52 +316,73 @@ const Shortlist = () => {
 																})}
 															</div>
 														)} */}
-														<h3 className="mb-3" style={{ maxWidth: "720px" }}>
-															{name?.name}
-														</h3>
-													</div>
-													<Dropdown align="end">
-														<Dropdown.Toggle
-															as={CustomToggle}
-															id="dropdown-custom-components"
-															className="text-decoration-none"
-														>
-															<>
-																<div className="d-flex flex-row align-items-center btn dark ultraLow small icon-only">
-																	<svg viewBox="0 0 24 24">
-																		<path d={ICONS.MORE}></path>
-																	</svg>
+															<h3
+																className="mb-3"
+																style={{ maxWidth: "720px" }}
+															>
+																{name?.name}
+															</h3>
+														</div>
+														<Dropdown align="end">
+															<Dropdown.Toggle
+																as={CustomToggle}
+																id="dropdown-custom-components"
+																className="text-decoration-none"
+															>
+																<>
+																	<div className="d-flex flex-row align-items-center btn dark ultraLow small icon-only">
+																		<svg viewBox="0 0 24 24">
+																			<path d={ICONS.MORE}></path>
+																		</svg>
+																	</div>
+																</>
+															</Dropdown.Toggle>
+															<Dropdown.Menu
+																as={CustomMenu}
+																align="end"
+																className="mt-2"
+															>
+																<div className="p-2">
+																	<Dropdown.Item
+																		onClick={() => removeName(name.id)}
+																		className="dropdownItem"
+																	>
+																		<Icon icon={ICONS.DELETE} size="24" />
+																		Remove name
+																	</Dropdown.Item>
+																	<Dropdown.Item
+																		onClick={() =>
+																			copyProfileAddress(name.name)
+																		}
+																		className="dropdownItem"
+																	>
+																		<Icon icon={ICONS.SHARE} size="24" />
+																		Share name
+																	</Dropdown.Item>
+																	<Dropdown.Item
+																		onClick={() =>
+																			setShowNameDetailsView(true)
+																		}
+																		className="dropdownItem"
+																	>
+																		<Icon icon={ICONS.SHARE} size="24" />
+																		Share options
+																	</Dropdown.Item>
 																</div>
-															</>
-														</Dropdown.Toggle>
-														<Dropdown.Menu
-															as={CustomMenu}
-															align="end"
-															className="mt-2"
-														>
-															<div className="p-2">
-																<Dropdown.Item
-																	onClick={() => removeName(name.id)}
-																	className="dropdownItem"
-																>
-																	<Icon icon={ICONS.DELETE} size="24" />
-																	Remove name
-																</Dropdown.Item>
-															</div>
-														</Dropdown.Menu>
-													</Dropdown>
-												</div>
-												<div>
-													{name.description?.map((description, index) => {
-														return (
-															<p key={index} className="mb-0">
-																{description.content}
-															</p>
-														);
-													})}
-												</div>
+															</Dropdown.Menu>
+														</Dropdown>
+													</div>
+													<div>
+														{name.description?.map((description, index) => {
+															return (
+																<p key={index} className="mb-0">
+																	{description.content}
+																</p>
+															);
+														})}
+													</div>
 
-												{/* <div>
+													{/* <div>
 													<button
 														onClick={() => removeName(name.id)}
 														disabled={removing}
@@ -360,44 +393,258 @@ const Shortlist = () => {
 														</svg>
 													</button>
 												</div> */}
+												</div>
+                        {showNameDetailsView && 
+                          <div 
+                          className="d-flex align-items-center justify-content-center"
+                          style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            zIndex: 1030,
+                            width: '100%',
+                            height: '100%',
+                            overflow: 'hidden',
+                          }}>
+                            {/* <div
+                              onClick={() => setShowNameDetailsView(false)}
+                              style={{
+                                // opacity: 0.18,
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                zIndex: 1040,
+                                width: '100vw',
+                                height: '100vh',
+                                backgroundColor: 'rgba(0,0,0,0.18)',
+                                backdropFilter: 'blur(6px)'
+                              }}
+                            >               
+                            </div> */}
+                            <div
+                              // onClick={() => setShowNameDetailsView(false)}
+                              style={{
+                                // opacity: 0.18,
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                zIndex: 1,
+                                width: '100vw',
+                                height: '100vh',
+                                backgroundColor: 'rgba(0,0,0,0.18)',
+                                backdropFilter: 'blur(6px)'
+                              }}
+                            >               
+                            </div>
+                            <div className="d-flex align-items-center justify-content-center radius-4 m-4" style={{zIndex: 1}}>
+                              <div className="d-flex flex-column gap-5" style={{maxWidth: '500px'}}>
+                                <button
+                                  onClick={() => setShowNameDetailsView(false)}
+                                  className="btn light medium high icon-only"
+                                >
+                                  <svg viewBox="0 0 24 24">
+                                    <path d={ICONS.CLOSE}></path>
+                                  </svg>
+                                </button>
+                                <div className="d-flex flex-column justify-content-between bg-light-900 radius-4 shadow-1 p-5" style={{aspectRatio: '1 / 1'}}>
+                                  <div>
+                                    <h2
+                                      className="mb-0"
+                                    >
+                                      {name?.name}
+                                    </h2>
+                                    {name.description?.map((description, index) => {
+                                      return (
+                                        <p key={index} className="mt-3 mb-0">
+                                          {description.content}
+                                        </p>
+                                      );
+                                    })}
+                                  </div>
+                                  <p className="pt-5 mt-5 mb-0 text-dark-low">I might have found the perfect name for our baby! Don’t like it? Find more on <a href="/">{window.location.origin}</a></p>
+                                </div>
+                                <div className={`${styles.shareGrid} gap-2 px-4`}>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <img height='64' src="/images/social-sharing/Instagram.svg" />
+                                    <p className="text-dark-high">Instagram</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <img height='64' src="/images/social-sharing/Instagram.svg" />
+                                    <p className="text-dark-high">Instagram</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <img height='64' src="/images/social-sharing/Instagram.svg" />
+                                    <p className="text-dark-high">Instagram</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <img height='64' src="/images/social-sharing/Instagram.svg" />
+                                    <p className="text-dark-high">Instagram</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <button
+                                      onClick={() => navigator.share({
+                                        // files,
+                                        // title: "Images",
+                                        title: "I might have found the perfect name for our baby!",
+                                        text: `${name.name}. Don’t like it? Find more on ${window.location.origin}`
+                                      })}
+                                      className="btn light large medium icon-only"
+                                    >
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.SHARE}></path>
+                                      </svg>
+                                    </button>
+                                    <p className="text-dark-high">Share</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <button
+                                      onClick={() => copyProfileAddress(name.name)}
+                                      className="btn light large medium icon-only"
+                                    >
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.COPY}></path>
+                                      </svg>
+                                    </button>
+                                    <p className="text-dark-high">Copy name</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <button
+                                      onClick={() => setShowNameDetailsView(false)}
+                                      className="btn light large medium icon-only"
+                                    >
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.DOWNLOAD}></path>
+                                      </svg>
+                                    </button>
+                                    <p className="text-dark-high">Save image</p>
+                                  </div>
+                                  <div className="d-flex flex-column align-items-center gap-2">
+                                    <button
+                                      onClick={() => setShowNameDetailsView(false)}
+                                      className="btn light large medium icon-only"
+                                    >
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.MORE}></path>
+                                      </svg>
+                                    </button>
+                                    <p className="text-dark-high">More</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        }
+
+
+												{/* <Modal
+													show={showNameDetailsView}
+													onHide={handleNameDetailsViewClose}
+													keyboard={false}
+													size={"md"}
+													centered
+													// backdrop="static"
+												>
+													<div className="d-flex flex-column justify-content-between p-5" style={{aspectRatio: '1 / 1'}}>
+                            <div>
+                              <h2
+                                className="mb-0"
+                              >
+                                {name?.name}
+                              </h2>
+                              {name.description?.map((description, index) => {
+                                return (
+                                  <p key={index} className="mt-3 mb-0">
+                                    {description.content}
+                                  </p>
+                                );
+                              })}
+                            </div>
+                            <p className="pt-5 mt-5 mb-0 text-dark-low">I might have found the perfect name for our baby! Don’t like it? Find more on <a href="/">{window.location.origin}</a></p>
+                          </div>
+                          <img height='64' src="/images/social-sharing/Instagram.svg" />
+												</Modal> */}
 											</div>
 										);
 									})}
-                  {!loggedIn && (
-                    <div
-												className={`${styles.shortlistItem} d-flex flex-column align-items-start justify-content-between radius-4 p-4`}
-											>
-												<div className="d-flex flex-row align-items-start justify-content-between">
-													<div>
-														<h3 className="mb-3" style={{ maxWidth: "720px" }}>
-															Want to save your shortlist?
-														</h3>
-													</div>
+									{!loggedIn && (
+										<div
+											className={`${styles.shortlistItem} d-flex flex-column align-items-start justify-content-between radius-4 p-4`}
+										>
+											<div className="d-flex flex-row align-items-start justify-content-between">
+												<div>
+													<h3 className="mb-3" style={{ maxWidth: "720px" }}>
+														Want to save your shortlist?
+													</h3>
 												</div>
-                        <Link
-                          href="/users/register"
-                          disabled={removing}
-                          className="btn dark high small w-100"
-                        >
-                          Create an account
-                        </Link>
 											</div>
-                  )}
-                  {/* <div
-                    onClick={() => router.push("/names")}
-										className={`${styles.shortlistMore} d-flex flex-column align-items-center justify-content-center radius-4 p-4`}
-                  >
-                    <svg height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path 
-                        fillRule="evenodd" 
-                        clipRule="evenodd" 
-                        d={ICONS.SEARCH} 
-                      />
-                    </svg>
-                    <p className="mb-0">
-                      Browse more names
-                    </p>
-                  </div> */}
+											<Link
+												href="/users/register"
+												disabled={removing}
+												className="btn dark high small w-100"
+											>
+												Create an account
+											</Link>
+										</div>
+									)}
+									<div
+										className="position-relative d-flex flex-column radius-4 bg-dark-200"
+										style={{ minHeight: "240px" }}
+									>
+										<div
+											className={`${styles.shortlistItemExpand} position-absolute w-100 h-100 d-flex flex-column radius-4 p-4`}
+											style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+										>
+											<div className="d-flex flex-row align-items-start justify-content-between">
+												<div>
+													<h3 className="mb-3" style={{ maxWidth: "720px" }}>
+														Laomedon
+													</h3>
+												</div>
+												<Dropdown align="end">
+													<Dropdown.Toggle
+														as={CustomToggle}
+														id="dropdown-custom-components"
+														className="text-decoration-none"
+													>
+														<>
+															<div className="d-flex flex-row align-items-center btn dark ultraLow small icon-only">
+																<svg viewBox="0 0 24 24">
+																	<path d={ICONS.MORE}></path>
+																</svg>
+															</div>
+														</>
+													</Dropdown.Toggle>
+													<Dropdown.Menu
+														as={CustomMenu}
+														align="end"
+														className="mt-2"
+													>
+														<div className="p-2">
+															<Dropdown.Item
+																onClick={() => removeName(name.id)}
+																className="dropdownItem"
+															>
+																<Icon icon={ICONS.DELETE} size="24" />
+																Remove name
+															</Dropdown.Item>
+															<Dropdown.Item
+																onClick={() => copyProfileAddress(name.name)}
+																className="dropdownItem"
+															>
+																<Icon icon={ICONS.SHARE} size="24" />
+																Share name
+															</Dropdown.Item>
+														</div>
+													</Dropdown.Menu>
+												</Dropdown>
+											</div>
+											<div>
+												<p className="mb-0">
+													There once was an epic warrior from the Agean
+												</p>
+											</div>
+										</div>
+									</div>
 								</div>
 							) : (
 								<div
