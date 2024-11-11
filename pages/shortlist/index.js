@@ -726,9 +726,7 @@ const Shortlist = () => {
 											navigator.share({
 												// files,
 												// title: "Images",
-												title:
-													"I might have found the perfect name for our baby!",
-												text: `${shareName}. Don’t like it? Find more on epicbabynames.com`,
+												text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
 											})
 										}
 										className="btn light medium icon-only"
@@ -778,9 +776,7 @@ const Shortlist = () => {
 										navigator.share({
 											// files,
 											// title: "Images",
-											title:
-												"I might have found the perfect name for our baby!",
-											text: `${shareName}. Don’t like it? Find more on epicbabynames.com`,
+											text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
 										})
 									}
 									className="btn light medium small icon-left w-100"
