@@ -105,3 +105,13 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.shareGrid img {
+  border-radius: $radius-round;
+  cursor: pointer;
+  overflow: hidden;
+  transition: $transition-standard;
+  &:hover {
+    box-shadow: $shadow-1;
+  }
+}

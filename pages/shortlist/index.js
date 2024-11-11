@@ -31,8 +31,9 @@ const Shortlist = () => {
 	const [retreivedNames, setRetreivedNames] = useState([]);
 	const [initialized, setInitialized] = useState(false);
 
-  const [showNameDetailsView, setShowNameDetailsView] = useState(false);
-
+	const [shareName, setShareName] = useState(null);
+	const [shareDescription, setShareDescription] = useState(null);
+	const [showNameDetailsView, setShowNameDetailsView] = useState(false);
 
 	// [x] Get shortlist from local
 	// [x] Save to a state
@@ -220,6 +221,12 @@ const Shortlist = () => {
 		}
 	);
 
+  const handleShowNameDetailsView = (name, description) => {
+    setShareName(name)
+    setShareDescription(description)
+    setShowNameDetailsView(true)
+  }
+
 	const copyProfileAddress = (name) => {
 		navigator.clipboard.writeText(
 			`I might have found the perfect name for our baby: ${name}. Don’t like it? Find more on ${window.location.origin}`
@@ -227,9 +234,9 @@ const Shortlist = () => {
 		toast("Copied name to clipboard");
 	};
 
-  const handleNameDetailsViewClose = () => {
-    setShowNameDetailsView(false)
-  }
+	const handleNameDetailsViewClose = () => {
+		setShowNameDetailsView(false);
+	};
 
 	return (
 		<div className="overflow-hidden" style={{ backgroundColor: "#F6F6F4" }}>
@@ -323,7 +330,23 @@ const Shortlist = () => {
 																{name?.name}
 															</h3>
 														</div>
-														<Dropdown align="end">
+
+														<div className="d-flex gap-0">
+															<button
+																onClick={() => removeName(name.id)}
+																className="btn dark small ultraLow icon-only"
+															>
+																<Icon icon={ICONS.DELETE} size="24" />
+															</button>
+															<button
+																onClick={() => handleShowNameDetailsView(name?.name, name?.description)}
+																className="btn dark small ultraLow icon-only"
+															>
+																<Icon icon={ICONS.SHARE} size="24" />
+															</button>
+														</div>
+
+														{/* <Dropdown align="end">
 															<Dropdown.Toggle
 																as={CustomToggle}
 																id="dropdown-custom-components"
@@ -343,34 +366,23 @@ const Shortlist = () => {
 																className="mt-2"
 															>
 																<div className="p-2">
+                                  <Dropdown.Item
+																		onClick={() => setShowNameDetailsView(true)}
+																		className="dropdownItem"
+																	>
+																		<Icon icon={ICONS.SHARE} size="24" />
+																		Share
+																	</Dropdown.Item>
 																	<Dropdown.Item
 																		onClick={() => removeName(name.id)}
 																		className="dropdownItem"
 																	>
 																		<Icon icon={ICONS.DELETE} size="24" />
-																		Remove name
-																	</Dropdown.Item>
-																	<Dropdown.Item
-																		onClick={() =>
-																			copyProfileAddress(name.name)
-																		}
-																		className="dropdownItem"
-																	>
-																		<Icon icon={ICONS.SHARE} size="24" />
-																		Share name
-																	</Dropdown.Item>
-																	<Dropdown.Item
-																		onClick={() =>
-																			setShowNameDetailsView(true)
-																		}
-																		className="dropdownItem"
-																	>
-																		<Icon icon={ICONS.SHARE} size="24" />
-																		Share options
+																		Remove
 																	</Dropdown.Item>
 																</div>
 															</Dropdown.Menu>
-														</Dropdown>
+														</Dropdown> */}
 													</div>
 													<div>
 														{name.description?.map((description, index) => {
@@ -394,7 +406,7 @@ const Shortlist = () => {
 													</button>
 												</div> */}
 												</div>
-                        {showNameDetailsView && 
+												{/* {showNameDetailsView && 
                           <div 
                           className="d-flex align-items-center justify-content-center"
                           style={{
@@ -406,21 +418,7 @@ const Shortlist = () => {
                             height: '100%',
                             overflow: 'hidden',
                           }}>
-                            {/* <div
-                              onClick={() => setShowNameDetailsView(false)}
-                              style={{
-                                // opacity: 0.18,
-                                position: 'fixed',
-                                top: 0,
-                                left: 0,
-                                zIndex: 1040,
-                                width: '100vw',
-                                height: '100vh',
-                                backgroundColor: 'rgba(0,0,0,0.18)',
-                                backdropFilter: 'blur(6px)'
-                              }}
-                            >               
-                            </div> */}
+                            
                             <div
                               // onClick={() => setShowNameDetailsView(false)}
                               style={{
@@ -533,8 +531,7 @@ const Shortlist = () => {
                               </div>
                             </div>
                           </div>
-                        }
-
+                        } */}
 
 												{/* <Modal
 													show={showNameDetailsView}
@@ -544,24 +541,30 @@ const Shortlist = () => {
 													centered
 													// backdrop="static"
 												>
-													<div className="d-flex flex-column justify-content-between p-5" style={{aspectRatio: '1 / 1'}}>
-                            <div>
-                              <h2
-                                className="mb-0"
-                              >
-                                {name?.name}
-                              </h2>
-                              {name.description?.map((description, index) => {
-                                return (
-                                  <p key={index} className="mt-3 mb-0">
-                                    {description.content}
-                                  </p>
-                                );
-                              })}
-                            </div>
-                            <p className="pt-5 mt-5 mb-0 text-dark-low">I might have found the perfect name for our baby! Don’t like it? Find more on <a href="/">{window.location.origin}</a></p>
-                          </div>
-                          <img height='64' src="/images/social-sharing/Instagram.svg" />
+													<div
+														className="d-flex flex-column justify-content-between p-5"
+														style={{ aspectRatio: "1 / 1" }}
+													>
+														<div>
+															<h2 className="mb-0">{name?.name}</h2>
+															{name.description?.map((description, index) => {
+																return (
+																	<p key={index} className="mt-3 mb-0">
+																		{description.content}
+																	</p>
+																);
+															})}
+														</div>
+														<p className="pt-5 mt-5 mb-0 text-dark-low">
+															I might have found the perfect name for our baby!
+															Don’t like it? Find more on{" "}
+															<a href="/">{window.location.origin}</a>
+														</p>
+													</div>
+													<img
+														height="64"
+														src="/images/social-sharing/Instagram.svg"
+													/>
 												</Modal> */}
 											</div>
 										);
@@ -586,7 +589,7 @@ const Shortlist = () => {
 											</Link>
 										</div>
 									)}
-									<div
+									{/* <div
 										className="position-relative d-flex flex-column radius-4 bg-dark-200"
 										style={{ minHeight: "240px" }}
 									>
@@ -644,7 +647,7 @@ const Shortlist = () => {
 												</p>
 											</div>
 										</div>
-									</div>
+									</div> */}
 								</div>
 							) : (
 								<div
@@ -683,6 +686,152 @@ const Shortlist = () => {
 
 				{/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
 			</div>
+			<Modal
+				show={showNameDetailsView}
+				onHide={handleNameDetailsViewClose}
+				keyboard={false}
+				size={"md"}
+				centered
+			>
+				<div className="position-relative bg-background">
+					<div className="d-flex flex-column flex-lg-row bg-light-900">
+						<div
+							className="d-flex flex-column justify-content-between p-4 p-sm-5"
+							style={{ aspectRatio: "1 / 1" }}
+						>
+							<div>
+								<h1 className="mb-0">{shareName}</h1>
+								{shareDescription?.map((description, index) => {
+									return (
+										<p key={index} className="mt-3 mb-0">
+											{description.content}
+										</p>
+									);
+								})}
+							</div>
+							<p className="pt-5 mt-5 mb-0 text-dark-low">
+								I might have found the perfect name for our baby! Don’t like it?
+								Find more on <a href="/">epicbabynames.com</a>
+							</p>
+						</div>
+					</div>
+					<div
+						className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4`}
+					>
+						{screenWidth > 575 ? (
+							<div className={`${styles.shareGrid} gap-2 w-100 p-3 p-sm-4`}>
+								<div className="d-flex flex-column align-items-center gap-2">
+									<button
+										onClick={() =>
+											navigator.share({
+												// files,
+												// title: "Images",
+												title:
+													"I might have found the perfect name for our baby!",
+												text: `${shareName}. Don’t like it? Find more on epicbabynames.com`,
+											})
+										}
+										className="btn light medium icon-only"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.SHARE}></path>
+										</svg>
+									</button>
+									<p className="text-dark-high mb-0">Share</p>
+								</div>
+								<div className="d-flex flex-column align-items-center gap-2">
+									<button
+										onClick={() => copyProfileAddress(shareName)}
+										className="btn light medium icon-only"
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.COPY}></path>
+										</svg>
+									</button>
+									<p className="text-dark-high mb-0">Copy name</p>
+								</div>
+								<div className="d-flex flex-column align-items-center gap-2">
+									<a
+										href={`https://wa.me/?text=I%20might%20have%20found%20the%20perfect%20name%20for%20our%20baby%3A%20${shareName}.%20Don%E2%80%99t%20like%20it%3F%20Find%20more%20on%20${window.location.origin}.`}
+									>
+										<img
+											height="56"
+											src="/images/social-sharing/Whatsapp.svg"
+										/>
+									</a>
+									<p className="text-dark-high mb-0">Whatsapp</p>
+								</div>
+								<div className="d-flex flex-column align-items-center gap-2">
+									<a href="https://www.instagram.com/direct/inbox/">
+										<img
+											height="56"
+											src="/images/social-sharing/Instagram.svg"
+										/>
+									</a>
+									<p className="text-dark-high mb-0">Instagram</p>
+								</div>
+							</div>
+						) : (
+							<div className="d-flex flex-column w-100 p-4 gap-2">
+								<button
+									onClick={() =>
+										navigator.share({
+											// files,
+											// title: "Images",
+											title:
+												"I might have found the perfect name for our baby!",
+											text: `${shareName}. Don’t like it? Find more on epicbabynames.com`,
+										})
+									}
+									className="btn light medium small icon-left w-100"
+								>
+									<svg viewBox="0 0 24 24">
+										<path d={ICONS.SHARE}></path>
+									</svg>
+									Share
+								</button>
+								<button
+									onClick={() => copyProfileAddress(shareName)}
+									className="btn light medium small icon-left w-100"
+								>
+									<svg viewBox="0 0 24 24">
+										<path d={ICONS.COPY}></path>
+									</svg>
+									Copy name
+								</button>
+								<a
+									href={`https://wa.me/?text=I%20might%20have%20found%20the%20perfect%20name%20for%20our%20baby%3A%20${shareName}.%20Don%E2%80%99t%20like%20it%3F%20Find%20more%20on%20epicbabynames.com.`}
+									className="btn primary medium small icon-left w-100"
+									style={{ backgroundColor: "rgb(0, 217, 95)" }}
+								>
+									<img
+										src="/images/social-sharing/Whatsapp-outline.svg"
+										height="24"
+										className="mr-2"
+									/>
+									<span className="text-light-high">Whatsapp</span>
+								</a>
+								<a
+									href="https://www.instagram.com/direct/inbox/"
+									className="btn primary high small icon-left w-100"
+									// style={{background: 'linear-gradient(340deg, #FCBB45 21%, #F75274 38%,  #D53692 52%,  #8F39CE 74%, #5B4FE9 100%)'}}
+									style={{
+										background:
+											"linear-gradient(330deg, #FCBB45 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #5B4FE9 100%)",
+									}}
+								>
+									<img
+										src="/images/social-sharing/Instagram-outline.svg"
+										height="24"
+										className="mr-2"
+									/>
+									Instagram
+								</a>
+							</div>
+						)}
+					</div>
+				</div>
+			</Modal>
 		</div>
 	);
 };
