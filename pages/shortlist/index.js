@@ -34,6 +34,9 @@ const Shortlist = () => {
 	const [shareName, setShareName] = useState(null);
 	const [shareDescription, setShareDescription] = useState(null);
 	const [showNameDetailsView, setShowNameDetailsView] = useState(false);
+  
+	const [windowLocationOrigin, setWindowLocationOrigin] = useState(undefined);
+	const [sharingName, setSharingName] = useState(false);
 
 	// [x] Get shortlist from local
 	// [x] Save to a state
@@ -52,7 +55,7 @@ const Shortlist = () => {
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
 		window.addEventListener("resize", handleResize);
-
+    setWindowLocationOrigin(window.location.origin)
 		const unsubscribe = fire.auth().onAuthStateChanged((user) => {
 			if (user) {
 				loggedInRoute(user);
@@ -221,22 +224,45 @@ const Shortlist = () => {
 		}
 	);
 
-  const handleShowNameDetailsView = (name, description) => {
-    setShareName(name)
-    setShareDescription(description)
-    setShowNameDetailsView(true)
-  }
-
-	const copyProfileAddress = (name) => {
-		navigator.clipboard.writeText(
-			`I might have found the perfect name for our baby: ${name}. Don’t like it? Find more on ${window.location.origin}`
-		);
-		toast("Copied name to clipboard");
+	const handleShowNameDetailsView = (name, description) => {
+		setShareName(name);
+		setShareDescription(description);
+		setShowNameDetailsView(true);
 	};
 
 	const handleNameDetailsViewClose = () => {
 		setShowNameDetailsView(false);
 	};
+
+  const nameShareData =  `I might have found the perfect name for our baby: ${shareName}. \n\nDon't like it? Find more on ${windowLocationOrigin}`
+  const shortlistShareData = `I love these names for our baby:\n${retreivedNames.map(name => `• ${name.name}`).join('\n')}\n\nDon't like them? Find more on ${windowLocationOrigin}`
+  const whatsappShareNameData = `https://wa.me/?text=${encodeURIComponent(nameShareData)}`
+  const whatsappShareShortlistData = `https://wa.me/?text=${encodeURIComponent(shortlistShareData)}`
+  // const whatsappShareShortlistData = `https://wa.me/?text=I%20love%20these%20names%20for%20our%20baby%3A%20${shareName}.%20Don%E2%80%99t%20like%20it%3F%20Find%20more%20on%20${window.location.origin}.`
+  const instagramShareLink = `https://www.instagram.com/direct/inbox/`
+
+	const copyNameToClipboard = () => {
+		navigator.clipboard.writeText(nameShareData);
+		toast("Copied name to clipboard");
+	};
+
+	const copyShortlistToClipboard = () => {
+		navigator.clipboard.writeText(shortlistShareData);
+		toast("Copied name to clipboard");
+	};
+
+  const handleNavigatorShare = async (data) => {
+    setSharingName(true)
+    try {
+      await navigator.share({text: data});
+      // console.log("Shared successfully");
+      toast("Shared")
+      setSharingName(false)
+    } catch (err) {
+      // console.error("Error sharing:", err);
+      setSharingName(false)
+    }
+  };
 
 	return (
 		<div className="overflow-hidden" style={{ backgroundColor: "#F6F6F4" }}>
@@ -280,18 +306,164 @@ const Shortlist = () => {
 				{/* {shortlist.map((id, index) => <p key={index} className="large">{id}</p>)} */}
 
 				<div className="w-100" style={{ maxWidth: "1200px" }}>
-					<div className="d-flex flex-row align-items-center gap-3 mb-4">
-						<h2 className="mb-0">Shortlist</h2>
-						{!retreivingNames && shortlist?.length > 0 ? (
-							<div
-								className={`${
-									retreivingNames ? "loadingAnimation" : ""
-								} tag dark medium small`}
-								style={{ minWidth: "24px", minHeight: "24px" }}
+					<div className="d-flex flex-row align-items-center justify-content-between mb-4">
+						<div className="d-flex flex-row align-items-center gap-3">
+							<h2 className="mb-0">Shortlist</h2>
+							{!retreivingNames && shortlist?.length > 0 ? (
+								<div
+									className={`${
+										retreivingNames ? "loadingAnimation" : ""
+									} tag dark medium small`}
+									style={{ minWidth: "24px", minHeight: "24px" }}
+								>
+									{!retreivingNames ? shortlist?.length : null}
+								</div>
+							) : null}
+						</div>
+						<Dropdown align="end">
+							<Dropdown.Toggle
+								as={CustomToggle}
+								id="dropdown-custom-components"
+								className="text-decoration-none"
 							>
-								{!retreivingNames ? shortlist?.length : null}
-							</div>
-						) : null}
+                { screenWidth > 575 ? 
+									<button className="btn dark medium small icon-left">
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.SHARE}></path>
+										</svg>
+                    <span className="text-decoration-none">Share shortlist</span>
+									</button>
+                :
+                <div className="btn dark medium small icon-only">
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.SHARE}></path>
+                  </svg>
+                </div>
+                }
+							</Dropdown.Toggle>
+							<Dropdown.Menu as={CustomMenu} align="end" className="mt-2">
+								<div className="p-2">
+                  {/* <button onClick={() => console.log()}></button> */}
+                  {screenWidth > 575 ? (
+                    <div className={`${styles.shareGrid} gap-2 w-100 p-3`} style={{minWidth: '400px'}}>
+                      <div className="d-flex flex-column align-items-center gap-2">
+                        <button
+                          onClick={() => handleNavigatorShare(shortlistShareData)
+                            // navigator.share({
+                            // 	// files,
+                            // 	// title: "Images",
+                            // 	text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
+                            // })
+                          }
+                          className="btn light medium icon-only"
+                          disabled={sharingName}
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.SHARE}></path>
+                          </svg>
+                        </button>
+                        <p className="text-dark-high mb-0">Share</p>
+                      </div>
+                      <div className="d-flex flex-column align-items-center gap-2">
+                        <button
+                          onClick={() => copyShortlistToClipboard()}
+                          className="btn light medium icon-only"
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.COPY}></path>
+                          </svg>
+                        </button>
+                        <p className="text-dark-high mb-0">Copy</p>
+                      </div>
+                      <div className="d-flex flex-column align-items-center gap-2">
+                        <a
+                          href={whatsappShareShortlistData}
+                        >
+                          <img
+                            height="56"
+                            src="/images/social-sharing/Whatsapp.svg"
+                          />
+                        </a>
+                        <p className="text-dark-high mb-0">Whatsapp</p>
+                      </div>
+                      <div className="d-flex flex-column align-items-center gap-2">
+                        <a href={instagramShareLink}>
+                          <img
+                            height="56"
+                            src="/images/social-sharing/Instagram.svg"
+                          />
+                        </a>
+                        <p className="text-dark-high mb-0">Instagram</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-column w-100 p-2 gap-2" style={{maxWidth: '240px'}}>
+                      <button
+                        onClick={() => handleNavigatorShare(shortlistShareData)}
+                        className="btn light medium small icon-left w-100"
+                        disabled={sharingName}
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <path d={ICONS.SHARE}></path>
+                        </svg>
+                        Share
+                      </button>
+                      <button
+                        onClick={() => copyShortlistToClipboard()}
+                        className="btn light medium small icon-left w-100"
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <path d={ICONS.COPY}></path>
+                        </svg>
+                        Copy
+                      </button>
+                      <a
+                        href={whatsappShareShortlistData}
+                        className="btn primary medium small icon-left w-100"
+                        style={{ backgroundColor: "rgb(0, 217, 95)" }}
+                      >
+                        <img
+                          src="/images/social-sharing/Whatsapp-outline.svg"
+                          height="24"
+                          className="mr-2"
+                        />
+                        <span className="text-light-high">Whatsapp</span>
+                      </a>
+                      <a
+                        href={instagramShareLink}
+                        className="btn primary high small icon-left w-100"
+                        // style={{background: 'linear-gradient(340deg, #FCBB45 21%, #F75274 38%,  #D53692 52%,  #8F39CE 74%, #5B4FE9 100%)'}}
+                        style={{
+                          background:
+                            "linear-gradient(330deg, #FCBB45 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #5B4FE9 100%)",
+                        }}
+                      >
+                        <img
+                          src="/images/social-sharing/Instagram-outline.svg"
+                          height="24"
+                          className="mr-2"
+                        />
+                        Instagram
+                      </a>
+                    </div>
+                  )}
+									{/* <Dropdown.Item
+										onClick={() => setShowNameDetailsView(true)}
+										className="dropdownItem"
+									>
+										<Icon icon={ICONS.SHARE} size="24" />
+										Share
+									</Dropdown.Item>
+									<Dropdown.Item
+										onClick={() => removeName(name.id)}
+										className="dropdownItem"
+									>
+										<Icon icon={ICONS.DELETE} size="24" />
+										Remove
+									</Dropdown.Item> */}
+								</div>
+							</Dropdown.Menu>
+						</Dropdown>
 					</div>
 					{!retreivingNames && initialized ? (
 						<>
@@ -339,7 +511,12 @@ const Shortlist = () => {
 																<Icon icon={ICONS.DELETE} size="24" />
 															</button>
 															<button
-																onClick={() => handleShowNameDetailsView(name?.name, name?.description)}
+																onClick={() =>
+																	handleShowNameDetailsView(
+																		name?.name,
+																		name?.description
+																	)
+																}
 																className="btn dark small ultraLow icon-only"
 															>
 																<Icon icon={ICONS.SHARE} size="24" />
@@ -496,7 +673,7 @@ const Shortlist = () => {
                                   </div>
                                   <div className="d-flex flex-column align-items-center gap-2">
                                     <button
-                                      onClick={() => copyProfileAddress(name.name)}
+                                      onClick={() => copyNameToClipboard(name.name)}
                                       className="btn light large medium icon-only"
                                     >
                                       <svg viewBox="0 0 24 24">
@@ -631,7 +808,7 @@ const Shortlist = () => {
 																Remove name
 															</Dropdown.Item>
 															<Dropdown.Item
-																onClick={() => copyProfileAddress(name.name)}
+																onClick={() => copyNameToClipboard(name.name)}
 																className="dropdownItem"
 															>
 																<Icon icon={ICONS.SHARE} size="24" />
@@ -711,7 +888,7 @@ const Shortlist = () => {
 							</div>
 							<p className="pt-5 mt-5 mb-0 text-dark-low">
 								I might have found the perfect name for our baby! Don’t like it?
-								Find more on <a href="/">epicbabynames.com</a>
+								Find more on <a href="/">epicbabynames.com</a>x
 							</p>
 						</div>
 					</div>
@@ -722,14 +899,15 @@ const Shortlist = () => {
 							<div className={`${styles.shareGrid} gap-2 w-100 p-3 p-sm-4`}>
 								<div className="d-flex flex-column align-items-center gap-2">
 									<button
-										onClick={() =>
-											navigator.share({
-												// files,
-												// title: "Images",
-												text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
-											})
+										onClick={() => handleNavigatorShare(nameShareData)
+											// navigator.share({
+											// 	// files,
+											// 	// title: "Images",
+											// 	text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
+											// })
 										}
 										className="btn light medium icon-only"
+                    disabled={sharingName}
 									>
 										<svg viewBox="0 0 24 24">
 											<path d={ICONS.SHARE}></path>
@@ -739,7 +917,7 @@ const Shortlist = () => {
 								</div>
 								<div className="d-flex flex-column align-items-center gap-2">
 									<button
-										onClick={() => copyProfileAddress(shareName)}
+										onClick={() => copyNameToClipboard()}
 										className="btn light medium icon-only"
 									>
 										<svg viewBox="0 0 24 24">
@@ -750,7 +928,7 @@ const Shortlist = () => {
 								</div>
 								<div className="d-flex flex-column align-items-center gap-2">
 									<a
-										href={`https://wa.me/?text=I%20might%20have%20found%20the%20perfect%20name%20for%20our%20baby%3A%20${shareName}.%20Don%E2%80%99t%20like%20it%3F%20Find%20more%20on%20${window.location.origin}.`}
+										href={whatsappShareNameData}
 									>
 										<img
 											height="56"
@@ -760,7 +938,7 @@ const Shortlist = () => {
 									<p className="text-dark-high mb-0">Whatsapp</p>
 								</div>
 								<div className="d-flex flex-column align-items-center gap-2">
-									<a href="https://www.instagram.com/direct/inbox/">
+									<a href={instagramShareLink}>
 										<img
 											height="56"
 											src="/images/social-sharing/Instagram.svg"
@@ -772,14 +950,9 @@ const Shortlist = () => {
 						) : (
 							<div className="d-flex flex-column w-100 p-4 gap-2">
 								<button
-									onClick={() =>
-										navigator.share({
-											// files,
-											// title: "Images",
-											text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
-										})
-									}
+									onClick={() => handleNavigatorShare(nameShareData)}
 									className="btn light medium small icon-left w-100"
+                  disabled={sharingName}
 								>
 									<svg viewBox="0 0 24 24">
 										<path d={ICONS.SHARE}></path>
@@ -787,7 +960,7 @@ const Shortlist = () => {
 									Share
 								</button>
 								<button
-									onClick={() => copyProfileAddress(shareName)}
+									onClick={() => copyNameToClipboard()}
 									className="btn light medium small icon-left w-100"
 								>
 									<svg viewBox="0 0 24 24">
@@ -796,7 +969,7 @@ const Shortlist = () => {
 									Copy name
 								</button>
 								<a
-									href={`https://wa.me/?text=I%20might%20have%20found%20the%20perfect%20name%20for%20our%20baby%3A%20${shareName}.%20Don%E2%80%99t%20like%20it%3F%20Find%20more%20on%20epicbabynames.com.`}
+									href={whatsappShareNameData}
 									className="btn primary medium small icon-left w-100"
 									style={{ backgroundColor: "rgb(0, 217, 95)" }}
 								>
@@ -808,7 +981,7 @@ const Shortlist = () => {
 									<span className="text-light-high">Whatsapp</span>
 								</a>
 								<a
-									href="https://www.instagram.com/direct/inbox/"
+									href={instagramShareLink}
 									className="btn primary high small icon-left w-100"
 									// style={{background: 'linear-gradient(340deg, #FCBB45 21%, #F75274 38%,  #D53692 52%,  #8F39CE 74%, #5B4FE9 100%)'}}
 									style={{
