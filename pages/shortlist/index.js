@@ -473,103 +473,118 @@ const Shortlist = () => {
 										return (
 											<div key={index}>
 												<div
-													className={`${styles.shortlistItem} d-flex flex-column radius-4 p-4`}
+													className={`${styles.shortlistItem} d-flex flex-column justify-content-between radius-4 p-4 gap-3`}
 												>
-													<div className="d-flex flex-row align-items-start justify-content-between">
-														<div>
-															{/* {name?.allegiance[0] != null && (
-															<div className="d-flex b-4 gap-3 mb-3">
-																{name?.allegiance?.map((allegiance, index) => {
-																	return (
-																		<div
-																			key={index}
-																			className="tag light high icon-left"
-																			style={{ textTransform: "capitalize" }}
-																		>
-																			<svg viewBox="0 0 24 24">
-																				<path d={ICONS.WEBSITE}></path>
-																			</svg>
-																			{allegiance}
-																		</div>
-																	);
-																})}
-															</div>
-														)} */}
-															<h3
-																className="mb-3"
-																style={{ maxWidth: "720px" }}
-															>
-																{name?.name}
-															</h3>
-														</div>
+                          <div className="d-flex flex-column justify-content-between">
+                            <div>
+                              <div className="d-flex flex-row align-items-center justify-content-between mb-3 gap-2">
+                                {/* {name?.allegiance[0] != null && (
+                                <div className="d-flex b-4 gap-3 mb-3">
+                                  {name?.allegiance?.map((allegiance, index) => {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className="tag light high icon-left"
+                                        style={{ textTransform: "capitalize" }}
+                                      >
+                                        <svg viewBox="0 0 24 24">
+                                          <path d={ICONS.WEBSITE}></path>
+                                        </svg>
+                                        {allegiance}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )} */}
+                                <h3
+                                  className="mb-0"
+                                  style={{ maxWidth: "720px" }}
+                                >
+                                  {name?.name}
+                                </h3>
+                                <div className="d-flex gap-1">
+                                  {name?.gender !== "female" &&
+                                    <svg height="24" viewBox="0 0 24 24">
+                                      <path className="fill-male" d={ICONS.MALE}></path>
+                                    </svg>
+                                  }
+                                  {name?.gender !== "male" &&
+                                    <svg height="24" viewBox="0 0 24 24">
+                                      <path className="fill-female" d={ICONS.FEMALE}></path>
+                                    </svg>
+                                  }
+                                </div>
 
-														<div className="d-flex gap-0">
-															<button
-																onClick={() => removeName(name.id)}
-																className="btn dark small ultraLow icon-only"
-															>
-																<Icon icon={ICONS.DELETE} size="24" />
-															</button>
-															<button
-																onClick={() =>
-																	handleShowNameDetailsView(
-																		name?.name,
-																		name?.description
-																	)
-																}
-																className="btn dark small ultraLow icon-only"
-															>
-																<Icon icon={ICONS.SHARE} size="24" />
-															</button>
-														</div>
+                              </div>
 
-														{/* <Dropdown align="end">
-															<Dropdown.Toggle
-																as={CustomToggle}
-																id="dropdown-custom-components"
-																className="text-decoration-none"
-															>
-																<>
-																	<div className="d-flex flex-row align-items-center btn dark ultraLow small icon-only">
-																		<svg viewBox="0 0 24 24">
-																			<path d={ICONS.MORE}></path>
-																		</svg>
-																	</div>
-																</>
-															</Dropdown.Toggle>
-															<Dropdown.Menu
-																as={CustomMenu}
-																align="end"
-																className="mt-2"
-															>
-																<div className="p-2">
-                                  <Dropdown.Item
-																		onClick={() => setShowNameDetailsView(true)}
-																		className="dropdownItem"
-																	>
-																		<Icon icon={ICONS.SHARE} size="24" />
-																		Share
-																	</Dropdown.Item>
-																	<Dropdown.Item
-																		onClick={() => removeName(name.id)}
-																		className="dropdownItem"
-																	>
-																		<Icon icon={ICONS.DELETE} size="24" />
-																		Remove
-																	</Dropdown.Item>
-																</div>
-															</Dropdown.Menu>
-														</Dropdown> */}
-													</div>
-													<div>
-														{name.description?.map((description, index) => {
-															return (
-																<p key={index} className="mb-0">
-																	{description.content}
-																</p>
-															);
-														})}
-													</div>
+                              {/* <div className="d-flex gap-0">
+                                <button
+                                  onClick={() => removeName(name.id)}
+                                  className="btn dark small ultraLow icon-only"
+                                >
+                                  <Icon icon={ICONS.DELETE} size="24" />
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleShowNameDetailsView(
+                                      name?.name,
+                                      name?.description
+                                    )
+                                  }
+                                  className="btn dark small ultraLow icon-only"
+                                >
+                                  <Icon icon={ICONS.SHARE} size="24" />
+                                </button>
+                              </div> */}
+
+                              {/* <Dropdown align="end">
+                                <Dropdown.Toggle
+                                  as={CustomToggle}
+                                  id="dropdown-custom-components"
+                                  className="text-decoration-none"
+                                >
+                                  <>
+                                    <div className="d-flex flex-row align-items-center btn dark ultraLow small icon-only">
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.MORE}></path>
+                                      </svg>
+                                    </div>
+                                  </>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu
+                                  as={CustomMenu}
+                                  align="end"
+                                  className="mt-2"
+                                >
+                                  <div className="p-2">
+                                    <Dropdown.Item
+                                      onClick={() => setShowNameDetailsView(true)}
+                                      className="dropdownItem"
+                                    >
+                                      <Icon icon={ICONS.SHARE} size="24" />
+                                      Share
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                      onClick={() => removeName(name.id)}
+                                      className="dropdownItem"
+                                    >
+                                      <Icon icon={ICONS.DELETE} size="24" />
+                                      Remove
+                                    </Dropdown.Item>
+                                  </div>
+                                </Dropdown.Menu>
+                              </Dropdown> */}
+                            </div>
+                            <div>
+                              {name.description?.map((description, index) => {
+                                return (
+                                  <p key={index} className="mb-0">
+                                    {description.content}
+                                  </p>
+                                );
+                              })}
+                            </div>
+                          </div>
 
 													{/* <div>
 													<button
@@ -582,6 +597,63 @@ const Shortlist = () => {
 														</svg>
 													</button>
 												</div> */}
+                          <div className="d-flex justify-content-between w-100">
+                            <button
+                              onClick={() =>
+                                handleShowNameDetailsView(
+                                  name?.name,
+                                  name?.description
+                                )
+                              }
+                              className="btn dark x-small medium icon-left"
+                            >
+                              <Icon icon={ICONS.SHARE} size="24" />
+                              Share
+                            </button>
+                            <Dropdown align="end">
+                                <Dropdown.Toggle
+                                  as={CustomToggle}
+                                  id="dropdown-custom-components"
+                                  className="text-decoration-none"
+                                >
+                                  <>
+                                    <div className="d-flex flex-row align-items-center btn dark ultraLow x-small icon-only">
+                                      <svg viewBox="0 0 24 24">
+                                        <path d={ICONS.MORE}></path>
+                                      </svg>
+                                    </div>
+                                  </>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu
+                                  as={CustomMenu}
+                                  align="end"
+                                  className="mt-2"
+                                >
+                                  <div className="p-2">
+                                    {/* <Dropdown.Item
+                                      onClick={() => setShowNameDetailsView(true)}
+                                      className="dropdownItem"
+                                    >
+                                      <Icon icon={ICONS.SHARE} size="24" />
+                                      Share
+                                    </Dropdown.Item> */}
+                                    <Dropdown.Item
+                                      onClick={() => removeName(name.id)}
+                                      className="dropdownItem"
+                                    >
+                                      <Icon icon={ICONS.DELETE} size="24" />
+                                      Remove name
+                                    </Dropdown.Item>
+                                  </div>
+                                </Dropdown.Menu>
+                              </Dropdown>
+                            {/* <button
+                              onClick={() => removeName(name.id)}
+                              className="btn dark small ultraLow icon-only"
+                            >
+                              <Icon icon={ICONS.DELETE} size="24" />
+                            </button> */}
+                          </div>
 												</div>
 												{/* {showNameDetailsView && 
                           <div 
@@ -888,7 +960,7 @@ const Shortlist = () => {
 							</div>
 							<p className="pt-5 mt-5 mb-0 text-dark-low">
 								I might have found the perfect name for our baby! Don’t like it?
-								Find more on <a href="/">epicbabynames.com</a>x
+								Find more on <a href="/">{windowLocationOrigin}</a>
 							</p>
 						</div>
 					</div>

@@ -874,6 +874,7 @@ const Names = () => {
 						);
 						setRetreivedName(results);
 						// getRandomDocumentLoggedIn(previousDocumentId);
+            setLastRandomDocumentId(previousDocumentId)
 						setPreviousDocumentId(null);
 					}, 400);
 				})

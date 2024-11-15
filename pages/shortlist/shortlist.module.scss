@@ -15,11 +15,17 @@
 
 .shortlistItem {
   background-color: $light-900;
-  min-height: 240px;
+  min-height: 280px;
+  height: 100%;
   // box-shadow: $shadow-0;
   transition: $transition-standard;
-  h3, p {
+  h3 {
     transition: $transition-standard;
+    color: $dark-800
+  }
+  p {
+    transition: $transition-standard;
+
     color: $dark-700
   }
   &:hover {
