@@ -301,7 +301,7 @@ const Shortlist = () => {
 			</div>
 			<div
 				className="d-flex flex-column align-items-center px-3 px-md-5 w-100"
-				style={{ paddingTop: "48px", paddingBottom: "96px" }}
+				style={{ paddingTop: "48px", paddingBottom: "160px" }}
 			>
 				{/* {shortlist.map((id, index) => <p key={index} className="large">{id}</p>)} */}
 

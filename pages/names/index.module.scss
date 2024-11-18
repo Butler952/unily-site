@@ -163,19 +163,19 @@
 // }
 
 .epicPoemIllustrationIliadAnimate {
-  animation: transitionIliad 2s ease-in-out infinite;
-  // animation-fill-mode: forwards; 
+  animation: transitionIliad 2s ease-in-out;
+  animation-fill-mode: forwards; 
   // svg path {
   //   stroke: #E07443;
   // }
 }
 
 .epicPoemIllustrationIliadColourPathAnimate {
-  animation: transitionIliadColourPaths 2s ease-in-out infinite;
-  // animation-fill-mode: forwards; 
+  animation: transitionIliadColourPaths 2s ease-in-out;
+  animation-fill-mode: forwards; 
 }
 
 .epicPoemIllustrationIliadGreyPathAnimate {
-  animation: transitionIliadGreyPaths 2s ease-in-out infinite;
-  // animation-fill-mode: forwards; 
+  animation: transitionIliadGreyPaths 2s ease-in-out;
+  animation-fill-mode: forwards; 
 }

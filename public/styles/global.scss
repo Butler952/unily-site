@@ -489,6 +489,9 @@ button.link {
   &:hover {
     text-decoration: underline;
   }
+  &:disabled {
+    color: $dark-600;
+  }
 }
 
 // Standard buttons

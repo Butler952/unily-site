@@ -22,10 +22,12 @@ import confetti from "canvas-confetti";
 import IllustrationIliad from "components/index/IllustrationIliad";
 import { handlePurchase } from "../../lib/handle-purchase";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Names = () => {
 	const router = useRouter();
 	const { userContext, setUserContext } = useContext(UserContext);
+  const [windowLocationOrigin, setWindowLocationOrigin] = useState(undefined);
 
 	const [screenWidth, setScreenWidth] = useState("");
 	const [sending, setSending] = useState(false);
@@ -58,7 +60,9 @@ const Names = () => {
 	const [password, setPassword] = useState("");
 	const [emailError, setEmailError] = useState("");
 	const [passwordError, setPasswordError] = useState("");
-	const [registering, setRegistering] = useState(false);
+	const [sendingLink, setSendingLink] = useState(false);
+	const [linkSent, setLinkSent] = useState(false);
+	const [linkCooldown, setLinkCooldown] = useState(null);
 	const [signingIn, setSigningIn] = useState(false);
 	const [showUpgradeSuccessModal, setShowUpgradeSuccessModal] = useState(false);
 
@@ -84,10 +88,18 @@ const Names = () => {
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
 		window.addEventListener("resize", handleResize);
+    setWindowLocationOrigin(window.location.origin)
 
-		const { gender: genderQuery, upgrading } = router.query;
+		const { gender: genderQuery, upgrading, signIn } = router.query;
 		if (genderQuery === "male" || genderQuery === "female") {
 			setGender(genderQuery);
+		} else {
+      setGender("male")
+    }
+
+		// Check for signIn query parameter
+		if (signIn === "complete") {
+			confirmLoginWithLink();
 		}
 
 		// Check for upgrade query parameter
@@ -106,17 +118,11 @@ const Names = () => {
 					setRejected(JSON.parse(localStorage.rejected));
 				}
 				if (typeof localStorage.lastRandomDocumentId != "undefined") {
-					setLastRandomDocumentId(
-						JSON.parse(localStorage.lastRandomDocumentId)
-					);
-					getRandomDocumentLoggedOut(
-						JSON.parse(localStorage.lastRandomDocumentId),
-						genderQuery
-					);
+					setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
+					getRandomDocumentLoggedOut(JSON.parse(localStorage.lastRandomDocumentId), gender);
 				} else {
-					getRandomDocumentLoggedOut(null, genderQuery);
+					getRandomDocumentLoggedOut(null, gender);
 				}
-				// setIsLoading(false);
 			}
 		});
 		return () => {
@@ -197,12 +203,8 @@ const Names = () => {
 						if (purchasedProducts == "prod_R9UsZtF60a9OSG") {
 							console.log("product is true");
 							if (typeof localStorage.lastRandomDocumentId != "undefined") {
-								setLastRandomDocumentId(
-									JSON.parse(localStorage.lastRandomDocumentId)
-								);
-								getRandomDocumentLoggedIn(
-									JSON.parse(localStorage.lastRandomDocumentId)
-								);
+								setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
+								getRandomDocumentLoggedIn(JSON.parse(localStorage.lastRandomDocumentId));
 								console.log(JSON.parse(localStorage.lastRandomDocumentId));
 								console.log("fire2");
 							} else {
@@ -218,14 +220,10 @@ const Names = () => {
 								setRejected(JSON.parse(localStorage.rejected));
 							}
 							if (typeof localStorage.lastRandomDocumentId != "undefined") {
-								setLastRandomDocumentId(
-									JSON.parse(localStorage.lastRandomDocumentId)
-								);
-								getRandomDocumentLoggedOut(
-									JSON.parse(localStorage.lastRandomDocumentId)
-								);
+								setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
+								getRandomDocumentLoggedOut(JSON.parse(localStorage.lastRandomDocumentId), gender);
 							} else {
-								getRandomDocumentLoggedOut();
+								getRandomDocumentLoggedOut(null, gender);
 							}
 						}
 					})
@@ -313,14 +311,15 @@ const Names = () => {
 					console.log("error", error);
 				});
 		} else {
-			let newShortlist = shortlist;
-			newShortlist.push(lastRandomDocumentId);
-			console.log("ran this");
-			localStorage.setItem("shortlist", JSON.stringify(newShortlist));
-			setShortlist(newShortlist);
-			setPreviousDocumentId(lastRandomDocumentId);
+
 			// setSending(false)
 			setTimeout(() => {
+        let newShortlist = shortlist;
+        newShortlist.push(lastRandomDocumentId);
+        console.log("ran this");
+        localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+        setShortlist(newShortlist);
+        setPreviousDocumentId(lastRandomDocumentId);
 				setActionTaken(true);
 				getRandomDocumentLoggedOut();
 				setLikedName(false);
@@ -609,8 +608,8 @@ const Names = () => {
 
 					console.log("getRandomDocument5");
 					let usedNames;
-          usedNames = shortlist.concat(rejected);
-          console.log('usedNames', usedNames)
+					usedNames = shortlist.concat(rejected);
+					console.log("usedNames", usedNames);
 					if (usedNames.length == 0) {
 						let nameId =
 							currentGender === "male"
@@ -696,6 +695,7 @@ const Names = () => {
 					setSlideDirection("center");
 				});
 		} else {
+      console.log('this one')
 			let tempShortlist =
 				typeof localStorage.shortlist != "undefined"
 					? JSON.parse(localStorage.shortlist)
@@ -874,7 +874,7 @@ const Names = () => {
 						);
 						setRetreivedName(results);
 						// getRandomDocumentLoggedIn(previousDocumentId);
-            setLastRandomDocumentId(previousDocumentId)
+						setLastRandomDocumentId(previousDocumentId);
 						setPreviousDocumentId(null);
 					}, 400);
 				})
@@ -1045,6 +1045,110 @@ const Names = () => {
 		setPasswordError("");
 	};
 
+	var actionCodeSettings = {
+		// URL you want to redirect back to. The domain (www.example.com) for this
+		// URL must be in the authorized domains list in the Firebase Console.
+		// url: 'https://www.example.com/finishSignUp?cartId=1234',
+		url: `${windowLocationOrigin}/names?signIn=complete`,
+		// This must be true.
+		handleCodeInApp: true,
+		// iOS: {
+		//   bundleId: 'com.example.ios'
+		// },
+		// android: {
+		//   packageName: 'com.example.android',
+		//   installApp: true,
+		//   minimumVersion: '12'
+		// },
+		// dynamicLinkDomain: 'example.page.link'
+	};
+
+	const handleLoginWithLink = (e) => {
+		e.preventDefault();
+    setSendingLink(true);
+		fire
+			.auth()
+			.sendSignInLinkToEmail(username, actionCodeSettings)
+			.then(() => {
+        // alert('Magic link sent')
+				// The link was successfully sent. Inform the user.
+				// Save the email locally so you don't need to ask the user for it again
+				// if they open the link on the same device.
+        
+				localStorage.setItem("emailForSignIn", username);
+				setSendingLink(false);
+				setLinkSent(true);
+				
+				// Start countdown from 10
+				setLinkCooldown(10);
+				
+				// Create interval to countdown
+				const countdownInterval = setInterval(() => {
+					setLinkCooldown(prevCount => {
+						if (prevCount <= 1) {
+							clearInterval(countdownInterval);
+							return null;
+						}
+						return prevCount - 1;
+					});
+				}, 1000);
+			})
+			.catch((error) => {
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				// Handle errors here if needed
+				setSendingLink(false);
+			});
+	};
+
+  const confirmLoginWithLink = (e) => {
+
+    // Confirm the link is a sign-in with email link.
+    if (fire.auth().isSignInWithEmailLink(window.location.href)) {
+      // Additional state parameters can also be passed via URL.
+      // This can be used to continue the user's intended action before triggering
+      // the sign-in operation.
+      // Get the email if available. This should be available if the user completes
+      // the flow on the same device where they started it.
+      var email = localStorage.getItem("emailForSignIn");
+      if (!email) {
+        // User opened the link on a different device. To prevent session fixation
+        // attacks, ask the user to provide the associated email again. For example:
+        email = window.prompt("Please provide your email for confirmation");
+      }
+      // The client SDK will parse the code from the link for you.
+      fire
+        .auth()
+        .signInWithEmailLink(email, window.location.href)
+        .then((userCredential) => {
+          fire.firestore().collection("users").doc(userCredential.user.uid).set({
+            email: userCredential.user.email,
+            // shortlist: shortlist,
+            shortlist: typeof localStorage.getItem("shortlist") != "undefined" ? JSON.parse(localStorage.shortlist) : [],
+            rejected: typeof localStorage.getItem("rejected") != "undefined" ? JSON.parse(localStorage.rejected) : [],
+            // rejected: rejected,
+            created: fire.firestore.FieldValue.serverTimestamp(),
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+          });
+        })
+        .then(() => {
+          // mixpanel.init(mixpanelConfig);
+          toast('Signed in')
+          localStorage.removeItem("emailForSignIn");
+          localStorage.removeItem("shortlist");
+          localStorage.removeItem("rejected");
+        })
+        .then(() => {
+          setSendingLink(false);
+          router.push("/names?upgrading=true");
+        })
+        .catch((error) => {
+          // Some error occurred, you can inspect the code: error.code
+          // Common errors could be invalid email and invalid or expired OTPs.
+        });
+    }
+  }
+
 	const handleLoginWithGoogle = (e) => {
 		e.preventDefault();
 		fire
@@ -1061,7 +1165,7 @@ const Names = () => {
 	const handleRegister = (e) => {
 		e.preventDefault();
 
-		setRegistering(true);
+		setSendingLink(true);
 
 		fire
 			.auth()
@@ -1093,7 +1197,7 @@ const Names = () => {
 				if (err.code === "auth/weak-password") {
 					setPasswordError("Your password must be at least 6 characters long");
 				}
-				setRegistering(false);
+				setSendingLink(false);
 				console.log(err.code, err.message);
 			});
 	};
@@ -1302,7 +1406,7 @@ const Names = () => {
 						// style={{ minHeight: "100vh" }}
 					>
 						<div className="tag dark medium mr-3 mb-3">
-							You’re out of free names
+							You're out of free names
 						</div>
 						<h2
 							className="text-center mx-auto mb-5"
@@ -1330,7 +1434,7 @@ const Names = () => {
 									<div className="d-flex flex-column align-items-center text-center">
 										<h3 className="mb-3">Iliad</h3>
 										<p>
-											Over 500 names from Homer’s epic poem The Iliad, featuring
+											Over 500 names from Homer's epic poem The Iliad, featuring
 											all factions of the mortal belligerents of the Trojan war,
 											and the Gods that quarrelled over them.
 										</p>
@@ -1496,13 +1600,30 @@ const Names = () => {
 										<a href="/legal/privacy" target="_blank">
 											Privacy Policy
 										</a>
+                    . Already got an account?{" "}
+                    <button
+                      className="link"
+                      onClick={() => setShowSignIn(true)}
+                    >
+                      Sign in
+                    </button>
+                    .
 									</p>
+                  {/* <p className="small mt-3 mb-0">
+                    Already got an account?{" "}
+                    <button
+                      className="link"
+                      onClick={() => setShowSignIn(true)}
+                    >
+                      Sign in
+                    </button>
+                  </p> */}
 									<div className="w-100">
 										<button
 											type="button"
 											onClick={(e) => handleLoginWithGoogle(e)}
 											className="btn dark high w-100"
-											disabled={registering}
+											disabled={sendingLink}
 										>
 											<img
 												className="mr-2"
@@ -1520,7 +1641,63 @@ const Names = () => {
 											<button
 												type="submit"
 												className="btn primary medium w-100"
-												disabled={registering}
+												disabled={sendingLink}
+												onClick={() => setShowEmailPassword(true)}
+											>
+												Continue with email
+											</button>
+										) : (
+                      !linkSent ? 
+                        <form onSubmit={handleLoginWithLink}>
+                          <div className="mb-2">
+                            <input
+                              type="text"
+                              placeholder="Email"
+                              className={
+                                emailError !== "" ? `error w-100` : `w-100`
+                              }
+                              value={username}
+                              onChange={({ target }) =>
+                                usernameChange(target.value)
+                              }
+                            />
+                            {emailError !== "" ? (
+                              <p className="small text-error-high mt-2">
+                                {emailError}
+                              </p>
+                            ) : null}
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn primary high w-100"
+                            disabled={sendingLink}
+                          >
+                            {sendingLink
+                              ? "Sending link..."
+                              : "Send magic link"}
+                          </button>
+                        </form>
+                      : 
+                        <div>
+                          <h4 className="mb-3">Check your inbox</h4>
+                          <p>We just sent an email to <span className="font-weight-semibold">{username}</span> with a magic link that'll log you in.</p>
+                          <p className="mt-3 mb-0">
+                            Didn't receive it?{" "}
+                            <button
+                              className="link"
+                              onClick={() => setLinkSent(false)}
+                              disabled={linkCooldown !== null}
+                            >
+                              Request another link{linkCooldown && ` (${linkCooldown})` }
+                            </button>
+                          </p>
+                        </div>
+										  )}
+										{/* {!showEmailPassword ? (
+											<button
+												type="submit"
+												className="btn primary medium w-100"
+												disabled={sendingLink}
 												onClick={() => setShowEmailPassword(true)}
 											>
 												Use email & password
@@ -1566,32 +1743,32 @@ const Names = () => {
 												<button
 													type="submit"
 													className="btn primary high w-100"
-													disabled={registering}
+													disabled={sendingLink}
 												>
-													{registering
+													{sendingLink
 														? "Creating account..."
 														: "Create account"}
 												</button>
 											</form>
-										)}
-										<p className="small mt-3 mb-0">
-											Already got an account?{" "}
-											<button
-												className="link"
-												onClick={() => setShowSignIn(true)}
-											>
-												Sign in
-											</button>
-										</p>
+										)} */}
 									</div>
 								</div>
 							) : (
 								<div
 									className={`w-100 d-flex flex-column align-items-start gap-3 p-4 pt-5 p-sm-5`}
 								>
-									<h2 className="text-dark-high w-100 mb-3">
+									<h2 className="text-dark-high w-100 mb-0">
 										Sign in to your account
 									</h2>
+                  <p className="small mb-3">
+											Not got an account?{" "}
+											<button
+												className="link"
+												onClick={() => setShowSignIn(false)}
+											>
+												Sign up
+											</button>
+										</p>
 									<div className="w-100">
 										<button
 											type="button"
@@ -1615,12 +1792,61 @@ const Names = () => {
 											<button
 												type="submit"
 												className="btn primary medium w-100"
-												disabled={registering}
+												disabled={sendingLink}
 												onClick={() => setShowEmailPassword(true)}
 											>
-												Use email & password
+												Continue with email
 											</button>
 										) : (
+                      !linkSent ? 
+                        <form onSubmit={handleLoginWithLink}>
+                          <div className="mb-2">
+                            <input
+                              type="text"
+                              placeholder="Email"
+                              className={
+                                emailError !== "" ? `error w-100` : `w-100`
+                              }
+                              value={username}
+                              onChange={({ target }) =>
+                                usernameChange(target.value)
+                              }
+                            />
+                            {emailError !== "" ? (
+                              <p className="small text-error-high mt-2">
+                                {emailError}
+                              </p>
+                            ) : null}
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn primary high w-100"
+                            disabled={sendingLink}
+                          >
+                            {sendingLink
+                              ? "Sending link..."
+                              : "Send magic link"}
+                          </button>
+                        </form>
+                      : 
+                        <div>
+                          <h4 className="mb-3">Check your inbox</h4>
+                          <p>We just sent an email to <span className="font-weight-semibold">{username}</span> with a magic link that'll log you in.</p>
+                          <p className="mt-3 mb-0">
+                            Didn't receive it?{" "}
+                            <button
+                              className="link"
+                              onClick={() => setLinkSent(false)}
+                              disabled={linkCooldown !== null}
+                            >
+                              Request another link{linkCooldown && ` (${linkCooldown})` }
+                            </button>
+                          </p>
+                        </div>
+										  )}
+                    
+                    
+                    {/* (
 											<form onSubmit={handleLogin}>
 												<div className="mb-2">
 													<input
@@ -1670,16 +1896,7 @@ const Names = () => {
 													{signingIn ? "Signing in..." : "Sign in"}
 												</button>
 											</form>
-										)}
-										<p className="small mt-3 mb-0">
-											Not got an account?{" "}
-											<button
-												className="link"
-												onClick={() => setShowSignIn(false)}
-											>
-												Sign up
-											</button>
-										</p>
+										)} */}
 									</div>
 								</div>
 							))}
@@ -1702,7 +1919,7 @@ const Names = () => {
 									<div>
 										<h3 className="mb-3">Iliad</h3>
 										<p>
-											Over 500 names from Homer’s epic poem The Iliad, featuring
+											Over 500 names from Homer's epic poem The Iliad, featuring
 											all factions of the mortal belligerents of the Trojan war,
 											and the Gods that quarrelled over them.
 										</p>
