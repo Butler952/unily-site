@@ -346,11 +346,9 @@ const Home = (props) => {
 						<div className="w-100 d-flex flex-column flex-md-row gap-4">
 							<div
 								className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
-								style={
-									{
-										// paddingBottom: screenWidth > 767 ? "66.66%" : "133.33%",
-									}
-								}
+                style={{
+                  paddingBottom: screenWidth > 767 ? "66.66%" : "133.33%",
+                }}
 							>
 								<div
 									className="position-absolute p-5"
