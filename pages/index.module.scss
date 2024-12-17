@@ -301,10 +301,10 @@
 }
 
 .epicPoemCardIliad {
-  svg path {
-    stroke: hsl(60, 9%, 89%);
-  }
-  &:hover {
+  // svg path {
+  //   stroke: hsl(60, 9%, 89%);
+  // }
+  // &:hover {
     background-color: #4B2123;
     h2 {
       color: $light-900;
@@ -312,13 +312,13 @@
     svg path {
       stroke: #E07443;
     }
-  }
+  // }
 }
 .epicPoemCardOdyssey {
-  svg path {
-    stroke: hsl(60, 9%, 89%);
-  }
-  &:hover {
+  // svg path {
+  //   stroke: hsl(60, 9%, 89%);
+  // }
+  // &:hover {
     background-color: #0D4F59;
     h2 {
       color: $light-900;
@@ -326,5 +326,5 @@
     svg path {
       stroke: #7AD7FF;
     }
-  }
+  // }
 }

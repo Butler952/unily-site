@@ -138,20 +138,145 @@ const Register = () => {
 		// dynamicLinkDomain: 'example.page.link'
 	};
 
+  // const generateEmailLink = () => {
+  //   fire
+  //     .auth()
+  //     .generateSignInWithEmailLink(username, actionCodeSettings)
+  //     .then((link) => {
+  //       // Construct sign-in with email link template, embed the link and
+  //       // send using custom SMTP server.
+  //       alert(username, link);
+  //       // return sendSignInEmail(useremail, displayName, link);
+  //     })
+  //     .catch((error) => {
+  //       // Some error occurred.
+  //     });
+  // }
+
   const generateEmailLink = () => {
-    fire
-      .auth()
-      .generateSignInWithEmailLink(username, actionCodeSettings)
-      .then((link) => {
-        // Construct sign-in with email link template, embed the link and
-        // send using custom SMTP server.
-        alert(useremail, displayName, link);
-        // return sendSignInEmail(useremail, displayName, link);
+    let email = username
+
+    fetch('/api/generate-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+    .then(async response => {
+      // First check if the response was ok (status in 200-299 range)
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem("emailForSignIn", username);
+      fetch('/api/send-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: email,
+          // from: 'team@epicbabynames.com',
+          from: {
+            email: 'team@epicbabynames.com',
+            name: 'Epic Baby Names'
+          },
+          subject: 'Sending with SendGrid is Fun',
+          text: 'and easy to do anywhere, even with Node.js',
+          html: `<strong>and easy to do anywhere, even with Node.js. Here's even a <a href=${data.link}>sign in link</a></strong>`
+        }),
+      })
+      .then(async response => {
+        // First check if the response was ok (status in 200-299 range)
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert('Sign-in link sent! Check your email.');
       })
       .catch((error) => {
-        // Some error occurred.
+        console.log('error', error);
+        alert('Failed to send sign-in link');
       });
+    })
+    // .then((data) => {
+    //   localStorage.setItem("emailForSignIn", username);
+    //   alert('Sign-in link sent! Check your email.');
+    //   // Optionally, you can log the link for testing (remove in production)
+    //   console.log('Sign-in Link:', data.link);
+    // })
+    .catch((error) => {
+      console.log('error', error);
+      alert('Failed to send sign-in link');
+    });
   }
+
+  // fetch('/api/generate-link', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({ email }),
+  // })
+  //   .then(res => res.json())
+  //     if (res.ok) {
+  //       setMessage('Sign-in link sent! Check your email.');
+  //       // Optionally, you can log the link for testing (remove in production)
+  //       console.log('Sign-in Link:', res.link);
+  //     } else {
+  //       // Handle error response
+  //       setMessage(res.error || 'Failed to send sign-in link');
+  //     }
+  //   .then((result) => {
+  //     setSyncLoading('Storing your data');
+  //     fire.firestore().collection('users').doc(userData.uid).update({
+  //       profile: result,
+  //       displayInfo: {
+  //         'basicInfo': {
+  //           'section': true,
+  //           'each': {
+  //             'profilePic': true,
+  //             'headerImage': true,
+  //             'name': true,
+  //             'headline': true,
+  //             'email': true
+  //           }
+  //         },
+  //         about: result.summary === null ? false : true,
+  //         'experience': {
+  //           'section': result.experiences < 1 ? false : true,
+  //           'each': createExperienceList(result.experiences)
+  //         },
+  //         'education': {
+  //           'section': result.education < 1 ? false : true,
+  //           'each': createEducationList(result.education)
+  //         },
+  //         'volunteering': {
+  //           'section': result.volunteer_work < 1 ? false : true,
+  //           'each': createVolunteerList(result.volunteer_work)
+  //         },
+  //       },
+  //       //syncsRemaining: (syncsRemaining - 1), 
+  //       lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+  //       lastSync: fire.firestore.FieldValue.serverTimestamp(),
+  //     })
+  //   })
+  //   .then(() => {
+  //     setTimeout(
+  //       setSyncLoading('Sync successfully completed'), 2000
+  //     )
+  //   })
+  //   .then(() => {
+  //     router.push('/settings')
+  //   })
+  //   .catch((error) => {
+  //     console.log('error', error)
+  //   });
 
   const handleLoginWithLink = (e) => {
 		e.preventDefault();
@@ -363,6 +488,14 @@ const Register = () => {
 									</p>
 								</div>
 							)}
+              	<button
+									type="submit"
+									className="btn primary high w-100 mt-5"
+									// disabled={sendingLink}
+									onClick={() => generateEmailLink()}
+								>
+									Generate link
+								</button>
 						</div>
 					</div>
 				</div>

@@ -188,22 +188,32 @@ const Home = (props) => {
 					paddingTop: "64px",
 				}}
 			>
-				<div className="container d-flex flex-column align-items-start justify-content-start pt-5 my-5">
+				{/* <div className="container d-flex flex-column align-items-start justify-content-start pt-5 my-5">
 					<div
-						ref={heroRef}
+
 						className="d-flex flex-column align-items-start justify-content-start"
 						style={{ maxWidth: "960px" }}
-					>
+					> */}
+
+            <div
+              className="container d-flex flex-column align-items-center justify-content-center"
+              style={{ paddingTop: "64px", paddingBottom: "64px" }}
+            >
+              <div
+              	ref={heroRef}
+                className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
+                style={{ maxWidth: "960px" }}
+              >
 						<div
 							style={{ maxWidth: "560px" }}
-							className="d-flex flex-column align-items-start "
+							className="d-flex flex-column align-items-center "
 						>
-							<div className="d-flex flex-row align-items-start justify-content-start mb-4 gap-2">
+							<div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
 								{/* <p className="text-dark-med mb-0">Over 1000+ epic names</p> */}
 							</div>
-							<h1>Certified️ epic names for your kid</h1>
+							<h1 className="text-center">Certified️ epic names for your kid</h1>
 							<p
-								className="text-dark-low large mb-5"
+								className="text-center text-dark-low large mb-5"
 								style={{ maxWidth: "640px" }}
 							>
 								With hundreds of names from Homer’s epic poems, you’ll never
@@ -242,8 +252,8 @@ const Home = (props) => {
 								</div>
 							</div> */}
 
-							<div className="d-flex flex-column gap-2 mt-5">
-								<div className="flex-row">
+							<div className="d-flex flex-column align-items-center gap-2 mt-5">
+								<div className="flex-row align-items-center">
 									<Icon
 										icon={ICONS.STAR}
 										size="24"
@@ -336,10 +346,10 @@ const Home = (props) => {
 					style={{ paddingTop: "120px", paddingBottom: "120px" }}
 				>
 					<div
-						className="d-flex flex-column align-items-start justify-content-center w-100 gap-5"
+						className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
 						style={{ maxWidth: "960px" }}
 					>
-						<h2 style={{ maxWidth: "480px" }}>
+						<h2 className="text-center" style={{ maxWidth: "480px" }}>
 							Over 1,000 names from two epic poems
 						</h2>
 
@@ -571,7 +581,7 @@ const Home = (props) => {
 								<div className="d-flex justify-content-center gap-3">
 									<Link
 										href="/names?gender=male"
-										className="btn primary medium icon-left"
+										className="btn primary high icon-left"
 									>
 										<svg viewBox="0 0 24 24">
 											<path d={ICONS.MALE}></path>
@@ -580,7 +590,7 @@ const Home = (props) => {
 									</Link>
 									<Link
 										href="/names?gender=female"
-										className="btn primary medium icon-left"
+										className="btn primary high icon-left"
 									>
 										<svg viewBox="0 0 24 24">
 											<path d={ICONS.FEMALE}></path>
