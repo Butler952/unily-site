@@ -1355,8 +1355,9 @@ const Names = () => {
 
 					{!likedName &&
 						(product !== "prod_R9UsZtF60a9OSG" &&
-						shortlist.length + rejected.length >= 5 ? null : (
-							<button
+						  // shortlist.length + rejected.length >= 5 ? null : (
+              needUpgrade ? null : (
+                <button
 								onClick={() => changeGender(gender)}
 								className={`${styles.genderSwitchWrapper}`}
 								style={{
@@ -1469,7 +1470,7 @@ const Names = () => {
 										onClick={handlePurchaseClick}
 										className="btn dark high"
 									>
-										Unlock—$9
+                    Unlock—$9
 									</button>
 								</div>
 							</div>
@@ -2062,6 +2063,66 @@ const Names = () => {
 							>
 								Continue
 							</motion.button>
+						</div>
+					</div>
+				</div>
+			</Modal>
+			<Modal
+				show={openingCheckout}
+				onHide={() => setOpeningCheckout(false)}
+				keyboard={false}
+				size={"sm"}
+				centered
+				// backdrop="static"
+			>
+				<div className="position-relative bg-background">
+					{/* <div
+						className="d-flex flex-row align-items-center justify-content-start p-4 w-100"
+						style={{ position: "absolute", top: 0, left: 0 }}
+					>
+						<button
+							onClick={() => setOpeningCheckout(false)}
+							className="btn dark ultraLow icon-only"
+						>
+							<svg viewBox="0 0 24 24">
+								<path d={ICONS.CLOSE}></path>
+							</svg>
+						</button>
+					</div> */}
+					<div className="d-flex flex-column flex-lg-row">
+						<div
+							className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 p-4 bg-light-900`}
+						>
+							<div
+								className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-3`}
+							>
+							<div className="ldsRippleLarge">
+								<div></div>
+								<div></div>
+							</div>
+								<div className="d-flex flex-column align-items-center text-center">
+									{/* <div className="tag dark medium mt-4 mb-4">
+                    Name pack unlocked
+                  </div> */}
+									<h3
+										className="mb-3"
+										style={{ maxWidth: "320px" }}
+									>
+										Launching checkout
+									</h3>
+									<p
+										style={{ maxWidth: "320px" }}
+									>
+										You're being redirected to a Stripe checkout to securely complete your purchase.
+									</p>
+								</div>
+							</div>
+							<button
+								onClick={() => setOpeningCheckout(false)}
+								className={`btn primary medium small gap-3`}
+							>
+								Close
+							</button>
 						</div>
 					</div>
 				</div>

@@ -2014,6 +2014,61 @@ textarea {
   }
 }
 
+.ldsRippleSmall {
+  /* change color here */
+  color: $dark-700
+}
+.ldsRippleSmall,
+.ldsRippleSmall div {
+  box-sizing: border-box;
+}
+.ldsRippleSmall {
+  display: inline-block;
+  position: relative;
+  width: 40px;  // Increased from 20px
+  height: 40px; // Increased from 20px
+}
+.ldsRippleSmall div {
+  position: absolute;
+  border: 2px solid currentColor; // Increased from 1px
+  opacity: 1;
+  border-radius: 50%;
+  animation: ldsRippleSmall 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.ldsRippleSmall div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes ldsRippleSmall {
+  0% {
+    top: 18px;    // Increased from 9px
+    left: 18px;   // Increased from 9px
+    width: 4px;   // Increased from 2px
+    height: 2px;  // Increased from 1px
+    opacity: 0;
+  }
+  4.9% {
+    top: 18px;    // Increased from 9px
+    left: 18px;   // Increased from 9px
+    width: 4px;   // Increased from 2px
+    height: 4px;  // Increased from 2px
+    opacity: 0;
+  }
+  5% {
+    top: 18px;    // Increased from 9px
+    left: 18px;   // Increased from 9px
+    width: 4px;   // Increased from 2px
+    height: 4px;  // Increased from 2px
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 40px;  // Increased from 20px
+    height: 40px; // Increased from 20px
+    opacity: 0;
+  }
+}
+
 // Bootstrap additions
 
 .w-sm-auto {
