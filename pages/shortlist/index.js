@@ -88,35 +88,48 @@ const Shortlist = () => {
     // Confirm the link is a sign-in with email link.
     if (fire.auth().isSignInWithEmailLink(window.location.href)) {
       console.log('2')
-      // Additional state parameters can also be passed via URL.
-      // This can be used to continue the user's intended action before triggering
-      // the sign-in operation.
-      // Get the email if available. This should be available if the user completes
-      // the flow on the same device where they started it.
       var email = localStorage.getItem("emailForSignIn");
       if (!email) {
-        // User opened the link on a different device. To prevent session fixation
-        // attacks, ask the user to provide the associated email again. For example:
         email = window.prompt("Please provide your email for confirmation");
       }
-      // The client SDK will parse the code from the link for you.
+      
       fire
         .auth()
         .signInWithEmailLink(email, window.location.href)
         .then((userCredential) => {
           console.log('3')
-          fire.firestore().collection("users").doc(userCredential.user.uid).set({
-            email: userCredential.user.email,
-            // shortlist: shortlist,
-            shortlist: typeof localStorage.getItem("shortlist") != "undefined" ? JSON.parse(localStorage.shortlist) : [],
-            rejected: typeof localStorage.getItem("rejected") != "undefined" ? JSON.parse(localStorage.rejected) : [],
-            // rejected: rejected,
-            created: fire.firestore.FieldValue.serverTimestamp(),
-            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-          });
+          // First check if user document exists
+          return fire
+            .firestore()
+            .collection("users")
+            .doc(userCredential.user.uid)
+            .get()
+            .then((doc) => {
+              if (!doc.exists) {
+                // Only create document if it doesn't exist
+                return fire
+                  .firestore()
+                  .collection("users")
+                  .doc(userCredential.user.uid)
+                  .set({
+                    email: userCredential.user.email,
+                    shortlist:
+                      typeof localStorage.getItem("shortlist") != "undefined"
+                        ? JSON.parse(localStorage.shortlist)
+                        : [],
+                    rejected:
+                      typeof localStorage.getItem("rejected") != "undefined"
+                        ? JSON.parse(localStorage.rejected)
+                        : [],
+                    created: fire.firestore.FieldValue.serverTimestamp(),
+                    lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+                  });
+              }
+              // If doc exists, continue without setting
+              return Promise.resolve();
+            });
         })
         .then(() => {
-          // mixpanel.init(mixpanelConfig);
           console.log('4')
           toast('Signed in')
           localStorage.removeItem("emailForSignIn");
