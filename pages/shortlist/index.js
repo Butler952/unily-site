@@ -56,6 +56,14 @@ const Shortlist = () => {
 		setScreenWidth(window.innerWidth);
 		window.addEventListener("resize", handleResize);
     setWindowLocationOrigin(window.location.origin)
+
+    const { signIn } = router.query;
+
+    		// Check for signIn query parameter
+		if (signIn === "complete") {
+			confirmLoginWithLink();
+		}
+
 		const unsubscribe = fire.auth().onAuthStateChanged((user) => {
 			if (user) {
 				loggedInRoute(user);
@@ -73,7 +81,54 @@ const Shortlist = () => {
 			// Unmouting
 			unsubscribe();
 		};
-	}, []);
+	}, [router.query]);
+
+  const confirmLoginWithLink = (e) => {
+    console.log('1')
+    // Confirm the link is a sign-in with email link.
+    if (fire.auth().isSignInWithEmailLink(window.location.href)) {
+      console.log('2')
+      // Additional state parameters can also be passed via URL.
+      // This can be used to continue the user's intended action before triggering
+      // the sign-in operation.
+      // Get the email if available. This should be available if the user completes
+      // the flow on the same device where they started it.
+      var email = localStorage.getItem("emailForSignIn");
+      if (!email) {
+        // User opened the link on a different device. To prevent session fixation
+        // attacks, ask the user to provide the associated email again. For example:
+        email = window.prompt("Please provide your email for confirmation");
+      }
+      // The client SDK will parse the code from the link for you.
+      fire
+        .auth()
+        .signInWithEmailLink(email, window.location.href)
+        .then((userCredential) => {
+          console.log('3')
+          fire.firestore().collection("users").doc(userCredential.user.uid).set({
+            email: userCredential.user.email,
+            // shortlist: shortlist,
+            shortlist: typeof localStorage.getItem("shortlist") != "undefined" ? JSON.parse(localStorage.shortlist) : [],
+            rejected: typeof localStorage.getItem("rejected") != "undefined" ? JSON.parse(localStorage.rejected) : [],
+            // rejected: rejected,
+            created: fire.firestore.FieldValue.serverTimestamp(),
+            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+          });
+        })
+        .then(() => {
+          // mixpanel.init(mixpanelConfig);
+          console.log('4')
+          toast('Signed in')
+          localStorage.removeItem("emailForSignIn");
+          localStorage.removeItem("shortlist");
+          localStorage.removeItem("rejected");
+        })
+        .catch((error) => {
+          // Some error occurred, you can inspect the code: error.code
+          // Common errors could be invalid email and invalid or expired OTPs.
+        });
+    }
+  }
 
 	const loggedInRoute = (user) => {
 		setLoggedIn(true);

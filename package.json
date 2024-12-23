@@ -26,6 +26,7 @@
     "js-cookie": "^3.0.1",
     "logrocket": "^2.1.2",
     "mixpanel-browser": "^2.43.0",
+    "mjml": "^4.15.3",
     "moment": "^2.29.1",
     "next": "^13.4.4",
     "node-fetch": "^2.6.1",

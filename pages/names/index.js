@@ -27,7 +27,7 @@ import { toast } from "react-toastify";
 const Names = () => {
 	const router = useRouter();
 	const { userContext, setUserContext } = useContext(UserContext);
-  const [windowLocationOrigin, setWindowLocationOrigin] = useState(undefined);
+	const [windowLocationOrigin, setWindowLocationOrigin] = useState(undefined);
 
 	const [screenWidth, setScreenWidth] = useState("");
 	const [sending, setSending] = useState(false);
@@ -88,14 +88,14 @@ const Names = () => {
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
 		window.addEventListener("resize", handleResize);
-    setWindowLocationOrigin(window.location.origin)
+		setWindowLocationOrigin(window.location.origin);
 
 		const { gender: genderQuery, upgrading, signIn } = router.query;
 		if (genderQuery === "male" || genderQuery === "female") {
 			setGender(genderQuery);
 		} else {
-      setGender("male")
-    }
+			setGender("male");
+		}
 
 		// Check for signIn query parameter
 		if (signIn === "complete") {
@@ -118,8 +118,13 @@ const Names = () => {
 					setRejected(JSON.parse(localStorage.rejected));
 				}
 				if (typeof localStorage.lastRandomDocumentId != "undefined") {
-					setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
-					getRandomDocumentLoggedOut(JSON.parse(localStorage.lastRandomDocumentId), gender);
+					setLastRandomDocumentId(
+						JSON.parse(localStorage.lastRandomDocumentId)
+					);
+					getRandomDocumentLoggedOut(
+						JSON.parse(localStorage.lastRandomDocumentId),
+						gender
+					);
 				} else {
 					getRandomDocumentLoggedOut(null, gender);
 				}
@@ -203,8 +208,12 @@ const Names = () => {
 						if (purchasedProducts == "prod_R9UsZtF60a9OSG") {
 							console.log("product is true");
 							if (typeof localStorage.lastRandomDocumentId != "undefined") {
-								setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
-								getRandomDocumentLoggedIn(JSON.parse(localStorage.lastRandomDocumentId));
+								setLastRandomDocumentId(
+									JSON.parse(localStorage.lastRandomDocumentId)
+								);
+								getRandomDocumentLoggedIn(
+									JSON.parse(localStorage.lastRandomDocumentId)
+								);
 								console.log(JSON.parse(localStorage.lastRandomDocumentId));
 								console.log("fire2");
 							} else {
@@ -213,18 +222,19 @@ const Names = () => {
 							}
 						} else {
 							console.log("we are firing");
-							if (typeof localStorage.shortlist != "undefined") {
-								setShortlist(JSON.parse(localStorage.shortlist));
-							}
-							if (typeof localStorage.rejected != "undefined") {
-								setRejected(JSON.parse(localStorage.rejected));
-							}
-							if (typeof localStorage.lastRandomDocumentId != "undefined") {
-								setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
-								getRandomDocumentLoggedOut(JSON.parse(localStorage.lastRandomDocumentId), gender);
-							} else {
-								getRandomDocumentLoggedOut(null, gender);
-							}
+							// if (typeof localStorage.shortlist != "undefined") {
+							// 	setShortlist(JSON.parse(localStorage.shortlist));
+							// }
+							// if (typeof localStorage.rejected != "undefined") {
+							// 	setRejected(JSON.parse(localStorage.rejected));
+							// }
+							// if (typeof localStorage.lastRandomDocumentId != "undefined") {
+							// 	setLastRandomDocumentId(JSON.parse(localStorage.lastRandomDocumentId));
+							// 	getRandomDocumentLoggedOut(JSON.parse(localStorage.lastRandomDocumentId), gender);
+							// } else {
+							// 	getRandomDocumentLoggedOut(null, gender);
+							// }
+							getRandomDocumentLoggedOut(null, gender);
 						}
 					})
 					.catch((error) => {
@@ -273,15 +283,32 @@ const Names = () => {
 		setLikedName(true);
 		confettiFunction();
 		setSlideDirection("slide-out-right");
-		if (loggedIn && product == "prod_R9UsZtF60a9OSG") {
-			let newShortlist = shortlist;
+
+		// Create new arrays to avoid direct state mutation
+		let newShortlist = shortlist;
+		let newRejected = rejected;
+
+		// Remove from rejected list if present
+		if (newRejected.includes(lastRandomDocumentId)) {
+			newRejected = newRejected.filter((id) => id !== lastRandomDocumentId);
+			setRejected(newRejected);
+		}
+
+		// Add to shortlist if not already present
+		if (!newShortlist.includes(lastRandomDocumentId)) {
 			newShortlist.push(lastRandomDocumentId);
+		}
+		setShortlist(newShortlist);
+		setPreviousDocumentId(lastRandomDocumentId);
+
+		if (loggedIn) {
 			fire
 				.firestore()
 				.collection("users")
 				.doc(userData.uid)
 				.update({
 					shortlist: newShortlist,
+					rejected: newRejected, // Update both arrays
 					lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
 				})
 				.then(() => {
@@ -311,15 +338,10 @@ const Names = () => {
 					console.log("error", error);
 				});
 		} else {
-
-			// setSending(false)
 			setTimeout(() => {
-        let newShortlist = shortlist;
-        newShortlist.push(lastRandomDocumentId);
-        console.log("ran this");
-        localStorage.setItem("shortlist", JSON.stringify(newShortlist));
-        setShortlist(newShortlist);
-        setPreviousDocumentId(lastRandomDocumentId);
+				localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+				localStorage.setItem("rejected", JSON.stringify(newRejected)); // Update both in localStorage
+				setPreviousDocumentId(lastRandomDocumentId);
 				setActionTaken(true);
 				getRandomDocumentLoggedOut();
 				setLikedName(false);
@@ -328,13 +350,26 @@ const Names = () => {
 	};
 
 	const addToRejected = () => {
-		// setSending(true)
 		setSlideDirection("slide-out-left");
+
+		// Create new arrays to avoid direct state mutation
 		let newRejected = rejected;
-		newRejected.push(lastRandomDocumentId);
+		let newShortlist = shortlist;
+
+		// Remove from shortlist if present
+		if (newShortlist.includes(lastRandomDocumentId)) {
+			newShortlist = newShortlist.filter((id) => id !== lastRandomDocumentId);
+			setShortlist(newShortlist);
+		}
+
+		// Add to rejected if not already present
+		if (!newRejected.includes(lastRandomDocumentId)) {
+			newRejected.push(lastRandomDocumentId);
+		}
 		setRejected(newRejected);
 		setPreviousDocumentId(lastRandomDocumentId);
-		// if (loggedIn && product == "prod_R9UsZtF60a9OSG") {
+		setRetreivingName(true);
+
 		if (loggedIn) {
 			fire
 				.firestore()
@@ -342,17 +377,16 @@ const Names = () => {
 				.doc(userData.uid)
 				.update({
 					rejected: newRejected,
+					shortlist: newShortlist, // Update both arrays
 					lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
 				})
 				.then(() => {
 					if (product == "prod_R9UsZtF60a9OSG") {
-						localStorage.setItem("rejected", JSON.stringify(rejected));
 						setActionTaken(true);
 						setTimeout(() => {
 							getRandomDocumentLoggedIn();
 						}, 400);
 					} else {
-						localStorage.setItem("rejected", JSON.stringify(rejected));
 						setActionTaken(true);
 						setTimeout(() => {
 							getRandomDocumentLoggedOut();
@@ -363,8 +397,8 @@ const Names = () => {
 					console.log("error", error);
 				});
 		} else {
-			localStorage.setItem("rejected", JSON.stringify(rejected));
-			// setSending(false)
+			localStorage.setItem("rejected", JSON.stringify(newRejected));
+			localStorage.setItem("shortlist", JSON.stringify(newShortlist)); // Update both in localStorage
 			setActionTaken(true);
 			setTimeout(() => {
 				getRandomDocumentLoggedOut();
@@ -585,195 +619,292 @@ const Names = () => {
 	) => {
 		console.log("getRandomDocumentLoggedOut");
 		const currentGender = genderOverride || gender;
+		setRetreivingName(true);
 
-		if (loggedIn) {
-			fire
-				.firestore()
-				.collection("users")
-				.doc(userData.uid)
-				.get()
-				.then((doc) => {
-					if (doc.exists) {
-						setUserContext(doc.data());
-						setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
-						setRejected(doc.data().rejected ? doc.data().rejected : []);
-					} else {
-						console.log("No such document!");
-					}
-				})
-				.then(() => {
-					console.log("1");
-
-					console.log("3");
-
-					console.log("getRandomDocument5");
-					let usedNames;
-					usedNames = shortlist.concat(rejected);
-					console.log("usedNames", usedNames);
-					if (usedNames.length == 0) {
-						let nameId =
-							currentGender === "male"
-								? malePreviewIds.names[0]
-								: femalePreviewIds.names[0];
-						let results = names.names.find(
-							(name) => name.id === nameId && name.gender === currentGender
-						);
-						setRetreivedName(results);
-						setLastRandomDocumentId(nameId);
-						localStorage.setItem(
-							"lastRandomDocumentId",
-							JSON.stringify(nameId)
-						);
-						setRetreivingName(false);
-					} else if (usedNames.length == 1) {
-						let nameId =
-							currentGender === "male"
-								? malePreviewIds.names[1]
-								: femalePreviewIds.names[1];
-						let results = names.names.find(
-							(name) => name.id === nameId && name.gender === currentGender
-						);
-						setRetreivedName(results);
-						setLastRandomDocumentId(nameId);
-						localStorage.setItem(
-							"lastRandomDocumentId",
-							JSON.stringify(nameId)
-						);
-						setRetreivingName(false);
-					} else if (usedNames.length == 2) {
-						let nameId =
-							currentGender === "male"
-								? malePreviewIds.names[2]
-								: femalePreviewIds.names[2];
-						let results = names.names.find(
-							(name) => name.id === nameId && name.gender === currentGender
-						);
-						setRetreivedName(results);
-						setLastRandomDocumentId(nameId);
-						localStorage.setItem(
-							"lastRandomDocumentId",
-							JSON.stringify(nameId)
-						);
-						setRetreivingName(false);
-					} else if (usedNames.length == 3) {
-						let nameId =
-							currentGender === "male"
-								? malePreviewIds.names[3]
-								: femalePreviewIds.names[3];
-						let results = names.names.find(
-							(name) => name.id === nameId && name.gender === currentGender
-						);
-						setRetreivedName(results);
-						setLastRandomDocumentId(nameId);
-						localStorage.setItem(
-							"lastRandomDocumentId",
-							JSON.stringify(nameId)
-						);
-						setRetreivingName(false);
-					} else if (usedNames.length == 4) {
-						let nameId =
-							currentGender === "male"
-								? malePreviewIds.names[4]
-								: femalePreviewIds.names[4];
-						let results = names.names.find(
-							(name) => name.id === nameId && name.gender === currentGender
-						);
-						setRetreivedName(results);
-						setLastRandomDocumentId(nameId);
-						localStorage.setItem(
-							"lastRandomDocumentId",
-							JSON.stringify(nameId)
-						);
-						setRetreivingName(false);
-						// setNeedUpgrade(true);
-					} else if (usedNames.length > 4) {
-						setRetreivingName(false);
-						setNeedUpgrade(true);
-						return;
-					}
-					setFirstFetch(false);
-					setSlideDirection("center");
-				});
-		} else {
-      console.log('this one')
-			let tempShortlist =
-				typeof localStorage.shortlist != "undefined"
-					? JSON.parse(localStorage.shortlist)
-					: [];
-			let tempRejected =
-				typeof localStorage.rejected != "undefined"
-					? JSON.parse(localStorage.rejected)
-					: [];
-			let usedNames = tempShortlist.concat(tempRejected);
-			if (usedNames.length == 0) {
-				let nameId =
-					currentGender === "male"
-						? malePreviewIds.names[0]
-						: femalePreviewIds.names[0];
-				let results = names.names.find(
-					(name) => name.id === nameId && name.gender === currentGender
-				);
-				setRetreivedName(results);
-				setLastRandomDocumentId(nameId);
-				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-				setRetreivingName(false);
-			} else if (usedNames.length == 1) {
-				let nameId =
-					currentGender === "male"
-						? malePreviewIds.names[1]
-						: femalePreviewIds.names[1];
-				let results = names.names.find(
-					(name) => name.id === nameId && name.gender === currentGender
-				);
-				setRetreivedName(results);
-				setLastRandomDocumentId(nameId);
-				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-				setRetreivingName(false);
-			} else if (usedNames.length == 2) {
-				let nameId =
-					currentGender === "male"
-						? malePreviewIds.names[2]
-						: femalePreviewIds.names[2];
-				let results = names.names.find(
-					(name) => name.id === nameId && name.gender === currentGender
-				);
-				setRetreivedName(results);
-				setLastRandomDocumentId(nameId);
-				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-				setRetreivingName(false);
-			} else if (usedNames.length == 3) {
-				let nameId =
-					currentGender === "male"
-						? malePreviewIds.names[3]
-						: femalePreviewIds.names[3];
-				let results = names.names.find(
-					(name) => name.id === nameId && name.gender === currentGender
-				);
-				setRetreivedName(results);
-				setLastRandomDocumentId(nameId);
-				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-				setRetreivingName(false);
-			} else if (usedNames.length == 4) {
-				let nameId =
-					currentGender === "male"
-						? malePreviewIds.names[4]
-						: femalePreviewIds.names[4];
-				let results = names.names.find(
-					(name) => name.id === nameId && name.gender === currentGender
-				);
-				setRetreivedName(results);
-				setLastRandomDocumentId(nameId);
-				localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
-				setRetreivingName(false);
-				setNeedUpgrade(true);
-			} else if (usedNames.length > 4) {
-				setRetreivingName(false);
-				setNeedUpgrade(true);
-				return;
+		// if (userData.uid) {
+		// if (loggedIn) {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				fire
+					.firestore()
+					.collection("users")
+					.doc(user.uid)
+					.get()
+					.then((doc) => {
+						if (doc.exists) {
+							setUserContext(doc.data());
+              setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
+							setRejected(doc.data().rejected ? doc.data().rejected : []);
+              let newShortlist = doc.data().shortlist ? doc.data().shortlist : []
+              let newRejected = doc.data().rejected ? doc.data().rejected : []
+              console.log('shortlist as this point', newShortlist)
+              console.log('rejected as this point', newRejected)
+              console.log("getRandomDocument5");
+              let usedNames;
+              usedNames = newShortlist.concat(newRejected);
+              console.log("usedNames", usedNames);
+              if (usedNames.length == 0) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[0]
+                    : femalePreviewIds.names[0];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 1) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[1]
+                    : femalePreviewIds.names[1];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 2) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[2]
+                    : femalePreviewIds.names[2];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 3) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[3]
+                    : femalePreviewIds.names[3];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 4) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[4]
+                    : femalePreviewIds.names[4];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+                // setNeedUpgrade(true);
+              } else if (usedNames.length > 4) {
+                setRetreivingName(false);
+                setNeedUpgrade(true);
+                return;
+              }
+              setFirstFetch(false);
+              setSlideDirection("center");
+						} else {
+							console.log("No such document!");
+              let newShortlist = []
+              let newRejected = []
+              console.log('shortlist as this point', newShortlist)
+              console.log('rejected as this point', newRejected)
+              console.log("getRandomDocument6");
+              let usedNames;
+              usedNames = newShortlist.concat(newRejected);
+              console.log("usedNames", usedNames);
+              if (usedNames.length == 0) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[0]
+                    : femalePreviewIds.names[0];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 1) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[1]
+                    : femalePreviewIds.names[1];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 2) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[2]
+                    : femalePreviewIds.names[2];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 3) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[3]
+                    : femalePreviewIds.names[3];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+              } else if (usedNames.length == 4) {
+                let nameId =
+                  currentGender === "male"
+                    ? malePreviewIds.names[4]
+                    : femalePreviewIds.names[4];
+                let results = names.names.find(
+                  (name) => name.id === nameId && name.gender === currentGender
+                );
+                setRetreivedName(results);
+                setLastRandomDocumentId(nameId);
+                localStorage.setItem(
+                  "lastRandomDocumentId",
+                  JSON.stringify(nameId)
+                );
+                setRetreivingName(false);
+                // setNeedUpgrade(true);
+              } else if (usedNames.length > 4) {
+                setRetreivingName(false);
+                setNeedUpgrade(true);
+                return;
+              }
+              setFirstFetch(false);
+              setSlideDirection("center");
+						}
+					})
+					.then(() => {
+            
+					});
+			} else {
+				console.log("this one");
+				let tempShortlist =
+					typeof localStorage.shortlist != "undefined"
+						? JSON.parse(localStorage.shortlist)
+						: [];
+				let tempRejected =
+					typeof localStorage.rejected != "undefined"
+						? JSON.parse(localStorage.rejected)
+						: [];
+				let usedNames = tempShortlist.concat(tempRejected);
+				if (usedNames.length == 0) {
+					let nameId =
+						currentGender === "male"
+							? malePreviewIds.names[0]
+							: femalePreviewIds.names[0];
+					let results = names.names.find(
+						(name) => name.id === nameId && name.gender === currentGender
+					);
+					setRetreivedName(results);
+					setLastRandomDocumentId(nameId);
+					localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+					setRetreivingName(false);
+				} else if (usedNames.length == 1) {
+					let nameId =
+						currentGender === "male"
+							? malePreviewIds.names[1]
+							: femalePreviewIds.names[1];
+					let results = names.names.find(
+						(name) => name.id === nameId && name.gender === currentGender
+					);
+					setRetreivedName(results);
+					setLastRandomDocumentId(nameId);
+					localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+					setRetreivingName(false);
+				} else if (usedNames.length == 2) {
+					let nameId =
+						currentGender === "male"
+							? malePreviewIds.names[2]
+							: femalePreviewIds.names[2];
+					let results = names.names.find(
+						(name) => name.id === nameId && name.gender === currentGender
+					);
+					setRetreivedName(results);
+					setLastRandomDocumentId(nameId);
+					localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+					setRetreivingName(false);
+				} else if (usedNames.length == 3) {
+					let nameId =
+						currentGender === "male"
+							? malePreviewIds.names[3]
+							: femalePreviewIds.names[3];
+					let results = names.names.find(
+						(name) => name.id === nameId && name.gender === currentGender
+					);
+					setRetreivedName(results);
+					setLastRandomDocumentId(nameId);
+					localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+					setRetreivingName(false);
+				} else if (usedNames.length == 4) {
+					let nameId =
+						currentGender === "male"
+							? malePreviewIds.names[4]
+							: femalePreviewIds.names[4];
+					let results = names.names.find(
+						(name) => name.id === nameId && name.gender === currentGender
+					);
+					setRetreivedName(results);
+					setLastRandomDocumentId(nameId);
+					localStorage.setItem("lastRandomDocumentId", JSON.stringify(nameId));
+					setRetreivingName(false);
+					setNeedUpgrade(true);
+				} else if (usedNames.length > 4) {
+					setRetreivingName(false);
+					setNeedUpgrade(true);
+					return;
+				}
+				setFirstFetch(false);
+				setSlideDirection("center");
 			}
-			setFirstFetch(false);
-			setSlideDirection("center");
-		}
+		});
 	};
 
 	const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
@@ -782,6 +913,7 @@ const Names = () => {
 		// setRetreivingName(true)
 		console.log("getRandomDocument3");
 		console.log("firstFetch", firstFetch);
+		setRetreivingName(true);
 		if (firstFetch && passedLastRandomDocumentId) {
 			console.log("getRandomDocument4");
 			// We need to give each object an id (matching the one in firebase)
@@ -1065,26 +1197,26 @@ const Names = () => {
 
 	const handleLoginWithLink = (e) => {
 		e.preventDefault();
-    setSendingLink(true);
+		setSendingLink(true);
 		fire
 			.auth()
 			.sendSignInLinkToEmail(username, actionCodeSettings)
 			.then(() => {
-        // alert('Magic link sent')
+				// alert('Magic link sent')
 				// The link was successfully sent. Inform the user.
 				// Save the email locally so you don't need to ask the user for it again
 				// if they open the link on the same device.
-        
+
 				localStorage.setItem("emailForSignIn", username);
 				setSendingLink(false);
 				setLinkSent(true);
-				
+
 				// Start countdown from 10
 				setLinkCooldown(10);
-				
+
 				// Create interval to countdown
 				const countdownInterval = setInterval(() => {
-					setLinkCooldown(prevCount => {
+					setLinkCooldown((prevCount) => {
 						if (prevCount <= 1) {
 							clearInterval(countdownInterval);
 							return null;
@@ -1101,53 +1233,62 @@ const Names = () => {
 			});
 	};
 
-  const confirmLoginWithLink = (e) => {
-
-    // Confirm the link is a sign-in with email link.
-    if (fire.auth().isSignInWithEmailLink(window.location.href)) {
-      // Additional state parameters can also be passed via URL.
-      // This can be used to continue the user's intended action before triggering
-      // the sign-in operation.
-      // Get the email if available. This should be available if the user completes
-      // the flow on the same device where they started it.
-      var email = localStorage.getItem("emailForSignIn");
-      if (!email) {
-        // User opened the link on a different device. To prevent session fixation
-        // attacks, ask the user to provide the associated email again. For example:
-        email = window.prompt("Please provide your email for confirmation");
-      }
-      // The client SDK will parse the code from the link for you.
-      fire
-        .auth()
-        .signInWithEmailLink(email, window.location.href)
-        .then((userCredential) => {
-          fire.firestore().collection("users").doc(userCredential.user.uid).set({
-            email: userCredential.user.email,
-            // shortlist: shortlist,
-            shortlist: typeof localStorage.getItem("shortlist") != "undefined" ? JSON.parse(localStorage.shortlist) : [],
-            rejected: typeof localStorage.getItem("rejected") != "undefined" ? JSON.parse(localStorage.rejected) : [],
-            // rejected: rejected,
-            created: fire.firestore.FieldValue.serverTimestamp(),
-            lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
-          });
-        })
-        .then(() => {
-          // mixpanel.init(mixpanelConfig);
-          toast('Signed in')
-          localStorage.removeItem("emailForSignIn");
-          localStorage.removeItem("shortlist");
-          localStorage.removeItem("rejected");
-        })
-        .then(() => {
-          setSendingLink(false);
-          router.push("/names?upgrading=true");
-        })
-        .catch((error) => {
-          // Some error occurred, you can inspect the code: error.code
-          // Common errors could be invalid email and invalid or expired OTPs.
-        });
-    }
-  }
+	const confirmLoginWithLink = (e) => {
+		// Confirm the link is a sign-in with email link.
+		if (fire.auth().isSignInWithEmailLink(window.location.href)) {
+			// Additional state parameters can also be passed via URL.
+			// This can be used to continue the user's intended action before triggering
+			// the sign-in operation.
+			// Get the email if available. This should be available if the user completes
+			// the flow on the same device where they started it.
+			var email = localStorage.getItem("emailForSignIn");
+			if (!email) {
+				// User opened the link on a different device. To prevent session fixation
+				// attacks, ask the user to provide the associated email again. For example:
+				email = window.prompt("Please provide your email for confirmation");
+			}
+			// The client SDK will parse the code from the link for you.
+			fire
+				.auth()
+				.signInWithEmailLink(email, window.location.href)
+				.then((userCredential) => {
+					fire
+						.firestore()
+						.collection("users")
+						.doc(userCredential.user.uid)
+						.set({
+							email: userCredential.user.email,
+							// shortlist: shortlist,
+							shortlist:
+								typeof localStorage.getItem("shortlist") != "undefined"
+									? JSON.parse(localStorage.shortlist)
+									: [],
+							rejected:
+								typeof localStorage.getItem("rejected") != "undefined"
+									? JSON.parse(localStorage.rejected)
+									: [],
+							// rejected: rejected,
+							created: fire.firestore.FieldValue.serverTimestamp(),
+							lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+						});
+				})
+				.then(() => {
+					// mixpanel.init(mixpanelConfig);
+					toast("Signed in");
+					localStorage.removeItem("emailForSignIn");
+					localStorage.removeItem("shortlist");
+					localStorage.removeItem("rejected");
+				})
+				.then(() => {
+					setSendingLink(false);
+					router.push("/names?upgrading=true");
+				})
+				.catch((error) => {
+					// Some error occurred, you can inspect the code: error.code
+					// Common errors could be invalid email and invalid or expired OTPs.
+				});
+		}
+	};
 
 	const handleLoginWithGoogle = (e) => {
 		e.preventDefault();
@@ -1252,6 +1393,70 @@ const Names = () => {
 				window.location.origin + "/names?upgrade=cancelled"
 			);
 		}
+	};
+
+	// Add generateEmailLink function
+	const generateEmailLink = (e) => {
+		e.preventDefault();
+		setSendingLink(true);
+		let email = username;
+		let redirectUrl = `http://localhost:3000/names?signIn=complete`;
+		fetch("/api/generate-link", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email, redirectUrl }),
+		})
+			.then(async (response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				localStorage.setItem("emailForSignIn", username);
+				fetch("/api/send-link", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						data,
+						to: email,
+					}),
+				})
+					.then(async (response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						setSendingLink(false);
+						setLinkSent(true);
+						setLinkCooldown(10);
+						const countdownInterval = setInterval(() => {
+							setLinkCooldown((prevCount) => {
+								if (prevCount <= 1) {
+									clearInterval(countdownInterval);
+									return null;
+								}
+								return prevCount - 1;
+							});
+						}, 1000);
+					})
+					.catch((error) => {
+						console.log("error", error);
+						setSendingLink(false);
+						alert("Failed to send sign-in link");
+					});
+			})
+			.catch((error) => {
+				console.log("error", error);
+				setSendingLink(false);
+				alert("Failed to send sign-in link");
+			});
 	};
 
 	return (
@@ -1481,7 +1686,8 @@ const Names = () => {
 						className="overflow-hidden d-flex flex-column align-items-center justify-content-center px-4"
 						style={{ minHeight: "100vh" }}
 					>
-						{!retreivingName && retreivedName !== null ? (
+						{/* {!retreivingName && retreivedName !== null ? ( */}
+						{!retreivingName ? (
 							<div
 								className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
 								style={{ maxWidth: "560px" }}
@@ -1600,16 +1806,16 @@ const Names = () => {
 										<a href="/legal/privacy" target="_blank">
 											Privacy Policy
 										</a>
-                    . Already got an account?{" "}
-                    <button
-                      className="link"
-                      onClick={() => setShowSignIn(true)}
-                    >
-                      Sign in
-                    </button>
-                    .
+										. Already got an account?{" "}
+										<button
+											className="link"
+											onClick={() => setShowSignIn(true)}
+										>
+											Sign in
+										</button>
+										.
 									</p>
-                  {/* <p className="small mt-3 mb-0">
+									{/* <p className="small mt-3 mb-0">
                     Already got an account?{" "}
                     <button
                       className="link"
@@ -1646,58 +1852,62 @@ const Names = () => {
 											>
 												Continue with email
 											</button>
+										) : !linkSent ? (
+											<form onSubmit={generateEmailLink}>
+												<div className="mb-2">
+													<input
+														type="text"
+														placeholder="Email"
+														className={
+															emailError !== "" ? `error w-100` : `w-100`
+														}
+														value={username}
+														onChange={({ target }) =>
+															usernameChange(target.value)
+														}
+													/>
+													{emailError !== "" ? (
+														<p className="small text-error-high mt-2">
+															{emailError}
+														</p>
+													) : null}
+												</div>
+												<button
+													type="submit"
+													className="btn primary high w-100"
+													disabled={sendingLink}
+												>
+													{sendingLink ? "Sending link..." : "Send magic link"}
+												</button>
+											</form>
 										) : (
-                      !linkSent ? 
-                        <form onSubmit={handleLoginWithLink}>
-                          <div className="mb-2">
-                            <input
-                              type="text"
-                              placeholder="Email"
-                              className={
-                                emailError !== "" ? `error w-100` : `w-100`
-                              }
-                              value={username}
-                              onChange={({ target }) =>
-                                usernameChange(target.value)
-                              }
-                            />
-                            {emailError !== "" ? (
-                              <p className="small text-error-high mt-2">
-                                {emailError}
-                              </p>
-                            ) : null}
-                          </div>
-                          <button
-                            type="submit"
-                            className="btn primary high w-100"
-                            disabled={sendingLink}
-                          >
-                            {sendingLink
-                              ? "Sending link..."
-                              : "Send magic link"}
-                          </button>
-                        </form>
-                      : 
-                        <div>
-                          <h4 className="mb-3">Check your inbox</h4>
-                          <p>We just sent an email to <span className="font-weight-semibold">{username}</span> with a magic link that'll log you in.</p>
-                          <p className="mt-3 mb-0">
-                            Didn't receive it?{" "}
-                            <button
-                              className="link"
-                              onClick={() => setLinkSent(false)}
-                              disabled={linkCooldown !== null}
-                            >
-                              Request another link{linkCooldown && ` (${linkCooldown})` }
-                            </button>
-                          </p>
-                        </div>
-										  )}
+											<div>
+												<h4 className="mb-3">Check your inbox</h4>
+												<p>
+													We just sent an email to{" "}
+													<span className="font-weight-semibold">
+														{username}
+													</span>{" "}
+													with a magic link that'll log you in.
+												</p>
+												<p className="mt-3 mb-0">
+													Didn't receive it?{" "}
+													<button
+														className="link"
+														onClick={() => setLinkSent(false)}
+														disabled={linkCooldown !== null}
+													>
+														Request another link
+														{linkCooldown && ` (${linkCooldown})`}
+													</button>
+												</p>
+											</div>
+										)}
 										{/* {!showEmailPassword ? (
 											<button
 												type="submit"
 												className="btn primary medium w-100"
-												disabled={sendingLink}
+													disabled={sendingLink}
 												onClick={() => setShowEmailPassword(true)}
 											>
 												Use email & password
@@ -1760,15 +1970,15 @@ const Names = () => {
 									<h2 className="text-dark-high w-100 mb-0">
 										Sign in to your account
 									</h2>
-                  <p className="small mb-3">
-											Not got an account?{" "}
-											<button
-												className="link"
-												onClick={() => setShowSignIn(false)}
-											>
-												Sign up
-											</button>
-										</p>
+									<p className="small mb-3">
+										Not got an account?{" "}
+										<button
+											className="link"
+											onClick={() => setShowSignIn(false)}
+										>
+											Sign up
+										</button>
+									</p>
 									<div className="w-100">
 										<button
 											type="button"
@@ -1797,56 +2007,59 @@ const Names = () => {
 											>
 												Continue with email
 											</button>
+										) : !linkSent ? (
+											<form onSubmit={generateEmailLink}>
+												<div className="mb-2">
+													<input
+														type="text"
+														placeholder="Email"
+														className={
+															emailError !== "" ? `error w-100` : `w-100`
+														}
+														value={username}
+														onChange={({ target }) =>
+															usernameChange(target.value)
+														}
+													/>
+													{emailError !== "" ? (
+														<p className="small text-error-high mt-2">
+															{emailError}
+														</p>
+													) : null}
+												</div>
+												<button
+													type="submit"
+													className="btn primary high w-100"
+													disabled={sendingLink}
+												>
+													{sendingLink ? "Sending link..." : "Send magic link"}
+												</button>
+											</form>
 										) : (
-                      !linkSent ? 
-                        <form onSubmit={handleLoginWithLink}>
-                          <div className="mb-2">
-                            <input
-                              type="text"
-                              placeholder="Email"
-                              className={
-                                emailError !== "" ? `error w-100` : `w-100`
-                              }
-                              value={username}
-                              onChange={({ target }) =>
-                                usernameChange(target.value)
-                              }
-                            />
-                            {emailError !== "" ? (
-                              <p className="small text-error-high mt-2">
-                                {emailError}
-                              </p>
-                            ) : null}
-                          </div>
-                          <button
-                            type="submit"
-                            className="btn primary high w-100"
-                            disabled={sendingLink}
-                          >
-                            {sendingLink
-                              ? "Sending link..."
-                              : "Send magic link"}
-                          </button>
-                        </form>
-                      : 
-                        <div>
-                          <h4 className="mb-3">Check your inbox</h4>
-                          <p>We just sent an email to <span className="font-weight-semibold">{username}</span> with a magic link that'll log you in.</p>
-                          <p className="mt-3 mb-0">
-                            Didn't receive it?{" "}
-                            <button
-                              className="link"
-                              onClick={() => setLinkSent(false)}
-                              disabled={linkCooldown !== null}
-                            >
-                              Request another link{linkCooldown && ` (${linkCooldown})` }
-                            </button>
-                          </p>
-                        </div>
-										  )}
-                    
-                    
-                    {/* (
+											<div>
+												<h4 className="mb-3">Check your inbox</h4>
+												<p>
+													We just sent an email to{" "}
+													<span className="font-weight-semibold">
+														{username}
+													</span>{" "}
+													with a magic link that'll log you in.
+												</p>
+												<p className="mt-3 mb-0">
+													Didn't receive it?{" "}
+													<button
+														className="link"
+														onClick={() => setLinkSent(false)}
+														disabled={linkCooldown !== null}
+													>
+														Request another link
+														{linkCooldown && ` (${linkCooldown})`}
+													</button>
+												</p>
+											</div>
+										)}
+
+										{/* (
 											<form onSubmit={handleLogin}>
 												<div className="mb-2">
 													<input

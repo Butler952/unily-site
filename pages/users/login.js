@@ -74,43 +74,67 @@ const Login = () => {
 		// dynamicLinkDomain: 'example.page.link'
 	};
 
-  const handleLoginWithLink = (e) => {
-		e.preventDefault();
+  const generateEmailLink = (e) => {
+    e.preventDefault();
     setSendingLink(true);
-		fire
-			.auth()
-			.sendSignInLinkToEmail(username, actionCodeSettings)
-			.then(() => {
-        // alert('Magic link sent')
-				// The link was successfully sent. Inform the user.
-				// Save the email locally so you don't need to ask the user for it again
-				// if they open the link on the same device.
-        
-				localStorage.setItem("emailForSignIn", username);
-				setSendingLink(false);
-				setLinkSent(true);
-				
-				// Start countdown from 10
-				setLinkCooldown(10);
-				
-				// Create interval to countdown
-				const countdownInterval = setInterval(() => {
-					setLinkCooldown(prevCount => {
-						if (prevCount <= 1) {
-							clearInterval(countdownInterval);
-							return null;
-						}
-						return prevCount - 1;
-					});
-				}, 1000);
-			})
-			.catch((error) => {
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				// Handle errors here if needed
-				setSendingLink(false);
-			});
-	};
+    let email = username
+    fetch('/api/generate-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+    .then(async response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem("emailForSignIn", username);
+      fetch('/api/send-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data,
+          to: email,
+        }),
+      })
+      .then(async response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSendingLink(false);
+        setLinkSent(true);
+        setLinkCooldown(10);
+        const countdownInterval = setInterval(() => {
+          setLinkCooldown(prevCount => {
+            if (prevCount <= 1) {
+              clearInterval(countdownInterval);
+              return null;
+            }
+            return prevCount - 1;
+          });
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log('error', error);
+        setSendingLink(false);
+        alert('Failed to send sign-in link');
+      });
+    })
+    .catch((error) => {
+      console.log('error', error);
+      setSendingLink(false);
+      alert('Failed to send sign-in link');
+    });
+  }
 
 	const handleLogin = (e) => {
 		e.preventDefault();
@@ -272,7 +296,7 @@ const Login = () => {
 						<p className="mb-3">
 							Not got an account?{" "}
 							<Link className="link" href="/users/register">
-								Sign up
+								Create an account
 							</Link>
 						</p>
 						<div className="w-100">
@@ -304,7 +328,7 @@ const Login = () => {
 									Continue with email
 								</button>
 							) : !linkSent ? (
-								<form onSubmit={handleLoginWithLink}>
+								<form onSubmit={generateEmailLink}>
 									<div className="mb-2">
 										<input
 											type="text"

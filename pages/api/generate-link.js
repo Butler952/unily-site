@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { email } = req.body;
+      const { redirectUrl } = req.body;
 
       // Validate email
       if (!email || !email.includes('@')) {
@@ -14,7 +15,7 @@ export default async function handler(req, res) {
 
       const admin = firebaseAdmin;
       const actionCodeSettings = {
-        url: `http://localhost:3000/names?signIn=complete`,
+        url: redirectUrl ? redirectUrl : `http://localhost:3000/shortlist?signIn=complete`,
         // url: `${windowLocationOrigin}/names?signIn=complete`,
         // url: process.env.NEXT_PUBLIC_AUTH_REDIRECT_URL || 'http://localhost:3000/verify-email',
         handleCodeInApp: true,

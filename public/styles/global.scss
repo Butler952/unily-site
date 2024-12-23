@@ -491,6 +491,9 @@ button.link {
   }
   &:disabled {
     color: $dark-600;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 

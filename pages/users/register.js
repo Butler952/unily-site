@@ -153,9 +153,10 @@ const Register = () => {
   //     });
   // }
 
-  const generateEmailLink = () => {
+  const generateEmailLink = (e) => {
+    e.preventDefault();
+    setSendingLink(true);
     let email = username
-
     fetch('/api/generate-link', {
       method: 'POST',
       headers: {
@@ -178,16 +179,20 @@ const Register = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          data,
           to: email,
-          // from: 'team@epicbabynames.com',
-          from: {
-            email: 'team@epicbabynames.com',
-            name: 'Epic Baby Names'
-          },
-          subject: 'Sending with SendGrid is Fun',
-          text: 'and easy to do anywhere, even with Node.js',
-          html: `<strong>and easy to do anywhere, even with Node.js. Here's even a <a href=${data.link}>sign in link</a></strong>`
         }),
+        // body: JSON.stringify({
+        //   to: email,
+        //   // from: 'team@epicbabynames.com',
+        //   from: {
+        //     email: 'team@epicbabynames.com',
+        //     name: 'Epic Baby Names'
+        //   },
+        //   subject: 'Sending with SendGrid is Fun',
+        //   text: 'and easy to do anywhere, even with Node.js',
+        //   html: `<strong>and easy to do anywhere, even with Node.js. Here's even a <a href=${data.link}>sign in link</a></strong>`
+        // }),
       })
       .then(async response => {
         // First check if the response was ok (status in 200-299 range)
@@ -197,10 +202,24 @@ const Register = () => {
         return response.json();
       })
       .then((data) => {
-        alert('Sign-in link sent! Check your email.');
+        // alert('Sign-in link sent! Check your email.');
+        setSendingLink(false);
+        setLinkSent(true);
+				setLinkCooldown(10);
+				// Create interval to countdown
+				const countdownInterval = setInterval(() => {
+					setLinkCooldown(prevCount => {
+						if (prevCount <= 1) {
+							clearInterval(countdownInterval);
+							return null;
+						}
+						return prevCount - 1;
+					});
+				}, 1000);
       })
       .catch((error) => {
         console.log('error', error);
+        setSendingLink(false);
         alert('Failed to send sign-in link');
       });
     })
@@ -212,6 +231,7 @@ const Register = () => {
     // })
     .catch((error) => {
       console.log('error', error);
+      setSendingLink(false);
       alert('Failed to send sign-in link');
     });
   }
@@ -360,6 +380,7 @@ const Register = () => {
 				console.log(err.code, err.message);
 			});
 	};
+  
 
 	return (
 		<div>
@@ -447,13 +468,15 @@ const Register = () => {
 									Continue with email
 								</button>
 							) : !linkSent ? (
-								<form onSubmit={handleLoginWithLink}>
+								// <form onSubmit={handleLoginWithLink}>
+								<form onSubmit={generateEmailLink}>
 									<div className="mb-2">
 										<input
 											type="text"
 											placeholder="Email"
 											className={emailError !== "" ? `error w-100` : `w-100`}
 											value={username}
+                      disabled={sendingLink}
 											onChange={({ target }) => usernameChange(target.value)}
 										/>
 										{emailError !== "" ? (
@@ -488,14 +511,14 @@ const Register = () => {
 									</p>
 								</div>
 							)}
-              	<button
+              	{/* <button
 									type="submit"
 									className="btn primary high w-100 mt-5"
 									// disabled={sendingLink}
 									onClick={() => generateEmailLink()}
 								>
 									Generate link
-								</button>
+								</button> */}
 						</div>
 					</div>
 				</div>

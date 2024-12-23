@@ -163,6 +163,7 @@ const Menu = ({
         localStorage.removeItem("shortlist");
         localStorage.removeItem("rejected");
         localStorage.removeItem("lastRandomDocumentId");
+        localStorage.removeItem("emailForSignIn");
         router.push("/")
       });
   }
