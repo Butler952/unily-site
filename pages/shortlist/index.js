@@ -395,14 +395,14 @@ const Shortlist = () => {
 								className="text-decoration-none"
 							>
                 { screenWidth > 575 ? 
-									<button className="btn dark medium small icon-left">
+									<button className="btn primary medium outlined small icon-left">
 										<svg viewBox="0 0 24 24">
 											<path d={ICONS.SHARE}></path>
 										</svg>
                     <span className="text-decoration-none">Share shortlist</span>
 									</button>
                 :
-                <div className="btn dark medium small icon-only">
+                <div className="btn primary medium outlined small icon-only">
                   <svg viewBox="0 0 24 24">
                     <path d={ICONS.SHARE}></path>
                   </svg>

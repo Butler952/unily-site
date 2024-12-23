@@ -1461,9 +1461,8 @@ const Names = () => {
 									<div className="d-flex flex-column align-items-center text-center">
 										<h3 className="mb-3">Iliad</h3>
 										<p>
-											Over 500 names from Homer's epic poem The Iliad, featuring
-											all factions of the mortal belligerents of the Trojan war,
-											and the Gods that quarrelled over them.
+											Over 500 names from Homer's epic poem <i>The Iliad</i>, featuring mortal belligerents of
+											all factions of the Trojan war, and the Gods that quarrelled over them.
 										</p>
 									</div>
 									<button
@@ -1490,8 +1489,7 @@ const Names = () => {
 									<div className="d-flex flex-column align-items-center text-center">
 										<h3 className="mb-3">Odyssey</h3>
 										<p>
-											Hero of the Greek coalition during the Trojan war. One of
-											the great warriors outside of Achilleus.
+                      More ancient greek names from <i>The Odyssey</i>; which chronicles the ten-year journey of Odysseus, king of Ithaka, back to his home after the fall of Troy.
 										</p>
 									</div>
 									<button className="btn dark high" disabled>

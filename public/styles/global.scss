@@ -593,6 +593,9 @@ a.btn, input.btn, button.btn, div.btn {
     }
     &.medium {
       background-color: $light-900; 
+      &.outlined {
+        background-color: transparent;
+      }
       color: $dark-900; 
       border-top: .5px solid rgba(255, 255, 255, .3);
       background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
@@ -619,7 +622,6 @@ a.btn, input.btn, button.btn, div.btn {
     }
     &.low {
       color: $dark-900; 
-
       svg path {
         fill: $dark-900;
       }
