@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import moment from 'moment'
 import ICONS from '../../components/icon/IconPaths';
+import animationData from '../../components/animations/loader.json'
 import styles from './settings.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
@@ -27,6 +28,70 @@ import ChangeEmailSection from './components/changeEmailSection';
 import CustomDomain from './components/customDomain';
 import SettingsLayout from './components/settingsLayout';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
+
+const ExperienceCheckbox = ({ options, onChange }) => {
+  const [data, setData] = useState(options);
+
+  const toggle = index => {
+    const newData = [...data];
+    newData.splice(index, 1, {
+      display: !data[index].display,
+      title: data[index].title,
+      company: data[index].company,
+    });
+    setData(newData);
+    onChange(newData);
+  };
+
+  return (
+    <>
+      {data.map((job, index) =>
+        <div key={index}>
+          <hr className="m-0" />
+          <div className="p-4">
+            <label className="checkbox-container small font-weight-medium text-dark-high">
+              {job.title + ' at ' + job.company}
+              <input type="checkbox" checked={job.display || false} onClick={() => toggle(index)} />
+              <span className="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+const EducationCheckbox = ({ options, onChange }) => {
+  const [data, setData] = useState(options);
+
+  const toggle = index => {
+    const newData = [...data];
+    newData.splice(index, 1, {
+      display: !data[index].display,
+      name: data[index].name,
+      school: data[index].school,
+    });
+    setData(newData);
+    onChange(newData);
+  };
+
+  return (
+    <>
+      {data.map((job, index) =>
+        <div key={index}>
+          <hr className="m-0" />
+          <div className="p-4">
+            <label className="checkbox-container small font-weight-medium text-dark-high">
+              {job.name !== null ? job.name + ' at ' : null}{job.school}
+              <input type="checkbox" checked={job.display || false} onClick={() => toggle(index)} />
+              <span className="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Settings = () => {
   const router = useRouter();
@@ -74,9 +139,6 @@ const Settings = () => {
   const handleShow = () => setShowModal(true);
 
   useEffect(() => {
-    if (router.pathname === "/settings") {
-      router.push("/settings/plan")
-    }
     mixpanel.init(mixpanelConfig);
     mixpanel.track('Settings');
     if (router.query.upgrade == 'success') {
@@ -447,7 +509,6 @@ const Settings = () => {
   }
   // Customer Portal End
 
-  
 
   {/*} const UpgradeButton = () => {
     return (
@@ -467,6 +528,15 @@ const Settings = () => {
     )
   }
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <div>
       <div className="pt-5 mt-5">
@@ -475,7 +545,299 @@ const Settings = () => {
         </Head>
         <Header positionFixed />
         <div>
-          <SettingsLayout></SettingsLayout>
+        {/* <div style={{ marginTop: '66px' }}> */}
+          <Container className="py-4">
+            <div className="m-auto" style={{ maxWidth: "720px" }}>
+              <h2 className="pb-4 my-5">Settings</h2>
+              <ul>
+                <li>delete account</li>
+                <li>edit login details/method</li>
+                <li>purchases</li>
+              </ul>
+              {cancelAtPeriodEnd ? (
+                <>
+                  <div className="card d-flex flex-column bg-primary-900 mx-auto mb-5 p-4">
+                    <h5 className="text-light-high">Premium expiring {moment.unix(cancelAt).startOf('hour').fromNow()}</h5>
+                    <p className="text-light-high mb-0">Your Premium plan is set to expire on <b>{moment.unix(cancelAt).format('Do MMMM YYYY')}</b>. You won't be able to re-sync your profile with LinkedIn. Renew your subscription to keep access to all Premium features.</p>
+                    <div>
+                      <RenewButton handleUpdate={handleUpdate} className="w-md-auto light" />
+                    </div>
+                  </div>
+                </>
+              )
+                : null}
+
+              {/* <div className="card mx-auto mb-5">
+              <div className="p-4">
+                <h5 className="text-dark-high mb-0">Sections</h5>
+                <p className="text-dark-low mb-0">Control the visibility of profile content</p>
+              </div>
+              <hr className="m-0"/>
+              {sectionsLoading ?
+                <div className="p-4">
+                  <p className="mb-0">Loading...</p>
+                </div>
+                :
+                <div className="p-0">
+                  <form onSubmit={handleSectionsSubmit}>
+                    <Accordion>
+                      <div className={styles.sectionCard + " card"}>
+                        <div className="d-flex flex-row justify-content-between align-items-center p-4">
+                          <label className="checkbox-container font-weight-medium text-dark-high large">
+                            Basic information
+                            <input type="checkbox" checked={basicInfo} disabled />
+                            <span className="checkmark"></span>
+                          </label>
+                          <CustomToggle eventKey="0" />
+                        </div>
+                        <Accordion.Collapse eventKey="0">
+                          <div>
+                            <div>
+                              <hr className="m-0" />
+                              <div className="p-4">
+                                <label className="checkbox-container small font-weight-medium text-dark-high">
+                                  Header Image
+                              <input type="checkbox" checked={headerImage} onChange={(e) => setHeaderImage(e.currentTarget.checked)} />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div>
+                              <hr className="m-0" />
+                              <div className="p-4">
+                                <label className="checkbox-container small font-weight-medium text-dark-high">
+                                  Profile Picture
+                              <input type="checkbox" checked={profilePic} onChange={(e) => setProfilePic(e.currentTarget.checked)} />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div>
+                              <hr className="m-0" />
+                              <div className="p-4">
+                                <label className="checkbox-container small font-weight-medium text-dark-high">
+                                  Name
+                              <input type="checkbox" checked={fullname} onChange={(e) => setFullname(e.currentTarget.checked)} />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div>
+                              <hr className="m-0" />
+                              <div className="p-4">
+                                <label className="checkbox-container small font-weight-medium text-dark-high">
+                                  Headline
+                              <input type="checkbox" checked={headline} onChange={(e) => setHeadline(e.currentTarget.checked)} />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div>
+                              <hr className="m-0" />
+                              <div className="p-4">
+                                <label className="checkbox-container small font-weight-medium text-dark-high">
+                                  Contact button
+                              <input type="checkbox" checked={email} onChange={(e) => setEmail(e.currentTarget.checked)} />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </Accordion.Collapse>
+                      </div>
+                    </Accordion>
+                    <div className={styles.sectionCard + " card p-4"}>
+                      <label className="checkbox-container font-weight-medium text-dark-high large">
+                        About
+                    <input type="checkbox" checked={about} onChange={(e) => setAbout(e.currentTarget.checked)} />
+                        <span className="checkmark"></span>
+                      </label>
+                    </div>
+                    <Accordion>
+                      <div className={styles.sectionCard + " card"}>
+                        <div className="d-flex flex-row justify-content-between align-items-center p-4">
+                          <label className="checkbox-container font-weight-medium text-dark-high large">
+                            Experience
+                            <input type="checkbox" checked={experience} onChange={(e) => setExperience(e.currentTarget.checked)} />
+                            <span className="checkmark"></span>
+                          </label>
+                          {experienceEach.length < 1 ? null : <CustomToggle eventKey="0" />}
+                        </div>
+                        <Accordion.Collapse eventKey="0">
+                          <ExperienceCheckbox
+                            options={experienceEach}
+                            onChange={data => {
+                              setExperienceEach(data);
+                            }}
+                          />
+                        </Accordion.Collapse>
+                      </div>
+                    </Accordion>
+                    <Accordion>
+                      <div className={styles.sectionCard + " card"}>
+                        <div className="d-flex flex-row justify-content-between align-items-center p-4">
+                          <label className="checkbox-container font-weight-medium text-dark-high large">
+                            Education
+                          <input type="checkbox" checked={education} onChange={(e) => setEducation(e.currentTarget.checked)} />
+                            <span className="checkmark"></span>
+                          </label>
+                          {educationEach.length < 1 ? null : <CustomToggle eventKey="0" />}
+                        </div>
+                        <Accordion.Collapse eventKey="0">
+                          <EducationCheckbox
+                            options={educationEach}
+                            onChange={data => {
+                              setEducationEach(data);
+                            }}
+                          />
+                        </Accordion.Collapse>
+                      </div>
+                    </Accordion>
+                    <Accordion>
+                      <div className={styles.sectionCard + " card"}>
+                        <div className="d-flex flex-row justify-content-between align-items-center p-4">
+                          <label className="checkbox-container font-weight-medium text-dark-high large">
+                            Volunteering
+                            <input type="checkbox" checked={volunteeringEach.length < 1 ? false : volunteering} onChange={(e) => setVolunteering(e.currentTarget.checked)} disabled={volunteeringEach.length < 1 ? true : false} />
+                            <span className="checkmark"></span>
+                          </label>
+                          {volunteeringEach.length < 1 ? null : <CustomToggle eventKey="0" />}
+                        </div>
+                        <Accordion.Collapse eventKey="0">
+                          <ExperienceCheckbox
+                            options={volunteeringEach}
+                            onChange={data => {
+                              setVolunteeringEach(data);
+                            }}
+                          />
+                        </Accordion.Collapse>
+                      </div>
+                    </Accordion>
+                    <div className="m-4">
+                      <button type="submit" className="btn primary high w-100 w-md-auto" disabled={savingSections}>{!savingSections ? 'Save' : 'Saving'}</button>
+                    </div>
+                  </form>
+                </div>
+              }
+            </div> */}
+            {/* { allUserData?.flags?.premiumPlan && */}
+              <div id="plan" className="card mx-auto mb-5">
+                <div className="d-flex flex-column m-4">
+                  <div className="d-flex flex-column w-100 gap-4">
+                    <div className="d-flex flex-column gap-0">
+                      <h5 className="mb-1">Plan</h5>
+                      <p className="text-dark-low mb-0">Manage your plan and payment information</p>
+                    </div>
+                
+                    <div className="d-flex flex-column flex-md-row" style={{ gap: "24px" }}>
+                      <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? '' : styles.active) : styles.active) : styles.active}`}>
+                        <div className="d-flex justify-content-between align-items-center w-100">
+                          <h6 className="text-primary-high mb-1">Basic</h6>
+                          {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? null : <CurrentPlan />) : <CurrentPlan />) : <CurrentPlan />}
+                        </div>
+                        <h4 className="text-dark-high mb-4">Free</h4>
+                        {[
+                          {'string': "Vitaely.me domain", 'included': true},
+                          {'string': "Create your page", 'included': true},
+                          {'string': "Connect your own domain", 'included': false},
+                          // {'string': "Remove Vitaely.me branding", 'included': false},
+                        ].map((feature, index) =>
+                          <div key={index} className="d-flex align-items-start mt-2">
+                            <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                              <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                            </svg>
+                            <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>
+                              {feature.string}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className={`${styles.planCard} radius-3 p-4 w-100 w-md-50 ${product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? styles.active : '') : '') : ''}`}>
+                        <div className="d-flex justify-content-between align-items-center w-100">
+                          <h6 className="text-primary-high mb-1">Premium</h6>
+                          {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? <CurrentPlan /> : null) : null) : null}
+                        </div>
+                        <div className="d-flex align-items-end mb-4">
+                          <h4 className="text-dark-high mr-1 mb-0">$3</h4>
+                          <p className="text-dark-high mb-0">/month</p>
+                        </div>
+                        {[
+                          {'string': "Vitaely.me domain", 'included': true},
+                          {'string': "Create your page", 'included': true},
+                          {'string': "Connect your own domain", 'included': true},
+                          // {'string': "Remove Vitaely.me branding", 'included': true},
+                          {'string': "More coming soon", 'included': true}
+                        ].map((feature, index) =>
+                          <div key={index} className="d-flex align-items-start mt-2">
+                            <svg viewBox="0 0 24 24" style={{width: '24px', minWidth: '24px'}} className={`mr-2 ${feature.included ? 'fill-dark-800' : 'fill-dark-600'}`}>
+                              <path d={feature.included ? ICONS.CHECK : ICONS.CLOSE}></path>
+                            </svg>
+                            <p className={`${!feature.included && 'text-dark-dis'} mb-0`}>{feature.string}</p>
+                          </div>
+                        )}
+                        {cancelAtPeriodEnd ? (
+                          <>
+                            <div className="tag error medium mt-3">Expires on {moment.unix(cancelAt).format('Do MMMM YYYY')}</div>
+                          </>
+                        )
+                          : null}
+                        {product !== '' ? (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ? (status === 'active' ? (cancelAtPeriodEnd ? <RenewButton handleUpdate={handleUpdate} /> : <ManageButton handleUpdate={handleUpdate} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />) : <UpgradeButton handleUpgrade={handleUpgrade} />}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* } */}
+              <div className="d-flex flex-column gap-5">
+                {/* { allUserData?.flags?.customDomain && */}
+                  {/* <CustomDomain
+                    userData={userData}
+                    allUserData={allUserData}
+                    loggedInRoute={loggedInRoute}
+                    gettingDomainInfo={gettingDomainInfo}
+                    setDomainInfo={setDomainInfo}
+                    setDomainStatus={setDomainStatus}
+                    setGettingDomainInfo={setGettingDomainInfo}
+                    sectionsLoading={sectionsLoading}
+                    product={product}
+                    active={active}
+                    status={status}
+                    handleUpgrade={handleUpgrade}
+                  /> */}
+                {/* } */}
+                {/* <PrettyUrlSection
+                  userData={userData}
+                  allUserData={allUserData}
+                  product={product}
+                  active={active}
+                  status={status}
+                  handleUpgrade={handleUpgrade}
+                /> */}
+                
+                <ChangeEmailSection
+                  userData={userData}
+                  allUserData={allUserData}
+                  product={product}
+                  active={active}
+                  status={status}
+                  handleUpgrade={handleUpgrade}
+                />
+              </div>
+              {/* <CustomDomainSection userData={userData} /> */}
+              {/* <ResyncSection
+                linkedinId={linkedinId}
+                userData={userData}
+                //syncsRemaining={syncsRemaining}
+                loggedInRoute={loggedInRoute}
+                product={product}
+                active={active}
+                status={status}
+                handleUpdate={handleUpdate}
+                handleUpgrade={handleUpgrade}
+              /> */}
+
+            </div>
+          </Container>
           <br /><br />
           <Modal
             show={showModal}
@@ -501,15 +863,24 @@ const Settings = () => {
               </div>
             </Modal.Body>
           </Modal>
-          {redirectToStripe ? (
-            <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
-              <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                <p>Redirecting to Stripe checkout</p>
-              </div>
-            </div>
-          )
-            : null}
         </div>
+        <Container className="d-flex flex-column align-items-center pb-5 mb-5">
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-4">
+            <Link href="/" className="w-lg-100">
+              <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  className="fill-dark-600"
+                  fillRule="evenodd" 
+                  clipRule="evenodd" 
+                  d={ICONS.LOGO_ICON} 
+                />
+              </svg>
+            </Link>
+          </div>
+          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
+            <p className="text-dark-dis mb-0">© Copyright Vitaely {new Date().getFullYear()}</p>
+          </div>
+        </Container>
       </div>
     </div>
   )

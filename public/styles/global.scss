@@ -577,6 +577,10 @@ a.btn, input.btn, button.btn, div.btn {
     }
   }
   &.primary {
+    &.outlined {
+      background-color: transparent!important;
+      box-shadow: $shadow-0;
+    }
     &.high {
       background-color: $dark-900; 
       color: $white; 
@@ -593,9 +597,6 @@ a.btn, input.btn, button.btn, div.btn {
     }
     &.medium {
       background-color: $light-900; 
-      &.outlined {
-        background-color: transparent;
-      }
       color: $dark-900; 
       border-top: .5px solid rgba(255, 255, 255, .3);
       background-image: linear-gradient(to bottom, #ffffff1a, #fff0);
@@ -634,8 +635,29 @@ a.btn, input.btn, button.btn, div.btn {
         box-shadow: $shadow-inset-1;
       }
     }
+    &.ultraLow {
+      color: $dark-700; 
+      svg path {
+        fill: $dark-700;
+      }
+      &:hover {
+        color: $dark-900; 
+        box-shadow: $shadow-0;
+        svg path {
+          fill: $dark-900;
+        }
+      }
+      &:active {
+        background-color: $dark-100; 
+        box-shadow: $shadow-inset-1;
+      }
+    }
   }
   &.dark {
+    &.outlined {
+      background-color: transparent!important;
+      box-shadow: $shadow-0;
+    }
     &.high {
       background-color: $dark-900; 
       color: $white; 
@@ -1737,7 +1759,7 @@ textarea {
   box-shadow: $shadow-5;
   // transition: $transition-standard;
   background: $light-900;
-  border-radius: $radius-medium;
+  border-radius: $radius-large;
   padding: 0;
   z-index: 1;
   border: none;
@@ -2310,4 +2332,8 @@ textarea {
     filter: blur(2px);
     transform: translateX(100vw);
   }
+}
+
+.sidebarWrapper {
+  transition: $transition-standard;
 }

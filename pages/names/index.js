@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Container, Modal } from "react-bootstrap";
@@ -6,12 +6,13 @@ import fire from "/config/fire-config";
 import { useRouter } from "next/router";
 
 import styles from "./index.module.scss";
+import namesStyles from "./names.module.scss";
 import Icon from "/components/icon/Icon";
 import ICONS from "/components/icon/IconPaths";
 import Footer from "/components/footer/Footer";
 import PostCard from "/components/blog/PostCard";
 // import NAMES from "./namesWithIds";
-import names from "./namesWithIds.json";
+import names from "./iliad/namesWithIds.json";
 import { UserContext } from "pages/_app";
 // import malePreviewIds from "./malePreviewIds";
 // import femalePreviewIds from "./femalePreviewIds";
@@ -23,6 +24,7 @@ import IllustrationIliad from "components/index/IllustrationIliad";
 import { handlePurchase } from "../../lib/handle-purchase";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
+import MenuSidebar from "components/header/MenuSidebar";
 
 const Names = () => {
 	const router = useRouter();
@@ -65,6 +67,8 @@ const Names = () => {
 	const [linkCooldown, setLinkCooldown] = useState(null);
 	const [signingIn, setSigningIn] = useState(false);
 	const [showUpgradeSuccessModal, setShowUpgradeSuccessModal] = useState(false);
+	const [showMenu, setShowMenu] = useState(false);
+	const sidebarRef = useRef(null);
 
 	// const [shortlist, setShortlist] = useState([])
 	// const [rejected, setRejected] = useState([])
@@ -81,9 +85,23 @@ const Names = () => {
 	//   "allegience":[null]
 	// });
 
-	const handleResize = () => {
-		setScreenWidth(window.innerWidth);
-	};
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+				setShowMenu(false);
+			}
+		};
+
+		// Add event listener when menu is shown
+		if (showMenu) {
+			document.addEventListener("mousedown", handleClickOutside);
+		}
+
+		// Cleanup listener
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [showMenu]);
 
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
@@ -619,14 +637,14 @@ const Names = () => {
 	) => {
 		console.log("getRandomDocumentLoggedOut");
 		// const currentGender = genderOverride || gender;
-    const genderQuery = router.query.gender
-		let currentGender
+		const genderQuery = router.query.gender;
+		let currentGender;
 
-    if (genderQuery === "male" || genderQuery === "female") {
-      currentGender = genderQuery;
-    } else {
-      currentGender = "male";
-    }
+		if (genderQuery === "male" || genderQuery === "female") {
+			currentGender = genderQuery;
+		} else {
+			currentGender = "male";
+		}
 
 		setRetreivingName(true);
 
@@ -640,63 +658,71 @@ const Names = () => {
 					.then((doc) => {
 						if (doc.exists) {
 							setUserContext(doc.data());
-              setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
+							setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
 							setRejected(doc.data().rejected ? doc.data().rejected : []);
-              let newShortlist = doc.data().shortlist ? doc.data().shortlist : []
-              let newRejected = doc.data().rejected ? doc.data().rejected : []
-              // console.log('shortlist as this point', newShortlist)
-              // console.log('rejected as this point', newRejected)
-              // console.log("getRandomDocument5");
-              let usedNames = newShortlist.concat(newRejected);
-              // console.log("usedNames", usedNames);
+							let newShortlist = doc.data().shortlist
+								? doc.data().shortlist
+								: [];
+							let newRejected = doc.data().rejected ? doc.data().rejected : [];
+							// console.log('shortlist as this point', newShortlist)
+							// console.log('rejected as this point', newRejected)
+							// console.log("getRandomDocument5");
+							let usedNames = newShortlist.concat(newRejected);
+							// console.log("usedNames", usedNames);
 
-              // Get random preview name based on used names
-              const randomName = getRandomPreviewName(currentGender, usedNames);
+							// Get random preview name based on used names
+							const randomName = getRandomPreviewName(currentGender, usedNames);
 
-              if (!randomName) {
-                // No more names available
-                setRetreivingName(false);
-                setNeedUpgrade(true);
-                return;
-              }
+							if (!randomName) {
+								// No more names available
+								setRetreivingName(false);
+								setNeedUpgrade(true);
+								return;
+							}
 
-              setFirstFetch(false);
-              setSlideDirection("center");
+							setFirstFetch(false);
+							setSlideDirection("center");
 
-              // Set the retrieved name and update state
-              setRetreivedName(randomName);
-              setLastRandomDocumentId(randomName.id);
-              localStorage.setItem("lastRandomDocumentId", JSON.stringify(randomName.id));
-              setRetreivingName(false);
+							// Set the retrieved name and update state
+							setRetreivedName(randomName);
+							setLastRandomDocumentId(randomName.id);
+							localStorage.setItem(
+								"lastRandomDocumentId",
+								JSON.stringify(randomName.id)
+							);
+							setRetreivingName(false);
 						} else {
 							console.log("No such document!");
-              let newShortlist = []
-              let newRejected = []
-              console.log('shortlist as this point', newShortlist)
-              console.log('rejected as this point', newRejected)
-              console.log("getRandomDocument6");
-              let usedNames;
-              usedNames = newShortlist.concat(newRejected);
-              // Get random preview name based on used names
-              const randomName = getRandomPreviewName(currentGender, usedNames);
+							let newShortlist = [];
+							let newRejected = [];
+							console.log("shortlist as this point", newShortlist);
+							console.log("rejected as this point", newRejected);
+							console.log("getRandomDocument6");
+							let usedNames;
+							usedNames = newShortlist.concat(newRejected);
+							// Get random preview name based on used names
+							const randomName = getRandomPreviewName(currentGender, usedNames);
 
-              if (!randomName) {
-                // No more names available
-                setRetreivingName(false);
-                setNeedUpgrade(true);
-                return;
-              }
+							if (!randomName) {
+								// No more names available
+								setRetreivingName(false);
+								setNeedUpgrade(true);
+								return;
+							}
 
-              setFirstFetch(false);
-              setSlideDirection("center");
+							setFirstFetch(false);
+							setSlideDirection("center");
 
-              // Set the retrieved name and update state
-              setRetreivedName(randomName);
-              setLastRandomDocumentId(randomName.id);
-              localStorage.setItem("lastRandomDocumentId", JSON.stringify(randomName.id));
-              setRetreivingName(false);
+							// Set the retrieved name and update state
+							setRetreivedName(randomName);
+							setLastRandomDocumentId(randomName.id);
+							localStorage.setItem(
+								"lastRandomDocumentId",
+								JSON.stringify(randomName.id)
+							);
+							setRetreivingName(false);
 						}
-					})
+					});
 			} else {
 				console.log("this one");
 				let tempShortlist =
@@ -709,23 +735,26 @@ const Names = () => {
 						: [];
 				let usedNames = tempShortlist.concat(tempRejected);
 				// Get random preview name based on used names
-        const randomName = getRandomPreviewName(currentGender, usedNames);
+				const randomName = getRandomPreviewName(currentGender, usedNames);
 
-        if (!randomName) {
-          // No more names available
-          setRetreivingName(false);
-          setNeedUpgrade(true);
-          return;
-        }
+				if (!randomName) {
+					// No more names available
+					setRetreivingName(false);
+					setNeedUpgrade(true);
+					return;
+				}
 
-        setFirstFetch(false);
-        setSlideDirection("center");
+				setFirstFetch(false);
+				setSlideDirection("center");
 
-        // Set the retrieved name and update state
-        setRetreivedName(randomName);
-        setLastRandomDocumentId(randomName.id);
-        localStorage.setItem("lastRandomDocumentId", JSON.stringify(randomName.id));
-        setRetreivingName(false);
+				// Set the retrieved name and update state
+				setRetreivedName(randomName);
+				setLastRandomDocumentId(randomName.id);
+				localStorage.setItem(
+					"lastRandomDocumentId",
+					JSON.stringify(randomName.id)
+				);
+				setRetreivingName(false);
 			}
 		});
 	};
@@ -744,7 +773,7 @@ const Names = () => {
 
 			// fire.firestore().collection('names').doc(lastRandomDocumentId).get()
 
-			let results = names.names.find(
+			let results = names.find(
 				(name) => name.id === passedLastRandomDocumentId
 			);
 			setRetreivedName(results);
@@ -760,9 +789,9 @@ const Names = () => {
 			}
 			let results;
 			if (gender == "male") {
-				results = names.names.filter((name) => name.gender !== "female");
+				results = names.filter((name) => name.gender !== "female");
 			} else {
-				results = names.names.filter((name) => name.gender !== "male");
+				results = names.filter((name) => name.gender !== "male");
 			}
 			let filteredResults = results.filter(
 				(name) => !avoidNames.includes(name.id)
@@ -806,14 +835,14 @@ const Names = () => {
 		// newRejected.filter(previousDocumentId);
 		setRejected(newRejected);
 
-    const genderQuery = router.query.gender
-		let currentGender
+		const genderQuery = router.query.gender;
+		let currentGender;
 
-    if (genderQuery === "male" || genderQuery === "female") {
-      currentGender = genderQuery;
-    } else {
-      currentGender = "male";
-    }
+		if (genderQuery === "male" || genderQuery === "female") {
+			currentGender = genderQuery;
+		} else {
+			currentGender = "male";
+		}
 
 		if (loggedIn) {
 			// push new shortlist and rejected to firestore
@@ -833,9 +862,7 @@ const Names = () => {
 					// setSending(false)
 					setActionTaken(false);
 					setTimeout(() => {
-						let results = names.names.find(
-							(name) => name.id === previousDocumentId
-						);
+						let results = names.find((name) => name.id === previousDocumentId);
 						setRetreivedName(results);
 						// getRandomDocumentLoggedIn(previousDocumentId);
 						setLastRandomDocumentId(previousDocumentId);
@@ -851,13 +878,11 @@ const Names = () => {
 			// setSending(false)
 			setActionTaken(false);
 			setTimeout(() => {
-        let results = names.names.find(
-          (name) => name.id === previousDocumentId
-        );
-        setRetreivedName(results);
-        // getRandomDocumentLoggedIn(previousDocumentId);
-        setLastRandomDocumentId(previousDocumentId);
-        setPreviousDocumentId(null);
+				let results = names.find((name) => name.id === previousDocumentId);
+				setRetreivedName(results);
+				// getRandomDocumentLoggedIn(previousDocumentId);
+				setLastRandomDocumentId(previousDocumentId);
+				setPreviousDocumentId(null);
 			}, 400);
 		}
 	};
@@ -1262,22 +1287,36 @@ const Names = () => {
 
 	const getRandomPreviewName = (currentGender, usedNames) => {
 		// Get the appropriate preview IDs array based on gender
-		const previewIds = currentGender === "male" ? malePreviewIds.names : femalePreviewIds.names;
-		
+		const previewIds =
+			currentGender === "male" ? malePreviewIds.names : femalePreviewIds.names;
+
 		// Filter out already used names
-		const availableIds = previewIds.filter(id => !usedNames.includes(id));
-		
+		const availableIds = previewIds.filter((id) => !usedNames.includes(id));
+
 		// If no available names, return null
 		if (availableIds.length === 0) {
 			return null;
 		}
-		
+
 		// Get random ID from available names
 		const randomIndex = Math.floor(Math.random() * availableIds.length);
 		const nameId = availableIds[randomIndex];
-		
+
 		// Find and return the full name object
-		return names.names.find(name => name.id === nameId && name.gender === currentGender);
+		return names.find(
+			(name) => name.id === nameId && name.gender === currentGender
+		);
+	};
+
+	const handleResize = () => {
+		setScreenWidth(window.innerWidth);
+		if (window.innerWidth > 767 && showMenu) {
+			setShowMenu(false);
+		}
+	};
+
+	const handleShowMenu = () => {
+		setShowMenu(true);
 	};
 
 	return (
@@ -1304,215 +1343,262 @@ const Names = () => {
 				<meta property="og:type" content="website" />
 				{/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}
 			</Head>
-			<div
-				className={`${
-					!loggedIn && shortlist.length + rejected.length >= 5
-						? null
-						: "position-fixed"
-				} w-100`}
-				style={{ zIndex: 1 }}
-			>
+
+			<div className={screenWidth > 767 && `w-100 d-flex flex-row`}>
+				{/* {screenWidth > 767 ? (
+					<MenuSidebar />
+				) : ( */}
 				<div
-					className="d-flex flex-row align-items-center justify-content-center p-2 px-md-3 w-100"
-					style={{ height: "64px" }}
+					ref={sidebarRef}
+					style={
+						showMenu
+							? { position: "fixed", right: 0, zIndex: 2 }
+							: { position: "fixed", right: -240, zIndex: 2 }
+					}
+					className={`${namesStyles.sidebarWrapper} ${showMenu && `shadow-5`}`}
 				>
-					{/* <div
+					<MenuSidebar smallScreen />
+				</div>
+				{/* )} */}
+				<div className="position-relative w-100">
+					{!likedName && (
+						<div
+							className={`${
+								product !== "prod_R9UsZtF60a9OSG" && needUpgrade
+									? "position-absolute d-none"
+									: "position-absolute"
+							} w-100`}
+							style={{ zIndex: 1, top: 0, left: 0 }}
+						>
+							<div
+								className="d-flex flex-row align-items-center justify-content-center p-2 px-md-3 w-100"
+								style={{ height: "64px" }}
+							>
+								{/* <div
             className="position-absolute d-flex flex-row"
             style={{ left: "24px" }}
-          >
-            Used names{" "}
-            <div className="tag dark medium small ml-2">
-              {shortlist.length + rejected.length}
-            </div>
-          </div> */}
+            >
+              Used names{" "}
+              <div className="tag dark medium small ml-2">
+                {shortlist.length + rejected.length}
+              </div>
+            </div> */}
 
-					<div
-						className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
-						style={{ left: "0px" }}
-					>
-						{actionTaken &&
-							(screenWidth > 767 ? (
-								<button
-									onClick={() => undoLastAction()}
-									className="btn dark ultraLow small icon-left text-only"
+								<div
+									className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
+									style={{ left: "0px" }}
 								>
-									<svg viewBox="0 0 24 24">
-										<path d={ICONS.UNDO}></path>
-									</svg>
-									Undo
-								</button>
-							) : (
-								<button
-									onClick={() => undoLastAction()}
-									className="btn dark ultraLow small icon-only text-only"
-								>
-									<svg viewBox="0 0 24 24">
-										<path d={ICONS.UNDO}></path>
-									</svg>
-								</button>
-							))}
-					</div>
+									{
+										actionTaken && (
+											<button
+												onClick={() => undoLastAction()}
+												className="btn primary ultraLow x-small outlined text-only"
+											>
+												Undo
+											</button>
+										)
+										// (screenWidth > 767 ? (
+										// 	<button
+										// 		onClick={() => undoLastAction()}
+										// 		className="btn primary ultraLow x-small outlined icon-left"
+										// 	>
+										// 		<svg viewBox="0 0 24 24">
+										// 			<path d={ICONS.UNDO}></path>
+										// 		</svg>
+										// 		Undo
+										// 	</button>
+										// ) : (
+										// 	<button
+										// 		onClick={() => undoLastAction()}
+										// 		className="btn primary ultraLow x-small outlined icon-only"
+										// 	>
+										// 		<svg viewBox="0 0 24 24">
+										// 			<path d={ICONS.UNDO}></path>
+										// 		</svg>
+										// 	</button>
+										// ))
+									}
+								</div>
 
-					{!likedName &&
-						(product !== "prod_R9UsZtF60a9OSG" &&
-						  // shortlist.length + rejected.length >= 5 ? null : (
-              needUpgrade ? null : (
-                <button
-								onClick={() => changeGender(gender)}
-								className={`${styles.genderSwitchWrapper}`}
-								style={{
-									padding: "12px",
-									gap: "24px",
-									width: "92px",
-									height: "48px",
-								}}
-							>
+								{!likedName &&
+									(product !== "prod_R9UsZtF60a9OSG" &&
+									// shortlist.length + rejected.length >= 5 ? null : (
+									needUpgrade ? null : (
+										<button
+											onClick={() => changeGender(gender)}
+											className={`${styles.genderSwitchWrapper}`}
+											style={{
+												padding: "12px",
+												gap: "19px",
+												width: "82px",
+												height: "44px",
+											}}
+										>
+											<div
+												className={`${styles.genderSwitchStyles} ${
+													gender == "male"
+														? styles.genderSwitchStylesMale
+														: styles.genderSwitchStylesFemale
+												} position-absolute bg-light-900 radius-5`}
+												style={{ top: "2px", height: "40px", width: "40px" }}
+											></div>
+											<svg
+												className={`${styles.genderSwitchMaleIcon} ${
+													gender == "male" && styles.active
+												}`}
+												style={{ zIndex: "1" }}
+												width="20"
+												viewBox="0 0 24 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													fillRule="evenodd"
+													clipRule="evenodd"
+													d={ICONS.MALE}
+												/>
+											</svg>
+											<svg
+												className={`${styles.genderSwitchFemaleIcon} ${
+													gender == "female" && styles.active
+												}`}
+												style={{ zIndex: "1" }}
+												width="20"
+												viewBox="0 0 24 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													fillRule="evenodd"
+													clipRule="evenodd"
+													d={ICONS.FEMALE}
+												/>
+											</svg>
+										</button>
+									))}
 								<div
-									className={`${styles.genderSwitchStyles} ${
-										gender == "male"
-											? styles.genderSwitchStylesMale
-											: styles.genderSwitchStylesFemale
-									} position-absolute bg-light-900 radius-5`}
-									style={{ top: "2px", height: "44px", width: "44px" }}
-								></div>
-								<svg
-									className={`${styles.genderSwitchMaleIcon} ${
-										gender == "male" && styles.active
-									}`}
-									style={{ zIndex: "1" }}
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
+									className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
+									style={{ right: "0px" }}
 								>
-									<path fillRule="evenodd" clipRule="evenodd" d={ICONS.MALE} />
-								</svg>
-								<svg
-									className={`${styles.genderSwitchFemaleIcon} ${
-										gender == "female" && styles.active
-									}`}
-									style={{ zIndex: "1" }}
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fillRule="evenodd"
-										clipRule="evenodd"
-										d={ICONS.FEMALE}
-									/>
-								</svg>
-							</button>
-						))}
-					<div
-						className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
-						style={{ right: "0px" }}
-					>
-						{screenWidth > 767 && (
-							<Link
-								href="/shortlist"
-								className="btn primary low small text-only"
-							>
-								Shortlist{" "}
-								<div className="tag dark medium small ml-2">
-									{shortlist.length}
-								</div>
-							</Link>
-						)}
-						<Menu />
-					</div>
-				</div>
-			</div>
-			<div>
-				{needUpgrade &&
-				product !== "prod_R9UsZtF60a9OSG" &&
-				shortlist.length + rejected.length >= 5 ? (
-					<div
-						className="d-flex flex-column align-items-center px-4 py-5 my-5"
-						// style={{ minHeight: "100vh" }}
-					>
-						<div className="tag dark medium mr-3 mb-3">
-							You're out of free names
-						</div>
-						<h2
-							className="text-center mx-auto mb-5"
-							style={{ maxWidth: "720px" }}
-						>
-							Upgrade to continue exploring over 750 epic names
-						</h2>
-						<div
-							className="d-flex flex-column flex-md-row gap-3"
-							style={{ maxWidth: "800px" }}
-						>
-							<div
-								className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
-								// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
-							>
-								<div
-									className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
-								>
-									<img
-										style={{ width: "120px" }}
-										src="/images/book-patterns/iliad-square.svg"
-									/>
-								</div>
-								<div className="d-flex flex-column align-items-center gap-4">
-									<div className="d-flex flex-column align-items-center text-center">
-										<h3 className="mb-3">Iliad</h3>
-										<p>
-											Over 500 names from Homer's epic poem <i>The Iliad</i>, featuring mortal belligerents of
-											all factions of the Trojan war, and the Gods that quarrelled over them.
-										</p>
-									</div>
-									<button
-										onClick={handlePurchaseClick}
-										className="btn dark high"
+									{/* {screenWidth > 767 && (
+									<Link
+										href="/shortlist"
+										className="btn primary low small text-only"
 									>
-                    Unlock—$9
+										Shortlist{" "}
+										<div className="tag dark medium small ml-2">
+											{shortlist.length}
+										</div>
+									</Link>
+								)} */}
+									{/* { screenWidth < 768 && */}
+									<button
+										className="btn primary medium outlined x-small icon-only"
+										onClick={() => handleShowMenu()}
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.MENU}></path>
+										</svg>
 									</button>
-								</div>
-							</div>
-							<div
-								className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
-								// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
-							>
-								<div
-									className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationOdyssey} shine p-2 radius-5`}
-								>
-									<img
-										style={{ width: "120px" }}
-										src="/images/book-patterns/odyssey-round.svg"
-									/>
-								</div>
-								<div className="d-flex flex-column align-items-center justify-content-between h-100 gap-4">
-									<div className="d-flex flex-column align-items-center text-center">
-										<h3 className="mb-3">Odyssey</h3>
-										<p>
-                      More ancient greek names from <i>The Odyssey</i>; which chronicles the ten-year journey of Odysseus, king of Ithaka, back to his home after the fall of Troy.
-										</p>
-									</div>
-									<button className="btn dark high" disabled>
-										Coming soon
-									</button>
+									{/* } */}
+									{/* <Menu /> */}
 								</div>
 							</div>
 						</div>
-
-						{/* <p className="large mx-auto mb-5">No names remaining</p> */}
-					</div>
-				) : (
-					<div
-						className="overflow-hidden d-flex flex-column align-items-center justify-content-center px-4"
-						style={{ minHeight: "100vh" }}
-					>
-						{/* {!retreivingName && retreivedName !== null ? ( */}
-						{!retreivingName ? (
+					)}
+					<div>
+						{needUpgrade &&
+						product !== "prod_R9UsZtF60a9OSG" &&
+						shortlist.length + rejected.length >= 5 ? (
 							<div
-								className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
-								style={{ maxWidth: "560px" }}
+								className="d-flex flex-column align-items-center px-4 py-5 my-5"
+								// style={{ minHeight: "100vh" }}
 							>
-								{/* {retreivedName?.allegiance[0] != null && (
+								<div className="tag dark medium mr-3 mb-3">
+									You're out of free names
+								</div>
+								<h2
+									className="text-center mx-auto mb-5"
+									style={{ maxWidth: "720px" }}
+								>
+									Upgrade to continue exploring over 750 epic names
+								</h2>
+								<div
+									className="d-flex flex-column flex-lg-row gap-3"
+									style={{ maxWidth: "800px" }}
+								>
+									<div
+										className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
+										// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
+									>
+										<div
+											className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
+										>
+											<img
+												style={{ width: "120px" }}
+												src="/images/book-patterns/iliad-square.svg"
+											/>
+										</div>
+										<div className="d-flex flex-column align-items-center gap-4">
+											<div className="d-flex flex-column align-items-center text-center">
+												<h3 className="mb-3">Iliad</h3>
+												<p>
+													Over 500 names from Homer's epic poem <i>The Iliad</i>
+													, featuring mortal belligerents of all factions of the
+													Trojan war, and the Gods that quarrelled over them.
+												</p>
+											</div>
+											<button
+												onClick={handlePurchaseClick}
+												className="btn dark high"
+											>
+												Unlock—$9
+											</button>
+										</div>
+									</div>
+									<div
+										className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
+										// className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
+									>
+										<div
+											className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationOdyssey} shine p-2 radius-5`}
+										>
+											<img
+												style={{ width: "120px" }}
+												src="/images/book-patterns/odyssey-round.svg"
+											/>
+										</div>
+										<div className="d-flex flex-column align-items-center justify-content-between h-100 gap-4">
+											<div className="d-flex flex-column align-items-center text-center">
+												<h3 className="mb-3">Odyssey</h3>
+												<p>
+													More ancient greek names from <i>The Odyssey</i>;
+													which chronicles the ten-year journey of Odysseus,
+													king of Ithaka, back to his home after the fall of
+													Troy.
+												</p>
+											</div>
+											<button className="btn dark high" disabled>
+												Coming soon
+											</button>
+										</div>
+									</div>
+								</div>
+
+								{/* <p className="large mx-auto mb-5">No names remaining</p> */}
+							</div>
+						) : (
+							<div
+								className="overflow-hidden d-flex flex-column align-items-center justify-content-center px-4"
+								style={{ minHeight: "100vh" }}
+							>
+								{/* {!retreivingName && retreivedName !== null ? ( */}
+								{!retreivingName ? (
+									<div
+										className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
+										style={{ maxWidth: "560px" }}
+									>
+										{/* {retreivedName?.allegiance[0] != null && (
 									<div className="d-flex b-4 gap-3 mb-3">
 										{retreivedName?.allegiance?.map((allegiance, index) => {
 											return (
@@ -1530,75 +1616,77 @@ const Names = () => {
 										})}
 									</div>
 								)} */}
-								<h1
-									className={`mx-auto ${
-										!likedName ? "text-dark-high" : "text-light-high"
-									}`}
-									style={{ maxWidth: "720px" }}
-								>
-									{retreivedName?.name}
-								</h1>
-								<div className="mb-4">
-									{retreivedName?.description?.map((description, index) => {
-										return (
-											<p
-												key={index}
-												className={`large ${
-													!likedName ? "text-dark-low" : "text-light-low"
-												}`}
-											>
-												{description.content}
-											</p>
-										);
-									})}
-								</div>
-								<div className="d-flex mx-auto justify-content-center">
-									{/* { !loggedIn &&
+										<h1
+											className={`mx-auto ${
+												!likedName ? "text-dark-high" : "text-light-high"
+											}`}
+											style={{ maxWidth: "720px" }}
+										>
+											{retreivedName?.name}
+										</h1>
+										<div className="mb-4">
+											{retreivedName?.description?.map((description, index) => {
+												return (
+													<p
+														key={index}
+														className={`large ${
+															!likedName ? "text-dark-low" : "text-light-low"
+														}`}
+													>
+														{description.content}
+													</p>
+												);
+											})}
+										</div>
+										<div className="d-flex mx-auto justify-content-center">
+											{/* { !loggedIn &&
                   <p className="large mx-auto mb-5">{`${5 - (shortlist.length + rejected.length)} ${5 - (shortlist.length + rejected.length) == 1 ? `name` : `names`} remaining`}</p>
                 } */}
-									{/* <Link href="/users/register" className="btn primary high large mx-auto">Get started</Link> */}
-									{/* <button onClick={() => addNames()} disabled={sending} className="btn primary high large mx-auto">Add some names</button> */}
+											{/* <Link href="/users/register" className="btn primary high large mx-auto">Get started</Link> */}
+											{/* <button onClick={() => addNames()} disabled={sending} className="btn primary high large mx-auto">Add some names</button> */}
+										</div>
+									</div>
+								) : (
+									<div className="ldsRippleLarge">
+										<div></div>
+										<div></div>
+									</div>
+									// <p className="large mx-auto mb-5">Loading</p>
+								)}
+								{/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
+								<div
+									className="position-fixed d-flex flex-row gap-3"
+									style={{ bottom: "0px", padding: "48px" }}
+								>
+									<button
+										onClick={() => addToRejected()}
+										className="btn light large high icon-only"
+										disabled={retreivingName || likedName}
+									>
+										<svg viewBox="0 0 24 24">
+											<path d={ICONS.CLOSE}></path>
+										</svg>
+									</button>
+									<button
+										onClick={() => addToShortlist()}
+										className={`btn large high icon-only ${
+											styles.shortlistButton
+										} ${
+											!likedName ? "dark" : `${styles.shortlistButtonHighlight}`
+										} `}
+										disabled={retreivingName || likedName}
+									>
+										<svg viewBox="0 0 24 24">
+											<path
+												d={!likedName ? ICONS.HEART_FILLED : ICONS.HEART_FILLED}
+											></path>
+										</svg>
+									</button>
 								</div>
 							</div>
-						) : (
-							<div className="ldsRippleLarge">
-								<div></div>
-								<div></div>
-							</div>
-							// <p className="large mx-auto mb-5">Loading</p>
 						)}
-						{/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
-						<div
-							className="position-fixed d-flex flex-row gap-3"
-							style={{ bottom: "0px", padding: "48px" }}
-						>
-							<button
-								onClick={() => addToRejected()}
-								className="btn light large high icon-only"
-								disabled={retreivingName || likedName}
-							>
-								<svg viewBox="0 0 24 24">
-									<path d={ICONS.CLOSE}></path>
-								</svg>
-							</button>
-							<button
-								onClick={() => addToShortlist()}
-								className={`btn large high icon-only ${
-									styles.shortlistButton
-								} ${
-									!likedName ? "dark" : `${styles.shortlistButtonHighlight}`
-								} `}
-								disabled={retreivingName || likedName}
-							>
-								<svg viewBox="0 0 24 24">
-									<path
-										d={!likedName ? ICONS.HEART_FILLED : ICONS.HEART_FILLED}
-									></path>
-								</svg>
-							</button>
-						</div>
 					</div>
-				)}
+				</div>
 			</div>
 			<Modal
 				show={showUpgradeModal}
@@ -2094,24 +2182,20 @@ const Names = () => {
 							<div
 								className={`w-100 d-flex flex-column align-items-center justify-content-between gap-4 pt-3`}
 							>
-							<div className="ldsRippleLarge">
-								<div></div>
-								<div></div>
-							</div>
+								<div className="ldsRippleLarge">
+									<div></div>
+									<div></div>
+								</div>
 								<div className="d-flex flex-column align-items-center text-center">
 									{/* <div className="tag dark medium mt-4 mb-4">
                     Name pack unlocked
                   </div> */}
-									<h3
-										className="mb-3"
-										style={{ maxWidth: "320px" }}
-									>
+									<h3 className="mb-3" style={{ maxWidth: "320px" }}>
 										Launching checkout
 									</h3>
-									<p
-										style={{ maxWidth: "320px" }}
-									>
-										You're being redirected to a Stripe checkout to securely complete your purchase.
+									<p style={{ maxWidth: "320px" }}>
+										You're being redirected to a Stripe checkout to securely
+										complete your purchase.
 									</p>
 								</div>
 							</div>

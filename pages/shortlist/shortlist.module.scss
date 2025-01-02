@@ -5,17 +5,17 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(1, 1fr);
-  @media (min-width: $breakpoint-md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  // @media (min-width: $breakpoint-md) {
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
+  // @media (min-width: $breakpoint-lg) {
+  //   grid-template-columns: repeat(3, 1fr);
+  // }
 }
 
 .shortlistItem {
   background-color: $light-900;
-  min-height: 280px;
+  min-height: 240px;
   height: 100%;
   // box-shadow: $shadow-0;
   transition: $transition-standard;
@@ -29,8 +29,8 @@
     color: $dark-700
   }
   &:hover {
-    box-shadow: $shadow-5;
-    transform: scale(1.02);
+    // box-shadow: $shadow-5;
+    // transform: scale(1.02);
     h3 {
       color: $dark-900
     }

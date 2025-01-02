@@ -533,7 +533,7 @@ const Menu = ({
                             }
                           </Dropdown.Item> */}
                           {loggedIn &&
-                            <Dropdown.Item onClick={() => router.push('/settings/account')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
+                            <Dropdown.Item onClick={() => router.push('/settings')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                               {/* <Icon icon={ICONS.USER} size='24' className="fill-dark-900" /> */}
                               Account
                             </Dropdown.Item>

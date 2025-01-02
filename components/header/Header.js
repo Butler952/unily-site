@@ -39,6 +39,7 @@ const Header = ({
   const [windowUrl, setWindowUrl] = useState("")
   // const [profile, setProfile] = useState('')
   const [userData, setUserData] = useState('')
+  const [shortlist, setShortlist] = useState([])
   const [stage, setStage] = useState(userContext && userContext.stage && userContext.stage)
   const router = useRouter();
   const [redirectToStripe, setRedirectToStripe] = useState(false);
@@ -113,6 +114,7 @@ const Header = ({
   /* End old useEffect */
 
   const loggedInRoute = (user) => {
+    console.log('got here')
     setUserData(user)
     if (userContext !== '') {
       // setStage(userContext && userContext.stage && userContext.stage)
@@ -128,6 +130,7 @@ const Header = ({
         .then((doc) => {
           if (doc.exists) {
             setUserContext(doc.data())
+            setShortlist(doc.data().shortlist)
             //setProfile(doc.data().profile)
             //setStage(doc.data().stage)
             // if (doc.data().stage !== 'complete') {
@@ -564,27 +567,24 @@ const Header = ({
                         {/* </div> */}
                         {/* <hr className={`${dark && 'border-light-300'} m-0`} /> */}
                         <div className="p-2">
-                          <Dropdown.Item onClick={() => router.push('/settings/plan')} className={`dropdownItem ${dark && 'dropdownItemDark'} ${product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ? null : 'dropdownItemHighlight'}`}>
-                            <Icon icon={ICONS.STAR} size='24' />
-                            {product !== '' && product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM && status === 'active' ?
-                              'Manage plan'
-                                :
-                              'Upgrade to premium'
-                            }
+                          <Dropdown.Item onClick={() => router.push('/shortlist')} className={`dropdownItem ${dark && 'dropdownItemDark'} d-flex justify-content-between`}>
+                            <div className="d-flex flex-row align-items-center gap-3">
+                              {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                              Shortlist{" "}
+                            </div>
+                            <div className="tag dark medium small ml-2">{shortlist.length}</div>
                           </Dropdown.Item>
-                          <Dropdown.Item onClick={() => router.push('/settings/account')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            <Icon icon={ICONS.USER} size='24' className="fill-dark-900" />
+                          
+                          <Dropdown.Item onClick={() => router.push('/settings')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
                             Account
                           </Dropdown.Item>
                           <Dropdown.Item onClick={() => handleFeedbackShow()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            <Icon icon={ICONS.FEEDBACK} size='24' />
                             Submit feedback
                           </Dropdown.Item>
                         </div>
                         <hr className={`${dark && 'border-light-300'} m-0`} />
                         <div className="p-2">
                           <Dropdown.Item onClick={() => handleLogout()} className={`dropdownItem dropdownItemLow ${dark && 'dropdownItemDark'}`}>
-                            <Icon icon={ICONS.LOG_OUT} size='24' />
                             Sign out
                           </Dropdown.Item>
                         </div>
