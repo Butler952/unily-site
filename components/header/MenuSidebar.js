@@ -29,7 +29,7 @@ const MenuSidebar = ({
 	handleEditProfileClose,
 	handleEditProfileShow,
 	handleEditProfileChangeView,
-  smallScreen
+	smallScreen,
 }) => {
 	const { userContext, setUserContext } = useContext(UserContext);
 
@@ -349,70 +349,123 @@ const MenuSidebar = ({
 	return (
 		<div>
 			<>
-				<div className={`border-1 border-top-0 border-bottom-0 border-solid border-dark-300 ${!smallScreen && `border-left-0 border-right-1`} d-flex flex-column justify-content-between d-flex h-100 p-3 bg-background`} style={{width: '240px', minHeight: '100vh'}}>
-          <div className="d-flex flex-column" style={{gap: '32px'}}>
-            <Link href="/" className="w-lg-100 m-2">
-              <svg height="32" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path 
-                  className={`fill-dark-900`}
-                  fillRule="evenodd" 
-                  clipRule="evenodd" 
-                  d={ICONS.LOGO_ICON} 
-                />
-              </svg>
-            </Link>
-            {!windowUrl.startsWith('/names') && 
-              <Link href="/names" className={`btn dark ${windowUrl.startsWith('/names') ? 'low' : 'high'} x-small icon-left`}>
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.SEARCH}></path>
-                </svg>
-                Browse names
-              </Link>
-            }
-            <div className="d-flex flex-column">
-              <Link href="/shortlist" className={`btn dark ${windowUrl.startsWith('/shortlist') ? 'low' : 'ultraLow'} x-small icon-left`}>
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.SHORTLIST}></path>
-                </svg>
-                Shortlist
-              </Link>
-              <Link href="/store" className={`btn dark ${windowUrl.startsWith('/store') ? 'low' : 'ultraLow'} x-small icon-left`}>
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.STORE}></path>
-                </svg>
-                Store
-              </Link>
-              <Link href="/settings" className={`btn dark ${windowUrl.startsWith('/settings') ? 'low' : 'ultraLow'} x-small icon-left`}>
-                <svg viewBox="0 0 24 24">
-                  <path d={ICONS.SETTINGS}></path>
-                </svg>
-                Settings
-              </Link>
-            </div>
-          </div>
-          <div className="d-flex flex-column">
-            <button onClick={() => handleFeedbackShow()} className="btn dark ultraLow x-small icon-left">
-              <svg viewBox="0 0 24 24">
-                <path d={ICONS.FEEDBACK}></path>
-              </svg>
-              Send feedback
-            </button>
-            <Link href="users/register" className="btn dark ultraLow x-small icon-left">
-              <svg viewBox="0 0 24 24">
-                <path d={ICONS.CREATE_ACCOUNT}></path>
-              </svg>
-              Create account
-            </Link>
-            <Link href="users/login" className="btn dark ultraLow x-small icon-left">
-              <svg viewBox="0 0 24 24">
-                <path d={ICONS.SIGN_IN}></path>
-              </svg>
-              Sign in
-            </Link>
-            <p className="text-dark-dis caption m-3">Terms・Privacy・Cookies</p>
-          </div>
-          {/* <div className="d-flex flex-row justify-content-center align-items-center"> */}
-						{/* <Dropdown align="end">
+				<div
+					className={`border-1 border-top-0 border-bottom-0 border-solid border-dark-300 ${
+						!smallScreen && `border-left-0 border-right-1`
+					} d-flex flex-column justify-content-between d-flex h-100 p-3 bg-background`}
+					style={{ width: "240px", minHeight: "100vh" }}
+				>
+					<div className="d-flex flex-column" style={{ gap: "32px" }}>
+						<Link href="/" className="w-lg-100 m-2">
+							<svg
+								height="32"
+								viewBox="0 0 88 88"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									className={`fill-dark-900`}
+									fillRule="evenodd"
+									clipRule="evenodd"
+									d={ICONS.LOGO_ICON}
+								/>
+							</svg>
+						</Link>
+						{!windowUrl.startsWith("/names") && (
+							<Link
+								href="/names"
+								className={`btn dark ${
+									windowUrl.startsWith("/names") ? "low" : "high"
+								} x-small icon-left`}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.SEARCH}></path>
+								</svg>
+								Browse names
+							</Link>
+						)}
+						<div className="d-flex flex-column">
+							<Link
+								href="/shortlist"
+								className={`btn dark ${
+									windowUrl.startsWith("/shortlist") ? "low" : "ultraLow"
+								} x-small icon-left`}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.SHORTLIST}></path>
+								</svg>
+								Shortlist
+							</Link>
+							<Link
+								href="/store"
+								className={`btn dark ${
+									windowUrl.startsWith("/store") ? "low" : "ultraLow"
+								} x-small icon-left`}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.STORE}></path>
+								</svg>
+								Store
+							</Link>
+							<Link
+								href="/settings"
+								className={`btn dark ${
+									windowUrl.startsWith("/settings") ? "low" : "ultraLow"
+								} x-small icon-left`}
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.SETTINGS}></path>
+								</svg>
+								Settings
+							</Link>
+						</div>
+					</div>
+					<div className="d-flex flex-column">
+						<button
+							onClick={() => handleFeedbackShow()}
+							className="btn dark ultraLow x-small icon-left"
+						>
+							<svg viewBox="0 0 24 24">
+								<path d={ICONS.FEEDBACK}></path>
+							</svg>
+							Send feedback
+						</button>
+						{!loggedIn ? (
+							<>
+								<Link
+									href="users/register"
+									className="btn dark ultraLow x-small icon-left"
+								>
+									<svg viewBox="0 0 24 24">
+										<path d={ICONS.CREATE_ACCOUNT}></path>
+									</svg>
+									Create account
+								</Link>
+								<Link
+									href="users/login"
+									className="btn dark ultraLow x-small icon-left"
+								>
+									<svg viewBox="0 0 24 24">
+										<path d={ICONS.SIGN_IN}></path>
+									</svg>
+									Sign in
+								</Link>
+							</>
+						) : (
+							<button
+								onClick={() => handleLogout()}
+								className="btn dark ultraLow x-small icon-left"
+							>
+								<svg viewBox="0 0 24 24">
+									<path d={ICONS.LOG_OUT}></path>
+								</svg>
+								Sign out
+							</button>
+						)}
+						<p className="text-dark-dis caption m-3">Terms・Privacy・Cookies</p>
+					</div>
+					{/* <div className="d-flex flex-row justify-content-center align-items-center"> */}
+					{/* <Dropdown align="end">
               <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" className="text-decoration-none">
                 <>
                   <div className="d-flex flex-row align-items-center btn dark low small icon-only">

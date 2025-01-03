@@ -395,24 +395,26 @@ const Shortlist = () => {
 				{/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}
 			</Head>
 			<div className={screenWidth > 767 && `d-flex flex-row`}>
-        {screenWidth > 767 ? (
-          <div 
-            ref={sidebarRef} 
-            style={showMenu ? {position: 'fixed', right: 0, zIndex: 1} : {position: 'fixed', left: 0, zIndex: 1} } 
-          >
-            <MenuSidebar />
-          </div>
-        )
-        : 
-          <div 
-            ref={sidebarRef} 
-            style={showMenu ? {position: 'fixed', right: 0, zIndex: 1} : {position: 'fixed', right: -240, zIndex: 1} } 
-            className={`sidebarWrapper ${showMenu && `shadow-5`}`}
-          >
-            <MenuSidebar smallScreen />
-            
-          </div>
-        }
+      {screenWidth > 767 ? (
+					<div
+						ref={sidebarRef}
+						style={{ position: "fixed", left: 0, zIndex: 1 }}
+					>
+						<MenuSidebar />
+					</div>
+				) : (
+					<div
+						ref={sidebarRef}
+						style={
+							showMenu
+								? { position: "fixed", right: 0, zIndex: 1 }
+								: { position: "fixed", right: -240, zIndex: 1 }
+						}
+						className={`sidebarWrapper ${showMenu && `shadow-5`}`}
+					>
+						<MenuSidebar smallScreen />
+					</div>
+				)}
 				<div className="w-100" style={ screenWidth > 767 ? {marginLeft: '240px'} : {marginLeft: 0}}>
 					{/* <div className="d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100">
 						<Link

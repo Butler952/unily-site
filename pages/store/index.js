@@ -432,7 +432,7 @@ const Store = () => {
 										className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
 									>
 										<img
-											style={{ width: "120px" }}
+											style={{ width: "96px" }}
 											src="/images/book-patterns/iliad-square.svg"
 										/>
 									</div>
@@ -448,14 +448,14 @@ const Store = () => {
                     {!product == "prod_R9UsZtF60a9OSG" ? 
                       <button
                         onClick={handlePurchaseClick}
-                        className="btn dark high"
+                        className="btn dark small high"
                       >
                         Unlock—$9
                       </button>
                     : 
                       <button
                         onClick={handlePurchaseClick}
-                        className="btn high icon-left"
+                        className="btn high small icon-left"
                         disabled
                       >
                         <svg viewBox="0 0 24 24">
@@ -474,7 +474,7 @@ const Store = () => {
 										className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationOdyssey} shine p-2 radius-5`}
 									>
 										<img
-											style={{ width: "120px" }}
+											style={{ width: "96px" }}
 											src="/images/book-patterns/odyssey-round.svg"
 										/>
 									</div>
@@ -487,7 +487,7 @@ const Store = () => {
 												Ithaka, back to his home after the fall of Troy.
 											</p>
 										</div>
-										<button className="btn dark high" disabled>
+										<button className="btn dark small high" disabled>
 											Coming soon
 										</button>
 									</div>
