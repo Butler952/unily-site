@@ -395,6 +395,7 @@ const MenuSidebar = ({
 									<path d={ICONS.SHORTLIST}></path>
 								</svg>
 								Shortlist
+								<div className="tag dark medium small ml-2">{shortlist.length}</div>
 							</Link>
 							<Link
 								href="/store"
