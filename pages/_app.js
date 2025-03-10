@@ -5,13 +5,23 @@ import '../public/styles/global.scss';
 import LogRocket from 'logrocket';
 import Layout from '../components/Layout';
 import { Crisp } from "crisp-sdk-web";
+import { useRouter } from 'next/router';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export const UserContext = createContext("")
+
+// Keep track of component state between route changes
+const handleRouteChange = () => {
+  // You might want to show a loading indicator here if needed
+};
 
 export default function App({ Component, pageProps }) {
 
   const [userContext, setUserContext] = useState("");
   const userValue = { userContext, setUserContext };
+
+  const router = useRouter();
 
   // useEffect(() => {
   //   if (process.env.NODE_ENV === 'production') {
@@ -25,6 +35,18 @@ export default function App({ Component, pageProps }) {
   //   }
   // }, [])
 
+  useEffect(() => {
+    // Set up listeners for route changes
+    router.events.on('routeChangeStart', handleRouteChange);
+    
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router.events]);
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page);
+
   return (
     // <body>
       <UserContext.Provider value={userValue}>
@@ -33,8 +55,19 @@ export default function App({ Component, pageProps }) {
           <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
           <title>Vitaely | Turn your Linkedin profile into a website</title>
         </Head>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Layout>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </Layout>
       </UserContext.Provider>
     // </body>

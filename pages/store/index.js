@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import MenuSidebar from "components/header/MenuSidebar";
 import { motion, AnimatePresence } from "framer-motion";
+import SidebarLayout from "components/layout/SidebarLayout";
 
 const Store = () => {
 	const router = useRouter();
@@ -382,9 +383,6 @@ const Store = () => {
 				)}
 				<div
 					className="w-100"
-					style={
-						screenWidth > 767 ? { marginLeft: "240px" } : { marginLeft: 0 }
-					}
 				>
 					{/* <div className="d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100">
 						<Link
@@ -1019,6 +1017,15 @@ const Store = () => {
 				</div>
 			</Modal>
 		</div>
+	);
+};
+
+// Add this to make the layout persistent
+Store.getLayout = function getLayout(page) {
+	return (
+		<SidebarLayout>
+			{page}
+		</SidebarLayout>
 	);
 };
 

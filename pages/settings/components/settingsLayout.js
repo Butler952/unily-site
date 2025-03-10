@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import fire from '../../../config/fire-config';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
@@ -25,10 +25,11 @@ import CustomDomainSection from '../components/customDomainSection';
 import PrettyUrlSection from '../components/prettyUrlSection';
 import ChangeEmailSection from '../components/changeEmailSection';
 import CustomDomain from '../components/customDomain';
+import MenuSidebar from '../../../components/header/MenuSidebar';
 // import { redirect } from 'next/dist/next-server/server/api-utils';
 
 
-const SettingsLayout = ({children}) => {
+const SettingsLayout = ({children, showSidebar = true}) => {
   const router = useRouter();
 
   const handleResize = () => {
@@ -36,7 +37,7 @@ const SettingsLayout = ({children}) => {
   };
 
   const [screenWidth, setScreenWidth] = useState('');
-
+  const [showMenu, setShowMenu] = useState(false);
   const [pathName, setPathName] = useState('');
   const [tagline, setTagline] = useState('');
 
@@ -80,6 +81,9 @@ const SettingsLayout = ({children}) => {
   const [cancelAt, setCancelAt] = useState('');
   const [redirectToStripe, setRedirectToStripe] = useState(false);
 
+  // Add ref for the sidebar
+  const sidebarRef = useRef(null);
+
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
@@ -105,8 +109,28 @@ const SettingsLayout = ({children}) => {
     return () => {
       // Unmouting
       unsubscribe();
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Add click handler for outside clicks
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    // Add event listener when menu is shown
+    if (showMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showMenu]);
 
   const loggedInRoute = (user) => {
     var docRef = fire.firestore().collection('users').doc(user.uid)
@@ -427,110 +451,138 @@ const SettingsLayout = ({children}) => {
   return (
     <div>
       <Header />
-        <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
-          <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>
-            <Link href="/settings/plan" className={`btn dark small justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
-            <Link href="/settings/domain" className={`btn dark small justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
-            <Link href="/settings/account" className={`btn dark small justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
+      {showSidebar ? (
+        <div className={screenWidth > 767 && `d-flex flex-row`}>
+          {screenWidth > 767 ? (
+            <div
+              ref={sidebarRef}
+              style={{ position: "fixed", left: 0, zIndex: 1 }}
+            >
+              <MenuSidebar />
+            </div>
+          ) : (
+            <div
+              ref={sidebarRef}
+              style={
+                showMenu
+                  ? { position: "fixed", right: 0, zIndex: 1 }
+                  : { position: "fixed", right: -240, zIndex: 1 }
+              }
+              className={`sidebarWrapper ${showMenu && `shadow-5`}`}
+            >
+              <MenuSidebar smallScreen />
+            </div>
+          )}
+          <div className="w-100" style={screenWidth > 767 ? { marginLeft: '240px' } : { marginLeft: 0 }}>
+            {pathName && (
+              <div className={`${screenWidth > 767 && 'position-sticky'} rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 bg-light-900 border-bottom-1 border-solid border-0 border-dark-300`} style={{top: 0, left: 0, width: '100%', zIndex: 1}}>
+                <div className='d-flex flex-row gap-1 w-100' style={{maxWidth: '240px'}}>
+                  <Link href="/settings/plan" className={`btn dark small justify-content-start ${pathName === 'Plan' ? 'medium' : 'low'}`}>Plan</Link>
+                  <Link href="/settings/domain" className={`btn dark small justify-content-start ${pathName === 'Domain' ? 'medium' : 'low'}`}>Domain</Link>
+                  <Link href="/settings/account" className={`btn dark small justify-content-start ${pathName === 'Account' ? 'medium' : 'low'}`}>Account</Link>
+                </div>
+              </div>
+            )}
+            {children}
           </div>
         </div>
-      <div style={screenWidth > 767 ? {paddingTop: '48px', paddingBottom: '48px'} : {paddingTop: 0}}>
-        <div>
-        {/* <div style={{ marginTop: '66px' }}> */}
-          <Container className="py-5 d-flex flex-row" style={{maxWidth: '720px'}}>
-            <div className="w-100">
-              <div className="text-center pb-5">
-                <h2 className="mb-3">{pathName}</h2>
-                <p className="large text-dark-low">{tagline}</p>
-              </div>
-              
+      ) : (
+        <div style={screenWidth > 767 ? {paddingTop: '48px', paddingBottom: '48px'} : {paddingTop: 0}}>
+          <div>
+            <Container className="py-5 d-flex flex-row" style={{maxWidth: '720px'}}>
+              <div className="w-100">
+                <div className="text-center pb-5">
+                  <h2 className="mb-3">{pathName}</h2>
+                  <p className="large text-dark-low">{tagline}</p>
+                </div>
+                
+                {children}
 
-              {children}
-
-              {/* <div className="d-flex flex-column gap-5">
-                // { allUserData?.flags?.customDomain &&
-                  <CustomDomain
+                {/* <div className="d-flex flex-column gap-5">
+                  // { allUserData?.flags?.customDomain &&
+                    <CustomDomain
+                      userData={userData}
+                      allUserData={allUserData}
+                      loggedInRoute={loggedInRoute}
+                      gettingDomainInfo={gettingDomainInfo}
+                      setDomainInfo={setDomainInfo}
+                      setDomainStatus={setDomainStatus}
+                      setGettingDomainInfo={setGettingDomainInfo}
+                      sectionsLoading={sectionsLoading}
+                      product={product}
+                      active={active}
+                      status={status}
+                      handleUpgrade={handleUpgrade}
+                    />
+                  <PrettyUrlSection
                     userData={userData}
                     allUserData={allUserData}
-                    loggedInRoute={loggedInRoute}
-                    gettingDomainInfo={gettingDomainInfo}
-                    setDomainInfo={setDomainInfo}
-                    setDomainStatus={setDomainStatus}
-                    setGettingDomainInfo={setGettingDomainInfo}
-                    sectionsLoading={sectionsLoading}
                     product={product}
                     active={active}
                     status={status}
                     handleUpgrade={handleUpgrade}
                   />
-                <PrettyUrlSection
-                  userData={userData}
-                  allUserData={allUserData}
-                  product={product}
-                  active={active}
-                  status={status}
-                  handleUpgrade={handleUpgrade}
-                />
-                
-                <ChangeEmailSection
-                  userData={userData}
-                  allUserData={allUserData}
-                  product={product}
-                  active={active}
-                  status={status}
-                  handleUpgrade={handleUpgrade}
-                />
-              </div> */}
+                  
+                  <ChangeEmailSection
+                    userData={userData}
+                    allUserData={allUserData}
+                    product={product}
+                    active={active}
+                    status={status}
+                    handleUpgrade={handleUpgrade}
+                  />
+                </div> */}
 
+              </div>
+            </Container>
+            <br /><br />
+            <Modal
+              show={showModal}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+              <Modal.Header closeButton>
+                <h5 className="text-dark-high mb-0">Re-sync data</h5>
+              </Modal.Header>
+              <Modal.Body>
+                <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
+                <p>Re-syncing your data will overwrite any changes you have made in the <b>Sections</b> settings.</p>
+                <br />
+                <div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
+                  <button type="button" className="btn primary high w-100 w-md-auto mr-0 mr-md-3 mb-3 mb-md-0" onClick={handleClose}>Re-sync data from Linkedin</button>
+                  <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
+                </div>
+              </Modal.Body>
+            </Modal>
+            {redirectToStripe ? (
+              <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
+                <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                  <p>Redirecting to Stripe checkout</p>
+                </div>
+              </div>
+            )
+              : null}
+          </div>
+          <Container className="d-flex flex-column align-items-center">
+            <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-3">
+              <Link href="/" className="w-lg-100">
+                <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path 
+                    className="fill-dark-600"
+                    fillRule="evenodd" 
+                    clipRule="evenodd" 
+                    d={ICONS.LOGO_ICON} 
+                  />
+                </svg>
+              </Link>
+            </div>
+            <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
+              <p className="text-dark-dis mb-0">© Copyright Vitaely {new Date().getFullYear()}</p>
             </div>
           </Container>
-          <br /><br />
-          <Modal
-            show={showModal}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeButton>
-              <h5 className="text-dark-high mb-0">Re-sync data</h5>
-            </Modal.Header>
-            <Modal.Body>
-              <h5 className="text-dark-high">Are you sure you want to re-sync your data from LinkedIn?</h5>
-              <p>Re-syncing your data will overwrite any changes you have made in the <b>Sections</b> settings.</p>
-              <br />
-              <div className="d-flex align-items-center jusify-content-start flex-column flex-md-row">
-                <button type="button" className="btn primary high w-100 w-md-auto mr-0 mr-md-3 mb-3 mb-md-0" onClick={handleClose}>Re-sync data from Linkedin</button>
-                <button type="button" className="btn dark medium w-100 w-md-auto" onClick={handleClose}>Close</button>
-              </div>
-            </Modal.Body>
-          </Modal>
-          {redirectToStripe ? (
-            <div className="bg-light-900 position-fixed w-100 h-100" style={{ top: 0, left: 0, zIndex: 1100 }}>
-              <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                <p>Redirecting to Stripe checkout</p>
-              </div>
-            </div>
-          )
-            : null}
         </div>
-        <Container className="d-flex flex-column align-items-center">
-          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-3">
-            <Link href="/" className="w-lg-100">
-              <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path 
-                  className="fill-dark-600"
-                  fillRule="evenodd" 
-                  clipRule="evenodd" 
-                  d={ICONS.LOGO_ICON} 
-                />
-              </svg>
-            </Link>
-          </div>
-          <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between">
-            <p className="text-dark-dis mb-0">© Copyright Vitaely {new Date().getFullYear()}</p>
-          </div>
-        </Container>
-      </div>
+      )}
     </div>
   )
 }

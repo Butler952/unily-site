@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import MenuSidebar from "components/header/MenuSidebar";
 import { motion, AnimatePresence } from "framer-motion";
+import SidebarLayout from "components/layout/SidebarLayout";
 
 const Shortlist = () => {
 	const router = useRouter();
@@ -415,7 +416,7 @@ const Shortlist = () => {
 						<MenuSidebar smallScreen />
 					</div>
 				)}
-				<div className="w-100" style={ screenWidth > 767 ? {marginLeft: '240px'} : {marginLeft: 0}}>
+				<div className="w-100">
 					{/* <div className="d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100">
 						<Link
 							href="/names"
@@ -497,7 +498,7 @@ const Shortlist = () => {
                                   // navigator.share({
                                   // 	// files,
                                   // 	// title: "Images",
-                                  // 	text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
+                                  // 	text: `I might have found the perfect name for our baby: ${shareName}. Don't like it? Find more on epicbabynames.com`,
                                   // })
                                 }
                                 className="btn light medium icon-only"
@@ -874,7 +875,7 @@ const Shortlist = () => {
                                         );
                                       })}
                                     </div>
-                                    <p className="pt-5 mt-5 mb-0 text-dark-low">I might have found the perfect name for our baby! Don’t like it? Find more on <a href="/">{window.location.origin}</a></p>
+                                    <p className="pt-5 mt-5 mb-0 text-dark-low">I might have found the perfect name for our baby! Don't like it? Find more on <a href="/">{window.location.origin}</a></p>
                                   </div>
                                   <div className={`${styles.shareGrid} gap-2 px-4`}>
                                     <div className="d-flex flex-column align-items-center gap-2">
@@ -899,7 +900,7 @@ const Shortlist = () => {
                                           // files,
                                           // title: "Images",
                                           title: "I might have found the perfect name for our baby!",
-                                          text: `${name.name}. Don’t like it? Find more on ${window.location.origin}`
+                                          text: `${name.name}. Don't like it? Find more on ${window.location.origin}`
                                         })}
                                         className="btn light large medium icon-only"
                                       >
@@ -972,7 +973,7 @@ const Shortlist = () => {
                               </div>
                               <p className="pt-5 mt-5 mb-0 text-dark-low">
                                 I might have found the perfect name for our baby!
-                                Don’t like it? Find more on{" "}
+                                Don't like it? Find more on{" "}
                                 <a href="/">{window.location.origin}</a>
                               </p>
                             </div>
@@ -1132,7 +1133,7 @@ const Shortlist = () => {
 									})}
 								</div>
 								<p className="pt-5 mt-5 mb-0 text-dark-low">
-									I might have found the perfect name for our baby! Don’t like
+									I might have found the perfect name for our baby! Don't like
 									it? Find more on <a href="/">{windowLocationOrigin}</a>
 								</p>
 							</div>
@@ -1149,7 +1150,7 @@ const Shortlist = () => {
 												// navigator.share({
 												// 	// files,
 												// 	// title: "Images",
-												// 	text: `I might have found the perfect name for our baby: ${shareName}. Don’t like it? Find more on epicbabynames.com`,
+												// 	text: `I might have found the perfect name for our baby: ${shareName}. Don't like it? Find more on epicbabynames.com`,
 												// })
 											}
 											className="btn light medium icon-only"
@@ -1247,6 +1248,15 @@ const Shortlist = () => {
 				</Modal>
 			</div>
 		</div>
+	);
+};
+
+// Add this to make the layout persistent
+Shortlist.getLayout = function getLayout(page) {
+	return (
+		<SidebarLayout>
+			{page}
+		</SidebarLayout>
 	);
 };
 
