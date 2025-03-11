@@ -572,7 +572,7 @@ const Header = ({
                               {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
                               Shortlist{" "}
                             </div>
-                            <div className="tag dark medium small ml-2">{shortlist.length}</div>
+                            <div className="tag dark medium small ml-2">{shortlist && shortlist.length || 0}</div>
                           </Dropdown.Item>
                           
                           <Dropdown.Item onClick={() => router.push('/settings')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
