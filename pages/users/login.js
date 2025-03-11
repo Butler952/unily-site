@@ -220,7 +220,7 @@ const Login = () => {
 
 	return (
 		<div>
-			<Header />
+			<Header hideBackground />
 			<Head>
 				<title>Sign in to your account</title>
 			</Head>

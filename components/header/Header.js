@@ -18,6 +18,7 @@ const Header = ({
   hideShadow,
   topOfLanding,
   positionFixed,
+  hideBackground,
   showEditProfileModal, 
   setShowEditProfileModal,
   editProfileModalState, 
@@ -360,7 +361,7 @@ const Header = ({
             ${positionFixed && 'position-fixed'}
             ${dark ? ' border-light-300' : 'border-dark-300'}
             ${!hideShadow && dark ? 'bg-dark-800' : null}
-            ${!dark && 'bg-light-900'}
+            ${!dark && !hideBackground ? 'bg-light-900' : null}
 
           `} 
           style={

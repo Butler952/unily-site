@@ -384,7 +384,7 @@ const Register = () => {
 
 	return (
 		<div>
-			<Header />
+			<Header hideBackground />
 			<Head>
 				<title>Create an account</title>
 			</Head>
