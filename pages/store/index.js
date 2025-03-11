@@ -408,7 +408,7 @@ const Store = () => {
 									: { maxWidth: "560px" }
 							}
 						>
-							<div className="d-flex flex-row align-items-center justify-content-between mb-4">
+							<div className="d-flex flex-row align-items-center justify-content-between mb-5">
 								<h2 className="mb-0">Store</h2>
 								{screenWidth < 768 && (
 									<button

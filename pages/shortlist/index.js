@@ -401,7 +401,7 @@ const Shortlist = () => {
 					style={{ paddingTop: "48px", paddingBottom: "160px" }}
 				>
 					<div className="w-100" style={{ maxWidth: "560px" }}>
-						<div className="d-flex flex-row align-items-center justify-content-between mb-4">
+						<div className="d-flex flex-row align-items-center justify-content-between mb-5">
 							<div className="d-flex flex-row align-items-center gap-3">
 								<h2 className="mb-0">Shortlist</h2>
 								{!retreivingNames && shortlist?.length > 0 ? (

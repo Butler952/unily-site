@@ -8,6 +8,7 @@ import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "config/mixpanel-config";
 
 import ChangeEmailSection from "./components/changeEmailSection";
+import DeleteAccountSection from "./components/deleteAccountSection";
 import SidebarLayout from "components/layout/SidebarLayout";
 
 const Settings = () => {
@@ -34,7 +35,6 @@ const Settings = () => {
     };
   }, []);
 
-
   return (
     <div>
       <Head>
@@ -45,20 +45,24 @@ const Settings = () => {
         style={{ paddingTop: "48px", paddingBottom: "160px" }}
       >
         <div className="w-100" style={{ maxWidth: "560px" }}>
-          <div className="d-flex flex-row align-items-center justify-content-start mb-4">
+          <div className="d-flex flex-row align-items-center justify-content-start mb-5">
             <h2 className="mb-0">Settings</h2>
           </div>
-          <div>
-            <ul>
+          <div className="d-flex flex-column gap-5">
+            {/* <ul>
               <li>delete account</li>
               <li>edit login details/method</li>
-            </ul>
-            <div className="d-flex flex-column gap-5">
-              
+            </ul> */}
+            <div>
+              <h5>Sign in methods</h5>
               <ChangeEmailSection
                 userData={userData}
                 allUserData={allUserData}
               />
+            </div>
+            <div>
+              <h5>Danger zone</h5>
+              <DeleteAccountSection userData={userData} />
             </div>
           </div>
         </div>

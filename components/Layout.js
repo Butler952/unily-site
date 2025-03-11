@@ -25,7 +25,7 @@ const Layout = (props) => {
       {/* {windowUrl !== "/profile" ? <Header/> : null } */}
       {/* {windowUrl.includes("profile") | windowUrl.includes("settings") ? <div><br></br><br></br><br></br></> : null} */}
       {props.children}
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={true}
@@ -35,7 +35,7 @@ const Layout = (props) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-      />
+      /> */}
     </>
   )
 }
