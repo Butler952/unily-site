@@ -6,8 +6,6 @@ import LogRocket from 'logrocket';
 import Layout from '../components/Layout';
 import { Crisp } from "crisp-sdk-web";
 import { useRouter } from 'next/router';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 
 export const UserContext = createContext("")
 
@@ -55,17 +53,6 @@ export default function App({ Component, pageProps }) {
           <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
           <title>Vitaely | Turn your Linkedin profile into a website</title>
         </Head>
-        <ToastContainer
-          position="bottom-center"
-          autoClose={3000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
         <Layout>
           {getLayout(<Component {...pageProps} />)}
         </Layout>

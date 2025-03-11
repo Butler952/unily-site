@@ -10,12 +10,13 @@ import mixpanelConfig from "config/mixpanel-config";
 import ChangeEmailSection from "./components/changeEmailSection";
 import DeleteAccountSection from "./components/deleteAccountSection";
 import SidebarLayout from "components/layout/SidebarLayout";
+import Link from "next/link";
 
 const Settings = () => {
   const router = useRouter();
   const [userData, setUserData] = useState("");
   const [allUserData, setAllUserData] = useState("");
-
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
     mixpanel.track("Settings");
@@ -26,7 +27,8 @@ const Settings = () => {
       if (user) {
         setUserData(user);
       } else {
-        router.push("/users/login");
+        setLoggedIn(false);
+        // router.push("/users/login");
       }
     });
     return () => {
@@ -48,23 +50,46 @@ const Settings = () => {
           <div className="d-flex flex-row align-items-center justify-content-start mb-5">
             <h2 className="mb-0">Settings</h2>
           </div>
-          <div className="d-flex flex-column gap-5">
-            {/* <ul>
+          {loggedIn ? (
+            <div className="d-flex flex-column gap-5">
+              {/* <ul>
               <li>delete account</li>
               <li>edit login details/method</li>
             </ul> */}
-            <div>
-              <h5>Sign in methods</h5>
-              <ChangeEmailSection
-                userData={userData}
-                allUserData={allUserData}
-              />
+              <div>
+                <h5>Sign in methods</h5>
+                <ChangeEmailSection
+                  userData={userData}
+                  allUserData={allUserData}
+                />
+              </div>
+              <div>
+                <h5>Danger zone</h5>
+                <DeleteAccountSection userData={userData} />
+              </div>
             </div>
-            <div>
-              <h5>Danger zone</h5>
-              <DeleteAccountSection userData={userData} />
+          ) : (
+            <div
+              className={`d-flex flex-column align-items-start justify-content-between radius-4 p-4 bg-dark-100 gap-3`}
+            >
+              <div className="d-flex flex-row align-items-start justify-content-between">
+                <div>
+                  <h3 className="mb-3" style={{ maxWidth: "720px" }}>
+                    You'll need an account first...
+                  </h3>
+                  <p className="mb-0">
+                    You kind of need an account in order to edit your account settings. Head over to the signup page to create an account.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/users/register"
+                className="btn dark high x-small w-auto"
+              >
+                Create account
+              </Link>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

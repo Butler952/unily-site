@@ -1643,6 +1643,8 @@ const Names = () => {
                   // <p className="large mx-auto mb-5">Loading</p>
                 )}
                 {/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
+                
+                { !likedName && (
                 <div
                   className="position-fixed"
                   style={{ bottom: "0px", padding: "48px" }}
@@ -1702,7 +1704,8 @@ const Names = () => {
                       </button>
                     </OverlayTrigger>
                   </div>
-                </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
