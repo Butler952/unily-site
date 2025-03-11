@@ -389,19 +389,21 @@ const MenuSidebar = ({
 								href="/shortlist"
 								className={`btn dark ${
 									windowUrl.startsWith("/shortlist") ? "low" : "ultraLow"
-								} x-small icon-left`}
+								} x-small icon-left w-100 justify-content-between`}
 							>
+								<div className="d-flex flex-row align-items-center">
 								<svg viewBox="0 0 24 24">
 									<path d={ICONS.SHORTLIST}></path>
 								</svg>
 								Shortlist
+								</div>
 								<div className="tag dark medium small ml-2">{shortlist.length}</div>
 							</Link>
 							<Link
 								href="/store"
 								className={`btn dark ${
 									windowUrl.startsWith("/store") ? "low" : "ultraLow"
-								} x-small icon-left`}
+								} x-small icon-left w-100 justify-content-start`}
 							>
 								<svg viewBox="0 0 24 24">
 									<path d={ICONS.STORE}></path>
@@ -412,7 +414,7 @@ const MenuSidebar = ({
 								href="/settings"
 								className={`btn dark ${
 									windowUrl.startsWith("/settings") ? "low" : "ultraLow"
-								} x-small icon-left`}
+								} x-small icon-left w-100 justify-content-start`}
 							>
 								<svg viewBox="0 0 24 24">
 									<path d={ICONS.SETTINGS}></path>
