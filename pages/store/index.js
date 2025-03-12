@@ -398,7 +398,7 @@ const Store = () => {
 					</div> */}
 					<div
 						className="d-flex flex-column align-items-center px-3 px-md-5 w-100"
-						style={{ paddingTop: "48px", paddingBottom: "160px" }}
+						style={{ paddingTop: "24px", paddingBottom: "160px" }}
 					>
 						<div
 							className="w-100"
