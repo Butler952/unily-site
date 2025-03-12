@@ -1459,16 +1459,34 @@ const Names = () => {
                   className="position-absolute d-flex flex-row align-items-center px-2 px-md-3 gap-1"
                   style={{ right: "0px" }}
                 >
+                  {screenWidth > 767 ? (
                   <Link
                     href="/shortlist"
-                    className="btn primary medium outlined x-small icon-only"
+                    className="btn primary medium outlined x-small icon-left"
                     // onClick={() => handleShowMenu()}
-                    to="/shortlist"
+                    // to="/shortlist"
                   >
                     <svg viewBox="0 0 24 24">
-                      <path d={ICONS.CLOSE}></path>
+                      <path d={ICONS.SHORTLIST}></path>
                     </svg>
+                    View shortlist
+                    <div className="tag dark medium small ml-2">
+											{shortlist.length}
+										</div>
                   </Link>
+                  ) : (
+                    <Link
+                      href="/shortlist"
+                      className="btn primary medium outlined x-small icon-only"
+                    >
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.SHORTLIST}></path>
+                      </svg>
+                      <div className="tag dark medium small ml-2">
+											{shortlist.length}
+										</div>
+                    </Link>
+                  )}
                   {/* {screenWidth > 767 && (
 									<Link
 										href="/shortlist"

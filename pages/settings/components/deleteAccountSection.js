@@ -87,8 +87,8 @@ const DeleteAccountSection = ({ userData }) => {
 
   return (
     <div>
-      <div className="card mx-auto">
-        <div className="d-flex flex-column m-4" style={{ gap: "16px" }}>
+      <div className="bg-light-900 p-4 mx-auto radius-4">
+        <div className="d-flex flex-column" style={{ gap: "16px" }}>
           <div className="d-flex flex-column w-100 gap-4">
             <div className="d-flex flex-column gap-0">
               <h5 className="mb-1">Delete Account</h5>

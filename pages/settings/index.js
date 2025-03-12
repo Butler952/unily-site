@@ -16,7 +16,7 @@ const Settings = () => {
   const router = useRouter();
   const [userData, setUserData] = useState("");
   const [allUserData, setAllUserData] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
     mixpanel.track("Settings");
@@ -26,6 +26,7 @@ const Settings = () => {
     const unsubscribe = fire.auth().onAuthStateChanged((user) => {
       if (user) {
         setUserData(user);
+        setLoggedIn(true);
       } else {
         setLoggedIn(false);
         // router.push("/users/login");
@@ -56,15 +57,15 @@ const Settings = () => {
               <li>delete account</li>
               <li>edit login details/method</li>
             </ul> */}
-              <div>
+              {/* <div>
                 <h5>Sign in methods</h5>
                 <ChangeEmailSection
                   userData={userData}
                   allUserData={allUserData}
                 />
-              </div>
+              </div> */}
               <div>
-                <h5>Danger zone</h5>
+                {/* <h5>Danger zone</h5> */}
                 <DeleteAccountSection userData={userData} />
               </div>
             </div>
@@ -75,7 +76,7 @@ const Settings = () => {
               <div className="d-flex flex-row align-items-start justify-content-between">
                 <div>
                   <h3 className="mb-3" style={{ maxWidth: "720px" }}>
-                    You'll need an account first...
+                    Who goes there?
                   </h3>
                   <p className="mb-0">
                     You kind of need an account in order to edit your account settings. Head over to the signup page to create an account.
