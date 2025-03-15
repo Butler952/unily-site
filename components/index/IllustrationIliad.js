@@ -1,10 +1,10 @@
 import React from "react";
 
-const IllustrationIliad = () => {
+const IllustrationIliad = (props) => {
 	return (
 		<svg
-			width="524"
-			height="640"
+			width={props.width || "524"}
+			height={props.height || "640"}
 			viewBox="0 0 524 640"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

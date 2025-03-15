@@ -6,6 +6,7 @@ import { Dropdown, Modal } from "react-bootstrap";
 import styles from "./Header.module.scss";
 import Icon from "../icon/Icon";
 import ICONS from "../icon/IconPaths";
+import LOGOS from "../logo/LogoPath";
 import { loadStripe } from "@stripe/stripe-js";
 import { UserContext } from "../../pages/_app";
 import { toast } from "react-toastify";
@@ -85,6 +86,18 @@ const Header = ({
       if (user) {
         loggedInRoute(user);
         // getSubscription(user)
+      } else {
+        setLoggedIn(false);
+        // Load shortlist from localStorage for non-authenticated users
+        const localShortlist = localStorage.getItem('shortlist');
+        if (localShortlist) {
+          try {
+            setShortlist(JSON.parse(localShortlist));
+          } catch (error) {
+            console.log('Error parsing shortlist from localStorage:', error);
+            setShortlist([]);
+          }
+        }
       }
     });
     return () => {
@@ -378,13 +391,13 @@ const Header = ({
         className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
             ${
               hideShadow
-                ? "shadow-0"
-                : "border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid"
+                ? ""
+                : "shadow-0"
             }
-            ${positionFixed && "position-fixed"}
+            ${positionFixed && "position-fixed border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid"}
             ${dark ? " border-light-300" : "border-dark-300"}
             ${!hideShadow && dark ? "bg-dark-800" : null}
-            ${!dark && !hideBackground ? "bg-light-900" : null}
+            ${!dark && !hideBackground ? "bg-background" : null}
 
           `}
         style={
@@ -400,8 +413,8 @@ const Header = ({
               <Link href="/">
                 {screenWidth > 767 ? (
                   <svg
-                    height="48"
-                    viewBox="0 0 88 88"
+                    height="40"
+                    viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -409,14 +422,14 @@ const Header = ({
                       className={`${dark ? "fill-light-900" : "fill-dark-900"}`}
                       fillRule="evenodd"
                       clipRule="evenodd"
-                      d={ICONS.LOGO_ICON}
+                      d={LOGOS.LOGO}
                     />
                   </svg>
                 ) : (
                   // <img src="/images/vitaely-logo-icon-square.svg" style={{ height: '32px' }} />
                   <svg
                     height="40"
-                    viewBox="0 0 88 88"
+                    viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -424,7 +437,7 @@ const Header = ({
                       className={`${dark ? "fill-light-900" : "fill-dark-900"}`}
                       fillRule="evenodd"
                       clipRule="evenodd"
-                      d={ICONS.LOGO_ICON}
+                      d={LOGOS.LOGO}
                     />
                   </svg>
                 )}
@@ -486,7 +499,7 @@ const Header = ({
                       className="text-decoration-none"
                     >
                       <>
-                        <div className="btn primary medium small icon-only">
+                        <div className="btn primary low small icon-only">
                           <svg viewBox="0 0 24 24">
                             <path d={ICONS.MENU}></path>
                           </svg>
@@ -632,9 +645,11 @@ const Header = ({
                             {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
                             Shortlist{" "}
                           </div>
-                          <div className="tag dark medium small ml-2">
-                            {(shortlist && shortlist.length) || 0}
-                          </div>
+                          {shortlist && shortlist.length > 0 && (
+                            <div className="tag dark medium small ml-2">
+                              {shortlist.length}
+                            </div>
+                          )}
                         </Dropdown.Item>
                         <Dropdown.Item
                           onClick={() => router.push("/store")}
@@ -680,8 +695,8 @@ const Header = ({
               <Link href="/">
                 {screenWidth > 767 ? (
                   <svg
-                    height="48"
-                    viewBox="0 0 88 88"
+                    height="40"
+                    viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -689,14 +704,14 @@ const Header = ({
                       className={`${dark ? "fill-light-900" : "fill-dark-900"}`}
                       fillRule="evenodd"
                       clipRule="evenodd"
-                      d={ICONS.LOGO_ICON}
+                      d={LOGOS.LOGO}
                     />
                   </svg>
                 ) : (
                   // <img src="/images/vitaely-logo-icon-square.svg" style={{ height: '32px' }} />
                   <svg
                     height="40"
-                    viewBox="0 0 88 88"
+                    viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -704,7 +719,7 @@ const Header = ({
                       className={`${dark ? "fill-light-900" : "fill-dark-900"}`}
                       fillRule="evenodd"
                       clipRule="evenodd"
-                      d={ICONS.LOGO_ICON}
+                      d={LOGOS.LOGO}
                     />
                   </svg>
                 )}
@@ -721,7 +736,7 @@ const Header = ({
                 >
                   <>
                     <div
-                      className={`btn primary medium small d-flex flex-row align-items-center p-2`}
+                      className={`btn primary low small d-flex flex-row align-items-center p-2`}
                       style={{ gap: "4px" }}
                     >
                       <div className="px-2">
@@ -757,9 +772,11 @@ const Header = ({
                         {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
                         Shortlist{" "}
                       </div>
-                      <div className="tag dark medium small ml-2">
-                        {(shortlist && shortlist.length) || 0}
-                      </div>
+                      {shortlist && shortlist.length > 0 && (
+                        <div className="tag dark medium small ml-2">
+                          {shortlist.length}
+                        </div>
+                      )}
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => router.push("/store")}
@@ -805,9 +822,11 @@ const Header = ({
                     {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
                     Shortlist{" "}
                   </div>
-                  <div className="tag dark medium small">
-                    {(shortlist && shortlist.length) || 0}
-                  </div>
+                  {shortlist && shortlist.length > 0 && (
+                    <div className="tag dark medium small">
+                      {shortlist.length}
+                    </div>
+                  )}
                 </Link>
                 <Link
                   href="/store"
@@ -829,7 +848,7 @@ const Header = ({
                 </Link>
                 <Link
                   href="/names"
-                  className={`btn primary high small ml-2`}
+                  className={`btn primary ${topOfLanding ? 'low outlined' : 'high'} small ml-2`}
                 >
                   Find a name
                 </Link>
@@ -931,7 +950,7 @@ const Header = ({
         </Modal>
         {redirectToStripe ? (
           <div
-            className="bg-light-900 position-fixed w-100 h-100"
+            className="bg-background position-fixed w-100 h-100"
             style={{ top: 0, left: 0, zIndex: 1100 }}
           >
             <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">

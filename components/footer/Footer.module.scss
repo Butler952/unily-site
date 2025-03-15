@@ -3,3 +3,14 @@
 .darkBackground {
   background: #242837;
 }
+
+.logoSvg {
+  .logoPath {
+    transition: $transition-standard;
+  }
+  &:hover {
+    .logoPath {
+      fill: $dark-900;
+    }
+  }
+}

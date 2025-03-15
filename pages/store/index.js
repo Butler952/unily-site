@@ -338,7 +338,7 @@ const Store = () => {
 	};
 
 	return (
-		<div className="overflow-hidden" style={{ backgroundColor: "#F6F6F4" }}>
+		<div className="overflow-hidden">
 			<Head>
 				<title>Shortlist</title>
 				<meta
@@ -398,7 +398,7 @@ const Store = () => {
 					</div> */}
 					<div
 						className="d-flex flex-column align-items-center px-3 px-md-5 w-100"
-						style={{ paddingTop: "24px", paddingBottom: "160px" }}
+            style={{ paddingTop: screenWidth > 767 ? "64px" : "24px", paddingBottom: "160px" }}
 					>
 						<div
 							className="w-100"

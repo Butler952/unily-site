@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "config/mixpanel-config";
 import { Img } from "react-image";
+import LOGOS from "components/logo/LogoPath";
 
 const MenuSidebar = ({
 	dark,
@@ -359,7 +360,7 @@ const MenuSidebar = ({
 						<Link href="/" className="w-lg-100 m-2">
 							<svg
 								height="32"
-								viewBox="0 0 88 88"
+								viewBox="0 0 32 32"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
 							>
@@ -367,7 +368,7 @@ const MenuSidebar = ({
 									className={`fill-dark-900`}
 									fillRule="evenodd"
 									clipRule="evenodd"
-									d={ICONS.LOGO_ICON}
+									d={LOGOS.LOGO}
 								/>
 							</svg>
 						</Link>
@@ -465,7 +466,7 @@ const MenuSidebar = ({
 								Sign out
 							</button>
 						)}
-						<p className="text-dark-dis caption m-3">Terms・Privacy・Cookies</p>
+          <p className="text-dark-dis caption m-3" style={{opacity: 0.5}}><Link href="/legal/terms">Terms</Link>・<Link href="/legal/privacy">Privacy</Link>・<Link href="/legal/cookies">Cookies</Link></p>
 					</div>
 					{/* <div className="d-flex flex-row justify-content-center align-items-center"> */}
 					{/* <Dropdown align="end">

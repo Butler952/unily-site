@@ -97,7 +97,7 @@ const Settings = () => {
         <div className="w-100">
           <div
             className="d-flex flex-column align-items-center px-3 px-md-5 w-100"
-            style={{ paddingTop: "24px", paddingBottom: "160px" }}
+            style={{ paddingTop: screenWidth > 767 ? "64px" : "24px", paddingBottom: "160px" }}
           >
             <div className="w-100" style={{ maxWidth: "560px" }}>
             <div className="d-flex flex-row align-items-center justify-content-between mb-5">

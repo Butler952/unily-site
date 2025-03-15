@@ -36,16 +36,16 @@ const LegalPage = (props) => {
 
   return (
     <div>
-      <Header positionFixed/>
+      <Header/>
 
       <Head>
         <title>{heroTitle}</title>
-        <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
+        <link rel="shortcut icon" href="/images/logos/epic-baby-names-logo.svg" />
       </Head>
-      <div className="bg-light-900" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
+      <div className="bg-background border-0 border-bottom-1 border-solid border-dark-300" style={{paddingTop: 80, marginBottom: footerHeight, zIndex: '2', position: 'relative'}}>
         <div className="container py-5">
           <div>
-            <div className="my-4 my-sm-5">
+            <div>
               {screenWidth > 767 ?
                 <h1 className="mx-auto mb-2 mb-sm-3">{heroTitle}</h1>
                 :

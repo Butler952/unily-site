@@ -47,7 +47,7 @@ const SidebarLayout = ({ children }) => {
   }, [showMenu]);
 
   return (
-    <div className="overflow-hidden" style={{ backgroundColor: "#F6F6F4" }}>
+    <div className="overflow-hidden">
       {/* <Header /> */}
       <div className={screenWidth > 767 && `d-flex flex-row`}>
         {screenWidth > 767 ? (

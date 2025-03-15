@@ -567,12 +567,12 @@ const SettingsLayout = ({children, showSidebar = true}) => {
           <Container className="d-flex flex-column align-items-center">
             <div className="d-flex flex-column flex-md-row align-items-md-start align-items-center justify-content-between mb-3">
               <Link href="/" className="w-lg-100">
-                <svg height="48" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path 
                     className="fill-dark-600"
                     fillRule="evenodd" 
                     clipRule="evenodd" 
-                    d={ICONS.LOGO_ICON} 
+                    d={LOGOS.LOGO} 
                   />
                 </svg>
               </Link>

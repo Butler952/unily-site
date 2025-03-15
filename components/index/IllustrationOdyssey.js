@@ -1,10 +1,10 @@
 import React from "react";
 
-const IllustrationOdyssey = () => {
+const IllustrationOdyssey = (props) => {
 	return (
 		<svg
-			width="940"
-			height="782"
+			width={props.width || "940"}
+			height={props.height || "782"}	
 			viewBox="0 0 940 782"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
