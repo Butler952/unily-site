@@ -108,11 +108,18 @@ const Names = () => {
     window.addEventListener("resize", handleResize);
     setWindowLocationOrigin(window.location.origin);
 
+    // Get gender from query params, local storage, or default to male
     const { gender: genderQuery, upgrading, signIn } = router.query;
     if (genderQuery === "male" || genderQuery === "female") {
       setGender(genderQuery);
     } else {
-      setGender("male");
+      // Check localStorage for gender preference if not in URL
+      const storedGender = localStorage.getItem("preferredGender");
+      if (storedGender === "male" || storedGender === "female") {
+        setGender(storedGender);
+      } else {
+        setGender("male");
+      }
     }
 
     // Check for signIn query parameter
@@ -204,6 +211,23 @@ const Names = () => {
           setUserContext(doc.data());
           setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
           setRejected(doc.data().rejected ? doc.data().rejected : []);
+          
+          // Get user's preferred gender if it exists in their document
+          if (doc.data().preferredGender === "male" || doc.data().preferredGender === "female") {
+            setGender(doc.data().preferredGender);
+            
+            // Update URL to match stored preference if no gender in query params
+            if (!router.query.gender) {
+              router.push(
+                {
+                  pathname: router.pathname,
+                  query: { ...router.query, gender: doc.data().preferredGender },
+                },
+                undefined,
+                { shallow: true }
+              );
+            }
+          }
         } else {
           // console.log("No such document!");
         }
@@ -632,18 +656,24 @@ const Names = () => {
   // };
 
   const getRandomDocumentLoggedOut = (
-    passedLastRandomDocumentId,
-    genderOverride
+    passedLastRandomDocumentId
   ) => {
-    // console.log("getRandomDocumentLoggedOut");
-    // const currentGender = genderOverride || gender;
-    const genderQuery = router.query.gender;
+    // First check if genderOverride is provided
     let currentGender;
-
-    if (genderQuery === "male" || genderQuery === "female") {
-      currentGender = genderQuery;
-    } else {
-      currentGender = "male";
+    
+      // Otherwise check URL query
+      const genderQuery = router.query.gender;
+      if (genderQuery === "male" || genderQuery === "female") {
+        currentGender = genderQuery;
+      } else {
+        // Check localStorage for saved preference
+        const storedGender = localStorage.getItem("preferredGender");
+        if (storedGender === "male" || storedGender === "female") {
+          currentGender = storedGender;
+        } else {
+          // Finally fall back to gender state
+          currentGender = gender;
+        }
     }
 
     setRetreivingName(true);
@@ -814,6 +844,24 @@ const Names = () => {
   const changeGender = (currentGender) => {
     const newGender = currentGender === "male" ? "female" : "male";
     setGender(newGender);
+    
+    // Store gender in localStorage for non-logged in users
+    localStorage.setItem("preferredGender", newGender);
+    
+    // If user is logged in, update their document in Firestore
+    if (loggedIn && userData?.uid) {
+      fire
+        .firestore()
+        .collection("users")
+        .doc(userData.uid)
+        .update({
+          preferredGender: newGender,
+          lastUpdated: fire.firestore.FieldValue.serverTimestamp(),
+        })
+        .catch((error) => {
+          console.log("Error updating gender preference:", error);
+        });
+    }
 
     // Update the query string
     router.push(
