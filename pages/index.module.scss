@@ -289,13 +289,17 @@
 }
 
 .epicPoemCard {
+  width: 100%;
   transition: translate $transition-long, background-color $transition-long;
   background-color: $background;
   // box-shadow: $shadow-0, inset 0 0 10px rgba(0, 0, 0, 0.2);
   box-shadow: $shadow-5;
   border-radius: 4px;
   position: relative;
-  transform: translateY(32px);
+  translate: 0 16px;
+  @media (max-width: $breakpoint-md - 1px) {
+    box-shadow: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 0px 40px -2px rgba($dark-900, 0.12);
+  }
   
   &::before {
     content: '';
@@ -334,13 +338,13 @@
     &::before {
       opacity: 0.07;
     }
-    
-    &::after { 
-      // background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+    &:hover {
+      translate: 0 -24px;
     }
+    
   }
   &:hover {
-    translate: 0 -12px;
+    translate: 0 -2px;
   }
 }
 
@@ -363,6 +367,10 @@
     svg path {
       stroke: #E07443;
     }
+  }
+  @media (max-width: $breakpoint-md - 1px) {
+    width: 80%;
+    box-shadow: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 0px 40px -2px rgba($dark-900, 0.12);
   }
   // @media (max-width: $breakpoint-md - 1px) {
   //   background-color: #4B2123;
@@ -407,4 +415,10 @@
   //     stroke: #7AD7FF;
   //   }
   // }
+  @media (max-width: $breakpoint-md - 1px) {
+    width: 80%;
+    margin-left: 20%;
+
+    box-shadow: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 0px 40px -2px rgba($dark-900, 0.12);
+  }
 }

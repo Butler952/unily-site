@@ -62,7 +62,7 @@ const Home = (props) => {
           }
         });
       },
-      { threshold: 0.6 } // Trigger when 40% of the element is visible
+      { threshold: screenWidth <= 767 ? 0.4 : 0.6 } // Trigger when 40% of the element is visible on small screens
     );
 
     // Set up intersection observer for odyssey card
@@ -79,7 +79,7 @@ const Home = (props) => {
           }
         });
       },
-      { threshold: 0.6 } // Trigger when 40% of the element is visible
+      { threshold: screenWidth <= 767 ? 0.4 : 0.6 } // Trigger when 40% of the element is visible on small screens
     );
 
     if (iliadCardRef.current) {
@@ -257,7 +257,7 @@ const Home = (props) => {
 
         <div
           className="container d-flex flex-column align-items-center justify-content-center"
-          style={{ paddingTop: "64px", paddingBottom: "16px" }}
+          style={{ paddingTop: "64px" }}
         >
           <div
             ref={heroRef}
@@ -403,7 +403,7 @@ const Home = (props) => {
         <div className="border-0 border-bottom-1 border-solid border-dark-300 overflow-hidden">
           <div
             className="container d-flex flex-column align-items-center justify-content-center"
-            style={{ paddingTop: "32px", paddingBottom: "120px" }}
+            style={{ paddingTop: "64px", paddingBottom: "120px" }}
           >
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
@@ -416,7 +416,7 @@ const Home = (props) => {
               <div
                 className="w-100 d-flex flex-column flex-md-row gap-4"
                 style={{
-                  marginBottom: screenWidth > 767 ? "-140px" : "-120%",
+                  marginBottom: screenWidth > 767 ? "-150px" : "-75%",
                 }}
               >
                 <div
@@ -426,7 +426,7 @@ const Home = (props) => {
                       iliadCardRef.current = el;
                     }
                   }}
-                  className={`w-100 position-relative shine overflow-hidden ${
+                  className={`position-relative shine overflow-hidden ${
                     styles.epicPoemCard
                   } ${styles.epicPoemCardIliad} ${
                     (iliadCardVisible && !odysseyCardHovered) ||
@@ -436,7 +436,7 @@ const Home = (props) => {
                   }`}
                   style={{
                     paddingBottom: screenWidth > 767 ? "66.66%" : "133.33%",
-                    marginBottom: screenWidth > 767 ? "0" : "-110%",
+                    marginBottom: screenWidth > 767 ? "0" : "-115%",
                   }}
                   onMouseEnter={() => setIliadCardHovered(true)}
                   onMouseLeave={() => setIliadCardHovered(false)}
@@ -459,7 +459,7 @@ const Home = (props) => {
                   </div>
                 </div>
                 <div
-                  className={`w-100 position-relative shine overflow-hidden ${
+                  className={`position-relative shine overflow-hidden ${
                     styles.epicPoemCard
                   } ${styles.epicPoemCardOdyssey} ${
                     (odysseyCardVisible && !iliadCardHovered) ||
@@ -483,7 +483,7 @@ const Home = (props) => {
                   <div
                     style={{
                       position: "absolute",
-                      left: 0,
+                      left: "-3%",
                       top: "-2%",
                       width: "205%",
                     }}
