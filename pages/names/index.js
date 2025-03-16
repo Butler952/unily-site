@@ -205,7 +205,7 @@ const Names = () => {
           setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
           setRejected(doc.data().rejected ? doc.data().rejected : []);
         } else {
-          console.log("No such document!");
+          // console.log("No such document!");
         }
       })
       .then(() => {
@@ -224,7 +224,7 @@ const Names = () => {
           })
           .then(() => {
             if (purchasedProducts == "prod_R9UsZtF60a9OSG") {
-              console.log("product is true");
+              // console.log("product is true");
               if (typeof localStorage.lastRandomDocumentId != "undefined") {
                 setLastRandomDocumentId(
                   JSON.parse(localStorage.lastRandomDocumentId)
@@ -232,14 +232,14 @@ const Names = () => {
                 getRandomDocumentLoggedIn(
                   JSON.parse(localStorage.lastRandomDocumentId)
                 );
-                console.log(JSON.parse(localStorage.lastRandomDocumentId));
-                console.log("fire2");
+                // console.log(JSON.parse(localStorage.lastRandomDocumentId));
+                // console.log("fire2");
               } else {
                 getRandomDocumentLoggedIn();
-                console.log("fire1");
+                // console.log("fire1");
               }
             } else {
-              console.log("we are firing");
+              // console.log("we are firing");
               // if (typeof localStorage.shortlist != "undefined") {
               // 	setShortlist(JSON.parse(localStorage.shortlist));
               // }
@@ -635,7 +635,7 @@ const Names = () => {
     passedLastRandomDocumentId,
     genderOverride
   ) => {
-    console.log("getRandomDocumentLoggedOut");
+    // console.log("getRandomDocumentLoggedOut");
     // const currentGender = genderOverride || gender;
     const genderQuery = router.query.gender;
     let currentGender;
@@ -692,12 +692,12 @@ const Names = () => {
               );
               setRetreivingName(false);
             } else {
-              console.log("No such document!");
+              // console.log("No such document!");
               let newShortlist = [];
               let newRejected = [];
-              console.log("shortlist as this point", newShortlist);
-              console.log("rejected as this point", newRejected);
-              console.log("getRandomDocument6");
+              // console.log("shortlist as this point", newShortlist);
+              // console.log("rejected as this point", newRejected);
+              // console.log("getRandomDocument6");
               let usedNames;
               usedNames = newShortlist.concat(newRejected);
               // Get random preview name based on used names
@@ -724,7 +724,7 @@ const Names = () => {
             }
           });
       } else {
-        console.log("this one");
+        // console.log("this one");
         let tempShortlist =
           typeof localStorage.shortlist != "undefined"
             ? JSON.parse(localStorage.shortlist)
@@ -760,14 +760,14 @@ const Names = () => {
   };
 
   const getRandomDocumentLoggedIn = (passedLastRandomDocumentId) => {
-    console.log("getRandomDocumentLoggedIn");
-    console.log("loggedIn", loggedIn);
+    // console.log("getRandomDocumentLoggedIn");
+    // console.log("loggedIn", loggedIn);
     // setRetreivingName(true)
-    console.log("getRandomDocument3");
-    console.log("firstFetch", firstFetch);
+    // console.log("getRandomDocument3");
+    // console.log("firstFetch", firstFetch);
     setRetreivingName(true);
     if (firstFetch && passedLastRandomDocumentId) {
-      console.log("getRandomDocument4");
+      // console.log("getRandomDocument4");
       // We need to give each object an id (matching the one in firebase)
       // get object from array where id = passedLastRandomDocumentId
 
@@ -780,7 +780,7 @@ const Names = () => {
       setRetreivingName(false);
       setFirstFetch(false);
     } else {
-      console.log("getRandomDocument5");
+      // console.log("getRandomDocument5");
       let avoidNames;
       if (lastRandomDocumentId == null) {
         avoidNames = shortlist.concat(rejected);
