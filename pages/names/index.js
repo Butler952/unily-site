@@ -211,17 +211,23 @@ const Names = () => {
           setUserContext(doc.data());
           setShortlist(doc.data().shortlist ? doc.data().shortlist : []);
           setRejected(doc.data().rejected ? doc.data().rejected : []);
-          
+
           // Get user's preferred gender if it exists in their document
-          if (doc.data().preferredGender === "male" || doc.data().preferredGender === "female") {
+          if (
+            doc.data().preferredGender === "male" ||
+            doc.data().preferredGender === "female"
+          ) {
             setGender(doc.data().preferredGender);
-            
+
             // Update URL to match stored preference if no gender in query params
             if (!router.query.gender) {
               router.push(
                 {
                   pathname: router.pathname,
-                  query: { ...router.query, gender: doc.data().preferredGender },
+                  query: {
+                    ...router.query,
+                    gender: doc.data().preferredGender,
+                  },
                 },
                 undefined,
                 { shallow: true }
@@ -655,25 +661,23 @@ const Names = () => {
   //   }
   // };
 
-  const getRandomDocumentLoggedOut = (
-    passedLastRandomDocumentId
-  ) => {
+  const getRandomDocumentLoggedOut = (passedLastRandomDocumentId) => {
     // First check if genderOverride is provided
     let currentGender;
-    
-      // Otherwise check URL query
-      const genderQuery = router.query.gender;
-      if (genderQuery === "male" || genderQuery === "female") {
-        currentGender = genderQuery;
+
+    // Otherwise check URL query
+    const genderQuery = router.query.gender;
+    if (genderQuery === "male" || genderQuery === "female") {
+      currentGender = genderQuery;
+    } else {
+      // Check localStorage for saved preference
+      const storedGender = localStorage.getItem("preferredGender");
+      if (storedGender === "male" || storedGender === "female") {
+        currentGender = storedGender;
       } else {
-        // Check localStorage for saved preference
-        const storedGender = localStorage.getItem("preferredGender");
-        if (storedGender === "male" || storedGender === "female") {
-          currentGender = storedGender;
-        } else {
-          // Finally fall back to gender state
-          currentGender = gender;
-        }
+        // Finally fall back to gender state
+        currentGender = gender;
+      }
     }
 
     setRetreivingName(true);
@@ -844,10 +848,10 @@ const Names = () => {
   const changeGender = (currentGender) => {
     const newGender = currentGender === "male" ? "female" : "male";
     setGender(newGender);
-    
+
     // Store gender in localStorage for non-logged in users
     localStorage.setItem("preferredGender", newGender);
-    
+
     // If user is logged in, update their document in Firestore
     if (loggedIn && userData?.uid) {
       fire
@@ -1508,20 +1512,22 @@ const Names = () => {
                   style={{ right: "0px" }}
                 >
                   {screenWidth > 767 ? (
-                  <Link
-                    href="/shortlist"
-                    className="btn primary medium outlined x-small icon-left"
-                    // onClick={() => handleShowMenu()}
-                    // to="/shortlist"
-                  >
-                    <svg viewBox="0 0 24 24">
-                      <path d={ICONS.SHORTLIST}></path>
-                    </svg>
-                    View shortlist
-                    <div className="tag dark medium small ml-2">
-											{shortlist.length}
-										</div>
-                  </Link>
+                    <Link
+                      href="/shortlist"
+                      className="btn primary medium outlined x-small icon-left"
+                      // onClick={() => handleShowMenu()}
+                      // to="/shortlist"
+                    >
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.SHORTLIST}></path>
+                      </svg>
+                      View shortlist
+                      {shortlist.length > 0 && (
+                        <div className="tag dark medium small ml-2">
+                          {shortlist.length}
+                        </div>
+                      )}
+                    </Link>
                   ) : (
                     <Link
                       href="/shortlist"
@@ -1530,9 +1536,11 @@ const Names = () => {
                       <svg viewBox="0 0 24 24">
                         <path d={ICONS.SHORTLIST}></path>
                       </svg>
-                      <div className="tag dark medium small ml-2">
-											{shortlist.length}
-										</div>
+                      {shortlist.length > 0 && (
+                        <div className="tag dark medium small ml-2">
+                          {shortlist.length}
+                        </div>
+                      )}
                     </Link>
                   )}
                   {/* {screenWidth > 767 && (
@@ -1709,67 +1717,75 @@ const Names = () => {
                   // <p className="large mx-auto mb-5">Loading</p>
                 )}
                 {/* <button onClick={() => getRandomDocument()} disabled={sending} className="btn icon-only primary high large mx-auto">Get another name</button> */}
-                
-                { !likedName && (
-                <div
-                  className="position-fixed"
-                  style={{ bottom: "0px", padding: "48px" }}
-                >
-                  <div className="position-relative d-flex flex-row align-items-center gap-3">
-                    <OverlayTrigger
-                      placement="top"
-                      delay={{ show: 1000, hide: 200 }}
-                      overlay={<Tooltip id="reject-tooltip">Reject</Tooltip>}
-                    >
-                      <button
-                        onClick={() => addToRejected()}
-                        className="btn light large high icon-only"
-                        disabled={retreivingName || likedName}
-                      >
-                        <svg viewBox="0 0 24 24">
-                          <path d={ICONS.CLOSE}></path>
-                        </svg>
-                      </button>
-                    </OverlayTrigger>
 
-                    <OverlayTrigger
-                      placement="top"
-                      delay={{ show: 1000, hide: 200 }}
-                      overlay={<Tooltip id="undo-tooltip">Undo</Tooltip>}
-                    >
-                      <button
-                        onClick={() => undoLastAction()}
-                        className={`btn primary medium x-small outlined icon-only`}
-                        disabled={retreivingName || likedName || !actionTaken}
+                {!likedName && (
+                  <div
+                    className="position-fixed"
+                    style={{ bottom: "0px", padding: "48px" }}
+                  >
+                    <div className="position-relative d-flex flex-row align-items-center gap-3">
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 1000, hide: 200 }}
+                        overlay={<Tooltip id="reject-tooltip">Reject</Tooltip>}
                       >
-                        <svg viewBox="0 0 24 24">
-                          <path d={ICONS.UNDO}></path>
-                        </svg>
-                      </button>
-                    </OverlayTrigger>
+                        <button
+                          onClick={() => addToRejected()}
+                          className="btn light large high icon-only"
+                          disabled={retreivingName || likedName}
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.CLOSE}></path>
+                          </svg>
+                        </button>
+                      </OverlayTrigger>
 
-                    <OverlayTrigger
-                      placement="top"
-                      delay={{ show: 1000, hide: 200 }}
-                      overlay={<Tooltip id="shortlist-tooltip">Shortlist</Tooltip>}
-                    >
-                      <button
-                        onClick={() => addToShortlist()}
-                        className={`btn large high icon-only ${
-                          styles.shortlistButton
-                        } ${
-                          !likedName ? "dark" : `${styles.shortlistButtonHighlight}`
-                        } `}
-                        disabled={retreivingName || likedName}
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 1000, hide: 200 }}
+                        overlay={<Tooltip id="undo-tooltip">Undo</Tooltip>}
                       >
-                        <svg viewBox="0 0 24 24">
-                          <path
-                            d={!likedName ? ICONS.HEART_FILLED : ICONS.HEART_FILLED}
-                          ></path>
-                        </svg>
-                      </button>
-                    </OverlayTrigger>
-                  </div>
+                        <button
+                          onClick={() => undoLastAction()}
+                          className={`btn primary medium x-small outlined icon-only`}
+                          disabled={retreivingName || likedName || !actionTaken}
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.UNDO}></path>
+                          </svg>
+                        </button>
+                      </OverlayTrigger>
+
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 1000, hide: 200 }}
+                        overlay={
+                          <Tooltip id="shortlist-tooltip">Shortlist</Tooltip>
+                        }
+                      >
+                        <button
+                          onClick={() => addToShortlist()}
+                          className={`btn large high icon-only ${
+                            styles.shortlistButton
+                          } ${
+                            !likedName
+                              ? "dark"
+                              : `${styles.shortlistButtonHighlight}`
+                          } `}
+                          disabled={retreivingName || likedName}
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path
+                              d={
+                                !likedName
+                                  ? ICONS.HEART_FILLED
+                                  : ICONS.HEART_FILLED
+                              }
+                            ></path>
+                          </svg>
+                        </button>
+                      </OverlayTrigger>
+                    </div>
                   </div>
                 )}
               </div>

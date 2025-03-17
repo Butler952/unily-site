@@ -445,11 +445,20 @@ const Store = () => {
                   </div>
                   <div className="d-flex flex-column align-items-center gap-4">
                     <div className="d-flex flex-column align-items-center text-center">
+                      {product === "prod_R9UsZtF60a9OSG" && (
+                        <div className="tag dark medium small gap-1 mb-4">
+                          <svg viewBox="0 0 24 24">
+                            <path d={ICONS.CHECK_CIRCLE}></path>
+                          </svg>
+                          Purchased
+                        </div>
+                      )}
                       <h3 className="mb-3">Iliad</h3>
                       <p>
-                        Over 500 names from Homer's epic poem <i>The Iliad</i>,
-                        featuring mortal belligerents of all factions of the
-                        Trojan war, and the Gods that quarrelled over them.
+                        Over 900 names from Homer's epic poem <i>The Iliad</i>,
+                        featuring mortal belligerents, settlements and
+                        geographical features of all factions of the Trojan war,
+                        and the Gods that quarrelled over them.
                       </p>
                     </div>
                     {product !== "prod_R9UsZtF60a9OSG" ? (
@@ -460,21 +469,14 @@ const Store = () => {
                         Unlock—$9
                       </button>
                     ) : (
-                      <button
-                        onClick={handlePurchaseClick}
-                        className="btn high small icon-left"
-                        disabled
-                      >
-                        <svg viewBox="0 0 24 24">
-                          <path d={ICONS.CHECK_CIRCLE}></path>
-                        </svg>
-                        Purchased
-                      </button>
+                      <Link href="/names" className="btn dark small high">
+                        Browse names
+                      </Link>
                     )}
                   </div>
                 </div>
                 <div
-                  className={`${styles.epicPoemCard} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
+                  className={`${styles.epicPoemCard} ${styles.epicPoemCardDisabled} radius-4 w-100 d-flex flex-column align-items-center gap-4 p-5`}
                   // className={`radius-4 w-100 position-relative shine overflow-hidden ${styles.epicPoemCard} ${styles.epicPoemCardIliad}`}
                 >
                   <div
@@ -489,12 +491,13 @@ const Store = () => {
                     <div className="d-flex flex-column align-items-center text-center">
                       <h3 className="mb-3">Odyssey</h3>
                       <p>
-                        More ancient greek names from <i>The Odyssey</i>; which
-                        chronicles the ten-year journey of Odysseus, king of
-                        Ithaka, back to his home after the fall of Troy.
+                        Over 250 extra epic ancient names from{" "}
+                        <i>The Odyssey</i>; which chronicles the ten-year
+                        journey of Odysseus, king of Ithaka, back to his home
+                        after the fall of Troy.
                       </p>
                     </div>
-                    <button className="btn dark small high" disabled>
+                    <button className="btn dark low small" disabled>
                       Coming soon
                     </button>
                   </div>
@@ -856,7 +859,7 @@ const Store = () => {
                   <div>
                     <h3 className="mb-3">Iliad</h3>
                     <p>
-                      Over 500 names from Homer's epic poem The Iliad, featuring
+                      Over 900 names from Homer's epic poem The Iliad, featuring
                       all factions of the mortal belligerents of the Trojan war,
                       and the Gods that quarrelled over them.
                     </p>

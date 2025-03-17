@@ -416,7 +416,7 @@ const Home = (props) => {
               <div
                 className="w-100 d-flex flex-column flex-md-row gap-4"
                 style={{
-                  marginBottom: screenWidth > 767 ? "-150px" : "-75%",
+                  marginBottom: screenWidth > 767 ? "-180px" : "-75%",
                 }}
               >
                 <div
@@ -484,7 +484,7 @@ const Home = (props) => {
                     style={{
                       position: "absolute",
                       left: "-3%",
-                      top: "-2%",
+                      top: "-1%",
                       width: "205%",
                     }}
                   >

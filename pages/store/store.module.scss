@@ -9,6 +9,21 @@
   }
 }
 
+.epicPoemCardDisabled {
+  background: $dark-200;
+  transition: $transition-standard;
+  .epicPoemIllustration {
+    filter: grayscale(1);
+  }
+  &:hover {
+    box-shadow: $shadow-5;
+    background: $light-900;
+    .epicPoemIllustration {
+      filter: grayscale(0);
+    }
+  }
+}
+
 .epicPoemIllustration {
   // box-shadow: $shadow-1;
   width: fit-content;
