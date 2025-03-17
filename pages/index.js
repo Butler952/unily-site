@@ -339,7 +339,7 @@ const Home = (props) => {
 										className="fill-warning-900"
 									/>
 								</div> */}
-                <p>
+                <p className="text-dark-dis">
                   *Certified by Homer
                 </p>
               </div>
