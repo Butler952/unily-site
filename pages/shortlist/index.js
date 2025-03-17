@@ -1,17 +1,13 @@
 import { useState, useEffect, forwardRef, useContext, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Dropdown, Modal } from "react-bootstrap";
+import { Dropdown, Modal } from "react-bootstrap";
 import fire from "/config/fire-config";
 
 import styles from "./shortlist.module.scss";
 import Icon from "/components/icon/Icon";
 import ICONS from "/components/icon/IconPaths";
-import Footer from "/components/footer/Footer";
-import PostCard from "/components/blog/PostCard";
-import NAMES from "../names";
 import { UserContext } from "pages/_app";
-import Menu from "components/header/Menu";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import MenuSidebar from "components/header/MenuSidebar";

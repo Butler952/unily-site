@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import fire from "/config/fire-config";
 import { useRouter } from "next/router";
 
@@ -9,13 +9,8 @@ import styles from "./index.module.scss";
 import namesStyles from "./names.module.scss";
 import Icon from "/components/icon/Icon";
 import ICONS from "/components/icon/IconPaths";
-import Footer from "/components/footer/Footer";
-import PostCard from "/components/blog/PostCard";
-// import NAMES from "./namesWithIds";
 import names from "./iliad/namesWithIds.json";
 import { UserContext } from "pages/_app";
-// import malePreviewIds from "./malePreviewIds";
-// import femalePreviewIds from "./femalePreviewIds";
 import malePreviewIds from "./malePreviewIds.json";
 import femalePreviewIds from "./femalePreviewIds.json";
 import Menu from "components/header/Menu";
