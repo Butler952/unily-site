@@ -866,7 +866,7 @@ const Header = ({
           {!submittedFeedback ? (
             <Modal.Body>
               <div>
-                <div className="d-flex flex-row align-items-center justify-content-between mb-4">
+                <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                   <h3 className="text-dark-high mb-0">Feedback survey</h3>
                   <button
                     onClick={handleFeedbackClose}
@@ -879,12 +879,15 @@ const Header = ({
                 </div>
                 <form onSubmit={handleFeedbackSubmit}>
                   <div className="mb-4">
-                    <p className="text-dark-high">
-                      Tell us what you love, tell us what you hate, tell us what
-                      you want to see more of, tell us about your child who has
-                      raised an army from the local shepherds and has begun
-                      forming an empire.
-                    </p>
+                      {/* <p>Tell us what you love, tell us what you hate, tell us what you want to see more of, tell us about your child who has begun forming an empire by raising an army of local shepherds.</p> */}
+                      <p>Tell us all about:
+                        <ul>
+                          <li>...what you love</li>
+                          <li>...what you hate</li>
+                          <li>...what you want to see more of</li>
+                          <li>...your child who has begun forming an empire by raising an army of local shepherds</li>
+                        </ul>
+                      </p>
                     <textarea
                       className="w-100 small"
                       style={{ minHeight: "10rem" }}
