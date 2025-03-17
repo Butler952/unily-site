@@ -435,9 +435,17 @@ const Store = () => {
                     className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationIliad} shine p-2 radius-2`}
                   >
                     <img
+                      src="/images/book-patterns/iliad-square.svg"
+                      style={{ width: "96px", zIndex: 1, position: "absolute", boxShadow: "0px 1px rgba(0,0,0,0.2)" }}
+                    />
+                    <img
+                      src="/images/book-patterns/iliad-square.svg"
+                      style={{ width: "96px", position: "absolute", left: "8px", top: "8.5px", filter: "brightness(0.3)", /* display: none; */ }}
+                    />
+                    {/* <img
                       style={{ width: "96px" }}
                       src="/images/book-patterns/iliad-square.svg"
-                    />
+                    /> */}
                   </div>
                   <div className="d-flex flex-column align-items-center gap-4">
                     <div className="d-flex flex-column align-items-center text-center">
@@ -479,9 +487,17 @@ const Store = () => {
                     className={`${styles.epicPoemIllustration} ${styles.epicPoemIllustrationOdyssey} shine p-2 radius-5`}
                   >
                     <img
+                      src="/images/book-patterns/odyssey-round.svg"
+                      style={{ width: "96px", position: "absolute", left: "8px", top: "8.5px", filter: "brightness(0.3)" }}
+                    />
+                    <img
+                      src="/images/book-patterns/odyssey-round.svg"
+                      style={{ width: "96px", position: "absolute", left: "8px", top: "8px" }}
+                    />
+                    {/* <img
                       style={{ width: "96px" }}
                       src="/images/book-patterns/odyssey-round.svg"
-                    />
+                    /> */}
                   </div>
                   <div className="d-flex flex-column align-items-center justify-content-between h-100 gap-4">
                     <div className="d-flex flex-column align-items-center text-center">

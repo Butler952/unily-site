@@ -26,7 +26,10 @@
 
 .epicPoemIllustration {
   // box-shadow: $shadow-1;
-  width: fit-content;
+  border: none;
+  position: relative;
+  min-width: 112px;
+  min-height: 112px;
   transition: $transition-standard;
   &:hover {
     transform: scale(1.02);
@@ -35,12 +38,19 @@
 
 .epicPoemIllustrationIliad {
   background-color: #4B2123;
+  box-shadow: 
+    inset 0px 1px 0px rgba(255,200,180,0.3),  /* light from top/left with reddish tint */
+    inset -0px -1px 0px rgba(20,0,0,0.3);     /* shadow at bottom/right with dark red tint */
   svg path {
     stroke: #E07443;
   }
 }
+
 .epicPoemIllustrationOdyssey {
   background-color: #0D4F59;
+  box-shadow: 
+    inset 0px 1px 0px rgba(180,255,255,0.3),  /* light from top/left with blueish tint */
+    inset -0px -1px 0px rgba(0,0,20,0.3);     /* shadow at bottom/right with dark blue tint */
   svg path {
     stroke: #7AD7FF;
   }
