@@ -62,7 +62,7 @@ const Home = (props) => {
           }
         });
       },
-      { threshold: screenWidth <= 767 ? 0.4 : 0.6 } // Trigger when 40% of the element is visible on small screens
+      { threshold: screenWidth <= 767 ? 0.4 : 0.5 } // Trigger when 40% of the element is visible on small screens
     );
 
     // Set up intersection observer for odyssey card
@@ -79,7 +79,7 @@ const Home = (props) => {
           }
         });
       },
-      { threshold: screenWidth <= 767 ? 0.4 : 0.6 } // Trigger when 40% of the element is visible on small screens
+      { threshold: screenWidth <= 767 ? 0.4 : 0.5 } // Trigger when 40% of the element is visible on small screens
     );
 
     if (iliadCardRef.current) {
