@@ -398,7 +398,7 @@ const MenuSidebar = ({
 								</svg>
 								Shortlist
 								</div>
-								<div className="tag dark medium small ml-2">{shortlist.length}</div>
+								{shortlist.length > 0 && <div className="tag dark medium small ml-2">{shortlist.length}</div>}
 							</Link>
 							<Link
 								href="/store"
