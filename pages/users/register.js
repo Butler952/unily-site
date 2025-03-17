@@ -386,7 +386,7 @@ const Register = () => {
 		<div>
 			<Header hideBackground />
 			<Head>
-				<title>Create an account</title>
+				<title>Create an account | Epic Baby Names</title>
 			</Head>
 			<Container className="py-5">
 				<div className="card m-auto p-4 p-md-5" style={{ maxWidth: "560px" }}>

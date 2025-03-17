@@ -71,7 +71,7 @@ const Settings = () => {
   return (
     <div>
       <Head>
-        <title>Settings | Vitaely.me</title>
+        <title>Settings | Epic Baby Names</title>
       </Head>
       <div className={screenWidth > 767 && `d-flex flex-row`}>
         {screenWidth > 767 ? (

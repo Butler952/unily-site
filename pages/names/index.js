@@ -1379,22 +1379,22 @@ const Names = () => {
     <div className={`overflow-hidden ${likedName && "bg-dark-900"}`}>
       {/* <Header positionFixed hideShadow /> */}
       <Head>
-        <title>Turn your Linkedin profile into a resume | vitaely.me</title>
+        <title>Find an epic name | Epic Baby Names</title>
         <meta
           name="description"
-          content="Turn your Linkedin profile into a resume in just two minutes."
+          content="Browse hundreds of epic names from Homer's epic poems."
         />
         <meta
           property="og:title"
-          content="Turn your Linkedin profile into a resume | vitaely.me"
+          content="Find an epic name | Epic Baby Names"
         />
         <meta
           property="og:description"
-          content="Turn your Linkedin profile into a resume in just two minutes."
+          content="Browse hundreds of epic names from Homer's epic poems."
         />
         <meta
           property="og:url"
-          content="https://www.vitaely.me/linkedin-to-resume"
+          content="https://www.epicbabynames.com/names"
         />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}

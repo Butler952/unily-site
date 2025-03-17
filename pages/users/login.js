@@ -222,7 +222,7 @@ const Login = () => {
 		<div>
 			<Header hideBackground />
 			<Head>
-				<title>Sign in to your account</title>
+				<title>Sign in | Epic Baby Names</title>
 			</Head>
 			<Container className="py-5">
 				<div className="card m-auto p-4 p-md-5" style={{ maxWidth: "560px" }}>

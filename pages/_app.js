@@ -49,9 +49,14 @@ export default function App({ Component, pageProps }) {
     // <body>
       <UserContext.Provider value={userValue}>
         <Head>
-          <title>vitaely.me</title>
-          <link rel="shortcut icon" href="/images/vitaely-logo-icon-square.svg" />
-          <title>Vitaely | Turn your Linkedin profile into a website</title>
+          <title>Epic Baby Names</title>
+          <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+          <link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
+          <link rel="shortcut icon" href="/images/favicon/favicon.ico" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
+          <meta name="apple-mobile-web-app-title" content="Epic Baby Names" />
+          <link rel="manifest" href="/site.webmanifest" />
+          <title>Epic Baby Names | Certified epic names for your kid</title>
         </Head>
         <Layout>
           {getLayout(<Component {...pageProps} />)}

@@ -378,19 +378,19 @@ const Shortlist = () => {
         <title>Shortlist</title>
         <meta
           name="description"
-          content="Turn your Linkedin profile into a resume in just two minutes."
+          content="Your shortlist of epic names."
         />
         <meta
           property="og:title"
-          content="Turn your Linkedin profile into a resume | vitaely.me"
+          content="Shortlist | Epic Baby Names"
         />
         <meta
           property="og:description"
-          content="Turn your Linkedin profile into a resume in just two minutes."
+          content="Your shortlist of epic names."
         />
         <meta
           property="og:url"
-          content="https://www.vitaely.me/linkedin-to-resume"
+          content="https://www.epicbabynames.com/shortlist"
         />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me%2Flinkedin-to-resume"/> */}

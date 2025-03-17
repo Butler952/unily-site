@@ -191,30 +191,30 @@ const Home = (props) => {
   return (
     <div>
       <Head>
-        <title>Vitaely | Turn your Linkedin profile into a website</title>
+        <title>Epic Baby Names | Certified epic names for your kid</title>
         <meta
           name="description"
-          content="Turn your Linkedin profile into your own personal website in two minutes"
+          content="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
         />
         <meta
           property="og:title"
-          content="Vitaely | Turn your Linkedin profile into a website"
+          content="Epic Baby Names | Certified epic names for your kid"
         />
         <meta
           property="og:description"
-          content="Turn your Linkedin profile into your own personal website in two minutes"
+          content="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
         />
-        <meta property="og:url" content="https://www.vitaely.me/" />
+        <meta property="og:url" content="https://www.epicbabynames.com/" />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" /> */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:image"
-          content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg"
+          content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         />
         <meta
           property="og:image"
-          content="https://www.vitaely.me/images/vitaely-twitter-summary-large-image.jpeg"
+          content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         />
       </Head>
       <Header hideShadow topOfLanding />
@@ -340,12 +340,7 @@ const Home = (props) => {
 									/>
 								</div> */}
                 <p>
-                  <a
-                    href="https://www.producthunt.com/products/vitaely-me/"
-                    className="text-dark-low"
-                  >
-                    *Certified by Homer
-                  </a>
+                  *Certified by Homer
                 </p>
               </div>
             </div>
