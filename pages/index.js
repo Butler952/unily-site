@@ -265,13 +265,12 @@ const Home = (props) => {
             style={{ maxWidth: "960px" }}
           >
             <div
-              style={{ maxWidth: "580px" }}
               className="d-flex flex-column align-items-center "
             >
               <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
                 {/* <p className="text-dark-med mb-0">Over 1000+ epic names</p> */}
               </div>
-              <h1 className="text-center">
+              <h1 className={`text-center ${screenWidth > 991 ? 'display1' : screenWidth > 767 && 'display2'}`}>
                 Certified️ epic names* for your kid
               </h1>
               <p
