@@ -240,18 +240,21 @@ const Home = (props) => {
 
   // Check for path in URL during component initialization
   useEffect(() => {
-    // If URL is /new or has specific query parameters
-    if (router.pathname === '/iliad' || router.query.view === 'iliad') {
-      // Set your desired state here
+    // Check if router is ready to avoid issues during initial load
+    if (!router.isReady) return;
+    
+    // If URL is /iliad or has specific query parameters
+    if (router.pathname === '/iliad' || router.asPath === '/iliad' || router.query.view === 'iliad') {
       setIsIliadActive(true);
-      // Or any other state changes you want for this URL
+      setIsOdysseyActive(false);
     }
     
     // You can handle other paths similarly
-    if (router.pathname === '/odyssey') {
+    if (router.pathname === '/odyssey' || router.asPath === '/odyssey' || router.query.view === 'odyssey') {
       setIsOdysseyActive(true);
+      setIsIliadActive(false);
     }
-  }, [router.pathname, router.query]);
+  }, [router.isReady, router.pathname, router.asPath, router.query]);
 
   // Function to navigate and change state
   const navigateToView = (view) => {
