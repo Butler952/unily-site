@@ -6,6 +6,7 @@ import Header from "../components/header/Header";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "config/mixpanel-config";
 import { Accordion, Container } from "react-bootstrap";
+import { useRouter } from 'next/router';
 
 import styles from "./index.module.scss";
 import ICONS from "../components/icon/IconPaths";
@@ -19,6 +20,7 @@ const Home = (props) => {
   const heroRef = useRef(null);
   const iliadCardRef = useRef(null);
   const { userContext, setUserContext } = useContext(UserContext);
+  const router = useRouter();
 
   const [screenWidth, setScreenWidth] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -235,6 +237,45 @@ const Home = (props) => {
     
     return () => clearTimeout(timer);
   }, [isOdysseyActive, odysseyCardHovered]);
+
+  // Check for path in URL during component initialization
+  useEffect(() => {
+    // If URL is /new or has specific query parameters
+    if (router.pathname === '/iliad' || router.query.view === 'iliad') {
+      // Set your desired state here
+      setIsIliadActive(true);
+      // Or any other state changes you want for this URL
+    }
+    
+    // You can handle other paths similarly
+    if (router.pathname === '/odyssey') {
+      setIsOdysseyActive(true);
+    }
+  }, [router.pathname, router.query]);
+
+  // Function to navigate and change state
+  const navigateToView = (view) => {
+    // If the view is already active, toggle it off and return to home
+    if ((view === 'iliad' && isIliadActive) || (view === 'odyssey' && isOdysseyActive)) {
+      router.push('/', undefined, { shallow: true });
+      
+      // Reset both states to inactive
+      setIsIliadActive(false);
+      setIsOdysseyActive(false);
+    } else {
+      // Otherwise, activate the selected view
+      router.push(`/${view}`, undefined, { shallow: true });
+      
+      // Update your state accordingly
+      if (view === 'iliad') {
+        setIsIliadActive(true);
+        setIsOdysseyActive(false);
+      } else if (view === 'odyssey') {
+        setIsOdysseyActive(true);
+        setIsIliadActive(false);
+      }
+    }
+  };
 
   const isProfileComplete = (user) => {
     var docRef = fire.firestore().collection("users").doc(user.uid);
@@ -555,9 +596,7 @@ const Home = (props) => {
                       ${ isOdysseyActive ? styles.inactive : ""}
                     `}
                     onClick={() => {
-                      setIsIliadActive(!isIliadActive);
-                      // Close the other book if it's open
-                      if (isOdysseyActive) setIsOdysseyActive(false);
+                      navigateToView('iliad');
                     }}
                     onMouseEnter={() => setIliadCardHovered(true)}
                     onMouseLeave={() => setIliadCardHovered(false)}

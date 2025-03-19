@@ -26,14 +26,19 @@ module.exports = {
       }
     ]
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/profile/(.*)",
-  //       destination: "/api/profileRedirects"
-  //     }
-  //   ]
-  // }
+  async rewrites() {
+    return [
+      {
+        source: '/iliad',
+        destination: '/',
+      },
+      {
+        source: '/odyssey',
+        destination: '/',
+      },
+      // Add other routes as needed
+    ]
+  }
 
   //   /*const profiles = fetch("/api/getProfilelist")*/
   // async redirects() {
