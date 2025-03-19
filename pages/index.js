@@ -36,14 +36,28 @@ const Home = (props) => {
 
   const [iliadCardHovered, setIliadCardHovered] = useState(false);
   const [odysseyCardHovered, setOdysseyCardHovered] = useState(false);
+  
+  // Replace single book state with separate states for each book
+  const [isIliadActive, setIsIliadActive] = useState(false);
+  const [isOdysseyActive, setIsOdysseyActive] = useState(false);
+  const [isIliadOverflowHidden, setIsIliadOverflowHidden] = useState(false);
+  const [isOdysseyOverflowHidden, setIsOdysseyOverflowHidden] = useState(false);
+
+  const [viewportHeight, setViewportHeight] = useState(0);
+
+  const [iliadZIndex, setIliadZIndex] = useState(1);
+  const [odysseyZIndex, setOdysseyZIndex] = useState(1);
+
+  const [iliadZIndexDelay, setIliadZIndexDelay] = useState(false);
+  const [odysseyZIndexDelay, setOdysseyZIndexDelay] = useState(false);
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
     mixpanel.track("Landing page");
     setScreenWidth(window.innerWidth);
+    setViewportHeight(window.innerHeight);
     if (ref?.current?.clientHeight) {
       setFooterHeight(ref.current.clientHeight);
-      setHeroHeight(heroRef.current.clientHeight);
     }
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
@@ -123,6 +137,105 @@ const Home = (props) => {
     }
   }, [scrollPosition, iliadIntersectionScrollY, odysseyIntersectionScrollY]);
 
+  // Add a useEffect to scroll to top when either book is active
+  useEffect(() => {
+    if (isIliadActive || isOdysseyActive) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [isIliadActive, isOdysseyActive]);
+
+  // Add a useEffect to control body overflow when either book is active
+  useEffect(() => {
+    if (isIliadActive || isOdysseyActive) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, [isIliadActive, isOdysseyActive]);
+
+  useEffect(() => {
+    const timerIliad = setTimeout(() => {
+      setIsIliadOverflowHidden(isIliadActive);
+    }, 1000); // 1000ms to match height transition duration
+
+    const timerOdyssey = setTimeout(() => {
+      setIsOdysseyOverflowHidden(isOdysseyActive);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerIliad);
+      clearTimeout(timerOdyssey);
+    };
+  }, [isIliadActive, isOdysseyActive]);
+
+  // Add a useEffect that measures after content is fully loaded
+  useEffect(() => {
+    // Initial measurement
+    if (heroRef?.current?.clientHeight) {
+      setHeroHeight(heroRef.current.clientHeight);
+    }
+
+    // Measure again after window fully loads
+    window.addEventListener("load", () => {
+      if (heroRef?.current?.clientHeight) {
+        setHeroHeight(heroRef.current.clientHeight);
+      }
+    });
+
+    // Additional measurement after a delay to catch any late rendering
+    const timer = setTimeout(() => {
+      if (heroRef?.current?.clientHeight) {
+        setHeroHeight(heroRef.current.clientHeight);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Add this useEffect to handle the delayed z-index change
+  useEffect(() => {
+    let timer;
+    if (!isIliadActive && !iliadCardHovered) {
+      // When no longer active/hovered, set delay flag
+      setIliadZIndexDelay(true);
+      // After 1 second, clear the delay flag
+      timer = setTimeout(() => {
+        setIliadZIndexDelay(false);
+      }, 250);
+    } else {
+      // Immediately clear delay flag when active/hovered
+      setIliadZIndexDelay(false);
+    }
+    
+    return () => clearTimeout(timer);
+  }, [isIliadActive, iliadCardHovered]);
+
+  // Add this useEffect for Odyssey z-index delay management
+  useEffect(() => {
+    let timer;
+    if (!isOdysseyActive && !odysseyCardHovered) {
+      // When no longer active/hovered, set delay flag
+      setOdysseyZIndexDelay(true);
+      // After 1 second, clear the delay flag
+      timer = setTimeout(() => {
+        setOdysseyZIndexDelay(false);
+      }, 250);
+    } else {
+      // Immediately clear delay flag when active/hovered
+      setOdysseyZIndexDelay(false);
+    }
+    
+    return () => clearTimeout(timer);
+  }, [isOdysseyActive, odysseyCardHovered]);
+
   const isProfileComplete = (user) => {
     var docRef = fire.firestore().collection("users").doc(user.uid);
 
@@ -149,9 +262,9 @@ const Home = (props) => {
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
+    setViewportHeight(window.innerHeight);
     if (ref?.current?.clientHeight) {
       setFooterHeight(ref.current.clientHeight);
-      setHeroHeight(heroRef.current.clientHeight);
     }
   };
 
@@ -189,7 +302,13 @@ const Home = (props) => {
   };
 
   return (
-    <div>
+    <div
+      className="transition-long"
+      style={{
+        height: (isIliadActive || isOdysseyActive) ? "100vh" : "auto",
+        overflow: (isIliadOverflowHidden || isOdysseyOverflowHidden) && "hidden",
+      }}
+    >
       <Head>
         <title>Epic Baby Names | Certified epic names for your kid</title>
         <meta
@@ -256,21 +375,27 @@ const Home = (props) => {
 					> */}
 
         <div
-          className="container d-flex flex-column align-items-center justify-content-center"
-          style={{ paddingTop: "64px" }}
+          className="container transition-long d-flex flex-column align-items-center justify-content-center"
+          style={{
+            opacity: (isIliadActive || isOdysseyActive) ? 0 : 1,
+            marginTop: (isIliadActive || isOdysseyActive) ? `-${Number(heroHeight) + 64}px` : "64px",
+          }}
         >
           <div
             ref={heroRef}
-            className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
-            style={{ maxWidth: "960px" }}
+            className="d-flex flex-column align-items-center justify-content-center w-100 gap-5 transition-long"
+            style={{ maxWidth: "800px" }}
           >
-            <div
-              className="d-flex flex-column align-items-center "
-            >
+            <div className="d-flex flex-column align-items-center ">
               <div className="d-flex flex-row align-items-center justify-content-center mb-4 gap-2">
                 {/* <p className="text-dark-med mb-0">Over 1000+ epic names</p> */}
               </div>
-              <h1 className={`text-center ${screenWidth > 991 ? 'display1' : screenWidth > 767 && 'display2'}`}>
+              <h1
+                className={`text-center ${
+                  screenWidth > 991
+                    && "display2"
+                }`}
+              >
                 Certified️ epic names* for your kid
               </h1>
               <p
@@ -338,9 +463,7 @@ const Home = (props) => {
 										className="fill-warning-900"
 									/>
 								</div> */}
-                <p className="text-dark-dis">
-                  *Certified by Homer
-                </p>
+                <p className="text-dark-dis">*Certified by Homer</p>
               </div>
             </div>
             {/* <div className={styles.iframeWrapper}>
@@ -394,10 +517,17 @@ const Home = (props) => {
 						</div>
 					</div>
 				</div> */}
-        <div className="border-0 border-bottom-1 border-solid border-dark-300 overflow-hidden">
+        <div
+          className="d-flex flex-column align-items-center justify-content-center border-0 border-bottom-1 border-solid border-dark-300 overflow-hidden transition-long"
+          style={{ height: (isIliadActive || isOdysseyActive) ? `${viewportHeight}px` : (screenWidth <= 767 ? "1000px" : "440px") }}
+        >
           <div
-            className="container d-flex flex-column align-items-center justify-content-center"
-            style={{ paddingTop: "64px", paddingBottom: "120px" }}
+            className={`container d-flex flex-column align-items-center justify-content-center transition-long`}
+            style={{
+              // height: isBookActive ? "100%" : "auto",
+              paddingTop: (isIliadActive || isOdysseyActive) ? "0" : "160px",
+              paddingBottom: (isIliadActive || isOdysseyActive) ? "0" : "0",
+            }}
           >
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
@@ -406,6 +536,205 @@ const Home = (props) => {
               {/* <h2 className="text-center" style={{ maxWidth: "480px" }}>
                 Over 1,000 names from two epic poems
               </h2> */}
+
+              <div className="w-100 align-items-center justify-content-center d-flex flex-column flex-md-row gap-5">
+                <div style={{ 
+                  perspective: "1200px", 
+                  width: screenWidth <= 767 ? '300px' : (isOdysseyActive ? '0px' : '300px'),
+                  height: screenWidth <= 767 ? (isOdysseyActive ? '0px' : '450px') : '450px',
+                  transition: screenWidth <= 767 
+                    ? "height 1s ease, padding-top 1s ease" 
+                    : "width 1s ease, padding-top 1s ease",
+                  paddingTop: isIliadActive ? '150px' : '0px',
+                  zIndex: isIliadActive || iliadCardHovered || iliadZIndexDelay ? 1 : 0
+                }}>
+                  <div
+                    className={`
+                      ${styles.book} 
+                      ${ isIliadActive ? styles.active : ""}
+                      ${ isOdysseyActive ? styles.inactive : ""}
+                    `}
+                    onClick={() => {
+                      setIsIliadActive(!isIliadActive);
+                      // Close the other book if it's open
+                      if (isOdysseyActive) setIsOdysseyActive(false);
+                    }}
+                    onMouseEnter={() => setIliadCardHovered(true)}
+                    onMouseLeave={() => setIliadCardHovered(false)}
+                  >
+                    <div className={`${styles.back} ${styles.iliad}`}></div>
+                    <div
+                      className={`${styles.page6}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{ rotate: "90deg", transform: "scale(-1, -1)" }}
+                      >
+                        <p className="mb-0">Hero of Athens, 1.265</p>
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.page5}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{ rotate: "90deg", transform: "scale(-1, 1)" }}
+                      >
+                        <h3 className="mb-0">Theseus</h3>
+                      </div>
+                    </div>
+                    <div className={`${styles.page4}`}></div>
+                    <div className={`${styles.page3}`}></div>
+                    <div className={`${styles.page2}`}></div>
+                    <div className={`${styles.page1}`}></div>
+                    <div className={`${styles.front} ${styles.iliad} shine`}>
+                      <div
+                        className="position-absolute"
+                        style={{
+                          top: "8%",
+                          left: "16%",
+                          right: 0,
+                          bottom: 0,
+                          zIndex: 1,
+                        }}
+                      >
+                        <h5 className="mb-0">Iliad</h5>
+                      </div>
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: "-12.5%",
+                          top: "0",
+                          width: "125%",
+                        }}
+                      >
+                        <IllustrationIliad width="100%" height="100%" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ 
+                  perspective: "1200px",
+                  width: screenWidth <= 767 ? '300px' : (isIliadActive ? '0px' : '300px'),
+                  height: screenWidth <= 767 ? (isIliadActive ? '0px' : '450px') : '450px',
+                  transition: screenWidth <= 767 
+                    ? "height 1s ease, padding-top 1s ease" 
+                    : "width 1s ease, padding-top 1s ease",
+                  paddingTop: isOdysseyActive ? '150px' : '0px',
+                  zIndex: isOdysseyActive || odysseyCardHovered || odysseyZIndexDelay ? 1 : 0
+                }}>
+                  <div
+                    className={`
+                      ${styles.book} 
+                      ${ isOdysseyActive ? styles.active : ""}
+                      ${ isIliadActive ? styles.inactive : ""}
+                    `}
+                    onClick={() => {
+                      setIsOdysseyActive(!isOdysseyActive);
+                      // Close the other book if it's open
+                      if (isIliadActive) setIsIliadActive(false);
+                    }}
+                  >
+                    <div className={`${styles.back} ${styles.odyssey}`}></div>
+                    <div
+                      className={`${styles.page6}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{ rotate: "90deg", transform: "scale(-1, -1)" }}
+                      >
+                        <p className="mb-0">Hero of Athens, 1.265</p>
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.page5}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{ rotate: "90deg", transform: "scale(-1, 1)" }}
+                      >
+                        <h3 className="mb-0">Theseus</h3>
+                      </div>
+                    </div>
+                    <div className={`${styles.page4}`}></div>
+                    <div className={`${styles.page3}`}></div>
+                    <div className={`${styles.page2}`}></div>
+                    <div className={`${styles.page1}`}></div>
+                    <div className={`${styles.front} ${styles.odyssey} shine`}>
+                      <div
+                        className="position-absolute"
+                        style={{
+                          top: "8%",
+                          left: "16%",
+                          right: 0,
+                          bottom: 0,
+                          zIndex: 1,
+                        }}
+                      >
+                        <h5 className="mb-0">Odyssey</h5>
+                      </div>
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: "-3%",
+                          top: "-1%",
+                          width: "205%",
+                        }}
+                      >
+                        <IllustrationOdyssey width="100%" height="100%" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="d-flex flex-column flex-md-row gap-3 w-100">
+              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
+                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+                  <h2 className="mb-0">Iliad</h2>
+                </div>
+              </div>
+              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
+                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+                  <h2 className="mb-0">Iliad</h2>
+                </div>
+              </div>
+            </div> */}
+            </div>
+          </div>
+        </div>
+        {/* <div
+          className="border-0 border-bottom-1 border-solid border-dark-300 overflow-hidden"
+          style={{
+            paddingTop: "64px",
+            opacity: (isIliadActive || isOdysseyActive) ? 0 : 1,
+            transition: "opacity 0.3s ease",
+          }}
+        >
+          <div
+            className="container d-flex flex-column align-items-center justify-content-center"
+            style={{ paddingTop: "64px", paddingBottom: "120px" }}
+          >
+            <div
+              className="d-flex flex-column align-items-center justify-content-center w-100 gap-5"
+              style={{ maxWidth: "960px" }}
+            >
 
               <div
                 className="w-100 d-flex flex-column flex-md-row gap-4"
@@ -472,7 +801,6 @@ const Home = (props) => {
                     style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}
                   >
                     <h3 className="mb-1">Odyssey</h3>
-                    {/* <p className="small">Coming soon</p> */}
                   </div>
                   <div
                     style={{
@@ -486,22 +814,9 @@ const Home = (props) => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="d-flex flex-column flex-md-row gap-3 w-100">
-              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
-                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
-                  <h2 className="mb-0">Iliad</h2>
-                </div>
-              </div>
-              <div className="position-relative w-100" style={{paddingBottom: '133.33%'}}>
-                <div className="bg-dark-300 radius-4 p-5 position-absolute" style={{top: 0, left: 0, right: 0, bottom: 0}}>
-                  <h2 className="mb-0">Iliad</h2>
-                </div>
-              </div>
-            </div> */}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* <div className="container">
           <div className="mx-auto" style={{maxWidth: '960px'}}>
@@ -531,7 +846,13 @@ const Home = (props) => {
             </a>
           </div>
         </div> */}
-        <div className="container">
+        <div
+          className="container"
+          style={{
+            opacity: (isIliadActive || isOdysseyActive) ? 0 : 1,
+            transition: "opacity 0.3s ease",
+          }}
+        >
           <div className="mx-auto" style={{ maxWidth: "960px" }}>
             {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '160px', paddingBottom: '160px' }}>
               <h2 className="text-light-high mb-5 pb-3" style={{ maxWidth: '560px' }}>Build trust with potential clients</h2>
@@ -582,80 +903,6 @@ const Home = (props) => {
                           </div>
                         </a>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="d-flex flex-column align-items-start" style={{ paddingTop: '96px', paddingBottom: '160px' }}>
-              <div style={{ maxWidth: '560px' }} className="mb-5 pb-2">
-                <h2 className="text-light-high mb-4">Make your own website in just a few minutes</h2>
-                <p className="text-light-low large mb-0" style={{ maxWidth: '440px' }}>One place to feature your most important content for your business.</p>
-              </div>
-              <div className="d-flex flex-column gap-4">
-                <div className="d-flex flex-column flex-md-row gap-4 w-100">
-                  <div className={`${styles.featureItemWrapper}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage} ${styles.featureItemImageAdjust}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/custom-domain-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Connect your own domain</h6>
-                      <p className="text-light-low mb-0">Show off your Vitaely profile on your own domain.</p>
-                    </div>
-                  </div>
-                  <div className={`${styles.featureItemWrapper} ${styles.featureItemWrapperWide}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/theme-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Choose a theme</h6>
-                      <p className="text-light-low mb-0">Pick a style for your page that best fits your personality and your business.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex flex-column flex-md-row gap-4 w-100">
-                  <div className={`order-1 order-md-0 ${styles.featureItemWrapper} ${styles.featureItemWrapperWide}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/calendar-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Embed your calendar</h6>
-                      <p className="text-light-low mb-0">Integrate with Cal.com so leads can book directly into your calendar from your page.</p>
-                    </div>
-                  </div>
-                  <div className={`order-0 order-md-1 ${styles.featureItemWrapper}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage} ${styles.featureItemImageAdjust}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/testimonial-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Client testimonials</h6>
-                      <p className="text-light-low mb-0">Tell your leads why they should work with you by letting your clients do the talking.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex flex-column flex-md-row gap-4 w-100">
-                  <div className={`${styles.featureItemWrapper}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage} ${styles.featureItemImageAdjust}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/post-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Feature blog posts</h6>
-                      <p className="text-light-low mb-0">Highlight your best writing by linking out to your blog posts.</p>
-                    </div>
-                  </div>
-                  <div className={`${styles.featureItemWrapper} ${styles.featureItemWrapperWide}`}>
-                    <div
-                      className={`d-block w-100 position-relative overflow-hidden ${styles.featureItemImage}`} 
-                      style={{ backgroundImage: `url(/images/landing-page/feature-highlights/products-services-dark.png)` }}
-                    />
-                    <div className="p-4">
-                      <h6 className="text-light-high mb-2">Add your products & services</h6>
-                      <p className="text-light-low mb-0">Link out to your products and services to clients can convert right there and then.</p>
                     </div>
                   </div>
                 </div>
@@ -742,7 +989,13 @@ const Home = (props) => {
       <div
         ref={ref}
         className="w-100"
-        style={{ zIndex: "1", position: "fixed", bottom: 0 }}
+        style={{
+          zIndex: "1",
+          position: "fixed",
+          bottom: 0,
+          opacity: (isIliadActive || isOdysseyActive) ? 0 : 1,
+          transition: "opacity 0.3s ease",
+        }}
       >
         <Footer />
       </div>
