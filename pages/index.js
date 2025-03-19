@@ -451,9 +451,12 @@ const Home = (props) => {
               </p>
               <div className="d-flex justify-content-center">
                 <div className="d-flex justify-content-center gap-3">
-                  <Link href="/names" className="btn dark high">
+                  <button onClick={() => navigateToView('iliad')} className="btn dark high">
                     Find an epic name
-                  </Link>
+                  </button>
+                  {/* <Link href="/names" className="btn dark high">
+                    Find an epic name
+                  </Link> */}
                 </div>
               </div>
               {/* <div className="d-flex justify-content-center">
