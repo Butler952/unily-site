@@ -5,7 +5,7 @@ import Link from "next/link";
 import Header from "../components/header/Header";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "config/mixpanel-config";
-import { Accordion, Container } from "react-bootstrap";
+import { Accordion, Container, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useRouter } from 'next/router';
 
 import styles from "./index.module.scss";
@@ -53,6 +53,18 @@ const Home = (props) => {
 
   const [iliadZIndexDelay, setIliadZIndexDelay] = useState(false);
   const [odysseyZIndexDelay, setOdysseyZIndexDelay] = useState(false);
+
+  // Add name browsing states from names/index.js
+  const [retreivingName, setRetreivingName] = useState(false);
+  const [retreivedName, setRetreivedName] = useState(null);
+  const [shortlist, setShortlist] = useState([]);
+  const [rejected, setRejected] = useState([]);
+  const [lastRandomDocumentId, setLastRandomDocumentId] = useState(null);
+  const [previousDocumentId, setPreviousDocumentId] = useState(null);
+  const [actionTaken, setActionTaken] = useState(false);
+  const [firstFetch, setFirstFetch] = useState(true);
+  const [slideDirection, setSlideDirection] = useState('center');
+  const [gender, setGender] = useState('male');
 
   useEffect(() => {
     mixpanel.init(mixpanelConfig);
@@ -346,6 +358,153 @@ const Home = (props) => {
     );
   };
 
+  // Initialize the name data on load
+  useEffect(() => {
+    // Load shortlist and rejected from localStorage for non-logged in users
+    const storedShortlist = localStorage.getItem('shortlist');
+    const storedRejected = localStorage.getItem('rejected');
+    
+    if (storedShortlist) {
+      try {
+        setShortlist(JSON.parse(storedShortlist));
+      } catch (e) {
+        console.error('Error parsing shortlist from localStorage');
+      }
+    }
+    
+    if (storedRejected) {
+      try {
+        setRejected(JSON.parse(storedRejected));
+      } catch (e) {
+        console.error('Error parsing rejected from localStorage');
+      }
+    }
+    
+    // If a book is active, fetch a name
+    if (isIliadActive || isOdysseyActive) {
+      getRandomName();
+    }
+  }, [isIliadActive, isOdysseyActive]);
+
+  // Add a function to get a random name
+  const getRandomName = (passedLastRandomDocumentId) => {
+    setRetreivingName(true);
+    
+    // This implementation would need to be adjusted based on your data source
+    // For simplicity, I'm assuming you have access to the names array
+    // similar to what you have in pages/names/index.js
+    
+    // For now, we'll just simulate getting a random name
+    setTimeout(() => {
+      // This would be replaced with actual name fetching logic from your names/index.js file
+      const mockName = {
+        id: Math.random().toString(),
+        name: isIliadActive ? "Achilles" : "Odysseus",
+        description: [
+          { content: isIliadActive ? 
+            "Son of Peleus and Thetis, greatest of the Greek warriors at Troy." : 
+            "King of Ithaca, known for his cunning and intelligence."
+          }
+        ],
+        gender: "male"
+      };
+      
+      setRetreivedName(mockName);
+      setLastRandomDocumentId(mockName.id);
+      localStorage.setItem("lastRandomDocumentId", JSON.stringify(mockName.id));
+      setRetreivingName(false);
+      setFirstFetch(false);
+      setSlideDirection('center');
+    }, 800);
+  };
+
+  // Add to shortlist function
+  const addToShortlist = () => {
+    if (!retreivedName) return;
+    
+    setActionTaken(true);
+    setPreviousDocumentId(retreivedName.id);
+    
+    const newShortlist = [...shortlist, retreivedName.id];
+    setShortlist(newShortlist);
+    localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+    
+    // Get next name
+    setSlideDirection('left');
+    setTimeout(() => {
+      getRandomName();
+    }, 400);
+  };
+
+  // Add to rejected function
+  const addToRejected = () => {
+    if (!retreivedName) return;
+    
+    setActionTaken(true);
+    setPreviousDocumentId(retreivedName.id);
+    
+    const newRejected = [...rejected, retreivedName.id];
+    setRejected(newRejected);
+    localStorage.setItem("rejected", JSON.stringify(newRejected));
+    
+    // Get next name
+    setSlideDirection('right');
+    setTimeout(() => {
+      getRandomName();
+    }, 400);
+  };
+
+  // Undo last action function
+  const undoLastAction = () => {
+    if (!previousDocumentId) return;
+    
+    setRetreivingName(true);
+    
+    // Remove the ID from both shortlist and rejected
+    const newShortlist = shortlist.filter(id => id !== previousDocumentId);
+    const newRejected = rejected.filter(id => id !== previousDocumentId);
+    
+    setShortlist(newShortlist);
+    setRejected(newRejected);
+    
+    localStorage.setItem("shortlist", JSON.stringify(newShortlist));
+    localStorage.setItem("rejected", JSON.stringify(newRejected));
+    
+    setActionTaken(false);
+    
+    // Restore the previous name
+    setTimeout(() => {
+      // In a real implementation, you would fetch the name data for previousDocumentId
+      // For now, we'll just simulate it
+      const mockName = {
+        id: previousDocumentId,
+        name: isIliadActive ? "Hector" : "Telemachus",
+        description: [
+          { content: isIliadActive ? 
+            "Prince of Troy, son of King Priam and Queen Hecuba." : 
+            "Son of Odysseus and Penelope, who searches for news of his father."
+          }
+        ],
+        gender: "male"
+      };
+      
+      setRetreivedName(mockName);
+      setRetreivingName(false);
+      setLastRandomDocumentId(previousDocumentId);
+      setPreviousDocumentId(null);
+    }, 400);
+  };
+
+  // Change gender preference
+  const changeGender = (currentGender) => {
+    const newGender = currentGender === "male" ? "female" : "male";
+    setGender(newGender);
+    localStorage.setItem("preferredGender", newGender);
+    
+    // Get a new name with the new gender
+    getRandomName();
+  };
+
   return (
     <div
       className="transition-long"
@@ -381,7 +540,7 @@ const Home = (props) => {
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         />
       </Head>
-      <Header hideShadow topOfLanding />
+      <Header  hideShadow topOfLanding />
       <div
         className={`${styles.fixedHeader} ${
           scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled
@@ -449,7 +608,131 @@ const Home = (props) => {
           navigateToView={navigateToView}
           viewportHeight={viewportHeight}
           screenWidth={screenWidth}
+          retreivedName={retreivedName}
+          retreivingName={retreivingName}
+          slideDirection={slideDirection}
         />
+        
+        {/* Action buttons (only shown when a book is active) */}
+        {(isIliadActive || isOdysseyActive) && (
+          <div
+            className="position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100"
+            style={{ bottom: "48px", padding: "0", zIndex: 3 }}
+          >
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 1000, hide: 200 }}
+              overlay={<Tooltip id="reject-tooltip">Reject</Tooltip>}
+            >
+              <button
+                onClick={addToRejected}
+                className="btn light large high icon-only"
+                disabled={retreivingName}
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.CLOSE}></path>
+                </svg>
+              </button>
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 1000, hide: 200 }}
+              overlay={<Tooltip id="undo-tooltip">Undo</Tooltip>}
+            >
+              <button
+                onClick={undoLastAction}
+                className={`btn primary medium x-small outlined icon-only`}
+                disabled={retreivingName || !actionTaken}
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.UNDO}></path>
+                </svg>
+              </button>
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 1000, hide: 200 }}
+              overlay={<Tooltip id="shortlist-tooltip">Shortlist</Tooltip>}
+            >
+              <button
+                onClick={addToShortlist}
+                className={`btn large high icon-only ${styles.shortlistButton} dark`}
+                disabled={retreivingName}
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d={ICONS.HEART_FILLED}></path>
+                </svg>
+              </button>
+            </OverlayTrigger>
+          </div>
+        )}
+        {(isIliadActive || isOdysseyActive) && (
+          <div
+            className="position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100"
+            style={{ top: "48px", padding: "0", zIndex: 4 }}
+          >
+            
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 1000, hide: 200 }}
+              overlay={<Tooltip id="gender-toggle-tooltip">Toggle gender</Tooltip>}
+            >
+              <button
+                onClick={() => changeGender(gender)}
+                className={`${styles.genderSwitchWrapper}`}
+                style={{
+                  padding: "12px",
+                  gap: "19px",
+                  width: "82px",
+                  height: "44px",
+                }}
+              >
+                <div
+                  className={`${styles.genderSwitchStyles} ${
+                    gender == "male"
+                      ? styles.genderSwitchStylesMale
+                      : styles.genderSwitchStylesFemale
+                  } position-absolute bg-light-900 radius-5`}
+                  style={{ top: "2px", height: "40px", width: "40px" }}
+                ></div>
+                <svg
+                  className={`${styles.genderSwitchMaleIcon} ${
+                    gender == "male" && styles.active
+                  }`}
+                  style={{ zIndex: "1" }}
+                  width="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d={ICONS.MALE}
+                  />
+                </svg>
+                <svg
+                  className={`${styles.genderSwitchFemaleIcon} ${
+                    gender == "female" && styles.active
+                  }`}
+                  style={{ zIndex: "1" }}
+                  width="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d={ICONS.FEMALE}
+                  />
+                </svg>
+              </button>
+            </OverlayTrigger>
+          </div>
+        )}
         
         <div
           className="container"

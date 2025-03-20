@@ -4,7 +4,16 @@ import styles from "../../pages/index.module.scss";
 import IllustrationIliad from "../index/IllustrationIliad";
 import IllustrationOdyssey from "../index/IllustrationOdyssey";
 
-const BookDisplay = ({ isIliadActive, isOdysseyActive, navigateToView, viewportHeight, screenWidth }) => {
+const BookDisplay = ({ 
+  isIliadActive, 
+  isOdysseyActive, 
+  navigateToView, 
+  viewportHeight, 
+  screenWidth,
+  retreivedName,
+  retreivingName,
+  slideDirection
+}) => {
   const [iliadCardHovered, setIliadCardHovered] = useState(false);
   const [odysseyCardHovered, setOdysseyCardHovered] = useState(false);
   const [iliadZIndexDelay, setIliadZIndexDelay] = useState(false);
@@ -45,6 +54,51 @@ const BookDisplay = ({ isIliadActive, isOdysseyActive, navigateToView, viewportH
     
     return () => clearTimeout(timer);
   }, [isOdysseyActive, odysseyCardHovered]);
+
+  // Define content display component for name information
+  const NameDisplay = () => {
+    if (retreivingName) {
+      return (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <div className="ldsRippleLarge">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      );
+    }
+    
+    if (!retreivedName) return null;
+    
+    return (
+      <div className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
+           style={{ maxWidth: "90%", height: "100%" }}>
+        <h2 className="mb-3 text-dark-high" style={{ rotate: "90deg", transform: "scale(-1, 1)" }}>{retreivedName.name}</h2>
+      </div>
+    );
+  };
+
+  // Define content display component for name information
+  const DescriptionDisplay = () => {
+    if (retreivingName) {
+      return null
+    }
+    
+    if (!retreivedName) return null;
+    
+    return (
+      <div className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
+           style={{ maxWidth: "90%", height: "100%" }}>
+        <div>
+          {retreivedName.description?.map((description, index) => (
+            <p key={index} className="large text-dark-low" style={{ rotate: "90deg", transform: "scale(-1, -1)" }}>
+              {description.content}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div
@@ -93,9 +147,7 @@ const BookDisplay = ({ isIliadActive, isOdysseyActive, navigateToView, viewportH
                     justifyContent: "center",
                   }}
                 >
-                  <div style={{ rotate: "90deg", transform: "scale(-1, -1)" }}>
-                    <p className="mb-0">Hero of Athens, 1.265</p>
-                  </div>
+                  {isIliadActive && <DescriptionDisplay />}
                 </div>
                 <div
                   className={`${styles.page5}`}
@@ -105,9 +157,7 @@ const BookDisplay = ({ isIliadActive, isOdysseyActive, navigateToView, viewportH
                     justifyContent: "center",
                   }}
                 >
-                  <div style={{ rotate: "90deg", transform: "scale(-1, 1)" }}>
-                    <h3 className="mb-0">Theseus</h3>
-                  </div>
+                  {isIliadActive && <NameDisplay />}
                 </div>
                 <div className={`${styles.page4}`}></div>
                 <div className={`${styles.page3}`}></div>
@@ -170,9 +220,7 @@ const BookDisplay = ({ isIliadActive, isOdysseyActive, navigateToView, viewportH
                     justifyContent: "center",
                   }}
                 >
-                  <div style={{ rotate: "90deg", transform: "scale(-1, -1)" }}>
-                    <p className="mb-0">Hero of Athens, 1.265</p>
-                  </div>
+                  {isOdysseyActive && <NameDisplay />}
                 </div>
                 <div
                   className={`${styles.page5}`}

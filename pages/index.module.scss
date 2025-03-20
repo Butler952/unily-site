@@ -656,3 +656,185 @@
 .book.active:hover .back {
   transform: rotateY(-20deg) scale(1);
 }
+
+// from Names
+
+.sectionWrapper {
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+
+.genderSwitchWrapper {
+  transition: $transition-standard;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background: $dark-200;
+  border-radius: $radius-large;
+  border: none;
+  box-shadow: $shadow-inset-1;
+  // &:hover {
+  //   // background: $dark-light;
+  //   box-shadow: $shadow-inset-1;
+  //   .genderSwitchStyles {
+  //     box-shadow: $shadow-1;
+  //   }
+  // }
+}
+
+.genderSwitchStyles {
+  transition: $transition-standard;
+  box-shadow: $shadow-1;
+}
+
+.genderSwitchStylesMale {
+  left: 2px;
+}
+
+.genderSwitchStylesFemale {
+  left: 40px;
+}
+
+.genderSwitchMaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #598FF3;
+    }
+  }
+}
+
+.genderSwitchFemaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #DE80E0;
+    }
+  }
+}
+
+.shortlistButton {
+  &:hover {
+    svg path {
+      fill: $error-900!important;
+    }
+  }
+}
+
+.shortlistButtonHighlight {
+  background-color: $light-900!important;
+  opacity: 1!important;
+  svg path {
+    fill: $error-900!important;
+  }
+}
+
+.epicPoemCard {
+  background: $light-900;
+  max-width: 480px;
+  transition: $transition-standard;
+  &:hover {
+    box-shadow: $shadow-5;
+    transform: scale(1.02);
+  }
+}
+
+.epicPoemIllustration {
+  // box-shadow: $shadow-1;
+  width: fit-content;
+  transition: $transition-standard;
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.epicPoemIllustrationIliad {
+  background-color: #4B2123;
+  svg path {
+    stroke: #E07443;
+  }
+}
+.epicPoemIllustrationOdyssey {
+  background-color: #0D4F59;
+  svg path {
+    stroke: #7AD7FF;
+  }
+}
+
+@keyframes transitionIliad {
+  0%, 20% {
+    background-color: $background;
+    box-shadow: $shadow-0;
+    transform: scale(1);
+  }
+  40%, 60% {
+    background-color: $background;
+    box-shadow: $shadow-1;
+    transform: scale(1);
+  }
+  80%, 100% {
+    background-color: #4B2123;
+    box-shadow: $shadow-1;
+    transform: scale(1.02);
+  }
+}
+@keyframes transitionIliadColourPaths {
+  0%, 60% {
+    opacity: 0;
+  }
+  80%, 100% {
+    opacity: 1;
+  }
+}
+@keyframes transitionIliadGreyPaths {
+  0%, 80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+// @keyframes transitionIliad {
+//   0% {
+//     background-color: $dark-200;
+//     svg path {
+//       stroke: $dark-700;
+//     }
+//   }
+//   50% {
+//     background-color: $dark-200;
+//     svg path {
+//       stroke: $dark-700;
+//     }
+//   }
+//   100% {
+//     background-color: #4B2123;
+//     svg path {
+//       stroke: #E07443;
+//     }
+//   }
+// }
+
+.epicPoemIllustrationIliadAnimate {
+  animation: transitionIliad 2s ease-in-out;
+  animation-fill-mode: forwards; 
+  // svg path {
+  //   stroke: #E07443;
+  // }
+}
+
+.epicPoemIllustrationIliadColourPathAnimate {
+  animation: transitionIliadColourPaths 2s ease-in-out;
+  animation-fill-mode: forwards; 
+}
+
+.epicPoemIllustrationIliadGreyPathAnimate {
+  animation: transitionIliadGreyPaths 2s ease-in-out;
+  animation-fill-mode: forwards; 
+}
