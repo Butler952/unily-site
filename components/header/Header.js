@@ -2,7 +2,7 @@ import { useState, useEffect, forwardRef, Children, useContext } from "react";
 import fire from "../../config/fire-config";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
-import { Dropdown, Modal } from "react-bootstrap";
+import { Dropdown, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import styles from "./Header.module.scss";
 import Icon from "../icon/Icon";
 import ICONS from "../icon/IconPaths";
@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "config/mixpanel-config";
 import { Img } from "react-image";
+import GenderToggle from "../gender-toggle/GenderToggle";
 
 const Header = ({
   dark,
@@ -31,6 +32,11 @@ const Header = ({
   handleEditProfileClose,
   handleEditProfileShow,
   handleEditProfileChangeView,
+  // Add these new props for gender toggle functionality
+  isIliadActive,
+  isOdysseyActive,
+  gender,
+  changeGender,
 }) => {
   const { userContext, setUserContext } = useContext(UserContext);
 
@@ -69,6 +75,8 @@ const Header = ({
   // const { profile, setProfile } = useContext(ProfileContext);
 
   const [screenWidth, setScreenWidth] = useState("");
+  const [actionButtonsVisible, setActionButtonsVisible] = useState(false);
+  const [genderToggleVisible, setGenderToggleVisible] = useState(false);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
@@ -89,12 +97,12 @@ const Header = ({
       } else {
         setLoggedIn(false);
         // Load shortlist from localStorage for non-authenticated users
-        const localShortlist = localStorage.getItem('shortlist');
+        const localShortlist = localStorage.getItem("shortlist");
         if (localShortlist) {
           try {
             setShortlist(JSON.parse(localShortlist));
           } catch (error) {
-            console.log('Error parsing shortlist from localStorage:', error);
+            console.log("Error parsing shortlist from localStorage:", error);
             setShortlist([]);
           }
         }
@@ -106,29 +114,17 @@ const Header = ({
     };
   }, []);
 
-  /* Start old useEffect */
-
-  // useEffect(() => {
-  //   setWindowUrl(window.location.pathname);
-  //   setScreenWidth(window.innerWidth)
-  //   window.addEventListener('resize', handleResize);
-  //   const unsubscribe = fire.auth()
-  //     .onAuthStateChanged((user) => {
-  //       if (user) {
-  //         setLoggedIn(true)
-  //         loggedInRoute(user)
-  //         getSubscription(user)
-  //       } else {
-  //         setLoggedIn(false)
-  //       }
-  //     })
-  //   return () => {
-  //     // Unmouting
-  //     unsubscribe();
-  //   };
-  // }, []);
-
-  /* End old useEffect */
+  // Add useEffect to handle gender toggle animation timing
+  useEffect(() => {
+    if (isIliadActive || isOdysseyActive) {
+      // Small delay to allow book transition to start first
+      setTimeout(() => {
+        setGenderToggleVisible(true);
+      }, 300);
+    } else {
+      setGenderToggleVisible(false);
+    }
+  }, [isIliadActive, isOdysseyActive]);
 
   const loggedInRoute = (user) => {
     console.log("got here");
@@ -389,12 +385,11 @@ const Header = ({
     >
       <div
         className={`rounded-0 d-flex flex-row justify-content-between align-items-center p-2 px-md-3 w-100 
+            ${hideShadow ? "" : "shadow-0"}
             ${
-              hideShadow
-                ? ""
-                : "shadow-0"
+              positionFixed &&
+              "position-fixed border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid"
             }
-            ${positionFixed && "position-fixed border-left-0 border-right-0 border-top-0 border-bottom-1 border-solid"}
             ${dark ? " border-light-300" : "border-dark-300"}
             ${!hideShadow && dark ? "bg-dark-800" : null}
             ${!dark && !hideBackground ? "bg-background" : null}
@@ -453,246 +448,95 @@ const Header = ({
             </Link>
             </div>      */}
             </div>
+            {(isIliadActive || isOdysseyActive) && (
+              <div className={`d-flex flex-row justify-content-center align-items-center gap-3 ${styles.genderToggleContainer} ${genderToggleVisible ? styles.genderToggleVisible : ''}`}>
+                <GenderToggle gender={gender} changeGender={changeGender} />
+              </div>
+            )}
             <div className="d-flex">
               {/* {profile.profile_pic_url &&
               <img src={profile.profile_pic_url} style={{width: '48px', borderRadius:'100%'}} />
             } */}
-              {userContext &&
-              userContext.stage &&
-              userContext.stage !== undefined &&
-              userContext &&
-              userContext.stage &&
-              userContext.stage !== "complete" &&
-              userContext.stage !== "/setup/template" ? (
-                <button
-                  className="btn primary low small"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              ) : (
-                <div className="d-flex flex-row justify-content-center align-items-center">
-                  {windowUrl.match(`/profile`) && (
-                    <button
-                      type="button"
-                      onClick={() => handleEditProfileShow()}
-                      className={`btn primary high small mr-2 ${
-                        screenWidth > 575 ? "icon-left" : "icon-only"
-                      }`}
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path d={ICONS.EDIT}></path>
-                      </svg>
-                      {screenWidth > 575 ? "Edit profile" : null}
-                    </button>
-                  )}
-                  {/* <div className="d-flex flex-row" style={{ gap: '8px' }}>
-                    <Link href="/blog">
-                      <a className="btn dark low small">Blog</a>
-                    </Link>
-                    </div>
-                    <div className="bg-dark-300 mx-3" style={{ width: '1px', height: '48px' }}></div> */}
-                  <Dropdown align="end">
-                    <Dropdown.Toggle
-                      as={CustomToggle}
-                      id="dropdown-custom-components"
-                      className="text-decoration-none"
-                    >
-                      <>
-                        <div className="btn primary low small icon-only">
-                          <svg viewBox="0 0 24 24">
-                            <path d={ICONS.MENU}></path>
-                          </svg>
-                        </div>
-                      </>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu
-                      as={CustomMenu}
-                      align="end"
-                      className={`${dark && "menu-dark"} mt-2`}
-                    >
-                      {/* <Dropdown.Item onClick={() => router.push(userContext && userContext.profileUrl)} className={styles.dropdownItem}> */}
-                      {/* <div className="p-2">
-                          <Dropdown.Item onClick={() => router.push('/profile')} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                            <Img 
-                              src={userContext?.profile?.profile_pic_url}
-                              style={{width: "48px", height: "48px", borderRadius: "100%" }}
-                            />
-                            {userContext && userContext.profile && userContext.profile.full_name}
-                          </Dropdown.Item>
-                        </div> */}
-                      {/* <hr className={`${dark && 'border-light-300'} m-0`} />
-                        <div className="p-2"> */}
-                      {/* <Dropdown.Item onClick={() => handleEditProfileShow()} className={styles.dropdownItem}>
-                          <Icon icon={ICONS.EDIT} size='24' className="fill-dark-900" />
-                          Edit profile
-                        </Dropdown.Item> */}
-                      {/* <Dropdown.Item onClick={() => router.push('/settings')} className={styles.dropdownItem}>
-                          <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
-                          Settings
-                        </Dropdown.Item> */}
 
-                      {/* <Link href={"/settings"} >
-                        <div className={styles.dropdownItem}>
-                          <Icon icon={ICONS.SETTINGS} size='24' className="fill-dark-900" />
-                          Settings
-                        </div>
-                      </Link> */}
-
-                      {/* {product !== '' ?
-                          (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                            (status === 'active' ?
-                              <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
-                                <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
-                                Plan
-                              </Dropdown.Item>
-                              :
-                              <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                                <Icon icon={ICONS.STAR} size='24' />
-                                Upgrade to premium
-                              </a>
-                            )
-                            :
-                            <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
-                              <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
-                              Plan
-                            </Dropdown.Item>
-                          )
-                          :
-                          <Dropdown.Item onClick={() => router.push('/settings/plan')} className={styles.dropdownItem}>
-                            <Icon icon={ICONS.STAR} size='24' className="fill-dark-900" />
-                            Plan
-                          </Dropdown.Item>
-                        } */}
-                      {/* <a 
-                          target="_blank"
-                          href={customDomain !== undefined ? `https://${customDomain}` : `${window.location.origin}${profileUrl}`} 
-                          className={`dropdownItem ${dark && 'dropdownItemDark'}`}
-                        >
-                          <Icon icon={ICONS.EXTERNAL_LINK} size='24' />
-                          Go to my website
-                        </a>
-                        <Dropdown.Item onClick={() => copyProfileAddress()} className={`dropdownItem ${dark && 'dropdownItemDark'}`}>
-                          <Icon icon={ICONS.COPY} size='24' className="fill-dark-900" />
-                          Copy website link
-                        </Dropdown.Item> */}
-
-                      {/* {product !== '' ?
-                      (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                        (status === 'active' ?
-                          null
-                          :
-                          <a onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                            <Icon icon={ICONS.STAR} size='24' />
-                            Upgrade to premium
-                          </a>
-                        )
-                        :
-                        null
-                      )
-                      :
-                      null
-                      } */}
-
-                      {/* {product !== '' ?
-                          (product === process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM ?
-                            (status === 'active' ?
-                              (cancelAtPeriodEnd ?
-                                <Dropdown.Item onClick={() => handleUpdate(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                                  <Icon icon={ICONS.STAR} size='24' />
-                                  Renew subscription
-                                </Dropdown.Item>
-                                :
-                                null
-                              )
-                              :
-                              <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                                <Icon icon={ICONS.STAR} size='24' />
-                                Upgrade to premium
-                              </Dropdown.Item>
-                            )
-                            :
-                            <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                              <Icon icon={ICONS.STAR} size='24' />
-                              Upgrade to premium
-                            </Dropdown.Item>
-                          )
-                          :
-                          <Dropdown.Item onClick={() => handleUpgrade(event)} className={`${styles.dropdownItem} ${styles.dropdownItemHighlight}`}>
-                            <Icon icon={ICONS.STAR} size='24' />
-                            Upgrade to premium
-                          </Dropdown.Item>
-                        } */}
-                      {/* </div> */}
-                      {/* <hr className={`${dark && 'border-light-300'} m-0`} /> */}
-                      <div className="p-2">
-                        <Dropdown.Item
-                          onClick={() => router.push("/names")}
-                          className={` btn dark high small w-100 justify-content-start mb-2 dropdownItem ${
-                            dark && "dropdownItemDark"
-                          }`}
-                        >
+              <div className="d-flex flex-row justify-content-center align-items-center">
+                <Dropdown align="end">
+                  <Dropdown.Toggle
+                    as={CustomToggle}
+                    id="dropdown-custom-components"
+                    className="text-decoration-none"
+                  >
+                    <>
+                      <div className="btn primary low small icon-only">
+                        <svg viewBox="0 0 24 24">
+                          <path d={ICONS.MENU}></path>
+                        </svg>
+                      </div>
+                    </>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu
+                    as={CustomMenu}
+                    align="end"
+                    className={`${dark && "menu-dark"} mt-2`}
+                  >
+                    <div className="p-2">
+                      <Dropdown.Item
+                        onClick={() => router.push("/names")}
+                        className={` btn dark high small w-100 justify-content-start mb-2 dropdownItem ${
+                          dark && "dropdownItemDark"
+                        }`}
+                      >
+                        {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                        Browse names
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => router.push("/shortlist")}
+                        className={`dropdownItem ${
+                          dark && "dropdownItemDark"
+                        } d-flex justify-content-between`}
+                      >
+                        <div className="d-flex flex-row align-items-center gap-3">
                           {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                          Browse names
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => router.push("/shortlist")}
-                          className={`dropdownItem ${
-                            dark && "dropdownItemDark"
-                          } d-flex justify-content-between`}
-                        >
-                          <div className="d-flex flex-row align-items-center gap-3">
-                            {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                            Shortlist{" "}
+                          Shortlist{" "}
+                        </div>
+                        {shortlist && shortlist.length > 0 && (
+                          <div className="tag dark medium small ml-2">
+                            {shortlist.length}
                           </div>
-                          {shortlist && shortlist.length > 0 && (
-                            <div className="tag dark medium small ml-2">
-                              {shortlist.length}
-                            </div>
-                          )}
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => router.push("/store")}
-                          className={`dropdownItem ${
-                            dark && "dropdownItemDark"
-                          }`}
-                        >
-                          Store
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => handleFeedbackShow()}
-                          className={`dropdownItem ${
-                            dark && "dropdownItemDark"
-                          }`}
-                        >
-                          Submit feedback
-                        </Dropdown.Item>
-                      </div>
-                      <hr className={`${dark && "border-light-300"} m-0`} />
-                      <div className="p-2">
-                        <Dropdown.Item
-                          onClick={() => handleLogout()}
-                          className={`dropdownItem dropdownItemLow ${
-                            dark && "dropdownItemDark"
-                          }`}
-                        >
-                          Sign out
-                        </Dropdown.Item>
-                      </div>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-              )}
-              {/* <Link href="/settings">
-              <a className="btn primary low small">Settings</a>
-            </Link>
-            */}
+                        )}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => router.push("/store")}
+                        className={`dropdownItem ${dark && "dropdownItemDark"}`}
+                      >
+                        Store
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleFeedbackShow()}
+                        className={`dropdownItem ${dark && "dropdownItemDark"}`}
+                      >
+                        Submit feedback
+                      </Dropdown.Item>
+                    </div>
+                    <hr className={`${dark && "border-light-300"} m-0`} />
+                    <div className="p-2">
+                      <Dropdown.Item
+                        onClick={() => handleLogout()}
+                        className={`dropdownItem dropdownItemLow ${
+                          dark && "dropdownItemDark"
+                        }`}
+                      >
+                        Sign out
+                      </Dropdown.Item>
+                    </div>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
           </>
         ) : (
           <div className="d-flex flex-row justify-content-between align-items-center w-100">
             <div className="d-flex flex-row align-items-center gap-2">
-              <Link href="/">
+              <Link href="/" style={{ width: "48px"}}>
                 {screenWidth > 767 ? (
                   <svg
                     height="40"
@@ -726,135 +570,93 @@ const Header = ({
                 {/* <img src="/images/vitaely-logo-icon-square.svg" style={windowUrl == '' ? { margin: '16px', height: '40px' } : { marginLeft: '16px', height: '40px' }} /> */}
               </Link>
             </div>
-            {screenWidth < 768 ? (
-              // Hamburger
-              <Dropdown align="end">
-                <Dropdown.Toggle
-                  as={CustomToggle}
-                  id="dropdown-custom-components"
-                  className="text-decoration-none"
-                >
-                  <>
-                    <div
-                      className={`btn primary low small d-flex flex-row align-items-center p-2`}
-                      style={{ gap: "4px" }}
-                    >
-                      <div className="px-2">
-                        <svg viewBox="0 0 24 24">
-                          <path d={ICONS.MENU}></path>
-                        </svg>
-                      </div>
-                    </div>
-                  </>
-                </Dropdown.Toggle>
-                <Dropdown.Menu
-                  as={CustomMenu}
-                  align="end"
-                  className={`${dark && "menu-dark"} mt-2`}
-                >
-                  <div className="p-2">
-                    <Dropdown.Item
-                      onClick={() => router.push("/names")}
-                      className={` btn dark high small w-100 justify-content-start mb-2 dropdownItem ${
-                        dark && "dropdownItemDark"
-                      }`}
-                    >
-                      {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                      Browse names
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => router.push("/shortlist")}
-                      className={`dropdownItem ${
-                        dark && "dropdownItemDark"
-                      } d-flex justify-content-between`}
-                    >
-                      <div className="d-flex flex-row align-items-center gap-3">
-                        {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                        Shortlist{" "}
-                      </div>
-                      {shortlist && shortlist.length > 0 && (
-                        <div className="tag dark medium small ml-2">
-                          {shortlist.length}
-                        </div>
-                      )}
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => router.push("/store")}
-                      className={`dropdownItem ${dark && "dropdownItemDark"}`}
-                    >
-                      Store
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => handleFeedbackShow()}
-                      className={`dropdownItem ${dark && "dropdownItemDark"}`}
-                    >
-                      Submit feedback
-                    </Dropdown.Item>
-                  </div>
-                  <hr className={`${dark && "border-light-300"} m-0`} />
-                  <div className="p-2">
-                    <Dropdown.Item
-                      onClick={() => router.push("/users/login")}
-                      className={`dropdownItem ${dark && "dropdownItemDark"}`}
-                    >
-                      Login
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => router.push("/users/register")}
-                      className={`dropdownItem dropdownItemHighlight ${
-                        dark && "dropdownItemDark"
-                      }`}
-                    >
-                      Create account
-                    </Dropdown.Item>
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
-            ) : (
-              <div className="d-flex">
-                <Link
-                  href="/shortlist"
-                  className={`dropdownItem ${
-                    dark && "dropdownItemDark"
-                  } d-flex justify-content-between`}
-                >
-                  <div className="d-flex flex-row align-items-center">
-                    {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
-                    Shortlist{" "}
-                  </div>
-                  {shortlist && shortlist.length > 0 && (
-                    <div className="tag dark medium small">
-                      {shortlist.length}
-                    </div>
-                  )}
-                </Link>
-                <Link
-                  href="/store"
-                  className={`dropdownItem ${dark && "dropdownItemDark"}`}
-                >
-                  Store
-                </Link>
-                <div
-                  onClick={() => handleFeedbackShow()}
-                  className={`dropdownItem ${dark && "dropdownItemDark"}`}
-                >
-                  Feedback
-                </div>
-                <Link
-                  href="/users/login"
-                  className={`${dark ? "light" : "dark"} btn low small`}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/names"
-                  className={`btn primary ${topOfLanding ? 'low outlined' : 'high'} small ml-2`}
-                >
-                  Find a name
-                </Link>
-                {/* <Link href="/users/register" className={`btn primary ${topOfLanding ? 'low' : 'high'} small`}>Create account</Link> */}
+            {(isIliadActive || isOdysseyActive) && (
+              <div className={`d-flex flex-row justify-content-center align-items-center gap-3 ${styles.genderToggleContainer} ${genderToggleVisible ? styles.genderToggleVisible : ''}`}>
+                <GenderToggle gender={gender} changeGender={changeGender} />
               </div>
             )}
+            <Dropdown align="end">
+              <Dropdown.Toggle
+                as={CustomToggle}
+                id="dropdown-custom-components"
+                className="text-decoration-none"
+              >
+                <>
+                  <div
+                    className={`btn primary low small icon-only d-flex flex-row align-items-center `}
+                    style={{ gap: "4px", width: "48px", height: "48px" }}
+                  >
+                    <div className="px-2">
+                      <svg viewBox="0 0 24 24">
+                        <path d={ICONS.MENU}></path>
+                      </svg>
+                    </div>
+                  </div>
+                </>
+              </Dropdown.Toggle>
+              <Dropdown.Menu
+                as={CustomMenu}
+                align="end"
+                className={`${dark && "menu-dark"} mt-2`}
+              >
+                <div className="p-2">
+                  <Dropdown.Item
+                    onClick={() => router.push("/names")}
+                    className={` btn dark high small w-100 justify-content-start mb-2 dropdownItem ${
+                      dark && "dropdownItemDark"
+                    }`}
+                  >
+                    {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                    Browse names
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => router.push("/shortlist")}
+                    className={`dropdownItem ${
+                      dark && "dropdownItemDark"
+                    } d-flex justify-content-between`}
+                  >
+                    <div className="d-flex flex-row align-items-center gap-3">
+                      {/* <Icon icon={ICONS.WEBSITE} size='24' className="fill-dark-900" /> */}
+                      Shortlist{" "}
+                    </div>
+                    {shortlist && shortlist.length > 0 && (
+                      <div className="tag dark medium small ml-2">
+                        {shortlist.length}
+                      </div>
+                    )}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => router.push("/store")}
+                    className={`dropdownItem ${dark && "dropdownItemDark"}`}
+                  >
+                    Store
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => handleFeedbackShow()}
+                    className={`dropdownItem ${dark && "dropdownItemDark"}`}
+                  >
+                    Submit feedback
+                  </Dropdown.Item>
+                </div>
+                <hr className={`${dark && "border-light-300"} m-0`} />
+                <div className="p-2">
+                  <Dropdown.Item
+                    onClick={() => router.push("/users/login")}
+                    className={`dropdownItem ${dark && "dropdownItemDark"}`}
+                  >
+                    Login
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => router.push("/users/register")}
+                    className={`dropdownItem dropdownItemHighlight ${
+                      dark && "dropdownItemDark"
+                    }`}
+                  >
+                    Create account
+                  </Dropdown.Item>
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         )}
         <Modal
@@ -879,15 +681,19 @@ const Header = ({
                 </div>
                 <form onSubmit={handleFeedbackSubmit}>
                   <div className="mb-4">
-                      {/* <p>Tell us what you love, tell us what you hate, tell us what you want to see more of, tell us about your child who has begun forming an empire by raising an army of local shepherds.</p> */}
-                      <p>Tell us all about:
-                        <ul>
-                          <li>...what you love</li>
-                          <li>...what you hate</li>
-                          <li>...what you want to see more of</li>
-                          <li>...your child who has begun forming an empire by raising an army of local shepherds</li>
-                        </ul>
-                      </p>
+                    {/* <p>Tell us what you love, tell us what you hate, tell us what you want to see more of, tell us about your child who has begun forming an empire by raising an army of local shepherds.</p> */}
+                    <p>
+                      Tell us all about:
+                      <ul>
+                        <li>...what you love</li>
+                        <li>...what you hate</li>
+                        <li>...what you want to see more of</li>
+                        <li>
+                          ...your child who has begun forming an empire by
+                          raising an army of local shepherds
+                        </li>
+                      </ul>
+                    </p>
                     <textarea
                       className="w-100 small"
                       style={{ minHeight: "10rem" }}
@@ -963,71 +769,75 @@ const Header = ({
           </div>
         ) : null}
       </div>
+
+      {/* Add gender toggle component */}
+      {/* {(isIliadActive || isOdysseyActive) && (
+        <div
+          className="position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100"
+          style={{ top: "8px", padding: "0", zIndex: 4 }}
+        >
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 1000, hide: 200 }}
+            overlay={
+              <Tooltip id="gender-toggle-tooltip">Toggle gender</Tooltip>
+            }
+          >
+            <button
+              onClick={() => changeGender(gender)}
+              className={`${styles.genderSwitchWrapper}`}
+              style={{
+                padding: "12px",
+                gap: "19px",
+                width: "82px",
+                height: "44px",
+              }}
+            >
+              <div
+                className={`${styles.genderSwitchStyles} ${
+                  gender == "male"
+                    ? styles.genderSwitchStylesMale
+                    : styles.genderSwitchStylesFemale
+                } position-absolute bg-light-900 radius-5`}
+                style={{ top: "2px", height: "40px", width: "40px" }}
+              ></div>
+              <svg
+                className={`${styles.genderSwitchMaleIcon} ${
+                  gender == "male" && styles.active
+                }`}
+                style={{ zIndex: "1" }}
+                width="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d={ICONS.MALE}
+                />
+              </svg>
+              <svg
+                className={`${styles.genderSwitchFemaleIcon} ${
+                  gender == "female" && styles.active
+                }`}
+                style={{ zIndex: "1" }}
+                width="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d={ICONS.FEMALE}
+                />
+              </svg>
+            </button>
+          </OverlayTrigger>
+        </div>
+      )} */}
     </div>
-    //     :
-    //     <div className="position-fixed d-flex flex-row align-items-center justify-content-center p-4 w-100">
-    // 			<div
-    // 				className="position-absolute d-flex flex-row"
-    // 				style={{ left: "24px" }}
-    // 			>
-    // 				Used names{" "}
-    // 				<div className="tag dark medium small ml-2">
-    // 					{shortlist.length + rejected.length}
-    // 				</div>
-    // 			</div>
-    // 			<button
-    // 				onClick={() => changeGender(gender)}
-    // 				className={`${styles.genderSwitchWrapper}`}
-    // 				style={{
-    // 					padding: "14px",
-    // 					gap: "24px",
-    // 					width: "100px",
-    // 					height: "52px",
-    // 				}}
-    // 			>
-    // 				<div
-    // 					className={`${styles.genderSwitchStyles} ${
-    // 						gender == "male"
-    // 							? styles.genderSwitchStylesMale
-    // 							: styles.genderSwitchStylesFemale
-    // 					} position-absolute bg-light-900 radius-5`}
-    // 					style={{ top: "2px", height: "48px", width: "48px" }}
-    // 				></div>
-    // 				<svg
-    // 					className={`${styles.genderSwitchMaleIcon} ${
-    // 						gender == "male" && styles.active
-    // 					}`}
-    // 					style={{ zIndex: "1" }}
-    // 					height="24"
-    // 					viewBox="0 0 24 24"
-    // 					fill="none"
-    // 					xmlns="http://www.w3.org/2000/svg"
-    // 				>
-    // 					<path fillRule="evenodd" clipRule="evenodd" d={ICONS.MALE} />
-    // 				</svg>
-    // 				<svg
-    // 					className={`${styles.genderSwitchFemaleIcon} ${
-    // 						gender == "female" && styles.active
-    // 					}`}
-    // 					style={{ zIndex: "1" }}
-    // 					height="24"
-    // 					viewBox="0 0 24 24"
-    // 					fill="none"
-    // 					xmlns="http://www.w3.org/2000/svg"
-    // 				>
-    // 					<path fillRule="evenodd" clipRule="evenodd" d={ICONS.FEMALE} />
-    // 				</svg>
-    // 			</button>
-    // 			<div
-    // 				className="position-absolute d-flex flex-row"
-    // 				style={{ right: "24px" }}
-    // 			>
-    // 				<Link href="/shortlist" className="btn primary low small text-only">
-    // 					View shortlist{" "}
-    // 					<div className="tag dark medium small ml-2">{shortlist.length}</div>
-    // 				</Link>
-    // 			</div>
-    // 		</div>
   );
 };
 

@@ -838,3 +838,24 @@
   animation: transitionIliadGreyPaths 2s ease-in-out;
   animation-fill-mode: forwards; 
 }
+
+.actionButtonsContainer {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: $transition-long;
+}
+
+.actionButtonsVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.actionButton {
+  opacity: 0;
+  transition: $transition-long;
+}
+
+.actionButtonVisible {
+  opacity: 1;
+  transform: scale(1);
+}

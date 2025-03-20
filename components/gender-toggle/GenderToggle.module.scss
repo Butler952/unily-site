@@ -1,0 +1,53 @@
+@import '/public/styles/variables.scss';
+
+
+.genderSwitchWrapper {
+  transition: $transition-standard;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background: $dark-200;
+  border-radius: $radius-large;
+  border: none;
+  box-shadow: $shadow-inset-1;
+  &:hover {
+    background: $dark-300;
+  }
+}
+
+.genderSwitchStyles {
+  transition: $transition-standard;
+  box-shadow: $shadow-1;
+}
+
+.genderSwitchStylesMale {
+  left: 2px;
+}
+
+.genderSwitchStylesFemale {
+  left: 40px;
+}
+
+.genderSwitchMaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #598FF3;
+    }
+  }
+}
+
+.genderSwitchFemaleIcon {
+  transition: $transition-standard;
+  path {
+    fill: $dark-700;
+  }
+  &.active {
+    path {
+      fill: #DE80E0;
+    }
+  }
+}

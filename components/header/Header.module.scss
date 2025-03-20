@@ -60,51 +60,13 @@
   }
 }
 
-.genderSwitchWrapper {
-  transition: $transition-standard;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  background: $dark-200;
-  border-radius: $radius-large;
-  border: none;
-  &:hover {
-    background: $dark-light;
-  }
+.genderToggleContainer {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.genderSwitchStyles {
-  transition: $transition-standard;
-}
-
-.genderSwitchStylesMale {
-  left: 2px;
-}
-
-.genderSwitchStylesFemale {
-  left: 50px;
-}
-
-.genderSwitchMaleIcon {
-  transition: $transition-standard;
-  path {
-    fill: $dark-700;
-  }
-  &.active {
-    path {
-      fill: #598FF3;
-    }
-  }
-}
-
-.genderSwitchFemaleIcon {
-  transition: $transition-standard;
-  path {
-    fill: $dark-700;
-  }
-  &.active {
-    path {
-      fill: #DE80E0;
-    }
-  }
+.genderToggleVisible {
+  opacity: 1;
+  transform: translateY(0);
 }

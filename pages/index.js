@@ -45,6 +45,7 @@ const Home = (props) => {
   const [isOdysseyActive, setIsOdysseyActive] = useState(false);
   const [isIliadOverflowHidden, setIsIliadOverflowHidden] = useState(false);
   const [isOdysseyOverflowHidden, setIsOdysseyOverflowHidden] = useState(false);
+  const [actionButtonsVisible, setActionButtonsVisible] = useState(false);
 
   const [viewportHeight, setViewportHeight] = useState(0);
 
@@ -505,6 +506,18 @@ const Home = (props) => {
     getRandomName();
   };
 
+  // Add useEffect to handle action buttons animation
+  useEffect(() => {
+    if (isIliadActive || isOdysseyActive) {
+      // Small delay to allow book transition to start first
+      setTimeout(() => {
+        setActionButtonsVisible(true);
+      }, 300);
+    } else {
+      setActionButtonsVisible(false);
+    }
+  }, [isIliadActive, isOdysseyActive]);
+
   return (
     <div
       className="transition-long"
@@ -540,7 +553,15 @@ const Home = (props) => {
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         />
       </Head>
-      <Header  hideShadow topOfLanding />
+      <Header 
+        hideShadow 
+        hideBackground
+        topOfLanding 
+        isIliadActive={isIliadActive}
+        isOdysseyActive={isOdysseyActive}
+        gender={gender}
+        changeGender={changeGender}
+      />
       <div
         className={`${styles.fixedHeader} ${
           scrollPosition > heroHeight + 66 && styles.fixedHeaderScrolled
@@ -616,7 +637,7 @@ const Home = (props) => {
         {/* Action buttons (only shown when a book is active) */}
         {(isIliadActive || isOdysseyActive) && (
           <div
-            className="position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100"
+            className={`position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100 ${styles.actionButtonsContainer} ${actionButtonsVisible ? styles.actionButtonsVisible : ''}`}
             style={{ bottom: "48px", padding: "0", zIndex: 3 }}
           >
             <OverlayTrigger
@@ -626,8 +647,9 @@ const Home = (props) => {
             >
               <button
                 onClick={addToRejected}
-                className="btn light large high icon-only"
+                className={`btn light large high icon-only ${styles.actionButton} ${actionButtonsVisible ? styles.actionButtonVisible : ''}`}
                 disabled={retreivingName}
+                style={{ transitionDelay: "0ms" }}
               >
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.CLOSE}></path>
@@ -642,8 +664,9 @@ const Home = (props) => {
             >
               <button
                 onClick={undoLastAction}
-                className={`btn primary medium x-small outlined icon-only`}
+                className={`btn primary medium x-small outlined icon-only ${styles.actionButton} ${actionButtonsVisible ? styles.actionButtonVisible : ''}`}
                 disabled={retreivingName || !actionTaken}
+                style={{ transitionDelay: "100ms" }}
               >
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.UNDO}></path>
@@ -658,76 +681,11 @@ const Home = (props) => {
             >
               <button
                 onClick={addToShortlist}
-                className={`btn large high icon-only ${styles.shortlistButton} dark`}
+                className={`btn large high icon-only ${styles.shortlistButton} dark ${styles.actionButton} ${actionButtonsVisible ? styles.actionButtonVisible : ''}`}
                 disabled={retreivingName}
               >
                 <svg viewBox="0 0 24 24">
                   <path d={ICONS.HEART_FILLED}></path>
-                </svg>
-              </button>
-            </OverlayTrigger>
-          </div>
-        )}
-        {(isIliadActive || isOdysseyActive) && (
-          <div
-            className="position-fixed d-flex flex-row justify-content-center align-items-center gap-3 w-100"
-            style={{ top: "48px", padding: "0", zIndex: 4 }}
-          >
-            
-            <OverlayTrigger
-              placement="top"
-              delay={{ show: 1000, hide: 200 }}
-              overlay={<Tooltip id="gender-toggle-tooltip">Toggle gender</Tooltip>}
-            >
-              <button
-                onClick={() => changeGender(gender)}
-                className={`${styles.genderSwitchWrapper}`}
-                style={{
-                  padding: "12px",
-                  gap: "19px",
-                  width: "82px",
-                  height: "44px",
-                }}
-              >
-                <div
-                  className={`${styles.genderSwitchStyles} ${
-                    gender == "male"
-                      ? styles.genderSwitchStylesMale
-                      : styles.genderSwitchStylesFemale
-                  } position-absolute bg-light-900 radius-5`}
-                  style={{ top: "2px", height: "40px", width: "40px" }}
-                ></div>
-                <svg
-                  className={`${styles.genderSwitchMaleIcon} ${
-                    gender == "male" && styles.active
-                  }`}
-                  style={{ zIndex: "1" }}
-                  width="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d={ICONS.MALE}
-                  />
-                </svg>
-                <svg
-                  className={`${styles.genderSwitchFemaleIcon} ${
-                    gender == "female" && styles.active
-                  }`}
-                  style={{ zIndex: "1" }}
-                  width="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d={ICONS.FEMALE}
-                  />
                 </svg>
               </button>
             </OverlayTrigger>
