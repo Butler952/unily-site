@@ -89,9 +89,9 @@ const BookDisplay = ({
     return (
       <div className={`d-flex flex-column align-items-center justify-content-center text-center transitionItem ${slideDirection}`}
            style={{ maxWidth: "90%", height: "100%" }}>
-        <div>
+        <div style={{ rotate: "90deg", transform: "scale(-1, -1)" }}>
           {retreivedName.description?.map((description, index) => (
-            <p key={index} className="large text-dark-low" style={{ rotate: "90deg", transform: "scale(-1, -1)" }}>
+            <p key={index} className="text-dark-low">
               {description.content}
             </p>
           ))}
