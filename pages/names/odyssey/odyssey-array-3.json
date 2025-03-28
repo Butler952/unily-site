@@ -1,0 +1,1798 @@
+[
+  {
+      "name": "Achaians",
+      "description": "The most general term for “Greeks,” including the people of Ithaka, i.90; ii.7, etc."
+  },
+  {
+      "name": "Acheron",
+      "description": "River in the land of the dead, x.514."
+  },
+  {
+      "name": "Achilleus",
+      "description": "The great hero of the Iliad, whose ghost talked to Odysseus, xi.467, etc."
+  },
+  {
+      "name": "Adreste",
+      "description": "Handmaid of Helen, iv.122."
+  },
+  {
+      "name": "Agamemnon",
+      "description": "Leader of the expedition against Troy, murdered by Aigisthos, i.30; iii.143, etc."
+  },
+  {
+      "name": "Agelaos",
+      "description": "Son of Damastor, a suitor, xx.321, etc.; killed by Odysseus, xxii.293."
+  },
+  {
+      "name": "Aiaia",
+      "description": "Circe's island, x.135."
+  },
+  {
+      "name": "Aiakos",
+      "description": "Father of Peleus, grandfather of Achilleus, xi.471, 538."
+  },
+  {
+      "name": "Aias",
+      "description": "(1) Son of Telamon, who quarreled with Odysseus over the armor of Achilleus, xi.469, etc.; (2) son of Oïleus, drowned by Poseidon, iv.499- 510."
+  },
+  {
+      "name": "Aietes",
+      "description": "Brother of Circe, x.137; xii.70."
+  },
+  {
+      "name": "Aigai",
+      "description": "City in Achaia, favored by Poseidon, v.381."
+  },
+  {
+      "name": "Aigisthos",
+      "description": "Son of Thyestes, lover of Klytaimestra and murderer of Agamemnon, killed by Orestes, i.29; iii.194, etc."
+  },
+  {
+      "name": "Aigyptios",
+      "description": "Elder of Ithaka, father of Eurynomos, ii.15."
+  },
+  {
+      "name": "Aigyptos",
+      "description": "The river of Egypt, the Nile, xiv.257."
+  },
+  {
+      "name": "Aiolia",
+      "description": "The island of Aiolos (1), x.1."
+  },
+  {
+      "name": "Aiolos",
+      "description": "(1) Mortal king in charge of the winds, x.1; (2) father of Kretheus, xi.237."
+  },
+  {
+      "name": "Aison",
+      "description": "Son of Tyro and Kretheus, xi.259."
+  },
+  {
+      "name": "Aithiopians",
+      "description": "The Ethiopians, a distant people visited by Poseidon, i.22; v.282, etc."
+  },
+  {
+      "name": "Aithon",
+      "description": "Name assumed by Odysseus in conversation with Penelope, xix.183."
+  },
+  {
+      "name": "Aitolia",
+      "description": "Country in central Greece, xiv.379."
+  },
+  {
+      "name": "Akastos",
+      "description": "A king in western Greece, xiv.336."
+  },
+  {
+      "name": "Akroneos",
+      "description": "A Phaiakian, viii.111."
+  },
+  {
+      "name": "Aktoris",
+      "description": "Maid of Penelope, xxiii.228."
+  },
+  {
+      "name": "Alektor",
+      "description": "A Spartan, whose daughter married Megapenthes, iv.10."
+  },
+  {
+      "name": "Alkandre",
+      "description": "Lady of Thebes in Egypt, wife of Polybos (2), iv.126."
+  },
+  {
+      "name": "Alkimos",
+      "description": "Father of Mentor, xxii.234."
+  },
+  {
+      "name": "Alkinoös",
+      "description": "King of the Phaiakians, vi.12; vii.185, etc."
+  },
+  {
+      "name": "Alkippe",
+      "description": "Handmaid of Helen, iv.124."
+  },
+  {
+      "name": "Alkmaion",
+      "description": "Son of Amphiaraos, xv.248."
+  },
+  {
+      "name": "Alkmene",
+      "description": "Mother of Herakles, ii.120; xi.266."
+  },
+  {
+      "name": "Aloeus",
+      "description": "Husband of Iphimedeia, putative father of Otos and Ephialtes, xi.305."
+  },
+  {
+      "name": "Alpheios",
+      "description": "River in the western Peloponnese, iii.489."
+  },
+  {
+      "name": "Alybas",
+      "description": "City of unknown location from which Odysseus pretended to have come, xxiv.304."
+  },
+  {
+      "name": "Amnisos",
+      "description": "A place in Crete, xix.188."
+  },
+  {
+      "name": "Amphialos",
+      "description": "A Phaiakian, winner in jumping, viii.114; 128."
+  },
+  {
+      "name": "Amphiaraos",
+      "description": "Son of Oïkles and grandfather of Theoklymenos. He was one of the seven against Thebes, xv.244-247."
+  },
+  {
+      "name": "Amphilochos",
+      "description": "Son of Amphiaraos, xv.248."
+  },
+  {
+      "name": "Amphimedon",
+      "description": "One of the suitors, xxii.242; killed by Telemachos, xxii.284; his ghost told the ghost of Agamemnon about the slaughter of the suitors, xxiv.103."
+  },
+  {
+      "name": "Amphinomos",
+      "description": "One of the suitors, xvi.351; son of Nisos, from Doulichion, best of the suitors and best liked by Penelope, xvi.394; befriended Odysseus and was warned by him, xviii. 119-150; killed by Telemachos, xxii.89-94."
+  },
+  {
+      "name": "Amphion",
+      "description": "(1) Son of Antiope, and builder, with his brother Zethos, of Thebes, xi.262; (2) lord of Minyan Orchomenos, xi.283."
+  },
+  {
+      "name": "Amphithea",
+      "description": "Grandmother of Odysseus, xix.416."
+  },
+  {
+      "name": "Amphitrite",
+      "description": "Queen of the sea, iii.91, etc."
+  },
+  {
+      "name": "Amphitryon",
+      "description": "Husband of Alkmene, putative father of Herakles, xi.266."
+  },
+  {
+      "name": "Amythaon",
+      "description": "Son of Kretheus and Tyro, xi.259."
+  },
+  {
+      "name": "Anabasineos",
+      "description": "A Phaiakian, viii.113."
+  },
+  {
+      "name": "Anchialos",
+      "description": "(1) Father of Mentes, i.180; (2) a Phaiakian, viii.112."
+  },
+  {
+      "name": "Andraimon",
+      "description": "Father of Thoas, xiv.499."
+  },
+  {
+      "name": "Antikleia",
+      "description": "Mother of Odysseus, xi.85."
+  },
+  {
+      "name": "Antiklos",
+      "description": "One of the Achaians in the Wooden Horse, iv.286."
+  },
+  {
+      "name": "Antilochos",
+      "description": "Son of Nestor, killed at Troy by Memnon, iii.112; iv.187, etc."
+  },
+  {
+      "name": "Antinoös",
+      "description": "Son of Eupeithes, one of the two leading suitors, i.383; ii.84, etc.; struck Odysseus with footstool, xvii.462; first to be killed, by Odysseus, xxii.8."
+  },
+  {
+      "name": "Antiope",
+      "description": "Daughter of Asopos, mother of Amphion and Zethos, xi.260."
+  },
+  {
+      "name": "Antiphates",
+      "description": "(1) King of the Laistrygones, x.107; (2) father of Oïkles, xv.242."
+  },
+  {
+      "name": "Antiphos",
+      "description": "(1) Companion of Odysseus, killed by the Cyclops, ii.17; (2) an elder of Ithaka, xvii.68."
+  },
+  {
+      "name": "Apeire",
+      "description": "The home of Eurymedousa, vii.8."
+  },
+  {
+      "name": "Apheidas",
+      "description": "Pretended name of Odysseus' father in his conversation with Laertes, xxiv.305."
+  },
+  {
+      "name": "Aphrodite",
+      "description": "Daughter of Zeus, goddess of love and beauty, iv.14, etc. In the Odyssey (though not in the Iliad) she is the wife of Hephaistos, viii.267, etc."
+  },
+  {
+      "name": "Apollo",
+      "description": "Or Phoibos Apollo, son of Zeus and Leto, iii.279, etc. He plays no major part in the Odyssey, but the day when the suitors are killed is a festival day for him, xx.278. His arrows, like those of Artemis, bring sudden and painless death, iii.280, etc."
+  },
+  {
+      "name": "Ares",
+      "description": "Son of Zeus, god of war, lover of Aphrodite, viii.267, etc."
+  },
+  {
+      "name": "Arete",
+      "description": "Wife of Alkinoös, queen of the Phaiakians, vii.54, etc."
+  },
+  {
+      "name": "Arethousa",
+      "description": "A spring on Ithaka, xiii.408."
+  },
+  {
+      "name": "Aretos",
+      "description": "Son of Nestor, iii.414."
+  },
+  {
+      "name": "Argeïphontes",
+      "description": "“The slayer of Argos,” an epithet of Hermes, i.38; v.43, etc."
+  },
+  {
+      "name": "Argives",
+      "description": "The Greeks who went to Troy, i.61, etc.; also, the people of Mykene or Sparta, iii.309, etc."
+  },
+  {
+      "name": "Argo",
+      "description": "The ship of the Argonauts, xii.69."
+  },
+  {
+      "name": "Argos",
+      "description": "The dog of Odysseus, xvii.292."
+  },
+  {
+      "name": "Argos",
+      "description": "City or district in the northeast Peloponnese, or simply “Greece,” i.344, iii.251, etc."
+  },
+  {
+      "name": "Ariadne",
+      "description": "Daughter of Minos, killed by Artemis. Her ghost was seen by Odysseus in the land of the dead, xi.321."
+  },
+  {
+      "name": "Arkeisios",
+      "description": "Father of Laertes, xvi.118, etc."
+  },
+  {
+      "name": "Arnaios",
+      "description": "The true name of Iros, xviii.5."
+  },
+  {
+      "name": "Artakie",
+      "description": "A spring on Lamos, x.108."
+  },
+  {
+      "name": "Artemis",
+      "description": "Daughter of Zeus and Leto, sister of Apollo, vi.102, etc. Her arrows, like those of Apollo, bring sudden and painless death, xv.410, etc."
+  },
+  {
+      "name": "Asopos",
+      "description": "A river and river god in Boiotia, father of Antiope, xi.260"
+  },
+  {
+      "name": "Arybas",
+      "description": "A lord of Sidon, father of Eumaios' nurse, xv.426."
+  },
+  {
+      "name": "Asphalion",
+      "description": "Henchman of Menelaos, iv.216."
+  },
+  {
+      "name": "Asteris",
+      "description": "A little island off Ithaka, iv.846."
+  },
+  {
+      "name": "Athene",
+      "description": "Or Pallas Athene, goddess, daughter of Zeus, i.44, etc."
+  },
+  {
+      "name": "Athens",
+      "description": "The famous city in east-central Greece, iii.278."
+  },
+  {
+      "name": "Atlas",
+      "description": "Titan, father of Kalypso, i.52."
+  },
+  {
+      "name": "Atreus",
+      "description": "Father of Agamemnon and Menelaos, i.35, etc."
+  },
+  {
+      "name": "Atrytone",
+      "description": "Epithet of Athene, iv.762."
+  },
+  {
+      "name": "Autolykos",
+      "description": "Father of Antikleia, so grandfather of Odysseus, xi.85; xix.394, etc."
+  },
+  {
+      "name": "Autonoë",
+      "description": "Handmaid of Penelope, xviii.182."
+  },
+  {
+      "name": "Boëthoös",
+      "description": "Father of Eteoneus, iv.31."
+  },
+  {
+      "name": "Boötes",
+      "description": "The constellation of that name, v.272."
+  },
+  {
+      "name": "Chalkis",
+      "description": "A place on the west coast of Greece, opposite Ithaka, xv.295."
+  },
+  {
+      "name": "Charybdis",
+      "description": "A monster of the coast in the form of a great whirlpool, xii.104, etc."
+  },
+  {
+      "name": "Chios",
+      "description": "A large island off the coast of Asia Minor, iii.170."
+  },
+  {
+      "name": "Chloris",
+      "description": "Wife of Neleus and mother of Nestor, whose ghost Odysseus saw in the land of the dead, xi.281."
+  },
+  {
+      "name": "Chromios",
+      "description": "Son of Neleus and Chloris, brother of Nestor, xi.286."
+  },
+  {
+      "name": "Circe",
+      "description": "The goddess and enchantress of Aiaia, Book x throughout, also viii.448; ix.31, etc."
+  },
+  {
+      "name": "Crete",
+      "description": "Large island, domain of Idomeneus, iii.191, etc. Pretended home of Odysseus in various lying stories, xiii.256; xiv.199; xix.172."
+  },
+  {
+      "name": "Cyclopes",
+      "description": "A monstrous people encountered by Odysseus and his men, ix.106, etc. In the singular, the Cyclops means Polyphemos, i.69; ii.19, etc."
+  },
+  {
+      "name": "Cyprus",
+      "description": "Large island in the easternmost Mediterranean, iv.83, etc."
+  },
+  {
+      "name": "Damastor",
+      "description": "Father of Agelaos, xx.321."
+  },
+  {
+      "name": "Danaans",
+      "description": "The Greeks who went to Troy, i.350, etc."
+  },
+  {
+      "name": "Dawn",
+      "description": "Properly Eos, the goddess whose rising brings the day, ii.1; v.1, etc. Wife of Tithonos, v.1; mother of the killer of Antilochos (presumably Memnon), iv.188; in love with Orion, v.121; carried off Kleitos, xv.250."
+  },
+  {
+      "name": "Deïphobos",
+      "description": "Son of Priam, husband of Helen at the time of the fall of Troy, iv.276; viii.518."
+  },
+  {
+      "name": "Delos",
+      "description": "Island in the Aigaian Sea, sacred to Apollo, vi.162."
+  },
+  {
+      "name": "Demeter",
+      "description": "Sister of Zeus, who loved Iasion, v.125."
+  },
+  {
+      "name": "Demodokos",
+      "description": "The blind singer of the Phaiakians, viii.44, etc."
+  },
+  {
+      "name": "Demoptolemos",
+      "description": "Suitor killed by Odysseus, xxii.242; 266."
+  },
+  {
+      "name": "Deukalion",
+      "description": "King in Crete, father of Idomeneus, xix.180."
+  },
+  {
+      "name": "Dia",
+      "description": "An island in the Aigaian, xi.325."
+  },
+  {
+      "name": "Diokles",
+      "description": "Lord of Pherai, iii.488; xv.186."
+  },
+  {
+      "name": "Diomedes",
+      "description": "Son of Tydeus, a great hero of the Iliad, iii.180."
+  },
+  {
+      "name": "Dionysos",
+      "description": "God of wine, xxiv.75; accuser of Ariadne, xi.325."
+  },
+  {
+      "name": "Dmetor",
+      "description": "Son of Iasos (2), king of Cyprus, xvii.443."
+  },
+  {
+      "name": "Dodona",
+      "description": "Site of an oracle of Zeus in northwestern Greece, xiv.327; xix.296."
+  },
+  {
+      "name": "Dolios",
+      "description": "An old servant, specially attached to Penelope, iv.735; works on the estate with Laertes, xxiv.222; father of Melanthios, xvii.212; of Melantho, xviii.322."
+  },
+  {
+      "name": "Dorians",
+      "description": "Presumably, the “conquerors,” located by Odysseus in Crete, xix.177."
+  },
+  {
+      "name": "Doulichion",
+      "description": "A large, but not positively identified, island in the domain of Odysseus, i.246, etc. (In the Iliad, it is in the domain of Meges.)"
+  },
+  {
+      "name": "Dymas",
+      "description": "A Phaiakian, father of Nausikaa's best friend, vi.22."
+  },
+  {
+      "name": "Echeneos",
+      "description": "Aged Phaiakian counselor, vii.155; xi.342."
+  },
+  {
+      "name": "Echephron",
+      "description": "A son of Nestor, iii.413."
+  },
+  {
+      "name": "Echetos",
+      "description": "A cruel king somewhere in western Greece, xviii.85; xxi.308."
+  },
+  {
+      "name": "Egypt",
+      "description": "The country, iii.300; iv.351, etc."
+  },
+  {
+      "name": "Eidothea",
+      "description": "Sea nymph, daughter of Proteus, iv.365."
+  },
+  {
+      "name": "Eileithyia",
+      "description": "The goddess of childbirth, xix.188."
+  },
+  {
+      "name": "Elatos",
+      "description": "A suitor, killed by Eumaios, xxii.267."
+  },
+  {
+      "name": "Elatreus",
+      "description": "A Phaiakian, viii.111."
+  },
+  {
+      "name": "Elis",
+      "description": "City and district of the western Peloponnese, opposite Ithaka, iv.635, etc."
+  },
+  {
+      "name": "Elpenor",
+      "description": "Companion of Odysseus, killed by accidentally falling from the roof, x.552; Odysseus talked with his ghost, xi.51."
+  },
+  {
+      "name": "Elysian Field",
+      "description": "The far fortunate place where Menelaos is ultimately to find his home, iv.563."
+  },
+  {
+      "name": "Enipeus",
+      "description": "A river in Thessaly, loved by Tyro, xi.238."
+  },
+  {
+      "name": "Epeians",
+      "description": "People of Elis, xiii.275, etc."
+  },
+  {
+      "name": "Epeios",
+      "description": "The builder of the Wooden Horse, viii.493; xi.524."
+  },
+  {
+      "name": "Eperitos",
+      "description": "Name assumed by Odysseus when he talked with Laertes, xxiv.306."
+  },
+  {
+      "name": "Ephialtes",
+      "description": "Son of Poseidon and Iphimedeia, brother of Otos, gigantic child killed by Apollo, xi.308."
+  },
+  {
+      "name": "Ephyre",
+      "description": "Place of unknown location, apparently in Western Greece, i.259; ii.328."
+  },
+  {
+      "name": "Epikaste",
+      "description": "More familiarly known as Iokaste, the wife and mother of Oidipodes, xi.271."
+  },
+  {
+      "name": "Erebos",
+      "description": "The dark place of the dead, x.528."
+  },
+  {
+      "name": "Erechtheus",
+      "description": "Hero of Athens, vii.81."
+  },
+  {
+      "name": "Eremboi",
+      "description": "An unidentified people visited by Menelaos during his wanderings, iv.84."
+  },
+  {
+      "name": "Eretmeus",
+      "description": "A Phaiakian, viii.112."
+  },
+  {
+      "name": "Eriphyle",
+      "description": "Wife of Amphiaraos, who caused his death, xi.326."
+  },
+  {
+      "name": "Erymanthos",
+      "description": "A mountain in the northwest Peloponnese, vi.104."
+  },
+  {
+      "name": "Erinys",
+      "description": "Fury, or a goddess of curses, xv.234."
+  },
+  {
+      "name": "Eteoneus",
+      "description": "Henchman of Menelaos, iv.22."
+  },
+  {
+      "name": "Eteokretans",
+      "description": "A people of Crete, thought to mean “True-Cretans,” xix.176."
+  },
+  {
+      "name": "Euanthes",
+      "description": "Father of Maron, ix.197."
+  },
+  {
+      "name": "Euboia",
+      "description": "A large island east of central Greece, iii.175; vii.321."
+  },
+  {
+      "name": "Euenor",
+      "description": "Father of Leokritos, ii.242, etc."
+  },
+  {
+      "name": "Eumaios",
+      "description": "The noble swineherd of Odysseus, xiv.55, etc."
+  },
+  {
+      "name": "Eumelos",
+      "description": "Lord of Pherai, husband of Iphthime, thus brother-in-law of Penelope, iv.798."
+  },
+  {
+      "name": "Eupeithes",
+      "description": "Father of Antinoös, i.383, etc.; killed by Laertes in the final battle, xxiv.523."
+  },
+  {
+      "name": "Euryades",
+      "description": "Suitor, killed by Telemachos, xxii.267."
+  },
+  {
+      "name": "Euryalos",
+      "description": "A young Phaiakian, rude to Odysseus, viii.158, etc."
+  },
+  {
+      "name": "Eurybates",
+      "description": "The herald of Odysseus, xix.247."
+  },
+  {
+      "name": "Eurydamas",
+      "description": "A suitor, xviii.297; killed by Odysseus, xxii.283."
+  },
+  {
+      "name": "Eurydike",
+      "description": "Daughter of Klymenos, wife of Nestor, iii.451."
+  },
+  {
+      "name": "Eurykleia",
+      "description": "The old nurse of Odysseus and of Telemachos, i.428, etc."
+  },
+  {
+      "name": "Eurylochos",
+      "description": "Second in command of Odysseus' fleet, x.205, etc.; a relative of Odysseus, though sometimes at odds with him, x.441."
+  },
+  {
+      "name": "Eurymachos",
+      "description": "Son of Polybos (1). One of the two leading suitors, i.399; ii.177, etc.; attacked Odysseus, xviii.394; killed by Odysseus, xxii.79."
+  },
+  {
+      "name": "Eurymedon",
+      "description": "King of the giants, father of Periboia, vii.58."
+  },
+  {
+      "name": "Eurymedousa",
+      "description": "Nurse of Nausikaa, vii.8."
+  },
+  {
+      "name": "Eurymos",
+      "description": "Father of Telemos, ix.509."
+  },
+  {
+      "name": "Eurynome",
+      "description": "Housekeeper and nurse of Penelope, xvii.495, etc."
+  },
+  {
+      "name": "Eurynomos",
+      "description": "Suitor, son of Aigyptios, ii.21; xxii.242."
+  },
+  {
+      "name": "Eurypylos",
+      "description": "Leader of the Keteians, killed at Troy by Neoptolemos, xi.520."
+  },
+  {
+      "name": "Eurytion",
+      "description": "A drunken centaur, xxi.295."
+  },
+  {
+      "name": "Eurytos",
+      "description": "Father of Iphitos, archer, king of Oichalia, killed by Apollo, viii.224, etc."
+  },
+  {
+      "name": "Gaia",
+      "description": "Mother of Tityos, vii.324."
+  },
+  {
+      "name": "Geraistos",
+      "description": "Promontory on the island of Euboia, iii.178."
+  },
+  {
+      "name": "Gerenian",
+      "description": "Epithet of Nestor, iii.68, etc."
+  },
+  {
+      "name": "Gorgon",
+      "description": "A staring monster, xi.635."
+  },
+  {
+      "name": "Gortys",
+      "description": "A place in Crete, iii.294."
+  },
+  {
+      "name": "Graces",
+      "description": "Properly, the Charites, goddesses of beauty, vi.18, etc."
+  },
+  {
+      "name": "Gyrai",
+      "description": "A rocky island in the Aigaian Sea, iv.501."
+  },
+  {
+      "name": "Hades",
+      "description": "Properly Aïdes, lord of the dead, iv.834; xi.47, etc."
+  },
+  {
+      "name": "Halios",
+      "description": "A son of Alkinoös, viii.119."
+  },
+  {
+      "name": "Halitherses",
+      "description": "An Ithakan, gifted in prophecy, favorable to Odysseus, ii.157; xxiv.451, etc."
+  },
+  {
+      "name": "Hebe",
+      "description": "Daughter of Zeus and Hera, bride of Herakles after his immortalization, xi.604."
+  },
+  {
+      "name": "Helen",
+      "description": "Wife of Menelaos, the cause of the war, iv.12, etc."
+  },
+  {
+      "name": "Helios",
+      "description": "The sun god, i.8, etc. Odysseus' men slaughtered some of his cattle, xii.260-390."
+  },
+  {
+      "name": "Hellas",
+      "description": "A name for the country of Achilleus (as in the Iliad) xi.496; more widely, apparently as “Greece” generally, i.344, etc."
+  },
+  {
+      "name": "Hellespont",
+      "description": "The strait (Dardanelles) by Troy, xxiv.82."
+  },
+  {
+      "name": "Hephaistos",
+      "description": "The immortal artificer, iv.617, etc.; in the Odyssey (not in the Iliad) married to Aphrodite, who played him false with Ares (according to the song of Demodokos), viii.266-366."
+  },
+  {
+      "name": "Hera",
+      "description": "Wife of Zeus, queen of the gods, iv.513."
+  },
+  {
+      "name": "Herakles",
+      "description": "Or Hercules, son of Alkmene and Zeus, xi.268; a great archer, xiii.224; killer of Iphitos, xxi.26; immortalized and married to Hebe, xi.601-604."
+  },
+  {
+      "name": "Hermes",
+      "description": "Often called Argeïphontes, son of Zeus and Maia, messenger of Zeus, i.38, etc."
+  },
+  {
+      "name": "Hermione",
+      "description": "Daughter of Menelaos and Helen, iv.14."
+  },
+  {
+      "name": "Hippodameia",
+      "description": "Handmaid of Penelope, xviii.182."
+  },
+  {
+      "name": "Hippotas",
+      "description": "Father of Aiolos (1), x.2."
+  },
+  {
+      "name": "Hylakos",
+      "description": "Father of Kastor (2), xiv.204."
+  },
+  {
+      "name": "Hypereia",
+      "description": "Former home of the Phaiakians, near the Cyclopes, vi.4."
+  },
+  {
+      "name": "Hyperesia",
+      "description": "City in Achaia, home of Polypheides, xv.254."
+  },
+  {
+      "name": "Hyperion",
+      "description": "(1) Epithet of Helios, i.24, etc.; (2) father of Helios, xii.176."
+  },
+  {
+      "name": "Iardanos",
+      "description": "River in Crete, iii.292."
+  },
+  {
+      "name": "Iasion",
+      "description": "Hero beloved by Demeter, v.126."
+  },
+  {
+      "name": "Iasos",
+      "description": "(1) Father of Amphion (2), xi.283; (2) father of Dmetor, xvii.443."
+  },
+  {
+      "name": "Idomeneus",
+      "description": "Lord of Crete, a great hero of the Iliad, iii.191; xiii.259, etc."
+  },
+  {
+      "name": "Ikarios",
+      "description": "The father of Penelope, i.328, etc."
+  },
+  {
+      "name": "Ikmalios",
+      "description": "Artificer, who made Penelope's chair, xix.57."
+  },
+  {
+      "name": "Ilion",
+      "description": "The city of Troy, ii.18, etc."
+  },
+  {
+      "name": "Ilos",
+      "description": "Son of Mermeros, apparently king of Ephyra, i.259."
+  },
+  {
+      "name": "Ino",
+      "description": "Also called Leukothea, daughter of Kadmos, once mortal, now a sea goddess, v.333; 461."
+  },
+  {
+      "name": "Iolkos",
+      "description": "Place in Thessaly, home of Pelias, xi.257."
+  },
+  {
+      "name": "Iphikles",
+      "description": "Lord of Phylake, captor of Melampous, xi.290."
+  },
+  {
+      "name": "Imphimedeia",
+      "description": "Mother of Otos and Ephialtes, xi.305."
+  },
+  {
+      "name": "Iphitos",
+      "description": "Son of Eurytos, friend of the young Odysseus, foully murdered by Herakles, giver of the great bow to Odysseus, xxi.11-41."
+  },
+  {
+      "name": "Iphthime",
+      "description": "Wife of Eumelos and sister of Penelope, to whom she appeared in a dream, iv.797."
+  },
+  {
+      "name": "Iros",
+      "description": "The name Arnaios commonly went by; the beggar who fought with Odysseus, xviii.1-107; so named after the goddess Iris, who otherwise does not appear in the Odyssey, xviii.6."
+  },
+  {
+      "name": "Ismaros",
+      "description": "Thracian home of the Kikonians, ix.40."
+  },
+  {
+      "name": "Ithaka",
+      "description": "Island off the west coast of Greece, i.18, etc., home of Odysseus; its position described, ix.21-26."
+  },
+  {
+      "name": "Ithakos",
+      "description": "Builder of a well on Ithaka, xvii.207."
+  },
+  {
+      "name": "Itylos",
+      "description": "Son of Zethos (2) and “the nightingale,” daughter of Pandareos (presumably Prokne), killed by his mother, xix.523."
+  },
+  {
+      "name": "Jason",
+      "description": "Master of the ship Argo, xii.72."
+  },
+  {
+      "name": "Kadmeians",
+      "description": "The people of Thebes (2), xi.276."
+  },
+  {
+      "name": "Kadmos",
+      "description": "Founder of Thebes (2), father of Ino, v.333."
+  },
+  {
+      "name": "Kalypso",
+      "description": "Goddess-nymph, daughter of Atlas, i.14; 52; befriended and lived with Odysseus, v.14-268, etc."
+  },
+  {
+      "name": "Kassandra",
+      "description": "Daughter of Priam, captive mistress of Agamemnon, murdered with him, xi.422."
+  },
+  {
+      "name": "Kastor",
+      "description": "(1) Son of Leda and Tyndareos, brother of Polydeukes, semi- immortalized by Zeus, xi.298-304; (2) son of Hylakos, pretended father of Odysseus in his story as told to Eumaios, xiv.204."
+  },
+  {
+      "name": "Kaukones",
+      "description": "A people, presumably near Pylos. Athene, disguised as Mentor, announces that she will visit them, iii.366. Apparently, therefore, they are not the same as the people in the Iliad mentioned at Iliad X.429 and XX.329."
+  },
+  {
+      "name": "Kephallenians",
+      "description": "People of Kephallenia or, especially in Book xxiv, of the whole community of islands, xx.210; xxiv.355; 377; 429."
+  },
+  {
+      "name": "Keteians",
+      "description": "The people of Eurypylos, xi.520."
+  },
+  {
+      "name": "Kikonians",
+      "description": "The Thracians of Ismaros, raided by Odysseus, ix.39-61."
+  },
+  {
+      "name": "Kimmerians",
+      "description": "A people near the land of the dead, xi.14. In historical times, the name applies to a non-Greek people of the Black Sea who raided Asia Minor in the seventh century B.C."
+  },
+  {
+      "name": "Kleitos",
+      "description": "Son of Mantios, snatched away by the Dawn, xv.250."
+  },
+  {
+      "name": "Klymene",
+      "description": "Heroine seen by Odysseus in the land of the dead, xi.326."
+  },
+  {
+      "name": "Klymenos",
+      "description": "Father of Eurydike, iii.452."
+  },
+  {
+      "name": "Klytaimestra",
+      "description": "Agamemnon's wife, who took Aigisthos as a lover, iii.265- 272; accomplice in Agamemnon's murder, and murdered Kassandra, xi.421-434."
+  },
+  {
+      "name": "Klytios",
+      "description": "Father of Peiraios, xv.540."
+  },
+  {
+      "name": "Klytoneos",
+      "description": "A son of Alkinoös, viii.119."
+  },
+  {
+      "name": "Knossos",
+      "description": "A city in Crete, xix.178."
+  },
+  {
+      "name": "Kokytos",
+      "description": "A river in the land of the dead, x.513."
+  },
+  {
+      "name": "Krataiïs",
+      "description": "Mother of Skylla, xii.124."
+  },
+  {
+      "name": "Kreion",
+      "description": "Father of Megara, xi.269."
+  },
+  {
+      "name": "Kretheus",
+      "description": "Son of Aiolos (2), husband of Tyro, father of Aison, Pheres, and Amythaon, xi.258, etc."
+  },
+  {
+      "name": "Kronos",
+      "description": "Father of Zeus, i.386, etc."
+  },
+  {
+      "name": "Krounoi",
+      "description": "A place on the western coast of Greece, opposite Ithaka, xv.295."
+  },
+  {
+      "name": "Ktesios",
+      "description": "Father of Eumaios, xv.414."
+  },
+  {
+      "name": "Ktesippos",
+      "description": "A violent suitor, who threw a cow's hoof at Odysseus, xx.288- 303; killed by Philoitios, xxii.285."
+  },
+  {
+      "name": "Ktimene",
+      "description": "The sister of Odysseus, xv.363."
+  },
+  {
+      "name": "Kydonians",
+      "description": "A people of Crete, iii.292; xix.176."
+  },
+  {
+      "name": "Kyllene",
+      "description": "Mountain in Arkadia, the home of Hermes, xxiv.1."
+  },
+  {
+      "name": "Kythera",
+      "description": "Island off the southern tip of Greece, ix.81."
+  },
+  {
+      "name": "Kythereia",
+      "description": "Aphrodite, the lady of Kythera, viii.288; xviii.193."
+  },
+  {
+      "name": "Laerkes",
+      "description": "Goldsmith in Pylos, iii.425."
+  },
+  {
+      "name": "Laertes",
+      "description": "Son of Arkeisios, father of Odysseus, i.189, etc. Rejuvenated by Athene, fights in the last battle, xxiv. 513-525."
+  },
+  {
+      "name": "Laistrygones",
+      "description": "A giant cannibal people encountered by Odysseus and his men, x.80-132."
+  },
+  {
+      "name": "Lakedaimon",
+      "description": "The country of Sparta, domain of Menelaos, iii.326, etc."
+  },
+  {
+      "name": "Lamos",
+      "description": "The city of the Laistrygones, x.81."
+  },
+  {
+      "name": "Lampetia",
+      "description": "Nymph, daughter of Helios and Neaira, who tended her father's cattle, xii.132; 374."
+  },
+  {
+      "name": "Lampos",
+      "description": "One of the Dawn's horses, xxiii.246."
+  },
+  {
+      "name": "Laodamas",
+      "description": "Favorite son of Alkinoös, vii. 170; viii.117, etc."
+  },
+  {
+      "name": "Lapithai",
+      "description": "The people of Peirithoös, xxi.297."
+  },
+  {
+      "name": "Leda",
+      "description": "Wife of Tyndareos, mother of Kastor and Polydeukes, xi.298."
+  },
+  {
+      "name": "Lemnos",
+      "description": "Island in the northern Aigaian, favored by Hephaistos, viii.283, etc."
+  },
+  {
+      "name": "Leodes",
+      "description": "A weak and well-meaning suitor, with prophetic skill, xxi.144, etc.; killed by Odysseus while begging for mercy, xxii. 310-329."
+  },
+  {
+      "name": "Leokritos",
+      "description": "A suitor, ii.242; killed by Telemachos, xxii.294."
+  },
+  {
+      "name": "Lesbos",
+      "description": "Island off Asia Minor, where Odysseus wrestled with Philomeleides, iv.342, etc."
+  },
+  {
+      "name": "Leto",
+      "description": "Mother (by Zeus) of Artemis and Apollo, vi.106, etc.; Tityos tormented after death for assaulting her, xi.580."
+  },
+  {
+      "name": "Leukothea",
+      "description": "Ino's name as a divinity, v.333."
+  },
+  {
+      "name": "Libya",
+      "description": "The Greek name for Africa, iv.85; xiv,295."
+  },
+  {
+      "name": "Lotus-Eaters",
+      "description": "Mysterious people visited by Odysseus and his men, ix.82- 104."
+  },
+  {
+      "name": "Maia",
+      "description": "Mother of Hermes, xiv.436, etc."
+  },
+  {
+      "name": "Maira",
+      "description": "Heroine seen by Odysseus in the land of the dead, xi.326."
+  },
+  {
+      "name": "Maleia",
+      "description": "Southeastern cape on the mainland of Greece, iii.288, etc."
+  },
+  {
+      "name": "Mantios",
+      "description": "Son of Melampous, grandfather of Theoklymenos, xv.242."
+  },
+  {
+      "name": "Marathon",
+      "description": "District near Athens, favored by Athene (also, site of the subsequent battle), vii.80."
+  },
+  {
+      "name": "Maron",
+      "description": "Priest of Apollo at Ismaros, ix.197."
+  },
+  {
+      "name": "Mastor",
+      "description": "Father of Halitherses, ii.157; xxiv.451."
+  },
+  {
+      "name": "Medon",
+      "description": "Herald of Odysseus in Ithaka, loyal to Penelope and Telemachos, iv.677, etc.; spared by Odysseus after the slaughter, xxii.361."
+  },
+  {
+      "name": "Megapenthes",
+      "description": "Son of Menelaos and a slave girl, iv.11; xv.100, etc."
+  },
+  {
+      "name": "Megara",
+      "description": "Daughter of Kreion, wife of Herakles, xi.269."
+  },
+  {
+      "name": "Melampous",
+      "description": "A famous soothsayer, xi.291; xv.256."
+  },
+  {
+      "name": "Melaneus",
+      "description": "Father of Amphimedon, xxiv.103."
+  },
+  {
+      "name": "Melanthios",
+      "description": "Son of Dolios, goatherd who sided with the suitors and insulted and kicked Odysseus, xvii.212, etc.; aided the suitors in their battle, xxii.135; mutilated by Telemachos and the herdsmen, xxii.474."
+  },
+  {
+      "name": "Melantho",
+      "description": "Daughter of Dolios, favored but treacherous maid of Penelope, xviii.321; xix.65."
+  },
+  {
+      "name": "Memnon",
+      "description": "Son of the Dawn, see iii.112 (where, however, he is not named); handsomest of men, xi.522."
+  },
+  {
+      "name": "Menelaos",
+      "description": "Husband of Helen, great hero of the Iliad, iv.2, etc."
+  },
+  {
+      "name": "Menoitios",
+      "description": "Father of Patroklos, xxiv.77."
+  },
+  {
+      "name": "Mentes",
+      "description": "Name assumed by Athene on her first visit to Telemachos, i.105, etc."
+  },
+  {
+      "name": "Mentor",
+      "description": "Ithakan friend of Odysseus, to whom he entrusted his household when he went to Troy, ii.225, etc.; frequently impersonated by Athene, ii.268; xxii.206; xxiv.548, etc."
+  },
+  {
+      "name": "Mermeros",
+      "description": "Father of Ilos, i.259."
+  },
+  {
+      "name": "Mesaulios",
+      "description": "Thrall of Eumaios, xiv.449."
+  },
+  {
+      "name": "Messene",
+      "description": "Territory in southwestern Greece, xxi.15."
+  },
+  {
+      "name": "Mimas",
+      "description": "A mountainous promontory of Asia Minor, opposite Chios, iii.172."
+  },
+  {
+      "name": "Minos",
+      "description": "Son of Zeus and king of Crete, xix.178; judge in the land of the dead, xi.568; father of Ariadne, xi.322."
+  },
+  {
+      "name": "Minyan",
+      "description": "Name applied to Orchomenos, xi.284."
+  },
+  {
+      "name": "Moulios",
+      "description": "Doulichian herald attached to Amphinomos, xviii.423."
+  },
+  {
+      "name": "Mykene",
+      "description": "(1) a fabulous heroine of the past, ii.120; (2) the city of Agamemnon, iii.304."
+  },
+  {
+      "name": "Myrmidons",
+      "description": "The people of Achilleus and Neoptolemos, iii.188, etc."
+  },
+  {
+      "name": "Naubolos",
+      "description": "Father of Euryalos, viii.115."
+  },
+  {
+      "name": "Nausikaa",
+      "description": "Daughter of Alkinoös and Arete, who befriended Odysseus, vi.17, etc."
+  },
+  {
+      "name": "Nausithoös",
+      "description": "Founder of the Phaiakian settlement on Scheria, vi.7; son of"
+  },
+  {
+      "name": "Poseidon and father of Rhexenor and Alkinoös, vii. 56-63.",
+      "description": ""
+  },
+  {
+      "name": "Nauteus",
+      "description": "A Phaiakian, viii.112."
+  },
+  {
+      "name": "Neaira",
+      "description": "Wife of Helios, mother of Phaethousa and Lampetia, xii.133."
+  },
+  {
+      "name": "Neleus",
+      "description": "Father of Nestor, former king in Pylos, iii.409, etc."
+  },
+  {
+      "name": "Neoptolemos",
+      "description": "Son of Achilleus, xi.506."
+  },
+  {
+      "name": "Nerikos",
+      "description": "Place (on Leukas) once taken by Laertes, xxiv.378."
+  },
+  {
+      "name": "Neritos",
+      "description": "(1) Mountain of Ithaka, xiii.351; (2) builder of a well on Ithaka, xvii.207."
+  },
+  {
+      "name": "Nestor",
+      "description": "The old hero of the Iliad, king in Pylos, i.284; iii.17, etc."
+  },
+  {
+      "name": "Nisos",
+      "description": "King in Doulichion, father of Amphinomos, xviii.127, etc."
+  },
+  {
+      "name": "Noëmon",
+      "description": "Ithakan friend of Telemachos, who lent him his ship, ii.386; iv.630."
+  },
+  {
+      "name": "Ocean",
+      "description": "Or Oke'anos, the waters surrounding the world and the god of those waters, iv.567; x.139; xi.639, etc."
+  },
+  {
+      "name": "Odysseus",
+      "description": "The hero, first mentioned by name, i.21; son of Laertes, iv.555, etc.; and of Antikleia, xi.85."
+  },
+  {
+      "name": "Ogygia",
+      "description": "Kalypso's island, i.85, etc."
+  },
+  {
+      "name": "Oidipodes",
+      "description": "Or Oedipus, hero of Thebes (1), xi.271 (in Homer, strictly, Oidipodes)."
+  },
+  {
+      "name": "Oïkles",
+      "description": "Father of Amphiaraos, xv.243."
+  },
+  {
+      "name": "Oinops",
+      "description": "Father of Leodes, xxi.144."
+  },
+  {
+      "name": "Okyalos",
+      "description": "A Phaiakian, viii.111."
+  },
+  {
+      "name": "Olympos",
+      "description": "The home of the gods, i.102, etc.; described, vi.42."
+  },
+  {
+      "name": "Onetor",
+      "description": "Father of Phrontis, iii.282."
+  },
+  {
+      "name": "Ops",
+      "description": "Father of Eurykleia, i.429."
+  },
+  {
+      "name": "Orchomenos",
+      "description": "Minyan city in Boiotia, xi.284."
+  },
+  {
+      "name": "Orestes",
+      "description": "The son of Agamemnon, who avenged him, i.30; 298; iii.306, etc."
+  },
+  {
+      "name": "Orion",
+      "description": "A hero loved by the Dawn, killed by Artemis, v.121; his ghost seen by Odysseus in the land of the dead, xi.572; as a constellation, v.274."
+  },
+  {
+      "name": "Ormenos",
+      "description": "Father of Ktesios, xv.414."
+  },
+  {
+      "name": "Orsilochos",
+      "description": "Son of Idomeneus, in a story told by Odysseus, xiii.260."
+  },
+  {
+      "name": "Ortilochos",
+      "description": "Father of Diokles, iii.489; host to Odysseus in Messene, xxi.16."
+  },
+  {
+      "name": "Ortygia",
+      "description": "A place of uncertain location, where Artemis killed Orion, v.123; a place (the same?) “where the sun makes his turnings,” near the Homeric Syria, xv.404."
+  },
+  {
+      "name": "Ossa",
+      "description": "A mountain in Thessaly, xi.315."
+  },
+  {
+      "name": "Otos",
+      "description": "Son of Poseidon and Iphimedeia, brother of Ephialtes, gigantic child killed by Apollo, xi.308."
+  },
+  {
+      "name": "Paiëon",
+      "description": "The god of medicine, iv.232."
+  },
+  {
+      "name": "Pallas",
+      "description": "Epithet of Athene, i.125, etc."
+  },
+  {
+      "name": "Pandareos",
+      "description": "Father of “the nightingale,” xix.518; his daughters carried away by the stormwinds, xx.66."
+  },
+  {
+      "name": "Panopeus",
+      "description": "A city in Phokis, xi.581."
+  },
+  {
+      "name": "Paphos",
+      "description": "A place on Cyprus, favored by Aphrodite, viii.362."
+  },
+  {
+      "name": "Parnassos",
+      "description": "A great mountain in central Greece, xix.394, etc."
+  },
+  {
+      "name": "Patroklos",
+      "description": "Companion of Achilleus, a great hero of the Iliad, iii.110, etc."
+  },
+  {
+      "name": "Peiraios",
+      "description": "Man of Ithaka, friend and companion of Telemachos, xv.540, etc."
+  },
+  {
+      "name": "Peirithoös",
+      "description": "Hero of former times, friend of Theseus, xi.631; king of the Lapiths, who punished Eurytion, xxi.296."
+  },
+  {
+      "name": "Peisandros",
+      "description": "Son of Polyktor, a suitor, xviii.299; killed by Philoitios, xxii.268."
+  },
+  {
+      "name": "Peisenor",
+      "description": "(1) Herald in Ithaka, ii.37; (2) father of Ops, grandfather of Eurykleia, i.429, etc."
+  },
+  {
+      "name": "Peisistratos",
+      "description": "Son of Nestor, greets Telemachos and Athene, iii.36; accompanies Telemachos to Sparta, iii.482, etc."
+  },
+  {
+      "name": "Pelasgians",
+      "description": "A mysterious people, variously located in the Iliad; in the Odyssey, they are found in Crete, xix.177."
+  },
+  {
+      "name": "Peleus",
+      "description": "Father of Achilleus, v.310, etc."
+  },
+  {
+      "name": "Pelias",
+      "description": "Son of Tyro and Poseidon, king in Iolkos, xi.256."
+  },
+  {
+      "name": "Pelion",
+      "description": "A mountain in Thessaly, xi.316."
+  },
+  {
+      "name": "Penelope",
+      "description": "Daughter of Ikarios, wife of Odysseus, i.223, etc."
+  },
+  {
+      "name": "Periboia",
+      "description": "Daughter of Eurymedon, mother, by Poseidon, of Nausithoös, vii.57."
+  },
+  {
+      "name": "Periklymenos",
+      "description": "Son of Neleus and Chloris, brother of Nestor, xi.286."
+  },
+  {
+      "name": "Perimedes",
+      "description": "A companion of Odysseus, xi.23; etc."
+  },
+  {
+      "name": "Pero",
+      "description": "Daughter of Neleus and Chloris, a great beauty, xi.287."
+  },
+  {
+      "name": "Perse",
+      "description": "Nymph, daughter of Ocean, x.139."
+  },
+  {
+      "name": "Persephone",
+      "description": "Goddess, wife of Hades, queen over the dead, x.491, xi.47, etc."
+  },
+  {
+      "name": "Perseus",
+      "description": "Son of Nestor, iii.414 (not to be confused with the gorgon slayer)."
+  },
+  {
+      "name": "Phaethon",
+      "description": "One of the Dawn's horses, xxiii.246."
+  },
+  {
+      "name": "Phaethousa",
+      "description": "Nymph, daughter of Helios and Neaira, who tended her father's cattle, xii.132."
+  },
+  {
+      "name": "Phaiakians",
+      "description": "The people of Alkinoös, v.35, etc."
+  },
+  {
+      "name": "Phaidimos",
+      "description": "King of the Sidonians, friend of Menelaos, iv.617."
+  },
+  {
+      "name": "Phaidra",
+      "description": "Heroine seen by Odysseus in the land of the dead, xi.321."
+  },
+  {
+      "name": "Phaistos",
+      "description": "City in Crete, iii.296."
+  },
+  {
+      "name": "Pharos",
+      "description": "Island off Egypt where Menelaos captured Proteus, iv.355."
+  },
+  {
+      "name": "Pheai",
+      "description": "A place on the mainland opposite Ithaka, xv.297."
+  },
+  {
+      "name": "Pheidon",
+      "description": "King of Thesprotia, xiv.316."
+  },
+  {
+      "name": "Phemios",
+      "description": "Son of Terpias, the singer who sang for the suitors, i.154, etc.; his life spared by Odysseus, xxii.331."
+  },
+  {
+      "name": "Pherai",
+      "description": "(1) A place in Thessaly, the home of Eumelos, iv. 798; (2) a place between Pylos and Sparta, the home of Diokles, iii.488."
+  },
+  {
+      "name": "Pheres",
+      "description": "Son of Kretheus and Tyro, xi.259."
+  },
+  {
+      "name": "Philoitios",
+      "description": "The oxherd who remained loyal to Odysseus, xx.185, etc."
+  },
+  {
+      "name": "Philoktetes",
+      "description": "A great hero and master bowman of the Trojan War, iii.190; viii.219."
+  },
+  {
+      "name": "Philomeleïdes",
+      "description": "A wrestler of Lesbos, thrown by Odysseus, iv.343."
+  },
+  {
+      "name": "Phoenicia, Phoenicians",
+      "description": "A nation and its people, noted as seafarers, traders, and slave traders, living on the Syrian coast, iv.83; xiv.288, etc. Phoi'bos: Epithet of Apollo, iii.279, etc."
+  },
+  {
+      "name": "Phorkys",
+      "description": "An old man of the sea, xiii.345; father of Thoö'sa, i.72."
+  },
+  {
+      "name": "Phronios",
+      "description": "Father of Noëmon, ii.386, etc."
+  },
+  {
+      "name": "Phrontis",
+      "description": "Son of Onetor, the steersman of Menelaos, iii.282."
+  },
+  {
+      "name": "Phthia",
+      "description": "The home of Achilleus, xi.496."
+  },
+  {
+      "name": "Phylake",
+      "description": "The home of Iphikles, xi. 290; xv.236."
+  },
+  {
+      "name": "Phylakos",
+      "description": "A hero, possibly the same person as Iphikles, who imprisoned Melampous, xv.231."
+  },
+  {
+      "name": "Phylo",
+      "description": "Handmaid of Helen, iv.125."
+  },
+  {
+      "name": "Pieria",
+      "description": "Mountainous district near Mount Olympos, v.50."
+  },
+  {
+      "name": "Pleiades",
+      "description": "The constellation, v.272."
+  },
+  {
+      "name": "Poias",
+      "description": "Father of Philoktetes, iii.190."
+  },
+  {
+      "name": "Polites",
+      "description": "A companion of Odysseus, x.224."
+  },
+  {
+      "name": "Polybos",
+      "description": "(1) Father of Eurymachos, i.399; (2) man of Egyptian Thebes, visited by Menelaos and Helen, iv.126; (3) craftsman, who made a ball used by the Phaiakians, viii.373; (4) suitor, xxii.243; killed by Eumaios, xxii.284."
+  },
+  {
+      "name": "Polydamna",
+      "description": "Egyptian lady, wife of Thon, who gave Helen a tranquilizing drug, iv.228."
+  },
+  {
+      "name": "Polydeukes",
+      "description": "Son of Leda and Tyndareos, brother of Kastor (1), semi- immortalized by Zeus, xi.298-304."
+  },
+  {
+      "name": "Polykaste",
+      "description": "Youngest daughter of Nestor, who gave Telemachos a bath, iii.464."
+  },
+  {
+      "name": "Polyktor",
+      "description": "(1) Builder of a well on Ithaka, xvii.207; (2) father of Peisandros, xviii.299."
+  },
+  {
+      "name": "Polyneos",
+      "description": "Father of Amphialos, viii.114."
+  },
+  {
+      "name": "Polypemon",
+      "description": "Father of Apheidas, xxiv.305."
+  },
+  {
+      "name": "Polypheides",
+      "description": "Son of Mantios, a prophet, father of Theoklymenos, xv.249- 256."
+  },
+  {
+      "name": "Polyphemos",
+      "description": "Greatest of the Cyclopes, son of Poseidon, blinded by Odysseus, i.70; ix.403, etc."
+  },
+  {
+      "name": "Polytherses",
+      "description": "Father of Ktesippos, xxii.287."
+  },
+  {
+      "name": "Ponteus",
+      "description": "A Phaiakian, viii.113."
+  },
+  {
+      "name": "Pontonoös",
+      "description": "Herald of Alkinoös, vii.182, etc."
+  },
+  {
+      "name": "Poseidon",
+      "description": "Brother of Zeus, lord of the sea, enemy of Odysseus, i.20, etc.; father of Polyphemos, i.68-73, etc."
+  },
+  {
+      "name": "Pramneian wine",
+      "description": "A wine used medicinally, origin unknown, x.235."
+  },
+  {
+      "name": "Priam",
+      "description": "King of Troy, iii.107, etc."
+  },
+  {
+      "name": "Prokris",
+      "description": "Heroine seen by Odysseus in the land of the dead, xi.321."
+  },
+  {
+      "name": "Proreus",
+      "description": "A Phaiakian, viii.113."
+  },
+  {
+      "name": "Proteus",
+      "description": "The old man of the sea, iv.365-570."
+  },
+  {
+      "name": "Prymneus",
+      "description": "A Phaiakian, i.112."
+  },
+  {
+      "name": "Psyrios",
+      "description": "Island off Chios, iii.171."
+  },
+  {
+      "name": "Pylos",
+      "description": "The city of Nestor on the southwest coast of Greece, i.93, etc."
+  },
+  {
+      "name": "Pyriphlegethon",
+      "description": "A river in the land of the dead, x.513."
+  },
+  {
+      "name": "Pytho",
+      "description": "Apollo's sanctuary on the slopes of Mount Parnassos, viii.80; xi.581."
+  },
+  {
+      "name": "Rhadamanthys",
+      "description": "Presumably king in the Elysian Field, iv.564."
+  },
+  {
+      "name": "Rheithron",
+      "description": "Harbor on Ithaka, i.186."
+  },
+  {
+      "name": "Rhexenor",
+      "description": "Son of Nausithoös, father of Arete, vii.63."
+  },
+  {
+      "name": "Roving Rocks",
+      "description": "Located near the Sirens, xii.61; xxiii.327."
+  },
+  {
+      "name": "Salmoneus",
+      "description": "Father of Tyro, xi.236."
+  },
+  {
+      "name": "Same or Samos",
+      "description": "Large island (later Kephallenia), next to Ithaka and in the domain of Odysseus, i.246, etc."
+  },
+  {
+      "name": "Scheria",
+      "description": "The land of the Phaiakians, v.34, etc."
+  },
+  {
+      "name": "Sicilian",
+      "description": "Used of a people referred to as dealing in slaves, xx.383; provenence of Laertes' slave woman, xxiv.211, etc. (actually, the word is Si'kelos, which in Greek elsewhere refers to a native people in Sicily, or Sike'lia)."
+  },
+  {
+      "name": "Sidon, Sidonia",
+      "description": "City of the Phoenicians, xiii.286, etc."
+  },
+  {
+      "name": "Sikania",
+      "description": "A place referred to by Odysseus, perhaps to be identified with Sicily, xxiv.307."
+  },
+  {
+      "name": "Sintians",
+      "description": "Friends of Hephaistos in Lemnos, who spoke an uncouth language, viii.294."
+  },
+  {
+      "name": "Sirens",
+      "description": "Singing, dangerous creatures of the sea, xii.39, etc."
+  },
+  {
+      "name": "Sisyphos",
+      "description": "Hero tormented in the land of the dead, condemned to roll a stone forever uphill, xi.593."
+  },
+  {
+      "name": "Skylla",
+      "description": "A man-eating monster who preyed on Odysseus' men, xii.85; 245, etc."
+  },
+  {
+      "name": "Skyros",
+      "description": "Island from which Odysseus brought Neoptolemos to Troy, xi.509."
+  },
+  {
+      "name": "Solymoi",
+      "description": "A people visited by Poseidon, v.283."
+  },
+  {
+      "name": "Sounion",
+      "description": "A sea cape of Attika, near Athens, iii.278."
+  },
+  {
+      "name": "Sparta",
+      "description": "The city of Menelaos, i.93, etc."
+  },
+  {
+      "name": "Stratios",
+      "description": "A son of Nestor, iii.413."
+  },
+  {
+      "name": "Styx",
+      "description": "The river or waterfall by which the gods swear, v.185; located in the land of the dead, x.514."
+  },
+  {
+      "name": "Syria",
+      "description": "An island of uncertain location, the original home of Eumaios, xv.403."
+  },
+  {
+      "name": "Tantalos",
+      "description": "Hero tormented in the land of the dead, xi.582."
+  },
+  {
+      "name": "Taphians",
+      "description": "A people, not certainly located, on or near the western coast of Greece, i.105; xiv.452."
+  },
+  {
+      "name": "Taÿgetos",
+      "description": "A mountain range in Lakedaimon, vi.103."
+  },
+  {
+      "name": "Teiresias",
+      "description": "Theban seer, who retained his powers even in the land of the dead, x.492, etc.; consulted by Odysseus and foretells his future, xi.90- 137."
+  },
+  {
+      "name": "Tekton",
+      "description": "Father of Polyneos, viii.114."
+  },
+  {
+      "name": "Telamon",
+      "description": "The father of Aias (1), xi.553."
+  },
+  {
+      "name": "Telemachos",
+      "description": "The thoughtful son of Odysseus and Penelope, i.113, etc."
+  },
+  {
+      "name": "Telemos",
+      "description": "Prophet of the Cyclopes, ix.509."
+  },
+  {
+      "name": "Telephos",
+      "description": "Father of Eurypylos, xi.519."
+  },
+  {
+      "name": "Telepylos",
+      "description": "City of the Laistrygones, x.82."
+  },
+  {
+      "name": "Temese",
+      "description": "Place alleged to be her destination by Athene disguised as Mentes, i.184."
+  },
+  {
+      "name": "Tenedos",
+      "description": "Island off Asia Minor, near Troy, iii.159."
+  },
+  {
+      "name": "Terpias",
+      "description": "Father of Phemios, xxii.330 (but the form of his name is uncertain)."
+  },
+  {
+      "name": "Thebes",
+      "description": "(1) City of Egypt, iv.127; (2) city of the Kadmeians in Boiotia, xv.247, etc."
+  },
+  {
+      "name": "Themis",
+      "description": "Goddess of what is right and proper, who supervises the assemblies of men, ii.68."
+  },
+  {
+      "name": "Theoklymenos",
+      "description": "A man of prophetic family, fugitive from Argos, befriended by Telemachos, xv.223, etc. (first named, xv.256)."
+  },
+  {
+      "name": "Theseus",
+      "description": "Great hero of Athens, who carried Ariadne away from Crete, xi.322, etc."
+  },
+  {
+      "name": "Thesprotians",
+      "description": "A people of the northwest mainland, xiv.315, etc."
+  },
+  {
+      "name": "Thetis",
+      "description": "Nereid, married to Peleus, mother of Achilleus, xxiv.91."
+  },
+  {
+      "name": "Thoas",
+      "description": "Son of Andraimon, hero at Troy, xiv.499."
+  },
+  {
+      "name": "Thon",
+      "description": "Egyptian, husband of Polydamna, iv.228."
+  },
+  {
+      "name": "Thoön",
+      "description": "A Phaiakian, viii.113."
+  },
+  {
+      "name": "Thoösa",
+      "description": "A nymph, daughter of Phorkys, mother of Polyphemos, i.71."
+  },
+  {
+      "name": "Thrace",
+      "description": "Territory north of Greece, favored home of Ares, viii.361."
+  },
+  {
+      "name": "Thrsymedes",
+      "description": "Son of Nestor, iii.39, etc."
+  },
+  {
+      "name": "Thrinakia",
+      "description": "The island of Helios, where his sacred cattle were pastured, xi.107; xii.127, etc."
+  },
+  {
+      "name": "Thyestes",
+      "description": "Father of Aigisthos, iv.517."
+  },
+  {
+      "name": "Tithonos",
+      "description": "The husband of the Dawn, v.1."
+  },
+  {
+      "name": "Tityos",
+      "description": "A hero tormented in the land of the dead, xi.576; mentioned, vii.324."
+  },
+  {
+      "name": "Tritogeneia",
+      "description": "A name for Athene, iii, 378."
+  },
+  {
+      "name": "Trojans",
+      "description": "The people of Troy, i.237, etc."
+  },
+  {
+      "name": "Troy",
+      "description": "The domain of Priam, whose city was Ilion, i.2, etc."
+  },
+  {
+      "name": "Tydeus",
+      "description": "Father of Diomedes, iii.167, etc."
+  },
+  {
+      "name": "Tyndareos",
+      "description": "Father of Kastor and Polydeukes, xi.298; of Klytaimestra, xxiv.199."
+  },
+  {
+      "name": "Tyro",
+      "description": "A fabulous queen, ii.120; her ghost talked with Odysseus in the land of the dead, xi.235."
+  },
+  {
+      "name": "Zakynthos",
+      "description": "Large island, part of the domain of Odysseus, i.246, etc."
+  },
+  {
+      "name": "Zethos",
+      "description": "(1) Son of Antiope, and builder, with his brother Amphion, of Thebes, xi.262; (2) father of Itylos, xix.523."
+  },
+  {
+      "name": "Zeus",
+      "description": "Son of Kronos, most powerful of the gods, i.10, etc."
+  }
+]
