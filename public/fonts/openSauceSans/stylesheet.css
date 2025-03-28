@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'OpenSauceSans';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('OpenSauceSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSauceSans';
+  font-style:  normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('OpenSauceSans-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSauceSans';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('OpenSauceSans-SemiBold.ttf') format('truetype');
+}

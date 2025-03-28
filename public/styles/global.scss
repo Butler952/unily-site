@@ -4,7 +4,7 @@
 @import '../fonts/plusJakartaSans/web/PlusJakartaSans.css';
 @import '../fonts/cormorantGaramond/stylesheet.css';
 @import '../fonts/galleryModern/stylesheet.css';
-@import '../fonts/marcellus/stylesheet.css';
+@import '../fonts/openSauceSans/stylesheet.css';
 
 html {
   transition: $transition-standard;
@@ -18,24 +18,20 @@ body {
   line-height: 1.6;
   color: $dark-800; 
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  font-family: 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   white-space: pre-line;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.2em;
 }
 h1, h2, h3, h4, h5, h6 {  
   margin-bottom: 1.5rem; 
   line-height: 1.1;
   color: $dark-900; 
-  font-weight: 500;
-  font-variant-ligatures: none;
-  font-family: 'Marcellus', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  letter-spacing: 0}
+  font-weight: 400;
+  font-variant-ligatures: none;}
 h1 { 
   font-size: $heading-2;
   @media (min-width: $breakpoint-sm) {
