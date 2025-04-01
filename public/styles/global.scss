@@ -1,10 +1,9 @@
-@import "~bootstrap/scss/bootstrap";
 @import './variables.scss';
+@import "~bootstrap/scss/bootstrap";
 
-@import '../fonts/plusJakartaSans/web/PlusJakartaSans.css';
-@import '../fonts/cormorantGaramond/stylesheet.css';
-@import '../fonts/galleryModern/stylesheet.css';
-@import '../fonts/marcellus/stylesheet.css';
+@import '../fonts/openSauceSans/stylesheet.css';
+@import '../fonts/caveat/stylesheet.css';
+@import '../fonts/inter/web/inter.css';
 
 html {
   transition: $transition-standard;
@@ -18,24 +17,24 @@ body {
   line-height: 1.6;
   color: $dark-800; 
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  font-family: 'Open Sauce Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   white-space: pre-line;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.05em
 }
 h1, h2, h3, h4, h5, h6 {  
   margin-bottom: 1.5rem; 
-  line-height: 1.1;
+  line-height: 1.6;
   color: $dark-900; 
-  font-weight: 500;
+  font-weight: 400;
   font-variant-ligatures: none;
-  font-family: 'Marcellus', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  font-family: 'Open Sauce Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  letter-spacing: 0}
+}
 h1 { 
   font-size: $heading-2;
   @media (min-width: $breakpoint-sm) {
@@ -55,21 +54,18 @@ h3 {
     }
 }
 h4 { 
-  line-height: 1.2;
   font-size: $heading-5;
   @media (min-width: $breakpoint-sm) {
       font-size: $heading-4; 
     }
 }
 h5 { 
-  line-height: 1.2;
   font-size: $heading-6;
   @media (min-width: $breakpoint-sm) {
       font-size: $heading-5; 
     }
 }
 h6 { 
-  line-height: 1.2;
   font-size: $heading-7;
   @media (min-width: $breakpoint-sm) {
       font-size: $heading-6; 
@@ -93,6 +89,14 @@ p.small { font-size: 14px; }
 p.caption { font-size: 12px; }
 p.error { color: $error-900; }
 p.monospace { font-family: Courier, monospace}
+
+.font-caveat { 
+  font-family: 'Caveat', 'Open Sauce Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif; 
+  font-size: 24px;
+  line-height: 1.2;
+}
 
 a { 
   color: $primary-900; 
@@ -2355,3 +2359,250 @@ textarea {
   opacity: 0;
   transition: opacity 0.15s ease;
 } 
+
+//
+
+.image-ff {
+  transition: $transition-standard;
+  border: 4px solid $light-900;
+  box-sizing: content-box;
+  box-shadow: $shadow-1;
+  overflow: hidden;
+  background-color: white;
+  &.small {
+    border: 2px solid $light-900;
+    &:hover {
+      scale: 1.2;
+    }
+    
+  }
+}
+
+.rotate-1{
+  rotate: 3deg;
+  &:hover, &:focus {
+    rotate: 5deg;
+  }
+}
+.rotate-2{
+  rotate: -3deg;
+  &:hover, &:focus {
+    rotate: -5deg;
+  }
+} 
+.rotate-3{
+  rotate: 6deg;
+  &:hover, &:focus {
+    rotate: 8deg;
+  }
+}
+.rotate-4{
+  rotate: -6deg;
+  &:hover, &:focus {
+    rotate: -8deg;
+  }
+}
+.rotate-5{
+  rotate: 1deg;
+  &:hover, &:focus {
+    rotate: 3deg;
+  }
+}
+.rotate-6{
+  rotate: -1deg;
+  &:hover, &:focus {
+    rotate: -3deg;
+  }
+}
+.static-rotate-1{
+  rotate: 3deg;
+}
+.static-rotate-2{
+  rotate: -3deg;
+} 
+.static-rotate-3{
+  rotate: 6deg;
+}
+.static-rotate-4{
+  rotate: -6deg;
+}
+.static-rotate-5{
+  rotate: 1deg;
+}
+.rotate-6{
+  rotate: -1deg;
+  &:hover, &:focus {
+    rotate: -3deg;
+  }
+}
+
+// Aspect Ratios
+.aspect-ratio-4-3 {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 75%; // 3/4 = 0.75 = 75%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.aspect-ratio-square {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 100%; // 3/4 = 0.75 = 75%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.aspect-ratio-wide {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 62%; // 3/4 = 0.75 = 75%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.aspect-ratio-wide-2 {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 52.5%; // 3/4 = 0.75 = 75%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.aspect-ratio-tall {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 160%; // 16/9 = 1.778 = 177.8%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+.aspect-ratio-tall-2 {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 216%; // 16/9 = 1.778 = 177.8%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.article-image-scale {
+  scale: 1.1!important;
+}
+
+.article-image {
+  @media (min-width: $breakpoint-md) {
+    scale: 1.1;
+  }
+}
+
+.activate-images-1 {
+  margin-left: 0;
+  margin-top: -120px;
+  @media (min-width: $breakpoint-md) {
+    margin-left: -32px;
+    margin-top: 48px;
+  }
+}
+
+.aspect-ratio-4-55-1 {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 22%; // 1/4.55 = 0.22 = 22%
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Width 80%
+.w-80 {
+  width: 80%;
+}
+.w-sm-80 {
+  @media (max-width: $breakpoint-md) {
+    width: 80%;
+  }
+}
+.w-md-80 {
+  @media (min-width: $breakpoint-md) {
+    width: 80%;
+  }
+}
+.w-lg-80 {
+  @media (min-width: $breakpoint-lg) {
+    width: 80%;
+  }
+}
+.w-xl-80 {
+  @media (min-width: $breakpoint-xl) {
+    width: 80%;
+  }
+}
+

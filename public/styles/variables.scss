@@ -8,7 +8,7 @@ $breakpoint-2xl: 1440px;
 
 // TEXT SIZES
 
-$heading-1: 64px;
+$heading-1: 48px;
 $heading-2: 44px;
 $heading-3: 34px;
 $heading-4: 28px;
@@ -137,8 +137,7 @@ $achaian: #E07443;
 
 // Background
 
-$background: #F6F6F4;
-// $background: #fff;
+$background: #fff;
 
 // Gradients
 
@@ -168,12 +167,7 @@ $shadow-1:
   0 3px 3px 1.5px rgba($dark-900, 0.04),
   0 6px 6px 3px rgba($dark-900, 0.04),
   0 12px 12px 6px rgba($dark-900, 0.04),
-  0 24px 24px 12px rgba($dark-900, 0.04),
-  inset 0 1px 1px 0.5px rgba($dark-900, 0),
-  inset 0 3px 3px 1.5px rgba($dark-900, 0),
-  inset 0 6px 6px 3px rgba($dark-900, 0),
-  inset 0 12px 12px 6px rgba($dark-900, 0),
-  inset 0 24px 24px 12px rgba($dark-900, 0);
+  0 24px 24px 12px rgba($dark-900, 0.04);
 $shadow-2: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 3px 3px -1px rgba($dark-900, 0.08);
 $shadow-3: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 6px 6px -1px rgba($dark-900, 0.08);
 $shadow-4: 0 0 1px 1px rgba($dark-900, 0.04), 0 0 1px 0 rgba($dark-900, 0.08), 0 16px 16px -1px rgba($dark-900, 0.08);
