@@ -92,26 +92,24 @@ const Home = (props) => {
           Aaron Butler
         </h1>
         <h2 className="text-dark-low mb-5">0→1 Product Designer & Builder</h2>
-        <div style={{ marginTop: "120px", marginBottom: "120px" }}>
-          <h4 className="text-dark-med">
-            I would love to join the team at Founders Factory to work with
-            founders to turn early-stage ideas into high-growth startups.
-          </h4>
-
+        <div style={{ marginTop: "64px", marginBottom: "120px" }}>
           <h4 className="text-dark-med">
             For the last three years I have worked at Cuvva, helping to achieve
             the company's mission of giving everyone affordable access to a car
             anytime, anywhere by making cars multiplayer.
           </h4>
-
           <h4 className="text-dark-med">
             Before that I was at Activate helping non-technical founders with
             industry knowledge to go from idea to launched MVP and beyond.
           </h4>
-
           <h4 className="text-dark-med">
             Alongside these I've been building, launching and growing my own
             digital products, as well as a little freelancing.
+          </h4>
+          <h4 className="text-dark-med">
+            Next step? 
+            I would love to join the team at Founders Factory to work with
+            founders and turn early-stage ideas into high-growth startups.
           </h4>
         </div>
         <FoundersHighlight />
