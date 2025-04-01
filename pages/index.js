@@ -88,11 +88,11 @@ const Home = (props) => {
             style={{ marginLeft: "-24px" }}
           />
         </div>
-        <h1 className="mb-0" style={{ lineHeight: "1.1" }}>
+        {/* <h1 className="mb-0" style={{ lineHeight: "1.1" }}>
           Aaron Butler
         </h1>
-        <h2 className="text-dark-low mb-5">0→1 Product Designer & Builder</h2>
-        <div style={{ marginTop: "64px", marginBottom: "120px" }}>
+        <h2 className="text-dark-low mb-5">0→1 Product Designer & Builder</h2> */}
+        <div style={{ marginTop: "64px" }}>
           <h4 className="text-dark-med">
             For the last three years I have worked at Cuvva, helping to achieve
             the company's mission of giving everyone affordable access to a car
@@ -110,6 +110,15 @@ const Home = (props) => {
             Next step? 
             I would love to join the team at Founders Factory to work with
             founders and turn early-stage ideas into high-growth startups.
+          </h4>
+          <h4 className="font-caveat mb-3 mt-5" style={{ fontSize: "64px" }}>
+            Aaron Butler
+          </h4>
+          {/* <h4 className="text-dark-med mb-0">
+            Aaron Butler
+          </h4> */}
+          <h4 className="text-dark-med">
+          0→1 Product Designer & Builder
           </h4>
         </div>
         <FoundersHighlight />

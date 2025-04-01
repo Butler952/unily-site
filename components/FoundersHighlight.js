@@ -101,9 +101,9 @@ const FounderCard = ({ founder }) => {
 
 const FoundersHighlight = () => {
   return (
-    <div style={{ marginTop: "280px", marginBottom: "200px" }}>
+    <div style={{ marginTop: "160px", marginBottom: "200px" }}>
       {/* Desktop version - visible only on md and larger screens */}
-      <div className="d-none d-lg-flex flex-column align-items-center gap-5">
+      <div className="d-none d-lg-flex flex-column align-items-center gap-5" style={{ paddingTop: "160px" }}>
         <div className="d-flex flex-row align-items-start justify-content-between w-100 mb-5">
           <div className="position-relative">
             <img
