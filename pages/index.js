@@ -603,12 +603,6 @@ const Home = (props) => {
               approval from Bupa leadership to continue to pursue these ideas.
             </h6>
           </div>
-        </div>
-        <div
-          className="d-flex flex-column align-items-start gap-5"
-          style={{ marginTop: "120px", marginBottom: "120px" }}
-        >
-          <h3>Education</h3>
           <div className="d-flex flex-column align-items-start gap-4">
             <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
               <img
