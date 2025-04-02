@@ -92,7 +92,7 @@ const CuvvaSection = forwardRef((props, ref) => {
         <div 
           className="d-flex flex-column align-items-center justify-content-end w-100 position-absolute"
           style={{
-            background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.98) 50%, rgba(255,255,255,1))',
+            background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.98) 70%, rgba(255,255,255,1))',
             minHeight: '300px',
             padding: '20px',
             top: '200px',
