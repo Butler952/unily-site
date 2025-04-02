@@ -28,8 +28,8 @@ export default function App({ Component, pageProps }) {
         />
         <meta property="og:url" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.aaronbutlerwantstobuildwithfoundersfactory.com" />
-        <meta property="twitter:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.aaronbutlerwantstobuildwithfoundersfactory.com" />
+        <meta property="og:image" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/images/og-image.png" />
+        <meta property="twitter:image" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/images/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Component {...pageProps} />

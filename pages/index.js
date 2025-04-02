@@ -685,7 +685,7 @@ const Home = (props) => {
               </div>
             </div>
             <div>
-              <h6 className="text-dark-low mb-2">
+              <h6 className="text-dark-low">
                 Product Designer in a startup studio that helps non-technical
                 founders with industry knowledge to go from idea to launched MVP
                 and beyond.
@@ -798,7 +798,7 @@ const Home = (props) => {
                   className="text-dark-low mb-2"
                   style={{ lineHeight: "1.2" }}
                 >
-                  2021 - 2022
+                  2016
                 </h6>
               </div>
             </div>
