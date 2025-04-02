@@ -568,7 +568,7 @@ const Home = (props) => {
                 an event or shared expense.
               </h6>
               <h6 className="text-dark-low">
-                I helped them work through establish who their target user is
+                I helped them work through establishing who their target user is
                 and what their most important jobs, pains and gains are, before
                 creating wireframes and high-fidelity deliverables for their
                 mobile app MVP.
@@ -856,7 +856,7 @@ const Home = (props) => {
             <h3>Articles</h3>
             <h6 className="text-dark-low mb-2">
               Occasionally I decide to write about things I've learned along the
-              way, or something that has infuritated me enough to cause me to
+              way, or something that has infuriated me enough to cause me to
               redesign it. Some of my articles have been featured in Mobbin's
               Weekly Update and TLDR's Design newsletter (going out to over
               300,000 people).

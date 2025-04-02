@@ -76,7 +76,7 @@ const ActivateSection = forwardRef((props, ref) => {
       </div>
       <div className="d-flex flex-column align-items-start ">
         <h6 className="text-dark-low">
-          If the business case seems sound, we would help them prepare to their
+          If the business case seems sound, we would help them prepare their
           pitch deck for their first round of funding and make initial
           introductions to investors.
         </h6>

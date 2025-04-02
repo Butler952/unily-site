@@ -60,7 +60,7 @@ const CuvvaSection = forwardRef((props, ref) => {
           mission by <i>making cars multiplayer.</i>
         </h6>
         <h6 className="text-dark-low">
-          This sidesteps the need to add thousands of cars to Britain's roads
+          This side steps the need to add thousands of cars to Britain's roads
           and instead focuses on making better use of the many cars which are
           often sat idle.
         </h6>
@@ -74,7 +74,7 @@ const CuvvaSection = forwardRef((props, ref) => {
         </h6>
         <h6 className="text-dark-low">
           After gathering new data and looking at existing data with this existing
-          user base using surveys and user interviews, we collating the findings
+          user base using surveys and user interviews, we collated the findings
           and identified key problems that users face with access, ownership,
           and lending their car.
         </h6>
@@ -84,7 +84,7 @@ const CuvvaSection = forwardRef((props, ref) => {
         </h6>
         <h6 className="text-dark-low">
           The team ideated on "how can we help to give everyone affordable
-          access to a a car anytime, anywhere?" and arrived at four concepts:
+          access to a car anytime, anywhere?" and arrived at four concepts:
         </h6>
       </div>
       
@@ -458,9 +458,9 @@ const CuvvaSection = forwardRef((props, ref) => {
               further lending activity.
             </h6>
             <h6 className="text-dark-low">
-              Again we opted for a fake door to establish demand before committing
+              Again we opted for a fake door to determine demand before committing
               to build the feature in full. To begin with we had a yes/no question
-              leading to a fake door, then we updated it to establish how much they
+              leading to a fake door, then we updated it to learn how much they
               wanted to charge for lending their car out.
             </h6>
           </div>

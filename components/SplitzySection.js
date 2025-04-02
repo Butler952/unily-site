@@ -27,7 +27,7 @@ const SplitzySection = forwardRef((props, ref) => {
         </h6>
         <h6 className="text-dark-low">
           After chatting with fellow students and using anecdotal evidence of
-          their own, . we arrived at a few scenarios as archetypes for this
+          their own, we arrived at a few scenarios as archetypes for this
           different type of splitting that they wanted to help out with.
         </h6>
 
@@ -240,7 +240,7 @@ const SplitzySection = forwardRef((props, ref) => {
       <div>
         <h6 className="text-dark-low mt-5">
           We worked through a few cycles of iterations before landing on
-          something that team really enjoyed.
+          something that the team really enjoyed.
         </h6>
         <h6 className="text-dark-low">
           The team also wanted a placeholder website for them to ensure they
