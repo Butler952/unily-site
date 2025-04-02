@@ -203,9 +203,11 @@ const Home = (props) => {
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         /> */}
       </Head>
-      <div
-        style={{ maxWidth: "720px", margin: "160px auto" }}
-        className="p-4 p-sm-5 p-md-3"
+      <div className="d-none d-md-block w-100" style={{ paddingTop: "96px" }}>
+      </div>
+        <div
+          style={{ maxWidth: "720px", margin: "64px auto" }}
+          className="p-4 p-sm-5 p-md-3"
       >
         <div className="d-flex flex-row mb-5 ml-3">
           <img
