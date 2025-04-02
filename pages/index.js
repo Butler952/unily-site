@@ -990,7 +990,7 @@ const Home = (props) => {
             </h6>
           </div>
           <div className="d-flex flex-column align-items-start gap-5 mb-4">
-            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+            <div className="d-flex flex-row align-items-center gap-4">
               <img
                 width="64"
                 src="/images/mail.png"
@@ -1031,7 +1031,7 @@ const Home = (props) => {
                 </a>
               </div>
             </div>
-            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+            <div className="d-flex flex-row align-items-center gap-4">
               <img
                 width="64"
                 src="/images/linkedin.png"
@@ -1072,7 +1072,7 @@ const Home = (props) => {
                 </a>
               </div>
             </div>
-            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+            <div className="d-flex flex-row align-items-center gap-4">
               <img
                 width="64"
                 src="/images/twitter.png"
