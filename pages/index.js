@@ -19,18 +19,42 @@ const Home = (props) => {
   const [isHoveringCuvva, setIsHoveringCuvva] = useState(false);
   const [isHoveringSplitzy, setIsHoveringSplitzy] = useState(false);
   const [isHoveringActivate, setIsHoveringActivate] = useState(false);
+  const [isHoveringEmail, setIsHoveringEmail] = useState(false);
+  const [isHoveringLinkedIn, setIsHoveringLinkedIn] = useState(false);
+  const [isHoveringX, setIsHoveringX] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [ffImagePosition, setFfImagePosition] = useState(-144);
   const [ffImageOpacity, setFfImageOpacity] = useState(0);
 
   // Add state for paragraph animations
-  const [para1Style, setPara1Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [para2Style, setPara2Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [para3Style, setPara3Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [para4Style, setPara4Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [signatureStyle, setSignatureStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [nameStyle, setNameStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
-  const [titleStyle, setTitleStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [para1Style, setPara1Style] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [para2Style, setPara2Style] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [para3Style, setPara3Style] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [para4Style, setPara4Style] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [signatureStyle, setSignatureStyle] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [nameStyle, setNameStyle] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [titleStyle, setTitleStyle] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
 
   const indiehackingSectionRef = useRef(null);
   const cuvvaSectionRef = useRef(null);
@@ -38,6 +62,7 @@ const Home = (props) => {
   const activateSectionRef = useRef(null);
   const experienceSectionRef = useRef(null);
   const articlesSectionRef = useRef(null);
+  const contactSectionRef = useRef(null);
 
   const scrollToIndiehacking = () => {
     indiehackingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -63,6 +88,10 @@ const Home = (props) => {
     articlesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToContact = () => {
+    contactSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Add a function to scroll to the top of the page
   const scrollToTop = () => {
     window.scrollTo({
@@ -84,9 +113,12 @@ const Home = (props) => {
       const cuvvaPosition = cuvvaSectionRef.current?.offsetTop || 0;
       const splitzyPosition = splitzySectionRef.current?.offsetTop || 0;
       const activatePosition = activateSectionRef.current?.offsetTop || 0;
+      const contactPosition = contactSectionRef.current?.offsetTop || 0;
 
       // Determine which section is active
-      if (scrollPosition >= activatePosition) {
+      if (scrollPosition >= contactPosition) {
+        setActiveSection("contact");
+      } else if (scrollPosition >= activatePosition) {
         setActiveSection("activate");
       } else if (scrollPosition >= splitzyPosition) {
         setActiveSection("splitzy");
@@ -117,37 +149,37 @@ const Home = (props) => {
       setFfImagePosition(0);
       setFfImageOpacity(1);
     }, 500); // 500ms delay
-    
+
     return () => clearTimeout(timer);
   }, []);
 
   // Add effect for paragraph animations with staggered delays
   useEffect(() => {
     const timer1 = setTimeout(() => {
-      setPara1Style({ opacity: 1, transform: 'translateY(0)' });
+      setPara1Style({ opacity: 1, transform: "translateY(0)" });
     }, 1300); // First paragraph delay
-    
+
     const timer2 = setTimeout(() => {
-      setPara2Style({ opacity: 1, transform: 'translateY(0)' });
+      setPara2Style({ opacity: 1, transform: "translateY(0)" });
     }, 1500); // Second paragraph delay
-    
+
     const timer3 = setTimeout(() => {
-      setPara3Style({ opacity: 1, transform: 'translateY(0)' });
+      setPara3Style({ opacity: 1, transform: "translateY(0)" });
     }, 1700); // Third paragraph delay
-    
+
     const timer4 = setTimeout(() => {
-      setPara4Style({ opacity: 1, transform: 'translateY(0)' });
+      setPara4Style({ opacity: 1, transform: "translateY(0)" });
     }, 1900); // Fourth paragraph delay
-    
+
     const timer5 = setTimeout(() => {
-      setSignatureStyle({ opacity: 1, transform: 'translateY(0)' });
+      setSignatureStyle({ opacity: 1, transform: "translateY(0)" });
     }, 2100); // Signature delay
-    
+
     const timer6 = setTimeout(() => {
-      setNameStyle({ opacity: 1, transform: 'translateY(0)' });
-      setTitleStyle({ opacity: 1, transform: 'translateY(0)' });
+      setNameStyle({ opacity: 1, transform: "translateY(0)" });
+      setTitleStyle({ opacity: 1, transform: "translateY(0)" });
     }, 2300); // Name and title delay
-    
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
@@ -161,31 +193,15 @@ const Home = (props) => {
   return (
     <div>
       <Head>
-        <title>Epic Baby Names | Certified epic names for your kid</title>
-        <meta
-          name="description"
-          content="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
-        />
-        <meta
-          property="og:title"
-          content="Epic Baby Names | Certified epic names for your kid"
-        />
-        <meta
-          property="og:description"
-          content="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
-        />
-        <meta property="og:url" content="https://www.epicbabynames.com/" />
-        <meta property="og:type" content="website" />
-        {/* <meta property="og:image" content="https://api.apiflash.com/v1/urltoimage?access_key=c0862ed5113840318341823ac08fe465&wait_until=page_loaded&url=https%3A%2F%2Fwww.vitaely.me" /> */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
+
+        {/* <meta
           name="twitter:image"
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         />
         <meta
           property="og:image"
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
-        />
+        /> */}
       </Head>
       <div
         style={{ maxWidth: "720px", margin: "160px auto" }}
@@ -204,11 +220,11 @@ const Home = (props) => {
             src="/images/founders-factory.png"
             alt="Founders Factory"
             className="image-ff radius-5 order-1 z-0 transition-long"
-            style={{ 
-              left: `${ffImagePosition}px`, 
-              position: "relative", 
+            style={{
+              left: `${ffImagePosition}px`,
+              position: "relative",
               marginLeft: "-24px",
-              opacity: ffImageOpacity
+              opacity: ffImageOpacity,
             }}
           />
         </div>
@@ -217,28 +233,72 @@ const Home = (props) => {
         </h1>
         <h2 className="text-dark-low mb-5">0→1 Product Designer & Builder</h2> */}
         <div style={{ marginTop: "64px" }}>
-          <h5 className="text-dark-med" style={{...para1Style, transition: 'opacity 0.5s, transform 0.5s'}}>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para1Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
             For the last three years I have worked at Cuvva, helping to achieve
             the company's mission of giving everyone affordable access to a car
             anytime, anywhere by making cars multiplayer.
           </h5>
-          <h5 className="text-dark-med" style={{...para2Style, transition: 'opacity 0.5s, transform 0.5s'}}>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para2Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
             Before that I was at Activate helping non-technical founders with
             industry knowledge to go from idea to launched MVP and beyond.
           </h5>
-          <h5 className="text-dark-med" style={{...para3Style, transition: 'opacity 0.5s, transform 0.5s'}}>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para3Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
             Alongside these I've been building, launching and growing my own
             digital products, as well as a little freelancing.
           </h5>
-          <h5 className="text-dark-med" style={{...para4Style, transition: 'opacity 0.5s, transform 0.5s'}}>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para4Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
             Next step? I would love to join the team at Founders Factory to work
             with founders and turn early-stage ideas into high-growth startups.
           </h5>
-          <h5 className="font-caveat mb-3 mt-5" style={{...signatureStyle, fontSize: "64px", transition: 'opacity 0.5s, transform 0.5s'}}>
+          <h5
+            className="font-caveat mb-3 mt-5"
+            style={{
+              ...signatureStyle,
+              fontSize: "64px",
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
             Aaron Butler
           </h5>
-          <h5 className="text-dark-med mb-0" style={{...nameStyle, transition: 'opacity 0.5s, transform 0.5s'}}>Aaron Butler</h5>
-          <h5 className="text-dark-med" style={{...titleStyle, transition: 'opacity 0.5s, transform 0.5s'}}>0→1 Product Designer & Builder</h5>
+          <h5
+            className="text-dark-med mb-0"
+            style={{ ...nameStyle, transition: "opacity 0.5s, transform 0.5s" }}
+          >
+            Aaron Butler
+          </h5>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...titleStyle,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
+            0→1 Product Designer & Builder
+          </h5>
         </div>
         <FoundersHighlight />
         <div
@@ -833,13 +893,13 @@ const Home = (props) => {
                     >
                       What if missing a connecting flight wasn't awful?
                       <span
+                        className="transition-standard"
                         style={{
                           marginLeft: "8px",
                           opacity: isHoveringArticle1 ? 1 : 0,
                           transform: isHoveringArticle1
                             ? "translateX(0)"
                             : "translateX(-10px)",
-                          transition: "opacity 0.3s, transform 0.3s",
                           display: "inline-block",
                         }}
                       >
@@ -887,13 +947,13 @@ const Home = (props) => {
                       What I learned from running multivariant tests on my
                       funnel
                       <span
+                        className="transition-standard"
                         style={{
                           marginLeft: "8px",
                           opacity: isHoveringArticle2 ? 1 : 0,
                           transform: isHoveringArticle2
                             ? "translateX(0)"
                             : "translateX(-10px)",
-                          transition: "opacity 0.3s, transform 0.3s",
                           display: "inline-block",
                         }}
                       >
@@ -916,6 +976,145 @@ const Home = (props) => {
         <CuvvaSection ref={cuvvaSectionRef} />
         <SplitzySection ref={splitzySectionRef} />
         <ActivateSection ref={activateSectionRef} />
+        <div
+          className="d-flex flex-column align-items-start gap-5"
+          style={{ marginTop: "120px" }}
+          ref={contactSectionRef}
+        >
+          <div className="d-flex flex-column align-items-start ">
+            <h3>Contact</h3>
+            <h6 className="text-dark-low mb-2">
+              Thank you for sticking with me and reaching this far down the
+              page. If you'd like to get in touch with me, you can do so on any
+              one of these channels:
+            </h6>
+          </div>
+          <div className="d-flex flex-column align-items-start gap-5 mb-4">
+            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+              <img
+                width="64"
+                src="/images/mail.png"
+                alt="Email"
+                className="image-ff rotate-1 radius-3 order-0"
+                style={{ zIndex: 1 }}
+              />
+              <div
+                onMouseEnter={() => setIsHoveringEmail(true)}
+                onMouseLeave={() => setIsHoveringEmail(false)}
+              >
+                <a
+                  href="mailto:butler952@gmail.com"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <h5 className="mb-2" style={{ lineHeight: "1.2" }}>
+                    Email
+                    <span
+                      className="transition-standard"
+                      style={{
+                        marginLeft: "8px",
+                        opacity: isHoveringEmail ? 1 : 0,
+                        transform: isHoveringEmail
+                          ? "translateX(0)"
+                          : "translateX(-10px)",
+                        display: "inline-block",
+                      }}
+                    >
+                      →
+                    </span>
+                  </h5>
+                  <h6
+                    className="text-dark-low mb-0"
+                    style={{ lineHeight: "1.2" }}
+                  >
+                    butler952@gmail.com
+                  </h6>
+                </a>
+              </div>
+            </div>
+            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+              <img
+                width="64"
+                src="/images/linkedin.png"
+                alt="Email"
+                className="image-ff rotate-1 radius-3 order-0"
+                style={{ zIndex: 1 }}
+              />
+              <div
+                onMouseEnter={() => setIsHoveringLinkedIn(true)}
+                onMouseLeave={() => setIsHoveringLinkedIn(false)}
+              >
+                <a
+                  href="https://www.linkedin.com/in/butler952/"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <h5 className="mb-2" style={{ lineHeight: "1.2" }}>
+                    LinkedIn
+                    <span
+                      className="transition-standard"
+                      style={{
+                        marginLeft: "8px",
+                        opacity: isHoveringLinkedIn ? 1 : 0,
+                        transform: isHoveringLinkedIn
+                          ? "translateX(0)"
+                          : "translateX(-10px)",
+                        display: "inline-block",
+                      }}
+                    >
+                      →
+                    </span>
+                  </h5>
+                  <h6
+                    className="text-dark-low mb-0"
+                    style={{ lineHeight: "1.2" }}
+                  >
+                    /butler952
+                  </h6>
+                </a>
+              </div>
+            </div>
+            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+              <img
+                width="64"
+                src="/images/twitter.png"
+                alt="x/twitter"
+                className="image-ff rotate-1 radius-3 order-0"
+                style={{ zIndex: 1 }}
+              />
+              <div
+                onMouseEnter={() => setIsHoveringX(true)}
+                onMouseLeave={() => setIsHoveringX(false)}
+              >
+                <a
+                  href="https://www.x.com/butler952/"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <h5 className="mb-2" style={{ lineHeight: "1.2" }}>
+                    X
+                    <span
+                      className="transition-standard"
+                      style={{
+                        marginLeft: "8px",
+                        opacity: isHoveringX ? 1 : 0,
+                        transform: isHoveringX
+                          ? "translateX(0)"
+                          : "translateX(-10px)",
+                        display: "inline-block",
+                      }}
+                    >
+                      →
+                    </span>
+                  </h5>
+                  <h6
+                    className="text-dark-low mb-0"
+                    style={{ lineHeight: "1.2" }}
+                  >
+                    /butler952
+                  </h6>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* White gradient background for navigation */}
         <div
@@ -939,7 +1138,7 @@ const Home = (props) => {
             left: 0,
             zIndex: 1000,
           }}
-        >
+          >
           <div
             className="d-flex align-items-center bg-dark-900 radius-4 shadow-1"
             style={{
@@ -1029,6 +1228,14 @@ const Home = (props) => {
               >
                 Activate
               </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "contact" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToContact}
+              >
+                Contact
+              </button>
             </div>
             <div className="d-flex d-md-none flex-row align-items-center gap-0">
               <button
@@ -1082,7 +1289,9 @@ const Home = (props) => {
                 }`}
                 onClick={scrollToCuvva}
               >
-                {activeSection === "cuvva" ? "Cuvva" : (
+                {activeSection === "cuvva" ? (
+                  "Cuvva"
+                ) : (
                   <svg viewBox="0 0 24 24">
                     <path d={ICONS.DOT}></path>
                   </svg>
@@ -1094,7 +1303,9 @@ const Home = (props) => {
                 }`}
                 onClick={scrollToSplitzy}
               >
-                {activeSection === "splitzy" ? "Splitzy" : (
+                {activeSection === "splitzy" ? (
+                  "Splitzy"
+                ) : (
                   <svg viewBox="0 0 24 24">
                     <path d={ICONS.DOT}></path>
                   </svg>
@@ -1109,6 +1320,20 @@ const Home = (props) => {
               >
                 {activeSection === "activate" ? (
                   "Activate"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`btn light x-small ${
+                  activeSection === "contact" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToContact}
+              >
+                {activeSection === "contact" ? (
+                  "Contact"
                 ) : (
                   <svg viewBox="0 0 24 24">
                     <path d={ICONS.DOT}></path>
