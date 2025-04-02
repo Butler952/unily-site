@@ -925,7 +925,7 @@ const CuvvaSection = forwardRef((props, ref) => {
             className="font-caveat static-rotate-1 mb-1 ml-3"
             style={{ maxWidth: "320px" }}
           >
-            Discovering cars to borrow in car clubs near you
+            Discovering cars to borrow in car clubs near your home address
           </p>
           <img
             src="/images/arrows/arrow-5-rotated-2.svg"

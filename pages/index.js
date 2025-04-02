@@ -2,13 +2,15 @@ import Head from "next/head";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import ProjectCard from "../components/ProjectCard";
 import FoundersHighlight from "../components/FoundersHighlight";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import styles from "./index.module.scss";
 import IndiehackingSection from "components/IndiehackingSection";
 import ActivateSection from "components/ActivateSection";
 import CuvvaSection from "components/CuvvaSection";
 import SplitzySection from "components/SplitzySection";
+import ICONS from "components/icon/IconPaths";
+import Icon from "components/icon/Icon";
 
 const Home = (props) => {
   const [isHoveringArticle1, setIsHoveringArticle1] = useState(false);
@@ -17,27 +19,144 @@ const Home = (props) => {
   const [isHoveringCuvva, setIsHoveringCuvva] = useState(false);
   const [isHoveringSplitzy, setIsHoveringSplitzy] = useState(false);
   const [isHoveringActivate, setIsHoveringActivate] = useState(false);
-  
+  const [activeSection, setActiveSection] = useState("");
+  const [ffImagePosition, setFfImagePosition] = useState(-144);
+  const [ffImageOpacity, setFfImageOpacity] = useState(0);
+
+  // Add state for paragraph animations
+  const [para1Style, setPara1Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [para2Style, setPara2Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [para3Style, setPara3Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [para4Style, setPara4Style] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [signatureStyle, setSignatureStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [nameStyle, setNameStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
+  const [titleStyle, setTitleStyle] = useState({ opacity: 0, transform: 'translateY(20px)' });
+
   const indiehackingSectionRef = useRef(null);
   const cuvvaSectionRef = useRef(null);
   const splitzySectionRef = useRef(null);
   const activateSectionRef = useRef(null);
+  const experienceSectionRef = useRef(null);
+  const articlesSectionRef = useRef(null);
 
   const scrollToIndiehacking = () => {
-    indiehackingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    indiehackingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   const scrollToCuvva = () => {
-    cuvvaSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    cuvvaSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   const scrollToSplitzy = () => {
-    splitzySectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    splitzySectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   const scrollToActivate = () => {
-    activateSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    activateSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const scrollToExperience = () => {
+    experienceSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToArticles = () => {
+    articlesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Add a function to scroll to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Determine which section is in view
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      // Get positions of all sections
+      const experiencePosition = experienceSectionRef.current?.offsetTop || 0;
+      const articlesPosition = articlesSectionRef.current?.offsetTop || 0;
+      const indiehackingPosition =
+        indiehackingSectionRef.current?.offsetTop || 0;
+      const cuvvaPosition = cuvvaSectionRef.current?.offsetTop || 0;
+      const splitzyPosition = splitzySectionRef.current?.offsetTop || 0;
+      const activatePosition = activateSectionRef.current?.offsetTop || 0;
+
+      // Determine which section is active
+      if (scrollPosition >= activatePosition) {
+        setActiveSection("activate");
+      } else if (scrollPosition >= splitzyPosition) {
+        setActiveSection("splitzy");
+      } else if (scrollPosition >= cuvvaPosition) {
+        setActiveSection("cuvva");
+      } else if (scrollPosition >= indiehackingPosition) {
+        setActiveSection("indiehacking");
+      } else if (scrollPosition >= articlesPosition) {
+        setActiveSection("articles");
+      } else if (scrollPosition >= experiencePosition) {
+        setActiveSection("experience");
+      } else {
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Add effect for Founders Factory image animation
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFfImagePosition(0);
+      setFfImageOpacity(1);
+    }, 500); // 500ms delay
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Add effect for paragraph animations with staggered delays
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setPara1Style({ opacity: 1, transform: 'translateY(0)' });
+    }, 1300); // First paragraph delay
+    
+    const timer2 = setTimeout(() => {
+      setPara2Style({ opacity: 1, transform: 'translateY(0)' });
+    }, 1500); // Second paragraph delay
+    
+    const timer3 = setTimeout(() => {
+      setPara3Style({ opacity: 1, transform: 'translateY(0)' });
+    }, 1700); // Third paragraph delay
+    
+    const timer4 = setTimeout(() => {
+      setPara4Style({ opacity: 1, transform: 'translateY(0)' });
+    }, 1900); // Fourth paragraph delay
+    
+    const timer5 = setTimeout(() => {
+      setSignatureStyle({ opacity: 1, transform: 'translateY(0)' });
+    }, 2100); // Signature delay
+    
+    const timer6 = setTimeout(() => {
+      setNameStyle({ opacity: 1, transform: 'translateY(0)' });
+      setTitleStyle({ opacity: 1, transform: 'translateY(0)' });
+    }, 2300); // Name and title delay
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+      clearTimeout(timer5);
+      clearTimeout(timer6);
+    };
+  }, []);
 
   return (
     <div>
@@ -69,7 +188,7 @@ const Home = (props) => {
         />
       </Head>
       <div
-        style={{ maxWidth: "720px", margin: "120px auto" }}
+        style={{ maxWidth: "720px", margin: "160px auto" }}
         className="p-4 p-sm-5 p-md-3"
       >
         <div className="d-flex flex-row mb-5">
@@ -84,8 +203,13 @@ const Home = (props) => {
             width="160"
             src="/images/founders-factory.png"
             alt="Founders Factory"
-            className="image-ff radius-5 order-1 z-0"
-            style={{ marginLeft: "-24px" }}
+            className="image-ff radius-5 order-1 z-0 transition-long"
+            style={{ 
+              left: `${ffImagePosition}px`, 
+              position: "relative", 
+              marginLeft: "-24px",
+              opacity: ffImageOpacity
+            }}
           />
         </div>
         {/* <h1 className="mb-0" style={{ lineHeight: "1.1" }}>
@@ -93,38 +217,34 @@ const Home = (props) => {
         </h1>
         <h2 className="text-dark-low mb-5">0→1 Product Designer & Builder</h2> */}
         <div style={{ marginTop: "64px" }}>
-          <h4 className="text-dark-med">
+          <h5 className="text-dark-med" style={{...para1Style, transition: 'opacity 0.5s, transform 0.5s'}}>
             For the last three years I have worked at Cuvva, helping to achieve
             the company's mission of giving everyone affordable access to a car
             anytime, anywhere by making cars multiplayer.
-          </h4>
-          <h4 className="text-dark-med">
+          </h5>
+          <h5 className="text-dark-med" style={{...para2Style, transition: 'opacity 0.5s, transform 0.5s'}}>
             Before that I was at Activate helping non-technical founders with
             industry knowledge to go from idea to launched MVP and beyond.
-          </h4>
-          <h4 className="text-dark-med">
+          </h5>
+          <h5 className="text-dark-med" style={{...para3Style, transition: 'opacity 0.5s, transform 0.5s'}}>
             Alongside these I've been building, launching and growing my own
             digital products, as well as a little freelancing.
-          </h4>
-          <h4 className="text-dark-med">
-            Next step? 
-            I would love to join the team at Founders Factory to work with
-            founders and turn early-stage ideas into high-growth startups.
-          </h4>
-          <h4 className="font-caveat mb-3 mt-5" style={{ fontSize: "64px" }}>
+          </h5>
+          <h5 className="text-dark-med" style={{...para4Style, transition: 'opacity 0.5s, transform 0.5s'}}>
+            Next step? I would love to join the team at Founders Factory to work
+            with founders and turn early-stage ideas into high-growth startups.
+          </h5>
+          <h5 className="font-caveat mb-3 mt-5" style={{...signatureStyle, fontSize: "64px", transition: 'opacity 0.5s, transform 0.5s'}}>
             Aaron Butler
-          </h4>
-          {/* <h4 className="text-dark-med mb-0">
-            Aaron Butler
-          </h4> */}
-          <h4 className="text-dark-med">
-          0→1 Product Designer & Builder
-          </h4>
+          </h5>
+          <h5 className="text-dark-med mb-0" style={{...nameStyle, transition: 'opacity 0.5s, transform 0.5s'}}>Aaron Butler</h5>
+          <h5 className="text-dark-med" style={{...titleStyle, transition: 'opacity 0.5s, transform 0.5s'}}>0→1 Product Designer & Builder</h5>
         </div>
         <FoundersHighlight />
         <div
           className="d-flex flex-column align-items-start gap-5"
-          style={{ marginTop: "120px", marginBottom: "120px" }}
+          style={{ marginTop: "120px", marginBottom: "120px", gap: "80px" }}
+          ref={experienceSectionRef}
         >
           <h3>Experience</h3>
           <div className="d-flex flex-column align-items-start gap-4 mb-4">
@@ -164,19 +284,27 @@ const Home = (props) => {
               className="d-flex flex-column align-items-start gap-4 bg-dark-100 w-100 overflow-hidden radius-4"
               style={{
                 padding: "32px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={scrollToIndiehacking}
               onMouseEnter={() => setIsHoveringSideProjects(true)}
               onMouseLeave={() => setIsHoveringSideProjects(false)}
             >
               <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                <h6 className={`${isHoveringSideProjects ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringSideProjects ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   See more about my side projects
                 </h6>
-                <h6 className={`${isHoveringSideProjects ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringSideProjects ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   →
                 </h6>
               </div>
@@ -270,19 +398,27 @@ const Home = (props) => {
               className="d-flex flex-column align-items-start gap-4 bg-dark-100 w-100 overflow-hidden radius-4"
               style={{
                 padding: "32px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={scrollToCuvva}
               onMouseEnter={() => setIsHoveringCuvva(true)}
               onMouseLeave={() => setIsHoveringCuvva(false)}
             >
               <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                <h6 className={`${isHoveringCuvva ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringCuvva ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   See more about my work at Cuvva
                 </h6>
-                <h6 className={`${isHoveringCuvva ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringCuvva ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   →
                 </h6>
               </div>
@@ -386,19 +522,27 @@ const Home = (props) => {
               className="d-flex flex-column align-items-start gap-4 bg-dark-100 w-100 overflow-hidden radius-4"
               style={{
                 padding: "32px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={scrollToSplitzy}
               onMouseEnter={() => setIsHoveringSplitzy(true)}
               onMouseLeave={() => setIsHoveringSplitzy(false)}
             >
               <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                <h6 className={`${isHoveringSplitzy ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringSplitzy ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   See more about my work with Splitzy
                 </h6>
-                <h6 className={`${isHoveringSplitzy ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringSplitzy ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   →
                 </h6>
               </div>
@@ -500,19 +644,27 @@ const Home = (props) => {
               className="d-flex flex-column align-items-start gap-4 bg-dark-100 w-100 overflow-hidden radius-4"
               style={{
                 padding: "32px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={scrollToActivate}
               onMouseEnter={() => setIsHoveringActivate(true)}
               onMouseLeave={() => setIsHoveringActivate(false)}
             >
               <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                <h6 className={`${isHoveringActivate ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringActivate ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   See more about my work at Activate
                 </h6>
-                <h6 className={`${isHoveringActivate ? 'text-dark-high' : 'text-dark-low'} mb-0`}
-                   style={{ transition: "color 0.3s" }}>
+                <h6
+                  className={`${
+                    isHoveringActivate ? "text-dark-high" : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
                   →
                 </h6>
               </div>
@@ -638,6 +790,7 @@ const Home = (props) => {
         <div
           className="d-flex flex-column align-items-start gap-5"
           style={{ marginTop: "120px", marginBottom: "120px" }}
+          ref={articlesSectionRef}
         >
           <div className="d-flex flex-column align-items-start ">
             <h3>Articles</h3>
@@ -763,6 +916,208 @@ const Home = (props) => {
         <CuvvaSection ref={cuvvaSectionRef} />
         <SplitzySection ref={splitzySectionRef} />
         <ActivateSection ref={activateSectionRef} />
+
+        {/* White gradient background for navigation */}
+        <div
+          className="position-fixed"
+          style={{
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "56px",
+            background:
+              "linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%)",
+            zIndex: 999,
+          }}
+        />
+
+        {/* Floating Navigation Bar */}
+        <div
+          className="position-fixed d-flex justify-content-center w-100"
+          style={{
+            top: "20px",
+            left: 0,
+            zIndex: 1000,
+          }}
+        >
+          <div
+            className="d-flex align-items-center bg-dark-900 radius-4 shadow-1"
+            style={{
+              padding: "10px 16px",
+              maxWidth: "100%",
+              overflowX: "auto",
+              height: "56px",
+            }}
+          >
+            {/* Back to top button with small round image */}
+            <button
+              className="btn p-0 me-3 d-flex align-items-center justify-content-center"
+              onClick={scrollToTop}
+              title="Back to top"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                overflow: "hidden",
+                flexShrink: 0,
+                transition: "transform 0.3s",
+                cursor: "pointer",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform = "scale(1.1)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <img
+                src="/images/aaronbutlerdark.png"
+                alt="Back to top"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </button>
+
+            {/* Existing navigation buttons */}
+            <div className="d-none d-md-flex flex-row align-items-center gap-0">
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "experience" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToExperience}
+              >
+                Experience
+              </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "articles" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToArticles}
+              >
+                Articles
+              </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "indiehacking" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToIndiehacking}
+              >
+                Indiehacking
+              </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "cuvva" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToCuvva}
+              >
+                Cuvva
+              </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "splitzy" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToSplitzy}
+              >
+                Splitzy
+              </button>
+              <button
+                className={`btn light small px-3 py-1 ${
+                  activeSection === "activate" ? "low" : "ultraLow"
+                }`}
+                onClick={scrollToActivate}
+              >
+                Activate
+              </button>
+            </div>
+            <div className="d-flex d-md-none flex-row align-items-center gap-0">
+              <button
+                className={`btn light x-small ${
+                  activeSection === "experience" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToExperience}
+              >
+                {activeSection === "experience" ? (
+                  "Experience"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+
+              <button
+                className={`btn light x-small ${
+                  activeSection === "articles" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToArticles}
+              >
+                {activeSection === "articles" ? (
+                  "Articles"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`btn light x-small ${
+                  activeSection === "indiehacking"
+                    ? "low"
+                    : "ultraLow icon-only"
+                }`}
+                onClick={scrollToIndiehacking}
+              >
+                {activeSection === "indiehacking" ? (
+                  "Indiehacking"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`btn light x-small ${
+                  activeSection === "cuvva" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToCuvva}
+              >
+                {activeSection === "cuvva" ? "Cuvva" : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`btn light x-small ${
+                  activeSection === "splitzy" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToSplitzy}
+              >
+                {activeSection === "splitzy" ? "Splitzy" : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+
+              <button
+                className={`btn light x-small ${
+                  activeSection === "activate" ? "low" : "ultraLow icon-only"
+                }`}
+                onClick={scrollToActivate}
+              >
+                {activeSection === "activate" ? (
+                  "Activate"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path d={ICONS.DOT}></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

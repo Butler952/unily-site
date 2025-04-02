@@ -1,10 +1,137 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState, useEffect, useRef } from "react";
 import ProjectCard from "./ProjectCard";
 
 const IndiehackingSection = forwardRef((props, ref) => {
+  // Add state for animations
+  const [headerStyle, setHeaderStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  // States for each project's animations
+  const [vitaelyStyle, setVitaelyStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [vitaelyImgStyle, setVitaelyImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [smartChainStyle, setSmartChainStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [smartChainImgStyle, setSmartChainImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [talentDojoStyle, setTalentDojoStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [talentDojoImg1Style, setTalentDojoImg1Style] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [talentDojoImg2Style, setTalentDojoImg2Style] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [talentDojoImg3Style, setTalentDojoImg3Style] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [expertPageStyle, setExpertPageStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [expertPageImgStyle, setExpertPageImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [bambooStyle, setBambooStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [bambooImgStyle, setBambooImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [hiStartupStyle, setHiStartupStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [hiStartupImgStyle, setHiStartupImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [epicBabyStyle, setEpicBabyStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [epicBabyImgStyle, setEpicBabyImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  
+  const [playbookStyle, setPlaybookStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+  const [playbookImgStyle, setPlaybookImgStyle] = useState({ opacity: 0, transform: 'translateY(24px)' });
+
+  // Create refs for all elements
+  const headerRef = useRef(null);
+  
+  const vitaelyRef = useRef(null);
+  const vitaelyImgRef = useRef(null);
+  
+  const smartChainRef = useRef(null);
+  const smartChainImgRef = useRef(null);
+  
+  const talentDojoRef = useRef(null);
+  const talentDojoImg1Ref = useRef(null);
+  const talentDojoImg2Ref = useRef(null);
+  const talentDojoImg3Ref = useRef(null);
+  
+  const expertPageRef = useRef(null);
+  const expertPageImgRef = useRef(null);
+  
+  const bambooRef = useRef(null);
+  const bambooImgRef = useRef(null);
+  
+  const hiStartupRef = useRef(null);
+  const hiStartupImgRef = useRef(null);
+  
+  const epicBabyRef = useRef(null);
+  const epicBabyImgRef = useRef(null);
+  
+  const playbookRef = useRef(null);
+  const playbookImgRef = useRef(null);
+
+  // Set up intersection observers
+  useEffect(() => {
+    const options = { threshold: 0.2 };
+    
+    const createObserver = (elementRef, setStyle) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setStyle({ opacity: 1, transform: 'translateY(0)' });
+            observer.disconnect();
+          }
+        },
+        options
+      );
+      
+      if (elementRef.current) {
+        observer.observe(elementRef.current);
+      }
+      
+      return observer;
+    };
+    
+    const observers = [
+      createObserver(headerRef, setHeaderStyle),
+      
+      createObserver(vitaelyRef, setVitaelyStyle),
+      createObserver(vitaelyImgRef, setVitaelyImgStyle),
+      
+      createObserver(smartChainRef, setSmartChainStyle),
+      createObserver(smartChainImgRef, setSmartChainImgStyle),
+      
+      createObserver(talentDojoRef, setTalentDojoStyle),
+      createObserver(talentDojoImg1Ref, setTalentDojoImg1Style),
+      createObserver(talentDojoImg2Ref, setTalentDojoImg2Style),
+      createObserver(talentDojoImg3Ref, setTalentDojoImg3Style),
+      
+      createObserver(expertPageRef, setExpertPageStyle),
+      createObserver(expertPageImgRef, setExpertPageImgStyle),
+      
+      createObserver(bambooRef, setBambooStyle),
+      createObserver(bambooImgRef, setBambooImgStyle),
+      
+      createObserver(hiStartupRef, setHiStartupStyle),
+      createObserver(hiStartupImgRef, setHiStartupImgStyle),
+      
+      createObserver(epicBabyRef, setEpicBabyStyle),
+      createObserver(epicBabyImgRef, setEpicBabyImgStyle),
+      
+      createObserver(playbookRef, setPlaybookStyle),
+      createObserver(playbookImgRef, setPlaybookImgStyle)
+    ];
+    
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, []);
+  
+  const transitionStyle = {
+    transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+  };
+
   return (
     <div ref={ref} className="d-flex flex-column align-items-start" style={{ marginTop: "120px", marginBottom: "120px", gap: "64px" }}>
-      <div className="d-flex flex-column align-items-start ">
+      <div 
+        ref={headerRef} 
+        className="d-flex flex-column align-items-start"
+        style={{
+          ...headerStyle,
+          ...transitionStyle
+        }}
+      >
         <h5 className="text-dark-low mb-0">Indiehacking</h5>
         <h3>Building things</h3>
         <h6 className="text-dark-low mb-2">
@@ -14,30 +141,47 @@ const IndiehackingSection = forwardRef((props, ref) => {
           works.
         </h6>
       </div>
+      
+      {/* Vitaely */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/vitaely.png",
-            alt: "Vitaely",
+        <div 
+          ref={vitaelyRef}
+          style={{
+            ...vitaelyStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Vitaely"
-          description="Turn your LinkedIn profile into a landing page in two minutes"
-          url="https://vitaely.me"
-          technologies={[
-            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/vitaely.png",
+              alt: "Vitaely",
+            }}
+            name="Vitaely"
+            description="Turn your LinkedIn profile into a landing page in two minutes"
+            url="https://vitaely.me"
+            technologies={[
+              { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+              { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-row align-items-start gap-0 w-100">
+        <div 
+          ref={vitaelyImgRef}
+          className="d-flex flex-row align-items-start gap-0 w-100"
+          style={{
+            ...vitaelyImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-4">
             <div className="position-relative w-100 aspect-ratio-wide">
               <img
@@ -78,33 +222,50 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Smart Chain Tracker */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/smart-chain-tracker.png",
-            alt: "Smart Chain Tracker",
+        <div 
+          ref={smartChainRef}
+          style={{
+            ...smartChainStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Smart Chain Tracker"
-          url="https://bsc-crypto-tracker.vercel.app/"
-          description="View your Binance Smart Chain portfolio"
-          technologies={[
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-            {
-              id: "metamask",
-              name: "Metamask",
-              icon: "/images/metamask.png",
-            },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/smart-chain-tracker.png",
+              alt: "Smart Chain Tracker",
+            }}
+            name="Smart Chain Tracker"
+            url="https://bsc-crypto-tracker.vercel.app/"
+            description="View your Binance Smart Chain portfolio"
+            technologies={[
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+              {
+                id: "metamask",
+                name: "Metamask",
+                icon: "/images/metamask.png",
+              },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-row align-items-start gap-0 w-100">
+        <div 
+          ref={smartChainImgRef}
+          className="d-flex flex-row align-items-start gap-0 w-100"
+          style={{
+            ...smartChainImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div
             className="d-flex flex-column align-items-center gap-5 mr-0"
             style={{ width: "60%" }}
@@ -147,24 +308,41 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Talent Dojo */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/talentdojo.png",
-            alt: "Talent Dojo",
+        <div 
+          ref={talentDojoRef}
+          style={{
+            ...talentDojoStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Talent Dojo"
-          url="https://recruitment-data-tool.vercel.app/"
-          description="Make an anonymised resume from a LinkedIn profile"
-          technologies={[
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/talentdojo.png",
+              alt: "Talent Dojo",
+            }}
+            name="Talent Dojo"
+            url="https://recruitment-data-tool.vercel.app/"
+            description="Make an anonymised resume from a LinkedIn profile"
+            technologies={[
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
         <div className="d-flex flex-column align-items-center gap-0 w-100">
-          <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
+          <div 
+            ref={talentDojoImg1Ref}
+            className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4"
+            style={{
+              ...talentDojoImg1Style,
+              ...transitionStyle
+            }}
+          >
             <div className="position-relative w-100 aspect-ratio-wide-2">
               <img
                 width="400"
@@ -181,7 +359,14 @@ const IndiehackingSection = forwardRef((props, ref) => {
               />
             </div>
           </div>
-          <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4">
+          <div 
+            ref={talentDojoImg2Ref}
+            className="d-flex flex-column align-items-start gap-4 w-100 mb-4"
+            style={{
+              ...talentDojoImg2Style,
+              ...transitionStyle
+            }}
+          >
             <div className="position-relative w-100 aspect-ratio-wide-2">
               <img
                 width="400"
@@ -198,7 +383,14 @@ const IndiehackingSection = forwardRef((props, ref) => {
               />
             </div>
           </div>
-          <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4">
+          <div 
+            ref={talentDojoImg3Ref}
+            className="d-flex flex-column align-items-start gap-4 w-100 mb-4"
+            style={{
+              ...talentDojoImg3Style,
+              ...transitionStyle
+            }}
+          >
             <div className="position-relative w-100 aspect-ratio-wide">
               <img
                 width="400"
@@ -217,29 +409,46 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Expert Page */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/expertpage.png",
-            alt: "Expert Page",
+        <div 
+          ref={expertPageRef}
+          style={{
+            ...expertPageStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Expert Page"
-          url="https://expertpage.io/"
-          description="Make your own professional site for freelancers, consultants and small business owners"
-          technologies={[
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/expertpage.png",
+              alt: "Expert Page",
+            }}
+            name="Expert Page"
+            url="https://expertpage.io/"
+            description="Make your own professional site for freelancers, consultants and small business owners"
+            technologies={[
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+              { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-column align-items-center gap-0 w-100">
+        <div 
+          ref={expertPageImgRef}
+          className="d-flex flex-column align-items-center gap-0 w-100"
+          style={{
+            ...expertPageImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
             <div className="position-relative w-100 aspect-ratio-wide">
               <img
@@ -259,29 +468,46 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Bamboo */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/bamboo.png",
-            alt: "Bamboo",
+        <div 
+          ref={bambooRef}
+          style={{
+            ...bambooStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Bamboo"
-          url="https://getbamboo.co.uk/"
-          description="Build credit with a debit card"
-          technologies={[
-            { id: "react", name: "React", icon: "/images/react.png" },
-            { id: "gatsby", name: "Gatsby", icon: "/images/gatsby.png" },
-            { id: "netlify", name: "Netlify", icon: "/images/netlify.png" },
-            {
-              id: "sheets",
-              name: "Google Sheets",
-              icon: "/images/sheets.png",
-            },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/bamboo.png",
+              alt: "Bamboo",
+            }}
+            name="Bamboo"
+            url="https://getbamboo.co.uk/"
+            description="Build credit with a debit card"
+            technologies={[
+              { id: "react", name: "React", icon: "/images/react.png" },
+              { id: "gatsby", name: "Gatsby", icon: "/images/gatsby.png" },
+              { id: "netlify", name: "Netlify", icon: "/images/netlify.png" },
+              {
+                id: "sheets",
+                name: "Google Sheets",
+                icon: "/images/sheets.png",
+              },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-row align-items-start gap-0 w-100">
+        <div 
+          ref={bambooImgRef}
+          className="d-flex flex-row align-items-start gap-0 w-100"
+          style={{
+            ...bambooImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4">
             <div className="position-relative w-100 aspect-ratio-wide-2">
               <video
@@ -330,29 +556,46 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* HiStartup */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/histartup.png",
-            alt: "HiStartup",
+        <div 
+          ref={hiStartupRef}
+          style={{
+            ...hiStartupStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="HiStartup"
-          url="https://histartup.co.k/"
-          description="Where startups and investors discover each other"
-          technologies={[
-            { id: "react", name: "React", icon: "/images/react.png" },
-            { id: "gatsby", name: "Gatsby", icon: "/images/gatsby.png" },
-            { id: "netlify", name: "Netlify", icon: "/images/netlify.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/histartup.png",
+              alt: "HiStartup",
+            }}
+            name="HiStartup"
+            url="https://histartup.co.k/"
+            description="Where startups and investors discover each other"
+            technologies={[
+              { id: "react", name: "React", icon: "/images/react.png" },
+              { id: "gatsby", name: "Gatsby", icon: "/images/gatsby.png" },
+              { id: "netlify", name: "Netlify", icon: "/images/netlify.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-column align-items-center gap-0 w-100">
+        <div 
+          ref={hiStartupImgRef}
+          className="d-flex flex-column align-items-center gap-0 w-100"
+          style={{
+            ...hiStartupImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
             <div className="position-relative w-100 aspect-ratio-wide">
               <img
@@ -372,30 +615,47 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Epic Baby Names */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/epic-baby-names.png",
-            alt: "Epic Baby Names",
+        <div 
+          ref={epicBabyRef}
+          style={{
+            ...epicBabyStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Epic Baby Names"
-          url="https://epicbababynames.com"
-          description="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
-          technologies={[
-            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/epic-baby-names.png",
+              alt: "Epic Baby Names",
+            }}
+            name="Epic Baby Names"
+            url="https://epicbababynames.com"
+            description="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
+            technologies={[
+              { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+              { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-column align-items-center gap-0 w-100">
+        <div 
+          ref={epicBabyImgRef}
+          className="d-flex flex-column align-items-center gap-0 w-100"
+          style={{
+            ...epicBabyImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
             <div className="position-relative w-100 aspect-ratio-wide">
               <video
@@ -418,30 +678,47 @@ const IndiehackingSection = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
+      
+      {/* Playbook Quiz */}
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/playbook.png",
-            alt: "Playbook Quiz",
+        <div 
+          ref={playbookRef}
+          style={{
+            ...playbookStyle,
+            ...transitionStyle,
+            width: '100%'
           }}
-          name="Playbook Quiz"
-          description="Create and learn an American Football playbook with auto-generated bite-size quizzes"
-          url="https://football-playbook-sage.vercel.app/"
-          technologies={[
-            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
-            { id: "v0", name: "V0", icon: "/images/v0.png" },
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-          ]}
-        />
+        >
+          <ProjectCard
+            logo={{
+              src: "/images/playbook.png",
+              alt: "Playbook Quiz",
+            }}
+            name="Playbook Quiz"
+            description="Create and learn an American Football playbook with auto-generated bite-size quizzes"
+            url="https://football-playbook-sage.vercel.app/"
+            technologies={[
+              { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
+              { id: "v0", name: "V0", icon: "/images/v0.png" },
+              { id: "next", name: "Next.js", icon: "/images/next.png" },
+              { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+              {
+                id: "firebase",
+                name: "Firebase",
+                icon: "/images/firebase.png",
+              },
+            ]}
+          />
+        </div>
 
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-row align-items-start gap-0 w-100 mt-3 mt-md-5">
+        <div 
+          ref={playbookImgRef}
+          className="d-flex flex-row align-items-start gap-0 w-100 mt-3 mt-md-5"
+          style={{
+            ...playbookImgStyle,
+            ...transitionStyle
+          }}
+        >
           <div
             className="d-flex flex-column align-items-center gap-5 mr-0"
             style={{ width: "60%", marginTop: "120px" }}
