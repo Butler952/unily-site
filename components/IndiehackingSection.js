@@ -265,7 +265,7 @@ const IndiehackingSection = forwardRef((props, ref) => {
             src: "/images/bamboo.png",
             alt: "Bamboo",
           }}
-          name="Bamboo"
+          name="Bamboo (Landing page only)"
           url="https://getbamboo.co.uk/"
           description="Build credit with a debit card"
           technologies={[
@@ -336,7 +336,7 @@ const IndiehackingSection = forwardRef((props, ref) => {
             src: "/images/histartup.png",
             alt: "HiStartup",
           }}
-          name="HiStartup"
+          name="HiStartup (Landing page only)"
           url="https://histartup.co.k/"
           description="Where startups and investors discover each other"
           technologies={[
@@ -379,7 +379,7 @@ const IndiehackingSection = forwardRef((props, ref) => {
             alt: "Epic Baby Names",
           }}
           name="Epic Baby Names"
-          url="https://epicbababynames.com"
+          // url="https://epicbababynames.com"
           description="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
           technologies={[
             { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },

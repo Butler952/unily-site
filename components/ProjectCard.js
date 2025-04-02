@@ -44,17 +44,22 @@ const ProjectCard = ({
             ) : (
               <>
                 {name}
-                <span 
-                  style={{ 
-                    marginLeft: "4px",
-                    opacity: isHovering ? 1 : 0,
-                    transform: isHovering ? "translateX(0)" : "translateX(-10px)",
-                    transition: "opacity 0.3s, transform 0.3s",
-                    display: "inline-block"
-                  }}
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="building-tooltip">Under construction</Tooltip>}
                 >
-                  →
-                </span>
+                  <span 
+                    style={{ 
+                      marginLeft: "4px",
+                      opacity: isHovering ? 1 : 0,
+                      transform: isHovering ? "translateX(0)" : "translateX(-10px)",
+                      transition: "opacity 0.3s, transform 0.3s",
+                      display: "inline-block"
+                    }}
+                  >
+                    🚧
+                  </span>
+                </OverlayTrigger>
               </>
             )}
           </h5>
