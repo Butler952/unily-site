@@ -660,7 +660,7 @@ const CuvvaSection = forwardRef((props, ref) => {
               <div className="position-relative aspect-ratio-tall">
                 <video
                   width="400"
-                  src="/cuvva-lending.mp4"
+                  src="/images/cuvva-lending.mp4"
                   autoPlay
                   muted
                   loop

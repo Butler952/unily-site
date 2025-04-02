@@ -513,7 +513,7 @@ const Home = (props) => {
                   <div className="position-relative aspect-ratio-tall">
                     <video
                       width="400"
-                      src="/cuvva-lending.mp4"
+                      src="/images/cuvva-lending.mp4"
                       autoPlay
                       muted
                       loop
@@ -869,7 +869,7 @@ const Home = (props) => {
                   <img
                     width="400"
                     src="/images/flight-app.png"
-                    alt="Loughborough University"
+                    alt="What if missing a connecting flight wasn't awful?"
                     className="image-ff rotate-6 radius-3 order-0 article-image"
                     style={{
                       position: "absolute",
@@ -1132,7 +1132,7 @@ const Home = (props) => {
 
         {/* Floating Navigation Bar */}
         <div
-          className="position-fixed d-flex justify-content-center w-100"
+          className="position-fixed justify-content-center w-100 d-none d-md-flex"
           style={{
             top: "20px",
             left: 0,
@@ -1145,6 +1145,7 @@ const Home = (props) => {
               padding: "10px 16px",
               maxWidth: "100%",
               overflowX: "auto",
+              overflowY: "hidden",
               height: "56px",
             }}
           >
@@ -1240,7 +1241,7 @@ const Home = (props) => {
             <div className="d-flex d-md-none flex-row align-items-center gap-0">
               <button
                 className={`btn light x-small ${
-                  activeSection === "experience" ? "low" : "ultraLow icon-only"
+                  activeSection === "experience" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToExperience}
               >
@@ -1255,7 +1256,7 @@ const Home = (props) => {
 
               <button
                 className={`btn light x-small ${
-                  activeSection === "articles" ? "low" : "ultraLow icon-only"
+                  activeSection === "articles" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToArticles}
               >
@@ -1271,7 +1272,7 @@ const Home = (props) => {
                 className={`btn light x-small ${
                   activeSection === "indiehacking"
                     ? "low"
-                    : "ultraLow icon-only"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToIndiehacking}
               >
@@ -1285,7 +1286,7 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "cuvva" ? "low" : "ultraLow icon-only"
+                  activeSection === "cuvva" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToCuvva}
               >
@@ -1299,7 +1300,7 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "splitzy" ? "low" : "ultraLow icon-only"
+                  activeSection === "splitzy" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToSplitzy}
               >
@@ -1314,7 +1315,7 @@ const Home = (props) => {
 
               <button
                 className={`btn light x-small ${
-                  activeSection === "activate" ? "low" : "ultraLow icon-only"
+                  activeSection === "activate" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToActivate}
               >
@@ -1328,7 +1329,7 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "contact" ? "low" : "ultraLow icon-only"
+                  activeSection === "contact" ? "low" : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToContact}
               >
