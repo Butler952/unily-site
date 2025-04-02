@@ -207,7 +207,7 @@ const Home = (props) => {
         style={{ maxWidth: "720px", margin: "160px auto" }}
         className="p-4 p-sm-5 p-md-3"
       >
-        <div className="d-flex flex-row mb-5">
+        <div className="d-flex flex-row mb-5 ml-3">
           <img
             width="160"
             src="/images/aaronbutlerdark.png"
