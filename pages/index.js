@@ -149,7 +149,7 @@ const Home = (props) => {
     };
   }, []);
 
-  // Add effect for Founders Factory image animation
+  // Add effect for hero image animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setFfImagePosition(0);
