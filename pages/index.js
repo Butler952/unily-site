@@ -298,7 +298,7 @@ const Home = (props) => {
             }}
           >
             I'm always on the look-out for opportunities to have an impact
-            at-scale fast-moving projects that need a hands-on hybrid
+            at-scale on fast-moving projects that need a hands-on hybrid
             Designer-Builder who is equally comfortable talking to users and
             committing code.
           </h5>
