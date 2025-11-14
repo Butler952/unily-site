@@ -24,12 +24,12 @@ export default function App({ Component, pageProps }) {
         />
         <meta
           property="og:description"
-          content="Experience and case studies from Aaron Butler as he attempts to join Founders Factory to build great things together."
+          content="Experience and case studies from Aaron Butler as he attempts to join Unily to build great things together."
         />
-        <meta property="og:url" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/" />
+        <meta property="og:url" content="https://aaron-butler-for-unily.vercel.app/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/images/og-image.png" />
-        <meta property="twitter:image" content="https://www.aaronbutlerwantstobuildwithfoundersfactory.com/images/og-image.png" />
+        <meta property="og:image" content="https://aaron-butler-for-unily.vercel.app/images/og-image.png" />
+        <meta property="twitter:image" content="https://aaron-butler-for-unily.vercel.app/images/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Component {...pageProps} />
