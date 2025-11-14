@@ -3,7 +3,11 @@ import ProjectCard from "./ProjectCard";
 
 const IndiehackingSection = forwardRef((props, ref) => {
   return (
-    <div ref={ref} className="d-flex flex-column align-items-start" style={{ marginTop: "120px", marginBottom: "120px", gap: "64px" }}>
+    <div
+      ref={ref}
+      className="d-flex flex-column align-items-start"
+      style={{ marginTop: "120px", marginBottom: "120px", gap: "64px" }}
+    >
       <div className="d-flex flex-column align-items-start ">
         <h5 className="text-dark-low mb-0">Indiehacking</h5>
         <h3>Building things</h3>
@@ -13,6 +17,94 @@ const IndiehackingSection = forwardRef((props, ref) => {
           own. Here's a list of products I've built and some that are in the
           works.
         </h6>
+      </div>
+      <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
+        <ProjectCard
+          logo={{
+            src: "/images/playbook.png",
+            alt: "Play Designer Pro",
+          }}
+          name="Play Designer Pro"
+          description="Create and learn an American Football playbook with auto-generated bite-size quizzes"
+          url="https://www.playdesignerpro.com/"
+          technologies={[
+            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
+            { id: "v0", name: "V0", icon: "/images/v0.png" },
+            { id: "next", name: "Next.js", icon: "/images/next.png" },
+            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+            {
+              id: "firebase",
+              name: "Firebase",
+              icon: "/images/firebase.png",
+            },
+            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
+          ]}
+        />
+
+        {/* Screenshots section kept as raw code */}
+        <div className="d-flex flex-row align-items-start gap-0 w-100 mt-3 mt-md-5">
+          <div
+            className="d-flex flex-column align-items-center gap-5 mr-0"
+            style={{ width: "60%", marginTop: "120px" }}
+          >
+            <div className="position-relative aspect-ratio-square">
+              <img
+                width="400"
+                src="/images/playbook-1.png"
+                alt="Play Designer Pro screenshot 1"
+                className="image-ff rotate-2 radius-3 order-0 article-image"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 2,
+                }}
+              />
+            </div>
+          </div>
+          <div
+            className="d-flex flex-column align-items-start gap-4 w-100 mb-4"
+            style={{ marginLeft: "-160px" }}
+          >
+            <div className="position-relative w-100 aspect-ratio-wide">
+              <img
+                width="400"
+                src="/images/playbook-2.png"
+                alt="Play Designer Pro screenshot 2"
+                className="image-ff rotate-5 radius-3 order-0 article-image"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 1,
+                }}
+              />
+            </div>
+          </div>
+          <div
+            className="d-flex flex-column align-items-center gap-5 mr-0"
+            style={{ width: "30%", marginLeft: "-64px", marginTop: "96px" }}
+          >
+            <div className="position-relative aspect-ratio-tall-2">
+              <img
+                width="400"
+                src="/images/playbook-3.png"
+                alt="Play Designer Pro screenshot 3"
+                className="image-ff rotate-3 radius-3 order-0 article-image"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 1,
+                  backgroundColor: "white",
+                }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
         <ProjectCard
@@ -72,6 +164,52 @@ const IndiehackingSection = forwardRef((props, ref) => {
                   objectFit: "cover",
                   zIndex: 1,
                   backgroundColor: "white",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
+        <ProjectCard
+          logo={{
+            src: "/images/epic-baby-names.png",
+            alt: "Epic Baby Names",
+          }}
+          name="Epic Baby Names"
+          // url="https://epicbababynames.com"
+          description="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
+          technologies={[
+            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
+            { id: "next", name: "Next.js", icon: "/images/next.png" },
+            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
+            {
+              id: "firebase",
+              name: "Firebase",
+              icon: "/images/firebase.png",
+            },
+            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
+          ]}
+        />
+
+        {/* Screenshots section kept as raw code */}
+        <div className="d-flex flex-column align-items-center gap-0 w-100">
+          <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
+            <div className="position-relative w-100 aspect-ratio-wide">
+              <video
+                width="400"
+                src="/images/epic-baby-names.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="image-ff rotate-1 radius-3 order-0 article-image"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 1,
                 }}
               />
             </div>
@@ -337,7 +475,7 @@ const IndiehackingSection = forwardRef((props, ref) => {
             alt: "HiStartup",
           }}
           name="HiStartup (Landing page only)"
-          url="https://histartup.co.k/"
+          url="https://histartup.co.uk/"
           description="Where startups and investors discover each other"
           technologies={[
             { id: "react", name: "React", icon: "/images/react.png" },
@@ -366,139 +504,6 @@ const IndiehackingSection = forwardRef((props, ref) => {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 1,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/epic-baby-names.png",
-            alt: "Epic Baby Names",
-          }}
-          name="Epic Baby Names"
-          // url="https://epicbababynames.com"
-          description="With hundreds of names from Homer's epic poems, you'll never have to call your kid Michael or Samantha ever again."
-          technologies={[
-            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-            { id: "stripe", name: "Stripe", icon: "/images/stripe.png" },
-          ]}
-        />
-
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-column align-items-center gap-0 w-100">
-          <div className="d-flex flex-column align-items-start gap-4 w-100 mb-4 mt-md-4">
-            <div className="position-relative w-100 aspect-ratio-wide">
-              <video
-                width="400"
-                src="/images/epic-baby-names.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="image-ff rotate-1 radius-3 order-0 article-image"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="d-flex flex-column align-items-start gap-5 mb-3 mb-md-5 pb-3 w-100">
-        <ProjectCard
-          logo={{
-            src: "/images/playbook.png",
-            alt: "Playbook Quiz",
-          }}
-          name="Playbook Quiz"
-          description="Create and learn an American Football playbook with auto-generated bite-size quizzes"
-          url="https://football-playbook-sage.vercel.app/"
-          technologies={[
-            { id: "cursor", name: "Cursor", icon: "/images/cursor.png" },
-            { id: "v0", name: "V0", icon: "/images/v0.png" },
-            { id: "next", name: "Next.js", icon: "/images/next.png" },
-            { id: "vercel", name: "Vercel", icon: "/images/vercel.png" },
-            {
-              id: "firebase",
-              name: "Firebase",
-              icon: "/images/firebase.png",
-            },
-          ]}
-        />
-
-        {/* Screenshots section kept as raw code */}
-        <div className="d-flex flex-row align-items-start gap-0 w-100 mt-3 mt-md-5">
-          <div
-            className="d-flex flex-column align-items-center gap-5 mr-0"
-            style={{ width: "60%", marginTop: "120px" }}
-          >
-            <div className="position-relative aspect-ratio-square">
-              <img
-                width="400"
-                src="/images/playbook-1.png"
-                alt="Playbook Quiz screenshot 1"
-                className="image-ff rotate-2 radius-3 order-0 article-image"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 2,
-                }}
-              />
-            </div>
-          </div>
-          <div
-            className="d-flex flex-column align-items-start gap-4 w-100 mb-4"
-            style={{ marginLeft: "-160px" }}
-          >
-            <div className="position-relative w-100 aspect-ratio-wide">
-              <img
-                width="400"
-                src="/images/playbook-2.png"
-                alt="Playbook Quiz screenshot 2"
-                className="image-ff rotate-5 radius-3 order-0 article-image"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                }}
-              />
-            </div>
-          </div>
-          <div
-            className="d-flex flex-column align-items-center gap-5 mr-0"
-            style={{ width: "30%", marginLeft: "-64px", marginTop: "96px" }}
-          >
-            <div className="position-relative aspect-ratio-tall-2">
-              <img
-                width="400"
-                src="/images/playbook-3.png"
-                alt="Playbook Quiz screenshot 3"
-                className="image-ff rotate-3 radius-3 order-0 article-image"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                  backgroundColor: "white",
                 }}
               />
             </div>

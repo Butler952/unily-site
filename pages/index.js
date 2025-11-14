@@ -16,6 +16,8 @@ const Home = (props) => {
   const [isHoveringArticle1, setIsHoveringArticle1] = useState(false);
   const [isHoveringArticle2, setIsHoveringArticle2] = useState(false);
   const [isHoveringSideProjects, setIsHoveringSideProjects] = useState(false);
+  const [isHoveringPlayDesignerPro, setIsHoveringPlayDesignerPro] =
+    useState(false);
   const [isHoveringCuvva, setIsHoveringCuvva] = useState(false);
   const [isHoveringSplitzy, setIsHoveringSplitzy] = useState(false);
   const [isHoveringActivate, setIsHoveringActivate] = useState(false);
@@ -40,6 +42,10 @@ const Home = (props) => {
     transform: "translateY(20px)",
   });
   const [para4Style, setPara4Style] = useState({
+    opacity: 0,
+    transform: "translateY(20px)",
+  });
+  const [para5Style, setPara5Style] = useState({
     opacity: 0,
     transform: "translateY(20px)",
   });
@@ -172,13 +178,17 @@ const Home = (props) => {
     }, 1900); // Fourth paragraph delay
 
     const timer5 = setTimeout(() => {
-      setSignatureStyle({ opacity: 1, transform: "translateY(0)" });
-    }, 2100); // Signature delay
+      setPara5Style({ opacity: 1, transform: "translateY(0)" });
+    }, 2100); // Fifth paragraph delay
 
     const timer6 = setTimeout(() => {
+      setSignatureStyle({ opacity: 1, transform: "translateY(0)" });
+    }, 2300); // Signature delay
+
+    const timer7 = setTimeout(() => {
       setNameStyle({ opacity: 1, transform: "translateY(0)" });
       setTitleStyle({ opacity: 1, transform: "translateY(0)" });
-    }, 2300); // Name and title delay
+    }, 2500); // Name and title delay
 
     return () => {
       clearTimeout(timer1);
@@ -187,13 +197,13 @@ const Home = (props) => {
       clearTimeout(timer4);
       clearTimeout(timer5);
       clearTimeout(timer6);
+      clearTimeout(timer7);
     };
   }, []);
 
   return (
     <div>
       <Head>
-
         {/* <meta
           name="twitter:image"
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
@@ -203,11 +213,13 @@ const Home = (props) => {
           content="https://www.epicbabynames.com/images/twitter-summary-large-image.jpeg"
         /> */}
       </Head>
-      <div className="d-none d-md-block w-100" style={{ paddingTop: "96px" }}>
-      </div>
-        <div
-          style={{ maxWidth: "720px", margin: "64px auto" }}
-          className="p-4 p-sm-5 p-md-3"
+      <div
+        className="d-none d-md-block w-100"
+        style={{ paddingTop: "96px" }}
+      ></div>
+      <div
+        style={{ maxWidth: "720px", margin: "64px auto" }}
+        className="p-4 p-sm-5 p-md-3"
       >
         <div className="d-flex flex-row mb-5 ml-3">
           <img
@@ -219,8 +231,8 @@ const Home = (props) => {
           />
           <img
             width="160"
-            src="/images/founders-factory.png"
-            alt="Founders Factory"
+            src="/images/unily-logo.png"
+            alt="Unily"
             className="image-ff radius-5 order-1 z-0 transition-long"
             style={{
               left: `${ffImagePosition}px`,
@@ -242,14 +254,36 @@ const Home = (props) => {
               transition: "opacity 0.5s, transform 0.5s",
             }}
           >
-            For the last three years I have worked at Cuvva, helping to achieve
+            Product Designer and Builder with 10 years of experience of taking
+            products from 0→1.
+          </h5>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para2Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
+            This year I have been working on launching and growing Play Designer
+            Pro, my solo-founded Web App that helps American Football coaches to
+            ensure their players know their playbook through auto-generated,
+            bite-sized quizzes.
+          </h5>
+          <h5
+            className="text-dark-med"
+            style={{
+              ...para3Style,
+              transition: "opacity 0.5s, transform 0.5s",
+            }}
+          >
+            Prior to that, I worked at Cuvva for three years, helping to achieve
             the company's mission of giving everyone affordable access to a car
             anytime, anywhere by making cars multiplayer.
           </h5>
           <h5
             className="text-dark-med"
             style={{
-              ...para2Style,
+              ...para4Style,
               transition: "opacity 0.5s, transform 0.5s",
             }}
           >
@@ -259,22 +293,14 @@ const Home = (props) => {
           <h5
             className="text-dark-med"
             style={{
-              ...para3Style,
+              ...para5Style,
               transition: "opacity 0.5s, transform 0.5s",
             }}
           >
-            Alongside these I've been building, launching and growing my own
-            digital products, as well as a little freelancing.
-          </h5>
-          <h5
-            className="text-dark-med"
-            style={{
-              ...para4Style,
-              transition: "opacity 0.5s, transform 0.5s",
-            }}
-          >
-            Next step? I would love to join the team at Founders Factory to work
-            with founders and turn early-stage ideas into high-growth startups.
+            I'm always on the look-out for opportunities to have an impact
+            at-scale fast-moving projects that need a hands-on hybrid
+            Designer-Builder who is equally comfortable talking to users and
+            committing code.
           </h5>
           <h5
             className="font-caveat mb-3 mt-5"
@@ -309,6 +335,164 @@ const Home = (props) => {
           ref={experienceSectionRef}
         >
           <h3>Experience</h3>
+          <div className="d-flex flex-column align-items-start gap-4 mb-4">
+            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+              <img
+                width="64"
+                src="/images/playbook.png"
+                alt="Play Designer Pro"
+                className="image-ff rotate-1 radius-3 order-0"
+                style={{ zIndex: 1 }}
+              />
+              <div>
+                <h5 className="mb-2" style={{ lineHeight: "1.2" }}>
+                  Play Designer Pro
+                </h5>
+                <h6
+                  className="text-dark-low mb-2"
+                  style={{ lineHeight: "1.2" }}
+                >
+                  American Football playbook designer
+                </h6>
+                <h6
+                  className="text-dark-low mb-2"
+                  style={{ lineHeight: "1.2" }}
+                >
+                  2025 – Current
+                </h6>
+              </div>
+            </div>
+            <div>
+              <h6 className="text-dark-low">
+                Play Designer Pro is an American football play design tool that
+                automatically generates bite-sized, Duolingo-style quizzes to
+                help players learn the playbook and execute on game day.
+              </h6>
+              <h6 className="text-dark-low">
+                When I was playing football (American-style) at University,
+                getting a PDF or a printout of new plays to learn often felt
+                like taking an extra class and getting another assignment on top
+                of the existing workload.
+              </h6>
+              <h6 className="text-dark-low">
+                I started manually taking screenshots of the playbook, then
+                using tools like Tinycards (R.I.P) to turn it into flashcard
+                quizzes. I shared it with a few other players and they seemed to
+                like it! But it was tedious work. I realised it would be much
+                better if the play drawing and quizzes were integrated in the
+                same platform. So, eventually, I built it.
+              </h6>
+              <h6 className="text-dark-low">
+                Now, any coach can turn their playbook into quizzes in a
+                fraction of the time.
+              </h6>
+            </div>
+            <div
+              className="d-flex flex-column align-items-start gap-4 bg-dark-100 w-100 overflow-hidden radius-4"
+              style={{
+                padding: "32px",
+                cursor: "pointer",
+              }}
+              onClick={() =>
+                window.open("https://www.playdesignerpro.com/", "_blank")
+              }
+              onMouseEnter={() => setIsHoveringPlayDesignerPro(true)}
+              onMouseLeave={() => setIsHoveringPlayDesignerPro(false)}
+            >
+              <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                <h6
+                  className={`${
+                    isHoveringPlayDesignerPro
+                      ? "text-dark-high"
+                      : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
+                  Visit Play Designer Pro
+                </h6>
+                <h6
+                  className={`${
+                    isHoveringPlayDesignerPro
+                      ? "text-dark-high"
+                      : "text-dark-low"
+                  } mb-0`}
+                  style={{ transition: "color 0.3s" }}
+                >
+                  →
+                </h6>
+              </div>
+              <div
+                className="d-flex flex-row align-items-start gap-0 w-100"
+                style={{ marginBottom: "-80px" }}
+              >
+                <div
+                  className="d-none d-md-flex flex-column align-items-center gap-5 mr-0"
+                  style={{ width: "60%", marginTop: "48px" }}
+                >
+                  <div className="position-relative aspect-ratio-square">
+                    <img
+                      width="400"
+                      src="/images/playbook-1.png"
+                      alt="Play Designer Pro screenshot 1"
+                      className="image-ff rotate-2 radius-3 order-0"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        height: "100%",
+                        objectFit: "cover",
+                        zIndex: 2,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="d-flex flex-column align-items-start gap-4 w-100 mb-4"
+                  style={{ marginLeft: "-160px" }}
+                >
+                  <div className="position-relative w-100 aspect-ratio-wide">
+                    <img
+                      width="400"
+                      src="/images/playbook-2.png"
+                      alt="Play Designer Pro screenshot 2"
+                      className="image-ff rotate-5 radius-3 order-0"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        height: "100%",
+                        objectFit: "cover",
+                        zIndex: 1,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="d-none d-md-flex flex-column align-items-center gap-5 mr-0"
+                  style={{
+                    width: "30%",
+                    marginLeft: "-64px",
+                    marginTop: "96px",
+                  }}
+                >
+                  <div className="position-relative aspect-ratio-tall-2">
+                    <img
+                      width="400"
+                      src="/images/playbook-3.png"
+                      alt="Play Designer Pro screenshot 3"
+                      className="image-ff rotate-3 radius-3 order-0"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        height: "100%",
+                        objectFit: "cover",
+                        zIndex: 1,
+                        backgroundColor: "white",
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="d-flex flex-column align-items-start gap-4 mb-4">
             <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
               <img
@@ -1140,7 +1324,7 @@ const Home = (props) => {
             left: 0,
             zIndex: 1000,
           }}
-          >
+        >
           <div
             className="d-flex align-items-center bg-dark-900 radius-4 shadow-1"
             style={{
@@ -1243,7 +1427,9 @@ const Home = (props) => {
             <div className="d-flex d-md-none flex-row align-items-center gap-0">
               <button
                 className={`btn light x-small ${
-                  activeSection === "experience" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "experience"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToExperience}
               >
@@ -1258,7 +1444,9 @@ const Home = (props) => {
 
               <button
                 className={`btn light x-small ${
-                  activeSection === "articles" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "articles"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToArticles}
               >
@@ -1288,7 +1476,9 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "cuvva" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "cuvva"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToCuvva}
               >
@@ -1302,7 +1492,9 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "splitzy" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "splitzy"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToSplitzy}
               >
@@ -1317,7 +1509,9 @@ const Home = (props) => {
 
               <button
                 className={`btn light x-small ${
-                  activeSection === "activate" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "activate"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToActivate}
               >
@@ -1331,7 +1525,9 @@ const Home = (props) => {
               </button>
               <button
                 className={`btn light x-small ${
-                  activeSection === "contact" ? "low" : "d-none ultraLow icon-only"
+                  activeSection === "contact"
+                    ? "low"
+                    : "d-none ultraLow icon-only"
                 }`}
                 onClick={scrollToContact}
               >

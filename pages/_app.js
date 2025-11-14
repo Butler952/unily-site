@@ -13,14 +13,14 @@ export default function App({ Component, pageProps }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Aaron X FF" />
         <link rel="manifest" href="/site.webmanifest" />
-        <title>Aaron Butler wants to build with Founders Factory</title>
+        <title>Aaron Butler x Unily</title>
         <meta
           name="description"
-          content="Experience and case studies from Aaron Butler as he attempts to join Founders Factory to build great things together."
+          content="Experience and case studies from Aaron Butler as he attempts to join Unily to build great things together."
         />
         <meta
           property="og:title"
-          content="Aaron Butler wants to build with Founders Factory"
+          content="Aaron Butler wants to build with Unily"
         />
         <meta
           property="og:description"
