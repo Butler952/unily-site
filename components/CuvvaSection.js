@@ -1020,7 +1020,7 @@ const CuvvaSection = forwardRef((props, ref) => {
             <h6 className="text-dark-low">
               Based on evidence we accumulated through interviews, surveys and fake
               doors, it is confusing for people who want to look for a car to borrow
-              to have to be met with a "car club" that thy have to join in order to
+              to have to be met with a "car club" that they have to join in order to
               see more about the car, let alone book or send a request to borrow the
               car.{" "}
             </h6>
