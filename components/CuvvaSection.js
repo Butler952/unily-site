@@ -364,7 +364,7 @@ const CuvvaSection = forwardRef((props, ref) => {
             <h6 className="text-dark-low">
               That left Social Garage concept. The fake door results looked
               promising that people had an interest in borrowing and lending cars,
-              so we decided to built out a bit further behind the fake door.
+              so we decided to build it out a bit further behind the fake door.
             </h6>
           </div>
           <div className="d-flex flex-column flex-md-row align-items-start gap-md-5 w-100">
