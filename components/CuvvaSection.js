@@ -698,7 +698,7 @@ const CuvvaSection = forwardRef((props, ref) => {
           <div>
             <h6 className="text-dark-low mt-5">
               After enabling people to discover cars to borrow from people that they
-              already know showing user, we were still disappointed with the amount
+              already know, we were still disappointed with the amount
               of lending/borrowing activity that this generated. We heard from users
               that they either didn't know anyone that would need to borrow their
               car or they were reluctant to charge people that they already knew.
