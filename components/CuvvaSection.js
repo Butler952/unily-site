@@ -60,7 +60,7 @@ const CuvvaSection = forwardRef((props, ref) => {
           mission by <i>making cars multiplayer.</i>
         </h6>
         <h6 className="text-dark-low">
-          This side steps the need to add thousands of cars to Britain's roads
+          This side-steps the need to add thousands of cars to Britain's roads
           and instead focuses on making better use of the many cars which are
           often sat idle.
         </h6>
