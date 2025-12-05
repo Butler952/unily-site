@@ -363,7 +363,7 @@ const CuvvaSection = forwardRef((props, ref) => {
             </h6>
             <h6 className="text-dark-low">
               That left Social Garage concept. The fake door results looked
-              promising that people has an interest in borrowing and lending cars,
+              promising that people had an interest in borrowing and lending cars,
               so we decided to built out a bit further behind the fake door.
             </h6>
           </div>
