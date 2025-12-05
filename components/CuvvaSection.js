@@ -73,7 +73,7 @@ const CuvvaSection = forwardRef((props, ref) => {
           smoother experience.
         </h6>
         <h6 className="text-dark-low">
-          After gathering new data and looking at existing data with Cuvvas's  existing
+          After gathering new data and looking at existing data with Cuvva's  existing
           user base using surveys and user interviews, we collated the findings
           and identified key problems that users face with access, ownership,
           and lending their car.
