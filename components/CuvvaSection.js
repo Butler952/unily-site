@@ -350,7 +350,7 @@ const CuvvaSection = forwardRef((props, ref) => {
               and due to the perceived effort required.
             </h6>
             <h6 className="text-dark-low">
-              We also put community sharing concept on the back burner. There were
+              We also put the Community Sharing concept on the back burner. There were
               some concerns with the scale of the scope required to deliver it, but
               we also felt that the Social Garage concept would provide a way to
               build stronger evidence that people wanted to lend and discover cars
